@@ -100,51 +100,40 @@
                         <!-- Two Column Layout -->
                         <div class="row">
                             <div class="col-md-6">
-                                <!-- Status -->
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Status</label>
-                                    <select class="form-select form-select-sm" id="editStoryStatus" onchange="onStatusChange()">
+                                    <select class="form-select form-select-sm" id="editStoryStatus">
                                         <option value="Draft">📝 Draft</option>
                                         <option value="Done">✅ Done</option>
                                         <option value="Ready">🚀 Ready</option>
                                         <option value="Published">📢 Published</option>
                                     </select>
                                 </div>
-                                
-                                <!-- Created Date -->
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Created Date</label>
                                     <div class="date-input-group">
                                         <input type="date" class="form-control form-control-sm" id="editStoryCreatedDate">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setTodayDate('editStoryCreatedDate')"><i class="bi bi-calendar-today"></i> Today</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setTodayDate('editStoryCreatedDate')">Today</button>
                                     </div>
                                 </div>
-                                
-                                <!-- Published Date -->
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Published Date</label>
                                     <div class="date-input-group">
                                         <input type="date" class="form-control form-control-sm" id="editStoryPublishedDate">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setTodayDate('editStoryPublishedDate')"><i class="bi bi-calendar-today"></i> Today</button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="clearDate('editStoryPublishedDate')"><i class="bi bi-x"></i> Clear</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setTodayDate('editStoryPublishedDate')">Today</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="clearDate('editStoryPublishedDate')">Clear</button>
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="col-md-6">
-                                <!-- Read Time -->
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Read Time (minutes)</label>
                                     <input type="number" class="form-control form-control-sm" id="editStoryReadTime" placeholder="Optional">
                                 </div>
-                                
-                                <!-- Total Reads -->
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Medium Reads</label>
                                     <input type="number" class="form-control form-control-sm" id="editStoryReads" value="0" min="0">
                                 </div>
-                                
-                                <!-- Tags -->
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Tags</label>
                                     <input type="text" class="form-control form-control-sm" id="editStoryTags" placeholder="python, api, tutorial">
@@ -152,14 +141,9 @@
                             </div>
                         </div>
                         
-                        <!-- Medium URL Row -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold"><i class="bi bi-medium"></i> Medium URL</label>
-                                    <input type="url" class="form-control form-control-sm" id="editStoryMediumUrl" placeholder="https://medium.com/...">
-                                </div>
-                            </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold"><i class="bi bi-medium"></i> Medium URL</label>
+                            <input type="url" class="form-control form-control-sm" id="editStoryMediumUrl" placeholder="https://medium.com/...">
                         </div>
                         
                         <!-- LinkedIn Section -->
@@ -170,43 +154,35 @@
                             <div class="card-body py-2">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="mb-2">
-                                            <label class="form-label small fw-bold">Post Status</label>
-                                            <select class="form-select form-select-sm" id="editStoryLinkedinStatus">
-                                                <option value="">Not Posted</option>
-                                                <option value="scheduled">📅 Scheduled</option>
-                                                <option value="posted">✅ Posted</option>
-                                            </select>
+                                        <label class="form-label small fw-bold">Post Status</label>
+                                        <select class="form-select form-select-sm" id="editStoryLinkedinStatus">
+                                            <option value="">Not Posted</option>
+                                            <option value="scheduled">📅 Scheduled</option>
+                                            <option value="posted">✅ Posted</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label small fw-bold">Post Timestamp</label>
+                                        <div class="date-input-group">
+                                            <input type="datetime-local" class="form-control form-control-sm" id="editStoryLinkedinTimestamp" step="1">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" id="setNowLinkedinBtn">Now</button>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" id="clearLinkedinTimestampBtn">Clear</button>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="mb-2">
-                                            <label class="form-label small fw-bold">Post Timestamp</label>
-                                            <div class="date-input-group">
-                                                <input type="datetime-local" class="form-control form-control-sm" id="editStoryLinkedinTimestamp" step="1">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setNowTimestamp('editStoryLinkedinTimestamp')">Now</button>
-                                                <button type="button" class="btn btn-sm btn-outline-danger" id="clearTimestampBtn">Clear</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-2">
-                                            <label class="form-label small fw-bold">Impressions</label>
-                                            <input type="number" class="form-control form-control-sm" id="editStoryLinkedinImpressions" value="0" min="0" step="100">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="mb-2">
-                                            <label class="form-label small fw-bold"><i class="bi bi-link"></i> LinkedIn Post URL</label>
-                                            <input type="url" class="form-control form-control-sm" id="editStoryLinkedinUrl" placeholder="https://www.linkedin.com/feed/update/...">
-                                        </div>
+                                        <label class="form-label small fw-bold">Impressions</label>
+                                        <input type="number" class="form-control form-control-sm" id="editStoryLinkedinImpressions" value="0" min="0" step="100">
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-12">
-                                        <button type="button" class="btn btn-sm btn-outline-danger" id="clearLinkedinAllBtn">
+                                        <label class="form-label small fw-bold"><i class="bi bi-link"></i> LinkedIn Post URL</label>
+                                        <input type="url" class="form-control form-control-sm" id="editStoryLinkedinUrl" placeholder="https://www.linkedin.com/feed/update/...">
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-sm btn-danger" id="clearAllLinkedinBtn">
                                             <i class="bi bi-trash"></i> Clear All LinkedIn Data
                                         </button>
                                     </div>
@@ -214,13 +190,11 @@
                             </div>
                         </div>
                         
-                        <!-- Notes -->
                         <div class="mb-2">
                             <label class="form-label fw-bold">Notes</label>
                             <textarea class="form-control form-control-sm" id="editStoryNotes" rows="2" placeholder="Internal notes..."></textarea>
                         </div>
                         
-                        <!-- Metadata Row -->
                         <div class="row mt-2">
                             <div class="col-12">
                                 <div class="info-row d-flex justify-content-between flex-wrap">
@@ -233,7 +207,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="saveStoryEdit()">Save Changes</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="saveStoryEditBtn">Save Changes</button>
                 </div>
             </div>
         </div>
@@ -277,7 +251,7 @@
                             <label class="form-label">Created Date</label>
                             <div class="date-input-group">
                                 <input type="date" class="form-control" id="addStoryCreatedDate">
-                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setTodayDate('addStoryCreatedDate')"><i class="bi bi-calendar-today"></i> Today</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setTodayDate('addStoryCreatedDate')">Today</button>
                             </div>
                         </div>
                     </form>
@@ -291,34 +265,6 @@
     </div>
 
     <script>
-        // ============================================
-        // Filter State Management
-        // ============================================
-        let filterState = {
-            status: 'All',
-            series: '',
-            search: ''
-        };
-        
-        function saveFilterState() {
-            filterState.status = document.getElementById('statusFilter')?.value || 'All';
-            filterState.series = document.getElementById('seriesFilter')?.value || '';
-            filterState.search = document.getElementById('searchFilter')?.value || '';
-        }
-        
-        function restoreFilterState() {
-            if (document.getElementById('statusFilter')) {
-                document.getElementById('statusFilter').value = filterState.status;
-            }
-            if (document.getElementById('seriesFilter')) {
-                document.getElementById('seriesFilter').value = filterState.series;
-            }
-            if (document.getElementById('searchFilter')) {
-                document.getElementById('searchFilter').value = filterState.search;
-            }
-            filterStories();
-        }
-        
         // ============================================
         // Helper Functions
         // ============================================
@@ -355,10 +301,6 @@
             document.getElementById(elementId).value = getTodayDate(); 
         }
         
-        function setNowTimestamp(elementId) { 
-            document.getElementById(elementId).value = getNowTimestamp(); 
-        }
-        
         function clearDate(elementId) { 
             document.getElementById(elementId).value = ''; 
         }
@@ -366,29 +308,9 @@
         function formatDateForDisplay(dateStr) {
             if (!dateStr || dateStr === 'Unknown') return '';
             if (dateStr.includes('-')) return dateStr.split('T')[0];
-            const date = new Date(dateStr);
-            if (!isNaN(date.getTime())) {
-                const yyyy = date.getFullYear();
-                const mm = String(date.getMonth() + 1).padStart(2, '0');
-                const dd = String(date.getDate()).padStart(2, '0');
-                return `${yyyy}-${mm}-${dd}`;
-            }
             return '';
         }
         
-        function onStatusChange() {
-            const status = document.getElementById('editStoryStatus').value;
-            if (status === 'Published') {
-                const pubDate = document.getElementById('editStoryPublishedDate');
-                if (!pubDate.value) {
-                    pubDate.value = getTodayDate();
-                }
-            }
-        }
-        
-        // ============================================
-        // LinkedIn Helper Functions - FIXED
-        // ============================================
         function updateLinkedinDisplay() {
             const status = document.getElementById('editStoryLinkedinStatus').value;
             const timestamp = document.getElementById('editStoryLinkedinTimestamp').value;
@@ -396,16 +318,34 @@
             const display = document.getElementById('editStoryLinkedinDisplay');
             
             if (status === 'scheduled') {
-                display.innerHTML = `<i class="bi bi-calendar"></i> <strong>LinkedIn:</strong> Scheduled for ${timestamp ? formatTimestampForDisplay(timestamp) : '...'} | Impressions: ${impressions || 0}`;
+                display.innerHTML = `<i class="bi bi-calendar"></i> Scheduled: ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions || 0}`;
             } else if (status === 'posted') {
-                display.innerHTML = `<i class="bi bi-linkedin"></i> <strong>LinkedIn:</strong> Posted on ${timestamp ? formatTimestampForDisplay(timestamp) : '...'} | Impressions: ${impressions || 0}`;
+                display.innerHTML = `<i class="bi bi-linkedin"></i> Posted: ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions || 0}`;
             } else {
-                display.innerHTML = '<i class="bi bi-linkedin"></i> <strong>LinkedIn:</strong> Not posted';
+                display.innerHTML = `<i class="bi bi-linkedin"></i> Not posted`;
             }
         }
         
         // ============================================
-        // API & Global Variables
+        // Filter State
+        // ============================================
+        let filterState = { status: 'All', series: '', search: '' };
+        
+        function saveFilterState() {
+            filterState.status = document.getElementById('statusFilter')?.value || 'All';
+            filterState.series = document.getElementById('seriesFilter')?.value || '';
+            filterState.search = document.getElementById('searchFilter')?.value || '';
+        }
+        
+        function restoreFilterState() {
+            if (document.getElementById('statusFilter')) document.getElementById('statusFilter').value = filterState.status;
+            if (document.getElementById('seriesFilter')) document.getElementById('seriesFilter').value = filterState.series;
+            if (document.getElementById('searchFilter')) document.getElementById('searchFilter').value = filterState.search;
+            filterStories();
+        }
+        
+        // ============================================
+        // API & Variables
         // ============================================
         const API_BASE = '/api';
         let currentView = 'dashboard';
@@ -419,51 +359,44 @@
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     const view = link.dataset.view;
-                    if (view) {
-                        loadView(view);
-                        document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
-                        link.classList.add('active');
-                    }
+                    if (view) loadView(view);
                 });
             });
             
-            // Set up event listeners for LinkedIn buttons
-            document.getElementById('clearTimestampBtn')?.addEventListener('click', function() {
-                document.getElementById('editStoryLinkedinTimestamp').value = '';
+            // Setup LinkedIn button listeners
+            document.getElementById('setNowLinkedinBtn')?.addEventListener('click', () => {
+                document.getElementById('editStoryLinkedinTimestamp').value = getNowTimestamp();
                 updateLinkedinDisplay();
-                showButtonFeedback(this, 'Cleared!');
             });
             
-            document.getElementById('clearLinkedinAllBtn')?.addEventListener('click', function() {
+            document.getElementById('clearLinkedinTimestampBtn')?.addEventListener('click', () => {
+                document.getElementById('editStoryLinkedinTimestamp').value = '';
+                updateLinkedinDisplay();
+            });
+            
+            document.getElementById('clearAllLinkedinBtn')?.addEventListener('click', () => {
                 if (confirm('Clear all LinkedIn data for this story?')) {
                     document.getElementById('editStoryLinkedinStatus').value = '';
                     document.getElementById('editStoryLinkedinTimestamp').value = '';
                     document.getElementById('editStoryLinkedinImpressions').value = '0';
                     document.getElementById('editStoryLinkedinUrl').value = '';
                     updateLinkedinDisplay();
-                    showButtonFeedback(this, 'Cleared!');
                 }
             });
             
-            document.getElementById('editStoryLinkedinStatus')?.addEventListener('change', function() {
-                const status = this.value;
+            document.getElementById('editStoryLinkedinStatus')?.addEventListener('change', () => {
+                const status = document.getElementById('editStoryLinkedinStatus').value;
                 if (status === 'scheduled' || status === 'posted') {
-                    const timestamp = document.getElementById('editStoryLinkedinTimestamp').value;
-                    if (!timestamp) {
-                        document.getElementById('editStoryLinkedinTimestamp').value = getNowTimestamp();
-                    }
+                    const ts = document.getElementById('editStoryLinkedinTimestamp').value;
+                    if (!ts) document.getElementById('editStoryLinkedinTimestamp').value = getNowTimestamp();
                 } else if (status === '') {
                     document.getElementById('editStoryLinkedinTimestamp').value = '';
                 }
                 updateLinkedinDisplay();
             });
+            
+            document.getElementById('saveStoryEditBtn')?.addEventListener('click', saveStoryEdit);
         });
-        
-        function showButtonFeedback(btn, message) {
-            const originalText = btn.innerHTML;
-            btn.innerHTML = `<i class="bi bi-check"></i> ${message}`;
-            setTimeout(() => { btn.innerHTML = originalText; }, 1500);
-        }
         
         async function loadView(view) {
             currentView = view;
@@ -494,62 +427,57 @@
         // Dashboard
         // ============================================
         async function loadDashboard() {
-            const content = document.getElementById('content');
-            const storiesRes = await fetch(`${API_BASE}/stories/`);
-            const stories = await storiesRes.json();
+            const res = await fetch(`${API_BASE}/stories/`);
+            const stories = await res.json();
             allStories = stories;
-            
             const published = stories.filter(s => s.status === 'Published').length;
             const draft = stories.filter(s => s.status === 'Draft').length;
             const done = stories.filter(s => s.status === 'Done').length;
             const ready = stories.filter(s => s.status === 'Ready').length;
             const totalLinkedin = stories.filter(s => s.linkedin_status === 'posted').length;
             const totalImpressions = stories.reduce((sum, s) => sum + (s.linkedin_impressions || 0), 0);
-            
             const calendarRes = await fetch(`${API_BASE}/calendar/`);
             const calendar = await calendarRes.json();
             
-            content.innerHTML = `
+            document.getElementById('content').innerHTML = `
                 <h1 class="h3 mb-4">Dashboard</h1>
                 <div class="row g-2 mb-4">
                     <div class="col-md-2"><div class="card stat-card bg-primary text-white" onclick="filterStoriesByStatus('all')"><div class="card-body"><h6>Total</h6><h2>${stories.length}</h2></div></div></div>
                     <div class="col-md-2"><div class="card stat-card bg-success text-white" onclick="filterStoriesByStatus('Published')"><div class="card-body"><h6>Published</h6><h2>${published}</h2></div></div></div>
                     <div class="col-md-2"><div class="card stat-card bg-info text-white" onclick="filterStoriesByStatus('Ready')"><div class="card-body"><h6>Ready</h6><h2>${ready}</h2></div></div></div>
                     <div class="col-md-2"><div class="card stat-card bg-secondary text-white" onclick="filterStoriesByStatus('Done')"><div class="card-body"><h6>Done</h6><h2>${done}</h2></div></div></div>
-                    <div class="col-md-2"><div class="card stat-card" style="background:#0a66c2; color:white;" onclick="filterStoriesByLinkedin()"><div class="card-body"><h6>LinkedIn</h6><h2>${totalLinkedin}</h2></div></div></div>
+                    <div class="col-md-2"><div class="card stat-card" style="background:#0a66c2;color:white;" onclick="filterStoriesByLinkedin()"><div class="card-body"><h6>LinkedIn</h6><h2>${totalLinkedin}</h2></div></div></div>
                     <div class="col-md-2"><div class="card stat-card bg-dark text-white"><div class="card-body"><h6>Impressions</h6><h2>${formatNumber(totalImpressions)}</h2></div></div></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6"><div class="card"><div class="card-header d-flex justify-content-between"><h6>Recent Stories</h6><button class="btn btn-sm btn-primary" onclick="loadView('stories')">View All</button></div>
-                    <div class="card-body p-0"><div class="list-group list-group-flush">${stories.slice(0, 10).map(s => `<div class="list-group-item list-item d-flex justify-content-between"><div><span class="status-badge ${s.status === 'Published' ? 'status-published' : s.status === 'Ready' ? 'status-ready' : s.status === 'Done' ? 'status-done' : 'status-draft'}">${s.status}</span> <span>${escapeHtml(s.name.length > 35 ? s.name.substring(0,35)+'...' : s.name)}</span> ${s.series ? `<span class="series-badge">📚 ${s.series}</span>` : ''}</div><button class="btn btn-sm btn-outline-primary" onclick="editStory('${s.key.replace(/'/g,"\\'")}')">Edit</button></div>`).join('')}</div></div></div></div>
+                    <div class="card-body p-0"><div class="list-group list-group-flush">${stories.slice(0,10).map(s => `<div class="list-group-item d-flex justify-content-between"><div><span class="status-badge ${s.status==='Published'?'status-published':s.status==='Ready'?'status-ready':s.status==='Done'?'status-done':'status-draft'}">${s.status}</span> ${escapeHtml(s.name.length>35?s.name.substring(0,35)+'...':s.name)} ${s.series?`<span class="series-badge">📚 ${s.series}</span>`:''}</div><button class="btn btn-sm btn-outline-primary" onclick="editStory('${s.key.replace(/'/g,"\\'")}')">Edit</button></div>`).join('')}</div></div></div></div>
                     <div class="col-md-6"><div class="card"><div class="card-header d-flex justify-content-between"><h6>Upcoming Schedule</h6><button class="btn btn-sm btn-primary" onclick="generateCalendar()">Generate</button></div>
-                    <div class="card-body p-0"><div class="list-group list-group-flush">${calendar.schedule?.slice(0,10).map(c => `<div class="list-group-item"><div class="d-flex justify-content-between"><div><strong>${c.date}</strong> (${c.weekday})<br><small>${escapeHtml(c.name)}</small>${c.series ? `<span class="series-badge ms-2">📚 ${c.series}</span>` : ''}</div><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g,"\\'")}')">Publish</button></div></div>`).join('') || '<div class="list-group-item text-muted">No scheduled stories</div>'}</div></div></div></div>
+                    <div class="card-body p-0"><div class="list-group list-group-flush">${calendar.schedule?.slice(0,10).map(c => `<div class="list-group-item"><div class="d-flex justify-content-between"><div><strong>${c.date}</strong> (${c.weekday})<br><small>${escapeHtml(c.name)}</small>${c.series?`<span class="series-badge ms-2">📚 ${c.series}</span>`:''}</div><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g,"\\'")}')">Publish</button></div></div>`).join('') || '<div class="list-group-item text-muted">No scheduled stories</div>'}</div></div></div></div>
                 </div>
-                <div class="mt-3"><button class="btn btn-sm btn-primary" onclick="syncStories()"><i class="bi bi-arrow-repeat"></i> Sync with Filesystem</button></div>
+                <div class="mt-3"><button class="btn btn-sm btn-primary" onclick="syncStories()"><i class="bi bi-arrow-repeat"></i> Sync</button></div>
             `;
         }
         
         // ============================================
-        // Stories List with Filter Persistence
+        // Stories List
         // ============================================
         async function loadStories() {
-            const content = document.getElementById('content');
             const res = await fetch(`${API_BASE}/stories/`);
             const stories = await res.json();
             allStories = stories;
             const statuses = ['All', 'Draft', 'Done', 'Ready', 'Published'];
             
-            content.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center mb-3"><h1 class="h3">Stories</h1><button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addStoryModal"><i class="bi bi-plus-lg"></i> Add Story</button></div>
-                <div class="filter-bar d-flex gap-2 flex-wrap"><i class="bi bi-funnel"></i><span>Filter:</span>
+            document.getElementById('content').innerHTML = `
+                <div class="d-flex justify-content-between mb-3"><h1 class="h3">Stories</h1><button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addStoryModal"><i class="bi bi-plus-lg"></i> Add Story</button></div>
+                <div class="filter-bar d-flex gap-2 flex-wrap">
+                    <i class="bi bi-funnel"></i><span>Filter:</span>
                     <select id="statusFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">${statuses.map(s => `<option value="${s}">${s}</option>`).join('')}</select>
                     <select id="seriesFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()"><option value="">All Series</option>${allSeries.map(s => `<option value="${s.name}">${s.name}</option>`).join('')}</select>
                     <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search..." onkeyup="saveFilterState(); filterStories()">
                     <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">Clear</button>
                 </div>
-                <div class="table-responsive"><table class="table table-sm table-hover"><thead class="table-light">
-                     oxe<th>Status</th><th>Story Name</th><th>Series</th><th>Reads</th><th>Created</th><th>Published</th><th>LinkedIn</th><th>Impressions</th><th>Actions</th> </tr
-                </thead><tbody id="storiesTableBody"></tbody>  </div>
+                <div class="table-responsive"><table class="table table-sm table-hover"><thead class="table-light"><tr><th>Status</th><th>Story Name</th><th>Series</th><th>Reads</th><th>Created</th><th>Published</th><th>LinkedIn</th><th>Impressions</th><th>Actions</th></tr></thead><tbody id="storiesTableBody"></tbody></table></div>
             `;
             renderStoryTable(stories);
             restoreFilterState();
@@ -560,12 +488,8 @@
             if (!tbody) return;
             
             let filtered = [...stories];
-            if (filterState.status !== 'All') {
-                filtered = filtered.filter(s => s.status === filterState.status);
-            }
-            if (filterState.series) {
-                filtered = filtered.filter(s => s.series === filterState.series);
-            }
+            if (filterState.status !== 'All') filtered = filtered.filter(s => s.status === filterState.status);
+            if (filterState.series) filtered = filtered.filter(s => s.series === filterState.series);
             if (filterState.search) {
                 const searchLower = filterState.search.toLowerCase();
                 filtered = filtered.filter(s => s.name.toLowerCase().includes(searchLower) || (s.series && s.series.toLowerCase().includes(searchLower)));
@@ -575,104 +499,71 @@
                 let storyKey = story.key;
                 if (storyKey.toLowerCase().endsWith('.md')) storyKey = storyKey.slice(0, -3);
                 
-                let linkedinDisplay = '<span class="linkedin-badge linkedin-not-posted"><i class="bi bi-x-circle"></i> Not Posted</span>';
-                if (story.linkedin_status === 'scheduled') {
-                    linkedinDisplay = `<span class="linkedin-badge linkedin-scheduled"><i class="bi bi-calendar"></i> Scheduled</span><br><small class="text-muted">${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</small>`;
-                } else if (story.linkedin_status === 'posted') {
-                    linkedinDisplay = `<span class="linkedin-badge linkedin-posted"><i class="bi bi-check-circle"></i> Posted</span><br><small class="text-muted">${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</small>`;
-                }
-                
-                const impressions = story.linkedin_impressions ? formatNumber(story.linkedin_impressions) : '—';
-                const publishedDisplay = story.published_date ? (story.published_date.split('T')[0] || story.published_date) : '—';
-                const createdDisplay = story.created_date ? (story.created_date.split('T')[0] || story.created_date) : 'Unknown';
+                let linkedinHtml = '<span class="linkedin-badge linkedin-not-posted">Not Posted</span>';
+                if (story.linkedin_status === 'scheduled') linkedinHtml = `<span class="linkedin-badge linkedin-scheduled">📅 Scheduled</span><br><small>${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</small>`;
+                else if (story.linkedin_status === 'posted') linkedinHtml = `<span class="linkedin-badge linkedin-posted">✅ Posted</span><br><small>${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</small>`;
                 
                 return `<tr class="table-row-clickable" onclick="editStory('${storyKey.replace(/'/g,"\\'")}')">
-                    <td><span class="status-badge ${story.status === 'Published' ? 'status-published' : story.status === 'Ready' ? 'status-ready' : story.status === 'Done' ? 'status-done' : 'status-draft'}">${story.status}</span>  </div>
-                    <td><strong class="text-truncate-custom" title="${escapeHtml(story.name)}">${escapeHtml(story.name.length > 50 ? story.name.substring(0,50)+'...' : story.name)}</strong>  </div>
-                    <td>${story.series ? `<span class="series-badge">📚 ${story.series}</span>` : '—'}  </div>
-                    <td>${story.reads || 0}  </div>
-                    <td><small>${createdDisplay}</small>  </div>
-                    <td><small>${publishedDisplay}</small>  </div>
-                    <td class="text-center">${linkedinDisplay}  </div>
-                    <td class="text-center">${impressions}  </div>
+                    <td><span class="status-badge ${story.status==='Published'?'status-published':story.status==='Ready'?'status-ready':story.status==='Done'?'status-done':'status-draft'}">${story.status}</span></td>
+                    <td><strong title="${escapeHtml(story.name)}">${escapeHtml(story.name.length>50?story.name.substring(0,50)+'...':story.name)}</strong></td>
+                    <td>${story.series ? `<span class="series-badge">📚 ${story.series}</span>` : '—'}</td>
+                    <td>${story.reads || 0}</td>
+                    <td><small>${story.created_date ? story.created_date.split('T')[0] : 'Unknown'}</small></td>
+                    <td><small>${story.published_date ? (story.published_date.split('T')[0] || story.published_date) : '—'}</small></td>
+                    <td class="text-center">${linkedinHtml}</td>
+                    <td class="text-center">${story.linkedin_impressions ? formatNumber(story.linkedin_impressions) : '—'}</td>
                     <td class="action-buttons" onclick="event.stopPropagation()">
                         <button class="btn btn-sm btn-success" onclick="markPublished('${storyKey.replace(/'/g,"\\'")}')" title="Publish"><i class="bi bi-check-lg"></i></button>
-                        <button class="btn btn-sm btn-info" onclick="quickMarkLinkedin('${storyKey.replace(/'/g,"\\'")}')" title="Mark LinkedIn Posted"><i class="bi bi-linkedin"></i></button>
-                        <button class="btn btn-sm btn-warning" onclick="quickMarkLinkedinScheduled('${storyKey.replace(/'/g,"\\'")}')" title="Mark LinkedIn Scheduled"><i class="bi bi-calendar"></i></button>
+                        <button class="btn btn-sm btn-info" onclick="quickMarkLinkedin('${storyKey.replace(/'/g,"\\'")}', 'posted')" title="Mark Posted"><i class="bi bi-linkedin"></i></button>
+                        <button class="btn btn-sm btn-warning" onclick="quickMarkLinkedin('${storyKey.replace(/'/g,"\\'")}', 'scheduled')" title="Mark Scheduled"><i class="bi bi-calendar"></i></button>
+                        <button class="btn btn-sm btn-secondary" onclick="quickMarkLinkedin('${storyKey.replace(/'/g,"\\'")}', '')" title="Not Posted"><i class="bi bi-x-circle"></i></button>
                         <button class="btn btn-sm btn-danger" onclick="deleteStory('${storyKey.replace(/'/g,"\\'")}')" title="Delete"><i class="bi bi-trash"></i></button>
-                      </div>
-                  </tr>`;
+                    </td>
+                </tr>`;
             }).join('');
         }
         
-        function filterStories() {
-            renderStoryTable(allStories);
-        }
-        
-        function clearFilters() {
-            filterState = { status: 'All', series: '', search: '' };
-            if (document.getElementById('statusFilter')) document.getElementById('statusFilter').value = 'All';
-            if (document.getElementById('seriesFilter')) document.getElementById('seriesFilter').value = '';
-            if (document.getElementById('searchFilter')) document.getElementById('searchFilter').value = '';
-            filterStories();
-        }
-        
-        function filterStoriesByStatus(status) { 
-            filterState.status = status === 'all' ? 'All' : status;
-            loadView('stories');
-        }
-        
-        function filterStoriesByLinkedin() { 
-            loadView('stories'); 
-        }
+        function filterStories() { renderStoryTable(allStories); }
+        function clearFilters() { filterState = { status: 'All', series: '', search: '' }; if(document.getElementById('statusFilter')) document.getElementById('statusFilter').value='All'; if(document.getElementById('seriesFilter')) document.getElementById('seriesFilter').value=''; if(document.getElementById('searchFilter')) document.getElementById('searchFilter').value=''; filterStories(); }
+        function filterStoriesByStatus(status) { filterState.status = status === 'all' ? 'All' : status; loadView('stories'); }
+        function filterStoriesByLinkedin() { loadView('stories'); }
         
         // ============================================
-        // Series Management
+        // Series
         // ============================================
         async function loadSeries() {
-            const content = document.getElementById('content');
             const res = await fetch(`${API_BASE}/series/`);
             const series = await res.json();
-            content.innerHTML = `<div class="d-flex justify-content-between mb-3"><h1 class="h3">Series</h1><button class="btn btn-sm btn-primary" onclick="addSeries()"><i class="bi bi-plus-lg"></i> Add Series</button></div>
-                <div class="table-responsive"><table class="table table-sm table-hover"><thead class="table-light">  oxe<th>Series Name</th><th>Progress</th><th>Spacing (days)</th><th>Actions</th> </tr</thead><tbody>${series.map(s => `  <tr
-                    <td><strong>${escapeHtml(s.name)}</strong>  </div>
-                    <td><div class="d-flex gap-2"><div class="progress" style="width:150px;height:6px;"><div class="progress-bar" style="width:${(s.published/(s.total_stories||1))*100}%"></div></div><small>${s.published}/${s.total_stories||0}</small></div>  </div>
-                    <td><input type="number" class="form-control form-control-sm" style="width:80px;" value="${s.spacing_days}" onchange="updateSeriesSpacing('${s.name}',this.value)">  </div>
-                    <td><button class="btn btn-sm btn-danger" onclick="deleteSeries('${s.name}')"><i class="bi bi-trash"></i></button>  </div>
-                  </tr`).join('')}</tbody>  </div>`;
+            document.getElementById('content').innerHTML = `<div class="d-flex justify-content-between mb-3"><h1 class="h3">Series</h1><button class="btn btn-sm btn-primary" onclick="addSeries()"><i class="bi bi-plus-lg"></i> Add Series</button></div>
+                <div class="table-responsive"><table class="table table-sm table-hover"><thead class="table-light"><tr><th>Series Name</th><th>Progress</th><th>Spacing (days)</th><th>Actions</th></tr></thead><tbody>${series.map(s => `<tr><td><strong>${escapeHtml(s.name)}</strong></td>
+                <td><div class="d-flex gap-2"><div class="progress" style="width:150px;height:6px;"><div class="progress-bar" style="width:${(s.published/(s.total_stories||1))*100}%"></div></div><small>${s.published}/${s.total_stories||0}</small></div></td>
+                <td><input type="number" class="form-control form-control-sm" style="width:80px;" value="${s.spacing_days}" onchange="updateSeriesSpacing('${s.name}',this.value)"></td>
+                <td><button class="btn btn-sm btn-danger" onclick="deleteSeries('${s.name}')"><i class="bi bi-trash"></i></button></td></tr>`).join('')}</tbody></table></div>`;
         }
         
         // ============================================
         // Calendar
         // ============================================
         async function loadCalendar() {
-            const content = document.getElementById('content');
             const res = await fetch(`${API_BASE}/calendar/`);
             const calendar = await res.json();
-            content.innerHTML = `<div class="d-flex justify-content-between mb-3"><h1 class="h3">Publishing Calendar</h1><button class="btn btn-sm btn-primary" onclick="generateCalendar()"><i class="bi bi-arrow-repeat"></i> Regenerate</button></div>
+            document.getElementById('content').innerHTML = `<div class="d-flex justify-content-between mb-3"><h1 class="h3">Publishing Calendar</h1><button class="btn btn-sm btn-primary" onclick="generateCalendar()"><i class="bi bi-arrow-repeat"></i> Regenerate</button></div>
                 <div class="row g-2 mb-3"><div class="col-md-3"><div class="card bg-info text-white p-2"><small>Scheduled</small><h5>${calendar.summary?.total_scheduled||0}</h5></div></div>
                 <div class="col-md-3"><div class="card bg-warning text-white p-2"><small>Stories/Week</small><h5>${calendar.summary?.stories_per_week||3}</h5></div></div>
                 <div class="col-md-3"><div class="card bg-secondary text-white p-2"><small>Series Spacing</small><h5>${calendar.summary?.series_spacing_default||7} days</h5></div></div>
                 <div class="col-md-3"><div class="card bg-dark text-white p-2"><small>Remaining</small><h5>${calendar.summary?.remaining_unpublished||0}</h5></div></div></div>
-                <div class="table-responsive"><table class="table table-sm table-hover"><thead class="table-light">  oxe<th>Date</th><th>Story</th><th>Series</th><th>Part</th><th>Actions</th> </tr</thead><tbody>${calendar.schedule?.map(c => `  <tr
-                    <td><strong>${c.date}</strong><br><small>${c.weekday}</small>  </div>
-                    <td>${escapeHtml(c.name)}  </div>
-                    <td>${c.series||'Standalone'}  </div>
-                    <td>${c.part?`Part ${c.part}`:'—'}  </div>
-                    <td><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g,"\\'")}')">Publish</button>  </div>
-                  </tr`).join('')||'  <tr<td colspan="5" class="text-center">No scheduled stories</td></tr>'}</tbody>  </div>`;
+                <div class="table-responsive"><table class="table table-sm table-hover"><thead class="table-light"> <tr<th>Date</th><th>Story</th><th>Series</th><th>Part</th><th>Actions</th> </tr</thead><tbody>${calendar.schedule?.map(c => `<tr><td><strong>${c.date}</strong><br><small>${c.weekday}</small></td><td>${escapeHtml(c.name)}</td><td>${c.series||'Standalone'}</td><td>${c.part?`Part ${c.part}`:'—'}</td><td><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g,"\\'")}')">Publish</button></td></tr>`).join('')||'<tr><td colspan="5" class="text-center">No scheduled stories</td></tr>'}</tbody> </div>`;
         }
         
         // ============================================
         // Settings
         // ============================================
         async function loadSettings() {
-            const content = document.getElementById('content');
             const settingsRes = await fetch(`${API_BASE}/settings/`);
             const settings = await settingsRes.json();
             const rootRes = await fetch(`${API_BASE}/settings/stories-root`);
             const root = await rootRes.json();
-            content.innerHTML = `<h1 class="h3 mb-3">Settings</h1><div class="row"><div class="col-md-6"><div class="card mb-3"><div class="card-header"><h6>Calendar Settings</h6></div><div class="card-body"><form id="calendarSettingsForm"><div class="mb-2"><label>Series Spacing (days)</label><input type="number" class="form-control form-control-sm" name="series_spacing_days" value="${settings.series_spacing_days||7}" min="5" max="14"></div><div class="mb-2"><label>Stories Per Week</label><input type="number" class="form-control form-control-sm" name="stories_per_week" value="${settings.stories_per_week||3}" min="1" max="7"></div><div class="mb-2"><label>Preferred Publish Days</label><div class="d-flex gap-2 flex-wrap">${['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].map(day=>`<div class="form-check"><input class="form-check-input" type="checkbox" name="preferred_days" value="${day}" ${settings.preferred_publish_days?.includes(day)?'checked':''}><label class="form-check-label small">${day.slice(0,3)}</label></div>`).join('')}</div></div><div class="mb-2"><label>Start Date</label><input type="date" class="form-control form-control-sm" name="start_date" value="${settings.start_date||''}"></div><button type="submit" class="btn btn-sm btn-primary">Save</button></form></div></div></div>
+            document.getElementById('content').innerHTML = `<h1 class="h3 mb-3">Settings</h1><div class="row"><div class="col-md-6"><div class="card mb-3"><div class="card-header"><h6>Calendar Settings</h6></div><div class="card-body"><form id="calendarSettingsForm"><div class="mb-2"><label>Series Spacing (days)</label><input type="number" class="form-control form-control-sm" name="series_spacing_days" value="${settings.series_spacing_days||7}" min="5" max="14"></div><div class="mb-2"><label>Stories Per Week</label><input type="number" class="form-control form-control-sm" name="stories_per_week" value="${settings.stories_per_week||3}" min="1" max="7"></div><div class="mb-2"><label>Preferred Publish Days</label><div class="d-flex gap-2 flex-wrap">${['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].map(day=>`<div class="form-check"><input class="form-check-input" type="checkbox" name="preferred_days" value="${day}" ${settings.preferred_publish_days?.includes(day)?'checked':''}><label class="form-check-label small">${day.slice(0,3)}</label></div>`).join('')}</div></div><div class="mb-2"><label>Start Date</label><input type="date" class="form-control form-control-sm" name="start_date" value="${settings.start_date||''}"></div><button type="submit" class="btn btn-sm btn-primary">Save</button></form></div></div></div>
             <div class="col-md-6"><div class="card mb-3"><div class="card-header"><h6>System</h6></div><div class="card-body"><p><strong>Stories Root:</strong> ${root.stories_root}</p><p><strong>Data Directory:</strong> ${settings.data_dir||'./data'}</p><hr><button class="btn btn-sm btn-primary" onclick="syncStories()"><i class="bi bi-arrow-repeat"></i> Sync</button><button class="btn btn-sm btn-secondary ms-2" onclick="generateCalendar()"><i class="bi bi-calendar"></i> Generate Calendar</button></div></div></div></div>`;
             document.getElementById('calendarSettingsForm')?.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -684,49 +575,40 @@
         }
         
         // ============================================
-        // Edit Story Functions
+        // Edit & Actions
         // ============================================
         async function editStory(storyKey) {
             let cleanKey = storyKey;
             if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
-            const encodedKey = encodeURIComponent(cleanKey);
-            try {
-                const res = await fetch(`${API_BASE}/stories/${encodedKey}`);
-                if (!res.ok) { alert(`Story not found: ${cleanKey}`); return; }
-                const story = await res.json();
-                
-                document.getElementById('editStoryNameDisplay').textContent = story.name;
-                document.getElementById('editStoryKey').value = cleanKey;
-                document.getElementById('editStorySeries').textContent = story.series || 'Standalone';
-                
-                let displayPath = story.raw_path || story.rel_path;
-                if (displayPath) displayPath = decodeURIComponent(displayPath);
-                document.getElementById('editStoryPath').textContent = displayPath || story.key;
-                
-                document.getElementById('editStoryCreatedDate').value = formatDateForDisplay(story.created_date);
-                document.getElementById('editStoryPublishedDate').value = formatDateForDisplay(story.published_date);
-                document.getElementById('editStoryLastUpdated').textContent = story.last_updated || 'Never';
-                document.getElementById('editStoryStatus').value = story.status || 'Draft';
-                document.getElementById('editStoryReadTime').value = story.read_time || '';
-                document.getElementById('editStoryReads').value = story.reads || 0;
-                document.getElementById('editStoryTags').value = story.tags ? story.tags.join(', ') : '';
-                document.getElementById('editStoryMediumUrl').value = story.medium_url || '';
-                document.getElementById('editStoryNotes').value = story.notes || '';
-                document.getElementById('editStoryLinkedinStatus').value = story.linkedin_status || '';
-                document.getElementById('editStoryLinkedinTimestamp').value = story.linkedin_timestamp || '';
-                document.getElementById('editStoryLinkedinImpressions').value = story.linkedin_impressions || 0;
-                document.getElementById('editStoryLinkedinUrl').value = story.linkedin_url || '';
-                
-                updateLinkedinDisplay();
-                
-                new bootstrap.Modal(document.getElementById('editStoryModal')).show();
-            } catch (error) { console.error(error); alert('Error loading story: ' + error.message); }
+            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`);
+            if (!res.ok) { alert('Story not found'); return; }
+            const story = await res.json();
+            
+            document.getElementById('editStoryNameDisplay').textContent = story.name;
+            document.getElementById('editStoryKey').value = cleanKey;
+            document.getElementById('editStorySeries').textContent = story.series || 'Standalone';
+            document.getElementById('editStoryPath').textContent = story.raw_path || story.rel_path || story.key;
+            document.getElementById('editStoryCreatedDate').value = formatDateForDisplay(story.created_date);
+            document.getElementById('editStoryPublishedDate').value = formatDateForDisplay(story.published_date);
+            document.getElementById('editStoryLastUpdated').textContent = story.last_updated || 'Never';
+            document.getElementById('editStoryStatus').value = story.status || 'Draft';
+            document.getElementById('editStoryReadTime').value = story.read_time || '';
+            document.getElementById('editStoryReads').value = story.reads || 0;
+            document.getElementById('editStoryTags').value = story.tags ? story.tags.join(', ') : '';
+            document.getElementById('editStoryMediumUrl').value = story.medium_url || '';
+            document.getElementById('editStoryNotes').value = story.notes || '';
+            document.getElementById('editStoryLinkedinStatus').value = story.linkedin_status || '';
+            document.getElementById('editStoryLinkedinTimestamp').value = story.linkedin_timestamp || '';
+            document.getElementById('editStoryLinkedinImpressions').value = story.linkedin_impressions || 0;
+            document.getElementById('editStoryLinkedinUrl').value = story.linkedin_url || '';
+            updateLinkedinDisplay();
+            
+            new bootstrap.Modal(document.getElementById('editStoryModal')).show();
         }
         
         async function saveStoryEdit() {
             let storyKey = document.getElementById('editStoryKey').value;
             if (storyKey.toLowerCase().endsWith('.md')) storyKey = storyKey.slice(0, -3);
-            const encodedKey = encodeURIComponent(storyKey);
             
             const data = {
                 status: document.getElementById('editStoryStatus').value,
@@ -745,78 +627,26 @@
             
             if (data.status === 'Published' && !data.published_date) data.published_date = getTodayDate();
             
-            try {
-                const res = await fetch(`${API_BASE}/stories/${encodedKey}`, { 
-                    method:'PUT', 
-                    headers:{'Content-Type':'application/json'}, 
-                    body:JSON.stringify(data) 
-                });
-                if (res.ok) { 
-                    bootstrap.Modal.getInstance(document.getElementById('editStoryModal')).hide(); 
-                    // Preserve filter state before reloading
-                    saveFilterState();
-                    await loadView(currentView);
-                    restoreFilterState();
-                } else { 
-                    const error = await res.json(); 
-                    alert('Error: ' + (error.detail || 'Unknown')); 
-                }
-            } catch (error) { alert('Error: ' + error.message); }
-        }
-        
-        // ============================================
-        // Quick Action Functions
-        // ============================================
-        async function quickMarkLinkedin(storyKey) {
-            let cleanKey = storyKey;
-            if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
-            const encodedKey = encodeURIComponent(cleanKey);
-            const now = getNowTimestamp();
-            
-            const data = {
-                linkedin_status: 'posted',
-                linkedin_timestamp: now
-            };
-            
-            const res = await fetch(`${API_BASE}/stories/${encodedKey}`, { 
-                method:'PUT', 
-                headers:{'Content-Type':'application/json'}, 
-                body:JSON.stringify(data) 
-            });
-            
-            if (res.ok) {
+            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(storyKey)}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
+            if (res.ok) { 
+                bootstrap.Modal.getInstance(document.getElementById('editStoryModal')).hide(); 
                 saveFilterState();
                 await loadView(currentView);
                 restoreFilterState();
-            } else {
-                alert('Failed to mark LinkedIn posted');
+            } else { 
+                const err = await res.json(); 
+                alert('Error: ' + (err.detail || 'Unknown')); 
             }
         }
         
-        async function quickMarkLinkedinScheduled(storyKey) {
+        async function quickMarkLinkedin(storyKey, status) {
             let cleanKey = storyKey;
             if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
-            const encodedKey = encodeURIComponent(cleanKey);
             const now = getNowTimestamp();
-            
-            const data = {
-                linkedin_status: 'scheduled',
-                linkedin_timestamp: now
-            };
-            
-            const res = await fetch(`${API_BASE}/stories/${encodedKey}`, { 
-                method:'PUT', 
-                headers:{'Content-Type':'application/json'}, 
-                body:JSON.stringify(data) 
-            });
-            
-            if (res.ok) {
-                saveFilterState();
-                await loadView(currentView);
-                restoreFilterState();
-            } else {
-                alert('Failed to mark LinkedIn scheduled');
-            }
+            const data = { linkedin_status: status === '' ? null : status, linkedin_timestamp: status === '' ? null : now };
+            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
+            if (res.ok) { saveFilterState(); await loadView(currentView); restoreFilterState(); } 
+            else alert('Failed to update LinkedIn status');
         }
         
         async function createNewStory() {
@@ -829,101 +659,25 @@
             };
             if (!data.name) { alert('Story name required'); return; }
             const res = await fetch(`${API_BASE}/stories/`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
-            if (res.ok) { 
-                bootstrap.Modal.getInstance(document.getElementById('addStoryModal')).hide(); 
-                document.getElementById('addStoryForm').reset(); 
-                await syncStories(); 
-                saveFilterState();
-                loadView('stories');
-                restoreFilterState();
-            } else { 
-                alert('Error creating story'); 
-            }
+            if (res.ok) { bootstrap.Modal.getInstance(document.getElementById('addStoryModal')).hide(); document.getElementById('addStoryForm').reset(); await syncStories(); saveFilterState(); loadView('stories'); restoreFilterState(); } 
+            else alert('Error creating story');
         }
         
-        async function syncStories() { 
-            const res = await fetch(`${API_BASE}/stories/sync`, { method:'POST' }); 
-            if(res.ok){ 
-                saveFilterState();
-                await loadView(currentView);
-                restoreFilterState();
-            } else { alert('Sync failed'); } 
-        }
+        async function syncStories() { const res = await fetch(`${API_BASE}/stories/sync`, { method:'POST' }); if(res.ok){ saveFilterState(); await loadView(currentView); restoreFilterState(); } else alert('Sync failed'); }
+        async function generateCalendar() { const res = await fetch(`${API_BASE}/calendar/generate`, { method:'POST' }); if(res.ok){ saveFilterState(); await loadView('calendar'); restoreFilterState(); } else alert('Generation failed'); }
+        async function markPublished(storyKey) { let cleanKey = storyKey; if(cleanKey.toLowerCase().endsWith('.md')) cleanKey=cleanKey.slice(0,-3); const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}/publish`, { method:'POST' }); if(res.ok){ saveFilterState(); await loadView(currentView); restoreFilterState(); } else alert('Failed'); }
+        async function deleteStory(storyKey) { if(confirm('Delete this story?')) { let cleanKey = storyKey; if(cleanKey.toLowerCase().endsWith('.md')) cleanKey=cleanKey.slice(0,-3); const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, { method:'DELETE' }); if(res.ok){ saveFilterState(); await loadView(currentView); restoreFilterState(); } else alert('Delete failed'); } }
+        async function addSeries() { const name = prompt('Series name:'); if(name){ const res = await fetch(`${API_BASE}/series/`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ name, spacing_days:7 }) }); if(res.ok){ await loadAllSeries(); loadView('series'); } else alert('Failed'); } }
+        async function updateSeriesSpacing(seriesName, days) { const res = await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ spacing_days:parseInt(days) }) }); if(!res.ok){ alert('Failed'); loadView('series'); } }
+        async function deleteSeries(seriesName) { if(confirm(`Delete "${seriesName}"?`)){ const res = await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, { method:'DELETE' }); if(res.ok){ await loadAllSeries(); loadView('series'); } else alert('Failed'); } }
         
-        async function generateCalendar() { 
-            const res = await fetch(`${API_BASE}/calendar/generate`, { method:'POST' }); 
-            if(res.ok){ 
-                saveFilterState();
-                await loadView('calendar');
-                restoreFilterState();
-            } else { alert('Generation failed'); } 
-        }
-        
-        async function markPublished(storyKey) { 
-            let cleanKey = storyKey; 
-            if(cleanKey.toLowerCase().endsWith('.md')) cleanKey=cleanKey.slice(0,-3); 
-            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}/publish`, { method:'POST' }); 
-            if(res.ok) {
-                saveFilterState();
-                await loadView(currentView);
-                restoreFilterState();
-            } else alert('Failed'); 
-        }
-        
-        async function deleteStory(storyKey) { 
-            if(confirm('Delete this story?')) { 
-                let cleanKey = storyKey; 
-                if(cleanKey.toLowerCase().endsWith('.md')) cleanKey=cleanKey.slice(0,-3); 
-                const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, { method:'DELETE' }); 
-                if(res.ok) {
-                    saveFilterState();
-                    await loadView(currentView);
-                    restoreFilterState();
-                } else alert('Delete failed'); 
-            } 
-        }
-        
-        async function addSeries() { 
-            const name = prompt('Series name:'); 
-            if(name){ 
-                const res = await fetch(`${API_BASE}/series/`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ name, spacing_days:7 }) }); 
-                if(res.ok){ 
-                    await loadAllSeries(); 
-                    loadView('series'); 
-                } else alert('Failed'); 
-            } 
-        }
-        
-        async function updateSeriesSpacing(seriesName, days) { 
-            const res = await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ spacing_days:parseInt(days) }) }); 
-            if(!res.ok){ alert('Failed'); loadView('series'); } 
-        }
-        
-        async function deleteSeries(seriesName) { 
-            if(confirm(`Delete "${seriesName}"?`)){ 
-                const res = await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, { method:'DELETE' }); 
-                if(res.ok){ await loadAllSeries(); loadView('series'); } 
-                else alert('Failed'); 
-            } 
-        }
-        
-        function escapeHtml(text) { 
-            if(!text) return ''; 
-            const div = document.createElement('div'); 
-            div.textContent = text; 
-            return div.innerHTML; 
-        }
+        function escapeHtml(text) { if(!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
         
         document.addEventListener('show.bs.modal', function(event) {
             if (event.target.id === 'addStoryModal') {
                 const seriesSelect = document.getElementById('addStorySeries');
-                if (seriesSelect && allSeries.length) {
-                    seriesSelect.innerHTML = '<option value="">Create in root (no series)</option>' + 
-                        allSeries.map(s => `<option value="${s.name}">📁 ${s.name}</option>`).join('');
-                }
-                if (document.getElementById('addStoryCreatedDate')) {
-                    document.getElementById('addStoryCreatedDate').value = getTodayDate();
-                }
+                if (seriesSelect && allSeries.length) seriesSelect.innerHTML = '<option value="">Create in root (no series)</option>' + allSeries.map(s => `<option value="${s.name}">📁 ${s.name}</option>`).join('');
+                if (document.getElementById('addStoryCreatedDate')) document.getElementById('addStoryCreatedDate').value = getTodayDate();
             }
         });
     </script>
