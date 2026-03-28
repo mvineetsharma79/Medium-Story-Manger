@@ -1,0 +1,36 @@
+# cliff.toml - Changelog configuration
+
+[changelog]
+header = """
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+"""
+
+body = """
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group | upper_first }}
+{% for commit in commits %}
+- {% if commit.breaking %}[**breaking**] {% endif %}{{ commit.message | upper_first }}
+{%- endfor %}
+{% endfor %}
+"""
+
+# regex for parsing commit tags
+commit_parsers = [
+    { message = "^feat", group = "Features"},
+    { message = "^fix", group = "Bug Fixes"},
+    { message = "^doc", group = "Documentation"},
+    { message = "^perf", group = "Performance"},
+    { message = "^refactor", group = "Refactor"},
+    { message = "^style", group = "Styling"},
+    { message = "^test", group = "Testing"},
+    { message = "^chore\\(release\\): prepare for", skip = true},
+    { message = "^chore", group = "Miscellaneous Tasks"},
+    { body = ".*security", group = "Security"},
+]
+
+filter_commits = true

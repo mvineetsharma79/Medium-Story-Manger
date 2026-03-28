@@ -1,0 +1,62 @@
+# docker-compose.production.yml
+version: '3.8'
+
+services:
+  story-manager:
+    image: ghcr.io/yourusername/story-manager:production
+    container_name: story-manager-prod
+    ports:
+      - "8000:8000"
+    volumes:
+      - /opt/story-manager/stories:/app/stories
+      - story-manager-data:/app/data
+    environment:
+      - DEBUG=false
+      - STORIES_ROOT=/app/stories
+      - APP_NAME=Story Manager
+    env_file:
+      - /opt/story-manager/.env
+    restart: always
+    networks:
+      - story-manager-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  nginx:
+    image: nginx:alpine
+    container_name: story-manager-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /opt/story-manager/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /opt/story-manager/ssl:/etc/nginx/ssl:ro
+      - /opt/story-manager/static:/usr/share/nginx/html/static:ro
+    depends_on:
+      - story-manager
+    networks:
+      - story-manager-network
+    restart: always
+
+volumes:
+  story-manager-data:
+    external: true
+
+networks:
+  story-manager-network:
+    driver: bridge

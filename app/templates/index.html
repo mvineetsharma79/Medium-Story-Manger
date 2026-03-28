@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Manager Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background: #2c3e50;
+            color: white;
+        }
+        .sidebar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 5px;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background: #3498db;
+        }
+        .story-card {
+            transition: transform 0.2s;
+        }
+        .story-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .status-draft { background-color: #f39c12; color: white; }
+        .status-published { background-color: #27ae60; color: white; }
+        .status-archived { background-color: #7f8c8d; color: white; }
+        .series-badge { font-size: 0.75rem; padding: 3px 8px; border-radius: 12px; background: #e9ecef; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-md-block sidebar p-0">
+                <div class="p-3">
+                    <h4><i class="bi bi-journal-bookmark-fill"></i> Story Manager</h4>
+                    <hr class="bg-light">
+                </div>
+                <div class="nav flex-column">
+                    <a href="#" class="nav-link active" data-view="dashboard">
+                        <i class="bi bi-speedometer2"></i> Dashboard
+                    </a>
+                    <a href="#" class="nav-link" data-view="stories">
+                        <i class="bi bi-files"></i> Stories
+                    </a>
+                    <a href="#" class="nav-link" data-view="series">
+                        <i class="bi bi-collection"></i> Series
+                    </a>
+                    <a href="#" class="nav-link" data-view="calendar">
+                        <i class="bi bi-calendar-week"></i> Calendar
+                    </a>
+                    <a href="#" class="nav-link" data-view="settings">
+                        <i class="bi bi-gear"></i> Settings
+                    </a>
+                </div>
+                <div class="position-absolute bottom-0 p-3">
+                    <small>v1.0.0</small>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-10 ms-sm-auto px-md-4 py-3">
+                <div id="loading" class="text-center py-5" style="display: none;">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">Loading...</p>
+                </div>
+                <div id="content"></div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // API Base URL
+        const API_BASE = '/api';
+        
+        // Current view
+        let currentView = 'dashboard';
+        
+        // Load content when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadView('dashboard');
+            
+            // Sidebar navigation
+            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const view = link.dataset.view;
+                    if (view) {
+                        loadView(view);
+                        document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+        
+        async function loadView(view) {
+            currentView = view;
+            const contentDiv = document.getElementById('content');
+            const loadingDiv = document.getElementById('loading');
+            
+            loadingDiv.style.display = 'block';
+            contentDiv.innerHTML = '';
+            
+            try {
+                switch(view) {
+                    case 'dashboard':
+                        await loadDashboard();
+                        break;
+                    case 'stories':
+                        await loadStories();
+                        break;
+                    case 'series':
+                        await loadSeries();
+                        break;
+                    case 'calendar':
+                        await loadCalendar();
+                        break;
+                    case 'settings':
+                        await loadSettings();
+                        break;
+                }
+            } catch (error) {
+                contentDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
+            } finally {
+                loadingDiv.style.display = 'none';
+            }
+        }
+        
+        async function loadDashboard() {
+            const content = document.getElementById('content');
+            
+            // Fetch stats
+            const storiesRes = await fetch(`${API_BASE}/stories/`);
+            const stories = await storiesRes.json();
+            
+            const published = stories.filter(s => s.status === 'Published').length;
+            const draft = stories.filter(s => s.status === 'Draft').length;
+            
+            const seriesRes = await fetch(`${API_BASE}/series/`);
+            const series = await seriesRes.json();
+            
+            const calendarRes = await fetch(`${API_BASE}/calendar/`);
+            const calendar = await calendarRes.json();
+            
+            content.innerHTML = `
+                <h1 class="h2 mb-4">Dashboard</h1>
+                
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="card text-white bg-primary">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Stories</h5>
+                                <h2 class="display-4">${stories.length}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-success">
+                            <div class="card-body">
+                                <h5 class="card-title">Published</h5>
+                                <h2 class="display-4">${published}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-warning">
+                            <div class="card-body">
+                                <h5 class="card-title">Draft</h5>
+                                <h2 class="display-4">${draft}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-info">
+                            <div class="card-body">
+                                <h5 class="card-title">Series</h5>
+                                <h2 class="display-4">${series.length}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Recent Stories</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group">
+                                    ${stories.slice(0, 10).map(s => `
+                                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>${s.name}</strong>
+                                                <span class="badge ${s.status === 'Published' ? 'bg-success' : 'bg-warning'} ms-2">${s.status}</span>
+                                                ${s.series ? `<span class="series-badge ms-2">📚 ${s.series}</span>` : ''}
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary" onclick="editStory('${s.key}')">Edit</button>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Upcoming Schedule</h5>
+                                <button class="btn btn-sm btn-primary float-end" onclick="generateCalendar()">Generate</button>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group">
+                                    ${calendar.schedule?.slice(0, 10).map(c => `
+                                        <div class="list-group-item">
+                                            <strong>${c.date}</strong> (${c.weekday})
+                                            <br>${c.name}
+                                            ${c.series ? `<span class="series-badge ms-2">📚 ${c.series}</span>` : ''}
+                                            ${c.part ? `<span class="badge bg-secondary ms-1">Part ${c.part}</span>` : ''}
+                                        </div>
+                                    `).join('') || '<p class="text-muted">No scheduled stories. Click Generate to create calendar.</p>'}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <button class="btn btn-primary" onclick="syncStories()">
+                        <i class="bi bi-arrow-repeat"></i> Sync with Filesystem
+                    </button>
+                </div>
+            `;
+        }
+        
+        async function loadStories() {
+            const content = document.getElementById('content');
+            const res = await fetch(`${API_BASE}/stories/`);
+            const stories = await res.json();
+            
+            content.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h2">Stories</h1>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStoryModal">
+                        <i class="bi bi-plus-lg"></i> Add Story
+                    </button>
+                </div>
+                
+                <div class="row">
+                    ${stories.map(story => `
+                        <div class="col-md-6 col-lg-4 mb-3">
+                            <div class="card story-card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">${escapeHtml(story.name)}</h5>
+                                    <span class="badge ${story.status === 'Published' ? 'bg-success' : 'bg-warning'} mb-2">${story.status}</span>
+                                    ${story.series ? `<span class="series-badge ms-1">📚 ${story.series}</span>` : ''}
+                                    ${story.read_time ? `<span class="badge bg-secondary ms-1">${story.read_time} min</span>` : ''}
+                                    <p class="card-text small text-muted mt-2">
+                                        Created: ${story.created_date}<br>
+                                        ${story.published_date ? `Published: ${story.published_date}` : ''}
+                                    </p>
+                                    ${story.medium_url ? `<a href="${story.medium_url}" target="_blank" class="btn btn-sm btn-outline-primary">View on Medium</a>` : ''}
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="editStory('${story.key}')">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        async function loadSeries() {
+            const content = document.getElementById('content');
+            const res = await fetch(`${API_BASE}/series/`);
+            const series = await res.json();
+            
+            content.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h2">Series</h1>
+                    <button class="btn btn-primary" onclick="addSeries()">
+                        <i class="bi bi-plus-lg"></i> Add Series
+                    </button>
+                </div>
+                
+                <div class="row">
+                    ${series.map(s => `
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">${s.name}</h5>
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar" style="width: ${s.published / s.total_stories * 100}%">
+                                            ${s.published}/${s.total_stories}
+                                        </div>
+                                    </div>
+                                    <p class="card-text">
+                                        <strong>Spacing:</strong> ${s.spacing_days} days between parts
+                                    </p>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="editSeries('${s.name}')">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        async function loadCalendar() {
+            const content = document.getElementById('content');
+            const res = await fetch(`${API_BASE}/calendar/`);
+            const calendar = await res.json();
+            
+            content.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h2">Publishing Calendar</h1>
+                    <button class="btn btn-primary" onclick="generateCalendar()">
+                        <i class="bi bi-arrow-repeat"></i> Regenerate
+                    </button>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <h6>Scheduled</h6>
+                                <h3>${calendar.summary?.total_scheduled || 0}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body">
+                                <h6>Stories/Week</h6>
+                                <h3>${calendar.summary?.stories_per_week || 3}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-secondary text-white">
+                            <div class="card-body">
+                                <h6>Series Spacing</h6>
+                                <h3>${calendar.summary?.series_spacing_default || 7} days</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-dark text-white">
+                            <div class="card-body">
+                                <h6>Remaining</h6>
+                                <h3>${calendar.summary?.remaining_unpublished || 0}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Schedule</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Story</th>
+                                        <th>Series</th>
+                                        <th>Part</th>
+                                        <th>Read Time</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${calendar.schedule?.map(c => `
+                                        <tr>
+                                            <td>${c.date}<br><small>${c.weekday}</small></td>
+                                            <td>${escapeHtml(c.name)}</td>
+                                            <td>${c.series || 'Standalone'}</td>
+                                            <td>${c.part ? `Part ${c.part}` : '—'}</td>
+                                            <td>${c.read_time} min</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key}')">
+                                                    Mark Published
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    `).join('') || '<tr><td colspan="6" class="text-center">No scheduled stories</td></tr>'}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        async function loadSettings() {
+            const content = document.getElementById('content');
+            const settingsRes = await fetch(`${API_BASE}/settings/`);
+            const settings = await settingsRes.json();
+            const rootRes = await fetch(`${API_BASE}/settings/stories-root`);
+            const root = await rootRes.json();
+            
+            content.innerHTML = `
+                <h1 class="h2 mb-4">Settings</h1>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>Calendar Settings</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="calendarSettingsForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">Series Spacing (days)</label>
+                                        <input type="number" class="form-control" name="series_spacing_days" value="${settings.series_spacing_days || 7}" min="5" max="14">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Stories Per Week</label>
+                                        <input type="number" class="form-control" name="stories_per_week" value="${settings.stories_per_week || 3}" min="1" max="7">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Preferred Publish Days</label>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            ${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => `
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="preferred_days" value="${day}" 
+                                                        ${settings.preferred_publish_days?.includes(day) ? 'checked' : ''}>
+                                                    <label class="form-check-label">${day.slice(0,3)}</label>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Start Date</label>
+                                        <input type="date" class="form-control" name="start_date" value="${settings.start_date || ''}">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>System</h5>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Stories Root:</strong> ${root.stories_root}</p>
+                                <hr>
+                                <button class="btn btn-primary" onclick="syncStories()">
+                                    <i class="bi bi-arrow-repeat"></i> Sync with Filesystem
+                                </button>
+                                <button class="btn btn-secondary mt-2" onclick="generateCalendar()">
+                                    <i class="bi bi-calendar"></i> Generate Calendar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('calendarSettingsForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const data = {
+                    series_spacing_days: parseInt(formData.get('series_spacing_days')),
+                    stories_per_week: parseInt(formData.get('stories_per_week')),
+                    preferred_publish_days: formData.getAll('preferred_days'),
+                    start_date: formData.get('start_date')
+                };
+                
+                const res = await fetch(`${API_BASE}/settings/calendar`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                if (res.ok) {
+                    alert('Settings saved');
+                    loadSettings();
+                } else {
+                    alert('Error saving settings');
+                }
+            });
+        }
+        
+        // Helper functions
+        async function syncStories() {
+            const res = await fetch(`${API_BASE}/stories/sync`, { method: 'POST' });
+            if (res.ok) {
+                alert('Sync completed');
+                loadView(currentView);
+            } else {
+                alert('Sync failed');
+            }
+        }
+        
+        async function generateCalendar() {
+            const res = await fetch(`${API_BASE}/calendar/generate`, { method: 'POST' });
+            if (res.ok) {
+                alert('Calendar generated');
+                loadView('calendar');
+            } else {
+                alert('Generation failed');
+            }
+        }
+        
+        async function markPublished(storyKey) {
+            const res = await fetch(`${API_BASE}/stories/${storyKey}/publish`, { method: 'POST' });
+            if (res.ok) {
+                alert('Story marked as published');
+                loadView('stories');
+            } else {
+                alert('Failed');
+            }
+        }
+        
+        function editStory(storyKey) {
+            alert(`Edit story: ${storyKey}\n\nIn a full implementation, this would open a modal with story details.`);
+        }
+        
+        function addSeries() {
+            const name = prompt('Enter series name:');
+            if (name) {
+                fetch(`${API_BASE}/series/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, spacing_days: 7 })
+                }).then(() => loadView('series'));
+            }
+        }
+        
+        function editSeries(seriesName) {
+            alert(`Edit series: ${seriesName}\n\nIn a full implementation, this would open a modal.`);
+        }
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

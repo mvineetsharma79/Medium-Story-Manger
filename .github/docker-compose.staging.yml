@@ -1,0 +1,34 @@
+# docker-compose.staging.yml
+version: '3.8'
+
+services:
+  story-manager:
+    image: ghcr.io/yourusername/story-manager:latest
+    container_name: story-manager-staging
+    ports:
+      - "8000:8000"
+    volumes:
+      - /opt/story-manager/stories:/app/stories
+      - story-manager-data:/app/data
+    environment:
+      - DEBUG=false
+      - STORIES_ROOT=/app/stories
+      - APP_NAME=Story Manager (Staging)
+    env_file:
+      - /opt/story-manager/.env
+    restart: unless-stopped
+    networks:
+      - story-manager-network
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  story-manager-data:
+    driver: local
+
+networks:
+  story-manager-network:
+    driver: bridge

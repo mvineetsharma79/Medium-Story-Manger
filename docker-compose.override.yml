@@ -1,0 +1,17 @@
+# docker-compose.override.yml
+# This file is automatically used with docker-compose up
+# Overrides for development environment
+
+version: '3.8'
+
+services:
+  story-manager-dev:
+    environment:
+      - DEBUG=true
+    volumes:
+      # Additional mounts for development
+      - ./app:/app/app:rw
+      - ./static:/app/static:rw
+      - ./config.py:/app/config.py:rw
+      - ./run.py:/app/run.py:rw
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app/app

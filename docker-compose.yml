@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  # Development service with hot reload
+  story-manager-dev:
+    build:
+      context: .
+      target: development
+    container_name: story-manager-dev
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount source code for hot reload
+      - ./app:/app/app
+      - ./static:/app/static
+      - ./config.py:/app/config.py
+      - ./run.py:/app/run.py
+      # Mount stories directory (edit this path!)
+      - ${STORIES_ROOT:-./stories}:/app/stories
+      # Persist JSON data
+      - story-manager-data:/app/data
+    environment:
+      - DEBUG=true
+      - STORIES_ROOT=/app/stories
+      - APP_NAME=Story Manager
+      - DEFAULT_SERIES_SPACING_DAYS=7
+      - DEFAULT_STORIES_PER_WEEK=3
+      - PREFERRED_PUBLISH_DAYS=["Monday","Tuesday","Wednesday","Thursday"]
+    env_file:
+      - .env
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+    networks:
+      - story-manager-network
+
+  # Production service
+  story-manager-prod:
+    build:
+      context: .
+      target: production
+    container_name: story-manager-prod
+    ports:
+      - "8000:8000"
+    volumes:
+      # Only mount stories and data, not code
+      - ${STORIES_ROOT:-./stories}:/app/stories
+      - story-manager-data:/app/data
+    environment:
+      - DEBUG=false
+      - STORIES_ROOT=/app/stories
+      - APP_NAME=Story Manager
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - story-manager-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Optional: Nginx reverse proxy for production
+  nginx:
+    image: nginx:alpine
+    container_name: story-manager-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - story-manager-prod
+    networks:
+      - story-manager-network
+    profiles:
+      - production
+      - with-nginx
+    restart: unless-stopped
+
+networks:
+  story-manager-network:
+    driver: bridge
+
+volumes:
+  story-manager-data:
+    driver: local
