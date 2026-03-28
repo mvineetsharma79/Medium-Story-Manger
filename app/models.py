@@ -34,13 +34,30 @@ class StoryUpdate(BaseModel):
     linkedin_timestamp: Optional[str] = None
     linkedin_impressions: Optional[int] = None
     linkedin_url: Optional[str] = None
+    claps: Optional[int] = None
+    responses: Optional[int] = None
+    bookmarks: Optional[int] = None
+    view_count: Optional[int] = None
+    read_ratio: Optional[float] = None
+    medium_reading_time: Optional[int] = None
+    fan_count: Optional[int] = None
+    medium_first_published: Optional[str] = None
+    medium_last_updated: Optional[str] = None
+    medium_tags: Optional[List[str]] = None
+    medium_topics: Optional[List[str]] = None
+    word_count: Optional[int] = None
+    medium_title: Optional[str] = None
+    medium_subtitle: Optional[str] = None
+    medium_author: Optional[str] = None
+    medium_publication: Optional[str] = None
+    last_stats_update: Optional[str] = None
 
 class StoryResponse(BaseModel):
     key: str
     name: str
     folder: str
     series: Optional[str]
-    raw_path: Optional[str] = None  # Raw path for display
+    raw_path: Optional[str] = None
     rel_path: str
     status: str
     published_date: Optional[str]
@@ -55,6 +72,23 @@ class StoryResponse(BaseModel):
     linkedin_timestamp: Optional[str] = None
     linkedin_impressions: Optional[int] = 0
     linkedin_url: Optional[str] = None
+    claps: Optional[int] = 0
+    responses: Optional[int] = 0
+    bookmarks: Optional[int] = 0
+    view_count: Optional[int] = 0
+    read_ratio: Optional[float] = 0
+    medium_reading_time: Optional[int] = 0
+    fan_count: Optional[int] = 0
+    medium_first_published: Optional[str] = None
+    medium_last_updated: Optional[str] = None
+    medium_tags: Optional[List[str]] = []
+    medium_topics: Optional[List[str]] = []
+    word_count: Optional[int] = 0
+    medium_title: Optional[str] = None
+    medium_subtitle: Optional[str] = None
+    medium_author: Optional[str] = None
+    medium_publication: Optional[str] = None
+    last_stats_update: Optional[str] = None
 
 class SeriesCreate(BaseModel):
     name: str

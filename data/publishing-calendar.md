@@ -1,16 +1,16 @@
 # Publishing Calendar
 
-*Generated: 2026-03-28 23:17:12*
+*Generated: 2026-03-29 02:26:16*
 
 ## Summary
 
 | Metric | Value |
 |--------|-------|
-| Stories Scheduled | 60 |
+| Stories Scheduled | 59 |
 | Stories Per Week | 3 |
 | Default Series Spacing | 7 days |
 | Remaining Unpublished | 0 |
-| Start Date | 2026-03-28 |
+| Start Date | 2026-03-29 |
 
 ## Series Breakdown
 
@@ -23,7 +23,7 @@
 | Design Patterns | 6 |
 | Dotnet Python NodeJS | 4 |
 | Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts | 5 |
-| GitHub | 6 |
+| GitHub | 5 |
 | LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution | 1 |
 | Miscellaneous | 3 |
 | Payment System | 1 |
@@ -83,7 +83,7 @@
 | 2026-06-08 (Mon) | GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers | GitHub | — | None min |
 | 2026-06-09 (Tue) | Design Patterns: Part 2 - Creational Patterns Deep Dive | Design Patterns | Part 2 | None min |
 | 2026-06-10 (Wed) | AI Agent Engineering - EPILOGUE: The Future of AI Agents | AI Engineering | — | None min |
-| 2026-06-15 (Mon) | GitHub Copilot: The AI-Powered Development Ecosystem | GitHub | — | None min |
+| 2026-06-15 (Mon) | GitHub Copilot in the Terminal: Your Command Line AI Assistant | GitHub | — | None min |
 | 2026-06-16 (Tue) | From REST to gRPC: Architecting High-Performance APIs in Node | Dotnet Python NodeJS | — | None min |
 | 2026-06-17 (Wed) | AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration | AI Engineering | — | None min |
 | 2026-06-22 (Mon) | The Desktop Phoenix: An Architect's Guide to WPF in a Multi-Platform World | Miscellaneous | — | None min |
@@ -116,7 +116,6 @@
 | 2026-08-04 (Tue) | Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 2 | Vehixcare | Part 2 | None min |
 | 2026-08-05 (Wed) | Prompt Engineering vs Content Engineering vs RAG | AI Engineering | — | None min |
 | 2026-08-10 (Mon) | Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS | Code to Cluster | — | None min |
-| 2026-08-11 (Tue) | GitHub Copilot in the Terminal: Your Command Line AI Assistant | GitHub | — | None min |
 | 2026-08-17 (Mon) | Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on Azure | Code to Cluster | — | None min |
 
 ---

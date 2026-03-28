@@ -1,10 +1,10 @@
 {
-  "generated": "2026-03-28T23:17:12.724154",
+  "generated": "2026-03-29T02:26:16.191819",
   "summary": {
-    "total_scheduled": 60,
+    "total_scheduled": 59,
     "stories_per_week": 3,
     "series_spacing_default": 7,
-    "start_date": "2026-03-28",
+    "start_date": "2026-03-29",
     "series_counts": {
       "SOLID Principles": 7,
       "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs": 4,
@@ -12,7 +12,7 @@
       "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution": 1,
       "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts": 5,
       "Design Patterns": 6,
-      "GitHub": 6,
+      "GitHub": 5,
       "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide": 1,
       "AI Engineering": 9,
       "Dotnet Python NodeJS": 4,
@@ -325,8 +325,8 @@
     {
       "date": "2026-06-15",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot: The AI-Powered Development Ecosystem",
-      "name": "GitHub Copilot: The AI-Powered Development Ecosystem",
+      "story_key": "GitHub/GitHub Copilot in the Terminal: Your Command Line AI Assistant",
+      "name": "GitHub Copilot in the Terminal: Your Command Line AI Assistant",
       "series": "GitHub",
       "part": null,
       "read_time": null
@@ -544,15 +544,6 @@
       "story_key": "Code to Cluster/Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
       "name": "Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
       "series": "Code to Cluster",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-08-11",
-      "weekday": "Tuesday",
-      "story_key": "GitHub/GitHub Copilot in the Terminal: Your Command Line AI Assistant",
-      "name": "GitHub Copilot in the Terminal: Your Command Line AI Assistant",
-      "series": "GitHub",
       "part": null,
       "read_time": null
     },
