@@ -1,7 +1,5 @@
 # Story Manager - Technical Content Management System
 
-[![CI](https://github.com/yourusername/story-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/yourusername/story-manager/actions/workflows/ci.yml)
-[![Docker Build](https://github.com/yourusername/story-manager/actions/workflows/docker-build.yml/badge.svg)](https://github.com/yourusername/story-manager/actions/workflows/docker-build.yml)
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115.6-green.svg)](https://fastapi.tiangolo.com/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)

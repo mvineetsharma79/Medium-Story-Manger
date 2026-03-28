@@ -6,6 +6,7 @@ from app.models import SeriesResponse, SeriesCreate, SeriesUpdate
 
 router = APIRouter()
 
+
 @router.get("/", response_model=List[SeriesResponse])
 async def list_series():
     """List all series"""
@@ -25,6 +26,7 @@ async def list_series():
         ))
     
     return result
+
 
 @router.get("/{series_name}", response_model=SeriesResponse)
 async def get_series(series_name: str):
@@ -47,6 +49,7 @@ async def get_series(series_name: str):
         stories=info.get("stories", [])
     )
 
+
 @router.post("/", response_model=SeriesResponse, status_code=201)
 async def create_series(series_data: SeriesCreate):
     """Create a new series"""
@@ -64,7 +67,7 @@ async def create_series(series_data: SeriesCreate):
         "stories": []
     }
     
-    await StoryService._save_stories_data(data)  # Need to add save method
+    await StoryService._save_stories_data(data)
     
     return SeriesResponse(
         name=series_data.name,
@@ -73,6 +76,7 @@ async def create_series(series_data: SeriesCreate):
         spacing_days=series_data.spacing_days or 7,
         stories=[]
     )
+
 
 @router.put("/{series_name}", response_model=SeriesResponse)
 async def update_series(series_name: str, update_data: SeriesUpdate):
@@ -104,6 +108,7 @@ async def update_series(series_name: str, update_data: SeriesUpdate):
         spacing_days=info.get("spacing_days", default_spacing),
         stories=info.get("stories", [])
     )
+
 
 @router.delete("/{series_name}")
 async def delete_series(series_name: str):

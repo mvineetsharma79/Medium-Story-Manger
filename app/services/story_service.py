@@ -14,6 +14,27 @@ logger = logging.getLogger(__name__)
 
 class StoryService:
     @staticmethod
+    async def _update_series_counts(data: Dict[str, Any]) -> Dict[str, Any]:
+        """Update total_stories and published counts for all series based on status = Published"""
+        stories = data.get("stories", {})
+        series_data = data.get("series", {})
+        
+        for series_name, series_info in series_data.items():
+            total = 0
+            published = 0
+            for story_key in series_info.get("stories", []):
+                if story_key in stories:
+                    total += 1
+                    # Check status field for "Published"
+                    if stories[story_key].get("status") == "Published":
+                        published += 1
+            series_info["total_stories"] = total
+            series_info["published"] = published
+        
+        data["series"] = series_data
+        return data
+
+    @staticmethod
     async def sync_with_filesystem() -> Dict[str, Any]:
         """Sync stories.json with filesystem"""
         data = await load_stories_data()
@@ -67,13 +88,14 @@ class StoryService:
                 if story_key not in series_data[file_info['series']]["stories"]:
                     series_data[file_info['series']]["stories"].append(story_key)
 
+        # Update series counts - CHECK STATUS, NOT published_date
         for series_name, series_info in series_data.items():
             total = 0
             published = 0
             for story_key in series_info["stories"]:
                 if story_key in stories:
                     total += 1
-                    if stories[story_key].get("published_date"):
+                    if stories[story_key].get("status") == "Published":
                         published += 1
             series_info["total_stories"] = total
             series_info["published"] = published
@@ -144,6 +166,24 @@ class StoryService:
         }
 
         data["stories"][story_key] = new_story
+        
+        # Update series counts if story belongs to a series
+        if story_data.series:
+            series_data = data.get("series", {})
+            if story_data.series not in series_data:
+                series_data[story_data.series] = {
+                    "name": story_data.series,
+                    "total_stories": 0,
+                    "published": 0,
+                    "spacing_days": 7,
+                    "stories": []
+                }
+            if story_key not in series_data[story_data.series]["stories"]:
+                series_data[story_data.series]["stories"].append(story_key)
+            data["series"] = series_data
+            # Update series counts
+            data = await StoryService._update_series_counts(data)
+        
         await save_stories_data(data)
         return StoryResponse(key=story_key, **new_story)
 
@@ -166,6 +206,8 @@ class StoryService:
             return None
 
         story = data["stories"][actual_key]
+        old_series = story.get("series")
+        old_status = story.get("status")
         update_dict = update_data.model_dump(exclude_unset=True)
 
         for field, value in update_dict.items():
@@ -173,6 +215,15 @@ class StoryService:
                 story[field] = value
 
         story["last_updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # Check if series changed or status changed to/from Published
+        new_series = story.get("series")
+        new_status = story.get("status")
+        
+        if old_series != new_series or old_status != new_status:
+            # Update series counts
+            data = await StoryService._update_series_counts(data)
+        
         await save_stories_data(data)
         return StoryResponse(key=actual_key, **story)
 
@@ -201,6 +252,25 @@ class StoryService:
         if not actual_key:
             return False
 
+        # Remove from series before deleting
+        story = data["stories"][actual_key]
+        series_name = story.get("series")
+        if series_name:
+            series_data = data.get("series", {})
+            if series_name in series_data:
+                if actual_key in series_data[series_name]["stories"]:
+                    series_data[series_name]["stories"].remove(actual_key)
+            data["series"] = series_data
+        
         del data["stories"][actual_key]
+        
+        # Update series counts
+        data = await StoryService._update_series_counts(data)
+        
         await save_stories_data(data)
         return True
+
+    @staticmethod
+    async def _save_stories_data(data: Dict[str, Any]) -> None:
+        """Internal method to save stories data (used by series router)"""
+        await save_stories_data(data)
