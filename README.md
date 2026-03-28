@@ -97,6 +97,11 @@ python run.py
 The system follows a clean architecture pattern with clear separation of concerns between presentation, business logic, and data persistence.
 
 ```mermaid
+---
+config:
+  theme: base
+  layout: elk
+---
 graph TB
     subgraph "Client Layer"
         A[Web Browser]
@@ -153,6 +158,11 @@ graph TB
 ### Docker Container Architecture
 
 ```mermaid
+---
+config:
+  theme: base
+  layout: elk
+---
 graph TB
     subgraph "Docker Host"
         subgraph "Development Container"
@@ -194,6 +204,11 @@ graph TB
 ### Data Flow
 
 ```mermaid
+---
+config:
+  theme: base
+  layout: elk
+---
 sequenceDiagram
     participant User
     participant Dashboard
@@ -221,6 +236,11 @@ sequenceDiagram
 ### Publishing Calendar Generation
 
 ```mermaid
+---
+config:
+  theme: base
+  layout: elk
+---
 flowchart TD
     A[Start Calendar Generation] --> B[Load stories.json]
     B --> C[Filter Unpublished Stories]
@@ -254,6 +274,11 @@ flowchart TD
 ### CI/CD Pipeline
 
 ```mermaid
+---
+config:
+  theme: base
+  layout: elk
+---
 graph LR
     subgraph "Trigger"
         A[Push to main]
@@ -311,6 +336,11 @@ graph LR
 ### Project Structure
 
 ```mermaid
+---
+config:
+  theme: base
+  layout: elk
+---
 graph TD
     A[story-manager/] --> B[app/]
     A --> C[tests/]
@@ -345,6 +375,11 @@ graph TD
 ### Technology Stack
 
 ```mermaid
+---
+config:
+  theme: base
+  layout: elk
+---
 graph LR
     subgraph "Frontend"
         A[HTML5]
@@ -501,6 +536,11 @@ python run.py
 Once running, access the dashboard at `http://localhost:8000`
 
 ```mermaid
+---
+config:
+  theme: base
+  layout: elk
+---
 graph TD
     subgraph "Dashboard Navigation"
         A[Dashboard] --> B[Overview Stats]
@@ -573,6 +613,11 @@ stories/
 ### Series Organization
 
 ```mermaid
+---
+config:
+  theme: base
+  layout: elk
+---
 erDiagram
     SERIES ||--o{ STORY : contains
     SERIES {
@@ -609,6 +654,11 @@ The calendar generator automatically schedules unpublished stories based on:
 4. **Part ordering** - Respects story order within series
 
 ```mermaid
+---
+config:
+  theme: base
+  layout: elk
+---
 flowchart LR
     subgraph "Input"
         A[Unpublished Stories]
@@ -649,6 +699,11 @@ This project uses GitHub Actions for continuous integration and deployment.
 ### Pipeline Stages
 
 ```mermaid
+---
+config:
+  theme: base
+  layout: elk
+---
 stateDiagram-v2
     [*] --> CI
     CI --> Security

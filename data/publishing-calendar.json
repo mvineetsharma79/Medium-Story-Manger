@@ -1,0 +1,551 @@
+{
+  "generated": "2026-03-28T22:53:00.316962",
+  "summary": {
+    "total_scheduled": 58,
+    "stories_per_week": 3,
+    "series_spacing_default": 7,
+    "start_date": "2026-03-28",
+    "series_counts": {
+      "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs": 4,
+      "10 Essential Microservices Architecture Patterns": 4,
+      "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution": 1,
+      "SOLID Principles": 6,
+      "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts": 5,
+      "Design Patterns": 6,
+      "GitHub": 5,
+      "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide": 1,
+      "AI Engineering": 9,
+      "Dotnet Python NodeJS": 4,
+      "Miscellaneous": 3,
+      "SQL Mechanic to Data Architect": 3,
+      "Vehixcare": 4,
+      "Payment System": 1,
+      "Code to Cluster": 2
+    },
+    "remaining_unpublished": 0
+  },
+  "schedule": [
+    {
+      "date": "2026-03-30",
+      "weekday": "Monday",
+      "story_key": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs/Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs",
+      "name": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs",
+      "series": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-03-31",
+      "weekday": "Tuesday",
+      "story_key": "10 Essential Microservices Architecture Patterns/10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and Azure - Part 2",
+      "name": "10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and Azure - Part 2",
+      "series": "10 Essential Microservices Architecture Patterns",
+      "part": 2,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-01",
+      "weekday": "Wednesday",
+      "story_key": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution/LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
+      "name": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
+      "series": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-06",
+      "weekday": "Monday",
+      "story_key": "SOLID Principles/SOLID Principles: Part 3 - Open-Closed Principle",
+      "name": "SOLID Principles: Part 3 - Open-Closed Principle",
+      "series": "SOLID Principles",
+      "part": 3,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-07",
+      "weekday": "Tuesday",
+      "story_key": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs/Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs - Part 1",
+      "name": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs - Part 1",
+      "series": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs",
+      "part": 1,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-08",
+      "weekday": "Wednesday",
+      "story_key": "10 Essential Microservices Architecture Patterns/10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and AWS - Part 1",
+      "name": "10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and AWS - Part 1",
+      "series": "10 Essential Microservices Architecture Patterns",
+      "part": 1,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-13",
+      "weekday": "Monday",
+      "story_key": "SOLID Principles/SOLID Principles: Part 4 - Liskov Substitution Principle",
+      "name": "SOLID Principles: Part 4 - Liskov Substitution Principle",
+      "series": "SOLID Principles",
+      "part": 4,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-14",
+      "weekday": "Tuesday",
+      "story_key": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs/Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs - Part 2",
+      "name": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs - Part 2",
+      "series": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs",
+      "part": 2,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-15",
+      "weekday": "Wednesday",
+      "story_key": "10 Essential Microservices Architecture Patterns/10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and Azure - Part 1",
+      "name": "10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and Azure - Part 1",
+      "series": "10 Essential Microservices Architecture Patterns",
+      "part": 1,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-20",
+      "weekday": "Monday",
+      "story_key": "SOLID Principles/SOLID Principles: Building Spotify's Unshakable Foundation",
+      "name": "SOLID Principles: Building Spotify's Unshakable Foundation",
+      "series": "SOLID Principles",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-21",
+      "weekday": "Tuesday",
+      "story_key": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs/Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs - Part 3",
+      "name": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs - Part 3",
+      "series": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs",
+      "part": 3,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-22",
+      "weekday": "Wednesday",
+      "story_key": "10 Essential Microservices Architecture Patterns/10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and AWS - Part 2",
+      "name": "10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and AWS - Part 2",
+      "series": "10 Essential Microservices Architecture Patterns",
+      "part": 2,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-27",
+      "weekday": "Monday",
+      "story_key": "SOLID Principles/SOLID Principles: Part 5 - Interface Segregation Principl",
+      "name": "SOLID Principles: Part 5 - Interface Segregation Principl",
+      "series": "SOLID Principles",
+      "part": 5,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-28",
+      "weekday": "Tuesday",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 1: The Foundation - User Access & Data Ingestion",
+      "name": "Enterprise AI Architecture Part 1: The Foundation - User Access & Data Ingestion",
+      "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "part": 1,
+      "read_time": null
+    },
+    {
+      "date": "2026-04-29",
+      "weekday": "Wednesday",
+      "story_key": "Design Patterns/Design Patterns: Part 1 -  Redefining Design Patterns",
+      "name": "Design Patterns: Part 1 -  Redefining Design Patterns",
+      "series": "Design Patterns",
+      "part": 1,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-04",
+      "weekday": "Monday",
+      "story_key": "SOLID Principles/SOLID Principles: Part 1 - Building Unbreakable",
+      "name": "SOLID Principles: Part 1 - Building Unbreakable",
+      "series": "SOLID Principles",
+      "part": 1,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-05",
+      "weekday": "Tuesday",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 2: The Brain - Models, Routing & Intelligent Agents",
+      "name": "Enterprise AI Architecture Part 2: The Brain - Models, Routing & Intelligent Agents",
+      "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "part": 2,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-06",
+      "weekday": "Wednesday",
+      "story_key": "Design Patterns/Redefining OOPs: Beyond the Car and Animal Analogy",
+      "name": "Redefining OOPs: Beyond the Car and Animal Analogy",
+      "series": "Design Patterns",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-11",
+      "weekday": "Monday",
+      "story_key": "SOLID Principles/SOLID Principles: Part 6 - Dependency Inversion Principle",
+      "name": "SOLID Principles: Part 6 - Dependency Inversion Principle",
+      "series": "SOLID Principles",
+      "part": 6,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-12",
+      "weekday": "Tuesday",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "name": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-13",
+      "weekday": "Wednesday",
+      "story_key": "Design Patterns/Design Patterns: Part 4 - Behavioral Patterns Deep Dive",
+      "name": "Design Patterns: Part 4 - Behavioral Patterns Deep Dive",
+      "series": "Design Patterns",
+      "part": 4,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-18",
+      "weekday": "Monday",
+      "story_key": "GitHub/GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
+      "name": "GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
+      "series": "GitHub",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-19",
+      "weekday": "Tuesday",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 4: The Control Room - Observability, Governance & Security",
+      "name": "Enterprise AI Architecture Part 4: The Control Room - Observability, Governance & Security",
+      "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "part": 4,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-20",
+      "weekday": "Wednesday",
+      "story_key": "Design Patterns/Design Patterns: Part 3 - Structural Patterns Deep Dive",
+      "name": "Design Patterns: Part 3 - Structural Patterns Deep Dive",
+      "series": "Design Patterns",
+      "part": 3,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-25",
+      "weekday": "Monday",
+      "story_key": "GitHub/GitHub Copilot in CI CD: AI-Powered Automation at Scale",
+      "name": "GitHub Copilot in CI CD: AI-Powered Automation at Scale",
+      "series": "GitHub",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-26",
+      "weekday": "Tuesday",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 3: The Hands - Agent Execution & Enterprise Integration",
+      "name": "Enterprise AI Architecture Part 3: The Hands - Agent Execution & Enterprise Integration",
+      "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "part": 3,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-27",
+      "weekday": "Wednesday",
+      "story_key": "Design Patterns/The Architect's Journey: Mastering Object-Oriented Excellence",
+      "name": "The Architect's Journey: Mastering Object-Oriented Excellence",
+      "series": "Design Patterns",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-01",
+      "weekday": "Monday",
+      "story_key": "GitHub/GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
+      "name": "GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
+      "series": "GitHub",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-02",
+      "weekday": "Tuesday",
+      "story_key": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide/artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
+      "name": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
+      "series": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-03",
+      "weekday": "Wednesday",
+      "story_key": "Design Patterns/Design Patterns: Part 2 - Creational Patterns Deep Dive",
+      "name": "Design Patterns: Part 2 - Creational Patterns Deep Dive",
+      "series": "Design Patterns",
+      "part": 2,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-08",
+      "weekday": "Monday",
+      "story_key": "GitHub/GitHub Copilot on GitHub.com: AI-Powered Collaboration at Scale",
+      "name": "GitHub Copilot on GitHub.com: AI-Powered Collaboration at Scale",
+      "series": "GitHub",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-09",
+      "weekday": "Tuesday",
+      "story_key": "AI Engineering/AI Agent Engineering - EPILOGUE: The Future of AI Agents",
+      "name": "AI Agent Engineering - EPILOGUE: The Future of AI Agents",
+      "series": "AI Engineering",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-10",
+      "weekday": "Wednesday",
+      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Node",
+      "name": "From REST to gRPC: Architecting High-Performance APIs in Node",
+      "series": "Dotnet Python NodeJS",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-15",
+      "weekday": "Monday",
+      "story_key": "GitHub/GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
+      "name": "GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
+      "series": "GitHub",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-16",
+      "weekday": "Tuesday",
+      "story_key": "AI Engineering/AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
+      "name": "AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
+      "series": "AI Engineering",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-17",
+      "weekday": "Wednesday",
+      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Python",
+      "name": "From REST to gRPC: Architecting High-Performance APIs in Python",
+      "series": "Dotnet Python NodeJS",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-22",
+      "weekday": "Monday",
+      "story_key": "Miscellaneous/The Desktop Phoenix: An Architect's Guide to WPF in a Multi-Platform World",
+      "name": "The Desktop Phoenix: An Architect's Guide to WPF in a Multi-Platform World",
+      "series": "Miscellaneous",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-23",
+      "weekday": "Tuesday",
+      "story_key": "AI Engineering/AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
+      "name": "AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
+      "series": "AI Engineering",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-24",
+      "weekday": "Wednesday",
+      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in .NET 10",
+      "name": "From REST to gRPC: Architecting High-Performance APIs in .NET 10",
+      "series": "Dotnet Python NodeJS",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-29",
+      "weekday": "Monday",
+      "story_key": "Miscellaneous/Re-Learning .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
+      "name": "Re-Learning .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
+      "series": "Miscellaneous",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-30",
+      "weekday": "Tuesday",
+      "story_key": "AI Engineering/Artificial Intelligence: From Basic Concepts to Agentic Systems — Hands-On Implementation Guide",
+      "name": "Artificial Intelligence: From Basic Concepts to Agentic Systems — Hands-On Implementation Guide",
+      "series": "AI Engineering",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-01",
+      "weekday": "Wednesday",
+      "story_key": "Dotnet Python NodeJS/From REST to gRPC: A Unified Architecture Across NET 10, NodeJS, and Python",
+      "name": "From REST to gRPC: A Unified Architecture Across NET 10, NodeJS, and Python",
+      "series": "Dotnet Python NodeJS",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-06",
+      "weekday": "Monday",
+      "story_key": "Miscellaneous/ASP.NET Core Filters Deep Dive: Building Maintainable Web APIs with .NET 10 and Reactive Extensions",
+      "name": "ASP.NET Core Filters Deep Dive: Building Maintainable Web APIs with .NET 10 and Reactive Extensions",
+      "series": "Miscellaneous",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-07",
+      "weekday": "Tuesday",
+      "story_key": "AI Engineering/AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
+      "name": "AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
+      "series": "AI Engineering",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-08",
+      "weekday": "Wednesday",
+      "story_key": "SQL Mechanic to Data Architect/SQL Mechanic to Architect: Database UDFs, Stored Procedures, & Production-Grade Patterns — Part 2",
+      "name": "SQL Mechanic to Architect: Database UDFs, Stored Procedures, & Production-Grade Patterns — Part 2",
+      "series": "SQL Mechanic to Data Architect",
+      "part": 2,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-13",
+      "weekday": "Monday",
+      "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 1",
+      "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 1",
+      "series": "Vehixcare",
+      "part": 1,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-14",
+      "weekday": "Tuesday",
+      "story_key": "AI Engineering/AI Agent Engineering 1 - Foundation & LLM Fundamentals",
+      "name": "AI Agent Engineering 1 - Foundation & LLM Fundamentals",
+      "series": "AI Engineering",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-15",
+      "weekday": "Wednesday",
+      "story_key": "SQL Mechanic to Data Architect/SQL Mechanic to Architect: CTEs, Window Functions, Query Optimization, and Scalable Patterns- Part 1",
+      "name": "SQL Mechanic to Architect: CTEs, Window Functions, Query Optimization, and Scalable Patterns- Part 1",
+      "series": "SQL Mechanic to Data Architect",
+      "part": 1,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-20",
+      "weekday": "Monday",
+      "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 3",
+      "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 3",
+      "series": "Vehixcare",
+      "part": 3,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-21",
+      "weekday": "Tuesday",
+      "story_key": "AI Engineering/AI From the Top Down: How Agentic Systems, Generative Models, and Symbolic Logic Build Intelligence",
+      "name": "AI From the Top Down: How Agentic Systems, Generative Models, and Symbolic Logic Build Intelligence",
+      "series": "AI Engineering",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-22",
+      "weekday": "Wednesday",
+      "story_key": "SQL Mechanic to Data Architect/SQL Mechanic to Architect: Advanced Queries, SPs & Scalable Systems - The Complete Journey",
+      "name": "SQL Mechanic to Architect: Advanced Queries, SPs & Scalable Systems - The Complete Journey",
+      "series": "SQL Mechanic to Data Architect",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-27",
+      "weekday": "Monday",
+      "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 4",
+      "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 4",
+      "series": "Vehixcare",
+      "part": 4,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-28",
+      "weekday": "Tuesday",
+      "story_key": "AI Engineering/AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
+      "name": "AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
+      "series": "AI Engineering",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-29",
+      "weekday": "Wednesday",
+      "story_key": "Payment System/ISO 8583 vs. REST APIs vs. UPI: Architecting Multi-Network Payment Systems in .NET 10",
+      "name": "ISO 8583 vs. REST APIs vs. UPI: Architecting Multi-Network Payment Systems in .NET 10",
+      "series": "Payment System",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-08-03",
+      "weekday": "Monday",
+      "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 2",
+      "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 2",
+      "series": "Vehixcare",
+      "part": 2,
+      "read_time": null
+    },
+    {
+      "date": "2026-08-04",
+      "weekday": "Tuesday",
+      "story_key": "AI Engineering/Prompt Engineering vs Content Engineering vs RAG",
+      "name": "Prompt Engineering vs Content Engineering vs RAG",
+      "series": "AI Engineering",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-08-05",
+      "weekday": "Wednesday",
+      "story_key": "Code to Cluster/Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
+      "name": "Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
+      "series": "Code to Cluster",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-08-12",
+      "weekday": "Wednesday",
+      "story_key": "Code to Cluster/Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on Azure",
+      "name": "Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on Azure",
+      "series": "Code to Cluster",
+      "part": null,
+      "read_time": null
+    }
+  ]
+}

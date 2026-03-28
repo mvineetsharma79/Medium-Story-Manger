@@ -1,12 +1,12 @@
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
-from datetime import date, datetime
 from enum import Enum
 
 class StoryStatus(str, Enum):
     DRAFT = "Draft"
+    DONE = "Done"
+    READY = "Ready"
     PUBLISHED = "Published"
-    ARCHIVED = "Archived"
 
 class StoryCreate(BaseModel):
     name: str
@@ -14,6 +14,8 @@ class StoryCreate(BaseModel):
     series: Optional[str] = None
     tags: List[str] = []
     read_time: Optional[int] = None
+    reads: int = 0
+    created_date: Optional[str] = None
     notes: Optional[str] = ""
 
 class StoryUpdate(BaseModel):
@@ -22,24 +24,37 @@ class StoryUpdate(BaseModel):
     series: Optional[str] = None
     status: Optional[StoryStatus] = None
     published_date: Optional[str] = None
+    created_date: Optional[str] = None
     tags: Optional[List[str]] = None
     read_time: Optional[int] = None
+    reads: Optional[int] = None
     medium_url: Optional[str] = None
     notes: Optional[str] = None
+    linkedin_status: Optional[str] = None
+    linkedin_timestamp: Optional[str] = None
+    linkedin_impressions: Optional[int] = None
+    linkedin_url: Optional[str] = None
 
 class StoryResponse(BaseModel):
     key: str
     name: str
     folder: str
     series: Optional[str]
+    raw_path: Optional[str] = None  # Raw path for display
     rel_path: str
     status: str
     published_date: Optional[str]
     created_date: str
+    last_updated: Optional[str] = None
     tags: List[str]
     read_time: Optional[int]
+    reads: int = 0
     medium_url: Optional[str]
     notes: str
+    linkedin_status: Optional[str] = None
+    linkedin_timestamp: Optional[str] = None
+    linkedin_impressions: Optional[int] = 0
+    linkedin_url: Optional[str] = None
 
 class SeriesCreate(BaseModel):
     name: str

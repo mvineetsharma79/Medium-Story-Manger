@@ -3,6 +3,7 @@ from typing import Dict, Any
 
 from app.services.file_service import load_stories_data, save_stories_data
 from app.models import CalendarSettingsUpdate
+from config import settings
 
 router = APIRouter()
 
@@ -31,5 +32,4 @@ async def update_calendar_settings(update: CalendarSettingsUpdate):
 @router.get("/stories-root")
 async def get_stories_root():
     """Get configured stories root folder"""
-    from config import settings
-    return {"stories_root": settings.stories_root}
+    return {"stories_root": settings.stories_root, "data_dir": settings.data_dir}

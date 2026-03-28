@@ -1,10 +1,15 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
+import logging
 
 from app.routers import stories, series, calendar, settings
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Story Manager", version="1.0.0")
 
@@ -15,6 +20,7 @@ app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
 
 # Templates
 templates_path = Path(__file__).parent / "templates"
+templates_path.mkdir(parents=True, exist_ok=True)
 templates = Jinja2Templates(directory=str(templates_path))
 
 # Include routers
@@ -32,3 +38,8 @@ async def index(request: Request):
 async def health():
     """Health check"""
     return {"status": "healthy"}
+
+@app.on_event("startup")
+async def startup_event():
+    """Startup event handler"""
+    logger.info("Starting Story Manager API")
