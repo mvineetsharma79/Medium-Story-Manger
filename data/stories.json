@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-29T05:15:00.015658",
+  "last_updated": "2026-03-29T05:30:07.154981",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl": {
       "name": "SOLID Principles: Part 2 - Single Responsibility Principl",
@@ -506,10 +506,10 @@
       "status": "Published",
       "published_date": "2026-03-16",
       "created_date": "2026-03-29",
-      "last_updated": "2026-03-29 04:31:10",
+      "last_updated": "2026-03-29 05:28:06",
       "tags": [],
       "read_time": null,
-      "reads": 0,
+      "reads": 100,
       "medium_url": null,
       "notes": "",
       "linkedin_status": "posted",
@@ -1228,10 +1228,10 @@
       "status": "Published",
       "published_date": "2026-03-28",
       "created_date": "2026-03-29",
-      "last_updated": "2026-03-29 04:01:30",
+      "last_updated": "2026-03-29 05:28:24",
       "tags": [],
       "read_time": null,
-      "reads": 0,
+      "reads": 101,
       "medium_url": "https://mvineetsharma.medium.com/github-copilot-the-ai-powered-development-ecosystem-1ff02f7934c8",
       "notes": "",
       "linkedin_status": "posted",
@@ -2319,6 +2319,43 @@
       "medium_author": null,
       "medium_publication": null,
       "last_stats_update": null
+    },
+    "./ Podman + Kubernetes in Production": {
+      "name": " Podman + Kubernetes in Production",
+      "folder": ".",
+      "series": "Miscellaneous",
+      "raw_path": "./ Podman + Kubernetes in Production.md",
+      "rel_path": " Podman + Kubernetes in Production",
+      "status": "Published",
+      "published_date": "2026-03-29",
+      "created_date": "2026-01-21",
+      "last_updated": "2026-03-29 05:25:18",
+      "tags": [],
+      "read_time": 10,
+      "reads": 0,
+      "medium_url": "https://medium.com/@mvineetsharma/podman-kubernetes-in-production-2262bed3cb6b",
+      "notes": "",
+      "linkedin_status": null,
+      "linkedin_timestamp": null,
+      "linkedin_impressions": 0,
+      "linkedin_url": null,
+      "claps": 0,
+      "responses": 0,
+      "bookmarks": 0,
+      "view_count": 0,
+      "read_ratio": 0,
+      "medium_reading_time": 0,
+      "fan_count": 0,
+      "medium_first_published": null,
+      "medium_last_updated": null,
+      "medium_tags": [],
+      "medium_topics": [],
+      "word_count": 0,
+      "medium_title": null,
+      "medium_subtitle": null,
+      "medium_author": null,
+      "medium_publication": null,
+      "last_stats_update": null
     }
   },
   "series": {
@@ -2452,14 +2489,15 @@
     },
     "Miscellaneous": {
       "name": "Miscellaneous",
-      "total_stories": 3,
-      "published": 2,
+      "total_stories": 4,
+      "published": 3,
       "spacing_days": 7,
       "stories": [
         "Miscellaneous/The Desktop Phoenix: An Architect's Guide to WPF in a Multi-Platform World",
         "Miscellaneous/Re-Learning .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
         "Miscellaneous/ASP.NET Core Filters Deep Dive: Building Maintainable Web APIs with .NET 10 and Reactive Extensions",
-        "Miscellaneous/New Story"
+        "Miscellaneous/New Story",
+        "./ Podman + Kubernetes in Production"
       ]
     },
     "SQL Mechanic to Data Architect": {

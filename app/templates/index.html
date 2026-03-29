@@ -46,6 +46,10 @@
         .modal-lg { max-width: 900px; }
         .table th, .table td { vertical-align: middle; }
         .text-truncate-custom { max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .sortable { cursor: pointer; user-select: none; }
+        .sortable:hover { background-color: rgba(0,0,0,0.05); }
+        .sortable i { margin-left: 5px; font-size: 0.8rem; opacity: 0.5; }
+        .sortable.active i { opacity: 1; }
     </style>
 </head>
 <body>
@@ -147,24 +151,30 @@
                             <div class="card-body py-2">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label class="form-label small fw-bold">Post Status</label>
-                                        <select class="form-select form-select-sm" id="editStoryLinkedinStatus">
-                                            <option value="">Not Posted</option>
-                                            <option value="scheduled">📅 Scheduled</option>
-                                            <option value="posted">✅ Posted</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label small fw-bold">Post Timestamp</label>
-                                        <div class="date-input-group">
-                                            <input type="datetime-local" class="form-control form-control-sm" id="editStoryLinkedinTimestamp" step="1">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary" id="setNowLinkedinBtn">Now</button>
-                                            <button type="button" class="btn btn-sm btn-outline-danger" id="clearLinkedinTimestampBtn">Clear</button>
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Post Status</label>
+                                            <select class="form-select form-select-sm" id="editStoryLinkedinStatus">
+                                                <option value="">Not Posted</option>
+                                                <option value="scheduled">📅 Scheduled</option>
+                                                <option value="posted">✅ Posted</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label small fw-bold">Impressions</label>
-                                        <input type="number" class="form-control form-control-sm" id="editStoryLinkedinImpressions" value="0" min="0" step="100">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Post Timestamp</label>
+                                            <div class="date-input-group">
+                                                <input type="datetime-local" class="form-control form-control-sm" id="editStoryLinkedinTimestamp" step="1">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setNowLinkedinTimestamp()">Now</button>
+                                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="clearLinkedinTimestamp()">Clear</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Impressions</label>
+                                            <input type="number" class="form-control form-control-sm" id="editStoryLinkedinImpressions" value="0" min="0" step="100">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -278,7 +288,9 @@
     </div>
 
     <script>
+        // ============================================
         // Helper Functions
+        // ============================================
         function getTodayDate() {
             const today = new Date();
             const yyyy = today.getFullYear();
@@ -318,6 +330,47 @@
             return '';
         }
         
+        // ============================================
+        // LinkedIn Functions
+        // ============================================
+        function setNowLinkedinTimestamp() {
+            document.getElementById('editStoryLinkedinTimestamp').value = getNowTimestamp();
+            updateLinkedinDisplay();
+        }
+        
+        function clearLinkedinTimestamp() {
+            document.getElementById('editStoryLinkedinTimestamp').value = '';
+            updateLinkedinDisplay();
+        }
+        
+        function clearAllLinkedinData() {
+            if (confirm('Clear all LinkedIn data for this story?')) {
+                document.getElementById('editStoryLinkedinStatus').value = '';
+                document.getElementById('editStoryLinkedinTimestamp').value = '';
+                document.getElementById('editStoryLinkedinImpressions').value = '0';
+                document.getElementById('editStoryLinkedinUrl').value = '';
+                updateLinkedinDisplay();
+                
+                const btn = document.getElementById('clearAllLinkedinBtn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check"></i> Cleared!';
+                setTimeout(() => { btn.innerHTML = originalText; }, 1500);
+            }
+        }
+        
+        function onLinkedinStatusChange() {
+            const status = document.getElementById('editStoryLinkedinStatus').value;
+            if (status === 'scheduled' || status === 'posted') {
+                const timestamp = document.getElementById('editStoryLinkedinTimestamp').value;
+                if (!timestamp) {
+                    document.getElementById('editStoryLinkedinTimestamp').value = getNowTimestamp();
+                }
+            } else if (status === '') {
+                document.getElementById('editStoryLinkedinTimestamp').value = '';
+            }
+            updateLinkedinDisplay();
+        }
+        
         function updateLinkedinDisplay() {
             const status = document.getElementById('editStoryLinkedinStatus').value;
             const timestamp = document.getElementById('editStoryLinkedinTimestamp').value;
@@ -325,15 +378,17 @@
             const display = document.getElementById('editStoryLinkedinDisplay');
             
             if (status === 'scheduled') {
-                display.innerHTML = `<i class="bi bi-calendar"></i> Scheduled: ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions || 0}`;
+                display.innerHTML = `<i class="bi bi-calendar"></i> <strong>LinkedIn:</strong> Scheduled for ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions || 0}`;
             } else if (status === 'posted') {
-                display.innerHTML = `<i class="bi bi-linkedin"></i> Posted: ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions || 0}`;
+                display.innerHTML = `<i class="bi bi-linkedin"></i> <strong>LinkedIn:</strong> Posted on ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions || 0}`;
             } else {
-                display.innerHTML = `<i class="bi bi-linkedin"></i> Not posted`;
+                display.innerHTML = '<i class="bi bi-linkedin"></i> <strong>LinkedIn:</strong> Not posted';
             }
         }
         
+        // ============================================
         // Filter State
+        // ============================================
         let filterState = { status: 'All', series: '', search: '' };
         
         function saveFilterState() {
@@ -349,7 +404,112 @@
             filterStories();
         }
         
+        // ============================================
+        // Sorting Functions
+        // ============================================
+        let sortState = {
+            stories: { column: 'created_date', direction: 'desc' },
+            series: { column: 'name', direction: 'asc' },
+            calendar: { column: 'date', direction: 'asc' }
+        };
+        let allCalendar = [];
+        
+        function sortStories(column) {
+            const direction = sortState.stories.column === column && sortState.stories.direction === 'asc' ? 'desc' : 'asc';
+            sortState.stories = { column, direction };
+            
+            const sorted = [...allStories].sort((a, b) => {
+                let aVal = a[column];
+                let bVal = b[column];
+                
+                if (column === 'reads' || column === 'claps' || column === 'linkedin_impressions') {
+                    aVal = aVal || 0;
+                    bVal = bVal || 0;
+                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
+                }
+                if (column === 'created_date' || column === 'published_date') {
+                    aVal = aVal || '';
+                    bVal = bVal || '';
+                    return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                }
+                aVal = (aVal || '').toString().toLowerCase();
+                bVal = (bVal || '').toString().toLowerCase();
+                return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+            });
+            
+            renderStoryTable(sorted);
+            updateSortIcons('stories', column, direction);
+        }
+        
+        function sortSeries(column) {
+            const direction = sortState.series.column === column && sortState.series.direction === 'asc' ? 'desc' : 'asc';
+            sortState.series = { column, direction };
+            
+            const sorted = [...allSeries].sort((a, b) => {
+                let aVal = a[column];
+                let bVal = b[column];
+                
+                if (column === 'total_stories' || column === 'published') {
+                    aVal = aVal || 0;
+                    bVal = bVal || 0;
+                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
+                }
+                aVal = (aVal || '').toString().toLowerCase();
+                bVal = (bVal || '').toString().toLowerCase();
+                return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+            });
+            
+            renderSeriesTable(sorted);
+            updateSortIcons('series', column, direction);
+        }
+        
+        function sortCalendar(column) {
+            const direction = sortState.calendar.column === column && sortState.calendar.direction === 'asc' ? 'desc' : 'asc';
+            sortState.calendar = { column, direction };
+            
+            const sorted = [...allCalendar].sort((a, b) => {
+                let aVal = a[column];
+                let bVal = b[column];
+                
+                if (column === 'date') {
+                    return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                }
+                if (column === 'read_time') {
+                    aVal = aVal || 0;
+                    bVal = bVal || 0;
+                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
+                }
+                aVal = (aVal || '').toString().toLowerCase();
+                bVal = (bVal || '').toString().toLowerCase();
+                return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+            });
+            
+            renderCalendarTable(sorted);
+            updateSortIcons('calendar', column, direction);
+        }
+        
+        function updateSortIcons(table, column, direction) {
+            const headerId = table === 'stories' ? 'storiesTableHeader' : (table === 'series' ? 'seriesTableHeader' : 'calendarTableHeader');
+            const header = document.getElementById(headerId);
+            if (!header) return;
+            
+            header.querySelectorAll('.sortable').forEach(th => {
+                th.classList.remove('active');
+                const icon = th.querySelector('i');
+                if (icon) icon.className = 'bi bi-arrow-down-up';
+            });
+            
+            const activeTh = header.querySelector(`.sortable[data-sort="${column}"]`);
+            if (activeTh) {
+                activeTh.classList.add('active');
+                const icon = activeTh.querySelector('i');
+                if (icon) icon.className = direction === 'asc' ? 'bi bi-arrow-up' : 'bi bi-arrow-down';
+            }
+        }
+        
+        // ============================================
         // API & Variables
+        // ============================================
         const API_BASE = '/api';
         let currentView = 'dashboard';
         let allStories = [];
@@ -367,37 +527,10 @@
                 });
             });
             
-            document.getElementById('setNowLinkedinBtn')?.addEventListener('click', () => {
-                document.getElementById('editStoryLinkedinTimestamp').value = getNowTimestamp();
-                updateLinkedinDisplay();
-            });
-            
-            document.getElementById('clearLinkedinTimestampBtn')?.addEventListener('click', () => {
-                document.getElementById('editStoryLinkedinTimestamp').value = '';
-                updateLinkedinDisplay();
-            });
-            
-            document.getElementById('clearAllLinkedinBtn')?.addEventListener('click', () => {
-                if (confirm('Clear all LinkedIn data for this story?')) {
-                    document.getElementById('editStoryLinkedinStatus').value = '';
-                    document.getElementById('editStoryLinkedinTimestamp').value = '';
-                    document.getElementById('editStoryLinkedinImpressions').value = '0';
-                    document.getElementById('editStoryLinkedinUrl').value = '';
-                    updateLinkedinDisplay();
-                }
-            });
-            
-            document.getElementById('editStoryLinkedinStatus')?.addEventListener('change', () => {
-                const status = document.getElementById('editStoryLinkedinStatus').value;
-                if (status === 'scheduled' || status === 'posted') {
-                    const ts = document.getElementById('editStoryLinkedinTimestamp').value;
-                    if (!ts) document.getElementById('editStoryLinkedinTimestamp').value = getNowTimestamp();
-                } else if (status === '') {
-                    document.getElementById('editStoryLinkedinTimestamp').value = '';
-                }
-                updateLinkedinDisplay();
-            });
-            
+            document.getElementById('setNowLinkedinBtn')?.addEventListener('click', setNowLinkedinTimestamp);
+            document.getElementById('clearLinkedinTimestampBtn')?.addEventListener('click', clearLinkedinTimestamp);
+            document.getElementById('clearAllLinkedinBtn')?.addEventListener('click', clearAllLinkedinData);
+            document.getElementById('editStoryLinkedinStatus')?.addEventListener('change', onLinkedinStatusChange);
             document.getElementById('saveStoryEditBtn')?.addEventListener('click', saveStoryEdit);
         });
         
@@ -426,7 +559,9 @@
             allSeries = await res.json();
         }
         
+        // ============================================
         // Dashboard
+        // ============================================
         async function loadDashboard() {
             const res = await fetch(`${API_BASE}/stories/`);
             const stories = await res.json();
@@ -467,7 +602,9 @@
             `;
         }
         
-        // Stories List
+        // ============================================
+        // Stories List with Sorting
+        // ============================================
         async function loadStories() {
             const res = await fetch(`${API_BASE}/stories/`);
             const stories = await res.json();
@@ -489,12 +626,30 @@
                     <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search..." onkeyup="saveFilterState(); filterStories()">
                     <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">Clear</button>
                 </div>
-                <div class="table-responsive"><table class="table table-sm table-hover"><thead class="table-light">
-                     <tr><th>Status</th><th>Story Name</th><th>Series</th><th>Reads</th><th>Claps</th><th>Created</th><th>Published</th><th>LinkedIn</th><th>Impressions</th><th>Actions</th></tr>
-                </thead><tbody id="storiesTableBody"></tbody></table></div>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover">
+                        <thead id="storiesTableHeader" class="table-light">
+                            <tr>
+                                <th class="sortable" data-sort="status" onclick="sortStories('status')">Status <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="name" onclick="sortStories('name')">Story Name <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="series" onclick="sortStories('series')">Series <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="reads" onclick="sortStories('reads')">Reads <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="claps" onclick="sortStories('claps')">Claps <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="created_date" onclick="sortStories('created_date')">Created <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="published_date" onclick="sortStories('published_date')">Published <i class="bi bi-arrow-down-up"></i></th>
+                                <th>LinkedIn</th>
+                                <th class="sortable" data-sort="linkedin_impressions" onclick="sortStories('linkedin_impressions')">Impressions <i class="bi bi-arrow-down-up"></i></th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="storiesTableBody"></tbody>
+                    </table>
+                </div>
             `;
             renderStoryTable(stories);
             restoreFilterState();
+            // Apply initial sort
+            sortStories(sortState.stories.column);
         }
         
         function renderStoryTable(stories) {
@@ -508,6 +663,26 @@
                 const searchLower = filterState.search.toLowerCase();
                 filtered = filtered.filter(s => s.name.toLowerCase().includes(searchLower) || (s.series && s.series.toLowerCase().includes(searchLower)));
             }
+            
+            // Apply current sort
+            const { column, direction } = sortState.stories;
+            filtered.sort((a, b) => {
+                let aVal = a[column];
+                let bVal = b[column];
+                if (column === 'reads' || column === 'claps' || column === 'linkedin_impressions') {
+                    aVal = aVal || 0;
+                    bVal = bVal || 0;
+                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
+                }
+                if (column === 'created_date' || column === 'published_date') {
+                    aVal = aVal || '';
+                    bVal = bVal || '';
+                    return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                }
+                aVal = (aVal || '').toString().toLowerCase();
+                bVal = (bVal || '').toString().toLowerCase();
+                return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+            });
             
             tbody.innerHTML = filtered.map(story => {
                 let storyKey = story.key;
@@ -544,38 +719,130 @@
         function filterStoriesByStatus(status) { filterState.status = status === 'all' ? 'All' : status; loadView('stories'); }
         function filterStoriesByLinkedin() { loadView('stories'); }
         
-        // Series
+        // ============================================
+        // Series List with Sorting
+        // ============================================
         async function loadSeries() {
             const res = await fetch(`${API_BASE}/series/`);
             const series = await res.json();
-            document.getElementById('content').innerHTML = `<div class="d-flex justify-content-between mb-3"><h1 class="h3">Series</h1><button class="btn btn-sm btn-primary" onclick="addSeries()"><i class="bi bi-plus-lg"></i> Add Series</button></div>
-                <div class="table-responsive"><table class="table table-sm table-hover"><thead class="table-light"><tr><th>Series Name</th><th>Progress</th><th>Spacing (days)</th><th>Actions</th></tr></thead><tbody>${series.map(s => `<tr>
-                    <td><strong>${escapeHtml(s.name)}</strong></td>
-                    <td><div class="d-flex gap-2"><div class="progress" style="width:150px;height:6px;"><div class="progress-bar" style="width:${(s.published/(s.total_stories||1))*100}%"></div></div><small>${s.published}/${s.total_stories||0}</small></div></td>
-                    <td><input type="number" class="form-control form-control-sm" style="width:80px;" value="${s.spacing_days}" onchange="updateSeriesSpacing('${s.name}',this.value)"></td>
-                    <td><button class="btn btn-sm btn-danger" onclick="deleteSeries('${s.name}')"><i class="bi bi-trash"></i></button></td>
-                </tr>`).join('')}</tbody></table></div>`;
+            allSeries = series;
+            
+            document.getElementById('content').innerHTML = `
+                <div class="d-flex justify-content-between mb-3">
+                    <h1 class="h3">Series</h1>
+                    <button class="btn btn-sm btn-primary" onclick="addSeries()"><i class="bi bi-plus-lg"></i> Add Series</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover">
+                        <thead id="seriesTableHeader" class="table-light">
+                            <tr>
+                                <th class="sortable" data-sort="name" onclick="sortSeries('name')">Series Name <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="total_stories" onclick="sortSeries('total_stories')">Progress <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="spacing_days" onclick="sortSeries('spacing_days')">Spacing (days) <i class="bi bi-arrow-down-up"></i></th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="seriesTableBody"></tbody>
+                    </table>
+                </div>
+            `;
+            renderSeriesTable(series);
+            sortSeries(sortState.series.column);
         }
         
-        // Calendar
+        function renderSeriesTable(series) {
+            const tbody = document.getElementById('seriesTableBody');
+            if (!tbody) return;
+            
+            const { column, direction } = sortState.series;
+            const sorted = [...series].sort((a, b) => {
+                let aVal = a[column];
+                let bVal = b[column];
+                if (column === 'total_stories' || column === 'published' || column === 'spacing_days') {
+                    aVal = aVal || 0;
+                    bVal = bVal || 0;
+                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
+                }
+                aVal = (aVal || '').toString().toLowerCase();
+                bVal = (bVal || '').toString().toLowerCase();
+                return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+            });
+            
+            tbody.innerHTML = sorted.map(s => `
+                <tr>
+                    <td><strong>${escapeHtml(s.name)}</strong></td>
+                    <td>
+                        <div class="d-flex gap-2 align-items-center">
+                            <div class="progress" style="width:150px;height:6px;">
+                                <div class="progress-bar" style="width:${(s.published / (s.total_stories || 1)) * 100}%"></div>
+                            </div>
+                            <small>${s.published}/${s.total_stories || 0}</small>
+                        </div>
+                    </td>
+                    <td><input type="number" class="form-control form-control-sm" style="width:80px;" value="${s.spacing_days}" onchange="updateSeriesSpacing('${s.name}', this.value)"></td>
+                    <td><button class="btn btn-sm btn-danger" onclick="deleteSeries('${s.name}')"><i class="bi bi-trash"></i></button></td>
+                </tr>
+            `).join('');
+        }
+        
+        // ============================================
+        // Calendar with Sorting
+        // ============================================
         async function loadCalendar() {
             const res = await fetch(`${API_BASE}/calendar/`);
             const calendar = await res.json();
-            document.getElementById('content').innerHTML = `<div class="d-flex justify-content-between mb-3"><h1 class="h3">Publishing Calendar</h1><button class="btn btn-sm btn-primary" onclick="generateCalendar()"><i class="bi bi-arrow-repeat"></i> Regenerate</button></div>
-                <div class="row g-2 mb-3"><div class="col-md-3"><div class="card bg-info text-white p-2"><small>Scheduled</small><h5>${calendar.summary?.total_scheduled||0}</h5></div></div>
-                <div class="col-md-3"><div class="card bg-warning text-white p-2"><small>Stories/Week</small><h5>${calendar.summary?.stories_per_week||3}</h5></div></div>
-                <div class="col-md-3"><div class="card bg-secondary text-white p-2"><small>Series Spacing</small><h5>${calendar.summary?.series_spacing_default||7} days</h5></div></div>
-                <div class="col-md-3"><div class="card bg-dark text-white p-2"><small>Remaining</small><h5>${calendar.summary?.remaining_unpublished||0}</h5></div></div></div>
-                <div class="table-responsive"><table class="table table-sm table-hover"><thead class="table-light"><tr><th>Date</th><th>Story</th><th>Series</th><th>Part</th><th>Actions</th></tr></thead><tbody>${calendar.schedule?.map(c => `<tr>
-                    <td><strong>${c.date}</strong><br><small>${c.weekday}</small></td>
-                    <td>${escapeHtml(c.name)}</td>
-                    <td>${c.series||'Standalone'}</td>
-                    <td>${c.part?`Part ${c.part}`:'—'}</td>
-                    <td><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g,"\\'")}')">Publish</button></td>
-                </tr>`).join('')||'<tr><td colspan="5" class="text-center">No scheduled stories</td></tr>'}</tbody></table></div>`;
+            allCalendar = calendar.schedule || [];
+            
+            document.getElementById('content').innerHTML = `
+                <div class="d-flex justify-content-between mb-3">
+                    <h1 class="h3">Publishing Calendar</h1>
+                    <button class="btn btn-sm btn-primary" onclick="generateCalendar()"><i class="bi bi-arrow-repeat"></i> Regenerate</button>
+                </div>
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3"><div class="card bg-info text-white p-2"><small>Scheduled</small><h5>${calendar.summary?.total_scheduled||0}</h5></div></div>
+                    <div class="col-md-3"><div class="card bg-warning text-white p-2"><small>Stories/Week</small><h5>${calendar.summary?.stories_per_week||3}</h5></div></div>
+                    <div class="col-md-3"><div class="card bg-secondary text-white p-2"><small>Series Spacing</small><h5>${calendar.summary?.series_spacing_default||7} days</h5></div></div>
+                    <div class="col-md-3"><div class="card bg-dark text-white p-2"><small>Remaining</small><h5>${calendar.summary?.remaining_unpublished||0}</h5></div></div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover">
+                        <thead id="calendarTableHeader" class="table-light">
+                            <tr>
+                                <th class="sortable" data-sort="date" onclick="sortCalendar('date')">Date <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="name" onclick="sortCalendar('name')">Story <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="series" onclick="sortCalendar('series')">Series <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="part" onclick="sortCalendar('part')">Part <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="read_time" onclick="sortCalendar('read_time')">Read Time <i class="bi bi-arrow-down-up"></i></th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendarTableBody"></tbody>
+                    </table>
+                </div>
+            `;
+            renderCalendarTable(allCalendar);
+            sortCalendar(sortState.calendar.column);
         }
         
+        function renderCalendarTable(calendar) {
+            const tbody = document.getElementById('calendarTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = calendar.map(c => `
+                <tr>
+                    <td><strong>${c.date}</strong><br><small>${c.weekday}</small></td>
+                    <td>${escapeHtml(c.name)}</td>
+                    <td>${c.series || 'Standalone'}</td>
+                    <td>${c.part ? `Part ${c.part}` : '—'}</td>
+                    <td>${c.read_time} min</td>
+                    <td><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g,"\\'")}')">Publish</button></td>
+                </tr>
+            `).join('') || '<tr><td colspan="6" class="text-center">No scheduled stories</td></tr>';
+        }
+        
+        // ============================================
         // Settings
+        // ============================================
         async function loadSettings() {
             const settingsRes = await fetch(`${API_BASE}/settings/`);
             const settings = await settingsRes.json();
@@ -592,7 +859,9 @@
             });
         }
         
+        // ============================================
         // Edit & Actions
+        // ============================================
         async function editStory(storyKey) {
             let cleanKey = storyKey;
             if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
@@ -679,7 +948,9 @@
             else alert('Error creating story');
         }
         
+        // ============================================
         // Stats Dashboard Functions
+        // ============================================
         async function showStatsDashboard(storyKey) {
             let cleanKey = storyKey;
             if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
@@ -794,7 +1065,9 @@
             `;
         }
         
+        // ============================================
         // Core Actions
+        // ============================================
         async function syncStories() { const res = await fetch(`${API_BASE}/stories/sync`, { method:'POST' }); if(res.ok){ saveFilterState(); await loadView(currentView); restoreFilterState(); } else alert('Sync failed'); }
         async function generateCalendar() { const res = await fetch(`${API_BASE}/calendar/generate`, { method:'POST' }); if(res.ok){ saveFilterState(); await loadView('calendar'); restoreFilterState(); } else alert('Generation failed'); }
         async function markPublished(storyKey) { let cleanKey = storyKey; if(cleanKey.toLowerCase().endsWith('.md')) cleanKey=cleanKey.slice(0,-3); const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}/publish`, { method:'POST' }); if(res.ok){ saveFilterState(); await loadView(currentView); restoreFilterState(); } else alert('Failed'); }
