@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-29T05:30:07.154981",
+  "last_updated": "2026-03-29T05:40:20.079383",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl": {
       "name": "SOLID Principles: Part 2 - Single Responsibility Principl",
@@ -2216,7 +2216,7 @@
       "status": "Published",
       "published_date": "2026-03-29",
       "created_date": "2026-03-25",
-      "last_updated": "2026-03-29 04:07:27",
+      "last_updated": "2026-03-29 05:40:11",
       "tags": [],
       "read_time": null,
       "reads": 0,
@@ -2242,7 +2242,8 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": null
+      "last_stats_update": null,
+      "bookmarked": false
     },
     "Code to Cluster/Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS": {
       "name": "Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
@@ -2329,7 +2330,7 @@
       "status": "Published",
       "published_date": "2026-03-29",
       "created_date": "2026-01-21",
-      "last_updated": "2026-03-29 05:25:18",
+      "last_updated": "2026-03-29 05:40:13",
       "tags": [],
       "read_time": 10,
       "reads": 0,
@@ -2355,7 +2356,8 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": null
+      "last_stats_update": null,
+      "bookmarked": false
     }
   },
   "series": {

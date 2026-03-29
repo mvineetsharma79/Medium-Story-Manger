@@ -50,6 +50,20 @@
         .sortable:hover { background-color: rgba(0,0,0,0.05); }
         .sortable i { margin-left: 5px; font-size: 0.8rem; opacity: 0.5; }
         .sortable.active i { opacity: 1; }
+        .bookmark-icon {
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+        .bookmark-icon:hover {
+            transform: scale(1.1);
+        }
+        .bookmark-icon.bookmarked {
+            color: #ffc107;
+        }
+        .bookmark-icon:not(.bookmarked) {
+            color: #6c757d;
+        }
     </style>
 </head>
 <body>
@@ -331,6 +345,36 @@
         }
         
         // ============================================
+        // Bookmark Functions
+        // ============================================
+        async function toggleBookmark(storyKey, event) {
+            event.stopPropagation();
+            let cleanKey = storyKey;
+            if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
+            
+            // Find the current story to get its bookmark state
+            const story = allStories.find(s => s.key === cleanKey);
+            if (!story) return;
+            
+            const newBookmarkState = !story.bookmarked;
+            
+            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ bookmarked: newBookmarkState })
+            });
+            
+            if (res.ok) {
+                // Update local state
+                story.bookmarked = newBookmarkState;
+                // Refresh the view to show updated bookmark
+                renderStoryTable(allStories);
+            } else {
+                alert('Failed to update bookmark');
+            }
+        }
+        
+        // ============================================
         // LinkedIn Functions
         // ============================================
         function setNowLinkedinTimestamp() {
@@ -389,18 +433,20 @@
         // ============================================
         // Filter State
         // ============================================
-        let filterState = { status: 'All', series: '', search: '' };
+        let filterState = { status: 'All', series: '', search: '', bookmarked: false };
         
         function saveFilterState() {
             filterState.status = document.getElementById('statusFilter')?.value || 'All';
             filterState.series = document.getElementById('seriesFilter')?.value || '';
             filterState.search = document.getElementById('searchFilter')?.value || '';
+            filterState.bookmarked = document.getElementById('bookmarkFilter')?.checked || false;
         }
         
         function restoreFilterState() {
             if (document.getElementById('statusFilter')) document.getElementById('statusFilter').value = filterState.status;
             if (document.getElementById('seriesFilter')) document.getElementById('seriesFilter').value = filterState.series;
             if (document.getElementById('searchFilter')) document.getElementById('searchFilter').value = filterState.search;
+            if (document.getElementById('bookmarkFilter')) document.getElementById('bookmarkFilter').checked = filterState.bookmarked;
             filterStories();
         }
         
@@ -431,6 +477,11 @@
                     aVal = aVal || '';
                     bVal = bVal || '';
                     return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                }
+                if (column === 'bookmarked') {
+                    aVal = aVal ? 1 : 0;
+                    bVal = bVal ? 1 : 0;
+                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
                 }
                 aVal = (aVal || '').toString().toLowerCase();
                 bVal = (bVal || '').toString().toLowerCase();
@@ -570,6 +621,7 @@
             const draft = stories.filter(s => s.status === 'Draft').length;
             const done = stories.filter(s => s.status === 'Done').length;
             const ready = stories.filter(s => s.status === 'Ready').length;
+            const bookmarked = stories.filter(s => s.bookmarked === true).length;
             const totalLinkedin = stories.filter(s => s.linkedin_status === 'posted').length;
             const totalImpressions = stories.reduce((sum, s) => sum + (s.linkedin_impressions || 0), 0);
             const totalReads = stories.reduce((sum, s) => sum + (s.reads || 0), 0);
@@ -584,7 +636,7 @@
                     <div class="col-md-2"><div class="card stat-card bg-success text-white" onclick="filterStoriesByStatus('Published')"><div class="card-body"><h6>Published</h6><h2>${published}</h2></div></div></div>
                     <div class="col-md-2"><div class="card stat-card bg-info text-white" onclick="filterStoriesByStatus('Ready')"><div class="card-body"><h6>Ready</h6><h2>${ready}</h2></div></div></div>
                     <div class="col-md-2"><div class="card stat-card bg-secondary text-white" onclick="filterStoriesByStatus('Done')"><div class="card-body"><h6>Done</h6><h2>${done}</h2></div></div></div>
-                    <div class="col-md-2"><div class="card stat-card" style="background:#0a66c2;color:white;" onclick="filterStoriesByLinkedin()"><div class="card-body"><h6>LinkedIn</h6><h2>${totalLinkedin}</h2></div></div></div>
+                    <div class="col-md-2"><div class="card stat-card" style="background:#ffc107;color:#000;" onclick="filterStoriesByBookmarked()"><div class="card-body"><h6>Bookmarked</h6><h2>${bookmarked}</h2></div></div></div>
                     <div class="col-md-2"><div class="card stat-card bg-dark text-white"><div class="card-body"><h6>Impressions</h6><h2>${formatNumber(totalImpressions)}</h2></div></div></div>
                 </div>
                 <div class="row g-2 mb-4">
@@ -594,7 +646,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6"><div class="card"><div class="card-header d-flex justify-content-between"><h6>Recent Stories</h6><button class="btn btn-sm btn-primary" onclick="loadView('stories')">View All</button></div>
-                    <div class="card-body p-0"><div class="list-group list-group-flush">${stories.slice(0,10).map(s => `<div class="list-group-item d-flex justify-content-between"><div><span class="status-badge ${s.status==='Published'?'status-published':s.status==='Ready'?'status-ready':s.status==='Done'?'status-done':'status-draft'}">${s.status}</span> ${escapeHtml(s.name.length>35?s.name.substring(0,35)+'...':s.name)} ${s.series?`<span class="series-badge">📚 ${s.series}</span>`:''}</div><button class="btn btn-sm btn-outline-primary" onclick="editStory('${s.key.replace(/'/g,"\\'")}')">Edit</button></div>`).join('')}</div></div></div></div>
+                    <div class="card-body p-0"><div class="list-group list-group-flush">${stories.slice(0,10).map(s => `<div class="list-group-item d-flex justify-content-between"><div><span class="status-badge ${s.status==='Published'?'status-published':s.status==='Ready'?'status-ready':s.status==='Done'?'status-done':'status-draft'}">${s.status}</span> ${escapeHtml(s.name.length>35?s.name.substring(0,35)+'...':s.name)} ${s.series?`<span class="series-badge">📚 ${s.series}</span>`:''} ${s.bookmarked?`<i class="bi bi-bookmark-fill text-warning"></i>`:''}</div><button class="btn btn-sm btn-outline-primary" onclick="editStory('${s.key.replace(/'/g,"\\'")}')">Edit</button></div>`).join('')}</div></div></div></div>
                     <div class="col-md-6"><div class="card"><div class="card-header d-flex justify-content-between"><h6>Upcoming Schedule</h6><button class="btn btn-sm btn-primary" onclick="generateCalendar()">Generate</button></div>
                     <div class="card-body p-0"><div class="list-group list-group-flush">${calendar.schedule?.slice(0,10).map(c => `<div class="list-group-item"><div class="d-flex justify-content-between"><div><strong>${c.date}</strong> (${c.weekday})<br><small>${escapeHtml(c.name)}</small>${c.series?`<span class="series-badge ms-2">📚 ${c.series}</span>`:''}</div><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g,"\\'")}')">Publish</button></div></div>`).join('') || '<div class="list-group-item text-muted">No scheduled stories</div>'}</div></div></div></div>
                 </div>
@@ -603,7 +655,7 @@
         }
         
         // ============================================
-        // Stories List with Sorting
+        // Stories List with Bookmark Column
         // ============================================
         async function loadStories() {
             const res = await fetch(`${API_BASE}/stories/`);
@@ -624,12 +676,17 @@
                     <select id="statusFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">${statuses.map(s => `<option value="${s}">${s}</option>`).join('')}</select>
                     <select id="seriesFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()"><option value="">All Series</option>${allSeries.map(s => `<option value="${s.name}">${s.name}</option>`).join('')}</select>
                     <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search..." onkeyup="saveFilterState(); filterStories()">
+                    <div class="form-check ms-2">
+                        <input class="form-check-input" type="checkbox" id="bookmarkFilter" onchange="saveFilterState(); filterStories()">
+                        <label class="form-check-label small" for="bookmarkFilter">Bookmarked only</label>
+                    </div>
                     <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">Clear</button>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-sm table-hover">
                         <thead id="storiesTableHeader" class="table-light">
                             <tr>
+                                <th class="sortable" data-sort="bookmarked" onclick="sortStories('bookmarked')"><i class="bi bi-bookmark"></i> <i class="bi bi-arrow-down-up"></i></th>
                                 <th class="sortable" data-sort="status" onclick="sortStories('status')">Status <i class="bi bi-arrow-down-up"></i></th>
                                 <th class="sortable" data-sort="name" onclick="sortStories('name')">Story Name <i class="bi bi-arrow-down-up"></i></th>
                                 <th class="sortable" data-sort="series" onclick="sortStories('series')">Series <i class="bi bi-arrow-down-up"></i></th>
@@ -648,7 +705,6 @@
             `;
             renderStoryTable(stories);
             restoreFilterState();
-            // Apply initial sort
             sortStories(sortState.stories.column);
         }
         
@@ -663,6 +719,7 @@
                 const searchLower = filterState.search.toLowerCase();
                 filtered = filtered.filter(s => s.name.toLowerCase().includes(searchLower) || (s.series && s.series.toLowerCase().includes(searchLower)));
             }
+            if (filterState.bookmarked) filtered = filtered.filter(s => s.bookmarked === true);
             
             // Apply current sort
             const { column, direction } = sortState.stories;
@@ -679,6 +736,11 @@
                     bVal = bVal || '';
                     return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
                 }
+                if (column === 'bookmarked') {
+                    aVal = aVal ? 1 : 0;
+                    bVal = bVal ? 1 : 0;
+                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
+                }
                 aVal = (aVal || '').toString().toLowerCase();
                 bVal = (bVal || '').toString().toLowerCase();
                 return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
@@ -693,6 +755,10 @@
                 else if (story.linkedin_status === 'posted') linkedinHtml = `<span class="linkedin-badge linkedin-posted">✅ Posted</span><br><small>${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</small>`;
                 
                 return `<tr class="table-row-clickable" onclick="editStory('${storyKey.replace(/'/g,"\\'")}')">
+                    <td class="text-center" onclick="event.stopPropagation()">
+                        <i class="bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}" 
+                           onclick="toggleBookmark('${storyKey.replace(/'/g,"\\'")}', event)"></i>
+                    </td>
                     <td><span class="status-badge ${story.status==='Published'?'status-published':story.status==='Ready'?'status-ready':story.status==='Done'?'status-done':'status-draft'}">${story.status}</span></td>
                     <td><strong title="${escapeHtml(story.name)}">${escapeHtml(story.name.length>50?story.name.substring(0,50)+'...':story.name)}</strong></td>
                     <td>${story.series ? `<span class="series-badge">📚 ${story.series}</span>` : '—'}</td>
@@ -715,9 +781,9 @@
         }
         
         function filterStories() { renderStoryTable(allStories); }
-        function clearFilters() { filterState = { status: 'All', series: '', search: '' }; if(document.getElementById('statusFilter')) document.getElementById('statusFilter').value='All'; if(document.getElementById('seriesFilter')) document.getElementById('seriesFilter').value=''; if(document.getElementById('searchFilter')) document.getElementById('searchFilter').value=''; filterStories(); }
+        function clearFilters() { filterState = { status: 'All', series: '', search: '', bookmarked: false }; if(document.getElementById('statusFilter')) document.getElementById('statusFilter').value='All'; if(document.getElementById('seriesFilter')) document.getElementById('seriesFilter').value=''; if(document.getElementById('searchFilter')) document.getElementById('searchFilter').value=''; if(document.getElementById('bookmarkFilter')) document.getElementById('bookmarkFilter').checked=false; filterStories(); }
         function filterStoriesByStatus(status) { filterState.status = status === 'all' ? 'All' : status; loadView('stories'); }
-        function filterStoriesByLinkedin() { loadView('stories'); }
+        function filterStoriesByBookmarked() { filterState.bookmarked = true; loadView('stories'); }
         
         // ============================================
         // Series List with Sorting
@@ -907,7 +973,8 @@
                 linkedin_status: document.getElementById('editStoryLinkedinStatus').value || null,
                 linkedin_timestamp: document.getElementById('editStoryLinkedinTimestamp').value || null,
                 linkedin_impressions: parseInt(document.getElementById('editStoryLinkedinImpressions').value) || 0,
-                linkedin_url: document.getElementById('editStoryLinkedinUrl').value || null
+                linkedin_url: document.getElementById('editStoryLinkedinUrl').value || null,
+                bookmarked: document.getElementById('editStoryBookmarked')?.checked || false
             };
             
             if (data.status === 'Published' && !data.published_date) data.published_date = getTodayDate();

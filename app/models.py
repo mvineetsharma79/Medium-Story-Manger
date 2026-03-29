@@ -51,6 +51,8 @@ class StoryUpdate(BaseModel):
     medium_author: Optional[str] = None
     medium_publication: Optional[str] = None
     last_stats_update: Optional[str] = None
+    bookmarked: Optional[bool] = None
+
 
 class StoryResponse(BaseModel):
     key: str
@@ -89,6 +91,8 @@ class StoryResponse(BaseModel):
     medium_author: Optional[str] = None
     medium_publication: Optional[str] = None
     last_stats_update: Optional[str] = None
+    bookmarked: bool = False
+
 
 class SeriesCreate(BaseModel):
     name: str
