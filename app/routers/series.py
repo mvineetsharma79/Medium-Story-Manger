@@ -1,125 +1,194 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any
+import logging
 
 from app.services.story_service import StoryService
 from app.models import SeriesResponse, SeriesCreate, SeriesUpdate
+from app.services.file_service import save_stories_data, load_stories_data
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
 @router.get("/", response_model=List[SeriesResponse])
 async def list_series():
     """List all series"""
-    data = await StoryService.sync_with_filesystem()
-    series_data = data.get("series", {})
-    settings = data.get("calendar_settings", {})
-    default_spacing = settings.get("series_spacing_days", 7)
-    
-    result = []
-    for name, info in series_data.items():
-        result.append(SeriesResponse(
-            name=name,
-            total_stories=info.get("total_stories", 0),
-            published=info.get("published", 0),
-            spacing_days=info.get("spacing_days", default_spacing),
-            stories=info.get("stories", [])
-        ))
-    
-    return result
+    try:
+        data = await load_stories_data()
+        series_data = data.get("series", {})
+        settings = data.get("calendar_settings", {})
+        default_spacing = settings.get("series_spacing_days", 7)
+        
+        result = []
+        for name, info in series_data.items():
+            result.append(SeriesResponse(
+                name=name,
+                total_stories=info.get("total_stories", 0),
+                published=info.get("published", 0),
+                spacing_days=info.get("spacing_days", default_spacing),
+                stories=info.get("stories", [])
+            ))
+        
+        return result
+    except Exception as e:
+        logger.error(f"List series error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/{series_name}", response_model=SeriesResponse)
 async def get_series(series_name: str):
     """Get a single series"""
-    data = await StoryService.sync_with_filesystem()
-    series_data = data.get("series", {})
-    
-    if series_name not in series_data:
-        raise HTTPException(status_code=404, detail="Series not found")
-    
-    settings = data.get("calendar_settings", {})
-    default_spacing = settings.get("series_spacing_days", 7)
-    info = series_data[series_name]
-    
-    return SeriesResponse(
-        name=series_name,
-        total_stories=info.get("total_stories", 0),
-        published=info.get("published", 0),
-        spacing_days=info.get("spacing_days", default_spacing),
-        stories=info.get("stories", [])
-    )
+    try:
+        data = await load_stories_data()
+        series_data = data.get("series", {})
+        
+        if series_name not in series_data:
+            raise HTTPException(status_code=404, detail="Series not found")
+        
+        settings = data.get("calendar_settings", {})
+        default_spacing = settings.get("series_spacing_days", 7)
+        info = series_data[series_name]
+        
+        return SeriesResponse(
+            name=series_name,
+            total_stories=info.get("total_stories", 0),
+            published=info.get("published", 0),
+            spacing_days=info.get("spacing_days", default_spacing),
+            stories=info.get("stories", [])
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Get series error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.post("/", response_model=SeriesResponse, status_code=201)
 async def create_series(series_data: SeriesCreate):
     """Create a new series"""
-    data = await StoryService.sync_with_filesystem()
-    series = data.get("series", {})
-    
-    if series_data.name in series:
-        raise HTTPException(status_code=400, detail="Series already exists")
-    
-    series[series_data.name] = {
-        "name": series_data.name,
-        "total_stories": 0,
-        "published": 0,
-        "spacing_days": series_data.spacing_days,
-        "stories": []
-    }
-    
-    await StoryService._save_stories_data(data)
-    
-    return SeriesResponse(
-        name=series_data.name,
-        total_stories=0,
-        published=0,
-        spacing_days=series_data.spacing_days or 7,
-        stories=[]
-    )
+    try:
+        data = await load_stories_data()
+        series = data.get("series", {})
+        
+        # Clean series name
+        clean_name = series_data.name.strip()
+        
+        if clean_name in series:
+            raise HTTPException(status_code=400, detail="Series already exists")
+        
+        series[clean_name] = {
+            "name": clean_name,
+            "total_stories": 0,
+            "published": 0,
+            "spacing_days": series_data.spacing_days or 7,
+            "stories": []
+        }
+        
+        # Save the updated data
+        await save_stories_data(data)
+        
+        return SeriesResponse(
+            name=clean_name,
+            total_stories=0,
+            published=0,
+            spacing_days=series_data.spacing_days or 7,
+            stories=[]
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Create series error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.put("/{series_name}", response_model=SeriesResponse)
 async def update_series(series_name: str, update_data: SeriesUpdate):
-    """Update a series"""
-    data = await StoryService.sync_with_filesystem()
-    series = data.get("series", {})
-    
-    if series_name not in series:
-        raise HTTPException(status_code=404, detail="Series not found")
-    
-    if update_data.name:
-        # Rename series
-        series[update_data.name] = series.pop(series_name)
-        series_name = update_data.name
-    
-    if update_data.spacing_days:
-        series[series_name]["spacing_days"] = update_data.spacing_days
-    
-    await StoryService._save_stories_data(data)
-    
-    settings = data.get("calendar_settings", {})
-    default_spacing = settings.get("series_spacing_days", 7)
-    info = series[series_name]
-    
-    return SeriesResponse(
-        name=series_name,
-        total_stories=info.get("total_stories", 0),
-        published=info.get("published", 0),
-        spacing_days=info.get("spacing_days", default_spacing),
-        stories=info.get("stories", [])
-    )
+    """Update a series (rename or change spacing)"""
+    try:
+        data = await load_stories_data()
+        series = data.get("series", {})
+        stories = data.get("stories", {})
+        
+        if series_name not in series:
+            raise HTTPException(status_code=404, detail="Series not found")
+        
+        if update_data.name:
+            # Rename series - clean the new name
+            new_name = update_data.name.strip()
+            old_name = series_name
+            
+            if new_name == old_name:
+                pass
+            elif new_name in series:
+                raise HTTPException(status_code=400, detail="Series with new name already exists")
+            else:
+                # Update the series dictionary
+                series[new_name] = series.pop(old_name)
+                series[new_name]["name"] = new_name
+                
+                # Update all stories that belong to this series
+                for story_key in series[new_name]["stories"]:
+                    if story_key in stories:
+                        stories[story_key]["series"] = new_name
+                
+                series_name = new_name
+        
+        if update_data.spacing_days:
+            series[series_name]["spacing_days"] = update_data.spacing_days
+        
+        # Update stories in data
+        data["stories"] = stories
+        data["series"] = series
+        
+        # Save the updated data
+        await save_stories_data(data)
+        
+        settings = data.get("calendar_settings", {})
+        default_spacing = settings.get("series_spacing_days", 7)
+        info = series[series_name]
+        
+        return SeriesResponse(
+            name=series_name,
+            total_stories=info.get("total_stories", 0),
+            published=info.get("published", 0),
+            spacing_days=info.get("spacing_days", default_spacing),
+            stories=info.get("stories", [])
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Update series error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.delete("/{series_name}")
 async def delete_series(series_name: str):
     """Delete a series"""
-    data = await StoryService.sync_with_filesystem()
-    series = data.get("series", {})
-    
-    if series_name not in series:
-        raise HTTPException(status_code=404, detail="Series not found")
-    
-    del series[series_name]
-    await StoryService._save_stories_data(data)
-    
-    return {"message": "Series deleted"}
+    try:
+        data = await load_stories_data()
+        series = data.get("series", {})
+        
+        if series_name not in series:
+            raise HTTPException(status_code=404, detail="Series not found")
+        
+        # Remove series association from all stories
+        stories = data.get("stories", {})
+        for story_key in series[series_name].get("stories", []):
+            if story_key in stories:
+                stories[story_key]["series"] = None
+        
+        # Delete the series
+        del series[series_name]
+        
+        data["stories"] = stories
+        data["series"] = series
+        
+        # Save the updated data
+        await save_stories_data(data)
+        
+        return {"message": f"Series '{series_name}' deleted successfully"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Delete series error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
