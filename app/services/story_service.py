@@ -36,27 +36,19 @@ class StoryService:
 
     @staticmethod
     async def sync_with_filesystem() -> Dict[str, Any]:
-        """Sync stories.json with filesystem - ADD NEW and UPDATE EXISTING only"""
+        """Sync stories.json with filesystem"""
         data = await load_stories_data()
         discovered = await scan_markdown_files()
         stories = data.get("stories", {})
         series_data = data.get("series", {})
 
-        discovered_keys = set()
-        added_count = 0
-        updated_count = 0
-        
         for file_info in discovered:
             story_key = f"{file_info['folder']}/{file_info['name']}"
-            discovered_keys.add(story_key)
 
             if story_key not in stories:
-                # Clean the name
-                clean_name = file_info['name'].strip()
-                
                 stories[story_key] = {
-                    "name": clean_name,
-                    "full_name": file_info.get('full_name', clean_name + '.md'),
+                    "name": file_info['name'],
+                    "full_name": file_info.get('full_name', file_info['name'] + '.md'),
                     "folder": file_info['folder'],
                     "series": file_info['series'],
                     "raw_path": file_info['raw_path'],
@@ -83,46 +75,19 @@ class StoryService:
                     "last_stats_update": None,
                     "bookmarked": False
                 }
-                logger.info(f"ADDED new story: {story_key}")
-                added_count += 1
-            else:
-                # Update existing story file metadata
-                existing = stories[story_key]
-                existing["name"] = file_info['name'].strip()
-                existing["full_name"] = file_info.get('full_name', file_info['name'] + '.md')
-                existing["folder"] = file_info['folder']
-                existing["series"] = file_info['series']
-                existing["raw_path"] = file_info['raw_path']
-                existing["rel_path"] = file_info['rel_path']
-                existing["last_updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                
-                # Ensure default fields exist
-                if "reads" not in existing:
-                    existing["reads"] = 0
-                if "linkedin_impressions" not in existing:
-                    existing["linkedin_impressions"] = 0
-                if "claps" not in existing:
-                    existing["claps"] = 0
-                if "responses" not in existing:
-                    existing["responses"] = 0
-                if "bookmarked" not in existing:
-                    existing["bookmarked"] = False
-                    
-                logger.info(f"UPDATED file metadata for: {story_key}")
-                updated_count += 1
+                logger.info(f"Added story: {story_key}")
 
             if file_info['series']:
-                series_name = file_info['series'].strip()
-                if series_name not in series_data:
-                    series_data[series_name] = {
-                        "name": series_name,
+                if file_info['series'] not in series_data:
+                    series_data[file_info['series']] = {
+                        "name": file_info['series'],
                         "total_stories": 0,
                         "published": 0,
                         "spacing_days": 7,
                         "stories": []
                     }
-                if story_key not in series_data[series_name]["stories"]:
-                    series_data[series_name]["stories"].append(story_key)
+                if story_key not in series_data[file_info['series']]["stories"]:
+                    series_data[file_info['series']]["stories"].append(story_key)
 
         # Update series counts
         for series_name, series_info in series_data.items():
@@ -139,12 +104,7 @@ class StoryService:
         data["stories"] = stories
         data["series"] = series_data
         await save_stories_data(data)
-        
-        return {
-            "added": added_count,
-            "updated": updated_count,
-            "total": len(stories)
-        }
+        return data
 
     @staticmethod
     async def get_all_stories() -> List[StoryResponse]:
@@ -158,17 +118,14 @@ class StoryService:
         data = await load_stories_data()
         clean_key = story_key.replace('.md', '')
         
-        # Try exact match
         if clean_key in data.get("stories", {}):
             story = data["stories"][clean_key]
             return StoryResponse(key=clean_key, **story)
         
-        # Try case-insensitive search
         for key, val in data.get("stories", {}).items():
             if key.lower() == clean_key.lower():
                 return StoryResponse(key=key, **val)
         
-        # Try normalized key (remove special characters)
         normalized_clean = clean_key.replace(':', '').replace('%3A', '').replace(' ', '')
         for key, val in data.get("stories", {}).items():
             normalized_key = key.replace(':', '').replace('%3A', '').replace(' ', '')
@@ -188,7 +145,6 @@ class StoryService:
         if story_key in data.get("stories", {}):
             raise ValueError(f"Story exists: {story_key}")
 
-        # Clean all string inputs
         clean_series = story_data.series.strip() if story_data.series else None
         clean_tags = [tag.strip() for tag in story_data.tags if tag.strip()]
         clean_notes = story_data.notes.strip() if story_data.notes else ""
@@ -225,7 +181,6 @@ class StoryService:
 
         data["stories"][story_key] = new_story
         
-        # Update series counts if story belongs to a series
         if clean_series:
             series_data = data.get("series", {})
             if clean_series not in series_data:
@@ -239,7 +194,6 @@ class StoryService:
             if story_key not in series_data[clean_series]["stories"]:
                 series_data[clean_series]["stories"].append(story_key)
             data["series"] = series_data
-            # Update series counts
             data = await StoryService._update_series_counts(data)
         
         await save_stories_data(data)
@@ -250,7 +204,6 @@ class StoryService:
         data = await load_stories_data()
         clean_key = story_key.replace('.md', '')
         
-        # Find the actual key if it exists
         actual_key = None
         if clean_key in data["stories"]:
             actual_key = clean_key
@@ -267,22 +220,16 @@ class StoryService:
         old_series = story.get("series")
         old_status = story.get("status")
         
-        # Get update dict and clean it
+        # Get update dict - only include fields that were explicitly set
         update_dict = update_data.model_dump(exclude_unset=True)
         
-        # Process each field - strip any extra whitespace/newlines
+        # Process each field - handle None values specially for LinkedIn fields
         for field, value in update_dict.items():
             if value is not None:
-                # Handle string fields
+                # Handle string fields - strip whitespace
                 if isinstance(value, str):
-                    # Clean the string - remove leading/trailing whitespace and newlines
-                    cleaned_value = value.strip()
-                    # For notes, preserve internal newlines but clean ends
-                    if field == 'notes':
-                        cleaned_value = value.strip()
-                    story[field] = cleaned_value
+                    story[field] = value.strip()
                 elif isinstance(value, list):
-                    # For lists, clean each string item
                     cleaned_list = []
                     for item in value:
                         if isinstance(item, str):
@@ -292,15 +239,17 @@ class StoryService:
                     story[field] = cleaned_list
                 else:
                     story[field] = value
+            else:
+                # Explicitly set fields to None if they are being cleared
+                # This is for LinkedIn fields and other nullable fields
+                story[field] = None
 
         story["last_updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
-        # Check if series changed or status changed to/from Published
         new_series = story.get("series")
         new_status = story.get("status")
         
         if old_series != new_series or old_status != new_status:
-            # Update series counts
             data = await StoryService._update_series_counts(data)
         
         await save_stories_data(data)
@@ -331,7 +280,6 @@ class StoryService:
         if not actual_key:
             return False
 
-        # Remove from series before deleting
         story = data["stories"][actual_key]
         series_name = story.get("series")
         if series_name:
@@ -342,8 +290,6 @@ class StoryService:
             data["series"] = series_data
         
         del data["stories"][actual_key]
-        
-        # Update series counts
         data = await StoryService._update_series_counts(data)
         
         await save_stories_data(data)

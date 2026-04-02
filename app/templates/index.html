@@ -23,9 +23,9 @@
         .sidebar a:hover, .sidebar a.active { background: #3498db; }
         .stat-card { transition: transform 0.2s; cursor: pointer; }
         .stat-card:hover { transform: translateY(-2px); }
-        .stat-card .card-body { padding: 0.75rem; }
-        .stat-card h2 { font-size: 1.5rem; margin-bottom: 0; }
-        .stat-card h6 { margin-bottom: 0; font-size: 0.75rem; }
+        .stat-card .card-body { padding: 0.5rem 0.75rem; }
+        .stat-card h2 { font-size: 1.2rem; margin-bottom: 0; font-weight: bold; }
+        .stat-card h6 { margin-bottom: 0; font-size: 0.7rem; opacity: 0.9; }
         .status-badge { font-size: 0.7rem; padding: 3px 8px; border-radius: 12px; display: inline-block; }
         .status-draft { background-color: #f39c12; color: white; }
         .status-done { background-color: #9b59b6; color: white; }
@@ -45,25 +45,17 @@
         .date-input-group input { flex: 1; min-width: 150px; }
         .modal-lg { max-width: 900px; }
         .table th, .table td { vertical-align: middle; }
-        .text-truncate-custom { max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .sortable { cursor: pointer; user-select: none; }
         .sortable:hover { background-color: rgba(0,0,0,0.05); }
         .sortable i { margin-left: 5px; font-size: 0.8rem; opacity: 0.5; }
         .sortable.active i { opacity: 1; }
-        .bookmark-icon {
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: transform 0.2s;
-        }
-        .bookmark-icon:hover {
-            transform: scale(1.1);
-        }
-        .bookmark-icon.bookmarked {
-            color: #ffc107;
-        }
-        .bookmark-icon:not(.bookmarked) {
-            color: #6c757d;
-        }
+        .bookmark-icon { cursor: pointer; font-size: 1.1rem; transition: transform 0.2s; }
+        .bookmark-icon:hover { transform: scale(1.1); }
+        .bookmark-icon.bookmarked { color: #ffc107; }
+        .bookmark-icon:not(.bookmarked) { color: #6c757d; }
+        .mini-stat-card .card-body { padding: 0.4rem 0.6rem; }
+        .mini-stat-card h2 { font-size: 1rem; margin-bottom: 0; }
+        .mini-stat-card h6 { font-size: 0.6rem; margin-bottom: 0; }
     </style>
 </head>
 <body>
@@ -179,8 +171,8 @@
                                             <label class="form-label small fw-bold">Post Timestamp</label>
                                             <div class="date-input-group">
                                                 <input type="datetime-local" class="form-control form-control-sm" id="editStoryLinkedinTimestamp" step="1">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setNowLinkedinTimestamp()">Now</button>
-                                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="clearLinkedinTimestamp()">Clear</button>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary" id="setNowLinkedinBtn">Now</button>
+                                                <button type="button" class="btn btn-sm btn-outline-danger" id="clearLinkedinTimestampBtn">Clear</button>
                                             </div>
                                         </div>
                                     </div>
@@ -345,36 +337,6 @@
         }
         
         // ============================================
-        // Bookmark Functions
-        // ============================================
-        async function toggleBookmark(storyKey, event) {
-            event.stopPropagation();
-            let cleanKey = storyKey;
-            if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
-            
-            // Find the current story to get its bookmark state
-            const story = allStories.find(s => s.key === cleanKey);
-            if (!story) return;
-            
-            const newBookmarkState = !story.bookmarked;
-            
-            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ bookmarked: newBookmarkState })
-            });
-            
-            if (res.ok) {
-                // Update local state
-                story.bookmarked = newBookmarkState;
-                // Refresh the view to show updated bookmark
-                renderStoryTable(allStories);
-            } else {
-                alert('Failed to update bookmark');
-            }
-        }
-        
-        // ============================================
         // LinkedIn Functions
         // ============================================
         function setNowLinkedinTimestamp() {
@@ -387,26 +349,95 @@
             updateLinkedinDisplay();
         }
         
-        function clearAllLinkedinData() {
-            if (confirm('Clear all LinkedIn data for this story?')) {
-                document.getElementById('editStoryLinkedinStatus').value = '';
-                document.getElementById('editStoryLinkedinTimestamp').value = '';
-                document.getElementById('editStoryLinkedinImpressions').value = '0';
-                document.getElementById('editStoryLinkedinUrl').value = '';
-                updateLinkedinDisplay();
-                
-                const btn = document.getElementById('clearAllLinkedinBtn');
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '<i class="bi bi-check"></i> Cleared!';
-                setTimeout(() => { btn.innerHTML = originalText; }, 1500);
-            }
-        }
+async function clearAllLinkedinData() {
+    if (!confirm('Clear all LinkedIn data for this story?')) return;
+    
+    // Get the story key from the hidden input
+    let storyKey = document.getElementById('editStoryKey')?.value;
+    if (!storyKey) {
+        alert('No story selected');
+        return;
+    }
+    
+    // Remove .md if present
+    if (storyKey.toLowerCase().endsWith('.md')) {
+        storyKey = storyKey.slice(0, -3);
+    }
+    
+    console.log('Clearing LinkedIn data for story:', storyKey);
+    
+    // Clear UI fields
+    document.getElementById('editStoryLinkedinStatus').value = '';
+    document.getElementById('editStoryLinkedinTimestamp').value = '';
+    document.getElementById('editStoryLinkedinImpressions').value = '0';
+    document.getElementById('editStoryLinkedinUrl').value = '';
+    
+    updateLinkedinDisplay();
+    
+    // Prepare data to save - preserve all other fields
+    const data = {
+        status: document.getElementById('editStoryStatus').value,
+        read_time: document.getElementById('editStoryReadTime').value ? parseInt(document.getElementById('editStoryReadTime').value) : null,
+        reads: parseInt(document.getElementById('editStoryReads').value) || 0,
+        tags: document.getElementById('editStoryTags').value.split(',').map(t=>t.trim()).filter(t=>t),
+        medium_url: document.getElementById('editStoryMediumUrl').value || null,
+        notes: document.getElementById('editStoryNotes').value,
+        created_date: document.getElementById('editStoryCreatedDate').value || null,
+        published_date: document.getElementById('editStoryPublishedDate').value || null,
+        linkedin_status: null,
+        linkedin_timestamp: null,
+        linkedin_impressions: 0,
+        linkedin_url: null
+    };
+    
+    // URL encode the story key properly
+    const encodedKey = encodeURIComponent(storyKey);
+    console.log('Encoded key:', encodedKey);
+    
+    try {
+        const response = await fetch(`${API_BASE}/stories/${encodedKey}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
         
+        const btn = document.getElementById('clearAllLinkedinBtn');
+        if (response.ok) {
+            if (btn) {
+                const original = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check"></i> Cleared!';
+                setTimeout(() => { btn.innerHTML = original; }, 1500);
+            }
+            // Refresh the view
+            saveFilterState();
+            await loadView(currentView);
+            restoreFilterState();
+        } else {
+            const error = await response.json();
+            console.error('Clear failed:', error);
+            if (btn) {
+                const original = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-exclamation-triangle"></i> Failed!';
+                setTimeout(() => { btn.innerHTML = original; }, 1500);
+            }
+            alert('Failed to clear LinkedIn data: ' + (error.detail || 'Unknown error'));
+        }
+    } catch (error) {
+        console.error('Error clearing LinkedIn data:', error);
+        alert('Error: ' + error.message);
+        const btn = document.getElementById('clearAllLinkedinBtn');
+        if (btn) {
+            const original = btn.innerHTML;
+            btn.innerHTML = '<i class="bi bi-exclamation-triangle"></i> Failed!';
+            setTimeout(() => { btn.innerHTML = original; }, 1500);
+        }
+    }
+}        
         function onLinkedinStatusChange() {
             const status = document.getElementById('editStoryLinkedinStatus').value;
             if (status === 'scheduled' || status === 'posted') {
-                const timestamp = document.getElementById('editStoryLinkedinTimestamp').value;
-                if (!timestamp) {
+                const ts = document.getElementById('editStoryLinkedinTimestamp').value;
+                if (!ts) {
                     document.getElementById('editStoryLinkedinTimestamp').value = getNowTimestamp();
                 }
             } else if (status === '') {
@@ -416,17 +447,45 @@
         }
         
         function updateLinkedinDisplay() {
-            const status = document.getElementById('editStoryLinkedinStatus').value;
-            const timestamp = document.getElementById('editStoryLinkedinTimestamp').value;
-            const impressions = document.getElementById('editStoryLinkedinImpressions').value;
+            const status = document.getElementById('editStoryLinkedinStatus')?.value || '';
+            const timestamp = document.getElementById('editStoryLinkedinTimestamp')?.value || '';
+            const impressions = document.getElementById('editStoryLinkedinImpressions')?.value || '0';
             const display = document.getElementById('editStoryLinkedinDisplay');
+            if (!display) return;
             
             if (status === 'scheduled') {
-                display.innerHTML = `<i class="bi bi-calendar"></i> <strong>LinkedIn:</strong> Scheduled for ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions || 0}`;
+                display.innerHTML = `<i class="bi bi-calendar"></i> <strong>LinkedIn:</strong> Scheduled for ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions}`;
             } else if (status === 'posted') {
-                display.innerHTML = `<i class="bi bi-linkedin"></i> <strong>LinkedIn:</strong> Posted on ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions || 0}`;
+                display.innerHTML = `<i class="bi bi-linkedin"></i> <strong>LinkedIn:</strong> Posted on ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions}`;
             } else {
                 display.innerHTML = '<i class="bi bi-linkedin"></i> <strong>LinkedIn:</strong> Not posted';
+            }
+        }
+        
+        // ============================================
+        // Bookmark Functions
+        // ============================================
+        async function toggleBookmark(storyKey, event) {
+            event.stopPropagation();
+            let cleanKey = storyKey;
+            if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
+            
+            const story = allStories.find(s => s.key === cleanKey);
+            if (!story) return;
+            
+            const newBookmarkState = !story.bookmarked;
+            
+            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ bookmarked: newBookmarkState })
+            });
+            
+            if (res.ok) {
+                story.bookmarked = newBookmarkState;
+                renderStoryTable(allStories);
+            } else {
+                alert('Failed to update bookmark');
             }
         }
         
@@ -499,7 +558,6 @@
             const sorted = [...allSeries].sort((a, b) => {
                 let aVal = a[column];
                 let bVal = b[column];
-                
                 if (column === 'total_stories' || column === 'published') {
                     aVal = aVal || 0;
                     bVal = bVal || 0;
@@ -521,7 +579,6 @@
             const sorted = [...allCalendar].sort((a, b) => {
                 let aVal = a[column];
                 let bVal = b[column];
-                
                 if (column === 'date') {
                     return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
                 }
@@ -575,9 +632,12 @@
                     e.preventDefault();
                     const view = link.dataset.view;
                     if (view) loadView(view);
+                    document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
                 });
             });
             
+            // Setup LinkedIn button listeners
             document.getElementById('setNowLinkedinBtn')?.addEventListener('click', setNowLinkedinTimestamp);
             document.getElementById('clearLinkedinTimestampBtn')?.addEventListener('click', clearLinkedinTimestamp);
             document.getElementById('clearAllLinkedinBtn')?.addEventListener('click', clearAllLinkedinData);
@@ -639,10 +699,10 @@
                     <div class="col-md-2"><div class="card stat-card" style="background:#ffc107;color:#000;" onclick="filterStoriesByBookmarked()"><div class="card-body"><h6>Bookmarked</h6><h2>${bookmarked}</h2></div></div></div>
                     <div class="col-md-2"><div class="card stat-card bg-dark text-white"><div class="card-body"><h6>Impressions</h6><h2>${formatNumber(totalImpressions)}</h2></div></div></div>
                 </div>
-                <div class="row g-2 mb-4">
-                    <div class="col-md-4"><div class="card bg-info text-white"><div class="card-body"><h6>Total Reads</h6><h2>${formatNumber(totalReads)}</h2></div></div></div>
-                    <div class="col-md-4"><div class="card bg-warning text-white"><div class="card-body"><h6>Total Claps</h6><h2>${formatNumber(totalClaps)}</h2></div></div></div>
-                    <div class="col-md-4"><div class="card bg-success text-white"><div class="card-body"><h6>Avg Reads/Story</h6><h2>${formatNumber(Math.round(totalReads / (published || 1)))}</h2></div></div></div>
+                <div class="row g-1 mb-4">
+                    <div class="col-md-4"><div class="card mini-stat-card bg-info text-white"><div class="card-body"><h6 class="mb-0">Total Reads</h6><h2 class="mb-0">${formatNumber(totalReads)}</h2></div></div></div>
+                    <div class="col-md-4"><div class="card mini-stat-card bg-warning text-white"><div class="card-body"><h6 class="mb-0">Total Claps</h6><h2 class="mb-0">${formatNumber(totalClaps)}</h2></div></div></div>
+                    <div class="col-md-4"><div class="card mini-stat-card bg-success text-white"><div class="card-body"><h6 class="mb-0">Avg Reads/Story</h6><h2 class="mb-0">${formatNumber(Math.round(totalReads / (published || 1)))}</h2></div></div></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6"><div class="card"><div class="card-header d-flex justify-content-between"><h6>Recent Stories</h6><button class="btn btn-sm btn-primary" onclick="loadView('stories')">View All</button></div>
@@ -655,7 +715,7 @@
         }
         
         // ============================================
-        // Stories List with Bookmark Column
+        // Stories List
         // ============================================
         async function loadStories() {
             const res = await fetch(`${API_BASE}/stories/`);
@@ -721,7 +781,6 @@
             }
             if (filterState.bookmarked) filtered = filtered.filter(s => s.bookmarked === true);
             
-            // Apply current sort
             const { column, direction } = sortState.stories;
             filtered.sort((a, b) => {
                 let aVal = a[column];
@@ -786,7 +845,7 @@
         function filterStoriesByBookmarked() { filterState.bookmarked = true; loadView('stories'); }
         
         // ============================================
-        // Series List with Sorting
+        // Series
         // ============================================
         async function loadSeries() {
             const res = await fetch(`${API_BASE}/series/`);
@@ -852,7 +911,7 @@
         }
         
         // ============================================
-        // Calendar with Sorting
+        // Calendar
         // ============================================
         async function loadCalendar() {
             const res = await fetch(`${API_BASE}/calendar/`);
@@ -928,35 +987,47 @@
         // ============================================
         // Edit & Actions
         // ============================================
-        async function editStory(storyKey) {
-            let cleanKey = storyKey;
-            if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
-            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`);
-            if (!res.ok) { alert('Story not found'); return; }
-            const story = await res.json();
-            
-            document.getElementById('editStoryNameDisplay').textContent = story.name;
-            document.getElementById('editStoryKey').value = cleanKey;
-            document.getElementById('editStorySeries').textContent = story.series || 'Standalone';
-            document.getElementById('editStoryPath').textContent = story.raw_path || story.rel_path || story.key;
-            document.getElementById('editStoryCreatedDate').value = formatDateForDisplay(story.created_date);
-            document.getElementById('editStoryPublishedDate').value = formatDateForDisplay(story.published_date);
-            document.getElementById('editStoryLastUpdated').textContent = story.last_updated || 'Never';
-            document.getElementById('editStoryStatus').value = story.status || 'Draft';
-            document.getElementById('editStoryReadTime').value = story.read_time || '';
-            document.getElementById('editStoryReads').value = story.reads || 0;
-            document.getElementById('editStoryTags').value = story.tags ? story.tags.join(', ') : '';
-            document.getElementById('editStoryMediumUrl').value = story.medium_url || '';
-            document.getElementById('editStoryNotes').value = story.notes || '';
-            document.getElementById('editStoryLinkedinStatus').value = story.linkedin_status || '';
-            document.getElementById('editStoryLinkedinTimestamp').value = story.linkedin_timestamp || '';
-            document.getElementById('editStoryLinkedinImpressions').value = story.linkedin_impressions || 0;
-            document.getElementById('editStoryLinkedinUrl').value = story.linkedin_url || '';
-            updateLinkedinDisplay();
-            
-            new bootstrap.Modal(document.getElementById('editStoryModal')).show();
-        }
-        
+async function editStory(storyKey) {
+    // Clean the key
+    let cleanKey = storyKey;
+    if (cleanKey.toLowerCase().endsWith('.md')) {
+        cleanKey = cleanKey.slice(0, -3);
+    }
+    
+    // URL encode the key for the API call
+    const encodedKey = encodeURIComponent(cleanKey);
+    console.log('Fetching story with key:', cleanKey);
+    console.log('Encoded:', encodedKey);
+    
+    const res = await fetch(`${API_BASE}/stories/${encodedKey}`);
+    if (!res.ok) { 
+        alert(`Story not found: ${cleanKey}`);
+        return; 
+    }
+    const story = await res.json();
+    
+    // Store the original clean key (not encoded) in the hidden input
+    document.getElementById('editStoryKey').value = cleanKey;
+    document.getElementById('editStoryNameDisplay').textContent = story.name;
+    document.getElementById('editStorySeries').textContent = story.series || 'Standalone';
+    document.getElementById('editStoryPath').textContent = story.raw_path || story.rel_path || story.key;
+    document.getElementById('editStoryCreatedDate').value = formatDateForDisplay(story.created_date);
+    document.getElementById('editStoryPublishedDate').value = formatDateForDisplay(story.published_date);
+    document.getElementById('editStoryLastUpdated').textContent = story.last_updated || 'Never';
+    document.getElementById('editStoryStatus').value = story.status || 'Draft';
+    document.getElementById('editStoryReadTime').value = story.read_time || '';
+    document.getElementById('editStoryReads').value = story.reads || 0;
+    document.getElementById('editStoryTags').value = story.tags ? story.tags.join(', ') : '';
+    document.getElementById('editStoryMediumUrl').value = story.medium_url || '';
+    document.getElementById('editStoryNotes').value = story.notes || '';
+    document.getElementById('editStoryLinkedinStatus').value = story.linkedin_status || '';
+    document.getElementById('editStoryLinkedinTimestamp').value = story.linkedin_timestamp || '';
+    document.getElementById('editStoryLinkedinImpressions').value = story.linkedin_impressions || 0;
+    document.getElementById('editStoryLinkedinUrl').value = story.linkedin_url || '';
+    updateLinkedinDisplay();
+    
+    new bootstrap.Modal(document.getElementById('editStoryModal')).show();
+}        
         async function saveStoryEdit() {
             let storyKey = document.getElementById('editStoryKey').value;
             if (storyKey.toLowerCase().endsWith('.md')) storyKey = storyKey.slice(0, -3);
@@ -973,13 +1044,17 @@
                 linkedin_status: document.getElementById('editStoryLinkedinStatus').value || null,
                 linkedin_timestamp: document.getElementById('editStoryLinkedinTimestamp').value || null,
                 linkedin_impressions: parseInt(document.getElementById('editStoryLinkedinImpressions').value) || 0,
-                linkedin_url: document.getElementById('editStoryLinkedinUrl').value || null,
-                bookmarked: document.getElementById('editStoryBookmarked')?.checked || false
+                linkedin_url: document.getElementById('editStoryLinkedinUrl').value || null
             };
             
             if (data.status === 'Published' && !data.published_date) data.published_date = getTodayDate();
             
-            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(storyKey)}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
+            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(storyKey)}`, { 
+                method:'PUT', 
+                headers:{'Content-Type':'application/json'}, 
+                body:JSON.stringify(data) 
+            });
+            
             if (res.ok) { 
                 bootstrap.Modal.getInstance(document.getElementById('editStoryModal')).hide(); 
                 saveFilterState();
@@ -1148,8 +1223,13 @@
         document.addEventListener('show.bs.modal', function(event) {
             if (event.target.id === 'addStoryModal') {
                 const seriesSelect = document.getElementById('addStorySeries');
-                if (seriesSelect && allSeries.length) seriesSelect.innerHTML = '<option value="">Create in root (no series)</option>' + allSeries.map(s => `<option value="${s.name}">📁 ${s.name}</option>`).join('');
-                if (document.getElementById('addStoryCreatedDate')) document.getElementById('addStoryCreatedDate').value = getTodayDate();
+                if (seriesSelect && allSeries.length) {
+                    seriesSelect.innerHTML = '<option value="">Create in root (no series)</option>' + 
+                        allSeries.map(s => `<option value="${s.name}">📁 ${s.name}</option>`).join('');
+                }
+                if (document.getElementById('addStoryCreatedDate')) {
+                    document.getElementById('addStoryCreatedDate').value = getTodayDate();
+                }
             }
         });
     </script>

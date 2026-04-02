@@ -3,6 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115.6-green.svg)](https://fastapi.tiangolo.com/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A professional content management system for technical writers and developers to manage stories, series, publishing schedules, and track performance metrics. Built with FastAPI and designed for writers with large content libraries.
 
@@ -35,11 +36,15 @@ A professional content management system for technical writers and developers to
 | 🔄 **Filesystem Sync** | Automatically discover new markdown files and sync with JSON database (never deletes) |
 | 📊 **Medium Stats** | Fetch story statistics (claps, responses, reading time, tags) from Medium |
 | 🔗 **LinkedIn Tracking** | Track LinkedIn post status, timestamp, impressions, and URL for each story |
+| ⭐ **Bookmarking** | Mark important stories and filter by bookmarked status |
+| 📈 **Analytics Dashboard** | View total reads, claps, impressions, and performance metrics |
 | ⚙️ **Configurable Settings** | Set series spacing, stories per week, preferred publishing days |
 | 🎨 **Web Dashboard** | Clean Bootstrap-based UI with sidebar navigation and real-time updates |
 | 🔌 **REST API** | Full CRUD operations with OpenAPI documentation |
 | 🐳 **Docker Support** | Development with hot reload and production-ready containers |
 | 🔒 **Filter Persistence** | Maintains filters across page refreshes and actions |
+| 📊 **Sorting** | Sort stories by any column with visual indicators |
+| 🚀 **CI/CD Pipeline** | Automated testing, building, and deployment with GitHub Actions |
 
 ---
 
@@ -88,11 +93,6 @@ python run.py
 ### System Architecture Diagram
 
 ```mermaid
----
-config:
-  theme: base
-  layout: elk
----
 graph TB
     subgraph "Client Layer"
         A[Web Browser]
@@ -147,11 +147,6 @@ graph TB
 ### Docker Container Architecture
 
 ```mermaid
----
-config:
-  theme: base
-  layout: elk
----
 graph TB
     subgraph "Docker Host"
         subgraph "Development Container"
@@ -193,11 +188,6 @@ graph TB
 ### Data Flow Diagram
 
 ```mermaid
----
-config:
-  theme: base
-  layout: elk
----
 sequenceDiagram
     participant User
     participant Dashboard
@@ -225,11 +215,6 @@ sequenceDiagram
 ### Publishing Calendar Generation
 
 ```mermaid
----
-config:
-  theme: base
-  layout: elk
----
 flowchart TD
     A[Start Calendar Generation] --> B[Load stories.json]
     B --> C[Filter Unpublished Stories]
@@ -303,14 +288,102 @@ flowchart LR
     F --> L
 ```
 
+### LinkedIn Tracking Flow
+
+```mermaid
+flowchart LR
+    subgraph "User Actions"
+        A[Click LinkedIn Icon]
+        B[Click Schedule Icon]
+        C[Click Not Posted Icon]
+        D[Clear All LinkedIn Data]
+    end
+    
+    subgraph "UI Layer"
+        E[Update UI Fields]
+        F[Update Display]
+    end
+    
+    subgraph "API Layer"
+        G[PUT /api/stories/{key}]
+    end
+    
+    subgraph "Service Layer"
+        H[update_story]
+        I[Save to JSON]
+    end
+    
+    A --> E
+    B --> E
+    C --> E
+    D --> E
+    E --> F
+    E --> G
+    G --> H
+    H --> I
+    I --> F
+```
+
+### CI/CD Pipeline Architecture
+
+```mermaid
+graph LR
+    subgraph "Trigger"
+        A[Push to main]
+        B[Pull Request]
+        C[Tag v*]
+    end
+    
+    subgraph "CI Pipeline"
+        D[Lint & Format]
+        E[Security Scan]
+        F[Run Tests]
+        G[Build Docker]
+    end
+    
+    subgraph "Build Pipeline"
+        H[Build Dev Image]
+        I[Build Prod Image]
+        J[Push to GHCR]
+    end
+    
+    subgraph "CD Pipeline"
+        K[Deploy to Staging]
+        L[Health Check]
+        M[Manual Approval]
+        N[Deploy to Production]
+    end
+    
+    subgraph "Release"
+        O[Create Release]
+        P[Generate Changelog]
+        Q[Update Tags]
+    end
+    
+    A --> D
+    B --> D
+    C --> O
+    
+    D --> E
+    E --> F
+    F --> G
+    
+    G --> H
+    H --> I
+    I --> J
+    
+    J --> K
+    K --> L
+    L --> M
+    M --> N
+    
+    O --> P
+    P --> Q
+```
+
 ### Project Structure
 
 ```mermaid
----
-config:
-  theme: base
-  layout: elk
----
 graph TD
     A[story-manager/] --> B[app/]
     A --> C[tests/]
@@ -321,6 +394,7 @@ graph TD
     A --> H[docker-compose.yml]
     A --> I[requirements.txt]
     A --> J[README.md]
+    A --> K[.github/]
     
     B --> B1[main.py]
     B --> B2[models.py]
@@ -347,16 +421,17 @@ graph TD
     E --> E1[Series Folder 1/]
     E --> E2[Series Folder 2/]
     E --> E3[Standalone Stories/]
+    
+    K --> K1[workflows/]
+    K1 --> K1a[ci.yml]
+    K1 --> K1b[cd.yml]
+    K1 --> K1c[docker-build.yml]
+    K1 --> K1d[release.yml]
 ```
 
 ### Technology Stack
 
 ```mermaid
----
-config:
-  theme: base
-  layout: elk
----
 graph LR
     subgraph "Frontend"
         A[HTML5]
@@ -410,6 +485,45 @@ graph LR
     O --> E
     P --> O
     Q --> P
+```
+
+### Database Schema
+
+```mermaid
+erDiagram
+    SERIES ||--o{ STORY : contains
+    SERIES {
+        string name
+        int total_stories
+        int published
+        int spacing_days
+        array stories
+    }
+    STORY {
+        string key
+        string name
+        string folder
+        string series
+        string status
+        date published_date
+        date created_date
+        array tags
+        int read_time
+        int reads
+        int claps
+        int responses
+        int bookmarks
+        int view_count
+        string medium_url
+        string linkedin_status
+        string linkedin_timestamp
+        int linkedin_impressions
+        string linkedin_url
+        boolean bookmarked
+        string notes
+        date last_updated
+        date last_stats_update
+    }
 ```
 
 ---
@@ -482,8 +596,6 @@ python run.py
 | `DEFAULT_SERIES_SPACING_DAYS` | 7 | Default days between series parts |
 | `DEFAULT_STORIES_PER_WEEK` | 3 | Maximum stories per week |
 | `PREFERRED_PUBLISH_DAYS` | ["Monday","Tuesday","Wednesday","Thursday"] | Preferred days to publish |
-| `MEDIUM_SID` | (optional) | Medium session cookie for stats |
-| `MEDIUM_UID` | (optional) | Medium user ID cookie for stats |
 
 ### `.env.example`
 
@@ -501,7 +613,7 @@ DATA_DIR="./data"
 # Publishing Calendar Settings
 DEFAULT_SERIES_SPACING_DAYS=7
 DEFAULT_STORIES_PER_WEEK=3
-PREFERRED_PUBLISH_DAYS='["Monday", "Tuesday", "Wednesday", "Thursday"]'
+PREFERRED_PUBLISH_DAYS='["Monday","Tuesday","Wednesday","Thursday"]'
 
 # Medium Stats (optional - for authenticated stats)
 # MEDIUM_SID="your_medium_sid_cookie"
@@ -515,11 +627,6 @@ PREFERRED_PUBLISH_DAYS='["Monday", "Tuesday", "Wednesday", "Thursday"]'
 ### Dashboard Navigation
 
 ```mermaid
----
-config:
-  theme: base
-  layout: elk
----
 graph TD
     subgraph "Dashboard Navigation"
         A[Dashboard] --> B[Overview Stats]
@@ -532,18 +639,19 @@ graph TD
         E --> I[Publish Story]
         E --> J[Stats Dashboard]
         E --> K[LinkedIn Quick Actions]
+        E --> L[Bookmark Stories]
         
-        L[Series] --> M[List All Series]
-        L --> N[Add Series]
-        L --> O[Set Spacing]
+        M[Series] --> N[List All Series]
+        M --> O[Add Series]
+        M --> P[Set Spacing]
         
-        P[Calendar] --> Q[View Schedule]
-        P --> R[Regenerate Calendar]
-        P --> S[Quick Publish]
+        Q[Calendar] --> R[View Schedule]
+        Q --> S[Regenerate Calendar]
+        Q --> T[Quick Publish]
         
-        T[Settings] --> U[Configure Spacing]
-        T --> V[Set Cadence]
-        T --> W[Sync Filesystem]
+        U[Settings] --> V[Configure Spacing]
+        U --> W[Set Cadence]
+        U --> X[Sync Filesystem]
     end
 ```
 
@@ -552,9 +660,11 @@ graph TD
 **Stories Table Features:**
 - Filter by status (Draft, Done, Ready, Published)
 - Filter by series
+- Filter by bookmarked
 - Search by story name
+- Sort by any column (click column header)
 - Click any row to edit
-- Quick actions: Publish, LinkedIn status, Stats Dashboard, Delete
+- Quick actions: Publish, LinkedIn status, Stats Dashboard, Bookmark, Delete
 
 **Edit Story Modal:**
 - Status: Draft, Done, Ready, Published
@@ -577,6 +687,7 @@ graph TD
 - Click LinkedIn icon to mark as Posted
 - Click Calendar icon to mark as Scheduled
 - Click X-circle icon to clear status
+- Click "Clear All LinkedIn Data" button to reset all LinkedIn fields
 
 ### Medium Stats Dashboard
 
@@ -648,49 +759,6 @@ The sync operation:
 - ✅ **Updates** file metadata for existing stories (path, name, folder)
 - ❌ **Never deletes** stories from the database (preserves all your data even if source files are removed)
 
-### Database Schema
-
-```mermaid
----
-config:
-  theme: base
-  layout: elk
----
-erDiagram
-    SERIES ||--o{ STORY : contains
-    SERIES {
-        string name
-        int total_stories
-        int published
-        int spacing_days
-        array stories
-    }
-    STORY {
-        string key
-        string name
-        string folder
-        string series
-        string status
-        date published_date
-        date created_date
-        array tags
-        int read_time
-        int reads
-        int claps
-        int responses
-        int bookmarks
-        int view_count
-        string medium_url
-        string linkedin_status
-        string linkedin_timestamp
-        int linkedin_impressions
-        string linkedin_url
-        string notes
-        date last_updated
-        date last_stats_update
-    }
-```
-
 ---
 
 ## API Documentation
@@ -722,10 +790,104 @@ Once running, interactive API documentation is available at:
 | POST | `/api/stories/{key}/sync-stats` | Sync stats for a single story |
 | GET | `/api/stories/debug/all` | Debug: list all stories |
 | GET | `/api/stories/debug/urls` | Debug: list all URLs |
+| GET | `/api/stories/debug/keys` | Debug: list all story keys |
 
 ---
 
 ## Docker Deployment
+
+### Dockerfile
+
+```dockerfile
+# Development Stage
+FROM python:3.11-slim AS development
+WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PYTHONPATH=/app
+
+RUN apt-get update && apt-get install -y --no-install-recommends gcc curl && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+RUN useradd --create-home --shell /bin/bash appuser && chown -R appuser:appuser /app
+USER appuser
+
+EXPOSE 8000
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+# Production Stage
+FROM python:3.11-slim AS production
+WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PYTHONPATH=/app
+
+RUN apt-get update && apt-get install -y --no-install-recommends gcc && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt gunicorn
+
+COPY . .
+RUN useradd --create-home --shell /bin/bash appuser && chown -R appuser:appuser /app
+USER appuser
+
+EXPOSE 8000
+CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "app.main:app", "--bind", "0.0.0.0:8000"]
+```
+
+### Docker Compose
+
+```yaml
+version: '3.8'
+
+services:
+  story-manager-dev:
+    build:
+      context: .
+      target: development
+    container_name: story-manager-dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app/app
+      - ./static:/app/static
+      - ./config.py:/app/config.py
+      - ./run.py:/app/run.py
+      - ${STORIES_ROOT:-./stories}:/app/stories
+      - story-manager-data:/app/data
+    environment:
+      - DEBUG=true
+      - STORIES_ROOT=/app/stories
+    env_file:
+      - .env
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+
+  story-manager-prod:
+    build:
+      context: .
+      target: production
+    container_name: story-manager-prod
+    ports:
+      - "8000:8000"
+    volumes:
+      - ${STORIES_ROOT:-./stories}:/app/stories
+      - story-manager-data:/app/data
+    environment:
+      - DEBUG=false
+      - STORIES_ROOT=/app/stories
+    env_file:
+      - .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  story-manager-data:
+    driver: local
+```
 
 ### Docker Commands
 
@@ -769,66 +931,6 @@ docker run --rm \
 
 ## CI/CD Pipeline
 
-```mermaid
----
-config:
-  theme: base
-  layout: elk
----
-graph LR
-    subgraph "Trigger"
-        A[Push to main]
-        B[Pull Request]
-        C[Tag v*]
-    end
-    
-    subgraph "CI Pipeline"
-        D[Lint & Format]
-        E[Security Scan]
-        F[Run Tests]
-        G[Build Docker]
-    end
-    
-    subgraph "Build Pipeline"
-        H[Build Dev Image]
-        I[Build Prod Image]
-        J[Push to GHCR]
-    end
-    
-    subgraph "CD Pipeline"
-        K[Deploy to Staging]
-        L[Health Check]
-        M[Manual Approval]
-        N[Deploy to Production]
-    end
-    
-    subgraph "Release"
-        O[Create Release]
-        P[Generate Changelog]
-        Q[Update Tags]
-    end
-    
-    A --> D
-    B --> D
-    C --> O
-    
-    D --> E
-    E --> F
-    F --> G
-    
-    G --> H
-    H --> I
-    I --> J
-    
-    J --> K
-    K --> L
-    L --> M
-    M --> N
-    
-    O --> P
-    P --> Q
-```
-
 ### GitHub Actions Workflows
 
 | Workflow | Trigger | Purpose |
@@ -837,6 +939,191 @@ graph LR
 | `docker-build.yml` | Push, Tag | Build and push Docker images |
 | `cd.yml` | Main, Tag | Deploy to staging/production |
 | `release.yml` | Tag | Create GitHub Release |
+
+### Continuous Integration (`ci.yml`)
+
+```yaml
+name: CI - Continuous Integration
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -r requirements.txt pytest pytest-cov flake8 black mypy
+      - run: flake8 app/ --count --statistics
+      - run: black --check app/ --line-length 100
+      - run: pytest tests/ -v --cov=app --cov-report=xml
+      - uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.xml
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          format: 'sarif'
+      - uses: github/codeql-action/upload-sarif@v3
+```
+
+### Docker Build & Publish (`docker-build.yml`)
+
+```yaml
+name: Docker Build & Publish
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=sha,format=short
+      - uses: docker/build-push-action@v5
+        with:
+          context: .
+          target: production
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+```
+
+### Continuous Deployment (`cd.yml`)
+
+```yaml
+name: CD - Continuous Deployment
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        default: 'staging'
+
+env:
+  DOCKER_IMAGE: ghcr.io/${{ github.repository }}
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.STAGING_HOST }}
+          username: ${{ secrets.STAGING_USERNAME }}
+          key: ${{ secrets.STAGING_SSH_KEY }}
+          script: |
+            docker pull ${{ env.DOCKER_IMAGE }}:latest
+            docker-compose -f docker-compose.staging.yml down
+            docker-compose -f docker-compose.staging.yml up -d
+      - run: curl -f https://staging.yourdomain.com/health
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    if: startsWith(github.ref, 'refs/tags/v')
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USERNAME }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          script: |
+            VERSION=${GITHUB_REF#refs/tags/}
+            docker pull ${{ env.DOCKER_IMAGE }}:$VERSION
+            docker tag ${{ env.DOCKER_IMAGE }}:$VERSION ${{ env.DOCKER_IMAGE }}:production
+            docker-compose -f docker-compose.production.yml down
+            docker-compose -f docker-compose.production.yml up -d
+      - run: curl -f https://yourdomain.com/health
+```
+
+### Release Workflow (`release.yml`)
+
+```yaml
+name: Release - Create Release
+
+on:
+  push:
+    tags: [ 'v*' ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: orhun/git-cliff-action@v2
+        with:
+          config: cliff.toml
+          args: --verbose
+        env:
+          OUTPUT: CHANGELOG.md
+      - uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG.md
+          files: |
+            README.md
+            CHANGELOG.md
+```
 
 ---
 
@@ -852,6 +1139,7 @@ graph LR
 | LinkedIn clear not working | Use the "Clear All LinkedIn Data" button in edit modal |
 | Division by zero error | Stories with 0 reads will show 0 in performance metrics |
 | Sync not updating | Check file permissions on stories directory |
+| Bookmark not saving | Ensure the field exists in stories.json (added automatically) |
 
 ### View Logs
 
@@ -872,6 +1160,9 @@ curl "http://localhost:8000/api/stories/debug/all" | python -m json.tool
 # List all stories with Medium URLs
 curl "http://localhost:8000/api/stories/debug/urls" | python -m json.tool
 
+# List all story keys
+curl "http://localhost:8000/api/stories/debug/keys" | python -m json.tool
+
 # Find story by search term
 curl "http://localhost:8000/api/stories/debug/find/github" | python -m json.tool
 ```
@@ -880,13 +1171,9 @@ curl "http://localhost:8000/api/stories/debug/find/github" | python -m json.tool
 
 ## Requirements
 
-- Python 3.9+
-- pip
-- Docker (optional)
-
 ### Python Dependencies
 
-```
+```txt
 fastapi==0.115.6
 uvicorn[standard]==0.34.0
 jinja2==3.1.4
@@ -910,4 +1197,8 @@ MIT License - Use freely for personal and commercial projects.
 
 ## Acknowledgments
 
-Built for technical writers who manage large content libraries across multiple series and platforms. Special thanks to the FastAPI, Bootstrap, and Docker communities.
+Built for technical writers who manage large content libraries across multiple series and platforms. Special thanks to the FastAPI, Bootstrap, Docker, and GitHub Actions communities.
+
+---
+
+*Last updated: 2026-03-29*
