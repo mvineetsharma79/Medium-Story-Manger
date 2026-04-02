@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-02T15:44:30.106471",
+  "generated": "2026-04-02T23:47:10.765666",
   "summary": {
-    "total_scheduled": 191,
+    "total_scheduled": 195,
     "stories_per_week": 3,
     "series_spacing_default": 5,
     "start_date": "2026-03-29",
@@ -9,15 +9,15 @@
       "SOLID Principles": 7,
       "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs": 3,
       "10 Essential Microservices Architecture Patterns": 3,
-      "Clean Code Practices": 5,
+      "Clean Code Practices": 7,
       "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution": 1,
       "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts": 3,
       "Design Patterns": 5,
       "GitHub": 6,
       "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide": 1,
       "AI Engineering": 7,
-      "Dotnet Python NodeJS": 4,
-      "Miscellaneous": 3,
+      "Dotnet Python NodeJS": 5,
+      "Miscellaneous": 4,
       "SQL Mechanic to Data Architect": 1,
       "Vehixcare": 3,
       "Code to Cluster": 2,
@@ -1405,6 +1405,15 @@
       "read_time": null
     },
     {
+      "date": "2027-03-17",
+      "weekday": "Wednesday",
+      "story_key": "./Dynamic Polymorphism in .NET Core with Examples",
+      "name": "Dynamic Polymorphism in .NET Core with Examples",
+      "series": "Dotnet Python NodeJS",
+      "part": null,
+      "read_time": null
+    },
+    {
       "date": "2027-03-22",
       "weekday": "Monday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: PyTorch Mastery – The Locomotive of Modern AI",
@@ -1414,11 +1423,38 @@
       "read_time": null
     },
     {
+      "date": "2027-03-23",
+      "weekday": "Tuesday",
+      "story_key": "Clean Code Practices/Code Smell — Practical Guide using .Net Core Part-III",
+      "name": "Code Smell — Practical Guide using .Net Core Part-III",
+      "series": "Clean Code Practices",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-03-24",
+      "weekday": "Wednesday",
+      "story_key": "Miscellaneous/ASP.NET Core Filters Deep Dive: Building Maintainable Web APIs with .NET 10 and Reactive Extensions",
+      "name": "ASP.NET Core Filters Deep Dive: Building Maintainable Web APIs with .NET 10 and Reactive Extensions",
+      "series": "Miscellaneous",
+      "part": null,
+      "read_time": null
+    },
+    {
       "date": "2027-03-29",
       "weekday": "Monday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Multimodal Models – The Interchange Stations",
       "name": "The 2026 AI Metromap: Multimodal Models – The Interchange Stations",
       "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-03-30",
+      "weekday": "Tuesday",
+      "story_key": "Clean Code Practices/Code Smell — Practical Guide using .Net Core Part-I",
+      "name": "Code Smell — Practical Guide using .Net Core Part-I",
+      "series": "Clean Code Practices",
       "part": null,
       "read_time": null
     },

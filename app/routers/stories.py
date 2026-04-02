@@ -3,7 +3,7 @@ from typing import List, Optional
 import logging
 from urllib.parse import unquote
 from datetime import datetime
-import asyncio
+import time
 
 from app.services.story_service import StoryService
 from app.services.medium_stats_fetcher import MediumStatsFetcher
@@ -11,6 +11,26 @@ from app.models import StoryCreate, StoryUpdate, StoryResponse
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+
+
+# ============================================
+# HELPER FUNCTIONS
+# ============================================
+
+def normalize_url(url: str) -> str:
+    """Normalize URL for comparison"""
+    if not url:
+        return url
+    url = url.replace('https://', '').replace('http://', '')
+    url = url.rstrip('/')
+    return url.lower()
+
+
+def safe_divide(numerator: float, denominator: float, default: float = 0) -> float:
+    """Safely divide two numbers"""
+    if denominator == 0:
+        return default
+    return round(numerator / denominator, 2)
 
 
 # ============================================
@@ -29,7 +49,8 @@ async def debug_all():
                     "key": s.key,
                     "name": s.name,
                     "medium_url": s.medium_url,
-                    "status": s.status
+                    "status": s.status,
+                    "medium_first_published": s.medium_first_published
                 }
                 for s in stories
             ]
@@ -48,7 +69,8 @@ async def debug_urls():
             {
                 "key": s.key,
                 "name": s.name,
-                "medium_url": s.medium_url
+                "medium_url": s.medium_url,
+                "medium_first_published": s.medium_first_published
             }
             for s in stories if s.medium_url
         ]
@@ -91,24 +113,8 @@ async def find_story(search: str):
 
 
 # ============================================
-# MEDIUM STATS ENDPOINTS (Scraping based)
+# MEDIUM STATS ENDPOINTS
 # ============================================
-
-def normalize_url(url: str) -> str:
-    """Normalize URL for comparison"""
-    if not url:
-        return url
-    url = url.replace('https://', '').replace('http://', '')
-    url = url.rstrip('/')
-    return url.lower()
-
-
-def safe_divide(numerator: float, denominator: float, default: float = 0) -> float:
-    """Safely divide two numbers"""
-    if denominator == 0:
-        return default
-    return round(numerator / denominator, 2)
-
 
 @router.get("/stats-by-url")
 async def get_stats_dashboard_by_url(medium_url: str):
@@ -139,48 +145,37 @@ async def get_stats_dashboard_by_url(medium_url: str):
                 "available_urls": available[:5] if available else []
             }
         
-        # Build dashboard from stored stats
-        reads = story.reads or 0
-        claps = story.claps or 0
-        responses = story.responses or 0
-        bookmarks = story.bookmarks or 0
-        view_count = story.medium_total_views or 0
-        read_ratio = story.medium_read_ratio or 0
-        fan_count = story.fan_count or 0
-        
         return {
             "story_key": story.key,
             "story_name": story.name,
             "medium_url": story.medium_url,
             "last_stats_update": story.last_stats_update,
-            "engagement": {
-                "reads": reads,
-                "claps": claps,
-                "responses": responses,
-                "bookmarks": bookmarks,
-                "view_count": view_count,
-                "read_ratio": read_ratio,
-                "fan_count": fan_count
+            "medium_first_published": story.medium_first_published,
+            "current_month": {
+                "reads": story.reads or 0,
+                "claps": story.claps or 0,
+                "views": story.view_count or 0,
+                "responses": story.responses or 0,
+                "member_reads": story.medium_member_reads or 0,
+                "member_views": story.medium_member_views or 0,
+                "read_ratio": story.read_ratio or 0
             },
             "content": {
                 "word_count": story.word_count or 0,
                 "reading_time_minutes": story.medium_reading_time or story.read_time or 0,
-                "tags": story.medium_tags or story.tags or [],
+                "tags": story.medium_tags or [],
                 "topics": story.medium_topics or []
             },
             "metadata": {
                 "title": story.medium_title or story.name,
-                "subtitle": story.medium_subtitle or "",
-                "author": story.medium_author or "",
-                "publication": story.medium_publication or "",
                 "first_published": story.medium_first_published or story.created_date,
-                "last_updated": story.medium_last_updated or story.last_updated
+                "last_updated": story.medium_last_updated or story.last_updated,
+                "author": story.medium_author or "",
+                "publication": story.medium_publication or ""
             },
             "performance": {
-                "claps_per_read": safe_divide(claps, reads),
-                "responses_per_read": safe_divide(responses, reads),
-                "bookmarks_per_read": safe_divide(bookmarks, reads),
-                "views_to_reads": safe_divide(reads * 100, view_count) if view_count else 0
+                "claps_per_read": safe_divide(story.claps or 0, story.reads or 1),
+                "views_to_reads": safe_divide((story.reads or 0) * 100, story.view_count or 1)
             }
         }
         
@@ -189,16 +184,13 @@ async def get_stats_dashboard_by_url(medium_url: str):
         return {"error": str(e)}
 
 
-# ============================================
-# MEDIUM STATS FETCHER ENDPOINTS (Working)
-# ============================================
-
 @router.post("/fetch-stats")
 async def fetch_all_medium_stats():
-    """Fetch detailed stats from Medium for all stories with URLs using working fetcher"""
+    """Fetch current month stats and metadata for all stories with URLs"""
     try:
         logger.info("=" * 60)
-        logger.info("FETCH STATS - Starting...")
+        logger.info("FETCHING STATS FOR ALL STORIES")
+        logger.info("=" * 60)
         
         stories = await StoryService.get_all_stories()
         stories_with_urls = [{"key": s.key, "name": s.name, "medium_url": s.medium_url} 
@@ -215,35 +207,81 @@ async def fetch_all_medium_stats():
             logger.error("Not authenticated - no valid cookies found")
             return {"error": "Not authenticated. Please log into Medium in your browser, then close browser and try again."}
         
-        logger.info(f"Cookies found: {list(fetcher.cookies.keys())}")
+        results = {
+            'total': len(stories_with_urls),
+            'updated': 0,
+            'failed': 0,
+            'details': []
+        }
         
-        results = await fetcher.fetch_all_stories_stats(stories_with_urls)
-        
-        logger.info(f"Fetch completed: {results['updated']} updated, {results['failed']} failed")
-        
-        for detail in results['details']:
-            if detail['success'] and 'stats' in detail:
-                stats = detail['stats']
-                totals = stats.get('totals', {})
+        for i, story in enumerate(stories_with_urls):
+            try:
+                logger.info(f"\n📊 ({i+1}/{len(stories_with_urls)}): {story['name']}")
                 
-                await StoryService.update_story(detail['key'], StoryUpdate(
-                    reads=totals.get('total_reads', 0),
-                    claps=totals.get('claps', 0),
-                    responses=totals.get('replies', 0),
-                    medium_member_reads=totals.get('member_reads', 0),
-                    medium_member_views=totals.get('member_views', 0),
-                    medium_nonmember_reads=totals.get('nonmember_reads', 0),
-                    medium_nonmember_views=totals.get('nonmember_views', 0),
-                    medium_total_views=totals.get('total_views', 0),
-                    medium_replies=totals.get('replies', 0),
-                    medium_highlights=totals.get('highlights', 0),
-                    medium_new_followers=totals.get('new_followers', 0),
-                    medium_read_ratio=totals.get('read_ratio', 0),
-                    medium_member_read_percentage=totals.get('member_read_percentage', 0),
-                    medium_stats_data=stats,
-                    medium_stats_updated=datetime.now().isoformat()
-                ))
-                logger.info(f"✅ Updated {detail['name']}: {totals.get('total_reads', 0)} reads, {totals.get('total_views', 0)} views")
+                if i > 0:
+                    logger.info("   Waiting 3 seconds to avoid rate limiting...")
+                    time.sleep(3)
+                
+                details = await fetcher.fetch_post_details(story['medium_url'])
+                
+                if details:
+                    totals = details.get('totals', {})
+                    
+                    await StoryService.update_story(story['key'], StoryUpdate(
+                        reads=totals.get('total_reads', 0),
+                        claps=totals.get('claps', 0),
+                        responses=totals.get('replies', 0),
+                        view_count=totals.get('total_views', 0),
+                        medium_member_reads=totals.get('member_reads', 0),
+                        medium_member_views=totals.get('member_views', 0),
+                        medium_nonmember_reads=totals.get('nonmember_reads', 0),
+                        medium_nonmember_views=totals.get('nonmember_views', 0),
+                        medium_read_ratio=totals.get('read_ratio', 0),
+                        medium_first_published=details.get('first_published'),
+                        medium_last_updated=details.get('last_updated'),
+                        medium_title=details.get('title'),
+                        medium_reading_time=details.get('reading_time', 0),
+                        word_count=details.get('word_count', 0),
+                        medium_tags=details.get('tags', []),
+                        medium_topics=details.get('topics', []),
+                        medium_author=details.get('author'),
+                        medium_publication=details.get('publication'),
+                        last_stats_update=datetime.now().isoformat(),
+                        medium_stats_updated=datetime.now().isoformat(),
+                        medium_stats_data=details
+                    ))
+                    
+                    results['updated'] += 1
+                    results['details'].append({
+                        'key': story['key'],
+                        'name': story['name'],
+                        'success': True,
+                        'reads': totals.get('total_reads', 0),
+                        'tags': len(details.get('tags', []))
+                    })
+                    logger.info(f"   ✅ Updated: {totals.get('total_reads', 0)} reads, {len(details.get('tags', []))} tags")
+                else:
+                    results['failed'] += 1
+                    results['details'].append({
+                        'key': story['key'],
+                        'name': story['name'],
+                        'success': False
+                    })
+                    logger.warning(f"   ❌ Failed to fetch details")
+                    
+            except Exception as e:
+                results['failed'] += 1
+                results['details'].append({
+                    'key': story['key'],
+                    'name': story['name'],
+                    'success': False,
+                    'error': str(e)
+                })
+                logger.error(f"   ❌ Error: {e}")
+        
+        logger.info(f"\n{'='*60}")
+        logger.info(f"COMPLETE: {results['updated']}/{results['total']} stories updated")
+        logger.info(f"{'='*60}")
         
         return {
             "message": f"Updated {results['updated']} of {results['total']} stories",
@@ -257,163 +295,18 @@ async def fetch_all_medium_stats():
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.post("/sync-stats")
-async def sync_all_medium_stats():
-    """Fetch and update ALL story statistics from Medium using working fetcher"""
-    try:
-        logger.info("=" * 60)
-        logger.info("SYNC STATS - Starting...")
-        
-        stories = await StoryService.get_all_stories()
-        stories_with_urls = [s for s in stories if s.medium_url]
-
-        if not stories_with_urls:
-            return {"message": "No stories with Medium URLs", "updated": 0, "total": 0}
-
-        logger.info(f"Found {len(stories_with_urls)} stories with Medium URLs")
-
-        fetcher = MediumStatsFetcher()
-        
-        if not fetcher.is_authenticated():
-            logger.error("Not authenticated - no valid cookies found")
-            return {"error": "Not authenticated. Please log into Medium in your browser, then close browser and try again."}
-        
-        logger.info(f"Cookies loaded: {list(fetcher.cookies.keys())}")
-        
-        results = {
-            "total": len(stories_with_urls),
-            "updated": 0,
-            "failed": 0,
-            "details": []
-        }
-
-        for story in stories_with_urls:
-            try:
-                logger.info(f"Fetching stats for: {story.name}")
-                
-                stats = await fetcher.fetch_post_stats(story.medium_url)
-                
-                if stats:
-                    totals = stats.get('totals', {})
-                    await StoryService.update_story(story.key, StoryUpdate(
-                        reads=totals.get('total_reads', story.reads),
-                        claps=totals.get('claps', 0),
-                        responses=totals.get('replies', 0),
-                        medium_member_reads=totals.get('member_reads', 0),
-                        medium_member_views=totals.get('member_views', 0),
-                        medium_nonmember_reads=totals.get('nonmember_reads', 0),
-                        medium_nonmember_views=totals.get('nonmember_views', 0),
-                        medium_total_views=totals.get('total_views', 0),
-                        medium_replies=totals.get('replies', 0),
-                        medium_highlights=totals.get('highlights', 0),
-                        medium_new_followers=totals.get('new_followers', 0),
-                        medium_read_ratio=totals.get('read_ratio', 0),
-                        medium_member_read_percentage=totals.get('member_read_percentage', 0),
-                        medium_stats_data=stats,
-                        last_stats_update=datetime.now().isoformat()
-                    ))
-                    results['updated'] += 1
-                    results['details'].append({
-                        'key': story.key, 
-                        'success': True, 
-                        'reads': totals.get('total_reads', 0)
-                    })
-                    logger.info(f"✅ Updated {story.name}: {totals.get('total_reads', 0)} reads")
-                else:
-                    results['failed'] += 1
-                    results['details'].append({'key': story.key, 'success': False})
-                    logger.warning(f"❌ Failed to fetch stats for {story.name}")
-                
-                await asyncio.sleep(1)
-                
-            except Exception as e:
-                results['failed'] += 1
-                results['details'].append({'key': story.key, 'success': False, 'error': str(e)})
-                logger.error(f"Error fetching stats for {story.name}: {e}")
-
-        return {
-            "message": f"Updated {results['updated']} of {results['total']} stories",
-            "results": results
-        }
-
-    except Exception as e:
-        logger.error(f"Sync stats error: {e}")
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.post("/sync-stats-by-url")
-async def sync_stats_by_url(medium_url: str):
-    """Fetch and update stats for a story using its Medium URL"""
-    try:
-        if not medium_url:
-            return {"error": "Medium URL is required"}
-        
-        from urllib.parse import unquote
-        decoded_url = unquote(medium_url)
-        
-        logger.info(f"Syncing stats for URL: {decoded_url}")
-        
-        all_stories = await StoryService.get_all_stories()
-        
-        story = None
-        for s in all_stories:
-            if s.medium_url:
-                if s.medium_url.rstrip('/') == decoded_url.rstrip('/'):
-                    story = s
-                    break
-        
-        if not story:
-            available = [s.medium_url for s in all_stories if s.medium_url]
-            return {
-                "error": "Story not found",
-                "your_url": decoded_url,
-                "available_urls": available[:5] if available else []
-            }
-        
-        fetcher = MediumStatsFetcher()
-        
-        if not fetcher.is_authenticated():
-            return {"error": "Not authenticated. Please log into Medium in your browser."}
-        
-        stats = await fetcher.fetch_post_stats(story.medium_url)
-        
-        if stats:
-            totals = stats.get('totals', {})
-            await StoryService.update_story(story.key, StoryUpdate(
-                reads=totals.get('total_reads', story.reads),
-                claps=totals.get('claps', 0),
-                responses=totals.get('replies', 0),
-                medium_member_reads=totals.get('member_reads', 0),
-                medium_member_views=totals.get('member_views', 0),
-                medium_nonmember_reads=totals.get('nonmember_reads', 0),
-                medium_nonmember_views=totals.get('nonmember_views', 0),
-                medium_total_views=totals.get('total_views', 0),
-                medium_replies=totals.get('replies', 0),
-                medium_highlights=totals.get('highlights', 0),
-                medium_new_followers=totals.get('new_followers', 0),
-                medium_read_ratio=totals.get('read_ratio', 0),
-                medium_member_read_percentage=totals.get('member_read_percentage', 0),
-                medium_stats_data=stats,
-                last_stats_update=datetime.now().isoformat(),
-                notes=f"{story.notes}\n[Stats: {datetime.now().strftime('%Y-%m-%d %H:%M')}]" if story.notes else f"Stats: {datetime.now().strftime('%Y-%m-%d %H:%M')}"
-            ))
-            return {"message": "Stats updated", "stats": stats, "story_key": story.key}
-        return {"message": "Could not fetch stats"}
-
-    except Exception as e:
-        logger.error(f"Sync stats by URL error: {e}")
-        return {"error": str(e)}
-
-
-@router.post("/{story_key:path}/fetch-stats")
+#@router.post("/fetch-lifetime-stats/{story_key:path}")
+@router.post("/fetch-lifetime-stats/{story_key:path}")
 async def fetch_single_story_stats(story_key: str = Path(...)):
-    """Fetch detailed stats for a single story"""
+    """Fetch current month stats AND lifetime stats for a single story"""
     try:
         decoded_key = unquote(story_key)
         if decoded_key.lower().endswith('.md'):
             decoded_key = decoded_key[:-3]
+        
+        logger.info(f"=" * 60)
+        logger.info(f"FETCHING STATS FOR: {decoded_key}")
+        logger.info(f"=" * 60)
         
         story = await StoryService.get_story(decoded_key)
         if not story:
@@ -422,132 +315,96 @@ async def fetch_single_story_stats(story_key: str = Path(...)):
         if not story.medium_url:
             raise HTTPException(status_code=400, detail="Story has no Medium URL")
         
-        logger.info(f"Fetching stats for: {story.name}")
+        logger.info(f"📝 Medium URL: {story.medium_url}")
         
         fetcher = MediumStatsFetcher()
         
         if not fetcher.is_authenticated():
-            raise HTTPException(status_code=401, detail="Not authenticated. Please log into Medium in your browser.")
+            raise HTTPException(status_code=401, detail="Not authenticated")
         
-        stats = await fetcher.fetch_post_stats(story.medium_url)
+        # Get current month stats
+        current_stats = await fetcher.fetch_current_month_stats(story.medium_url)
         
-        if stats:
-            totals = stats.get('totals', {})
+        # Get lifetime stats (readersCount, viewersCount, presentationCount)
+        lifetime_stats = await fetcher.fetch_lifetime_stats(story.medium_url)
+        
+        if current_stats:
+            totals = current_stats.get('totals', {})
+            lifetime = lifetime_stats if lifetime_stats else {}
+            
             await StoryService.update_story(decoded_key, StoryUpdate(
+                # Current month stats
                 reads=totals.get('total_reads', 0),
                 claps=totals.get('claps', 0),
                 responses=totals.get('replies', 0),
+                view_count=totals.get('total_views', 0),
                 medium_member_reads=totals.get('member_reads', 0),
                 medium_member_views=totals.get('member_views', 0),
                 medium_nonmember_reads=totals.get('nonmember_reads', 0),
                 medium_nonmember_views=totals.get('nonmember_views', 0),
-                medium_total_views=totals.get('total_views', 0),
-                medium_replies=totals.get('replies', 0),
-                medium_highlights=totals.get('highlights', 0),
-                medium_new_followers=totals.get('new_followers', 0),
                 medium_read_ratio=totals.get('read_ratio', 0),
-                medium_member_read_percentage=totals.get('member_read_percentage', 0),
-                medium_stats_data=stats,
-                medium_stats_updated=datetime.now().isoformat()
+                
+                # Post metadata
+                medium_first_published=current_stats.get('first_published'),
+                medium_last_updated=current_stats.get('last_updated'),
+                medium_title=current_stats.get('title'),
+                medium_reading_time=current_stats.get('reading_time', 0),
+                word_count=current_stats.get('word_count', 0),
+                
+                # Lifetime stats
+                lifetime_reads=lifetime.get('lifetime_reads', 0),
+                lifetime_views=lifetime.get('lifetime_views', 0),
+                
+                # Update timestamp
+                last_stats_update=datetime.now().isoformat(),
+                medium_stats_updated=datetime.now().isoformat(),
+                lifetime_stats_updated=datetime.now().isoformat(),
+                medium_stats_data=current_stats,
+                lifetime_stats_data=lifetime
             ))
-            return {"message": "Stats fetched successfully", "stats": stats}
-        return {"message": "Could not fetch stats"}
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Fetch story stats error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.post("/{story_key:path}/sync-stats")
-async def sync_single_story_stats(story_key: str = Path(...)):
-    """Fetch and update stats for a single story using story key"""
-    try:
-        decoded_key = unquote(story_key)
-        if decoded_key.lower().endswith('.md'):
-            decoded_key = decoded_key[:-3]
-        
-        story = await StoryService.get_story(decoded_key)
-        if not story:
-            raise HTTPException(status_code=404, detail=f"Story not found: {decoded_key}")
-        
-        if not story.medium_url:
-            raise HTTPException(status_code=400, detail="Story has no Medium URL")
-        
-        return await sync_stats_by_url(story.medium_url)
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Sync story stats error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get("/{story_key:path}/stats-dashboard")
-async def get_story_stats_dashboard(story_key: str = Path(...)):
-    """Get stats dashboard for a story using story key"""
-    try:
-        decoded_key = unquote(story_key)
-        if decoded_key.lower().endswith('.md'):
-            decoded_key = decoded_key[:-3]
-        
-        story = await StoryService.get_story(decoded_key)
-        if not story:
-            return {"error": f"Story not found: {decoded_key}"}
-        
-        if not story.medium_url:
-            return {"error": "No Medium URL found for this story", "story_key": story.key}
-        
-        reads = story.reads or 0
-        claps = story.claps or 0
-        responses = story.responses or 0
-        bookmarks = story.bookmarks or 0
-        view_count = story.medium_total_views or 0
-        read_ratio = story.medium_read_ratio or 0
-        fan_count = story.fan_count or 0
-        
-        return {
-            "story_key": story.key,
-            "story_name": story.name,
-            "medium_url": story.medium_url,
-            "last_stats_update": story.last_stats_update,
-            "engagement": {
-                "reads": reads,
-                "claps": claps,
-                "responses": responses,
-                "bookmarks": bookmarks,
-                "view_count": view_count,
-                "read_ratio": read_ratio,
-                "fan_count": fan_count
-            },
-            "content": {
-                "word_count": story.word_count or 0,
-                "reading_time_minutes": story.medium_reading_time or story.read_time or 0,
-                "tags": story.medium_tags or story.tags or [],
-                "topics": story.medium_topics or []
-            },
-            "metadata": {
-                "title": story.medium_title or story.name,
-                "subtitle": story.medium_subtitle or "",
-                "author": story.medium_author or "",
-                "publication": story.medium_publication or "",
-                "first_published": story.medium_first_published or story.created_date,
-                "last_updated": story.medium_last_updated or story.last_updated
-            },
-            "performance": {
-                "claps_per_read": safe_divide(claps, reads),
-                "responses_per_read": safe_divide(responses, reads),
-                "bookmarks_per_read": safe_divide(bookmarks, reads),
-                "views_to_reads": safe_divide(reads * 100, view_count) if view_count else 0
+            
+            return {
+                "message": "Stats fetched successfully",
+                "stats": {
+                    "story_key": decoded_key,
+                    "story_name": story.name,
+                    "medium_url": story.medium_url,
+                    "medium_first_published": current_stats.get('first_published'),
+                    "current_month": {
+                        "reads": totals.get('total_reads', 0),
+                        "claps": totals.get('claps', 0),
+                        "views": totals.get('total_views', 0),
+                        "responses": totals.get('replies', 0),
+                        "member_reads": totals.get('member_reads', 0),
+                        "member_views": totals.get('member_views', 0),
+                        "nonmember_reads": totals.get('nonmember_reads', 0),
+                        "nonmember_views": totals.get('nonmember_views', 0),
+                        "read_ratio": totals.get('read_ratio', 0)
+                    },
+                    "lifetime": {
+                        "reads": lifetime.get('lifetime_reads', 0),
+                        "views": lifetime.get('lifetime_views', 0),
+                        "presentation_count": lifetime.get('presentation_count', 0)
+                    },
+                    "content": {
+                        "word_count": current_stats.get('word_count', 0),
+                        "reading_time": current_stats.get('reading_time', 0)
+                    },
+                    "metadata": {
+                        "title": current_stats.get('title'),
+                        "first_published": current_stats.get('first_published'),
+                        "last_updated": current_stats.get('last_updated')
+                    }
+                }
             }
-        }
-        
+        else:
+            return {"message": "Could not fetch stats", "error": "No data returned"}
+            
+    except HTTPException:
+        raise
     except Exception as e:
-        logger.error(f"Get stats dashboard error: {e}")
-        return {"error": str(e)}
-
-
+        logger.error(f"Fetch stats error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 # ============================================
 # CORE CRUD ENDPOINTS
 # ============================================

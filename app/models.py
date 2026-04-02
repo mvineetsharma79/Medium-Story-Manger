@@ -52,7 +52,6 @@ class StoryUpdate(BaseModel):
     medium_publication: Optional[str] = None
     last_stats_update: Optional[str] = None
     bookmarked: Optional[bool] = None
-    # Add to StoryUpdate class:
     medium_member_reads: Optional[int] = None
     medium_member_views: Optional[int] = None
     medium_nonmember_reads: Optional[int] = None
@@ -66,24 +65,33 @@ class StoryUpdate(BaseModel):
     medium_member_read_percentage: Optional[float] = None
     medium_stats_data: Optional[Dict] = None
     medium_stats_updated: Optional[str] = None
+    
+    # Lifetime stats
+    lifetime_reads: Optional[int] = None
+    lifetime_claps: Optional[int] = None
+    lifetime_views: Optional[int] = None
+    lifetime_tags: Optional[List[str]] = None
+    lifetime_topics: Optional[List[str]] = None
+    lifetime_stats_data: Optional[Dict] = None
+    lifetime_stats_updated: Optional[str] = None
 
 
 class StoryResponse(BaseModel):
     key: str
     name: str
     folder: str
-    series: Optional[str]
+    series: Optional[str] = None
     raw_path: Optional[str] = None
     rel_path: str
     status: str
-    published_date: Optional[str]
+    published_date: Optional[str] = None
     created_date: str
     last_updated: Optional[str] = None
-    tags: List[str]
-    read_time: Optional[int]
-    reads: int = 0
-    medium_url: Optional[str]
-    notes: str
+    tags: Optional[List[str]] = None
+    read_time: Optional[int] = None
+    reads: Optional[int] = 0
+    medium_url: Optional[str] = None
+    notes: Optional[str] = ""
     linkedin_status: Optional[str] = None
     linkedin_timestamp: Optional[str] = None
     linkedin_impressions: Optional[int] = 0
@@ -97,29 +105,40 @@ class StoryResponse(BaseModel):
     fan_count: Optional[int] = 0
     medium_first_published: Optional[str] = None
     medium_last_updated: Optional[str] = None
-    medium_tags: Optional[List[str]] = []
-    medium_topics: Optional[List[str]] = []
+    medium_tags: Optional[List[str]] = None
+    medium_topics: Optional[List[str]] = None
     word_count: Optional[int] = 0
     medium_title: Optional[str] = None
     medium_subtitle: Optional[str] = None
     medium_author: Optional[str] = None
     medium_publication: Optional[str] = None
     last_stats_update: Optional[str] = None
-    bookmarked: bool = False
-    # Add to StoryResponse class:
-    medium_member_reads: int = 0
-    medium_member_views: int = 0
-    medium_nonmember_reads: int = 0
-    medium_nonmember_views: int = 0
-    medium_total_views: int = 0
-    medium_claps: int = 0
-    medium_replies: int = 0
-    medium_highlights: int = 0
-    medium_new_followers: int = 0
-    medium_read_ratio: float = 0
-    medium_member_read_percentage: float = 0
+    bookmarked: Optional[bool] = False
+    medium_member_reads: Optional[int] = 0
+    medium_member_views: Optional[int] = 0
+    medium_nonmember_reads: Optional[int] = 0
+    medium_nonmember_views: Optional[int] = 0
+    medium_total_views: Optional[int] = 0
+    medium_claps: Optional[int] = 0
+    medium_replies: Optional[int] = 0
+    medium_highlights: Optional[int] = 0
+    medium_new_followers: Optional[int] = 0
+    medium_read_ratio: Optional[float] = 0
+    medium_member_read_percentage: Optional[float] = 0
     medium_stats_data: Optional[Dict] = None
     medium_stats_updated: Optional[str] = None
+    
+    # Lifetime stats
+    lifetime_reads: Optional[int] = 0
+    lifetime_claps: Optional[int] = 0
+    lifetime_views: Optional[int] = 0
+    lifetime_tags: Optional[List[str]] = None
+    lifetime_topics: Optional[List[str]] = None
+    lifetime_stats_data: Optional[Dict] = None
+    lifetime_stats_updated: Optional[str] = None
+
+    class Config:
+        from_attributes = True
 
 
 class SeriesCreate(BaseModel):
@@ -135,7 +154,7 @@ class SeriesResponse(BaseModel):
     total_stories: int
     published: int
     spacing_days: int
-    stories: List[str]
+    stories: List[str] = []
 
 class CalendarSettingsUpdate(BaseModel):
     series_spacing_days: Optional[int] = Field(None, ge=5, le=14)
@@ -148,11 +167,11 @@ class CalendarEntry(BaseModel):
     weekday: str
     story_key: str
     name: str
-    series: Optional[str]
-    part: Optional[int]
-    read_time: Optional[int]
+    series: Optional[str] = None
+    part: Optional[int] = None
+    read_time: Optional[int] = None
 
 class CalendarResponse(BaseModel):
     generated: str
     summary: Dict[str, Any]
-    schedule: List[CalendarEntry]
+    schedule: List[CalendarEntry] = []

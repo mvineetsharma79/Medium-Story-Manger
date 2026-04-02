@@ -1,0 +1,64 @@
+{
+  "post_id": "1ff02f7934c8",
+  "fetch_timestamp": "2026-04-02T18:20:06.625158",
+  "period": {
+    "start": "2026-04-01T00:00:00",
+    "end": "2026-04-02T18:20:06.625188"
+  },
+  "totals": {
+    "member_reads": 2,
+    "member_views": 3,
+    "nonmember_reads": 4,
+    "nonmember_views": 15,
+    "total_reads": 6,
+    "total_views": 18,
+    "claps": 0,
+    "replies": 0,
+    "highlights": 0,
+    "new_followers": 0,
+    "read_ratio": 33.3,
+    "member_read_percentage": 33.3
+  },
+  "daily_breakdown": [
+    {
+      "date": "2026-04-01",
+      "membership_type": "MEMBER",
+      "reads": 0,
+      "views": 1,
+      "claps": 0,
+      "replies": 0,
+      "highlights": 0,
+      "new_followers": 0
+    },
+    {
+      "date": "2026-04-01",
+      "membership_type": "NONMEMBER",
+      "reads": 3,
+      "views": 9,
+      "claps": 0,
+      "replies": 0,
+      "highlights": 0,
+      "new_followers": 0
+    },
+    {
+      "date": "2026-04-02",
+      "membership_type": "MEMBER",
+      "reads": 2,
+      "views": 2,
+      "claps": 0,
+      "replies": 0,
+      "highlights": 0,
+      "new_followers": 0
+    },
+    {
+      "date": "2026-04-02",
+      "membership_type": "NONMEMBER",
+      "reads": 1,
+      "views": 6,
+      "claps": 0,
+      "replies": 0,
+      "highlights": 0,
+      "new_followers": 0
+    }
+  ]
+}
