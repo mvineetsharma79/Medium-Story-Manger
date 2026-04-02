@@ -13,10 +13,6 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
-# ============================================
-# HELPER FUNCTIONS
-# ============================================
-
 def normalize_url(url: str) -> str:
     """Normalize URL for comparison"""
     if not url:
@@ -151,6 +147,7 @@ async def get_stats_dashboard_by_url(medium_url: str):
             "medium_url": story.medium_url,
             "last_stats_update": story.last_stats_update,
             "medium_first_published": story.medium_first_published,
+            "medium_publication": story.medium_publication,
             "current_month": {
                 "reads": story.reads or 0,
                 "claps": story.claps or 0,
@@ -158,24 +155,26 @@ async def get_stats_dashboard_by_url(medium_url: str):
                 "responses": story.responses or 0,
                 "member_reads": story.medium_member_reads or 0,
                 "member_views": story.medium_member_views or 0,
-                "read_ratio": story.read_ratio or 0
+                "nonmember_reads": story.medium_nonmember_reads or 0,
+                "nonmember_views": story.medium_nonmember_views or 0,
+                "read_ratio": story.read_ratio or 0,
+                "member_read_percentage": story.medium_member_read_percentage or 0,
+                "new_followers": story.medium_new_followers or 0
+            },
+            "lifetime": {
+                "reads": story.lifetime_reads or 0,
+                "views": story.lifetime_views or 0,
+                "presentation_count": story.presentation_count or 0
             },
             "content": {
                 "word_count": story.word_count or 0,
-                "reading_time_minutes": story.medium_reading_time or story.read_time or 0,
-                "tags": story.medium_tags or [],
-                "topics": story.medium_topics or []
+                "reading_time": story.medium_reading_time or story.read_time or 0
             },
             "metadata": {
                 "title": story.medium_title or story.name,
                 "first_published": story.medium_first_published or story.created_date,
                 "last_updated": story.medium_last_updated or story.last_updated,
-                "author": story.medium_author or "",
                 "publication": story.medium_publication or ""
-            },
-            "performance": {
-                "claps_per_read": safe_divide(story.claps or 0, story.reads or 1),
-                "views_to_reads": safe_divide((story.reads or 0) * 100, story.view_count or 1)
             }
         }
         
@@ -186,10 +185,10 @@ async def get_stats_dashboard_by_url(medium_url: str):
 
 @router.post("/fetch-stats")
 async def fetch_all_medium_stats():
-    """Fetch current month stats and metadata for all stories with URLs"""
+    """Fetch ONLY current month stats for all stories with URLs"""
     try:
         logger.info("=" * 60)
-        logger.info("FETCHING STATS FOR ALL STORIES")
+        logger.info("FETCHING CURRENT MONTH STATS FOR ALL STORIES")
         logger.info("=" * 60)
         
         stories = await StoryService.get_all_stories()
@@ -222,12 +221,14 @@ async def fetch_all_medium_stats():
                     logger.info("   Waiting 3 seconds to avoid rate limiting...")
                     time.sleep(3)
                 
-                details = await fetcher.fetch_post_details(story['medium_url'])
+                # Fetch ONLY current month stats
+                current_stats = await fetcher.fetch_current_month_stats(story['medium_url'])
                 
-                if details:
-                    totals = details.get('totals', {})
+                if current_stats:
+                    totals = current_stats.get('totals', {})
                     
                     await StoryService.update_story(story['key'], StoryUpdate(
+                        # Current month stats only
                         reads=totals.get('total_reads', 0),
                         claps=totals.get('claps', 0),
                         responses=totals.get('replies', 0),
@@ -237,18 +238,21 @@ async def fetch_all_medium_stats():
                         medium_nonmember_reads=totals.get('nonmember_reads', 0),
                         medium_nonmember_views=totals.get('nonmember_views', 0),
                         medium_read_ratio=totals.get('read_ratio', 0),
-                        medium_first_published=details.get('first_published'),
-                        medium_last_updated=details.get('last_updated'),
-                        medium_title=details.get('title'),
-                        medium_reading_time=details.get('reading_time', 0),
-                        word_count=details.get('word_count', 0),
-                        medium_tags=details.get('tags', []),
-                        medium_topics=details.get('topics', []),
-                        medium_author=details.get('author'),
-                        medium_publication=details.get('publication'),
+                        medium_member_read_percentage=totals.get('member_read_percentage', 0),
+                        medium_new_followers=totals.get('new_followers', 0),
+                        medium_highlights=totals.get('highlights', 0),
+                        
+                        # Post metadata
+                        medium_first_published=current_stats.get('first_published'),
+                        medium_last_updated=current_stats.get('last_updated'),
+                        medium_title=current_stats.get('title'),
+                        medium_reading_time=current_stats.get('reading_time', 0),
+                        word_count=current_stats.get('word_count', 0),
+                        
+                        # Update timestamp
                         last_stats_update=datetime.now().isoformat(),
                         medium_stats_updated=datetime.now().isoformat(),
-                        medium_stats_data=details
+                        medium_stats_data=current_stats
                     ))
                     
                     results['updated'] += 1
@@ -256,10 +260,9 @@ async def fetch_all_medium_stats():
                         'key': story['key'],
                         'name': story['name'],
                         'success': True,
-                        'reads': totals.get('total_reads', 0),
-                        'tags': len(details.get('tags', []))
+                        'reads': totals.get('total_reads', 0)
                     })
-                    logger.info(f"   ✅ Updated: {totals.get('total_reads', 0)} reads, {len(details.get('tags', []))} tags")
+                    logger.info(f"   ✅ Updated: {totals.get('total_reads', 0)} reads this month")
                 else:
                     results['failed'] += 1
                     results['details'].append({
@@ -295,17 +298,16 @@ async def fetch_all_medium_stats():
         raise HTTPException(status_code=500, detail=str(e))
 
 
-#@router.post("/fetch-lifetime-stats/{story_key:path}")
 @router.post("/fetch-lifetime-stats/{story_key:path}")
-async def fetch_single_story_stats(story_key: str = Path(...)):
-    """Fetch current month stats AND lifetime stats for a single story"""
+async def fetch_lifetime_stats_for_story(story_key: str = Path(...)):
+    """Fetch ONLY lifetime stats for a single story (called from Stats Dashboard button)"""
     try:
         decoded_key = unquote(story_key)
         if decoded_key.lower().endswith('.md'):
             decoded_key = decoded_key[:-3]
         
         logger.info(f"=" * 60)
-        logger.info(f"FETCHING STATS FOR: {decoded_key}")
+        logger.info(f"FETCHING LIFETIME STATS FOR: {decoded_key}")
         logger.info(f"=" * 60)
         
         story = await StoryService.get_story(decoded_key)
@@ -322,89 +324,42 @@ async def fetch_single_story_stats(story_key: str = Path(...)):
         if not fetcher.is_authenticated():
             raise HTTPException(status_code=401, detail="Not authenticated")
         
-        # Get current month stats
-        current_stats = await fetcher.fetch_current_month_stats(story.medium_url)
-        
-        # Get lifetime stats (readersCount, viewersCount, presentationCount)
+        # Fetch ONLY lifetime stats
         lifetime_stats = await fetcher.fetch_lifetime_stats(story.medium_url)
         
-        if current_stats:
-            totals = current_stats.get('totals', {})
-            lifetime = lifetime_stats if lifetime_stats else {}
-            
+        if lifetime_stats:
             await StoryService.update_story(decoded_key, StoryUpdate(
-                # Current month stats
-                reads=totals.get('total_reads', 0),
-                claps=totals.get('claps', 0),
-                responses=totals.get('replies', 0),
-                view_count=totals.get('total_views', 0),
-                medium_member_reads=totals.get('member_reads', 0),
-                medium_member_views=totals.get('member_views', 0),
-                medium_nonmember_reads=totals.get('nonmember_reads', 0),
-                medium_nonmember_views=totals.get('nonmember_views', 0),
-                medium_read_ratio=totals.get('read_ratio', 0),
-                
-                # Post metadata
-                medium_first_published=current_stats.get('first_published'),
-                medium_last_updated=current_stats.get('last_updated'),
-                medium_title=current_stats.get('title'),
-                medium_reading_time=current_stats.get('reading_time', 0),
-                word_count=current_stats.get('word_count', 0),
-                
-                # Lifetime stats
-                lifetime_reads=lifetime.get('lifetime_reads', 0),
-                lifetime_views=lifetime.get('lifetime_views', 0),
-                
-                # Update timestamp
-                last_stats_update=datetime.now().isoformat(),
-                medium_stats_updated=datetime.now().isoformat(),
-                lifetime_stats_updated=datetime.now().isoformat(),
-                medium_stats_data=current_stats,
-                lifetime_stats_data=lifetime
+                # Lifetime stats only
+                lifetime_reads=lifetime_stats.get('lifetime_reads', 0),
+                lifetime_views=lifetime_stats.get('lifetime_views', 0),
+                presentation_count=lifetime_stats.get('presentation_count', 0),
+                lifetime_stats_data=lifetime_stats,
+                lifetime_stats_updated=datetime.now().isoformat()
             ))
             
             return {
-                "message": "Stats fetched successfully",
+                "message": "Lifetime stats fetched successfully",
                 "stats": {
                     "story_key": decoded_key,
                     "story_name": story.name,
                     "medium_url": story.medium_url,
-                    "medium_first_published": current_stats.get('first_published'),
-                    "current_month": {
-                        "reads": totals.get('total_reads', 0),
-                        "claps": totals.get('claps', 0),
-                        "views": totals.get('total_views', 0),
-                        "responses": totals.get('replies', 0),
-                        "member_reads": totals.get('member_reads', 0),
-                        "member_views": totals.get('member_views', 0),
-                        "nonmember_reads": totals.get('nonmember_reads', 0),
-                        "nonmember_views": totals.get('nonmember_views', 0),
-                        "read_ratio": totals.get('read_ratio', 0)
-                    },
                     "lifetime": {
-                        "reads": lifetime.get('lifetime_reads', 0),
-                        "views": lifetime.get('lifetime_views', 0),
-                        "presentation_count": lifetime.get('presentation_count', 0)
-                    },
-                    "content": {
-                        "word_count": current_stats.get('word_count', 0),
-                        "reading_time": current_stats.get('reading_time', 0)
-                    },
-                    "metadata": {
-                        "title": current_stats.get('title'),
-                        "first_published": current_stats.get('first_published'),
-                        "last_updated": current_stats.get('last_updated')
+                        "reads": lifetime_stats.get('lifetime_reads', 0),
+                        "views": lifetime_stats.get('lifetime_views', 0),
+                        "presentation_count": lifetime_stats.get('presentation_count', 0)
                     }
                 }
             }
         else:
-            return {"message": "Could not fetch stats", "error": "No data returned"}
+            return {"message": "Could not fetch lifetime stats", "error": "No data returned"}
             
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Fetch stats error: {e}")
+        logger.error(f"Fetch lifetime stats error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
 # ============================================
 # CORE CRUD ENDPOINTS
 # ============================================

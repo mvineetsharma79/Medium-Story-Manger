@@ -49,7 +49,7 @@ class StoryUpdate(BaseModel):
     medium_title: Optional[str] = None
     medium_subtitle: Optional[str] = None
     medium_author: Optional[str] = None
-    medium_publication: Optional[str] = None
+    medium_publication: Optional[str] = None  # Publication field
     last_stats_update: Optional[str] = None
     bookmarked: Optional[bool] = None
     medium_member_reads: Optional[int] = None
@@ -68,10 +68,8 @@ class StoryUpdate(BaseModel):
     
     # Lifetime stats
     lifetime_reads: Optional[int] = None
-    lifetime_claps: Optional[int] = None
     lifetime_views: Optional[int] = None
-    lifetime_tags: Optional[List[str]] = None
-    lifetime_topics: Optional[List[str]] = None
+    presentation_count: Optional[int] = None
     lifetime_stats_data: Optional[Dict] = None
     lifetime_stats_updated: Optional[str] = None
 
@@ -111,7 +109,7 @@ class StoryResponse(BaseModel):
     medium_title: Optional[str] = None
     medium_subtitle: Optional[str] = None
     medium_author: Optional[str] = None
-    medium_publication: Optional[str] = None
+    medium_publication: Optional[str] = None  # Publication field
     last_stats_update: Optional[str] = None
     bookmarked: Optional[bool] = False
     medium_member_reads: Optional[int] = 0
@@ -130,10 +128,8 @@ class StoryResponse(BaseModel):
     
     # Lifetime stats
     lifetime_reads: Optional[int] = 0
-    lifetime_claps: Optional[int] = 0
     lifetime_views: Optional[int] = 0
-    lifetime_tags: Optional[List[str]] = None
-    lifetime_topics: Optional[List[str]] = None
+    presentation_count: Optional[int] = 0
     lifetime_stats_data: Optional[Dict] = None
     lifetime_stats_updated: Optional[str] = None
 

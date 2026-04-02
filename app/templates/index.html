@@ -63,6 +63,12 @@
         .compact-stats { font-size: 0.85rem; }
         .stat-label { font-size: 0.7rem; opacity: 0.8; }
         .stat-value { font-size: 1.1rem; font-weight: bold; }
+        .lifetime-text { font-size: 0.75rem; font-family: monospace; background: #f0f0f0; padding: 2px 6px; border-radius: 10px; display: inline-block; }
+        .fetch-status { font-size: 0.7rem; margin-top: 10px; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px; }
+        .linkedin-single { white-space: nowrap; }
+        .series-link { cursor: pointer; text-decoration: none; }
+        .series-link:hover { text-decoration: underline; }
+        .form-control.bg-light { background-color: #f8f9fa; }
     </style>
 </head>
 <body>
@@ -81,7 +87,12 @@
                     <a href="#" class="nav-link" data-view="calendar"><i class="bi bi-calendar-week"></i> Calendar</a>
                     <a href="#" class="nav-link" data-view="settings"><i class="bi bi-gear"></i> Settings</a>
                 </div>
-                <div class="position-absolute bottom-0 p-3"><small>v2.0.0</small></div>
+                <div class="position-absolute bottom-0 p-3">
+                    <small>v2.0.0</small>
+                    <div id="lastFetchStatus" class="fetch-status">
+                        <i class="bi bi-cloud-arrow-down"></i> Last fetch: <span id="lastFetchTime">Never</span>
+                    </div>
+                </div>
             </nav>
 
             <!-- Main Content -->
@@ -112,7 +123,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Status</label>
                                     <select class="form-select form-select-sm" id="editStoryStatus">
@@ -122,10 +133,22 @@
                                         <option value="Published">📢 Published</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Medium Publish Date</label>
                                     <input type="date" class="form-control form-control-sm" id="editStoryMediumPublishDate" readonly disabled>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Publication</label>
+                                    <input type="text" class="form-control form-control-sm" id="editStoryPublication" placeholder="Medium publication name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Local Created Date</label>
                                     <div class="date-input-group">
@@ -136,14 +159,6 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label fw-bold">Read Time (minutes)</label>
-                                    <input type="number" class="form-control form-control-sm" id="editStoryReadTime" placeholder="Optional">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">Current Month Reads</label>
-                                    <input type="number" class="form-control form-control-sm" id="editStoryReads" value="0" min="0">
-                                </div>
-                                <div class="mb-3">
                                     <label class="form-label fw-bold">Tags</label>
                                     <input type="text" class="form-control form-control-sm" id="editStoryTags" placeholder="python, api, tutorial">
                                 </div>
@@ -153,6 +168,89 @@
                             <label class="form-label fw-bold"><i class="bi bi-medium"></i> Medium URL</label>
                             <input type="url" class="form-control form-control-sm" id="editStoryMediumUrl" placeholder="https://medium.com/...">
                         </div>
+                        
+                        <div class="card mb-3">
+                            <div class="card-header bg-light py-2">
+                                <i class="bi bi-infinity"></i> <strong>Lifetime Stats</strong> <small class="text-muted">(from Stats Dashboard)</small>
+                            </div>
+                            <div class="card-body py-2">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Lifetime Reads</label>
+                                            <div class="form-control form-control-sm bg-light" id="editStoryLifetimeReads">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Lifetime Views</label>
+                                            <div class="form-control form-control-sm bg-light" id="editStoryLifetimeViews">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Presentation Count</label>
+                                            <div class="form-control form-control-sm bg-light" id="editStoryPresentationCount">-</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-3">
+                            <div class="card-header bg-light py-2">
+                                <i class="bi bi-calendar-month"></i> <strong>Current Month Stats</strong> <small class="text-muted">(from Fetch Stats)</small>
+                            </div>
+                            <div class="card-body py-2">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Member Reads</label>
+                                            <div class="form-control form-control-sm bg-light" id="editStoryMemberReads">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Member Views</label>
+                                            <div class="form-control form-control-sm bg-light" id="editStoryMemberViews">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Engagement (Claps/Follower)</label>
+                                            <div class="form-control form-control-sm bg-light" id="editStoryEngagement">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">New Followers</label>
+                                            <div class="form-control form-control-sm bg-light" id="editStoryNewFollowers">-</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Read Ratio</label>
+                                            <div class="form-control form-control-sm bg-light" id="editStoryReadRatio">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Member Read %</label>
+                                            <div class="form-control form-control-sm bg-light" id="editStoryMemberPercent">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Reading Time / Word Count</label>
+                                            <div class="form-control form-control-sm bg-light" id="editStoryReadTimeWordCount">-</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="card mb-3">
                             <div class="card-header bg-light py-2">
                                 <i class="bi bi-linkedin text-primary"></i> <strong>LinkedIn Marketing</strong>
@@ -330,8 +428,15 @@
             return num.toString();
         }
         
-        function setTodayDate(elementId) { document.getElementById(elementId).value = getTodayDate(); }
-        function clearDate(elementId) { document.getElementById(elementId).value = ''; }
+        function setTodayDate(elementId) { 
+            const el = document.getElementById(elementId);
+            if (el) el.value = getTodayDate(); 
+        }
+        
+        function clearDate(elementId) { 
+            const el = document.getElementById(elementId);
+            if (el) el.value = ''; 
+        }
         
         function formatDateForDisplay(dateStr) {
             if (!dateStr || dateStr === 'Unknown') return '';
@@ -339,16 +444,33 @@
             return '';
         }
         
+        function updateLastFetchTime() {
+            const now = new Date().toLocaleString();
+            localStorage.setItem('lastFetchTime', now);
+            const el = document.getElementById('lastFetchTime');
+            if (el) el.textContent = now;
+        }
+        
+        function loadLastFetchTime() {
+            const lastTime = localStorage.getItem('lastFetchTime');
+            const el = document.getElementById('lastFetchTime');
+            if (el && lastTime) {
+                el.textContent = lastTime;
+            }
+        }
+        
         // ============================================
         // LinkedIn Functions
         // ============================================
         function setNowLinkedinTimestamp() {
-            document.getElementById('editStoryLinkedinTimestamp').value = getNowTimestamp();
+            const el = document.getElementById('editStoryLinkedinTimestamp');
+            if (el) el.value = getNowTimestamp();
             updateLinkedinDisplay();
         }
         
         function clearLinkedinTimestamp() {
-            document.getElementById('editStoryLinkedinTimestamp').value = '';
+            const el = document.getElementById('editStoryLinkedinTimestamp');
+            if (el) el.value = '';
             updateLinkedinDisplay();
         }
         
@@ -361,10 +483,15 @@
                 return;
             }
             
-            document.getElementById('editStoryLinkedinStatus').value = '';
-            document.getElementById('editStoryLinkedinTimestamp').value = '';
-            document.getElementById('editStoryLinkedinImpressions').value = '0';
-            document.getElementById('editStoryLinkedinUrl').value = '';
+            const statusEl = document.getElementById('editStoryLinkedinStatus');
+            const timestampEl = document.getElementById('editStoryLinkedinTimestamp');
+            const impressionsEl = document.getElementById('editStoryLinkedinImpressions');
+            const urlEl = document.getElementById('editStoryLinkedinUrl');
+            
+            if (statusEl) statusEl.value = '';
+            if (timestampEl) timestampEl.value = '';
+            if (impressionsEl) impressionsEl.value = '0';
+            if (urlEl) urlEl.value = '';
             updateLinkedinDisplay();
             
             let cleanKey = storyKey;
@@ -372,13 +499,13 @@
             const encodedKey = encodeURIComponent(cleanKey);
             
             const data = {
-                status: document.getElementById('editStoryStatus').value,
-                read_time: document.getElementById('editStoryReadTime').value ? parseInt(document.getElementById('editStoryReadTime').value) : null,
-                reads: parseInt(document.getElementById('editStoryReads').value) || 0,
-                tags: document.getElementById('editStoryTags').value.split(',').map(t=>t.trim()).filter(t=>t),
-                medium_url: document.getElementById('editStoryMediumUrl').value || null,
-                notes: document.getElementById('editStoryNotes').value,
-                created_date: document.getElementById('editStoryCreatedDate').value || null,
+                status: document.getElementById('editStoryStatus')?.value || 'Draft',
+                read_time: document.getElementById('editStoryReadTime')?.value ? parseInt(document.getElementById('editStoryReadTime').value) : null,
+                tags: document.getElementById('editStoryTags')?.value.split(',').map(t=>t.trim()).filter(t=>t) || [],
+                medium_url: document.getElementById('editStoryMediumUrl')?.value || null,
+                notes: document.getElementById('editStoryNotes')?.value || '',
+                created_date: document.getElementById('editStoryCreatedDate')?.value || null,
+                medium_publication: document.getElementById('editStoryPublication')?.value || null,
                 linkedin_status: null,
                 linkedin_timestamp: null,
                 linkedin_impressions: 0,
@@ -400,19 +527,25 @@
                     saveFilterState();
                     loadView(currentView).then(() => restoreFilterState());
                 } else {
-                    btn.innerHTML = '<i class="bi bi-exclamation-triangle"></i> Failed!';
-                    setTimeout(() => { btn.innerHTML = 'Clear All LinkedIn Data'; }, 1500);
+                    if (btn) {
+                        btn.innerHTML = '<i class="bi bi-exclamation-triangle"></i> Failed!';
+                        setTimeout(() => { btn.innerHTML = 'Clear All LinkedIn Data'; }, 1500);
+                    }
                 }
             });
         }
         
         function onLinkedinStatusChange() {
-            const status = document.getElementById('editStoryLinkedinStatus').value;
+            const statusEl = document.getElementById('editStoryLinkedinStatus');
+            const timestampEl = document.getElementById('editStoryLinkedinTimestamp');
+            const status = statusEl?.value || '';
+            
             if (status === 'scheduled' || status === 'posted') {
-                const ts = document.getElementById('editStoryLinkedinTimestamp').value;
-                if (!ts) document.getElementById('editStoryLinkedinTimestamp').value = getNowTimestamp();
+                if (timestampEl && !timestampEl.value) {
+                    timestampEl.value = getNowTimestamp();
+                }
             } else if (status === '') {
-                document.getElementById('editStoryLinkedinTimestamp').value = '';
+                if (timestampEl) timestampEl.value = '';
             }
             updateLinkedinDisplay();
         }
@@ -427,7 +560,7 @@
             if (status === 'scheduled') {
                 display.innerHTML = `<i class="bi bi-calendar"></i> <strong>LinkedIn:</strong> Scheduled for ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions}`;
             } else if (status === 'posted') {
-                display.innerHTML = `<i class="bi bi-linkedin"></i> <strong>LinkedIn:</strong> Posted on ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions}`;
+                display.innerHTML = `<i class="bi bi-check-circle-fill text-success"></i> Posted ${timestamp ? formatTimestampForDisplay(timestamp) : ''} | Impressions: ${impressions}`;
             } else {
                 display.innerHTML = '<i class="bi bi-linkedin"></i> <strong>LinkedIn:</strong> Not posted';
             }
@@ -469,10 +602,15 @@
         }
         
         function restoreFilterState() {
-            if (document.getElementById('statusFilter')) document.getElementById('statusFilter').value = filterState.status;
-            if (document.getElementById('seriesFilter')) document.getElementById('seriesFilter').value = filterState.series;
-            if (document.getElementById('searchFilter')) document.getElementById('searchFilter').value = filterState.search;
-            if (document.getElementById('bookmarkFilter')) document.getElementById('bookmarkFilter').checked = filterState.bookmarked;
+            const statusFilter = document.getElementById('statusFilter');
+            const seriesFilter = document.getElementById('seriesFilter');
+            const searchFilter = document.getElementById('searchFilter');
+            const bookmarkFilter = document.getElementById('bookmarkFilter');
+            
+            if (statusFilter) statusFilter.value = filterState.status;
+            if (seriesFilter) seriesFilter.value = filterState.series;
+            if (searchFilter) searchFilter.value = filterState.search;
+            if (bookmarkFilter) bookmarkFilter.checked = filterState.bookmarked;
             filterStories();
         }
         
@@ -492,7 +630,7 @@
             const sorted = [...allStories].sort((a, b) => {
                 let aVal = a[column];
                 let bVal = b[column];
-                if (column === 'reads' || column === 'claps' || column === 'linkedin_impressions' || column === 'view_count') {
+                if (column === 'reads' || column === 'claps' || column === 'linkedin_impressions' || column === 'view_count' || column === 'lifetime_reads' || column === 'lifetime_views') {
                     aVal = aVal || 0;
                     bVal = bVal || 0;
                     return direction === 'asc' ? aVal - bVal : bVal - aVal;
@@ -581,6 +719,7 @@
         let currentStatsStoryKey = null;
 
         document.addEventListener('DOMContentLoaded', () => {
+            loadLastFetchTime();
             loadView('dashboard');
             document.querySelectorAll('.sidebar .nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -591,19 +730,26 @@
                     link.classList.add('active');
                 });
             });
-            document.getElementById('setNowLinkedinBtn')?.addEventListener('click', setNowLinkedinTimestamp);
-            document.getElementById('clearLinkedinTimestampBtn')?.addEventListener('click', clearLinkedinTimestamp);
-            document.getElementById('clearAllLinkedinBtn')?.addEventListener('click', clearAllLinkedinData);
-            document.getElementById('editStoryLinkedinStatus')?.addEventListener('change', onLinkedinStatusChange);
-            document.getElementById('saveStoryEditBtn')?.addEventListener('click', saveStoryEdit);
+            
+            const setNowBtn = document.getElementById('setNowLinkedinBtn');
+            const clearTimestampBtn = document.getElementById('clearLinkedinTimestampBtn');
+            const clearAllBtn = document.getElementById('clearAllLinkedinBtn');
+            const linkedinStatus = document.getElementById('editStoryLinkedinStatus');
+            const saveBtn = document.getElementById('saveStoryEditBtn');
+            
+            if (setNowBtn) setNowBtn.addEventListener('click', setNowLinkedinTimestamp);
+            if (clearTimestampBtn) clearTimestampBtn.addEventListener('click', clearLinkedinTimestamp);
+            if (clearAllBtn) clearAllBtn.addEventListener('click', clearAllLinkedinData);
+            if (linkedinStatus) linkedinStatus.addEventListener('change', onLinkedinStatusChange);
+            if (saveBtn) saveBtn.addEventListener('click', saveStoryEdit);
         });
         
         async function loadView(view) {
             currentView = view;
             const contentDiv = document.getElementById('content');
             const loadingDiv = document.getElementById('loading');
-            loadingDiv.style.display = 'block';
-            contentDiv.innerHTML = '';
+            if (loadingDiv) loadingDiv.style.display = 'block';
+            if (contentDiv) contentDiv.innerHTML = '';
             try {
                 await loadAllSeries();
                 if (view === 'dashboard') await loadDashboard();
@@ -612,9 +758,9 @@
                 else if (view === 'calendar') await loadCalendar();
                 else if (view === 'settings') await loadSettings();
             } catch (error) { 
-                contentDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
+                if (contentDiv) contentDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
             } finally { 
-                loadingDiv.style.display = 'none'; 
+                if (loadingDiv) loadingDiv.style.display = 'none'; 
             }
         }
         
@@ -639,10 +785,14 @@
             const totalReads = stories.reduce((sum, s) => sum + (s.reads || 0), 0);
             const totalClaps = stories.reduce((sum, s) => sum + (s.claps || 0), 0);
             const totalViews = stories.reduce((sum, s) => sum + (s.view_count || 0), 0);
+            const totalLifetimeReads = stories.reduce((sum, s) => sum + (s.lifetime_reads || 0), 0);
             const calendarRes = await fetch(`${API_BASE}/calendar/`);
             const calendar = await calendarRes.json();
             
-            document.getElementById('content').innerHTML = `
+            const contentDiv = document.getElementById('content');
+            if (!contentDiv) return;
+            
+            contentDiv.innerHTML = `
                 <h1 class="h3 mb-4">Dashboard</h1>
                 <div class="row g-2 mb-4">
                     <div class="col-md-2"><div class="card stat-card bg-primary text-white" onclick="filterStoriesByStatus('all')"><div class="card-body"><h6>Total</h6><h2>${stories.length}</h2></div></div></div>
@@ -653,19 +803,25 @@
                     <div class="col-md-2"><div class="card stat-card bg-dark text-white"><div class="card-body"><h6>Impressions</h6><h2>${formatNumber(totalImpressions)}</h2></div></div></div>
                 </div>
                 <div class="row g-1 mb-4">
-                    <div class="col-md-3"><div class="card mini-stat-card bg-info text-white"><div class="card-body"><h6 class="mb-0">Total Reads (Month)</h6><h2 class="mb-0">${formatNumber(totalReads)}</h2></div></div></div>
-                    <div class="col-md-3"><div class="card mini-stat-card bg-warning text-white"><div class="card-body"><h6 class="mb-0">Total Claps (Month)</h6><h2 class="mb-0">${formatNumber(totalClaps)}</h2></div></div></div>
-                    <div class="col-md-3"><div class="card mini-stat-card bg-primary text-white"><div class="card-body"><h6 class="mb-0">Total Views (Month)</h6><h2 class="mb-0">${formatNumber(totalViews)}</h2></div></div></div>
-                    <div class="col-md-3"><div class="card mini-stat-card bg-success text-white"><div class="card-body"><h6 class="mb-0">Avg Reads/Story</h6><h2 class="mb-0">${formatNumber(Math.round(totalReads / (published || 1)))}</h2></div></div></div>
+                    <div class="col-md-3"><div class="card mini-stat-card bg-info text-white"><div class="card-body"><h6 class="mb-0">Month Reads</h6><h2 class="mb-0">${formatNumber(totalReads)}</h2></div></div></div>
+                    <div class="col-md-3"><div class="card mini-stat-card bg-warning text-white"><div class="card-body"><h6 class="mb-0">Month Engagement</h6><h2 class="mb-0">${formatNumber(totalClaps)}</h2></div></div></div>
+                    <div class="col-md-3"><div class="card mini-stat-card bg-primary text-white"><div class="card-body"><h6 class="mb-0">Month Views</h6><h2 class="mb-0">${formatNumber(totalViews)}</h2></div></div></div>
+                    <div class="col-md-3"><div class="card mini-stat-card bg-success text-white"><div class="card-body"><h6 class="mb-0">Lifetime Reads</h6><h2 class="mb-0">${formatNumber(totalLifetimeReads)}</h2></div></div></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6"><div class="card"><div class="card-header d-flex justify-content-between"><h6>Recent Stories</h6><button class="btn btn-sm btn-primary" onclick="loadView('stories')">View All</button></div>
-                    <div class="card-body p-0"><div class="list-group list-group-flush">${stories.slice(0,10).map(s => `<div class="list-group-item d-flex justify-content-between"><div><span class="status-badge ${s.status==='Published'?'status-published':s.status==='Ready'?'status-ready':s.status==='Done'?'status-done':'status-draft'}">${s.status}</span> ${escapeHtml(s.name.length>35?s.name.substring(0,35)+'...':s.name)} ${s.series?`<span class="series-badge">📚 ${s.series}</span>`:''} ${s.bookmarked?`<i class="bi bi-bookmark-fill text-warning"></i>`:''}<br><small class="text-muted">Published: ${s.medium_first_published ? s.medium_first_published.split('T')[0] : 'Unknown'}</small></div><button class="btn btn-sm btn-outline-primary" onclick="editStory('${s.key.replace(/'/g,"\\'")}')">Edit</button></div>`).join('')}</div></div></div></div>
+                    <div class="card-body p-0"><div class="list-group list-group-flush">${stories.slice(0,10).map(s => `<div class="list-group-item d-flex justify-content-between"><div><span class="status-badge ${s.status==='Published'?'status-published':s.status==='Ready'?'status-ready':s.status==='Done'?'status-done':'status-draft'}">${s.status}</span> ${escapeHtml(s.name.length>35?s.name.substring(0,35)+'...':s.name)} ${s.series?`<span class="series-badge series-link" onclick="event.stopPropagation(); filterBySeries('${s.series}')">📚 ${s.series}</span>`:''} ${s.bookmarked?`<i class="bi bi-bookmark-fill text-warning"></i>`:''}<br><small class="text-muted">Published: ${s.medium_first_published ? s.medium_first_published.split('T')[0] : 'Unknown'}</small></div><button class="btn btn-sm btn-outline-primary" onclick="editStory('${s.key.replace(/'/g,"\\'")}')">Edit</button></div>`).join('')}</div></div></div></div>
                     <div class="col-md-6"><div class="card"><div class="card-header d-flex justify-content-between"><h6>Upcoming Schedule</h6><button class="btn btn-sm btn-primary" onclick="generateCalendar()">Generate</button></div>
                     <div class="card-body p-0"><div class="list-group list-group-flush">${calendar.schedule?.slice(0,10).map(c => `<div class="list-group-item"><div class="d-flex justify-content-between"><div><strong>${c.date}</strong> (${c.weekday})<br><small>${escapeHtml(c.name)}</small>${c.series?`<span class="series-badge ms-2">📚 ${c.series}</span>`:''}</div><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g,"\\'")}')">Publish</button></div></div>`).join('') || '<div class="list-group-item text-muted">No scheduled stories</div>'}</div></div></div></div>
                 </div>
-                <div class="mt-3"><button class="btn btn-sm btn-primary" onclick="syncStories()"><i class="bi bi-arrow-repeat"></i> Sync Files</button><button class="btn btn-sm btn-info ms-2" onclick="fetchMediumStats()"><i class="bi bi-cloud-download"></i> Fetch Stats from Medium</button></div>
+                <div class="mt-3"><button class="btn btn-sm btn-primary" onclick="syncStories()"><i class="bi bi-arrow-repeat"></i> Sync Files</button><button class="btn btn-sm btn-info ms-2" onclick="fetchMediumStats()"><i class="bi bi-cloud-download"></i> Fetch Current Month Stats</button></div>
             `;
+        }
+        
+        function filterBySeries(seriesName) {
+            filterState.series = seriesName;
+            filterState.status = 'All';
+            loadView('stories');
         }
         
         // ============================================
@@ -677,21 +833,27 @@
             allStories = stories;
             const statuses = ['All', 'Draft', 'Done', 'Ready', 'Published'];
             
-            document.getElementById('content').innerHTML = `
+            const contentDiv = document.getElementById('content');
+            if (!contentDiv) return;
+            
+            contentDiv.innerHTML = `
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h1 class="h3">Stories</h1>
                     <div>
                         <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addStoryModal"><i class="bi bi-plus-lg"></i> Add Story</button>
-                        <button class="btn btn-sm btn-info ms-2" onclick="fetchMediumStats()"><i class="bi bi-cloud-download"></i> Fetch Stats from Medium</button>
+                        <button class="btn btn-sm btn-info ms-2" onclick="fetchMediumStats()"><i class="bi bi-cloud-download"></i> Fetch Current Month Stats</button>
                     </div>
                 </div>
                 <div class="filter-bar d-flex gap-2 flex-wrap">
                     <i class="bi bi-funnel"></i><span>Filter:</span>
                     <select id="statusFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">${statuses.map(s => `<option value="${s}">${s}</option>`).join('')}</select>
-                    <select id="seriesFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()"><option value="">All Series</option>${allSeries.map(s => `<option value="${s.name}">${s.name}</option>`).join('')}</select>
-                    <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search..." onkeyup="saveFilterState(); filterStories()">
+                    <select id="seriesFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">
+                        <option value="">All Series</option>
+                        ${allSeries.map(s => `<option value="${s.name}" ${filterState.series === s.name ? 'selected' : ''}>${s.name}</option>`).join('')}
+                    </select>
+                    <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search..." onkeyup="saveFilterState(); filterStories()" value="${escapeHtml(filterState.search)}">
                     <div class="form-check ms-2">
-                        <input class="form-check-input" type="checkbox" id="bookmarkFilter" onchange="saveFilterState(); filterStories()">
+                        <input class="form-check-input" type="checkbox" id="bookmarkFilter" onchange="saveFilterState(); filterStories()" ${filterState.bookmarked ? 'checked' : ''}>
                         <label class="form-check-label small" for="bookmarkFilter">Bookmarked only</label>
                     </div>
                     <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">Clear</button>
@@ -703,13 +865,14 @@
                                 <th class="sortable" data-sort="bookmarked" onclick="sortStories('bookmarked')"><i class="bi bi-bookmark"></i> <i class="bi bi-arrow-down-up"></i></th>
                                 <th class="sortable" data-sort="status" onclick="sortStories('status')">Status <i class="bi bi-arrow-down-up"></i></th>
                                 <th class="sortable" data-sort="name" onclick="sortStories('name')">Story Name <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="series" onclick="sortStories('series')">Series <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="medium_first_published" onclick="sortStories('medium_first_published')">Published (Medium) <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="reads" onclick="sortStories('reads')">Reads (Month) <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="view_count" onclick="sortStories('view_count')">Views (Month) <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="claps" onclick="sortStories('claps')">Claps (Month) <i class="bi bi-arrow-down-up"></i></th>
-                                <th>LinkedIn</th>
+                                <th class="sortable" data-sort="medium_first_published" onclick="sortStories('medium_first_published')">Publish Date <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="reads" onclick="sortStories('reads')">Reads <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="view_count" onclick="sortStories('view_count')">Views <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="claps" onclick="sortStories('claps')">Engagement <i class="bi bi-arrow-down-up"></i></th>
                                 <th class="sortable" data-sort="linkedin_impressions" onclick="sortStories('linkedin_impressions')">Impressions <i class="bi bi-arrow-down-up"></i></th>
+                                <th class="sortable" data-sort="lifetime_reads" onclick="sortStories('lifetime_reads')">Lifetime <i class="bi bi-arrow-down-up"></i></th>
+                                <th>LinkedIn</th>
+                                <th>Publication</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -739,7 +902,7 @@
             filtered.sort((a, b) => {
                 let aVal = a[column];
                 let bVal = b[column];
-                if (column === 'reads' || column === 'claps' || column === 'linkedin_impressions' || column === 'view_count') {
+                if (column === 'reads' || column === 'claps' || column === 'linkedin_impressions' || column === 'view_count' || column === 'lifetime_reads' || column === 'lifetime_views') {
                     aVal = aVal || 0;
                     bVal = bVal || 0;
                     return direction === 'asc' ? aVal - bVal : bVal - aVal;
@@ -764,43 +927,57 @@
                 if (storyKey.toLowerCase().endsWith('.md')) storyKey = storyKey.slice(0, -3);
                 
                 let linkedinHtml = '<span class="linkedin-badge linkedin-not-posted">Not Posted</span>';
-                if (story.linkedin_status === 'scheduled') linkedinHtml = `<span class="linkedin-badge linkedin-scheduled">📅 Scheduled</span><br><small>${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</small>`;
-                else if (story.linkedin_status === 'posted') linkedinHtml = `<span class="linkedin-badge linkedin-posted">✅ Posted</span><br><small>${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</small>`;
+                if (story.linkedin_status === 'scheduled') {
+                    linkedinHtml = `<span class="linkedin-badge linkedin-scheduled">📅 ${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</span>`;
+                } else if (story.linkedin_status === 'posted') {
+                    linkedinHtml = `<span class="linkedin-badge linkedin-posted">✅ ${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</span>`;
+                }
                 
                 const publishDate = story.medium_first_published ? story.medium_first_published.split('T')[0] : (story.published_date || 'Unknown');
                 const memberReads = story.medium_member_reads || 0;
                 const totalReads = story.reads || 0;
+                const memberViews = story.medium_member_views || 0;
+                const totalViews = story.view_count || 0;
+                const lifetimeReads = story.lifetime_reads || 0;
+                const lifetimeViews = story.lifetime_views || 0;
+                const presentationCount = story.presentation_count || 0;
+                const lifetimeText = `${formatNumber(lifetimeReads)}/${formatNumber(lifetimeViews)}/${formatNumber(presentationCount)}`;
                 
-                return `
-                    <tr class="table-row-clickable" onclick="editStory('${storyKey.replace(/'/g,"\\'")}')">
-                        <td class="text-center" onclick="event.stopPropagation()">
-                            <i class="bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}" 
-                               onclick="toggleBookmark('${storyKey.replace(/'/g,"\\'")}', event)"></i>
-                        </td>
-                        <td><span class="status-badge ${story.status==='Published'?'status-published':story.status==='Ready'?'status-ready':story.status==='Done'?'status-done':'status-draft'}">${story.status}</span></td>
-                        <td><strong title="${escapeHtml(story.name)}">${escapeHtml(story.name.length>40?story.name.substring(0,40)+'...':story.name)}</strong></td>
-                        <td>${story.series ? `<span class="series-badge">📚 ${story.series}</span>` : '—'}</td>
-                        <td><small>${publishDate}</small></td>
-                        <td class="stats-tooltip" title="Member: ${memberReads} / Total: ${totalReads}"><span class="fw-bold">${formatNumber(memberReads)}</span> / ${formatNumber(totalReads)}</td>
-                        <td>${formatNumber(story.view_count || 0)}</td>
-                        <td>${formatNumber(story.claps || 0)}</td>
-                        <td class="text-center">${linkedinHtml}</td>
-                        <td class="text-center">${story.linkedin_impressions ? formatNumber(story.linkedin_impressions) : '—'}</td>
-                        <td class="action-buttons" onclick="event.stopPropagation()">
-                            <button class="btn btn-sm btn-success" onclick="markPublished('${storyKey.replace(/'/g,"\\'")}')" title="Publish"><i class="bi bi-check-lg"></i></button>
-                            <button class="btn btn-sm btn-info" onclick="quickMarkLinkedin('${storyKey.replace(/'/g,"\\'")}', 'posted')" title="Mark Posted"><i class="bi bi-linkedin"></i></button>
-                            <button class="btn btn-sm btn-warning" onclick="quickMarkLinkedin('${storyKey.replace(/'/g,"\\'")}', 'scheduled')" title="Mark Scheduled"><i class="bi bi-calendar"></i></button>
-                            <button class="btn btn-sm btn-secondary" onclick="quickMarkLinkedin('${storyKey.replace(/'/g,"\\'")}', '')" title="Not Posted"><i class="bi bi-x-circle"></i></button>
-                            <button class="btn btn-sm btn-outline-info" onclick="event.stopPropagation(); showStatsDashboard('${storyKey.replace(/'/g,"\\'")}')" title="Stats Dashboard"><i class="bi bi-graph-up"></i></button>
-                            <button class="btn btn-sm btn-danger" onclick="deleteStory('${storyKey.replace(/'/g,"\\'")}')" title="Delete"><i class="bi bi-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
+                return `<tr class="table-row-clickable" onclick="editStory('${storyKey.replace(/'/g,"\\'")}')">
+                    <td class="text-center" onclick="event.stopPropagation()">
+                        <i class="bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}" 
+                           onclick="toggleBookmark('${storyKey.replace(/'/g,"\\'")}', event)"></i>
+                    </td>
+                    <td><span class="status-badge ${story.status==='Published'?'status-published':story.status==='Ready'?'status-ready':story.status==='Done'?'status-done':'status-draft'}">${story.status}</span></td>
+                    <td><strong title="${escapeHtml(story.name)}">${escapeHtml(story.name.length>40?story.name.substring(0,40)+'...':story.name)}</strong></td>
+                    <td><small>${publishDate}</small></td>
+                    <td class="stats-tooltip" title="Member: ${memberReads} / Total: ${totalReads}"><span class="fw-bold">${formatNumber(memberReads)}</span> / ${formatNumber(totalReads)}</td>
+                    <td class="stats-tooltip" title="Member: ${memberViews} / Total: ${totalViews}"><span class="fw-bold">${formatNumber(memberViews)}</span> / ${formatNumber(totalViews)}</td>
+                    <td>${formatNumber(story.claps || 0)} / ${formatNumber(story.medium_new_followers || 0)}</td>
+                    <td>${formatNumber(story.linkedin_impressions || 0)}</td>
+                    <td><span class="lifetime-text">${lifetimeText}</span></td>
+                    <td class="text-center linkedin-single">${linkedinHtml}</td>
+                    <td>${story.medium_publication ? escapeHtml(story.medium_publication) : '—'}</td>
+                    <td class="action-buttons" onclick="event.stopPropagation()">
+                        <button class="btn btn-sm btn-outline-info" onclick="event.stopPropagation(); showStatsDashboard('${storyKey.replace(/'/g,"\\'")}')" title="Stats Dashboard"><i class="bi bi-graph-up"></i></button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteStory('${storyKey.replace(/'/g,"\\'")}')" title="Delete"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>`;
             }).join('');
         }
         
         function filterStories() { renderStoryTable(allStories); }
-        function clearFilters() { filterState = { status: 'All', series: '', search: '', bookmarked: false }; if(document.getElementById('statusFilter')) document.getElementById('statusFilter').value='All'; if(document.getElementById('seriesFilter')) document.getElementById('seriesFilter').value=''; if(document.getElementById('searchFilter')) document.getElementById('searchFilter').value=''; if(document.getElementById('bookmarkFilter')) document.getElementById('bookmarkFilter').checked=false; filterStories(); }
+        function clearFilters() { filterState = { status: 'All', series: '', search: '', bookmarked: false }; 
+            const statusFilter = document.getElementById('statusFilter');
+            const seriesFilter = document.getElementById('seriesFilter');
+            const searchFilter = document.getElementById('searchFilter');
+            const bookmarkFilter = document.getElementById('bookmarkFilter');
+            if (statusFilter) statusFilter.value = 'All';
+            if (seriesFilter) seriesFilter.value = '';
+            if (searchFilter) searchFilter.value = '';
+            if (bookmarkFilter) bookmarkFilter.checked = false;
+            filterStories(); 
+        }
         function filterStoriesByStatus(status) { filterState.status = status === 'all' ? 'All' : status; loadView('stories'); }
         function filterStoriesByBookmarked() { filterState.bookmarked = true; loadView('stories'); }
         
@@ -811,7 +988,10 @@
             const res = await fetch(`${API_BASE}/series/`);
             const series = await res.json();
             allSeries = series;
-            document.getElementById('content').innerHTML = `
+            const contentDiv = document.getElementById('content');
+            if (!contentDiv) return;
+            
+            contentDiv.innerHTML = `
                 <div class="d-flex justify-content-between mb-3">
                     <h1 class="h3">Series</h1>
                     <button class="btn btn-sm btn-primary" onclick="addSeries()"><i class="bi bi-plus-lg"></i> Add Series</button>
@@ -852,7 +1032,7 @@
             });
             tbody.innerHTML = sorted.map(s => `
                 <tr>
-                    <td><strong>${escapeHtml(s.name)}</strong></td>
+                    <td><strong class="series-link" onclick="filterBySeries('${s.name}')">${escapeHtml(s.name)}</strong></td>
                     <td><div class="d-flex gap-2 align-items-center"><div class="progress" style="width:150px;height:6px;"><div class="progress-bar" style="width:${(s.published / (s.total_stories || 1)) * 100}%"></div></div><small>${s.published}/${s.total_stories || 0}</small></div></td>
                     <td><input type="number" class="form-control form-control-sm" style="width:80px;" value="${s.spacing_days}" onchange="updateSeriesSpacing('${s.name}', this.value)"></td>
                     <td><button class="btn btn-sm btn-danger" onclick="deleteSeries('${s.name}')"><i class="bi bi-trash"></i></button></td>
@@ -867,7 +1047,10 @@
             const res = await fetch(`${API_BASE}/calendar/`);
             const calendar = await res.json();
             allCalendar = calendar.schedule || [];
-            document.getElementById('content').innerHTML = `
+            const contentDiv = document.getElementById('content');
+            if (!contentDiv) return;
+            
+            contentDiv.innerHTML = `
                 <div class="d-flex justify-content-between mb-3">
                     <h1 class="h3">Publishing Calendar</h1>
                     <button class="btn btn-sm btn-primary" onclick="generateCalendar()"><i class="bi bi-arrow-repeat"></i> Regenerate</button>
@@ -904,13 +1087,13 @@
             tbody.innerHTML = calendar.map(c => `
                 <tr>
                     <td><strong>${c.date}</strong><br><small>${c.weekday}</small></td>
-                    <td>${escapeHtml(c.name)}</td>
-                    <td>${c.series || 'Standalone'}</td>
-                    <td>${c.part ? `Part ${c.part}` : '—'}</td>
-                    <td>${c.read_time} min</td>
-                    <td><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g,"\\'")}')">Publish</button></td>
-                </tr>
-            `).join('') || '<tr><td colspan="6" class="text-center">No scheduled stories</td></tr>';
+                    <td>${escapeHtml(c.name)}</td
+                    <td>${c.series || 'Standalone'}</td
+                    <td>${c.part ? `Part ${c.part}` : '—'}</td
+                    <td>${c.read_time} min</td
+                    <td><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g,"\\'")}')">Publish</button></td
+                 </tr
+            `).join('') || '<tr><td colspan="6" class="text-center">No scheduled stories</tr';
         }
         
         // ============================================
@@ -921,15 +1104,22 @@
             const settings = await settingsRes.json();
             const rootRes = await fetch(`${API_BASE}/settings/stories-root`);
             const root = await rootRes.json();
-            document.getElementById('content').innerHTML = `<h1 class="h3 mb-3">Settings</h1><div class="row"><div class="col-md-6"><div class="card mb-3"><div class="card-header"><h6>Calendar Settings</h6></div><div class="card-body"><form id="calendarSettingsForm"><div class="mb-2"><label>Series Spacing (days)</label><input type="number" class="form-control form-control-sm" name="series_spacing_days" value="${settings.series_spacing_days||7}" min="5" max="14"></div><div class="mb-2"><label>Stories Per Week</label><input type="number" class="form-control form-control-sm" name="stories_per_week" value="${settings.stories_per_week||3}" min="1" max="7"></div><div class="mb-2"><label>Preferred Publish Days</label><div class="d-flex gap-2 flex-wrap">${['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].map(day=>`<div class="form-check"><input class="form-check-input" type="checkbox" name="preferred_days" value="${day}" ${settings.preferred_publish_days?.includes(day)?'checked':''}><label class="form-check-label small">${day.slice(0,3)}</label></div>`).join('')}</div></div><div class="mb-2"><label>Start Date</label><input type="date" class="form-control form-control-sm" name="start_date" value="${settings.start_date||''}"></div><button type="submit" class="btn btn-sm btn-primary">Save</button></form></div></div></div>
-            <div class="col-md-6"><div class="card mb-3"><div class="card-header"><h6>System</h6></div><div class="card-body"><p><strong>Stories Root:</strong> ${root.stories_root}</p><p><strong>Data Directory:</strong> ${settings.data_dir||'./data'}</p><hr><button class="btn btn-sm btn-primary" onclick="syncStories()"><i class="bi bi-arrow-repeat"></i> Sync Files</button><button class="btn btn-sm btn-info ms-2" onclick="fetchMediumStats()"><i class="bi bi-cloud-download"></i> Fetch Stats from Medium</button><button class="btn btn-sm btn-secondary ms-2" onclick="generateCalendar()"><i class="bi bi-calendar"></i> Generate Calendar</button></div></div></div></div>`;
-            document.getElementById('calendarSettingsForm')?.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const fd = new FormData(e.target);
-                const data = { series_spacing_days: parseInt(fd.get('series_spacing_days')), stories_per_week: parseInt(fd.get('stories_per_week')), preferred_publish_days: fd.getAll('preferred_days'), start_date: fd.get('start_date') };
-                const res = await fetch(`${API_BASE}/settings/calendar`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
-                if(res.ok){ alert('Saved'); loadSettings(); } else { alert('Error'); }
-            });
+            const contentDiv = document.getElementById('content');
+            if (!contentDiv) return;
+            
+            contentDiv.innerHTML = `<h1 class="h3 mb-3">Settings</h1><div class="row"><div class="col-md-6"><div class="card mb-3"><div class="card-header"><h6>Calendar Settings</h6></div><div class="card-body"><form id="calendarSettingsForm"><div class="mb-2"><label>Series Spacing (days)</label><input type="number" class="form-control form-control-sm" name="series_spacing_days" value="${settings.series_spacing_days||7}" min="5" max="14"></div><div class="mb-2"><label>Stories Per Week</label><input type="number" class="form-control form-control-sm" name="stories_per_week" value="${settings.stories_per_week||3}" min="1" max="7"></div><div class="mb-2"><label>Preferred Publish Days</label><div class="d-flex gap-2 flex-wrap">${['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].map(day=>`<div class="form-check"><input class="form-check-input" type="checkbox" name="preferred_days" value="${day}" ${settings.preferred_publish_days?.includes(day)?'checked':''}><label class="form-check-label small">${day.slice(0,3)}</label></div>`).join('')}</div></div><div class="mb-2"><label>Start Date</label><input type="date" class="form-control form-control-sm" name="start_date" value="${settings.start_date||''}"></div><button type="submit" class="btn btn-sm btn-primary">Save</button></form></div></div></div>
+            <div class="col-md-6"><div class="card mb-3"><div class="card-header"><h6>System</h6></div><div class="card-body"><p><strong>Stories Root:</strong> ${root.stories_root}</p><p><strong>Data Directory:</strong> ${settings.data_dir||'./data'}</p><hr><button class="btn btn-sm btn-primary" onclick="syncStories()"><i class="bi bi-arrow-repeat"></i> Sync Files</button><button class="btn btn-sm btn-info ms-2" onclick="fetchMediumStats()"><i class="bi bi-cloud-download"></i> Fetch Current Month Stats</button><button class="btn btn-sm btn-secondary ms-2" onclick="generateCalendar()"><i class="bi bi-calendar"></i> Generate Calendar</button></div></div></div></div>`;
+            
+            const form = document.getElementById('calendarSettingsForm');
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const fd = new FormData(e.target);
+                    const data = { series_spacing_days: parseInt(fd.get('series_spacing_days')), stories_per_week: parseInt(fd.get('stories_per_week')), preferred_publish_days: fd.getAll('preferred_days'), start_date: fd.get('start_date') };
+                    const res = await fetch(`${API_BASE}/settings/calendar`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
+                    if(res.ok){ alert('Saved'); loadSettings(); } else { alert('Error'); }
+                });
+            }
         }
         
         // ============================================
@@ -939,92 +1129,179 @@
             let cleanKey = storyKey;
             if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
             const encodedKey = encodeURIComponent(cleanKey);
-            const res = await fetch(`${API_BASE}/stories/${encodedKey}`);
-            if (!res.ok) { alert('Story not found'); return; }
-            const story = await res.json();
-            document.getElementById('editStoryNameDisplay').textContent = story.name;
-            document.getElementById('editStoryKey').value = cleanKey;
-            document.getElementById('editStorySeries').textContent = story.series || 'Standalone';
-            document.getElementById('editStoryPath').textContent = story.raw_path || story.rel_path || story.key;
-            document.getElementById('editStoryMediumPublishDate').value = story.medium_first_published ? story.medium_first_published.split('T')[0] : '';
-            document.getElementById('editStoryCreatedDate').value = formatDateForDisplay(story.created_date);
-            document.getElementById('editStoryLastUpdated').textContent = story.last_updated || 'Never';
-            document.getElementById('editStoryStatus').value = story.status || 'Draft';
-            document.getElementById('editStoryReadTime').value = story.read_time || '';
-            document.getElementById('editStoryReads').value = story.reads || 0;
-            document.getElementById('editStoryTags').value = story.tags ? story.tags.join(', ') : '';
-            document.getElementById('editStoryMediumUrl').value = story.medium_url || '';
-            document.getElementById('editStoryNotes').value = story.notes || '';
-            document.getElementById('editStoryLinkedinStatus').value = story.linkedin_status || '';
-            document.getElementById('editStoryLinkedinTimestamp').value = story.linkedin_timestamp || '';
-            document.getElementById('editStoryLinkedinImpressions').value = story.linkedin_impressions || 0;
-            document.getElementById('editStoryLinkedinUrl').value = story.linkedin_url || '';
-            updateLinkedinDisplay();
-            new bootstrap.Modal(document.getElementById('editStoryModal')).show();
+            
+            try {
+                const res = await fetch(`${API_BASE}/stories/${encodedKey}`);
+                if (!res.ok) { 
+                    alert('Story not found'); 
+                    return; 
+                }
+                const story = await res.json();
+                
+                // Helper function to safely set element value
+                const setVal = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = val || '';
+                };
+                
+                const setHtml = (id, html) => {
+                    const el = document.getElementById(id);
+                    if (el) el.innerHTML = html || '-';
+                };
+                
+                // Set basic fields
+                const nameDisplay = document.getElementById('editStoryNameDisplay');
+                if (nameDisplay) nameDisplay.textContent = story.name || '';
+                
+                setVal('editStoryKey', cleanKey);
+                
+                const seriesEl = document.getElementById('editStorySeries');
+                if (seriesEl) seriesEl.textContent = story.series || 'Standalone';
+                
+                const pathEl = document.getElementById('editStoryPath');
+                if (pathEl) pathEl.textContent = story.raw_path || story.rel_path || story.key;
+                
+                setVal('editStoryMediumPublishDate', story.medium_first_published ? story.medium_first_published.split('T')[0] : '');
+                setVal('editStoryPublication', story.medium_publication || '');
+                setVal('editStoryCreatedDate', formatDateForDisplay(story.created_date));
+                
+                const lastUpdatedEl = document.getElementById('editStoryLastUpdated');
+                if (lastUpdatedEl) lastUpdatedEl.textContent = story.last_updated || 'Never';
+                
+                setVal('editStoryStatus', story.status || 'Draft');
+                setVal('editStoryReadTime', story.read_time || '');
+                setVal('editStoryTags', story.tags ? story.tags.join(', ') : '');
+                setVal('editStoryMediumUrl', story.medium_url || '');
+                setVal('editStoryNotes', story.notes || '');
+                
+                // Lifetime stats
+                setHtml('editStoryLifetimeReads', formatNumber(story.lifetime_reads || 0));
+                setHtml('editStoryLifetimeViews', formatNumber(story.lifetime_views || 0));
+                setHtml('editStoryPresentationCount', formatNumber(story.presentation_count || 0));
+                
+                // Current month stats
+                const engagement = `${formatNumber(story.claps || 0)} / ${formatNumber(story.medium_new_followers || 0)}`;
+                const readTimeWordCount = `${story.medium_reading_time || story.read_time || 0} min / ${formatNumber(story.word_count || 0)} words`;
+                
+                setHtml('editStoryMemberReads', formatNumber(story.medium_member_reads || 0));
+                setHtml('editStoryMemberViews', formatNumber(story.medium_member_views || 0));
+                setHtml('editStoryEngagement', engagement);
+                setHtml('editStoryNewFollowers', formatNumber(story.medium_new_followers || 0));
+                setHtml('editStoryReadRatio', `${story.read_ratio || 0}%`);
+                setHtml('editStoryMemberPercent', `${story.medium_member_read_percentage || 0}%`);
+                setHtml('editStoryReadTimeWordCount', readTimeWordCount);
+                
+                // LinkedIn
+                setVal('editStoryLinkedinStatus', story.linkedin_status || '');
+                setVal('editStoryLinkedinTimestamp', story.linkedin_timestamp || '');
+                setVal('editStoryLinkedinImpressions', story.linkedin_impressions || 0);
+                setVal('editStoryLinkedinUrl', story.linkedin_url || '');
+                updateLinkedinDisplay();
+                
+                const modalEl = document.getElementById('editStoryModal');
+                if (modalEl) {
+                    const modal = new bootstrap.Modal(modalEl);
+                    modal.show();
+                } else {
+                    alert('Modal element not found');
+                }
+                
+            } catch (error) {
+                console.error('Edit story error:', error);
+                alert('Error loading story: ' + error.message);
+            }
         }
         
         async function saveStoryEdit() {
-            let storyKey = document.getElementById('editStoryKey').value;
+            let storyKey = document.getElementById('editStoryKey')?.value;
+            if (!storyKey) return;
             if (storyKey.toLowerCase().endsWith('.md')) storyKey = storyKey.slice(0, -3);
+            
             const data = {
-                status: document.getElementById('editStoryStatus').value,
-                read_time: document.getElementById('editStoryReadTime').value ? parseInt(document.getElementById('editStoryReadTime').value) : null,
-                reads: parseInt(document.getElementById('editStoryReads').value) || 0,
-                tags: document.getElementById('editStoryTags').value.split(',').map(t=>t.trim()).filter(t=>t),
-                medium_url: document.getElementById('editStoryMediumUrl').value || null,
-                notes: document.getElementById('editStoryNotes').value,
-                created_date: document.getElementById('editStoryCreatedDate').value || null,
-                linkedin_status: document.getElementById('editStoryLinkedinStatus').value || null,
-                linkedin_timestamp: document.getElementById('editStoryLinkedinTimestamp').value || null,
-                linkedin_impressions: parseInt(document.getElementById('editStoryLinkedinImpressions').value) || 0,
-                linkedin_url: document.getElementById('editStoryLinkedinUrl').value || null
+                status: document.getElementById('editStoryStatus')?.value || 'Draft',
+                read_time: document.getElementById('editStoryReadTime')?.value ? parseInt(document.getElementById('editStoryReadTime').value) : null,
+                tags: document.getElementById('editStoryTags')?.value.split(',').map(t=>t.trim()).filter(t=>t) || [],
+                medium_url: document.getElementById('editStoryMediumUrl')?.value || null,
+                notes: document.getElementById('editStoryNotes')?.value || '',
+                created_date: document.getElementById('editStoryCreatedDate')?.value || null,
+                medium_publication: document.getElementById('editStoryPublication')?.value || null,
+                linkedin_status: document.getElementById('editStoryLinkedinStatus')?.value || null,
+                linkedin_timestamp: document.getElementById('editStoryLinkedinTimestamp')?.value || null,
+                linkedin_impressions: parseInt(document.getElementById('editStoryLinkedinImpressions')?.value || '0') || 0,
+                linkedin_url: document.getElementById('editStoryLinkedinUrl')?.value || null
             };
+            
             const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(storyKey)}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
-            if (res.ok) { bootstrap.Modal.getInstance(document.getElementById('editStoryModal')).hide(); saveFilterState(); await loadView(currentView); restoreFilterState(); } else { const err = await res.json(); alert('Error: ' + (err.detail || 'Unknown')); }
-        }
-        
-        async function quickMarkLinkedin(storyKey, status) {
-            let cleanKey = storyKey;
-            if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
-            const now = getNowTimestamp();
-            const data = { linkedin_status: status === '' ? null : status, linkedin_timestamp: status === '' ? null : now };
-            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
-            if (res.ok) { saveFilterState(); await loadView(currentView); restoreFilterState(); } else alert('Failed to update LinkedIn status');
+            if (res.ok) { 
+                const modal = bootstrap.Modal.getInstance(document.getElementById('editStoryModal'));
+                if (modal) modal.hide();
+                saveFilterState(); 
+                await loadView(currentView); 
+                restoreFilterState(); 
+            } else { 
+                const err = await res.json(); 
+                alert('Error: ' + (err.detail || 'Unknown')); 
+            }
         }
         
         async function createNewStory() {
+            const name = document.getElementById('addStoryName')?.value;
+            if (!name) { alert('Story name required'); return; }
+            
             const data = {
-                name: document.getElementById('addStoryName').value,
-                series: document.getElementById('addStorySeries').value || null,
-                tags: document.getElementById('addStoryTags').value.split(',').map(t=>t.trim()).filter(t=>t),
-                read_time: parseInt(document.getElementById('addStoryReadTime').value) || null,
-                created_date: document.getElementById('addStoryCreatedDate').value || getTodayDate()
+                name: name,
+                series: document.getElementById('addStorySeries')?.value || null,
+                tags: document.getElementById('addStoryTags')?.value.split(',').map(t=>t.trim()).filter(t=>t) || [],
+                read_time: parseInt(document.getElementById('addStoryReadTime')?.value || '0') || null,
+                created_date: document.getElementById('addStoryCreatedDate')?.value || getTodayDate()
             };
-            if (!data.name) { alert('Story name required'); return; }
+            
             const res = await fetch(`${API_BASE}/stories/`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
-            if (res.ok) { bootstrap.Modal.getInstance(document.getElementById('addStoryModal')).hide(); document.getElementById('addStoryForm').reset(); await syncStories(); saveFilterState(); loadView('stories'); restoreFilterState(); } else alert('Error creating story');
+            if (res.ok) { 
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addStoryModal'));
+                if (modal) modal.hide();
+                const form = document.getElementById('addStoryForm');
+                if (form) form.reset();
+                await syncStories(); 
+                saveFilterState(); 
+                loadView('stories'); 
+                restoreFilterState(); 
+            } else { 
+                alert('Error creating story'); 
+            }
         }
         
         // ============================================
-        // Single Fetch Stats Function
+        // Fetch Current Month Stats (Non-blocking)
         // ============================================
         async function fetchMediumStats() {
-            if (confirm('Fetch current month stats from Medium for all stories with URLs?\n\nMake sure you are logged into Medium in your browser (keep browser open).')) {
+            if (!confirm('Fetch current month stats from Medium for all stories with URLs?\n\nThis will run in the background. Check sidebar for last fetch time.')) {
+                return;
+            }
+            
+            const lastFetchEl = document.getElementById('lastFetchTime');
+            if (lastFetchEl) lastFetchEl.textContent = 'Fetching...';
+            
+            setTimeout(async () => {
                 try {
                     const res = await fetch(`${API_BASE}/stories/fetch-stats`, { method: 'POST' });
                     const data = await res.json();
+                    
                     if (res.ok) {
-                        alert(`${data.message}\nUpdated: ${data.results?.updated || 0}\nFailed: ${data.results?.failed || 0}`);
+                        updateLastFetchTime();
                         saveFilterState();
                         await loadView(currentView);
                         restoreFilterState();
+                        alert(`${data.message}\nUpdated: ${data.results?.updated || 0}\nFailed: ${data.results?.failed || 0}`);
                     } else {
+                        if (lastFetchEl) lastFetchEl.textContent = 'Failed';
                         alert('Error: ' + (data.detail || data.error || 'Unknown error'));
                     }
                 } catch (error) {
+                    if (lastFetchEl) lastFetchEl.textContent = 'Error';
                     alert('Error fetching stats: ' + error.message);
                 }
-            }
+            }, 100);
         }
         
         // ============================================
@@ -1041,184 +1318,178 @@
             
             if (!story.medium_url) { alert('This story has no Medium URL. Add one in edit mode first.'); return; }
             
-            const modal = new bootstrap.Modal(document.getElementById('statsDashboardModal'));
+            const modalEl = document.getElementById('statsDashboardModal');
+            if (!modalEl) return;
+            
+            const modal = new bootstrap.Modal(modalEl);
             const contentDiv = document.getElementById('statsDashboardContent');
-            contentDiv.innerHTML = '<div class="text-center py-3"><div class="spinner-border text-primary"></div><p class="mt-2">Loading stats...</p></div>';
+            if (contentDiv) {
+                contentDiv.innerHTML = '<div class="text-center py-3"><div class="spinner-border text-primary"></div><p class="mt-2">Fetching lifetime stats from Medium...</p></div>';
+            }
             modal.show();
             
-            try {
-                // Fetch lifetime stats if not already available
-                if (!story.lifetime_reads && !story.lifetime_claps) {
-                    contentDiv.innerHTML = '<div class="text-center py-3"><div class="spinner-border text-primary"></div><p class="mt-2">Fetching lifetime stats from Medium...</p></div>';
-                    
+            setTimeout(async () => {
+                try {
                     const lifetimeRes = await fetch(`${API_BASE}/stories/fetch-lifetime-stats/${encodeURIComponent(cleanKey)}`, { method: 'POST' });
-                    if (lifetimeRes.ok) {
-                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    const lifetimeData = await lifetimeRes.json();
+                    
+                    if (lifetimeRes.ok && lifetimeData.stats) {
+                        const lifetime = lifetimeData.stats.lifetime || {};
+                        
+                        if (contentDiv) {
+                            contentDiv.innerHTML = `
+                                <div class="compact-stats">
+                                    <div class="d-flex justify-content-between align-items-center mb-2 pb-1 border-bottom">
+                                        <div>
+                                            <strong>${escapeHtml(story.name)}</strong>
+                                            <div><small class="text-muted">Lifetime Statistics</small></div>
+                                        </div>
+                                        <a href="${escapeHtml(story.medium_url)}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-box-arrow-up-right"></i></a>
+                                    </div>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-4">
+                                            <div class="card compact-card" style="background: #6f42c1; color: white;">
+                                                <div class="card-body text-center p-2">
+                                                    <div class="stat-label">Total Reads</div>
+                                                    <div class="stat-value">${formatNumber(lifetime.reads || 0)}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="card compact-card" style="background: #fd7e14; color: white;">
+                                                <div class="card-body text-center p-2">
+                                                    <div class="stat-label">Total Views</div>
+                                                    <div class="stat-value">${formatNumber(lifetime.views || 0)}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="card compact-card" style="background: #20c997; color: white;">
+                                                <div class="card-body text-center p-2">
+                                                    <div class="stat-label">Presentation Count</div>
+                                                    <div class="stat-value">${formatNumber(lifetime.presentation_count || 0)}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-2 pt-1 border-top">
+                                        <small class="text-muted">Lifetime stats updated: ${new Date().toLocaleString()}</small>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        
+                        const refreshBtn = document.getElementById('refreshStatsBtn');
+                        if (refreshBtn) refreshBtn.onclick = () => showStatsDashboard(storyKey);
+                        
+                        setTimeout(async () => {
+                            await loadView(currentView);
+                        }, 500);
+                    } else {
+                        if (contentDiv) {
+                            contentDiv.innerHTML = `<div class="alert alert-danger m-2">Error: ${lifetimeData.error || 'Could not fetch lifetime stats'}</div>`;
+                        }
+                    }
+                } catch (error) {
+                    if (contentDiv) {
+                        contentDiv.innerHTML = `<div class="alert alert-danger m-2">Error: ${error.message}</div>`;
                     }
                 }
-                
-                // Get dashboard data
-                const res = await fetch(`${API_BASE}/stories/stats-by-url?medium_url=${encodeURIComponent(story.medium_url)}`);
-                const dashboard = await res.json();
-                
-                if (res.ok && !dashboard.error) {
-                    contentDiv.innerHTML = generateCompactDashboardHTML(dashboard);
-                    document.getElementById('refreshStatsBtn').onclick = () => refreshStatsDashboard(cleanKey, story.medium_url);
-                } else {
-                    contentDiv.innerHTML = `<div class="alert alert-danger m-2">Error: ${dashboard.error || 'Unknown error'}</div>`;
-                }
-            } catch (error) {
-                contentDiv.innerHTML = `<div class="alert alert-danger m-2">Error: ${error.message}</div>`;
-            }
-        }
-        
-        async function refreshStatsDashboard(storyKey, mediumUrl) {
-            const contentDiv = document.getElementById('statsDashboardContent');
-            contentDiv.innerHTML = '<div class="text-center py-3"><div class="spinner-border text-primary"></div><p class="mt-2">Refreshing lifetime stats...</p></div>';
-            
-            try {
-                const lifetimeRes = await fetch(`${API_BASE}/stories/fetch-lifetime-stats/${encodeURIComponent(storyKey)}`, { method: 'POST' });
-                if (lifetimeRes.ok) {
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                }
-                
-                const res = await fetch(`${API_BASE}/stories/stats-by-url?medium_url=${encodeURIComponent(mediumUrl)}`);
-                const dashboard = await res.json();
-                
-                if (res.ok && !dashboard.error) {
-                    contentDiv.innerHTML = generateCompactDashboardHTML(dashboard);
-                } else {
-                    contentDiv.innerHTML = `<div class="alert alert-danger m-2">Error: ${dashboard.error || 'Unknown error'}</div>`;
-                }
-            } catch (error) {
-                contentDiv.innerHTML = `<div class="alert alert-danger m-2">Error: ${error.message}</div>`;
-            }
-        }
-        
-        function generateCompactDashboardHTML(dashboard) {
-            const currentMonth = dashboard.current_month || {};
-            const lifetime = dashboard.lifetime || {};
-            
-            const memberReads = currentMonth.member_reads || 0;
-            const totalReads = currentMonth.reads || 0;
-            const memberViews = currentMonth.member_views || 0;
-            const totalViews = currentMonth.views || currentMonth.total_views || 0;
-            
-            return `
-                <div class="compact-stats">
-                    <div class="d-flex justify-content-between align-items-center mb-2 pb-1 border-bottom">
-                        <div>
-                            <strong>${escapeHtml(dashboard.story_name)}</strong>
-                            <div><small class="text-muted">Published: ${dashboard.medium_first_published ? dashboard.medium_first_published.split('T')[0] : 'Unknown'}</small></div>
-                        </div>
-                        <a href="${escapeHtml(dashboard.medium_url)}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-box-arrow-up-right"></i></a>
-                    </div>
-                    
-                    <!-- Current Month Stats -->
-                    <div class="row mb-2">
-                        <div class="col-12"><strong><i class="bi bi-calendar-month"></i> Current Month</strong></div>
-                    </div>
-                    <div class="row g-1 mb-3">
-                        <div class="col-4">
-                            <div class="card compact-card bg-light">
-                                <div class="card-body text-center p-1">
-                                    <div class="stat-label">Reads</div>
-                                    <div class="stat-value">${formatNumber(memberReads)} / ${formatNumber(totalReads)}</div>
-                                    <small class="text-muted">Member / Total</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card compact-card bg-light">
-                                <div class="card-body text-center p-1">
-                                    <div class="stat-label">Views</div>
-                                    <div class="stat-value">${formatNumber(memberViews)} / ${formatNumber(totalViews)}</div>
-                                    <small class="text-muted">Member / Total</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card compact-card bg-light">
-                                <div class="card-body text-center p-1">
-                                    <div class="stat-label">Claps</div>
-                                    <div class="stat-value">${formatNumber(currentMonth.claps || 0)}</div>
-                                    <small class="text-muted">Responses: ${formatNumber(currentMonth.responses || 0)}</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Lifetime Stats -->
-                    <div class="row mb-1">
-                        <div class="col-12"><strong><i class="bi bi-infinity"></i> Lifetime Stats</strong></div>
-                    </div>
-                    <div class="row g-1 mb-3">
-                        <div class="col-4">
-                            <div class="card compact-card" style="background: #6f42c1; color: white;">
-                                <div class="card-body text-center p-1">
-                                    <div class="stat-label">Total Reads</div>
-                                    <div class="stat-value">${formatNumber(lifetime.reads || 0)}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card compact-card" style="background: #fd7e14; color: white;">
-                                <div class="card-body text-center p-1">
-                                    <div class="stat-label">Total Claps</div>
-                                    <div class="stat-value">${formatNumber(lifetime.claps || 0)}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card compact-card" style="background: #20c997; color: white;">
-                                <div class="card-body text-center p-1">
-                                    <div class="stat-label">Total Views</div>
-                                    <div class="stat-value">${formatNumber(lifetime.views || 0)}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    ${(lifetime.tags && lifetime.tags.length > 0) ? `
-                    <div class="mb-2">
-                        <small class="text-muted">Tags:</small><br>
-                        ${lifetime.tags.slice(0,5).map(t => `<span class="badge bg-secondary me-1">${escapeHtml(t)}</span>`).join('')}
-                        ${lifetime.tags.length > 5 ? `<small class="text-muted">+${lifetime.tags.length-5} more</small>` : ''}
-                    </div>
-                    ` : ''}
-                    
-                    <div class="row g-1 mt-1 pt-1 border-top">
-                        <div class="col-6">
-                            <small class="text-muted">Read Ratio:</small>
-                            <div class="progress" style="height: 4px;">
-                                <div class="progress-bar bg-success" style="width: ${currentMonth.read_ratio || 0}%"></div>
-                            </div>
-                            <small>${currentMonth.read_ratio || 0}%</small>
-                        </div>
-                        <div class="col-6">
-                            <small class="text-muted">Claps/Read: ${dashboard.performance?.claps_per_read || 0}</small>
-                        </div>
-                    </div>
-                    
-                    <div class="text-center mt-2 pt-1 border-top">
-                        <small class="text-muted">Stats updated: ${dashboard.last_stats_update ? dashboard.last_stats_update.split('T')[0] : 'Never'}</small>
-                    </div>
-                </div>
-            `;
+            }, 100);
         }
         
         // ============================================
         // Core Actions
         // ============================================
-        async function syncStories() { const res = await fetch(`${API_BASE}/stories/sync`, { method:'POST' }); if(res.ok){ saveFilterState(); await loadView(currentView); restoreFilterState(); } else alert('Sync failed'); }
-        async function generateCalendar() { const res = await fetch(`${API_BASE}/calendar/generate`, { method:'POST' }); if(res.ok){ saveFilterState(); await loadView('calendar'); restoreFilterState(); } else alert('Generation failed'); }
-        async function markPublished(storyKey) { let cleanKey = storyKey; if(cleanKey.toLowerCase().endsWith('.md')) cleanKey=cleanKey.slice(0,-3); const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}/publish`, { method:'POST' }); if(res.ok){ saveFilterState(); await loadView(currentView); restoreFilterState(); } else alert('Failed'); }
-        async function deleteStory(storyKey) { if(confirm('Delete this story?')) { let cleanKey = storyKey; if(cleanKey.toLowerCase().endsWith('.md')) cleanKey=cleanKey.slice(0,-3); const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, { method:'DELETE' }); if(res.ok){ saveFilterState(); await loadView(currentView); restoreFilterState(); } else alert('Delete failed'); } }
-        async function addSeries() { const name = prompt('Series name:'); if(name){ const res = await fetch(`${API_BASE}/series/`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ name, spacing_days:7 }) }); if(res.ok){ await loadAllSeries(); loadView('series'); } else alert('Failed'); } }
-        async function updateSeriesSpacing(seriesName, days) { const res = await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ spacing_days:parseInt(days) }) }); if(!res.ok){ alert('Failed'); loadView('series'); } }
-        async function deleteSeries(seriesName) { if(confirm(`Delete "${seriesName}"?`)){ const res = await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, { method:'DELETE' }); if(res.ok){ await loadAllSeries(); loadView('series'); } else alert('Failed'); } }
+        async function syncStories() { 
+            const res = await fetch(`${API_BASE}/stories/sync`, { method:'POST' }); 
+            if(res.ok){ 
+                saveFilterState(); 
+                await loadView(currentView); 
+                restoreFilterState(); 
+            } else { 
+                alert('Sync failed'); 
+            } 
+        }
         
-        function escapeHtml(text) { if(!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+        async function generateCalendar() { 
+            const res = await fetch(`${API_BASE}/calendar/generate`, { method:'POST' }); 
+            if(res.ok){ 
+                saveFilterState(); 
+                await loadView('calendar'); 
+                restoreFilterState(); 
+            } else { 
+                alert('Generation failed'); 
+            } 
+        }
+        
+        async function markPublished(storyKey) { 
+            let cleanKey = storyKey; 
+            if(cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0,-3); 
+            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}/publish`, { method:'POST' }); 
+            if(res.ok){ 
+                saveFilterState(); 
+                await loadView(currentView); 
+                restoreFilterState(); 
+            } else { 
+                alert('Failed'); 
+            } 
+        }
+        
+        async function deleteStory(storyKey) { 
+            if(confirm('Delete this story?')) { 
+                let cleanKey = storyKey; 
+                if(cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0,-3); 
+                const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, { method:'DELETE' }); 
+                if(res.ok){ 
+                    saveFilterState(); 
+                    await loadView(currentView); 
+                    restoreFilterState(); 
+                } else { 
+                    alert('Delete failed'); 
+                } 
+            } 
+        }
+        
+        async function addSeries() { 
+            const name = prompt('Series name:'); 
+            if(name){ 
+                const res = await fetch(`${API_BASE}/series/`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ name, spacing_days:7 }) }); 
+                if(res.ok){ 
+                    await loadAllSeries(); 
+                    loadView('series'); 
+                } else { 
+                    alert('Failed'); 
+                } 
+            } 
+        }
+        
+        async function updateSeriesSpacing(seriesName, days) { 
+            const res = await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ spacing_days:parseInt(days) }) }); 
+            if(!res.ok){ 
+                alert('Failed'); 
+                loadView('series'); 
+            } 
+        }
+        
+        async function deleteSeries(seriesName) { 
+            if(confirm(`Delete "${seriesName}"?`)){ 
+                const res = await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, { method:'DELETE' }); 
+                if(res.ok){ 
+                    await loadAllSeries(); 
+                    loadView('series'); 
+                } else { 
+                    alert('Failed'); 
+                } 
+            } 
+        }
+        
+        function escapeHtml(text) { 
+            if(!text) return ''; 
+            const div = document.createElement('div'); 
+            div.textContent = text; 
+            return div.innerHTML; 
+        }
         
         document.addEventListener('show.bs.modal', function(event) {
             if (event.target.id === 'addStoryModal') {
@@ -1227,8 +1498,9 @@
                     seriesSelect.innerHTML = '<option value="">Create in root (no series)</option>' + 
                         allSeries.map(s => `<option value="${s.name}">📁 ${s.name}</option>`).join('');
                 }
-                if (document.getElementById('addStoryCreatedDate')) {
-                    document.getElementById('addStoryCreatedDate').value = getTodayDate();
+                const createdDateEl = document.getElementById('addStoryCreatedDate');
+                if (createdDateEl) {
+                    createdDateEl.value = getTodayDate();
                 }
             }
         });
