@@ -6,7 +6,7 @@ from datetime import datetime
 import asyncio
 
 from app.services.story_service import StoryService
-from app.services.medium_stats_service import get_medium_service
+from app.services.medium_stats_fetcher import MediumStatsFetcher
 from app.models import StoryCreate, StoryUpdate, StoryResponse
 
 logger = logging.getLogger(__name__)
@@ -75,8 +75,23 @@ async def debug_keys():
         return {"error": str(e)}
 
 
+@router.get("/debug/find/{search}")
+async def find_story(search: str):
+    """Find stories containing search term"""
+    try:
+        stories = await StoryService.get_all_stories()
+        matches = [
+            {"key": s.key, "name": s.name, "medium_url": s.medium_url}
+            for s in stories if search.lower() in s.key.lower() or search.lower() in s.name.lower() or (s.medium_url and search.lower() in s.medium_url.lower())
+        ]
+        return {"search": search, "matches": matches}
+    except Exception as e:
+        logger.error(f"Find story error: {e}")
+        return {"error": str(e)}
+
+
 # ============================================
-# MEDIUM STATS ENDPOINTS
+# MEDIUM STATS ENDPOINTS (Scraping based)
 # ============================================
 
 def normalize_url(url: str) -> str:
@@ -89,7 +104,7 @@ def normalize_url(url: str) -> str:
 
 
 def safe_divide(numerator: float, denominator: float, default: float = 0) -> float:
-    """Safely divide two numbers, return default if denominator is 0"""
+    """Safely divide two numbers"""
     if denominator == 0:
         return default
     return round(numerator / denominator, 2)
@@ -105,19 +120,14 @@ async def get_stats_dashboard_by_url(medium_url: str):
         from urllib.parse import unquote
         decoded_url = unquote(medium_url)
         
-        logger.info(f"Looking for story with URL: {decoded_url}")
-        
-        # Get all stories
         all_stories = await StoryService.get_all_stories()
         
-        # Find story by medium_url
         story = None
         normalized_query = normalize_url(decoded_url)
         
         for s in all_stories:
             if s.medium_url:
-                normalized_stored = normalize_url(s.medium_url)
-                if normalized_stored == normalized_query:
+                if normalize_url(s.medium_url) == normalized_query:
                     story = s
                     break
         
@@ -129,26 +139,15 @@ async def get_stats_dashboard_by_url(medium_url: str):
                 "available_urls": available[:5] if available else []
             }
         
-        # Get stats using authenticated service
-        service = get_medium_service()
-        stats = await service.get_story_stats(story.key, story.medium_url)
+        # Build dashboard from stored stats
+        reads = story.reads or 0
+        claps = story.claps or 0
+        responses = story.responses or 0
+        bookmarks = story.bookmarks or 0
+        view_count = story.medium_total_views or 0
+        read_ratio = story.medium_read_ratio or 0
+        fan_count = story.fan_count or 0
         
-        # Get values with safe defaults
-        reads = stats.get('reads', story.reads or 0)
-        claps = stats.get('claps', story.claps or 0)
-        responses = stats.get('responses', story.responses or 0)
-        bookmarks = stats.get('bookmarks', story.bookmarks or 0)
-        view_count = stats.get('view_count', story.view_count or 0)
-        read_ratio = stats.get('read_ratio', story.read_ratio or 0)
-        fan_count = stats.get('fan_count', story.fan_count or 0)
-        
-        # Safe performance calculations
-        claps_per_read = safe_divide(claps, reads)
-        responses_per_read = safe_divide(responses, reads)
-        bookmarks_per_read = safe_divide(bookmarks, reads)
-        views_to_reads = safe_divide(reads * 100, view_count) if view_count > 0 else 0
-        
-        # Build dashboard
         return {
             "story_key": story.key,
             "story_name": story.name,
@@ -164,30 +163,184 @@ async def get_stats_dashboard_by_url(medium_url: str):
                 "fan_count": fan_count
             },
             "content": {
-                "word_count": stats.get('word_count', story.word_count or 0),
-                "reading_time_minutes": stats.get('reading_time', story.medium_reading_time or story.read_time or 0),
-                "tags": stats.get('tags', story.medium_tags or story.tags or []),
-                "topics": stats.get('topics', story.medium_topics or [])
+                "word_count": story.word_count or 0,
+                "reading_time_minutes": story.medium_reading_time or story.read_time or 0,
+                "tags": story.medium_tags or story.tags or [],
+                "topics": story.medium_topics or []
             },
             "metadata": {
-                "title": stats.get('title', story.medium_title or story.name),
-                "subtitle": stats.get('subtitle', story.medium_subtitle or ""),
-                "author": stats.get('author', story.medium_author or ""),
-                "publication": stats.get('publication', story.medium_publication or ""),
-                "first_published": stats.get('first_published', story.medium_first_published or story.created_date),
-                "last_updated": stats.get('last_updated', story.medium_last_updated or story.last_updated)
+                "title": story.medium_title or story.name,
+                "subtitle": story.medium_subtitle or "",
+                "author": story.medium_author or "",
+                "publication": story.medium_publication or "",
+                "first_published": story.medium_first_published or story.created_date,
+                "last_updated": story.medium_last_updated or story.last_updated
             },
             "performance": {
-                "claps_per_read": claps_per_read,
-                "responses_per_read": responses_per_read,
-                "bookmarks_per_read": bookmarks_per_read,
-                "views_to_reads": views_to_reads
+                "claps_per_read": safe_divide(claps, reads),
+                "responses_per_read": safe_divide(responses, reads),
+                "bookmarks_per_read": safe_divide(bookmarks, reads),
+                "views_to_reads": safe_divide(reads * 100, view_count) if view_count else 0
             }
         }
         
     except Exception as e:
         logger.error(f"Get stats dashboard error: {e}")
         return {"error": str(e)}
+
+
+# ============================================
+# MEDIUM STATS FETCHER ENDPOINTS (Working)
+# ============================================
+
+@router.post("/fetch-stats")
+async def fetch_all_medium_stats():
+    """Fetch detailed stats from Medium for all stories with URLs using working fetcher"""
+    try:
+        logger.info("=" * 60)
+        logger.info("FETCH STATS - Starting...")
+        
+        stories = await StoryService.get_all_stories()
+        stories_with_urls = [{"key": s.key, "name": s.name, "medium_url": s.medium_url} 
+                            for s in stories if s.medium_url]
+
+        logger.info(f"Found {len(stories_with_urls)} stories with Medium URLs")
+
+        if not stories_with_urls:
+            return {"message": "No stories with Medium URLs", "updated": 0, "total": 0}
+
+        fetcher = MediumStatsFetcher()
+        
+        if not fetcher.is_authenticated():
+            logger.error("Not authenticated - no valid cookies found")
+            return {"error": "Not authenticated. Please log into Medium in your browser, then close browser and try again."}
+        
+        logger.info(f"Cookies found: {list(fetcher.cookies.keys())}")
+        
+        results = await fetcher.fetch_all_stories_stats(stories_with_urls)
+        
+        logger.info(f"Fetch completed: {results['updated']} updated, {results['failed']} failed")
+        
+        for detail in results['details']:
+            if detail['success'] and 'stats' in detail:
+                stats = detail['stats']
+                totals = stats.get('totals', {})
+                
+                await StoryService.update_story(detail['key'], StoryUpdate(
+                    reads=totals.get('total_reads', 0),
+                    claps=totals.get('claps', 0),
+                    responses=totals.get('replies', 0),
+                    medium_member_reads=totals.get('member_reads', 0),
+                    medium_member_views=totals.get('member_views', 0),
+                    medium_nonmember_reads=totals.get('nonmember_reads', 0),
+                    medium_nonmember_views=totals.get('nonmember_views', 0),
+                    medium_total_views=totals.get('total_views', 0),
+                    medium_replies=totals.get('replies', 0),
+                    medium_highlights=totals.get('highlights', 0),
+                    medium_new_followers=totals.get('new_followers', 0),
+                    medium_read_ratio=totals.get('read_ratio', 0),
+                    medium_member_read_percentage=totals.get('member_read_percentage', 0),
+                    medium_stats_data=stats,
+                    medium_stats_updated=datetime.now().isoformat()
+                ))
+                logger.info(f"✅ Updated {detail['name']}: {totals.get('total_reads', 0)} reads, {totals.get('total_views', 0)} views")
+        
+        return {
+            "message": f"Updated {results['updated']} of {results['total']} stories",
+            "results": results
+        }
+
+    except Exception as e:
+        logger.error(f"Fetch stats error: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/sync-stats")
+async def sync_all_medium_stats():
+    """Fetch and update ALL story statistics from Medium using working fetcher"""
+    try:
+        logger.info("=" * 60)
+        logger.info("SYNC STATS - Starting...")
+        
+        stories = await StoryService.get_all_stories()
+        stories_with_urls = [s for s in stories if s.medium_url]
+
+        if not stories_with_urls:
+            return {"message": "No stories with Medium URLs", "updated": 0, "total": 0}
+
+        logger.info(f"Found {len(stories_with_urls)} stories with Medium URLs")
+
+        fetcher = MediumStatsFetcher()
+        
+        if not fetcher.is_authenticated():
+            logger.error("Not authenticated - no valid cookies found")
+            return {"error": "Not authenticated. Please log into Medium in your browser, then close browser and try again."}
+        
+        logger.info(f"Cookies loaded: {list(fetcher.cookies.keys())}")
+        
+        results = {
+            "total": len(stories_with_urls),
+            "updated": 0,
+            "failed": 0,
+            "details": []
+        }
+
+        for story in stories_with_urls:
+            try:
+                logger.info(f"Fetching stats for: {story.name}")
+                
+                stats = await fetcher.fetch_post_stats(story.medium_url)
+                
+                if stats:
+                    totals = stats.get('totals', {})
+                    await StoryService.update_story(story.key, StoryUpdate(
+                        reads=totals.get('total_reads', story.reads),
+                        claps=totals.get('claps', 0),
+                        responses=totals.get('replies', 0),
+                        medium_member_reads=totals.get('member_reads', 0),
+                        medium_member_views=totals.get('member_views', 0),
+                        medium_nonmember_reads=totals.get('nonmember_reads', 0),
+                        medium_nonmember_views=totals.get('nonmember_views', 0),
+                        medium_total_views=totals.get('total_views', 0),
+                        medium_replies=totals.get('replies', 0),
+                        medium_highlights=totals.get('highlights', 0),
+                        medium_new_followers=totals.get('new_followers', 0),
+                        medium_read_ratio=totals.get('read_ratio', 0),
+                        medium_member_read_percentage=totals.get('member_read_percentage', 0),
+                        medium_stats_data=stats,
+                        last_stats_update=datetime.now().isoformat()
+                    ))
+                    results['updated'] += 1
+                    results['details'].append({
+                        'key': story.key, 
+                        'success': True, 
+                        'reads': totals.get('total_reads', 0)
+                    })
+                    logger.info(f"✅ Updated {story.name}: {totals.get('total_reads', 0)} reads")
+                else:
+                    results['failed'] += 1
+                    results['details'].append({'key': story.key, 'success': False})
+                    logger.warning(f"❌ Failed to fetch stats for {story.name}")
+                
+                await asyncio.sleep(1)
+                
+            except Exception as e:
+                results['failed'] += 1
+                results['details'].append({'key': story.key, 'success': False, 'error': str(e)})
+                logger.error(f"Error fetching stats for {story.name}: {e}")
+
+        return {
+            "message": f"Updated {results['updated']} of {results['total']} stories",
+            "results": results
+        }
+
+    except Exception as e:
+        logger.error(f"Sync stats error: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.post("/sync-stats-by-url")
@@ -202,17 +355,12 @@ async def sync_stats_by_url(medium_url: str):
         
         logger.info(f"Syncing stats for URL: {decoded_url}")
         
-        # Get all stories
         all_stories = await StoryService.get_all_stories()
         
-        # Find story by medium_url
         story = None
-        normalized_query = normalize_url(decoded_url)
-        
         for s in all_stories:
             if s.medium_url:
-                normalized_stored = normalize_url(s.medium_url)
-                if normalized_stored == normalized_query:
+                if s.medium_url.rstrip('/') == decoded_url.rstrip('/'):
                     story = s
                     break
         
@@ -224,30 +372,32 @@ async def sync_stats_by_url(medium_url: str):
                 "available_urls": available[:5] if available else []
             }
         
-        # Get stats using authenticated service
-        service = get_medium_service()
-        stats = await service.get_story_stats(story.key, story.medium_url)
+        fetcher = MediumStatsFetcher()
+        
+        if not fetcher.is_authenticated():
+            return {"error": "Not authenticated. Please log into Medium in your browser."}
+        
+        stats = await fetcher.fetch_post_stats(story.medium_url)
         
         if stats:
+            totals = stats.get('totals', {})
             await StoryService.update_story(story.key, StoryUpdate(
-                reads=stats.get('reads', story.reads),
-                claps=stats.get('claps', 0),
-                responses=stats.get('responses', 0),
-                bookmarks=stats.get('bookmarks', 0),
-                view_count=stats.get('view_count', 0),
-                read_ratio=stats.get('read_ratio', 0),
-                medium_reading_time=stats.get('reading_time', 0),
-                fan_count=stats.get('fan_count', 0),
-                medium_first_published=stats.get('first_published'),
-                medium_last_updated=stats.get('last_updated'),
-                medium_tags=stats.get('tags', []),
-                medium_topics=stats.get('topics', []),
-                word_count=stats.get('word_count', 0),
-                medium_title=stats.get('title', ''),
-                medium_subtitle=stats.get('subtitle', ''),
-                medium_author=stats.get('author', ''),
-                medium_publication=stats.get('publication', ''),
-                last_stats_update=datetime.now().isoformat()
+                reads=totals.get('total_reads', story.reads),
+                claps=totals.get('claps', 0),
+                responses=totals.get('replies', 0),
+                medium_member_reads=totals.get('member_reads', 0),
+                medium_member_views=totals.get('member_views', 0),
+                medium_nonmember_reads=totals.get('nonmember_reads', 0),
+                medium_nonmember_views=totals.get('nonmember_views', 0),
+                medium_total_views=totals.get('total_views', 0),
+                medium_replies=totals.get('replies', 0),
+                medium_highlights=totals.get('highlights', 0),
+                medium_new_followers=totals.get('new_followers', 0),
+                medium_read_ratio=totals.get('read_ratio', 0),
+                medium_member_read_percentage=totals.get('member_read_percentage', 0),
+                medium_stats_data=stats,
+                last_stats_update=datetime.now().isoformat(),
+                notes=f"{story.notes}\n[Stats: {datetime.now().strftime('%Y-%m-%d %H:%M')}]" if story.notes else f"Stats: {datetime.now().strftime('%Y-%m-%d %H:%M')}"
             ))
             return {"message": "Stats updated", "stats": stats, "story_key": story.key}
         return {"message": "Could not fetch stats"}
@@ -257,137 +407,81 @@ async def sync_stats_by_url(medium_url: str):
         return {"error": str(e)}
 
 
-@router.post("/sync-stats")
-async def sync_all_medium_stats():
-    """Fetch and update ALL story statistics from Medium"""
+@router.post("/{story_key:path}/fetch-stats")
+async def fetch_single_story_stats(story_key: str = Path(...)):
+    """Fetch detailed stats for a single story"""
     try:
-        stories = await StoryService.get_all_stories()
-        stories_with_urls = [s for s in stories if s.medium_url]
+        decoded_key = unquote(story_key)
+        if decoded_key.lower().endswith('.md'):
+            decoded_key = decoded_key[:-3]
+        
+        story = await StoryService.get_story(decoded_key)
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found: {decoded_key}")
+        
+        if not story.medium_url:
+            raise HTTPException(status_code=400, detail="Story has no Medium URL")
+        
+        logger.info(f"Fetching stats for: {story.name}")
+        
+        fetcher = MediumStatsFetcher()
+        
+        if not fetcher.is_authenticated():
+            raise HTTPException(status_code=401, detail="Not authenticated. Please log into Medium in your browser.")
+        
+        stats = await fetcher.fetch_post_stats(story.medium_url)
+        
+        if stats:
+            totals = stats.get('totals', {})
+            await StoryService.update_story(decoded_key, StoryUpdate(
+                reads=totals.get('total_reads', 0),
+                claps=totals.get('claps', 0),
+                responses=totals.get('replies', 0),
+                medium_member_reads=totals.get('member_reads', 0),
+                medium_member_views=totals.get('member_views', 0),
+                medium_nonmember_reads=totals.get('nonmember_reads', 0),
+                medium_nonmember_views=totals.get('nonmember_views', 0),
+                medium_total_views=totals.get('total_views', 0),
+                medium_replies=totals.get('replies', 0),
+                medium_highlights=totals.get('highlights', 0),
+                medium_new_followers=totals.get('new_followers', 0),
+                medium_read_ratio=totals.get('read_ratio', 0),
+                medium_member_read_percentage=totals.get('member_read_percentage', 0),
+                medium_stats_data=stats,
+                medium_stats_updated=datetime.now().isoformat()
+            ))
+            return {"message": "Stats fetched successfully", "stats": stats}
+        return {"message": "Could not fetch stats"}
 
-        if not stories_with_urls:
-            return {"message": "No stories with Medium URLs", "updated": 0, "total": 0}
-
-        service = get_medium_service()
-        
-        # Prepare stories list for bulk fetch
-        stories_list = [
-            {"key": s.key, "name": s.name, "medium_url": s.medium_url}
-            for s in stories_with_urls
-        ]
-        
-        results = await service.get_all_stories_stats(stories_list)
-        
-        # Update each story with its stats
-        for detail in results['details']:
-            if detail['success'] and 'stats' in detail:
-                stats = detail['stats']
-                await StoryService.update_story(detail['key'], StoryUpdate(
-                    reads=stats.get('reads', 0),
-                    claps=stats.get('claps', 0),
-                    responses=stats.get('responses', 0),
-                    bookmarks=stats.get('bookmarks', 0),
-                    view_count=stats.get('view_count', 0),
-                    read_ratio=stats.get('read_ratio', 0),
-                    medium_reading_time=stats.get('reading_time', 0),
-                    fan_count=stats.get('fan_count', 0),
-                    medium_first_published=stats.get('first_published'),
-                    medium_last_updated=stats.get('last_updated'),
-                    medium_tags=stats.get('tags', []),
-                    medium_topics=stats.get('topics', []),
-                    word_count=stats.get('word_count', 0),
-                    medium_title=stats.get('title', ''),
-                    medium_subtitle=stats.get('subtitle', ''),
-                    medium_author=stats.get('author', ''),
-                    medium_publication=stats.get('publication', ''),
-                    last_stats_update=datetime.now().isoformat()
-                ))
-        
-        return {
-            "message": f"Updated {results['updated']} of {results['total']} stories",
-            "results": results
-        }
-
+    except HTTPException:
+        raise
     except Exception as e:
-        logger.error(f"Sync stats error: {e}")
-        return {"error": str(e)}
-
-
-# ============================================
-# CORE CRUD ENDPOINTS
-# ============================================
-
-@router.post("/sync")
-async def sync_stories():
-    try:
-        data = await StoryService.sync_with_filesystem()
-        return {"message": "Sync completed", "total_stories": len(data.get("stories", {}))}
-    except Exception as e:
+        logger.error(f"Fetch story stats error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/", response_model=List[StoryResponse])
-async def list_stories(
-    status: Optional[str] = Query(None),
-    series: Optional[str] = Query(None),
-    folder: Optional[str] = Query(None)
-):
-    stories = await StoryService.get_all_stories()
-    if status:
-        stories = [s for s in stories if s.status == status]
-    if series:
-        stories = [s for s in stories if s.series == series]
-    if folder:
-        stories = [s for s in stories if s.folder == folder]
-    return stories
-
-
-@router.post("/", response_model=StoryResponse, status_code=201)
-async def create_story(story_data: StoryCreate):
+@router.post("/{story_key:path}/sync-stats")
+async def sync_single_story_stats(story_key: str = Path(...)):
+    """Fetch and update stats for a single story using story key"""
     try:
-        return await StoryService.create_story(story_data)
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        decoded_key = unquote(story_key)
+        if decoded_key.lower().endswith('.md'):
+            decoded_key = decoded_key[:-3]
+        
+        story = await StoryService.get_story(decoded_key)
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found: {decoded_key}")
+        
+        if not story.medium_url:
+            raise HTTPException(status_code=400, detail="Story has no Medium URL")
+        
+        return await sync_stats_by_url(story.medium_url)
 
-
-@router.put("/{story_key:path}", response_model=StoryResponse)
-async def update_story(
-    story_key: str = Path(...),
-    update_data: StoryUpdate = None
-):
-    decoded_key = unquote(story_key)
-    if decoded_key.lower().endswith('.md'):
-        decoded_key = decoded_key[:-3]
-    if update_data is None:
-        update_data = StoryUpdate()
-    story = await StoryService.update_story(decoded_key, update_data)
-    if not story:
-        raise HTTPException(status_code=404, detail="Story not found")
-    return story
-
-
-@router.post("/{story_key:path}/publish", response_model=StoryResponse)
-async def publish_story(
-    story_key: str = Path(...),
-    medium_url: Optional[str] = None
-):
-    decoded_key = unquote(story_key)
-    if decoded_key.lower().endswith('.md'):
-        decoded_key = decoded_key[:-3]
-    story = await StoryService.publish_story(decoded_key, medium_url)
-    if not story:
-        raise HTTPException(status_code=404, detail="Story not found")
-    return story
-
-
-@router.delete("/{story_key:path}")
-async def delete_story(story_key: str = Path(...)):
-    decoded_key = unquote(story_key)
-    if decoded_key.lower().endswith('.md'):
-        decoded_key = decoded_key[:-3]
-    deleted = await StoryService.delete_story(decoded_key)
-    if not deleted:
-        raise HTTPException(status_code=404, detail="Story not found")
-    return {"message": "Story deleted"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Sync story stats error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/{story_key:path}/stats-dashboard")
@@ -405,37 +499,148 @@ async def get_story_stats_dashboard(story_key: str = Path(...)):
         if not story.medium_url:
             return {"error": "No Medium URL found for this story", "story_key": story.key}
         
-        return await get_stats_dashboard_by_url(story.medium_url)
-
+        reads = story.reads or 0
+        claps = story.claps or 0
+        responses = story.responses or 0
+        bookmarks = story.bookmarks or 0
+        view_count = story.medium_total_views or 0
+        read_ratio = story.medium_read_ratio or 0
+        fan_count = story.fan_count or 0
+        
+        return {
+            "story_key": story.key,
+            "story_name": story.name,
+            "medium_url": story.medium_url,
+            "last_stats_update": story.last_stats_update,
+            "engagement": {
+                "reads": reads,
+                "claps": claps,
+                "responses": responses,
+                "bookmarks": bookmarks,
+                "view_count": view_count,
+                "read_ratio": read_ratio,
+                "fan_count": fan_count
+            },
+            "content": {
+                "word_count": story.word_count or 0,
+                "reading_time_minutes": story.medium_reading_time or story.read_time or 0,
+                "tags": story.medium_tags or story.tags or [],
+                "topics": story.medium_topics or []
+            },
+            "metadata": {
+                "title": story.medium_title or story.name,
+                "subtitle": story.medium_subtitle or "",
+                "author": story.medium_author or "",
+                "publication": story.medium_publication or "",
+                "first_published": story.medium_first_published or story.created_date,
+                "last_updated": story.medium_last_updated or story.last_updated
+            },
+            "performance": {
+                "claps_per_read": safe_divide(claps, reads),
+                "responses_per_read": safe_divide(responses, reads),
+                "bookmarks_per_read": safe_divide(bookmarks, reads),
+                "views_to_reads": safe_divide(reads * 100, view_count) if view_count else 0
+            }
+        }
+        
     except Exception as e:
         logger.error(f"Get stats dashboard error: {e}")
         return {"error": str(e)}
 
 
-@router.post("/{story_key:path}/sync-stats")
-async def sync_single_story_stats(story_key: str = Path(...)):
-    """Fetch and update stats for a single story using story key"""
-    try:
-        decoded_key = unquote(story_key)
-        if decoded_key.lower().endswith('.md'):
-            decoded_key = decoded_key[:-3]
-        
-        story = await StoryService.get_story(decoded_key)
-        if not story:
-            return {"error": f"Story not found: {decoded_key}"}
-        
-        if not story.medium_url:
-            return {"error": "Story has no Medium URL"}
-        
-        return await sync_stats_by_url(story.medium_url)
+# ============================================
+# CORE CRUD ENDPOINTS
+# ============================================
 
+@router.post("/sync")
+async def sync_stories():
+    """Sync with filesystem"""
+    try:
+        result = await StoryService.sync_with_filesystem()
+        return {
+            "message": "Sync completed",
+            "added": result.get("added", 0),
+            "updated": result.get("updated", 0),
+            "total_stories": result.get("total", 0)
+        }
     except Exception as e:
-        logger.error(f"Sync story stats error: {e}")
-        return {"error": str(e)}
+        logger.error(f"Sync error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/", response_model=List[StoryResponse])
+async def list_stories(
+    status: Optional[str] = Query(None),
+    series: Optional[str] = Query(None),
+    folder: Optional[str] = Query(None)
+):
+    """List all stories with optional filters"""
+    stories = await StoryService.get_all_stories()
+    if status:
+        stories = [s for s in stories if s.status == status]
+    if series:
+        stories = [s for s in stories if s.series == series]
+    if folder:
+        stories = [s for s in stories if s.folder == folder]
+    return stories
+
+
+@router.post("/", response_model=StoryResponse, status_code=201)
+async def create_story(story_data: StoryCreate):
+    """Create a new story"""
+    try:
+        return await StoryService.create_story(story_data)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.put("/{story_key:path}", response_model=StoryResponse)
+async def update_story(
+    story_key: str = Path(...),
+    update_data: StoryUpdate = None
+):
+    """Update a story"""
+    decoded_key = unquote(story_key)
+    if decoded_key.lower().endswith('.md'):
+        decoded_key = decoded_key[:-3]
+    if update_data is None:
+        update_data = StoryUpdate()
+    story = await StoryService.update_story(decoded_key, update_data)
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+    return story
+
+
+@router.post("/{story_key:path}/publish", response_model=StoryResponse)
+async def publish_story(
+    story_key: str = Path(...),
+    medium_url: Optional[str] = None
+):
+    """Mark a story as published"""
+    decoded_key = unquote(story_key)
+    if decoded_key.lower().endswith('.md'):
+        decoded_key = decoded_key[:-3]
+    story = await StoryService.publish_story(decoded_key, medium_url)
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+    return story
+
+
+@router.delete("/{story_key:path}")
+async def delete_story(story_key: str = Path(...)):
+    """Delete a story"""
+    decoded_key = unquote(story_key)
+    if decoded_key.lower().endswith('.md'):
+        decoded_key = decoded_key[:-3]
+    deleted = await StoryService.delete_story(decoded_key)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Story not found")
+    return {"message": "Story deleted"}
 
 
 @router.get("/{story_key:path}", response_model=StoryResponse)
 async def get_story(story_key: str = Path(...)):
+    """Get a single story"""
     decoded_key = unquote(story_key)
     if decoded_key.lower().endswith('.md'):
         decoded_key = decoded_key[:-3]

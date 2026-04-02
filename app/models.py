@@ -52,6 +52,20 @@ class StoryUpdate(BaseModel):
     medium_publication: Optional[str] = None
     last_stats_update: Optional[str] = None
     bookmarked: Optional[bool] = None
+    # Add to StoryUpdate class:
+    medium_member_reads: Optional[int] = None
+    medium_member_views: Optional[int] = None
+    medium_nonmember_reads: Optional[int] = None
+    medium_nonmember_views: Optional[int] = None
+    medium_total_views: Optional[int] = None
+    medium_claps: Optional[int] = None
+    medium_replies: Optional[int] = None
+    medium_highlights: Optional[int] = None
+    medium_new_followers: Optional[int] = None
+    medium_read_ratio: Optional[float] = None
+    medium_member_read_percentage: Optional[float] = None
+    medium_stats_data: Optional[Dict] = None
+    medium_stats_updated: Optional[str] = None
 
 
 class StoryResponse(BaseModel):
@@ -92,6 +106,20 @@ class StoryResponse(BaseModel):
     medium_publication: Optional[str] = None
     last_stats_update: Optional[str] = None
     bookmarked: bool = False
+    # Add to StoryResponse class:
+    medium_member_reads: int = 0
+    medium_member_views: int = 0
+    medium_nonmember_reads: int = 0
+    medium_nonmember_views: int = 0
+    medium_total_views: int = 0
+    medium_claps: int = 0
+    medium_replies: int = 0
+    medium_highlights: int = 0
+    medium_new_followers: int = 0
+    medium_read_ratio: float = 0
+    medium_member_read_percentage: float = 0
+    medium_stats_data: Optional[Dict] = None
+    medium_stats_updated: Optional[str] = None
 
 
 class SeriesCreate(BaseModel):
