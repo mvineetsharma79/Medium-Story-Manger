@@ -8,7 +8,7 @@ import sqlite3
 import os
 import tempfile
 import shutil
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 import logging
@@ -159,12 +159,15 @@ class MediumStatsFetcher:
     
     def _get_graphql_payload(self, post_id: str) -> List[Dict]:
         """Generate GraphQL payload for current month stats - Exactly as in ms.py"""
-        now = datetime.now()
-        start_of_month = datetime(now.year, now.month, 1, 0, 0, 0)
+        now = datetime.now(timezone.utc)
+        start_of_month = datetime(now.year, now.month, 1, 0, 0, 0, tzinfo=timezone.utc)
         
         start_at = int(start_of_month.timestamp() * 1000)
         end_at = int(now.timestamp() * 1000)
         
+        logger.info(f"📝 start: {start_at}")
+        logger.info(f"📝 end: {end_at}")
+
         return [{
             "operationName": "useStatsPostNewChartDataQuery",
             "variables": {

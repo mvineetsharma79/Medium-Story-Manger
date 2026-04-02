@@ -31,18 +31,25 @@ function formatNumber(num) {
     return num.toString();
 }
 
-function setTodayDate(elementId) {
+window.setTodayDate = function(elementId) {
     document.getElementById(elementId).value = getTodayDate();
-}
+};
 
-function clearDate(elementId) {
+window.clearDate = function(elementId) {
     document.getElementById(elementId).value = '';
-}
+};
 
 function formatDateForDisplay(dateStr) {
     if (!dateStr || dateStr === 'Unknown') return '';
     if (dateStr.includes('-')) return dateStr.split('T')[0];
     return '';
+}
+
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 // ============================================
@@ -287,56 +294,8 @@ let allStories = [];
 let allSeries = [];
 let currentStatsStoryKey = null;
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadView('dashboard');
-    document.querySelectorAll('.sidebar .nav-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const view = link.dataset.view;
-            if (view) loadView(view);
-            document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-        });
-    });
-    document.getElementById('setNowLinkedinBtn')?.addEventListener('click', setNowLinkedinTimestamp);
-    document.getElementById('clearLinkedinTimestampBtn')?.addEventListener('click', clearLinkedinTimestamp);
-    document.getElementById('clearAllLinkedinBtn')?.addEventListener('click', clearAllLinkedinData);
-    document.getElementById('editStoryLinkedinStatus')?.addEventListener('change', onLinkedinStatusChange);
-    document.getElementById('saveStoryEditBtn')?.addEventListener('click', saveStoryEdit);
-});
-
-async function loadView(view) {
-    currentView = view;
-    const contentDiv = document.getElementById('content');
-    const loadingDiv = document.getElementById('loading');
-    loadingDiv.style.display = 'block';
-    contentDiv.innerHTML = '';
-    try {
-        await loadAllSeries();
-        if (view === 'dashboard') await loadDashboard();
-        else if (view === 'stories') await loadStories();
-        else if (view === 'series') await loadSeries();
-        else if (view === 'calendar') await loadCalendar();
-        else if (view === 'settings') await loadSettings();
-    } catch (error) {
-        contentDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
-    } finally {
-        loadingDiv.style.display = 'none';
-    }
-}
-
-async function loadAllSeries() {
-    const res = await fetch(`${API_BASE}/series/`);
-    allSeries = await res.json();
-}
-
-// ============================================
-// Dashboard
-// ============================================
-async function loadDashboard() {
-    const res = await fetch(`${API_BASE}/stories/`);
-    const stories = await res.json();
-    allStories = stories;
+// Dashboard HTML template
+function getDashboardHTML(stories, calendar) {
     const published = stories.filter(s => s.status === 'Published').length;
     const draft = stories.filter(s => s.status === 'Draft').length;
     const done = stories.filter(s => s.status === 'Done').length;
@@ -347,10 +306,8 @@ async function loadDashboard() {
     const totalReads = stories.reduce((sum, s) => sum + (s.reads || 0), 0);
     const totalClaps = stories.reduce((sum, s) => sum + (s.claps || 0), 0);
     const totalViews = stories.reduce((sum, s) => sum + (s.medium_total_views || 0), 0);
-    const calendarRes = await fetch(`${API_BASE}/calendar/`);
-    const calendar = await calendarRes.json();
 
-    document.getElementById('content').innerHTML = `
+    return `
         <h1 class="h3 mb-4">Dashboard</h1>
         <div class="row g-2 mb-4">
             <div class="col-md-2"><div class="card stat-card bg-primary text-white" onclick="filterStoriesByStatus('all')"><div class="card-body"><h6>Total</h6><h2>${stories.length}</h2></div></div></div>
@@ -376,16 +333,9 @@ async function loadDashboard() {
     `;
 }
 
-// ============================================
-// Stories List
-// ============================================
-async function loadStories() {
-    const res = await fetch(`${API_BASE}/stories/`);
-    const stories = await res.json();
-    allStories = stories;
-    const statuses = ['All', 'Draft', 'Done', 'Ready', 'Published'];
-
-    document.getElementById('content').innerHTML = `
+// Stories table header template
+function getStoriesHeaderHTML() {
+    return `
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="h3">Stories</h1>
             <div>
@@ -396,8 +346,17 @@ async function loadStories() {
         </div>
         <div class="filter-bar d-flex gap-2 flex-wrap">
             <i class="bi bi-funnel"></i><span>Filter:</span>
-            <select id="statusFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">${statuses.map(s => `<option value="${s}">${s}</option>`).join('')}</select>
-            <select id="seriesFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()"><option value="">All Series</option>${allSeries.map(s => `<option value="${s.name}">${s.name}</option>`).join('')}</select>
+            <select id="statusFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">
+                <option value="All">All</option>
+                <option value="Draft">Draft</option>
+                <option value="Done">Done</option>
+                <option value="Ready">Ready</option>
+                <option value="Published">Published</option>
+            </select>
+            <select id="seriesFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">
+                <option value="">All Series</option>
+                ${allSeries.map(s => `<option value="${s.name}">${s.name}</option>`).join('')}
+            </select>
             <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search..." onkeyup="saveFilterState(); filterStories()">
             <div class="form-check ms-2">
                 <input class="form-check-input" type="checkbox" id="bookmarkFilter" onchange="saveFilterState(); filterStories()">
@@ -427,11 +386,71 @@ async function loadStories() {
             </table>
         </div>
     `;
-    renderStoryTable(stories);
-    restoreFilterState();
-    sortStories(sortState.stories.column);
 }
 
+// Series header template
+function getSeriesHeaderHTML() {
+    return `
+        <div class="d-flex justify-content-between mb-3">
+            <h1 class="h3">Series</h1>
+            <button class="btn btn-sm btn-primary" onclick="addSeries()"><i class="bi bi-plus-lg"></i> Add Series</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover">
+                <thead id="seriesTableHeader" class="table-light">
+                    <tr>
+                        <th class="sortable" data-sort="name" onclick="sortSeries('name')">Series Name <i class="bi bi-arrow-down-up"></i></th>
+                        <th class="sortable" data-sort="total_stories" onclick="sortSeries('total_stories')">Progress <i class="bi bi-arrow-down-up"></i></th>
+                        <th class="sortable" data-sort="spacing_days" onclick="sortSeries('spacing_days')">Spacing (days) <i class="bi bi-arrow-down-up"></i></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="seriesTableBody"></tbody>
+            </table>
+        </div>
+    `;
+}
+
+// Calendar header template
+function getCalendarHeaderHTML(calendar) {
+    return `
+        <div class="d-flex justify-content-between mb-3">
+            <h1 class="h3">Publishing Calendar</h1>
+            <button class="btn btn-sm btn-primary" onclick="generateCalendar()"><i class="bi bi-arrow-repeat"></i> Regenerate</button>
+        </div>
+        <div class="row g-2 mb-3">
+            <div class="col-md-3"><div class="card bg-info text-white p-2"><small>Scheduled</small><h5>${calendar.summary?.total_scheduled || 0}</h5></div></div>
+            <div class="col-md-3"><div class="card bg-warning text-white p-2"><small>Stories/Week</small><h5>${calendar.summary?.stories_per_week || 3}</h5></div></div>
+            <div class="col-md-3"><div class="card bg-secondary text-white p-2"><small>Series Spacing</small><h5>${calendar.summary?.series_spacing_default || 7} days</h5></div></div>
+            <div class="col-md-3"><div class="card bg-dark text-white p-2"><small>Remaining</small><h5>${calendar.summary?.remaining_unpublished || 0}</h5></div></div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover">
+                <thead id="calendarTableHeader" class="table-light">
+                    <tr>
+                        <th class="sortable" data-sort="date" onclick="sortCalendar('date')">Date <i class="bi bi-arrow-down-up"></i></th>
+                        <th class="sortable" data-sort="name" onclick="sortCalendar('name')">Story <i class="bi bi-arrow-down-up"></i></th>
+                        <th class="sortable" data-sort="series" onclick="sortCalendar('series')">Series <i class="bi bi-arrow-down-up"></i></th>
+                        <th class="sortable" data-sort="part" onclick="sortCalendar('part')">Part <i class="bi bi-arrow-down-up"></i></th>
+                        <th class="sortable" data-sort="read_time" onclick="sortCalendar('read_time')">Read Time <i class="bi bi-arrow-down-up"></i></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="calendarTableBody"></tbody>
+            </table>
+        </div>
+    `;
+}
+
+// Settings HTML template
+function getSettingsHTML(settings, root) {
+    return `<h1 class="h3 mb-3">Settings</h1><div class="row"><div class="col-md-6"><div class="card mb-3"><div class="card-header"><h6>Calendar Settings</h6></div><div class="card-body"><form id="calendarSettingsForm"><div class="mb-2"><label>Series Spacing (days)</label><input type="number" class="form-control form-control-sm" name="series_spacing_days" value="${settings.series_spacing_days || 7}" min="5" max="14"></div><div class="mb-2"><label>Stories Per Week</label><input type="number" class="form-control form-control-sm" name="stories_per_week" value="${settings.stories_per_week || 3}" min="1" max="7"></div><div class="mb-2"><label>Preferred Publish Days</label><div class="d-flex gap-2 flex-wrap">${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => `<div class="form-check"><input class="form-check-input" type="checkbox" name="preferred_days" value="${day}" ${settings.preferred_publish_days?.includes(day) ? 'checked' : ''}><label class="form-check-label small">${day.slice(0, 3)}</label></div>`).join('')}</div></div><div class="mb-2"><label>Start Date</label><input type="date" class="form-control form-control-sm" name="start_date" value="${settings.start_date || ''}"></div><button type="submit" class="btn btn-sm btn-primary">Save</button></form></div></div></div>
+    <div class="col-md-6"><div class="card mb-3"><div class="card-header"><h6>System</h6></div><div class="card-body"><p><strong>Stories Root:</strong> ${root.stories_root}</p><p><strong>Data Directory:</strong> ${settings.data_dir || './data'}</p><hr><button class="btn btn-sm btn-primary" onclick="syncStories()"><i class="bi bi-arrow-repeat"></i> Sync</button><button class="btn btn-sm btn-secondary ms-2" onclick="generateCalendar()"><i class="bi bi-calendar"></i> Generate Calendar</button><button class="btn btn-sm btn-info ms-2" onclick="syncAllStats()"><i class="bi bi-cloud-download"></i> Sync All Stats</button><button class="btn btn-sm btn-outline-success ms-2" onclick="fetchAllStats()"><i class="bi bi-database-down"></i> Fetch Stats</button></div></div></div></div>`;
+}
+
+// ============================================
+// Render Functions
+// ============================================
 function renderStoryTable(stories) {
     const tbody = document.getElementById('storiesTableBody');
     if (!tbody) return;
@@ -522,8 +541,134 @@ function renderStoryTable(stories) {
     }).join('');
 }
 
+function renderSeriesTable(series) {
+    const tbody = document.getElementById('seriesTableBody');
+    if (!tbody) return;
+    const { column, direction } = sortState.series;
+    const sorted = [...series].sort((a, b) => {
+        let aVal = a[column];
+        let bVal = b[column];
+        if (column === 'total_stories' || column === 'published' || column === 'spacing_days') {
+            aVal = aVal || 0;
+            bVal = bVal || 0;
+            return direction === 'asc' ? aVal - bVal : bVal - aVal;
+        }
+        aVal = (aVal || '').toString().toLowerCase();
+        bVal = (bVal || '').toString().toLowerCase();
+        return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    });
+    tbody.innerHTML = sorted.map(s => `
+        <tr>
+            <td><strong>${escapeHtml(s.name)}</strong></td>
+            <td><div class="d-flex gap-2 align-items-center"><div class="progress" style="width:150px;height:6px;"><div class="progress-bar" style="width:${(s.published / (s.total_stories || 1)) * 100}%"></div></div><small>${s.published}/${s.total_stories || 0}</small></div></td>
+            <td><input type="number" class="form-control form-control-sm" style="width:80px;" value="${s.spacing_days}" onchange="updateSeriesSpacing('${s.name}', this.value)"></td>
+            <td><button class="btn btn-sm btn-danger" onclick="deleteSeries('${s.name}')"><i class="bi bi-trash"></i></button></td>
+        </tr>
+    `).join('');
+}
+
+function renderCalendarTable(calendar) {
+    const tbody = document.getElementById('calendarTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = calendar.map(c => `
+        <tr>
+            <td><strong>${c.date}</strong><br><small>${c.weekday}</small></td>
+            <td>${escapeHtml(c.name)}</td>
+            <td>${c.series || 'Standalone'}</td>
+            <td>${c.part ? `Part ${c.part}` : '—'}</td>
+            <td>${c.read_time} min</td>
+            <td><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g, "\\'")}')">Publish</button></td>
+        </tr>
+    `).join('') || '<tr><td colspan="6" class="text-center">No scheduled stories</td></tr>';
+}
+
+// ============================================
+// Load View Functions
+// ============================================
+async function loadView(view) {
+    currentView = view;
+    const contentDiv = document.getElementById('content');
+    const loadingDiv = document.getElementById('loading');
+    loadingDiv.style.display = 'block';
+    contentDiv.innerHTML = '';
+    try {
+        await loadAllSeries();
+        if (view === 'dashboard') await loadDashboard();
+        else if (view === 'stories') await loadStories();
+        else if (view === 'series') await loadSeries();
+        else if (view === 'calendar') await loadCalendar();
+        else if (view === 'settings') await loadSettings();
+    } catch (error) {
+        contentDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
+    } finally {
+        loadingDiv.style.display = 'none';
+    }
+}
+
+async function loadAllSeries() {
+    const res = await fetch(`${API_BASE}/series/`);
+    allSeries = await res.json();
+}
+
+async function loadDashboard() {
+    const res = await fetch(`${API_BASE}/stories/`);
+    const stories = await res.json();
+    allStories = stories;
+    const calendarRes = await fetch(`${API_BASE}/calendar/`);
+    const calendar = await calendarRes.json();
+    document.getElementById('content').innerHTML = getDashboardHTML(stories, calendar);
+}
+
+async function loadStories() {
+    const res = await fetch(`${API_BASE}/stories/`);
+    const stories = await res.json();
+    allStories = stories;
+    document.getElementById('content').innerHTML = getStoriesHeaderHTML();
+    renderStoryTable(stories);
+    restoreFilterState();
+    sortStories(sortState.stories.column);
+}
+
+async function loadSeries() {
+    const res = await fetch(`${API_BASE}/series/`);
+    const series = await res.json();
+    allSeries = series;
+    document.getElementById('content').innerHTML = getSeriesHeaderHTML();
+    renderSeriesTable(series);
+    sortSeries(sortState.series.column);
+}
+
+async function loadCalendar() {
+    const res = await fetch(`${API_BASE}/calendar/`);
+    const calendar = await res.json();
+    allCalendar = calendar.schedule || [];
+    document.getElementById('content').innerHTML = getCalendarHeaderHTML(calendar);
+    renderCalendarTable(allCalendar);
+    sortCalendar(sortState.calendar.column);
+}
+
+async function loadSettings() {
+    const settingsRes = await fetch(`${API_BASE}/settings/`);
+    const settings = await settingsRes.json();
+    const rootRes = await fetch(`${API_BASE}/settings/stories-root`);
+    const root = await rootRes.json();
+    document.getElementById('content').innerHTML = getSettingsHTML(settings, root);
+    document.getElementById('calendarSettingsForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const data = { series_spacing_days: parseInt(fd.get('series_spacing_days')), stories_per_week: parseInt(fd.get('stories_per_week')), preferred_publish_days: fd.getAll('preferred_days'), start_date: fd.get('start_date') };
+        const res = await fetch(`${API_BASE}/settings/calendar`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        if (res.ok) { alert('Saved'); loadSettings(); } else { alert('Error'); }
+    });
+}
+
+// ============================================
+// Edit & Actions
+// ============================================
 function filterStories() {
-    renderStoryTable(allStories);
+    if (allStories.length > 0) {
+        renderStoryTable(allStories);
+    }
 }
 
 function clearFilters() {
@@ -545,137 +690,6 @@ function filterStoriesByBookmarked() {
     loadView('stories');
 }
 
-// ============================================
-// Series
-// ============================================
-async function loadSeries() {
-    const res = await fetch(`${API_BASE}/series/`);
-    const series = await res.json();
-    allSeries = series;
-    document.getElementById('content').innerHTML = `
-        <div class="d-flex justify-content-between mb-3">
-            <h1 class="h3">Series</h1>
-            <button class="btn btn-sm btn-primary" onclick="addSeries()"><i class="bi bi-plus-lg"></i> Add Series</button>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-sm table-hover">
-                <thead id="seriesTableHeader" class="table-light">
-                    <tr>
-                        <th class="sortable" data-sort="name" onclick="sortSeries('name')">Series Name <i class="bi bi-arrow-down-up"></i></th>
-                        <th class="sortable" data-sort="total_stories" onclick="sortSeries('total_stories')">Progress <i class="bi bi-arrow-down-up"></i></th>
-                        <th class="sortable" data-sort="spacing_days" onclick="sortSeries('spacing_days')">Spacing (days) <i class="bi bi-arrow-down-up"></i></th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="seriesTableBody"></tbody>
-            </table>
-        </div>
-    `;
-    renderSeriesTable(series);
-    sortSeries(sortState.series.column);
-}
-
-function renderSeriesTable(series) {
-    const tbody = document.getElementById('seriesTableBody');
-    if (!tbody) return;
-    const { column, direction } = sortState.series;
-    const sorted = [...series].sort((a, b) => {
-        let aVal = a[column];
-        let bVal = b[column];
-        if (column === 'total_stories' || column === 'published' || column === 'spacing_days') {
-            aVal = aVal || 0;
-            bVal = bVal || 0;
-            return direction === 'asc' ? aVal - bVal : bVal - aVal;
-        }
-        aVal = (aVal || '').toString().toLowerCase();
-        bVal = (bVal || '').toString().toLowerCase();
-        return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-    });
-    tbody.innerHTML = sorted.map(s => `
-        <tr>
-            <td><strong>${escapeHtml(s.name)}</strong></td
-            <td><div class="d-flex gap-2 align-items-center"><div class="progress" style="width:150px;height:6px;"><div class="progress-bar" style="width:${(s.published / (s.total_stories || 1)) * 100}%"></div></div><small>${s.published}/${s.total_stories || 0}</small></div></td
-            <td><input type="number" class="form-control form-control-sm" style="width:80px;" value="${s.spacing_days}" onchange="updateSeriesSpacing('${s.name}', this.value)"></td
-            <td><button class="btn btn-sm btn-danger" onclick="deleteSeries('${s.name}')"><i class="bi bi-trash"></i></button></td
-         </tr
-    `).join('');
-}
-
-// ============================================
-// Calendar
-// ============================================
-async function loadCalendar() {
-    const res = await fetch(`${API_BASE}/calendar/`);
-    const calendar = await res.json();
-    allCalendar = calendar.schedule || [];
-    document.getElementById('content').innerHTML = `
-        <div class="d-flex justify-content-between mb-3">
-            <h1 class="h3">Publishing Calendar</h1>
-            <button class="btn btn-sm btn-primary" onclick="generateCalendar()"><i class="bi bi-arrow-repeat"></i> Regenerate</button>
-        </div>
-        <div class="row g-2 mb-3">
-            <div class="col-md-3"><div class="card bg-info text-white p-2"><small>Scheduled</small><h5>${calendar.summary?.total_scheduled || 0}</h5></div></div>
-            <div class="col-md-3"><div class="card bg-warning text-white p-2"><small>Stories/Week</small><h5>${calendar.summary?.stories_per_week || 3}</h5></div></div>
-            <div class="col-md-3"><div class="card bg-secondary text-white p-2"><small>Series Spacing</small><h5>${calendar.summary?.series_spacing_default || 7} days</h5></div></div>
-            <div class="col-md-3"><div class="card bg-dark text-white p-2"><small>Remaining</small><h5>${calendar.summary?.remaining_unpublished || 0}</h5></div></div>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-sm table-hover">
-                <thead id="calendarTableHeader" class="table-light">
-                    <tr>
-                        <th class="sortable" data-sort="date" onclick="sortCalendar('date')">Date <i class="bi bi-arrow-down-up"></i></th>
-                        <th class="sortable" data-sort="name" onclick="sortCalendar('name')">Story <i class="bi bi-arrow-down-up"></i></th>
-                        <th class="sortable" data-sort="series" onclick="sortCalendar('series')">Series <i class="bi bi-arrow-down-up"></i></th>
-                        <th class="sortable" data-sort="part" onclick="sortCalendar('part')">Part <i class="bi bi-arrow-down-up"></i></th>
-                        <th class="sortable" data-sort="read_time" onclick="sortCalendar('read_time')">Read Time <i class="bi bi-arrow-down-up"></i></th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="calendarTableBody"></tbody>
-            </table>
-        </div>
-    `;
-    renderCalendarTable(allCalendar);
-    sortCalendar(sortState.calendar.column);
-}
-
-function renderCalendarTable(calendar) {
-    const tbody = document.getElementById('calendarTableBody');
-    if (!tbody) return;
-    tbody.innerHTML = calendar.map(c => `
-        <tr>
-            <td><strong>${c.date}</strong><br><small>${c.weekday}</small></td
-            <td>${escapeHtml(c.name)}</td
-            <td>${c.series || 'Standalone'}</td
-            <td>${c.part ? `Part ${c.part}` : '—'}</td
-            <td>${c.read_time} min</td
-            <td><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g, "\\'")}')">Publish</button></td
-         </tr
-    `).join('') || '<tr><td colspan="6" class="text-center">No scheduled stories</td></tr>';
-}
-
-// ============================================
-// Settings
-// ============================================
-async function loadSettings() {
-    const settingsRes = await fetch(`${API_BASE}/settings/`);
-    const settings = await settingsRes.json();
-    const rootRes = await fetch(`${API_BASE}/settings/stories-root`);
-    const root = await rootRes.json();
-    document.getElementById('content').innerHTML = `<h1 class="h3 mb-3">Settings</h1><div class="row"><div class="col-md-6"><div class="card mb-3"><div class="card-header"><h6>Calendar Settings</h6></div><div class="card-body"><form id="calendarSettingsForm"><div class="mb-2"><label>Series Spacing (days)</label><input type="number" class="form-control form-control-sm" name="series_spacing_days" value="${settings.series_spacing_days || 7}" min="5" max="14"></div><div class="mb-2"><label>Stories Per Week</label><input type="number" class="form-control form-control-sm" name="stories_per_week" value="${settings.stories_per_week || 3}" min="1" max="7"></div><div class="mb-2"><label>Preferred Publish Days</label><div class="d-flex gap-2 flex-wrap">${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => `<div class="form-check"><input class="form-check-input" type="checkbox" name="preferred_days" value="${day}" ${settings.preferred_publish_days?.includes(day) ? 'checked' : ''}><label class="form-check-label small">${day.slice(0, 3)}</label></div>`).join('')}</div></div><div class="mb-2"><label>Start Date</label><input type="date" class="form-control form-control-sm" name="start_date" value="${settings.start_date || ''}"></div><button type="submit" class="btn btn-sm btn-primary">Save</button></form></div></div></div>
-    <div class="col-md-6"><div class="card mb-3"><div class="card-header"><h6>System</h6></div><div class="card-body"><p><strong>Stories Root:</strong> ${root.stories_root}</p><p><strong>Data Directory:</strong> ${settings.data_dir || './data'}</p><hr><button class="btn btn-sm btn-primary" onclick="syncStories()"><i class="bi bi-arrow-repeat"></i> Sync</button><button class="btn btn-sm btn-secondary ms-2" onclick="generateCalendar()"><i class="bi bi-calendar"></i> Generate Calendar</button><button class="btn btn-sm btn-info ms-2" onclick="syncAllStats()"><i class="bi bi-cloud-download"></i> Sync All Stats</button><button class="btn btn-sm btn-outline-success ms-2" onclick="fetchAllStats()"><i class="bi bi-database-down"></i> Fetch Stats</button></div></div></div></div>`;
-    document.getElementById('calendarSettingsForm')?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const fd = new FormData(e.target);
-        const data = { series_spacing_days: parseInt(fd.get('series_spacing_days')), stories_per_week: parseInt(fd.get('stories_per_week')), preferred_publish_days: fd.getAll('preferred_days'), start_date: fd.get('start_date') };
-        const res = await fetch(`${API_BASE}/settings/calendar`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-        if (res.ok) { alert('Saved'); loadSettings(); } else { alert('Error'); }
-    });
-}
-
-// ============================================
-// Edit & Actions
-// ============================================
 async function editStory(storyKey) {
     let cleanKey = storyKey;
     if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
@@ -735,7 +749,7 @@ async function quickMarkLinkedin(storyKey, status) {
     if (res.ok) { saveFilterState(); await loadView(currentView); restoreFilterState(); } else alert('Failed to update LinkedIn status');
 }
 
-async function createNewStory() {
+window.createNewStory = async function() {
     const data = {
         name: document.getElementById('addStoryName').value,
         series: document.getElementById('addStorySeries').value || null,
@@ -746,7 +760,7 @@ async function createNewStory() {
     if (!data.name) { alert('Story name required'); return; }
     const res = await fetch(`${API_BASE}/stories/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
     if (res.ok) { bootstrap.Modal.getInstance(document.getElementById('addStoryModal')).hide(); document.getElementById('addStoryForm').reset(); await syncStories(); saveFilterState(); loadView('stories'); restoreFilterState(); } else alert('Error creating story');
-}
+};
 
 // ============================================
 // Stats Dashboard Functions
@@ -926,12 +940,28 @@ async function deleteSeries(seriesName) {
     }
 }
 
-function escapeHtml(text) {
-    if (!text) return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
+// ============================================
+// Event Listeners
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+    loadView('dashboard');
+
+    document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const view = link.dataset.view;
+            if (view) loadView(view);
+            document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
+
+    document.getElementById('setNowLinkedinBtn')?.addEventListener('click', setNowLinkedinTimestamp);
+    document.getElementById('clearLinkedinTimestampBtn')?.addEventListener('click', clearLinkedinTimestamp);
+    document.getElementById('clearAllLinkedinBtn')?.addEventListener('click', clearAllLinkedinData);
+    document.getElementById('editStoryLinkedinStatus')?.addEventListener('change', onLinkedinStatusChange);
+    document.getElementById('saveStoryEditBtn')?.addEventListener('click', saveStoryEdit);
+});
 
 document.addEventListener('show.bs.modal', function(event) {
     if (event.target.id === 'addStoryModal') {
