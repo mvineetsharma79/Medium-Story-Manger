@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-04-04T00:33:38.021469",
+  "last_updated": "2026-04-04T01:13:02.775217",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 3 - Open-Closed Principle": {
       "name": "SOLID Principles: Part 3 - Open-Closed Principle",
@@ -6603,7 +6603,7 @@
       "status": "Published",
       "published_date": "2026-02-25",
       "created_date": "2026-02-25",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:01",
       "tags": [],
       "read_time": null,
       "reads": 1,
@@ -6678,8 +6678,8 @@
         "post_topics": []
       },
       "medium_stats_updated": "2026-04-04T00:29:44.774195",
-      "leaderboard": true,
-      "leaderboard_nanos": 70000000,
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
       "lifetime_reads": 1,
       "lifetime_claps": 0,
       "lifetime_views": 6,
@@ -6720,7 +6720,7 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-04T00:29:44.774199",
-      "leaderboard_lifetime_nanos": 520000000
+      "leaderboard_lifetime_nanos": 0
     },
     "Modernizing the Monolith/Modernizing the Monolith: State, Async & Microservices Deep Dive — Part 2": {
       "name": "Modernizing the Monolith: State, Async & Microservices Deep Dive — Part 2",
@@ -10142,7 +10142,7 @@
       "status": "Published",
       "published_date": "2025-01-30",
       "created_date": "2025-01-30",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:01",
       "tags": [],
       "read_time": null,
       "reads": 3,
@@ -10217,8 +10217,8 @@
         "post_topics": []
       },
       "medium_stats_updated": "2026-04-04T00:29:55.731718",
-      "leaderboard": true,
-      "leaderboard_nanos": 20000000,
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
       "lifetime_reads": 3,
       "lifetime_claps": 0,
       "lifetime_views": 17,
@@ -10259,7 +10259,7 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-04T00:29:55.731725",
-      "leaderboard_lifetime_nanos": 20000000
+      "leaderboard_lifetime_nanos": 0
     },
     "./10 Microservices Architecture Patterns: A Reference Architecture with .NET 10 and Azure — Part 1": {
       "name": "10 Microservices Architecture Patterns: A Reference Architecture with .NET 10 and Azure — Part 1",
@@ -10271,7 +10271,7 @@
       "status": "Published",
       "published_date": "2026-03-17",
       "created_date": "2026-03-16",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:01",
       "tags": [],
       "read_time": null,
       "reads": 4,
@@ -10346,8 +10346,8 @@
         "post_topics": []
       },
       "medium_stats_updated": "2026-04-04T00:30:01.260524",
-      "leaderboard": true,
-      "leaderboard_nanos": 30000000,
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
       "lifetime_reads": 4,
       "lifetime_claps": 0,
       "lifetime_views": 15,
@@ -10388,7 +10388,7 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-04T00:30:01.260528",
-      "leaderboard_lifetime_nanos": 430000000
+      "leaderboard_lifetime_nanos": 0
     },
     "./Dynamic Polymorphism in .NET Core with Examples": {
       "name": "Dynamic Polymorphism in .NET Core with Examples",
@@ -11657,7 +11657,7 @@
       "status": "Published",
       "published_date": "2026-02-23",
       "created_date": "2026-02-23",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:01",
       "tags": [],
       "read_time": 10,
       "reads": 2,
@@ -11776,9 +11776,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-04T00:30:17.541598",
-      "leaderboard": true,
-      "leaderboard_nanos": 70000000,
-      "leaderboard_lifetime_nanos": 820000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Architectural_Remediation_Framework/Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs — Part 1": {
       "name": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs — Part 1",
@@ -12056,7 +12056,7 @@
       "status": "Published",
       "published_date": "2026-02-09",
       "created_date": "2026-02-09",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:01",
       "tags": [],
       "read_time": 15,
       "reads": 6,
@@ -12175,8 +12175,8 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-04T00:30:33.823260",
-      "leaderboard": true,
-      "leaderboard_nanos": 350000000,
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
       "leaderboard_lifetime_nanos": 0
     },
     "GitHub_Copilot_The/GitHub Copilot: The AI-Powered Development Ecosystem": {
@@ -12189,7 +12189,7 @@
       "status": "Published",
       "published_date": "2026-03-27",
       "created_date": "2026-03-27",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:01",
       "tags": [],
       "read_time": 14,
       "reads": 9,
@@ -12308,9 +12308,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-04T00:30:39.351382",
-      "leaderboard": true,
-      "leaderboard_nanos": 30000000,
-      "leaderboard_lifetime_nanos": 170000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Zero_to_Production/Zero to Production: .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure": {
       "name": "Zero to Production: .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
@@ -12322,7 +12322,7 @@
       "status": "Published",
       "published_date": "2026-02-26",
       "created_date": "2026-02-26",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:01",
       "tags": [],
       "read_time": 55,
       "reads": 4,
@@ -12441,9 +12441,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-04T00:30:44.780412",
-      "leaderboard": true,
-      "leaderboard_nanos": 20000000,
-      "leaderboard_lifetime_nanos": 540000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Tuning_Connection_Pools/Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update": {
       "name": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
@@ -12455,7 +12455,7 @@
       "status": "Published",
       "published_date": "2026-01-22",
       "created_date": "2026-01-22",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:01",
       "tags": [],
       "read_time": 7,
       "reads": 13,
@@ -12574,9 +12574,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-04T00:30:50.207797",
-      "leaderboard": true,
-      "leaderboard_nanos": 20000000,
-      "leaderboard_lifetime_nanos": 900000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Dynamic_Polymorphism_in/Dynamic Polymorphism in .NET Core with Examples": {
       "name": "Dynamic Polymorphism in .NET Core with Examples",
@@ -12588,7 +12588,7 @@
       "status": "Published",
       "published_date": "2025-02-05",
       "created_date": "2025-02-05",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 4,
       "reads": 1,
@@ -12707,9 +12707,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-04T00:30:55.736651",
-      "leaderboard": true,
-      "leaderboard_nanos": 20000000,
-      "leaderboard_lifetime_nanos": 20000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "AI_Engineering_The/AI Engineering: The 5-Step Blueprint to Building and Deploying AI Agents That Scale to Millions": {
       "name": "AI Engineering: The 5-Step Blueprint to Building and Deploying AI Agents That Scale to Millions",
@@ -12721,7 +12721,7 @@
       "status": "Published",
       "published_date": "2026-04-01",
       "created_date": "2026-04-01",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 8,
       "reads": 5,
@@ -12840,9 +12840,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-04T00:31:01.135115",
-      "leaderboard": true,
-      "leaderboard_nanos": 10000000,
-      "leaderboard_lifetime_nanos": 10000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Microservice_Design_Patterns/Microservice Design Patterns: A Comprehensive Guide": {
       "name": "Microservice Design Patterns: A Comprehensive Guide",
@@ -12987,7 +12987,7 @@
       "status": "Published",
       "published_date": "2025-04-30",
       "created_date": "2025-04-30",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 5,
       "reads": 3,
@@ -13106,9 +13106,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:21:35.677429",
-      "leaderboard": true,
-      "leaderboard_nanos": 750000000,
-      "leaderboard_lifetime_nanos": 460000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Why_ASPNET_Core/Why ASP.NET Core 10 Reactive Applications Fail in Production: Pitfalls & Solutions in Azure Cloud": {
       "name": "Why ASP.NET Core 10 Reactive Applications Fail in Production: Pitfalls & Solutions in Azure Cloud",
@@ -13120,7 +13120,7 @@
       "status": "Published",
       "published_date": "2026-02-19",
       "created_date": "2026-02-19",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 24,
       "reads": 0,
@@ -13239,9 +13239,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:21:41.104286",
-      "leaderboard": true,
-      "leaderboard_nanos": 200000000,
-      "leaderboard_lifetime_nanos": 850000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Podman_Kubernetes_in/Podman + Kubernetes in Production": {
       "name": "Podman + Kubernetes in Production",
@@ -13253,7 +13253,7 @@
       "status": "Published",
       "published_date": "2026-01-21",
       "created_date": "2026-01-21",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 4,
       "reads": 1,
@@ -13372,9 +13372,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:21:46.534265",
-      "leaderboard": true,
-      "leaderboard_nanos": 370000000,
-      "leaderboard_lifetime_nanos": 690000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Enterprise_AI_Architecture/Enterprise AI Architecture Part 1: The Foundation — User Access & Data Ingestion": {
       "name": "Enterprise AI Architecture Part 1: The Foundation — User Access & Data Ingestion",
@@ -13519,7 +13519,7 @@
       "status": "Published",
       "published_date": "2026-02-10",
       "created_date": "2026-02-10",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 18,
       "reads": 1,
@@ -13638,9 +13638,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:21:57.490116",
-      "leaderboard": true,
-      "leaderboard_nanos": 80000000,
-      "leaderboard_lifetime_nanos": 340000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Artificial_Intelligence_From/Artificial Intelligence: From Basic Concepts to Agentic Systems — Hands-On Implementation Guide": {
       "name": "Artificial Intelligence: From Basic Concepts to Agentic Systems — Hands-On Implementation Guide",
@@ -14051,7 +14051,7 @@
       "status": "Published",
       "published_date": "2026-02-23",
       "created_date": "2026-02-23",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 42,
       "reads": 0,
@@ -14170,9 +14170,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:22:19.198308",
-      "leaderboard": true,
-      "leaderboard_nanos": 240000000,
-      "leaderboard_lifetime_nanos": 430000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "AI_From_the/AI From the Top Down: How Agentic Systems, Generative Models, and Symbolic Logic Build Intelligence": {
       "name": "AI From the Top Down: How Agentic Systems, Generative Models, and Symbolic Logic Build Intelligence",
@@ -14317,7 +14317,7 @@
       "status": "Published",
       "published_date": "2026-02-08",
       "created_date": "2026-02-08",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 32,
       "reads": 3,
@@ -14436,9 +14436,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:22:30.157723",
-      "leaderboard": true,
-      "leaderboard_nanos": 80000000,
-      "leaderboard_lifetime_nanos": 260000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "SQL_Mechanic_to/SQL Mechanic to Data Architect: Advanced Queries, SPs & Scalable Systems — The Complete Journey": {
       "name": "SQL Mechanic to Data Architect: Advanced Queries, SPs & Scalable Systems — The Complete Journey",
@@ -14583,7 +14583,7 @@
       "status": "Published",
       "published_date": "2026-02-17",
       "created_date": "2026-02-17",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 6,
       "reads": 0,
@@ -14702,9 +14702,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:22:41.013113",
-      "leaderboard": true,
-      "leaderboard_nanos": 110000000,
-      "leaderboard_lifetime_nanos": 250000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Nodejs_API_Frameworks/Node.js API Frameworks: A Deep Dive into Express, Fastify, NestJS & Beyond": {
       "name": "Node.js API Frameworks: A Deep Dive into Express, Fastify, NestJS & Beyond",
@@ -14849,7 +14849,7 @@
       "status": "Published",
       "published_date": "2026-02-22",
       "created_date": "2026-02-22",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 6,
       "reads": 1,
@@ -14968,9 +14968,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:22:51.866234",
-      "leaderboard": true,
-      "leaderboard_nanos": 100000000,
-      "leaderboard_lifetime_nanos": 230000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Handling_Distributed_Transactions/Handling Distributed Transactions for Payments in .NET Core Using Azure Service Bus Functions": {
       "name": "Handling Distributed Transactions for Payments in .NET Core Using Azure Service Bus Functions",
@@ -15514,7 +15514,7 @@
       "status": "Published",
       "published_date": "2026-02-20",
       "created_date": "2026-02-20",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 5,
       "reads": 1,
@@ -15633,9 +15633,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:23:19.002374",
-      "leaderboard": true,
-      "leaderboard_nanos": 150000000,
-      "leaderboard_lifetime_nanos": 230000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Building_Fast_and/Building Fast and Well-Documented APIs Using FastEndpoints and Swagger in .NET": {
       "name": "Building Fast and Well-Documented APIs Using FastEndpoints and Swagger in .NET",
@@ -15647,7 +15647,7 @@
       "status": "Published",
       "published_date": "2025-05-11",
       "created_date": "2025-05-11",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 6,
       "reads": 1,
@@ -15766,9 +15766,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:23:25.022646",
-      "leaderboard": true,
-      "leaderboard_nanos": 10000000,
-      "leaderboard_lifetime_nanos": 80000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Intelligent_Routing_for/Intelligent Routing for OpenAI, Anthropic, & Open-Source Models -Save 67%: Stop Hardcoding LLM": {
       "name": "Intelligent Routing for OpenAI, Anthropic, & Open-Source Models -Save 67%: Stop Hardcoding LLM",
@@ -15913,7 +15913,7 @@
       "status": "Published",
       "published_date": "2025-08-22",
       "created_date": "2025-08-22",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 4,
       "reads": 2,
@@ -16032,9 +16032,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:23:35.911575",
-      "leaderboard": true,
-      "leaderboard_nanos": 60000000,
-      "leaderboard_lifetime_nanos": 120000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "From_REST_to/From REST to gRPC: A Unified Architecture Across .NET 10, Node.js, and Python": {
       "name": "From REST to gRPC: A Unified Architecture Across .NET 10, Node.js, and Python",
@@ -16179,7 +16179,7 @@
       "status": "Published",
       "published_date": "2026-02-25",
       "created_date": "2026-02-25",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 18,
       "reads": 1,
@@ -16298,9 +16298,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:23:46.859643",
-      "leaderboard": true,
-      "leaderboard_nanos": 20000000,
-      "leaderboard_lifetime_nanos": 80000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Dependency_Injection_How/Dependency Injection — How DI Lifetimes Actually Work in .NET 10": {
       "name": "Dependency Injection — How DI Lifetimes Actually Work in .NET 10",
@@ -16312,7 +16312,7 @@
       "status": "Published",
       "published_date": "2026-02-27",
       "created_date": "2026-02-27",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 25,
       "reads": 1,
@@ -16387,9 +16387,9 @@
       "lifetime_topics": [],
       "lifetime_stats_data": null,
       "lifetime_stats_updated": null,
-      "leaderboard": true,
-      "leaderboard_nanos": 100000000,
-      "leaderboard_lifetime_nanos": 150000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "NET_10_Minimal/.NET 10 Minimal APIs + Reactive Programming": {
       "name": ".NET 10 Minimal APIs + Reactive Programming",
@@ -16401,7 +16401,7 @@
       "status": "Published",
       "published_date": "2026-01-30",
       "created_date": "2026-01-30",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 4,
       "reads": 0,
@@ -16520,9 +16520,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:23:57.713931",
-      "leaderboard": true,
-      "leaderboard_nanos": 70000000,
-      "leaderboard_lifetime_nanos": 120000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Zero-Allocation_Parsers_in/Zero-Allocation Parsers in Node.js: A High-Performance String Processing": {
       "name": "Zero-Allocation Parsers in Node.js: A High-Performance String Processing",
@@ -16667,7 +16667,7 @@
       "status": "Published",
       "published_date": "2026-02-07",
       "created_date": "2026-02-07",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 9,
       "reads": 0,
@@ -16786,9 +16786,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:24:08.568628",
-      "leaderboard": true,
-      "leaderboard_nanos": 20000000,
-      "leaderboard_lifetime_nanos": 60000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "The_Architecture_of/The Architecture of Learning: A Technical Analysis of the AI-Powered Video Tutorial Portal": {
       "name": "The Architecture of Learning: A Technical Analysis of the AI-Powered Video Tutorial Portal",
@@ -17066,7 +17066,7 @@
       "status": "Published",
       "published_date": "2025-05-06",
       "created_date": "2025-05-06",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 4,
       "reads": 0,
@@ -17185,9 +17185,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:24:25.361101",
-      "leaderboard": true,
-      "leaderboard_nanos": 20000000,
-      "leaderboard_lifetime_nanos": 60000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Why_ASPNET_Core/Why ASP.NET Core 10 Reactive Applications Fail in Production: Pitfalls & Solutions in AWS Cloud": {
       "name": "Why ASP.NET Core 10 Reactive Applications Fail in Production: Pitfalls & Solutions in AWS Cloud",
@@ -17199,7 +17199,7 @@
       "status": "Published",
       "published_date": "2026-02-19",
       "created_date": "2026-02-19",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 29,
       "reads": 1,
@@ -17318,9 +17318,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:24:30.744259",
-      "leaderboard": true,
-      "leaderboard_nanos": 130000000,
-      "leaderboard_lifetime_nanos": 160000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Artificial_Intelligence_From/Artificial Intelligence: From Basic Concepts to Agentic Systems": {
       "name": "Artificial Intelligence: From Basic Concepts to Agentic Systems",
@@ -17421,7 +17421,7 @@
       "status": "Published",
       "published_date": "2026-01-31",
       "created_date": "2026-01-31",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 4,
       "reads": 0,
@@ -17540,9 +17540,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:24:41.644309",
-      "leaderboard": true,
-      "leaderboard_nanos": 20000000,
-      "leaderboard_lifetime_nanos": 50000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "VS_Code_With/VS Code With DeepSeek for Free — And Unlocked “Full-Context” Local Dev Magic": {
       "name": "VS Code With DeepSeek for Free — And Unlocked “Full-Context” Local Dev Magic",
@@ -18086,7 +18086,7 @@
       "status": "Published",
       "published_date": "2025-05-16",
       "created_date": "2025-05-16",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 6,
       "reads": 0,
@@ -18205,9 +18205,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:25:09.234464",
-      "leaderboard": true,
-      "leaderboard_nanos": 40000000,
-      "leaderboard_lifetime_nanos": 60000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Analyzing_Software_Code/Analyzing Software Code — Maintainability Index": {
       "name": "Analyzing Software Code — Maintainability Index",
@@ -18219,7 +18219,7 @@
       "status": "Published",
       "published_date": "2024-02-05",
       "created_date": "2024-02-05",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 2,
       "reads": 0,
@@ -18338,9 +18338,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:25:14.612045",
-      "leaderboard": true,
-      "leaderboard_nanos": 40000000,
-      "leaderboard_lifetime_nanos": 60000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "12_Architectural_Concepts/12 Architectural Concepts (AWS, Azure, Open Source)": {
       "name": "12 Architectural Concepts (AWS, Azure, Open Source)",
@@ -18352,7 +18352,7 @@
       "status": "Published",
       "published_date": "2026-02-12",
       "created_date": "2026-02-12",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 12,
       "reads": 0,
@@ -18471,9 +18471,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:25:20.030603",
-      "leaderboard": true,
-      "leaderboard_nanos": 10000000,
-      "leaderboard_lifetime_nanos": 30000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Redefining_OOPs_Beyond/Redefining OOPs: Beyond the Car and Animal Analogy": {
       "name": "Redefining OOPs: Beyond the Car and Animal Analogy",
@@ -18618,7 +18618,7 @@
       "status": "Published",
       "published_date": "2026-01-25",
       "created_date": "2026-04-03",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 4,
       "reads": 0,
@@ -18737,9 +18737,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-03T23:50:25.265304",
-      "leaderboard": true,
-      "leaderboard_nanos": 30000000,
-      "leaderboard_lifetime_nanos": 30000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Leaderboard/From Monolith to Microservices: A Domain-Driven Design (DDD) Approach": {
       "name": "From Monolith to Microservices: A Domain-Driven Design (DDD) Approach",
@@ -18751,7 +18751,7 @@
       "status": "Published",
       "published_date": "2025-01-21",
       "created_date": "2026-04-03",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 4,
       "reads": 0,
@@ -18800,9 +18800,9 @@
       "lifetime_topics": [],
       "lifetime_stats_data": null,
       "lifetime_stats_updated": null,
-      "leaderboard": true,
-      "leaderboard_nanos": 20000000,
-      "leaderboard_lifetime_nanos": 20000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Leaderboard/Building an AI-Powered Automotive Intelligence Platform (Android + Cloud + OBD + Monetization…": {
       "name": "Building an AI-Powered Automotive Intelligence Platform (Android + Cloud + OBD + Monetization…",
@@ -18814,7 +18814,7 @@
       "status": "Published",
       "published_date": "2026-02-15",
       "created_date": "2026-04-03",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 4,
       "reads": 0,
@@ -18863,9 +18863,9 @@
       "lifetime_topics": [],
       "lifetime_stats_data": null,
       "lifetime_stats_updated": null,
-      "leaderboard": true,
-      "leaderboard_nanos": 10000000,
-      "leaderboard_lifetime_nanos": 10000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Leaderboard/Zero-Allocation Parsing in Python: A Guide to High-Performance String Processing": {
       "name": "Zero-Allocation Parsing in Python: A Guide to High-Performance String Processing",
@@ -18877,7 +18877,7 @@
       "status": "Published",
       "published_date": "2026-02-07",
       "created_date": "2026-04-03",
-      "last_updated": "2026-04-04 00:33:38",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 12,
       "reads": 0,
@@ -18926,9 +18926,9 @@
       "lifetime_topics": [],
       "lifetime_stats_data": null,
       "lifetime_stats_updated": null,
-      "leaderboard": true,
-      "leaderboard_nanos": 10000000,
-      "leaderboard_lifetime_nanos": 10000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Leaderboard/Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update": {
       "name": "Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
@@ -18940,7 +18940,7 @@
       "status": "Published",
       "published_date": "2025-04-30",
       "created_date": "2026-04-03",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 8,
       "reads": 6,
@@ -19059,9 +19059,9 @@
         "post_topics": []
       },
       "lifetime_stats_updated": "2026-04-04T00:31:12.118880",
-      "leaderboard": true,
-      "leaderboard_nanos": 10000000,
-      "leaderboard_lifetime_nanos": 430000000
+      "leaderboard": false,
+      "leaderboard_nanos": 0,
+      "leaderboard_lifetime_nanos": 0
     },
     "Leaderboard/21 AI Tools That Will Supercharge Your Productivity in 2025": {
       "name": "21 AI Tools That Will Supercharge Your Productivity in 2025",
@@ -19073,7 +19073,7 @@
       "status": "Published",
       "published_date": "2025-10-10",
       "created_date": "2026-04-03",
-      "last_updated": "2026-04-04 00:33:37",
+      "last_updated": "2026-04-04 01:13:02",
       "tags": [],
       "read_time": 7,
       "reads": 2,

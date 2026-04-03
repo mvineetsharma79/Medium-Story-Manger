@@ -834,3 +834,14 @@ Stories Reset: 0
 Total Earnings: $3.37
 Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json, leaderboard-2026-02-part3.json, leaderboard-2026-02-part4.json, leaderboard-2026-02-part5.json, leaderboard-2026-02-part6.json
 ================================================================================
+
+================================================================================
+Operation: FETCH_LEADERBOARD_2025-10
+Timestamp: 2026-04-04T01:13:02.797793
+Files Processed: 1
+Stories Updated: 1
+Stories Added: 0
+Stories Reset: 0
+Total Earnings: $0.03
+Source Files: leaderboard-2025-10-part1.json
+================================================================================
