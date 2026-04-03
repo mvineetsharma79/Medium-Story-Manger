@@ -1,0 +1,766 @@
+[
+    {
+        "data": {
+            "userResult": {
+                "__typename": "User",
+                "id": "6a63927f9b83",
+                "viewerEdge": {
+                    "id": "userId:6a63927f9b83-viewerId:6a63927f9b83",
+                    "earnings": {
+                        "projectedEarnings": {
+                            "credits": [
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 160000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 50000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 40000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 190000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 100000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 110000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 40000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 150000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 120000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 40000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 70000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 40000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 50000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 60000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 40000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 40000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 40000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 40000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 50000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 40000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 110000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 60000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 150000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 90000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 60000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 70000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 560000000,
+                                        "units": 3,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                },
+                                {
+                                    "__typename": "PostCredit",
+                                    "amount": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    }
+                                }
+                            ],
+                            "subtotal": {
+                                "currencyCode": "USD",
+                                "nanos": 640000000,
+                                "units": 6,
+                                "__typename": "Money"
+                            },
+                            "__typename": "ProjectedEarnings"
+                        },
+                        "__typename": "UserEarnings"
+                    },
+                    "__typename": "UserViewerEdge"
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,563 @@
+[
+    {
+        "data": {
+            "userResult": {
+                "__typename": "User",
+                "id": "6a63927f9b83",
+                "postsConnection": {
+                    "__typename": "RelayPostConnection",
+                    "edges": [
+                        {
+                            "node": {
+                                "id": "2e8708034f9d",
+                                "firstPublishedAt": 1774364464315,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 330000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 400000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "ISO 8583 vs. REST APIs vs. UPI: Architecting Multi-Network Payment Systems in .NET 10",
+                                "readingTime": 38.369811320754714,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/iso-8583-vs-rest-apis-vs-upi-architecting-multi-network-payment-systems-in-net-10-2e8708034f9d",
+                                "sequence": null,
+                                "uniqueSlug": "iso-8583-vs-rest-apis-vs-upi-architecting-multi-network-payment-systems-in-net-10-2e8708034f9d",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "2262bed3cb6b",
+                                "firstPublishedAt": 1769006054626,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 320000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 690000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Podman + Kubernetes in Production",
+                                "readingTime": 4.465094339622642,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/podman-kubernetes-in-production-2262bed3cb6b",
+                                "sequence": null,
+                                "uniqueSlug": "podman-kubernetes-in-production-2262bed3cb6b",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "cb911daa7432",
+                                "firstPublishedAt": 1773648025537,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 290000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 290000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Enterprise AI Architecture Part 1: The Foundation — User Access & Data Ingestion",
+                                "readingTime": 14.233962264150943,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/enterprise-ai-architecture-part-1-the-foundation-user-access-data-ingestion-cb911daa7432",
+                                "sequence": null,
+                                "uniqueSlug": "enterprise-ai-architecture-part-1-the-foundation-user-access-data-ingestion-cb911daa7432",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "6a2ab041d3d2",
+                                "firstPublishedAt": 1770665707154,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 260000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 340000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Building Smarter AI: 16 RAG Approaches for Accuracy, Memory, and Reasoning",
+                                "readingTime": 18.124528301886794,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/building-smarter-ai-16-rag-approaches-for-accuracy-memory-and-reasoning-6a2ab041d3d2",
+                                "sequence": null,
+                                "uniqueSlug": "building-smarter-ai-16-rag-approaches-for-accuracy-memory-and-reasoning-6a2ab041d3d2",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "5f634ba7c57d",
+                                "firstPublishedAt": 1746028222887,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 240000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 430000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+                                "readingTime": 7.730503144654088,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/understanding-appsettings-json-in-net-core-the-complete-guide-5f634ba7c57d",
+                                "sequence": null,
+                                "uniqueSlug": "understanding-appsettings-json-in-net-core-the-complete-guide-5f634ba7c57d",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "4a95a66379bc",
+                                "firstPublishedAt": 1773391874627,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 240000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 240000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Artificial Intelligence: From Basic Concepts to Agentic Systems — Hands-On Implementation Guide",
+                                "readingTime": 17.769182389937107,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide-4a95a66379bc",
+                                "sequence": null,
+                                "uniqueSlug": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide-4a95a66379bc",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "edaddc513d44",
+                                "firstPublishedAt": 1769871760055,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 230000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 230000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": ".NET Caching Playbook: 5 Powerful Strategies to Supercharge Your Apps",
+                                "readingTime": 6.960691823899372,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/net-caching-playbook-5-powerful-strategies-to-supercharge-your-apps-edaddc513d44",
+                                "sequence": null,
+                                "uniqueSlug": "net-caching-playbook-5-powerful-strategies-to-supercharge-your-apps-edaddc513d44",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "86a423052120",
+                                "firstPublishedAt": 1774522189526,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 220000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 220000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "SQL Mechanic to Architect: CTEs, Window Functions, Query Optimization, and Scalable Patterns- Part…",
+                                "readingTime": 26.983018867924528,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/sql-mechanic-to-architect-ctes-window-functions-query-optimization-and-scalable-patterns-part-1-86a423052120",
+                                "sequence": null,
+                                "uniqueSlug": "sql-mechanic-to-architect-ctes-window-functions-query-optimization-and-scalable-patterns-part-1-86a423052120",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "b333bde93940",
+                                "firstPublishedAt": 1771864882784,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 190000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 430000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Distinguishing Infrastructure & Domain Exceptions in .NET 10: Result Pattern & Domain Exampl Part 2",
+                                "readingTime": 41.841509433962266,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "domain": "blog.devgenius.io",
+                                    "slug": "dev-genius",
+                                    "__typename": "Collection",
+                                    "name": "Dev Genius",
+                                    "avatar": {
+                                        "id": "1*CvejhRq3NYsivxILYXEdfA.jpeg",
+                                        "__typename": "ImageMetadata"
+                                    },
+                                    "description": "Coding, Tutorials, News, UX, UI and much more related to development",
+                                    "subscriberCount": 31392,
+                                    "customStyleSheet": null
+                                },
+                                "isSeries": false,
+                                "mediumUrl": "https://blog.devgenius.io/distinguishing-infrastructure-domain-exceptions-in-net-b333bde93940",
+                                "sequence": null,
+                                "uniqueSlug": "distinguishing-infrastructure-domain-exceptions-in-net-b333bde93940",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "e77030c3517b",
+                                "firstPublishedAt": 1772559776945,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 180000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 180000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "AI From the Top Down: How Agentic Systems, Generative Models, and Symbolic Logic Build Intelligence",
+                                "readingTime": 24.526415094339622,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/ai-from-the-top-down-how-agentic-systems-generative-models-and-symbolic-logic-build-intelligence-e77030c3517b",
+                                "sequence": null,
+                                "uniqueSlug": "ai-from-the-top-down-how-agentic-systems-generative-models-and-symbolic-logic-build-intelligence-e77030c3517b",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        }
+                    ],
+                    "pageInfo": {
+                        "endCursor": "20",
+                        "hasNextPage": true,
+                        "__typename": "PageInfoV2"
+                    }
+                }
+            }
+        }
+    }
+]

@@ -1,22 +1,22 @@
 {
-  "generated": "2026-04-03T14:31:43.237148",
+  "generated": "2026-04-04T00:32:04.881199",
   "summary": {
-    "total_scheduled": 195,
+    "total_scheduled": 200,
     "stories_per_week": 3,
     "series_spacing_default": 5,
     "start_date": "2026-03-29",
     "series_counts": {
-      "SOLID Principles": 7,
+      "SOLID Principles": 6,
       "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs": 3,
       "10 Essential Microservices Architecture Patterns": 3,
       "Clean Code Practices": 7,
       "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution": 1,
       "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts": 3,
-      "Design Patterns": 5,
+      "Design Patterns": 6,
       "GitHub": 6,
       "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide": 1,
-      "AI Engineering": 7,
-      "Dotnet Python NodeJS": 5,
+      "AI Engineering": 8,
+      "Dotnet Python NodeJS": 8,
       "Miscellaneous": 4,
       "SQL Mechanic to Data Architect": 1,
       "Vehixcare": 3,
@@ -29,7 +29,7 @@
       "Modernizing the Monolith": 2,
       "Clean Architecture Anti-Pattern .Net": 8,
       "Clean Architecture Anti-Pattern Python": 8,
-      "GitHub Copilot Mastery": 5,
+      "GitHub Copilot Mastery": 6,
       "Claude Code Mastery": 5,
       "The 2026 AI Metromap": 40
     },
@@ -39,10 +39,10 @@
     {
       "date": "2026-03-30",
       "weekday": "Monday",
-      "story_key": "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl",
-      "name": "SOLID Principles: Part 2 - Single Responsibility Principl",
+      "story_key": "SOLID Principles/SOLID Principles: Part 3 - Open-Closed Principle",
+      "name": "SOLID Principles: Part 3 - Open-Closed Principle",
       "series": "SOLID Principles",
-      "part": 2,
+      "part": 3,
       "read_time": null
     },
     {
@@ -66,10 +66,10 @@
     {
       "date": "2026-04-06",
       "weekday": "Monday",
-      "story_key": "SOLID Principles/SOLID Principles: Part 3 - Open-Closed Principle",
-      "name": "SOLID Principles: Part 3 - Open-Closed Principle",
+      "story_key": "SOLID Principles/SOLID Principles: Part 4 - Liskov Substitution Principle",
+      "name": "SOLID Principles: Part 4 - Liskov Substitution Principle",
       "series": "SOLID Principles",
-      "part": 3,
+      "part": 4,
       "read_time": null
     },
     {
@@ -93,10 +93,10 @@
     {
       "date": "2026-04-13",
       "weekday": "Monday",
-      "story_key": "SOLID Principles/SOLID Principles: Part 4 - Liskov Substitution Principle",
-      "name": "SOLID Principles: Part 4 - Liskov Substitution Principle",
+      "story_key": "SOLID Principles/SOLID Principles: Building Spotify's Unshakable Foundation",
+      "name": "SOLID Principles: Building Spotify's Unshakable Foundation",
       "series": "SOLID Principles",
-      "part": 4,
+      "part": null,
       "read_time": null
     },
     {
@@ -120,10 +120,10 @@
     {
       "date": "2026-04-20",
       "weekday": "Monday",
-      "story_key": "SOLID Principles/SOLID Principles: Building Spotify's Unshakable Foundation",
-      "name": "SOLID Principles: Building Spotify's Unshakable Foundation",
+      "story_key": "SOLID Principles/SOLID Principles: Part 5 - Interface Segregation Principl",
+      "name": "SOLID Principles: Part 5 - Interface Segregation Principl",
       "series": "SOLID Principles",
-      "part": null,
+      "part": 5,
       "read_time": null
     },
     {
@@ -147,10 +147,10 @@
     {
       "date": "2026-04-27",
       "weekday": "Monday",
-      "story_key": "SOLID Principles/SOLID Principles: Part 5 - Interface Segregation Principl",
-      "name": "SOLID Principles: Part 5 - Interface Segregation Principl",
+      "story_key": "SOLID Principles/SOLID Principles: Part 1 - Building Unbreakable",
+      "name": "SOLID Principles: Part 1 - Building Unbreakable",
       "series": "SOLID Principles",
-      "part": 5,
+      "part": 1,
       "read_time": null
     },
     {
@@ -174,10 +174,10 @@
     {
       "date": "2026-05-04",
       "weekday": "Monday",
-      "story_key": "SOLID Principles/SOLID Principles: Part 1 - Building Unbreakable",
-      "name": "SOLID Principles: Part 1 - Building Unbreakable",
+      "story_key": "SOLID Principles/SOLID Principles: Part 6 - Dependency Inversion Principle",
+      "name": "SOLID Principles: Part 6 - Dependency Inversion Principle",
       "series": "SOLID Principles",
-      "part": 1,
+      "part": 6,
       "read_time": null
     },
     {
@@ -201,10 +201,10 @@
     {
       "date": "2026-05-11",
       "weekday": "Monday",
-      "story_key": "SOLID Principles/SOLID Principles: Part 6 - Dependency Inversion Principle",
-      "name": "SOLID Principles: Part 6 - Dependency Inversion Principle",
-      "series": "SOLID Principles",
-      "part": 6,
+      "story_key": "Design Patterns/Design Patterns: Part 1 -  Redefining Design Patterns",
+      "name": "Design Patterns: Part 1 -  Redefining Design Patterns",
+      "series": "Design Patterns",
+      "part": 1,
       "read_time": null
     },
     {
@@ -228,10 +228,10 @@
     {
       "date": "2026-05-18",
       "weekday": "Monday",
-      "story_key": "Design Patterns/Design Patterns: Part 1 -  Redefining Design Patterns",
-      "name": "Design Patterns: Part 1 -  Redefining Design Patterns",
+      "story_key": "Design Patterns/Design Patterns: Part 4 - Behavioral Patterns Deep Dive",
+      "name": "Design Patterns: Part 4 - Behavioral Patterns Deep Dive",
       "series": "Design Patterns",
-      "part": 1,
+      "part": 4,
       "read_time": null
     },
     {
@@ -255,10 +255,10 @@
     {
       "date": "2026-05-25",
       "weekday": "Monday",
-      "story_key": "Design Patterns/Design Patterns: Part 4 - Behavioral Patterns Deep Dive",
-      "name": "Design Patterns: Part 4 - Behavioral Patterns Deep Dive",
+      "story_key": "Design Patterns/Design Patterns: Part 3 - Structural Patterns Deep Dive",
+      "name": "Design Patterns: Part 3 - Structural Patterns Deep Dive",
       "series": "Design Patterns",
-      "part": 4,
+      "part": 3,
       "read_time": null
     },
     {
@@ -282,10 +282,10 @@
     {
       "date": "2026-06-01",
       "weekday": "Monday",
-      "story_key": "Design Patterns/Design Patterns: Part 3 - Structural Patterns Deep Dive",
-      "name": "Design Patterns: Part 3 - Structural Patterns Deep Dive",
+      "story_key": "Design Patterns/The Architect's Journey: Mastering Object-Oriented Excellence",
+      "name": "The Architect's Journey: Mastering Object-Oriented Excellence",
       "series": "Design Patterns",
-      "part": 3,
+      "part": null,
       "read_time": null
     },
     {
@@ -309,10 +309,10 @@
     {
       "date": "2026-06-08",
       "weekday": "Monday",
-      "story_key": "Design Patterns/The Architect's Journey: Mastering Object-Oriented Excellence",
-      "name": "The Architect's Journey: Mastering Object-Oriented Excellence",
+      "story_key": "Design Patterns/Design Patterns: Part 2 - Creational Patterns Deep Dive",
+      "name": "Design Patterns: Part 2 - Creational Patterns Deep Dive",
       "series": "Design Patterns",
-      "part": null,
+      "part": 2,
       "read_time": null
     },
     {
@@ -336,10 +336,10 @@
     {
       "date": "2026-06-15",
       "weekday": "Monday",
-      "story_key": "Design Patterns/Design Patterns: Part 2 - Creational Patterns Deep Dive",
-      "name": "Design Patterns: Part 2 - Creational Patterns Deep Dive",
-      "series": "Design Patterns",
-      "part": 2,
+      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Node",
+      "name": "From REST to gRPC: Architecting High-Performance APIs in Node",
+      "series": "Dotnet Python NodeJS",
+      "part": null,
       "read_time": null
     },
     {
@@ -363,8 +363,8 @@
     {
       "date": "2026-06-22",
       "weekday": "Monday",
-      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Node",
-      "name": "From REST to gRPC: Architecting High-Performance APIs in Node",
+      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Python",
+      "name": "From REST to gRPC: Architecting High-Performance APIs in Python",
       "series": "Dotnet Python NodeJS",
       "part": null,
       "read_time": null
@@ -390,8 +390,8 @@
     {
       "date": "2026-06-29",
       "weekday": "Monday",
-      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Python",
-      "name": "From REST to gRPC: Architecting High-Performance APIs in Python",
+      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in .NET 10",
+      "name": "From REST to gRPC: Architecting High-Performance APIs in .NET 10",
       "series": "Dotnet Python NodeJS",
       "part": null,
       "read_time": null
@@ -417,10 +417,10 @@
     {
       "date": "2026-07-06",
       "weekday": "Monday",
-      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in .NET 10",
-      "name": "From REST to gRPC: Architecting High-Performance APIs in .NET 10",
-      "series": "Dotnet Python NodeJS",
-      "part": null,
+      "story_key": "SQL Mechanic to Data Architect/SQL Mechanic to Architect: Database UDFs, Stored Procedures, & Production-Grade Patterns — Part 2",
+      "name": "SQL Mechanic to Architect: Database UDFs, Stored Procedures, & Production-Grade Patterns — Part 2",
+      "series": "SQL Mechanic to Data Architect",
+      "part": 2,
       "read_time": null
     },
     {
@@ -435,19 +435,19 @@
     {
       "date": "2026-07-08",
       "weekday": "Wednesday",
-      "story_key": "SQL Mechanic to Data Architect/SQL Mechanic to Architect: Database UDFs, Stored Procedures, & Production-Grade Patterns — Part 2",
-      "name": "SQL Mechanic to Architect: Database UDFs, Stored Procedures, & Production-Grade Patterns — Part 2",
-      "series": "SQL Mechanic to Data Architect",
-      "part": 2,
+      "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 3",
+      "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 3",
+      "series": "Vehixcare",
+      "part": 3,
       "read_time": null
     },
     {
       "date": "2026-07-13",
       "weekday": "Monday",
-      "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 3",
-      "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 3",
-      "series": "Vehixcare",
-      "part": 3,
+      "story_key": "Code to Cluster/Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
+      "name": "Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
+      "series": "Code to Cluster",
+      "part": null,
       "read_time": null
     },
     {
@@ -462,19 +462,19 @@
     {
       "date": "2026-07-15",
       "weekday": "Wednesday",
-      "story_key": "Code to Cluster/Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
-      "name": "Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
-      "series": "Code to Cluster",
-      "part": null,
+      "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 4",
+      "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 4",
+      "series": "Vehixcare",
+      "part": 4,
       "read_time": null
     },
     {
       "date": "2026-07-20",
       "weekday": "Monday",
-      "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 4",
-      "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 4",
-      "series": "Vehixcare",
-      "part": 4,
+      "story_key": "Code to Cluster/Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on Azure",
+      "name": "Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on Azure",
+      "series": "Code to Cluster",
+      "part": null,
       "read_time": null
     },
     {
@@ -489,15 +489,6 @@
     {
       "date": "2026-07-22",
       "weekday": "Wednesday",
-      "story_key": "Code to Cluster/Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on Azure",
-      "name": "Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on Azure",
-      "series": "Code to Cluster",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-07-27",
-      "weekday": "Monday",
       "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 2",
       "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 2",
       "series": "Vehixcare",
@@ -505,8 +496,8 @@
       "read_time": null
     },
     {
-      "date": "2026-07-28",
-      "weekday": "Tuesday",
+      "date": "2026-07-27",
+      "weekday": "Monday",
       "story_key": "./Leveraging Redis Cache with Write-Thru and Write-Back Strategies in .NET Core",
       "name": "Leveraging Redis Cache with Write-Thru and Write-Back Strategies in .NET Core",
       "series": "Miscellaneous",
@@ -514,8 +505,8 @@
       "read_time": null
     },
     {
-      "date": "2026-07-29",
-      "weekday": "Wednesday",
+      "date": "2026-07-28",
+      "weekday": "Tuesday",
       "story_key": "./Authorization Workflow: A Comprehensive Guide with Node.js Examples",
       "name": "Authorization Workflow: A Comprehensive Guide with Node.js Examples",
       "series": null,
@@ -523,17 +514,17 @@
       "read_time": null
     },
     {
-      "date": "2026-08-03",
-      "weekday": "Monday",
-      "story_key": "./Understanding Operators and Projection in MongoDB: A Case Study with Trip and TripLog Collections",
-      "name": "Understanding Operators and Projection in MongoDB: A Case Study with Trip and TripLog Collections",
-      "series": null,
+      "date": "2026-07-29",
+      "weekday": "Wednesday",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Podman with .NET SDK Native Publishing: Hybrid Workflows - AWS",
+      "name": "Podman with .NET SDK Native Publishing: Hybrid Workflows - AWS",
+      "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-08-04",
-      "weekday": "Tuesday",
+      "date": "2026-08-03",
+      "weekday": "Monday",
       "story_key": "./Harnessing the Power of Redis Cache Lua Scripting",
       "name": "Harnessing the Power of Redis Cache Lua Scripting",
       "series": "Miscellaneous",
@@ -541,10 +532,19 @@
       "read_time": null
     },
     {
+      "date": "2026-08-04",
+      "weekday": "Tuesday",
+      "story_key": "./Understanding Operators and Projection in MongoDB: A Case Study with Trip and TripLog Collections",
+      "name": "Understanding Operators and Projection in MongoDB: A Case Study with Trip and TripLog Collections",
+      "series": null,
+      "part": null,
+      "read_time": null
+    },
+    {
       "date": "2026-08-05",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Podman with .NET SDK Native Publishing: Hybrid Workflows - AWS",
-      "name": "Podman with .NET SDK Native Publishing: Hybrid Workflows - AWS",
+      "story_key": "Publishing .NET 10 Apps as Container Images/konet: Multi-Platform Container Builds Without Docker",
+      "name": "konet: Multi-Platform Container Builds Without Docker",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -570,8 +570,8 @@
     {
       "date": "2026-08-12",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/konet: Multi-Platform Container Builds Without Docker",
-      "name": "konet: Multi-Platform Container Builds Without Docker",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Azure Developer CLI (azd) with .NET Aspire: The Turnkey Solution",
+      "name": "Azure Developer CLI (azd) with .NET Aspire: The Turnkey Solution",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -597,8 +597,8 @@
     {
       "date": "2026-08-19",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Azure Developer CLI (azd) with .NET Aspire: The Turnkey Solution",
-      "name": "Azure Developer CLI (azd) with .NET Aspire: The Turnkey Solution",
+      "story_key": "Publishing .NET 10 Apps as Container Images/.NET SDK Native Container Publishing: Building OCI Images Without Docker",
+      "name": ".NET SDK Native Container Publishing: Building OCI Images Without Docker",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -624,8 +624,8 @@
     {
       "date": "2026-08-26",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/.NET SDK Native Container Publishing: Building OCI Images Without Docker",
-      "name": ".NET SDK Native Container Publishing: Building OCI Images Without Docker",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows",
+      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -651,8 +651,8 @@
     {
       "date": "2026-09-02",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows",
-      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Publishing .NET 10 Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
+      "name": "Publishing .NET 10 Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -678,8 +678,8 @@
     {
       "date": "2026-09-09",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Publishing .NET 10 Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
-      "name": "Publishing .NET 10 Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Traditional Dockerfile with Podman: The Daemonless Alternative",
+      "name": "Traditional Dockerfile with Podman: The Daemonless Alternative",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -705,8 +705,8 @@
     {
       "date": "2026-09-16",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Traditional Dockerfile with Podman: The Daemonless Alternative",
-      "name": "Traditional Dockerfile with Podman: The Daemonless Alternative",
+      "story_key": "Publishing .NET 10 Apps as Container Images/AWS CDK & Copilot: Infrastructure as Code for Containers - AWS",
+      "name": "AWS CDK & Copilot: Infrastructure as Code for Containers - AWS",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -732,8 +732,8 @@
     {
       "date": "2026-09-23",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/AWS CDK & Copilot: Infrastructure as Code for Containers - AWS",
-      "name": "AWS CDK & Copilot: Infrastructure as Code for Containers - AWS",
+      "story_key": "Publishing .NET 10 Apps as Container Images/.NET SDK Native Container Publishing Deep Dive: The Complete Reference",
+      "name": ".NET SDK Native Container Publishing Deep Dive: The Complete Reference",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -759,8 +759,8 @@
     {
       "date": "2026-09-30",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/.NET SDK Native Container Publishing Deep Dive: The Complete Reference",
-      "name": ".NET SDK Native Container Publishing Deep Dive: The Complete Reference",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Podman with .NET SDK Native Publishing: Hybrid Workflows",
+      "name": "Podman with .NET SDK Native Publishing: Hybrid Workflows",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -786,8 +786,8 @@
     {
       "date": "2026-10-07",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Podman with .NET SDK Native Publishing: Hybrid Workflows",
-      "name": "Podman with .NET SDK Native Publishing: Hybrid Workflows",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Traditional Dockerfile with Docker: The Classic Approach - AWS",
+      "name": "Traditional Dockerfile with Docker: The Classic Approach - AWS",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -813,8 +813,8 @@
     {
       "date": "2026-10-14",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Traditional Dockerfile with Docker: The Classic Approach - AWS",
-      "name": "Traditional Dockerfile with Docker: The Classic Approach - AWS",
+      "story_key": "Publishing .NET 10 Apps as Container Images/.NET SDK Native Container Publishing Deep Dive: The Complete Reference - AWS",
+      "name": ".NET SDK Native Container Publishing Deep Dive: The Complete Reference - AWS",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -840,8 +840,8 @@
     {
       "date": "2026-10-21",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/.NET SDK Native Container Publishing Deep Dive: The Complete Reference - AWS",
-      "name": ".NET SDK Native Container Publishing Deep Dive: The Complete Reference - AWS",
+      "story_key": "Publishing .NET 10 Apps as Container Images/konet: Multi-Platform Container Builds Without Docker - AWS",
+      "name": "konet: Multi-Platform Container Builds Without Docker - AWS",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -867,8 +867,8 @@
     {
       "date": "2026-10-28",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/konet: Multi-Platform Container Builds Without Docker - AWS",
-      "name": "konet: Multi-Platform Container Builds Without Docker - AWS",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Visual Studio 2026 GUI Publishing: Drag-and-Drop AWS Deployments - AWS",
+      "name": "Visual Studio 2026 GUI Publishing: Drag-and-Drop AWS Deployments - AWS",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -894,8 +894,8 @@
     {
       "date": "2026-11-04",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Visual Studio 2026 GUI Publishing: Drag-and-Drop AWS Deployments - AWS",
-      "name": "Visual Studio 2026 GUI Publishing: Drag-and-Drop AWS Deployments - AWS",
+      "story_key": "Publishing .NET 10 Apps as Container Images/.NET SDK Native Container Publishing: Building OCI Images Without Docker - AWS",
+      "name": ".NET SDK Native Container Publishing: Building OCI Images Without Docker - AWS",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -921,8 +921,8 @@
     {
       "date": "2026-11-11",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/.NET SDK Native Container Publishing: Building OCI Images Without Docker - AWS",
-      "name": ".NET SDK Native Container Publishing: Building OCI Images Without Docker - AWS",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Traditional Dockerfile with Podman: The Daemonless Alternative - AWS",
+      "name": "Traditional Dockerfile with Podman: The Daemonless Alternative - AWS",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -948,8 +948,8 @@
     {
       "date": "2026-11-18",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Traditional Dockerfile with Podman: The Daemonless Alternative - AWS",
-      "name": "Traditional Dockerfile with Podman: The Daemonless Alternative - AWS",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Visual Studio 2026 GUI Publishing: Drag-and-Drop Azure Deployments",
+      "name": "Visual Studio 2026 GUI Publishing: Drag-and-Drop Azure Deployments",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -975,8 +975,8 @@
     {
       "date": "2026-11-25",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Visual Studio 2026 GUI Publishing: Drag-and-Drop Azure Deployments",
-      "name": "Visual Studio 2026 GUI Publishing: Drag-and-Drop Azure Deployments",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Kubernetes Native Deployments: Orchestrating .NET 10 Containers on Amazon EKS - AWS",
+      "name": "Kubernetes Native Deployments: Orchestrating .NET 10 Containers on Amazon EKS - AWS",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1002,8 +1002,8 @@
     {
       "date": "2026-12-02",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Kubernetes Native Deployments: Orchestrating .NET 10 Containers on Amazon EKS - AWS",
-      "name": "Kubernetes Native Deployments: Orchestrating .NET 10 Containers on Amazon EKS - AWS",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Kubernetes Native Deployments: Orchestrating .NET 10 Containers at Scale",
+      "name": "Kubernetes Native Deployments: Orchestrating .NET 10 Containers at Scale",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1029,8 +1029,8 @@
     {
       "date": "2026-12-09",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Kubernetes Native Deployments: Orchestrating .NET 10 Containers at Scale",
-      "name": "Kubernetes Native Deployments: Orchestrating .NET 10 Containers at Scale",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
+      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1056,8 +1056,8 @@
     {
       "date": "2026-12-16",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
-      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
+      "story_key": "Publishing .NET 10 Apps as Container Images/Traditional Dockerfile with Docker: The Classic Approach",
+      "name": "Traditional Dockerfile with Docker: The Classic Approach",
       "series": "Publishing .NET 10 Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1083,10 +1083,10 @@
     {
       "date": "2026-12-23",
       "weekday": "Wednesday",
-      "story_key": "Publishing .NET 10 Apps as Container Images/Traditional Dockerfile with Docker: The Classic Approach",
-      "name": "Traditional Dockerfile with Docker: The Classic Approach",
-      "series": "Publishing .NET 10 Apps as Container Images",
-      "part": null,
+      "story_key": "Modernizing the Monolith/Modernizing the Monolith: Kubernetes on AKS Production Guide — Part 4",
+      "name": "Modernizing the Monolith: Kubernetes on AKS Production Guide — Part 4",
+      "series": "Modernizing the Monolith",
+      "part": 4,
       "read_time": null
     },
     {
@@ -1110,10 +1110,10 @@
     {
       "date": "2026-12-30",
       "weekday": "Wednesday",
-      "story_key": "Modernizing the Monolith/Modernizing the Monolith: Kubernetes on AKS Production Guide — Part 4",
-      "name": "Modernizing the Monolith: Kubernetes on AKS Production Guide — Part 4",
+      "story_key": "Modernizing the Monolith/Modernizing the Monolith: React 19 Security, Performance & Best Practices — Part 5",
+      "name": "Modernizing the Monolith: React 19 Security, Performance & Best Practices — Part 5",
       "series": "Modernizing the Monolith",
-      "part": 4,
+      "part": 5,
       "read_time": null
     },
     {
@@ -1137,10 +1137,10 @@
     {
       "date": "2027-01-06",
       "weekday": "Wednesday",
-      "story_key": "Modernizing the Monolith/Modernizing the Monolith: React 19 Security, Performance & Best Practices — Part 5",
-      "name": "Modernizing the Monolith: React 19 Security, Performance & Best Practices — Part 5",
-      "series": "Modernizing the Monolith",
-      "part": 5,
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Defining the Boundary - Part 3",
+      "name": "Clean Architecture Anti-Pattern - Exception: Defining the Boundary - Part 3",
+      "series": "Clean Architecture Anti-Pattern .Net",
+      "part": 3,
       "read_time": null
     },
     {
@@ -1164,10 +1164,10 @@
     {
       "date": "2027-01-13",
       "weekday": "Wednesday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Defining the Boundary - Part 3",
-      "name": "Clean Architecture Anti-Pattern - Exception: Defining the Boundary - Part 3",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Infrastructure Resilience - Part 6",
+      "name": "Clean Architecture Anti-Pattern - Exception: Infrastructure Resilience - Part 6",
       "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 3,
+      "part": 6,
       "read_time": null
     },
     {
@@ -1191,10 +1191,10 @@
     {
       "date": "2027-01-20",
       "weekday": "Wednesday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Infrastructure Resilience - Part 6",
-      "name": "Clean Architecture Anti-Pattern - Exception: Infrastructure Resilience - Part 6",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Testing & Observability - Part 7",
+      "name": "Clean Architecture Anti-Pattern - Exception: Testing & Observability - Part 7",
       "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 6,
+      "part": 7,
       "read_time": null
     },
     {
@@ -1218,10 +1218,10 @@
     {
       "date": "2027-01-27",
       "weekday": "Wednesday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Testing & Observability - Part 7",
-      "name": "Clean Architecture Anti-Pattern - Exception: Testing & Observability - Part 7",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Building the Result Pattern - Part 4",
+      "name": "Clean Architecture Anti-Pattern - Exception: Building the Result Pattern - Part 4",
       "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 7,
+      "part": 4,
       "read_time": null
     },
     {
@@ -1245,10 +1245,10 @@
     {
       "date": "2027-02-03",
       "weekday": "Wednesday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Building the Result Pattern - Part 4",
-      "name": "Clean Architecture Anti-Pattern - Exception: Building the Result Pattern - Part 4",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Domain Logic in Disguise - Part 2",
+      "name": "Clean Architecture Anti-Pattern - Exception: Domain Logic in Disguise - Part 2",
       "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 4,
+      "part": 2,
       "read_time": null
     },
     {
@@ -1272,10 +1272,10 @@
     {
       "date": "2027-02-10",
       "weekday": "Wednesday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Domain Logic in Disguise - Part 2",
-      "name": "Clean Architecture Anti-Pattern - Exception: Domain Logic in Disguise - Part 2",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Across Real-World Domains - Part 5",
+      "name": "Clean Architecture Anti-Pattern - Exception: Across Real-World Domains - Part 5",
       "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 2,
+      "part": 5,
       "read_time": null
     },
     {
@@ -1299,10 +1299,10 @@
     {
       "date": "2027-02-17",
       "weekday": "Wednesday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Across Real-World Domains - Part 5",
-      "name": "Clean Architecture Anti-Pattern - Exception: Across Real-World Domains - Part 5",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: A .NET Developer's Guide - Part 1",
+      "name": "Clean Architecture Anti-Pattern - Exception: A .NET Developer's Guide - Part 1",
       "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 5,
+      "part": 1,
       "read_time": null
     },
     {
@@ -1326,10 +1326,10 @@
     {
       "date": "2027-02-24",
       "weekday": "Wednesday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: A .NET Developer's Guide - Part 1",
-      "name": "Clean Architecture Anti-Pattern - Exception: A .NET Developer's Guide - Part 1",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: The Road Ahead - Part 8",
+      "name": "Clean Architecture Anti-Pattern - Exception: The Road Ahead - Part 8",
       "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 1,
+      "part": 8,
       "read_time": null
     },
     {
@@ -1353,10 +1353,10 @@
     {
       "date": "2027-03-03",
       "weekday": "Wednesday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: The Road Ahead - Part 8",
-      "name": "Clean Architecture Anti-Pattern - Exception: The Road Ahead - Part 8",
-      "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 8,
+      "story_key": "GitHub Copilot Mastery/GitHub Copilot Mastery - The Complete AI-Powered Development Journey",
+      "name": "GitHub Copilot Mastery - The Complete AI-Powered Development Journey",
+      "series": "GitHub Copilot Mastery",
+      "part": null,
       "read_time": null
     },
     {
@@ -1380,18 +1380,18 @@
     {
       "date": "2027-03-10",
       "weekday": "Wednesday",
-      "story_key": "GitHub Copilot Mastery/GitHub Copilot Mastery - The Complete AI-Powered Development Journey",
-      "name": "GitHub Copilot Mastery - The Complete AI-Powered Development Journey",
-      "series": "GitHub Copilot Mastery",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Transformers & Attention – The Station That Changed Everything",
+      "name": "The 2026 AI Metromap: Transformers & Attention – The Station That Changed Everything",
+      "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
       "date": "2027-03-15",
       "weekday": "Monday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Transformers & Attention – The Station That Changed Everything",
-      "name": "The 2026 AI Metromap: Transformers & Attention – The Station That Changed Everything",
-      "series": "The 2026 AI Metromap",
+      "story_key": "./Dynamic Polymorphism in .NET Core with Examples",
+      "name": "Dynamic Polymorphism in .NET Core with Examples",
+      "series": "Dotnet Python NodeJS",
       "part": null,
       "read_time": null
     },
@@ -1407,15 +1407,6 @@
     {
       "date": "2027-03-17",
       "weekday": "Wednesday",
-      "story_key": "./Dynamic Polymorphism in .NET Core with Examples",
-      "name": "Dynamic Polymorphism in .NET Core with Examples",
-      "series": "Dotnet Python NodeJS",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-03-22",
-      "weekday": "Monday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: PyTorch Mastery – The Locomotive of Modern AI",
       "name": "The 2026 AI Metromap: PyTorch Mastery – The Locomotive of Modern AI",
       "series": "The 2026 AI Metromap",
@@ -1423,8 +1414,8 @@
       "read_time": null
     },
     {
-      "date": "2027-03-23",
-      "weekday": "Tuesday",
+      "date": "2027-03-22",
+      "weekday": "Monday",
       "story_key": "Clean Code Practices/Code Smell — Practical Guide using .Net Core Part-III",
       "name": "Code Smell — Practical Guide using .Net Core Part-III",
       "series": "Clean Code Practices",
@@ -1432,8 +1423,8 @@
       "read_time": null
     },
     {
-      "date": "2027-03-24",
-      "weekday": "Wednesday",
+      "date": "2027-03-23",
+      "weekday": "Tuesday",
       "story_key": "Miscellaneous/ASP.NET Core Filters Deep Dive: Building Maintainable Web APIs with .NET 10 and Reactive Extensions",
       "name": "ASP.NET Core Filters Deep Dive: Building Maintainable Web APIs with .NET 10 and Reactive Extensions",
       "series": "Miscellaneous",
@@ -1441,8 +1432,8 @@
       "read_time": null
     },
     {
-      "date": "2027-03-29",
-      "weekday": "Monday",
+      "date": "2027-03-24",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Multimodal Models – The Interchange Stations",
       "name": "The 2026 AI Metromap: Multimodal Models – The Interchange Stations",
       "series": "The 2026 AI Metromap",
@@ -1450,8 +1441,8 @@
       "read_time": null
     },
     {
-      "date": "2027-03-30",
-      "weekday": "Tuesday",
+      "date": "2027-03-29",
+      "weekday": "Monday",
       "story_key": "Clean Code Practices/Code Smell — Practical Guide using .Net Core Part-I",
       "name": "Code Smell — Practical Guide using .Net Core Part-I",
       "series": "Clean Code Practices",
@@ -1459,8 +1450,17 @@
       "read_time": null
     },
     {
-      "date": "2027-04-05",
-      "weekday": "Monday",
+      "date": "2027-03-30",
+      "weekday": "Tuesday",
+      "story_key": "GitHub Copilot Mastery/GitHub Copilot Mastery: The Complete AI-Powered Development Journey",
+      "name": "GitHub Copilot Mastery: The Complete AI-Powered Development Journey",
+      "series": "GitHub Copilot Mastery",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-03-31",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Batch Norm & Dropout – The Safety Systems of Deep Learning",
       "name": "The 2026 AI Metromap: Batch Norm & Dropout – The Safety Systems of Deep Learning",
       "series": "The 2026 AI Metromap",
@@ -1468,8 +1468,26 @@
       "read_time": null
     },
     {
-      "date": "2027-04-12",
+      "date": "2027-04-05",
       "weekday": "Monday",
+      "story_key": "./Distinguishing Infrastructure & Domain Exceptions in .NET 10: A Clean Architecture Approach — Part 1",
+      "name": "Distinguishing Infrastructure & Domain Exceptions in .NET 10: A Clean Architecture Approach — Part 1",
+      "series": "Design Patterns",
+      "part": 1,
+      "read_time": null
+    },
+    {
+      "date": "2027-04-06",
+      "weekday": "Tuesday",
+      "story_key": "./21 AI Tools That Will Supercharge Your Productivity in 2025",
+      "name": "21 AI Tools That Will Supercharge Your Productivity in 2025",
+      "series": "AI Engineering",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-04-07",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Gaming, VR-AR, and Entertainment",
       "name": "The 2026 AI Metromap: AI in Gaming, VR-AR, and Entertainment",
       "series": "The 2026 AI Metromap",
@@ -1477,8 +1495,17 @@
       "read_time": null
     },
     {
-      "date": "2027-04-19",
+      "date": "2027-04-12",
       "weekday": "Monday",
+      "story_key": "./Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+      "name": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+      "series": "Dotnet Python NodeJS",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-04-14",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Fine-Tuning vs. In-Context Learning – When to Train vs. When to Prompt",
       "name": "The 2026 AI Metromap: Fine-Tuning vs. In-Context Learning – When to Train vs. When to Prompt",
       "series": "The 2026 AI Metromap",
@@ -1486,8 +1513,17 @@
       "read_time": null
     },
     {
-      "date": "2027-04-26",
+      "date": "2027-04-19",
       "weekday": "Monday",
+      "story_key": "./Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+      "name": "Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+      "series": "Dotnet Python NodeJS",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-04-21",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Data Cleaning & Visualization – Turning Raw Data into Tracks",
       "name": "The 2026 AI Metromap: Data Cleaning & Visualization – Turning Raw Data into Tracks",
       "series": "The 2026 AI Metromap",
@@ -1495,8 +1531,17 @@
       "read_time": null
     },
     {
-      "date": "2027-05-03",
+      "date": "2027-04-26",
       "weekday": "Monday",
+      "story_key": "./Dynamic Polymorphism in NET Core with Examples",
+      "name": "Dynamic Polymorphism in NET Core with Examples",
+      "series": "Dotnet Python NodeJS",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-04-28",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Linear Algebra for ML – The Language of the Map",
       "name": "The 2026 AI Metromap: Linear Algebra for ML – The Language of the Map",
       "series": "The 2026 AI Metromap",
@@ -1504,8 +1549,8 @@
       "read_time": null
     },
     {
-      "date": "2027-05-10",
-      "weekday": "Monday",
+      "date": "2027-05-05",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Avoiding Derailments",
       "name": "The 2026 AI Metromap: Avoiding Derailments",
       "series": "The 2026 AI Metromap",
@@ -1513,8 +1558,8 @@
       "read_time": null
     },
     {
-      "date": "2027-05-17",
-      "weekday": "Monday",
+      "date": "2027-05-12",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: RAG – Retrieval-Augmented Generation for Knowledge-Intensive Tasks",
       "name": "The 2026 AI Metromap: RAG – Retrieval-Augmented Generation for Knowledge-Intensive Tasks",
       "series": "The 2026 AI Metromap",
@@ -1522,8 +1567,8 @@
       "read_time": null
     },
     {
-      "date": "2027-05-24",
-      "weekday": "Monday",
+      "date": "2027-05-19",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI Agents & Autonomous Workflows – The Self-Driving Trains",
       "name": "The 2026 AI Metromap: AI Agents & Autonomous Workflows – The Self-Driving Trains",
       "series": "The 2026 AI Metromap",
@@ -1531,8 +1576,8 @@
       "read_time": null
     },
     {
-      "date": "2027-05-31",
-      "weekday": "Monday",
+      "date": "2027-05-26",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Loss Functions & Optimization – Navigating to the Minimum",
       "name": "The 2026 AI Metromap: Loss Functions & Optimization – Navigating to the Minimum",
       "series": "The 2026 AI Metromap",
@@ -1540,8 +1585,8 @@
       "read_time": null
     },
     {
-      "date": "2027-06-07",
-      "weekday": "Monday",
+      "date": "2027-06-02",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Open Source LLMs – LLaMA, Mistral, DeepSeek, and Beyond",
       "name": "The 2026 AI Metromap: Open Source LLMs – LLaMA, Mistral, DeepSeek, and Beyond",
       "series": "The 2026 AI Metromap",
@@ -1549,8 +1594,8 @@
       "read_time": null
     },
     {
-      "date": "2027-06-14",
-      "weekday": "Monday",
+      "date": "2027-06-09",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Robotics, Manufacturing, and Supply Chain",
       "name": "The 2026 AI Metromap: AI in Robotics, Manufacturing, and Supply Chain",
       "series": "The 2026 AI Metromap",
@@ -1558,8 +1603,8 @@
       "read_time": null
     },
     {
-      "date": "2027-06-21",
-      "weekday": "Monday",
+      "date": "2027-06-16",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The Complete 2026 AI Metromap: Story Catalog",
       "name": "The Complete 2026 AI Metromap: Story Catalog",
       "series": "The 2026 AI Metromap",
@@ -1567,8 +1612,8 @@
       "read_time": null
     },
     {
-      "date": "2027-06-28",
-      "weekday": "Monday",
+      "date": "2027-06-23",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: TensorFlow & Keras – The Production-Ready Alternative",
       "name": "The 2026 AI Metromap: TensorFlow & Keras – The Production-Ready Alternative",
       "series": "The 2026 AI Metromap",
@@ -1576,8 +1621,8 @@
       "read_time": null
     },
     {
-      "date": "2027-07-05",
-      "weekday": "Monday",
+      "date": "2027-06-30",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Reading the Map",
       "name": "The 2026 AI Metromap: Reading the Map",
       "series": "The 2026 AI Metromap",
@@ -1585,8 +1630,8 @@
       "read_time": null
     },
     {
-      "date": "2027-07-12",
-      "weekday": "Monday",
+      "date": "2027-07-07",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Recommendation Systems – From Collaborative Filtering to Two-Tower Networks",
       "name": "The 2026 AI Metromap: Recommendation Systems – From Collaborative Filtering to Two-Tower Networks",
       "series": "The 2026 AI Metromap",
@@ -1594,8 +1639,8 @@
       "read_time": null
     },
     {
-      "date": "2027-07-19",
-      "weekday": "Monday",
+      "date": "2027-07-14",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: GPT & LLM Architecture – Understanding the Engine of the Express Train",
       "name": "The 2026 AI Metromap: GPT & LLM Architecture – Understanding the Engine of the Express Train",
       "series": "The 2026 AI Metromap",
@@ -1603,8 +1648,8 @@
       "read_time": null
     },
     {
-      "date": "2027-07-26",
-      "weekday": "Monday",
+      "date": "2027-07-21",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: NLP Tasks – NER, Translation, Summarization, and Beyond",
       "name": "The 2026 AI Metromap: NLP Tasks – NER, Translation, Summarization, and Beyond",
       "series": "The 2026 AI Metromap",
@@ -1612,8 +1657,8 @@
       "read_time": null
     },
     {
-      "date": "2027-08-02",
-      "weekday": "Monday",
+      "date": "2027-07-28",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Training Strategies – Learning Rate Scheduling & Beyond",
       "name": "The 2026 AI Metromap: Training Strategies – Learning Rate Scheduling & Beyond",
       "series": "The 2026 AI Metromap",
@@ -1621,8 +1666,8 @@
       "read_time": null
     },
     {
-      "date": "2027-08-09",
-      "weekday": "Monday",
+      "date": "2027-08-04",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Ethics & Responsible AI – The Safety Systems of the Metro",
       "name": "The 2026 AI Metromap: Ethics & Responsible AI – The Safety Systems of the Metro",
       "series": "The 2026 AI Metromap",
@@ -1630,8 +1675,8 @@
       "read_time": null
     },
     {
-      "date": "2027-08-16",
-      "weekday": "Monday",
+      "date": "2027-08-11",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Command Line & Version Control – Navigating the Terminal Like a Conductor",
       "name": "The 2026 AI Metromap: Command Line & Version Control – Navigating the Terminal Like a Conductor",
       "series": "The 2026 AI Metromap",
@@ -1639,8 +1684,8 @@
       "read_time": null
     },
     {
-      "date": "2027-08-23",
-      "weekday": "Monday",
+      "date": "2027-08-18",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Neural Network Architecture – From Perceptron to MLP",
       "name": "The 2026 AI Metromap: Neural Network Architecture – From Perceptron to MLP",
       "series": "The 2026 AI Metromap",
@@ -1648,8 +1693,8 @@
       "read_time": null
     },
     {
-      "date": "2027-08-30",
-      "weekday": "Monday",
+      "date": "2027-08-25",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Computer Vision Projects – From OCR to Face Recognition",
       "name": "The 2026 AI Metromap: Computer Vision Projects – From OCR to Face Recognition",
       "series": "The 2026 AI Metromap",
@@ -1657,8 +1702,8 @@
       "read_time": null
     },
     {
-      "date": "2027-09-06",
-      "weekday": "Monday",
+      "date": "2027-09-01",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: From Passenger to Driver",
       "name": "The 2026 AI Metromap: From Passenger to Driver",
       "series": "The 2026 AI Metromap",
@@ -1666,8 +1711,8 @@
       "read_time": null
     },
     {
-      "date": "2027-09-13",
-      "weekday": "Monday",
+      "date": "2027-09-08",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Healthcare – Medical Research, Diagnostics, and Wellness",
       "name": "The 2026 AI Metromap: AI in Healthcare – Medical Research, Diagnostics, and Wellness",
       "series": "The 2026 AI Metromap",
@@ -1675,8 +1720,8 @@
       "read_time": null
     },
     {
-      "date": "2027-09-20",
-      "weekday": "Monday",
+      "date": "2027-09-15",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Finance – Banking, Insurance, and Trading",
       "name": "The 2026 AI Metromap: AI in Finance – Banking, Insurance, and Trading",
       "series": "The 2026 AI Metromap",
@@ -1684,8 +1729,8 @@
       "read_time": null
     },
     {
-      "date": "2027-09-27",
-      "weekday": "Monday",
+      "date": "2027-09-22",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Why the Old Learning Routes Are Obsolete",
       "name": "The 2026 AI Metromap: Why the Old Learning Routes Are Obsolete",
       "series": "The 2026 AI Metromap",
@@ -1693,8 +1738,8 @@
       "read_time": null
     },
     {
-      "date": "2027-10-04",
-      "weekday": "Monday",
+      "date": "2027-09-29",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Foundations Station – Why Data Cleaning and Git Are Your Board Games, Not Just Chores",
       "name": "The 2026 AI Metromap: Foundations Station – Why Data Cleaning and Git Are Your Board Games, Not Just Chores",
       "series": "The 2026 AI Metromap",
@@ -1702,8 +1747,8 @@
       "read_time": null
     },
     {
-      "date": "2027-10-11",
-      "weekday": "Monday",
+      "date": "2027-10-06",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Image Generation & Editing – Diffusion Models in Practice",
       "name": "The 2026 AI Metromap: Image Generation & Editing – Diffusion Models in Practice",
       "series": "The 2026 AI Metromap",
@@ -1711,8 +1756,8 @@
       "read_time": null
     },
     {
-      "date": "2027-10-18",
-      "weekday": "Monday",
+      "date": "2027-10-13",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Activation Functions & Backpropagation – The Electrical Grid of the Network",
       "name": "The 2026 AI Metromap: Activation Functions & Backpropagation – The Electrical Grid of the Network",
       "series": "The 2026 AI Metromap",
@@ -1720,8 +1765,8 @@
       "read_time": null
     },
     {
-      "date": "2027-10-25",
-      "weekday": "Monday",
+      "date": "2027-10-20",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Time Series Forecasting – ARIMA, LSTM, and Transformers",
       "name": "The 2026 AI Metromap: Time Series Forecasting – ARIMA, LSTM, and Transformers",
       "series": "The 2026 AI Metromap",
@@ -1729,8 +1774,8 @@
       "read_time": null
     },
     {
-      "date": "2027-11-01",
-      "weekday": "Monday",
+      "date": "2027-10-27",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Model Optimization – Keeping the Train on Time",
       "name": "The 2026 AI Metromap: Model Optimization – Keeping the Train on Time",
       "series": "The 2026 AI Metromap",
@@ -1738,8 +1783,8 @@
       "read_time": null
     },
     {
-      "date": "2027-11-08",
-      "weekday": "Monday",
+      "date": "2027-11-03",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Voice Assistants & Speech Models – Making AI Talk",
       "name": "The 2026 AI Metromap: Voice Assistants & Speech Models – Making AI Talk",
       "series": "The 2026 AI Metromap",
@@ -1747,8 +1792,8 @@
       "read_time": null
     },
     {
-      "date": "2027-11-15",
-      "weekday": "Monday",
+      "date": "2027-11-10",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI for Social Good – Climate Action, Agriculture, and Sustainability",
       "name": "The 2026 AI Metromap: AI for Social Good – Climate Action, Agriculture, and Sustainability",
       "series": "The 2026 AI Metromap",
@@ -1756,8 +1801,8 @@
       "read_time": null
     },
     {
-      "date": "2027-11-22",
-      "weekday": "Monday",
+      "date": "2027-11-17",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Education – Personalized Learning and Training",
       "name": "The 2026 AI Metromap: AI in Education – Personalized Learning and Training",
       "series": "The 2026 AI Metromap",
@@ -1765,8 +1810,8 @@
       "read_time": null
     },
     {
-      "date": "2027-11-29",
-      "weekday": "Monday",
+      "date": "2027-11-24",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Regression & Classification – The Grand Central Station of AI",
       "name": "The 2026 AI Metromap: Regression & Classification – The Grand Central Station of AI",
       "series": "The 2026 AI Metromap",
@@ -1774,8 +1819,8 @@
       "read_time": null
     },
     {
-      "date": "2027-12-06",
-      "weekday": "Monday",
+      "date": "2027-12-01",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Prompt Engineering 101 – The Art of Talking to AI",
       "name": "The 2026 AI Metromap: Prompt Engineering 101 – The Art of Talking to AI",
       "series": "The 2026 AI Metromap",
@@ -1783,8 +1828,8 @@
       "read_time": null
     },
     {
-      "date": "2027-12-13",
-      "weekday": "Monday",
+      "date": "2027-12-08",
+      "weekday": "Wednesday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Diffusion Models – The Scenic Route to Generative AI",
       "name": "The 2026 AI Metromap: Diffusion Models – The Scenic Route to Generative AI",
       "series": "The 2026 AI Metromap",

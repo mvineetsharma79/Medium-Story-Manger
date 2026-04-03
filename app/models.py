@@ -19,6 +19,8 @@ class StoryCreate(BaseModel):
     notes: Optional[str] = ""
     medium_url: Optional[str] = None
     medium_first_published: Optional[str] = None
+    medium_publication: Optional[str] = None
+    medium_reading_time: Optional[int] = None
 
 class StoryUpdate(BaseModel):
     name: Optional[str] = None
@@ -81,6 +83,7 @@ class StoryUpdate(BaseModel):
     # Leaderboard
     leaderboard: Optional[bool] = None
     leaderboard_nanos: Optional[int] = None
+    leaderboard_lifetime_nanos: Optional[int] = None  # NEW FIELD
 
 
 class StoryResponse(BaseModel):
@@ -148,6 +151,7 @@ class StoryResponse(BaseModel):
     # Leaderboard
     leaderboard: Optional[bool] = False
     leaderboard_nanos: Optional[int] = 0
+    leaderboard_lifetime_nanos: Optional[int] = 0  # NEW FIELD
 
     class Config:
         from_attributes = True
