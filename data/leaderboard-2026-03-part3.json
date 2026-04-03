@@ -1,0 +1,563 @@
+[
+    {
+        "data": {
+            "userResult": {
+                "__typename": "User",
+                "id": "6a63927f9b83",
+                "postsConnection": {
+                    "__typename": "RelayPostConnection",
+                    "edges": [
+                        {
+                            "node": {
+                                "id": "1002bbb92d91",
+                                "firstPublishedAt": 1770566866274,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 180000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 260000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "ASP.NET Core Middleware: The Complete Guide to Building Robust Web Pipelines",
+                                "readingTime": 31.52924528301887,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/asp-net-core-middleware-the-complete-guide-to-building-robust-web-pipelines-1002bbb92d91",
+                                "sequence": null,
+                                "uniqueSlug": "asp-net-core-middleware-the-complete-guide-to-building-robust-web-pipelines-1002bbb92d91",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "e387c8d21950",
+                                "firstPublishedAt": 1774449334612,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 170000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 170000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "SQL Mechanic to Data Architect: Advanced Queries, SPs & Scalable Systems — The Complete Journey",
+                                "readingTime": 4.039622641509434,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/sql-mechanic-to-data-architect-advanced-queries-sps-scalable-systems-the-complete-journey-e387c8d21950",
+                                "sequence": null,
+                                "uniqueSlug": "sql-mechanic-to-data-architect-advanced-queries-sps-scalable-systems-the-complete-journey-e387c8d21950",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "a5729bc7c74c",
+                                "firstPublishedAt": 1774915867198,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 170000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 400000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Publishing .NET 10 Apps as Container Images: A Complete Guide to 9 Deployment Approaches — Azure",
+                                "readingTime": 20.566037735849054,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/publishing-net-10-apps-as-container-images-a-complete-guide-to-9-deployment-approaches-azure-a5729bc7c74c",
+                                "sequence": null,
+                                "uniqueSlug": "publishing-net-10-apps-as-container-images-a-complete-guide-to-9-deployment-approaches-azure-a5729bc7c74c",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "1ff02f7934c8",
+                                "firstPublishedAt": 1774609012584,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 140000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 170000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "GitHub Copilot: The AI-Powered Development Ecosystem",
+                                "readingTime": 13.533962264150942,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/github-copilot-the-ai-powered-development-ecosystem-1ff02f7934c8",
+                                "sequence": null,
+                                "uniqueSlug": "github-copilot-the-ai-powered-development-ecosystem-1ff02f7934c8",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "9fdfa3817e41",
+                                "firstPublishedAt": 1771315974665,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 140000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 250000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "12 Frameworks to Build MCP AI Agents",
+                                "readingTime": 6.378301886792452,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/12-frameworks-to-build-mcp-ai-agents-9fdfa3817e41",
+                                "sequence": null,
+                                "uniqueSlug": "12-frameworks-to-build-mcp-ai-agents-9fdfa3817e41",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "c1ce4f382b90",
+                                "firstPublishedAt": 1760789028422,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 130000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 130000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Node.js API Frameworks: A Deep Dive into Express, Fastify, NestJS & Beyond",
+                                "readingTime": 5.607547169811321,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/node-js-api-frameworks-a-deep-dive-into-express-fastify-nestjs-beyond-c1ce4f382b90",
+                                "sequence": null,
+                                "uniqueSlug": "node-js-api-frameworks-a-deep-dive-into-express-fastify-nestjs-beyond-c1ce4f382b90",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "e4f3080f4e6e",
+                                "firstPublishedAt": 1771715410330,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 130000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 230000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "SQL Performance Tips — Every Data Analyst Should Know",
+                                "readingTime": 5.550943396226415,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/sql-performance-tips-every-data-analyst-should-know-e4f3080f4e6e",
+                                "sequence": null,
+                                "uniqueSlug": "sql-performance-tips-every-data-analyst-should-know-e4f3080f4e6e",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "122c0607015c",
+                                "firstPublishedAt": 1734246289223,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 110000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 110000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Handling Distributed Transactions for Payments in .NET Core Using Azure Service Bus Functions",
+                                "readingTime": 4.10188679245283,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/handling-distributed-transactions-for-payments-in-net-core-using-azure-service-bus-functions-122c0607015c",
+                                "sequence": null,
+                                "uniqueSlug": "handling-distributed-transactions-for-payments-in-net-core-using-azure-service-bus-functions-122c0607015c",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "16ed6be3b9ca",
+                                "firstPublishedAt": 1768926059386,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 100000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 100000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Docker, Podman, and Kubernetes: From Containers to Cloud-Native Reality",
+                                "readingTime": 4.95566037735849,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/docker-podman-and-kubernetes-from-containers-to-cloud-native-reality-16ed6be3b9ca",
+                                "sequence": null,
+                                "uniqueSlug": "docker-podman-and-kubernetes-from-containers-to-cloud-native-reality-16ed6be3b9ca",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "87c1f17914a3",
+                                "firstPublishedAt": 1773589652254,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 90000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 90000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Enterprise AI Architecture: A Comprehensive Technical Blueprint — Introduction",
+                                "readingTime": 6.195283018867924,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "domain": "blog.devgenius.io",
+                                    "slug": "dev-genius",
+                                    "__typename": "Collection",
+                                    "name": "Dev Genius",
+                                    "avatar": {
+                                        "id": "1*CvejhRq3NYsivxILYXEdfA.jpeg",
+                                        "__typename": "ImageMetadata"
+                                    },
+                                    "description": "Coding, Tutorials, News, UX, UI and much more related to development",
+                                    "subscriberCount": 31392,
+                                    "customStyleSheet": null
+                                },
+                                "isSeries": false,
+                                "mediumUrl": "https://blog.devgenius.io/enterprise-ai-architecture-a-comprehensive-technical-blueprint-introduction-87c1f17914a3",
+                                "sequence": null,
+                                "uniqueSlug": "enterprise-ai-architecture-a-comprehensive-technical-blueprint-introduction-87c1f17914a3",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        }
+                    ],
+                    "pageInfo": {
+                        "endCursor": "30",
+                        "hasNextPage": true,
+                        "__typename": "PageInfoV2"
+                    }
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,73 @@
+[
+    {
+        "data": {
+            "userResult": {
+                "__typename": "User",
+                "id": "6a63927f9b83",
+                "postsConnection": {
+                    "__typename": "RelayPostConnection",
+                    "edges": [
+                        {
+                            "node": {
+                                "id": "392a8dd11e55",
+                                "firstPublishedAt": 1760081734667,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 60000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "21 AI Tools That Will Supercharge Your Productivity in 2025",
+                                "readingTime": 6.50188679245283,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/21-ai-tools-that-will-supercharge-your-productivity-in-2025-392a8dd11e55",
+                                "sequence": null,
+                                "uniqueSlug": "21-ai-tools-that-will-supercharge-your-productivity-in-2025-392a8dd11e55",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        }
+                    ],
+                    "pageInfo": {
+                        "endCursor": "",
+                        "hasNextPage": false,
+                        "__typename": "PageInfoV2"
+                    }
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,523 @@
+[
+    {
+        "data": {
+            "userResult": {
+                "__typename": "User",
+                "id": "6a63927f9b83",
+                "postsConnection": {
+                    "__typename": "RelayPostConnection",
+                    "edges": [
+                        {
+                            "node": {
+                                "id": "13aae317b1c4",
+                                "firstPublishedAt": 1773702853018,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 430000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "10 Microservices Architecture Patterns: A Reference Architecture with .NET and Azure — Part 1",
+                                "readingTime": 32.447169811320755,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/10-essential-microservices-architecture-patterns-a-professional-reference-architecture-with-net-13aae317b1c4",
+                                "sequence": null,
+                                "uniqueSlug": "10-essential-microservices-architecture-patterns-a-professional-reference-architecture-with-net-13aae317b1c4",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "392a8dd11e55",
+                                "firstPublishedAt": 1760081734667,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 60000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "21 AI Tools That Will Supercharge Your Productivity in 2025",
+                                "readingTime": 6.50188679245283,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/21-ai-tools-that-will-supercharge-your-productivity-in-2025-392a8dd11e55",
+                                "sequence": null,
+                                "uniqueSlug": "21-ai-tools-that-will-supercharge-your-productivity-in-2025-392a8dd11e55",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "1ff02f7934c8",
+                                "firstPublishedAt": 1774609012584,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 30000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 170000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "GitHub Copilot: The AI-Powered Development Ecosystem",
+                                "readingTime": 13.533962264150942,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/github-copilot-the-ai-powered-development-ecosystem-1ff02f7934c8",
+                                "sequence": null,
+                                "uniqueSlug": "github-copilot-the-ai-powered-development-ecosystem-1ff02f7934c8",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "de5ed25bb135",
+                                "firstPublishedAt": 1772107613162,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 540000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Zero to Production: .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
+                                "readingTime": 54.703773584905655,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/zero-to-production-net-in-2026-35-lessons-on-how-to-master-the-stack-with-net-10-and-azure-de5ed25bb135",
+                                "sequence": null,
+                                "uniqueSlug": "zero-to-production-net-in-2026-35-lessons-on-how-to-master-the-stack-with-net-10-and-azure-de5ed25bb135",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "44ba9ef608e4",
+                                "firstPublishedAt": 1769105832089,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 900000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+                                "readingTime": 6.932075471698113,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "domain": "blog.devgenius.io",
+                                    "slug": "dev-genius",
+                                    "__typename": "Collection",
+                                    "name": "Dev Genius",
+                                    "avatar": {
+                                        "id": "1*CvejhRq3NYsivxILYXEdfA.jpeg",
+                                        "__typename": "ImageMetadata"
+                                    },
+                                    "description": "Coding, Tutorials, News, UX, UI and much more related to development",
+                                    "subscriberCount": 31392,
+                                    "customStyleSheet": null
+                                },
+                                "isSeries": false,
+                                "mediumUrl": "https://blog.devgenius.io/tuning-connection-pools-for-a-10-000-rps-net-core-api-44ba9ef608e4",
+                                "sequence": null,
+                                "uniqueSlug": "tuning-connection-pools-for-a-10-000-rps-net-core-api-44ba9ef608e4",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "e1f7274672c4",
+                                "firstPublishedAt": 1738747301733,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Dynamic Polymorphism in .NET Core with Examples",
+                                "readingTime": 4.166037735849057,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "domain": "blog.devgenius.io",
+                                    "slug": "dev-genius",
+                                    "__typename": "Collection",
+                                    "name": "Dev Genius",
+                                    "avatar": {
+                                        "id": "1*CvejhRq3NYsivxILYXEdfA.jpeg",
+                                        "__typename": "ImageMetadata"
+                                    },
+                                    "description": "Coding, Tutorials, News, UX, UI and much more related to development",
+                                    "subscriberCount": 31392,
+                                    "customStyleSheet": null
+                                },
+                                "isSeries": false,
+                                "mediumUrl": "https://blog.devgenius.io/dynamic-polymorphism-in-net-core-with-examples-e1f7274672c4",
+                                "sequence": null,
+                                "uniqueSlug": "dynamic-polymorphism-in-net-core-with-examples-e1f7274672c4",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "69128ad11caa",
+                                "firstPublishedAt": 1738252607525,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 20000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Understanding Tasks in VS Code",
+                                "readingTime": 6.233962264150944,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/understanding-tasks-invs-code-69128ad11caa",
+                                "sequence": null,
+                                "uniqueSlug": "understanding-tasks-invs-code-69128ad11caa",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "93b5bfa4fd07",
+                                "firstPublishedAt": 1774988269228,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "AI Engineering: The 5-Step Blueprint to Building and Deploying AI Agents That Scale to Millions",
+                                "readingTime": 8.018867924528301,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/ai-engineering-the-5-step-blueprint-to-building-and-deploying-ai-agents-that-scale-to-millions-93b5bfa4fd07",
+                                "sequence": null,
+                                "uniqueSlug": "ai-engineering-the-5-step-blueprint-to-building-and-deploying-ai-agents-that-scale-to-millions-93b5bfa4fd07",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "5f634ba7c57d",
+                                "firstPublishedAt": 1746028222887,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 10000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 430000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+                                "readingTime": 7.730503144654088,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/understanding-appsettings-json-in-net-core-the-complete-guide-5f634ba7c57d",
+                                "sequence": null,
+                                "uniqueSlug": "understanding-appsettings-json-in-net-core-the-complete-guide-5f634ba7c57d",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        }
+                    ],
+                    "pageInfo": {
+                        "endCursor": "",
+                        "hasNextPage": false,
+                        "__typename": "PageInfoV2"
+                    }
+                }
+            }
+        }
+    }
+]
