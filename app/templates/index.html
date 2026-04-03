@@ -49,10 +49,12 @@
         .sortable:hover { background-color: rgba(0,0,0,0.05); }
         .sortable i { margin-left: 5px; font-size: 0.8rem; opacity: 0.5; }
         .sortable.active i { opacity: 1; }
-        .bookmark-icon { cursor: pointer; font-size: 1.1rem; transition: transform 0.2s; }
-        .bookmark-icon:hover { transform: scale(1.1); }
+        .bookmark-icon, .leaderboard-icon { cursor: pointer; font-size: 1.1rem; transition: transform 0.2s; }
+        .bookmark-icon:hover, .leaderboard-icon:hover { transform: scale(1.1); }
         .bookmark-icon.bookmarked { color: #ffc107; }
         .bookmark-icon:not(.bookmarked) { color: #6c757d; }
+        .leaderboard-icon.leaderboard { color: #ffd700; }
+        .leaderboard-icon:not(.leaderboard) { color: #6c757d; }
         .mini-stat-card .card-body { padding: 0.4rem 0.6rem; }
         .mini-stat-card h2 { font-size: 1rem; margin-bottom: 0; }
         .mini-stat-card h6 { font-size: 0.6rem; margin-bottom: 0; }
@@ -69,6 +71,8 @@
         .series-link { cursor: pointer; text-decoration: none; }
         .series-link:hover { text-decoration: underline; }
         .form-control.bg-light { background-color: #f8f9fa; }
+        .leaderboard-total { font-size: 0.8rem; margin-top: 8px; padding: 4px; background: rgba(255,255,255,0.1); border-radius: 5px; text-align: center; }
+        .leaderboard-total i { color: #ffd700; }
     </style>
 </head>
 <body>
@@ -91,6 +95,9 @@
                     <small>v2.0.0</small>
                     <div id="lastFetchStatus" class="fetch-status">
                         <i class="bi bi-cloud-arrow-down"></i> Last fetch: <span id="lastFetchTime">Never</span>
+                    </div>
+                    <div id="leaderboardTotal" class="leaderboard-total">
+                        <i class="bi bi-trophy"></i> Leaderboard: <span id="leaderboardCount">0</span> stories ($<span id="leaderboardAmount">0.00</span>)
                     </div>
                 </div>
             </nav>
@@ -245,6 +252,32 @@
                                         <div class="mb-2">
                                             <label class="form-label small fw-bold">Reading Time / Word Count</label>
                                             <div class="form-control form-control-sm bg-light" id="editStoryReadTimeWordCount">-</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-3">
+                            <div class="card-header bg-light py-2">
+                                <i class="bi bi-trophy"></i> <strong>Leaderboard</strong>
+                            </div>
+                            <div class="card-body py-2">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Leaderboard Status</label>
+                                            <select class="form-select form-select-sm" id="editStoryLeaderboard">
+                                                <option value="false">Not on Leaderboard</option>
+                                                <option value="true">On Leaderboard</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold">Earnings (nanos)</label>
+                                            <input type="number" class="form-control form-control-sm" id="editStoryLeaderboardNanos" placeholder="0" step="10000000">
+                                            <small class="text-muted">1 USD = 1,000,000,000 nanos</small>
                                         </div>
                                     </div>
                                 </div>
@@ -459,6 +492,17 @@
             }
         }
         
+        function updateLeaderboardTotal() {
+            const storiesWithLeaderboard = allStories.filter(s => s.leaderboard === true);
+            const count = storiesWithLeaderboard.length;
+            const totalNanos = storiesWithLeaderboard.reduce((sum, s) => sum + (s.leaderboard_nanos || 0), 0);
+            const totalDollars = (totalNanos / 1000000000).toFixed(2);
+            const countEl = document.getElementById('leaderboardCount');
+            const amountEl = document.getElementById('leaderboardAmount');
+            if (countEl) countEl.textContent = count;
+            if (amountEl) amountEl.textContent = totalDollars;
+        }
+        
         // ============================================
         // LinkedIn Functions
         // ============================================
@@ -590,15 +634,46 @@
         }
         
         // ============================================
+        // Leaderboard Functions (Manual Toggle)
+        // ============================================
+        async function toggleLeaderboard(storyKey, event) {
+            event.stopPropagation();
+            let cleanKey = storyKey;
+            if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
+            const story = allStories.find(s => s.key === cleanKey);
+            if (!story) return;
+            
+            const newLeaderboardState = !story.leaderboard;
+            
+            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    leaderboard: newLeaderboardState,
+                    leaderboard_nanos: story.leaderboard_nanos || 0
+                })
+            });
+            
+            if (res.ok) {
+                story.leaderboard = newLeaderboardState;
+                renderStoryTable(allStories);
+                updateLeaderboardTotal();
+            } else {
+                alert('Failed to update leaderboard');
+            }
+        }
+        
+        // ============================================
         // Filter State
         // ============================================
-        let filterState = { status: 'All', series: '', search: '', bookmarked: false };
+        let filterState = { status: 'All', series: '', search: '', bookmarked: false, leaderboard: false };
         
         function saveFilterState() {
             filterState.status = document.getElementById('statusFilter')?.value || 'All';
             filterState.series = document.getElementById('seriesFilter')?.value || '';
             filterState.search = document.getElementById('searchFilter')?.value || '';
             filterState.bookmarked = document.getElementById('bookmarkFilter')?.checked || false;
+            filterState.leaderboard = document.getElementById('leaderboardFilter')?.checked || false;
         }
         
         function restoreFilterState() {
@@ -606,11 +681,13 @@
             const seriesFilter = document.getElementById('seriesFilter');
             const searchFilter = document.getElementById('searchFilter');
             const bookmarkFilter = document.getElementById('bookmarkFilter');
+            const leaderboardFilter = document.getElementById('leaderboardFilter');
             
             if (statusFilter) statusFilter.value = filterState.status;
             if (seriesFilter) seriesFilter.value = filterState.series;
             if (searchFilter) searchFilter.value = filterState.search;
             if (bookmarkFilter) bookmarkFilter.checked = filterState.bookmarked;
+            if (leaderboardFilter) leaderboardFilter.checked = filterState.leaderboard;
             filterStories();
         }
         
@@ -624,34 +701,12 @@
         };
         let allCalendar = [];
         
-        function sortStories(column) {
-            const direction = sortState.stories.column === column && sortState.stories.direction === 'asc' ? 'desc' : 'asc';
-            sortState.stories = { column, direction };
-            const sorted = [...allStories].sort((a, b) => {
-                let aVal = a[column];
-                let bVal = b[column];
-                if (column === 'reads' || column === 'claps' || column === 'linkedin_impressions' || column === 'view_count' || column === 'lifetime_reads' || column === 'lifetime_views') {
-                    aVal = aVal || 0;
-                    bVal = bVal || 0;
-                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
-                }
-                if (column === 'created_date' || column === 'published_date' || column === 'medium_first_published') {
-                    aVal = aVal || '';
-                    bVal = bVal || '';
-                    return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-                }
-                if (column === 'bookmarked') {
-                    aVal = aVal ? 1 : 0;
-                    bVal = bVal ? 1 : 0;
-                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
-                }
-                aVal = (aVal || '').toString().toLowerCase();
-                bVal = (bVal || '').toString().toLowerCase();
-                return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-            });
-            renderStoryTable(sorted);
-            updateSortIcons('stories', column, direction);
-        }
+function sortStories(column) {
+    const direction = sortState.stories.column === column && sortState.stories.direction === 'asc' ? 'desc' : 'asc';
+    sortState.stories = { column, direction };
+    renderStoryTable(allStories);
+    updateSortIcons('stories', column, direction);
+}
         
         function sortSeries(column) {
             const direction = sortState.series.column === column && sortState.series.direction === 'asc' ? 'desc' : 'asc';
@@ -692,23 +747,30 @@
             updateSortIcons('calendar', column, direction);
         }
         
-        function updateSortIcons(table, column, direction) {
-            const headerId = table === 'stories' ? 'storiesTableHeader' : (table === 'series' ? 'seriesTableHeader' : 'calendarTableHeader');
-            const header = document.getElementById(headerId);
-            if (!header) return;
-            header.querySelectorAll('.sortable').forEach(th => {
-                th.classList.remove('active');
-                const icon = th.querySelector('i');
-                if (icon) icon.className = 'bi bi-arrow-down-up';
-            });
-            const activeTh = header.querySelector(`.sortable[data-sort="${column}"]`);
-            if (activeTh) {
-                activeTh.classList.add('active');
-                const icon = activeTh.querySelector('i');
-                if (icon) icon.className = direction === 'asc' ? 'bi bi-arrow-up' : 'bi bi-arrow-down';
-            }
+function updateSortIcons(table, column, direction) {
+    const headerId = table === 'stories' ? 'storiesTableHeader' : (table === 'series' ? 'seriesTableHeader' : 'calendarTableHeader');
+    const header = document.getElementById(headerId);
+    if (!header) return;
+    
+    // First, remove all active classes and reset all sort icons to default (↕)
+    header.querySelectorAll('.sortable').forEach(th => {
+        th.classList.remove('active');
+        const iconSpan = th.querySelector('.sort-icon');
+        if (iconSpan) {
+            iconSpan.textContent = '↕';
         }
-        
+    });
+    
+    // Find the active column and update its icon
+    const activeTh = header.querySelector(`.sortable[data-sort="${column}"]`);
+    if (activeTh) {
+        activeTh.classList.add('active');
+        const iconSpan = activeTh.querySelector('.sort-icon');
+        if (iconSpan) {
+            iconSpan.textContent = direction === 'asc' ? '↑' : '↓';
+        }
+    }
+}        
         // ============================================
         // API & Variables
         // ============================================
@@ -772,212 +834,428 @@
         // ============================================
         // Dashboard
         // ============================================
-        async function loadDashboard() {
-            const res = await fetch(`${API_BASE}/stories/`);
-            const stories = await res.json();
-            allStories = stories;
-            const published = stories.filter(s => s.status === 'Published').length;
-            const draft = stories.filter(s => s.status === 'Draft').length;
-            const done = stories.filter(s => s.status === 'Done').length;
-            const ready = stories.filter(s => s.status === 'Ready').length;
-            const bookmarked = stories.filter(s => s.bookmarked === true).length;
-            const totalImpressions = stories.reduce((sum, s) => sum + (s.linkedin_impressions || 0), 0);
-            const totalReads = stories.reduce((sum, s) => sum + (s.reads || 0), 0);
-            const totalClaps = stories.reduce((sum, s) => sum + (s.claps || 0), 0);
-            const totalViews = stories.reduce((sum, s) => sum + (s.view_count || 0), 0);
-            const totalLifetimeReads = stories.reduce((sum, s) => sum + (s.lifetime_reads || 0), 0);
-            const calendarRes = await fetch(`${API_BASE}/calendar/`);
-            const calendar = await calendarRes.json();
-            
-            const contentDiv = document.getElementById('content');
-            if (!contentDiv) return;
-            
-            contentDiv.innerHTML = `
-                <h1 class="h3 mb-4">Dashboard</h1>
-                <div class="row g-2 mb-4">
-                    <div class="col-md-2"><div class="card stat-card bg-primary text-white" onclick="filterStoriesByStatus('all')"><div class="card-body"><h6>Total</h6><h2>${stories.length}</h2></div></div></div>
-                    <div class="col-md-2"><div class="card stat-card bg-success text-white" onclick="filterStoriesByStatus('Published')"><div class="card-body"><h6>Published</h6><h2>${published}</h2></div></div></div>
-                    <div class="col-md-2"><div class="card stat-card bg-info text-white" onclick="filterStoriesByStatus('Ready')"><div class="card-body"><h6>Ready</h6><h2>${ready}</h2></div></div></div>
-                    <div class="col-md-2"><div class="card stat-card bg-secondary text-white" onclick="filterStoriesByStatus('Done')"><div class="card-body"><h6>Done</h6><h2>${done}</h2></div></div></div>
-                    <div class="col-md-2"><div class="card stat-card" style="background:#ffc107;color:#000;" onclick="filterStoriesByBookmarked()"><div class="card-body"><h6>Bookmarked</h6><h2>${bookmarked}</h2></div></div></div>
-                    <div class="col-md-2"><div class="card stat-card bg-dark text-white"><div class="card-body"><h6>Impressions</h6><h2>${formatNumber(totalImpressions)}</h2></div></div></div>
-                </div>
-                <div class="row g-1 mb-4">
-                    <div class="col-md-3"><div class="card mini-stat-card bg-info text-white"><div class="card-body"><h6 class="mb-0">Month Reads</h6><h2 class="mb-0">${formatNumber(totalReads)}</h2></div></div></div>
-                    <div class="col-md-3"><div class="card mini-stat-card bg-warning text-white"><div class="card-body"><h6 class="mb-0">Month Engagement</h6><h2 class="mb-0">${formatNumber(totalClaps)}</h2></div></div></div>
-                    <div class="col-md-3"><div class="card mini-stat-card bg-primary text-white"><div class="card-body"><h6 class="mb-0">Month Views</h6><h2 class="mb-0">${formatNumber(totalViews)}</h2></div></div></div>
-                    <div class="col-md-3"><div class="card mini-stat-card bg-success text-white"><div class="card-body"><h6 class="mb-0">Lifetime Reads</h6><h2 class="mb-0">${formatNumber(totalLifetimeReads)}</h2></div></div></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6"><div class="card"><div class="card-header d-flex justify-content-between"><h6>Recent Stories</h6><button class="btn btn-sm btn-primary" onclick="loadView('stories')">View All</button></div>
-                    <div class="card-body p-0"><div class="list-group list-group-flush">${stories.slice(0,10).map(s => `<div class="list-group-item d-flex justify-content-between"><div><span class="status-badge ${s.status==='Published'?'status-published':s.status==='Ready'?'status-ready':s.status==='Done'?'status-done':'status-draft'}">${s.status}</span> ${escapeHtml(s.name.length>35?s.name.substring(0,35)+'...':s.name)} ${s.series?`<span class="series-badge series-link" onclick="event.stopPropagation(); filterBySeries('${s.series}')">📚 ${s.series}</span>`:''} ${s.bookmarked?`<i class="bi bi-bookmark-fill text-warning"></i>`:''}<br><small class="text-muted">Published: ${s.medium_first_published ? s.medium_first_published.split('T')[0] : 'Unknown'}</small></div><button class="btn btn-sm btn-outline-primary" onclick="editStory('${s.key.replace(/'/g,"\\'")}')">Edit</button></div>`).join('')}</div></div></div></div>
-                    <div class="col-md-6"><div class="card"><div class="card-header d-flex justify-content-between"><h6>Upcoming Schedule</h6><button class="btn btn-sm btn-primary" onclick="generateCalendar()">Generate</button></div>
-                    <div class="card-body p-0"><div class="list-group list-group-flush">${calendar.schedule?.slice(0,10).map(c => `<div class="list-group-item"><div class="d-flex justify-content-between"><div><strong>${c.date}</strong> (${c.weekday})<br><small>${escapeHtml(c.name)}</small>${c.series?`<span class="series-badge ms-2">📚 ${c.series}</span>`:''}</div><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g,"\\'")}')">Publish</button></div></div>`).join('') || '<div class="list-group-item text-muted">No scheduled stories</div>'}</div></div></div></div>
-                </div>
-                <div class="mt-3"><button class="btn btn-sm btn-primary" onclick="syncStories()"><i class="bi bi-arrow-repeat"></i> Sync Files</button><button class="btn btn-sm btn-info ms-2" onclick="fetchMediumStats()"><i class="bi bi-cloud-download"></i> Fetch Current Month Stats</button></div>
-            `;
-        }
+async function loadDashboard() {
+    const res = await fetch(`${API_BASE}/stories/`);
+    const stories = await res.json();
+    allStories = stories;
+    const published = stories.filter(s => s.status === 'Published').length;
+    const draft = stories.filter(s => s.status === 'Draft').length;
+    const done = stories.filter(s => s.status === 'Done').length;
+    const ready = stories.filter(s => s.status === 'Ready').length;
+    const bookmarked = stories.filter(s => s.bookmarked === true).length;
+    const leaderboard = stories.filter(s => s.leaderboard === true).length;
+    const totalImpressions = stories.reduce((sum, s) => sum + (s.linkedin_impressions || 0), 0);
+    
+    // Calculate totals with member/non-member breakdown for ALL stories
+    const totalMemberReads = stories.reduce((sum, s) => sum + (s.medium_member_reads || 0), 0);
+    const totalReads = stories.reduce((sum, s) => sum + (s.reads || 0), 0);
+    const totalMemberViews = stories.reduce((sum, s) => sum + (s.medium_member_views || 0), 0);
+    const totalViews = stories.reduce((sum, s) => sum + (s.view_count || 0), 0);
+    const totalClaps = stories.reduce((sum, s) => sum + (s.claps || 0), 0);
+    const totalLifetimeReads = stories.reduce((sum, s) => sum + (s.lifetime_reads || 0), 0);
+    
+    // Calculate totals for LEADERBOARD stories only
+    const leaderboardStories = stories.filter(s => s.leaderboard === true);
+    const leaderboardMemberReads = leaderboardStories.reduce((sum, s) => sum + (s.medium_member_reads || 0), 0);
+    const leaderboardTotalReads = leaderboardStories.reduce((sum, s) => sum + (s.reads || 0), 0);
+    const leaderboardMemberViews = leaderboardStories.reduce((sum, s) => sum + (s.medium_member_views || 0), 0);
+    const leaderboardTotalViews = leaderboardStories.reduce((sum, s) => sum + (s.view_count || 0), 0);
+    const leaderboardClaps = leaderboardStories.reduce((sum, s) => sum + (s.claps || 0), 0);
+    const leaderboardCount = leaderboardStories.length;
+    
+    const calendarRes = await fetch(`${API_BASE}/calendar/`);
+    const calendar = await calendarRes.json();
+    
+    const contentDiv = document.getElementById('content');
+    if (!contentDiv) return;
+    
+    contentDiv.innerHTML = `
+        <h1 class="h3 mb-4">Dashboard</h1>
         
-        function filterBySeries(seriesName) {
+        <!-- Summary Cards -->
+        <div class="row g-2 mb-4">
+            <div class="col-md-2"><div class="card stat-card bg-primary text-white" onclick="filterStoriesByStatus('all')"><div class="card-body"><h6>Total</h6><h2>${stories.length}</h2></div></div></div>
+            <div class="col-md-2"><div class="card stat-card bg-success text-white" onclick="filterStoriesByStatus('Published')"><div class="card-body"><h6>Published</h6><h2>${published}</h2></div></div></div>
+            <div class="col-md-2"><div class="card stat-card bg-info text-white" onclick="filterStoriesByStatus('Ready')"><div class="card-body"><h6>Ready</h6><h2>${ready}</h2></div></div></div>
+            <div class="col-md-2"><div class="card stat-card bg-secondary text-white" onclick="filterStoriesByStatus('Done')"><div class="card-body"><h6>Done</h6><h2>${done}</h2></div></div></div>
+            <div class="col-md-2"><div class="card stat-card" style="background:#ffc107;color:#000;" onclick="filterStoriesByBookmarked()"><div class="card-body"><h6>Bookmarked</h6><h2>${bookmarked}</h2></div></div></div>
+            <div class="col-md-2"><div class="card stat-card" style="background:#ffd700;color:#000;" onclick="filterStoriesByLeaderboard()"><div class="card-body"><h6>Leaderboard</h6><h2>${leaderboard}</h2></div></div></div>
+        </div>
+        
+        <!-- All Stories Stats - Small Cards -->
+        <div class="row g-1 mb-3">
+            <div class="col-md-4">
+                <div class="card mini-stat-card bg-info text-white">
+                    <div class="card-body">
+                        <h6 class="mb-0">All Reads</h6>
+                        <h2 class="mb-0">${formatNumber(totalMemberReads)} / ${formatNumber(totalReads)}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mini-stat-card bg-primary text-white">
+                    <div class="card-body">
+                        <h6 class="mb-0">All Views</h6>
+                        <h2 class="mb-0">${formatNumber(totalMemberViews)} / ${formatNumber(totalViews)}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mini-stat-card bg-warning text-white">
+                    <div class="card-body">
+                        <h6 class="mb-0">All Claps</h6>
+                        <h2 class="mb-0">${formatNumber(totalClaps)}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Leaderboard Stats - Small Compact Cards -->
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="card" style="border: 1px solid #ffd700; background: #fff8e7;">
+                    <div class="card-header py-1" style="background: #ffd700; color: #000;">
+                        <h6 class="mb-0"><i class="bi bi-trophy"></i> Leaderboard (${leaderboardCount} stories)                             
+                            <button class="btn btn-sm btn-primary py-0 px-2" onclick="updateLeaderboardStories()">
+                                <i class="bi bi-arrow-repeat"></i> Refresh
+                            </button></h6>
+                    </div>
+                    <div class="card-body py-2">
+                        <div class="row g-1">
+                            <div class="col-md-4">
+                                <div class="card bg-info text-white p-1" style="min-height: 60px;">
+                                    <div class="card-body p-1 text-center">
+                                        <small>Reads</small>
+                                        <strong>${formatNumber(leaderboardMemberReads)} / ${formatNumber(leaderboardTotalReads)}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-primary text-white p-1" style="min-height: 60px;">
+                                    <div class="card-body p-1 text-center">
+                                        <small>Views</small>
+                                        <strong>${formatNumber(leaderboardMemberViews)} / ${formatNumber(leaderboardTotalViews)}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-warning text-white p-1" style="min-height: 60px;">
+                                    <div class="card-body p-1 text-center">
+                                        <small>Claps</small>
+                                        <strong>${formatNumber(leaderboardClaps)}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Lifetime and Impressions -->
+        <div class="row g-1 mb-4">
+            <div class="col-md-6">
+                <div class="card mini-stat-card bg-success text-white">
+                    <div class="card-body">
+                        <h6 class="mb-0">Lifetime Reads</h6>
+                        <h2 class="mb-0">${formatNumber(totalLifetimeReads)}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mini-stat-card bg-dark text-white">
+                    <div class="card-body">
+                        <h6 class="mb-0">LinkedIn Impressions</h6>
+                        <h2 class="mb-0">${formatNumber(totalImpressions)}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Stories and Calendar -->
+        <div class="row">
+            <div class="col-md-6"><div class="card"><div class="card-header d-flex justify-content-between"><h6>Recent Stories</h6><button class="btn btn-sm btn-primary" onclick="loadView('stories')">View All</button></div>
+            <div class="card-body p-0"><div class="list-group list-group-flush">${stories.slice(0,10).map(s => `<div class="list-group-item d-flex justify-content-between"><div><span class="status-badge ${s.status==='Published'?'status-published':s.status==='Ready'?'status-ready':s.status==='Done'?'status-done':'status-draft'}">${s.status}</span> ${escapeHtml(s.name.length>35?s.name.substring(0,35)+'...':s.name)} ${s.series?`<span class="series-badge series-link" onclick="event.stopPropagation(); filterBySeries('${s.series}')">📚 ${s.series}</span>`:''} ${s.bookmarked?`<i class="bi bi-bookmark-fill text-warning"></i>`:''} ${s.leaderboard?`<i class="bi bi-trophy-fill text-warning"></i>`:''}<br><small class="text-muted">Published: ${s.medium_first_published ? s.medium_first_published.split('T')[0] : 'Unknown'}</small></div><button class="btn btn-sm btn-outline-primary" onclick="editStory('${s.key.replace(/'/g,"\\'")}')">Edit</button></div>`).join('')}</div></div></div></div>
+            <div class="col-md-6"><div class="card"><div class="card-header d-flex justify-content-between"><h6>Upcoming Schedule</h6><button class="btn btn-sm btn-primary" onclick="generateCalendar()">Generate</button></div>
+            <div class="card-body p-0"><div class="list-group list-group-flush">${calendar.schedule?.slice(0,10).map(c => `<div class="list-group-item"><div class="d-flex justify-content-between"><div><strong>${c.date}</strong> (${c.weekday})<br><small>${escapeHtml(c.name)}</small>${c.series?`<span class="series-badge ms-2">📚 ${c.series}</span>`:''}</div><button class="btn btn-sm btn-success" onclick="markPublished('${c.story_key.replace(/'/g,"\\'")}')">Publish</button></div></div>`).join('') || '<div class="list-group-item text-muted">No scheduled stories</div>'}</div></div></div></div>
+        </div>
+        <div class="mt-3">
+            <button class="btn btn-sm btn-primary" onclick="syncStories()"><i class="bi bi-arrow-repeat"></i> Sync Files</button>
+            <button class="btn btn-sm btn-info ms-2" onclick="fetchMediumStats()"><i class="bi bi-cloud-download"></i> Fetch Current Month Stats</button>
+            <button class="btn btn-sm btn-warning ms-2" onclick="updateLeaderboardStories()"><i class="bi bi-trophy"></i> Refresh Leaderboard</button>
+        </div>
+    `;
+}
+function filterBySeries(seriesName) {
             filterState.series = seriesName;
             filterState.status = 'All';
+            loadView('stories');
+        }
+        
+        function filterStoriesByLeaderboard() {
+            filterState.leaderboard = true;
             loadView('stories');
         }
         
         // ============================================
         // Stories List
         // ============================================
-        async function loadStories() {
-            const res = await fetch(`${API_BASE}/stories/`);
-            const stories = await res.json();
-            allStories = stories;
-            const statuses = ['All', 'Draft', 'Done', 'Ready', 'Published'];
+async function loadStories() {
+    const res = await fetch(`${API_BASE}/stories/`);
+    const stories = await res.json();
+    allStories = stories;
+    const statuses = ['All', 'Draft', 'Done', 'Ready', 'Published'];
+    
+    const contentDiv = document.getElementById('content');
+    if (!contentDiv) return;
+    
+    contentDiv.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="h3">Stories</h1>
+            <div>
+                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addStoryModal"><i class="bi bi-plus-lg"></i> Add Story</button>
+                <button class="btn btn-sm btn-info ms-2" onclick="fetchMediumStats()"><i class="bi bi-cloud-download"></i> Fetch Current Month Stats</button>
+                <button class="btn btn-sm btn-warning ms-2" onclick="updateLeaderboardStories()"><i class="bi bi-trophy"></i> Update Leaderboard Stories</button>
+            </div>
+        </div>
+        <div class="filter-bar d-flex gap-2 flex-wrap">
+            <i class="bi bi-funnel"></i><span>Filter:</span>
+            <select id="statusFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">${statuses.map(s => `<option value="${s}">${s}</option>`).join('')}</select>
+            <select id="seriesFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">
+                <option value="">All Series</option>
+                ${allSeries.map(s => `<option value="${s.name}" ${filterState.series === s.name ? 'selected' : ''}>${s.name}</option>`).join('')}
+            </select>
+            <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search..." onkeyup="saveFilterState(); filterStories()" value="${escapeHtml(filterState.search)}">
+            <div class="form-check ms-2">
+                <input class="form-check-input" type="checkbox" id="bookmarkFilter" onchange="saveFilterState(); filterStories()" ${filterState.bookmarked ? 'checked' : ''}>
+                <label class="form-check-label small" for="bookmarkFilter">Bookmarked only</label>
+            </div>
+            <div class="form-check ms-2">
+                <input class="form-check-input" type="checkbox" id="leaderboardFilter" onchange="saveFilterState(); filterStories()" ${filterState.leaderboard ? 'checked' : ''}>
+                <label class="form-check-label small" for="leaderboardFilter">Leaderboard only</label>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">Clear</button>
+        </div>
+        <div class="mb-2 text-muted">
+            <small id="filterCountDisplay">Showing all ${stories.length} stories</small>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover">
+                <thead id="storiesTableHeader" class="table-light">
+                    <tr>
+                        <th class="sortable text-center" data-sort="bookmarked" onclick="sortStories('bookmarked')" style="width: 50px;"><i class="bi bi-bookmark"></i> <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                        <th class="sortable text-center" data-sort="leaderboard" onclick="sortStories('leaderboard')" style="width: 50px;"><i class="bi bi-trophy"></i> <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                        <th class="sortable" data-sort="status" onclick="sortStories('status')">Status <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                        <th class="sortable" data-sort="name" onclick="sortStories('name')">Story Name <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                        <th class="sortable" data-sort="medium_first_published" onclick="sortStories('medium_first_published')">Publish Date <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                        <th class="sortable" data-sort="reads" onclick="sortStories('reads')">Reads <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                        <th class="sortable" data-sort="view_count" onclick="sortStories('view_count')">Views <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                        <th class="sortable" data-sort="read_ratio" onclick="sortStories('read_ratio')">Read Ratio <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                        <th class="sortable" data-sort="claps" onclick="sortStories('claps')">Engagement <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                        <th class="sortable" data-sort="linkedin_impressions" onclick="sortStories('linkedin_impressions')">Impressions <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                        <th class="sortable" data-sort="lifetime_reads" onclick="sortStories('lifetime_reads')">Lifetime <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                        <th>LinkedIn</th>
+                        <th>Publication</th>
+                        <th style="width: 100px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="storiesTableBody"></tbody>
+            </table>
+        </div>
+    `;
+    renderStoryTable(stories);
+    restoreFilterState();
+    sortStories(sortState.stories.column);
+}
+
+
+function renderStoryTable(stories) {
+    const tbody = document.getElementById('storiesTableBody');
+    if (!tbody) return;
+    
+    let filtered = [...stories];
+    if (filterState.status !== 'All') filtered = filtered.filter(s => s.status === filterState.status);
+    if (filterState.series) filtered = filtered.filter(s => s.series === filterState.series);
+    if (filterState.search) {
+        const searchLower = filterState.search.toLowerCase();
+        filtered = filtered.filter(s => s.name.toLowerCase().includes(searchLower) || (s.series && s.series.toLowerCase().includes(searchLower)));
+    }
+    if (filterState.bookmarked) filtered = filtered.filter(s => s.bookmarked === true);
+    if (filterState.leaderboard) filtered = filtered.filter(s => s.leaderboard === true);
+    
+    // Update filter count display
+    const filterCountDisplay = document.getElementById('filterCountDisplay');
+    if (filterCountDisplay) {
+        const totalStories = stories.length;
+        const filteredCount = filtered.length;
+        
+        if (filteredCount === totalStories) {
+            filterCountDisplay.innerHTML = `Showing all ${totalStories} stories`;
+        } else {
+            let filterText = [];
+            if (filterState.status !== 'All') filterText.push(`Status: ${filterState.status}`);
+            if (filterState.series) filterText.push(`Series: ${filterState.series}`);
+            if (filterState.search) filterText.push(`Search: "${filterState.search}"`);
+            if (filterState.bookmarked) filterText.push(`Bookmarked only`);
+            if (filterState.leaderboard) filterText.push(`Leaderboard only`);
             
-            const contentDiv = document.getElementById('content');
-            if (!contentDiv) return;
-            
-            contentDiv.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h1 class="h3">Stories</h1>
-                    <div>
-                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addStoryModal"><i class="bi bi-plus-lg"></i> Add Story</button>
-                        <button class="btn btn-sm btn-info ms-2" onclick="fetchMediumStats()"><i class="bi bi-cloud-download"></i> Fetch Current Month Stats</button>
-                    </div>
-                </div>
-                <div class="filter-bar d-flex gap-2 flex-wrap">
-                    <i class="bi bi-funnel"></i><span>Filter:</span>
-                    <select id="statusFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">${statuses.map(s => `<option value="${s}">${s}</option>`).join('')}</select>
-                    <select id="seriesFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">
-                        <option value="">All Series</option>
-                        ${allSeries.map(s => `<option value="${s.name}" ${filterState.series === s.name ? 'selected' : ''}>${s.name}</option>`).join('')}
-                    </select>
-                    <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search..." onkeyup="saveFilterState(); filterStories()" value="${escapeHtml(filterState.search)}">
-                    <div class="form-check ms-2">
-                        <input class="form-check-input" type="checkbox" id="bookmarkFilter" onchange="saveFilterState(); filterStories()" ${filterState.bookmarked ? 'checked' : ''}>
-                        <label class="form-check-label small" for="bookmarkFilter">Bookmarked only</label>
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">Clear</button>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-sm table-hover">
-                        <thead id="storiesTableHeader" class="table-light">
-                            <tr>
-                                <th class="sortable" data-sort="bookmarked" onclick="sortStories('bookmarked')"><i class="bi bi-bookmark"></i> <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="status" onclick="sortStories('status')">Status <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="name" onclick="sortStories('name')">Story Name <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="medium_first_published" onclick="sortStories('medium_first_published')">Publish Date <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="reads" onclick="sortStories('reads')">Reads <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="view_count" onclick="sortStories('view_count')">Views <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="claps" onclick="sortStories('claps')">Engagement <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="linkedin_impressions" onclick="sortStories('linkedin_impressions')">Impressions <i class="bi bi-arrow-down-up"></i></th>
-                                <th class="sortable" data-sort="lifetime_reads" onclick="sortStories('lifetime_reads')">Lifetime <i class="bi bi-arrow-down-up"></i></th>
-                                <th>LinkedIn</th>
-                                <th>Publication</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="storiesTableBody"></tbody>
-                    </table>
-                </div>
-            `;
-            renderStoryTable(stories);
-            restoreFilterState();
-            sortStories(sortState.stories.column);
+            filterCountDisplay.innerHTML = `Showing ${filteredCount} of ${totalStories} stories (Filtered by: ${filterText.join(', ')})`;
+        }
+    }
+    
+    // Calculate read ratio for each story for sorting
+    filtered = filtered.map(story => {
+        const totalReads = story.reads || 0;
+        const totalViews = story.view_count || 0;
+        let readRatio = 0;
+        if (totalViews > 0) {
+            readRatio = Math.round((totalReads / totalViews) * 100);
+        } else if (totalReads > 0) {
+            readRatio = 100;
+        }
+        return { ...story, read_ratio_calculated: readRatio };
+    });
+    
+    const { column, direction } = sortState.stories;
+    filtered.sort((a, b) => {
+        let aVal, bVal;
+        
+        if (column === 'reads') {
+            aVal = a.reads || 0;
+            bVal = b.reads || 0;
+        } else if (column === 'view_count') {
+            aVal = a.view_count || 0;
+            bVal = b.view_count || 0;
+        } else if (column === 'read_ratio') {
+            aVal = a.read_ratio_calculated;
+            bVal = b.read_ratio_calculated;
+        } else if (column === 'claps') {
+            aVal = a.claps || 0;
+            bVal = b.claps || 0;
+        } else if (column === 'linkedin_impressions') {
+            aVal = a.linkedin_impressions || 0;
+            bVal = b.linkedin_impressions || 0;
+        } else if (column === 'lifetime_reads') {
+            aVal = a.lifetime_reads || 0;
+            bVal = b.lifetime_reads || 0;
+        } else if (column === 'lifetime_views') {
+            aVal = a.lifetime_views || 0;
+            bVal = b.lifetime_views || 0;
+        } else if (column === 'bookmarked') {
+            aVal = a.bookmarked ? 1 : 0;
+            bVal = b.bookmarked ? 1 : 0;
+        } else if (column === 'leaderboard') {
+            aVal = a.leaderboard ? 1 : 0;
+            bVal = b.leaderboard ? 1 : 0;
+        } else if (column === 'medium_first_published') {
+            aVal = a.medium_first_published || '';
+            bVal = b.medium_first_published || '';
+        } else if (column === 'name') {
+            aVal = (a.name || '').toLowerCase();
+            bVal = (b.name || '').toLowerCase();
+        } else if (column === 'status') {
+            aVal = (a.status || '').toLowerCase();
+            bVal = (b.status || '').toLowerCase();
+        } else if (column === 'series') {
+            aVal = (a.series || '').toLowerCase();
+            bVal = (b.series || '').toLowerCase();
+        } else {
+            aVal = a[column] || '';
+            bVal = b[column] || '';
         }
         
-        function renderStoryTable(stories) {
-            const tbody = document.getElementById('storiesTableBody');
-            if (!tbody) return;
-            
-            let filtered = [...stories];
-            if (filterState.status !== 'All') filtered = filtered.filter(s => s.status === filterState.status);
-            if (filterState.series) filtered = filtered.filter(s => s.series === filterState.series);
-            if (filterState.search) {
-                const searchLower = filterState.search.toLowerCase();
-                filtered = filtered.filter(s => s.name.toLowerCase().includes(searchLower) || (s.series && s.series.toLowerCase().includes(searchLower)));
-            }
-            if (filterState.bookmarked) filtered = filtered.filter(s => s.bookmarked === true);
-            
-            const { column, direction } = sortState.stories;
-            filtered.sort((a, b) => {
-                let aVal = a[column];
-                let bVal = b[column];
-                if (column === 'reads' || column === 'claps' || column === 'linkedin_impressions' || column === 'view_count' || column === 'lifetime_reads' || column === 'lifetime_views') {
-                    aVal = aVal || 0;
-                    bVal = bVal || 0;
-                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
-                }
-                if (column === 'created_date' || column === 'published_date' || column === 'medium_first_published') {
-                    aVal = aVal || '';
-                    bVal = bVal || '';
-                    return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-                }
-                if (column === 'bookmarked') {
-                    aVal = aVal ? 1 : 0;
-                    bVal = bVal ? 1 : 0;
-                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
-                }
-                aVal = (aVal || '').toString().toLowerCase();
-                bVal = (bVal || '').toString().toLowerCase();
-                return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-            });
-            
-            tbody.innerHTML = filtered.map(story => {
-                let storyKey = story.key;
-                if (storyKey.toLowerCase().endsWith('.md')) storyKey = storyKey.slice(0, -3);
-                
-                let linkedinHtml = '<span class="linkedin-badge linkedin-not-posted">Not Posted</span>';
-                if (story.linkedin_status === 'scheduled') {
-                    linkedinHtml = `<span class="linkedin-badge linkedin-scheduled">📅 ${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</span>`;
-                } else if (story.linkedin_status === 'posted') {
-                    linkedinHtml = `<span class="linkedin-badge linkedin-posted">✅ ${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</span>`;
-                }
-                
-                const publishDate = story.medium_first_published ? story.medium_first_published.split('T')[0] : (story.published_date || 'Unknown');
-                const memberReads = story.medium_member_reads || 0;
-                const totalReads = story.reads || 0;
-                const memberViews = story.medium_member_views || 0;
-                const totalViews = story.view_count || 0;
-                const lifetimeReads = story.lifetime_reads || 0;
-                const lifetimeViews = story.lifetime_views || 0;
-                const presentationCount = story.presentation_count || 0;
-                const lifetimeText = `${formatNumber(lifetimeReads)}/${formatNumber(lifetimeViews)}/${formatNumber(presentationCount)}`;
-                
-                return `<tr class="table-row-clickable" onclick="editStory('${storyKey.replace(/'/g,"\\'")}')">
-                    <td class="text-center" onclick="event.stopPropagation()">
-                        <i class="bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}" 
-                           onclick="toggleBookmark('${storyKey.replace(/'/g,"\\'")}', event)"></i>
-                    </td>
-                    <td><span class="status-badge ${story.status==='Published'?'status-published':story.status==='Ready'?'status-ready':story.status==='Done'?'status-done':'status-draft'}">${story.status}</span></td>
-                    <td><strong title="${escapeHtml(story.name)}">${escapeHtml(story.name.length>40?story.name.substring(0,40)+'...':story.name)}</strong></td>
-                    <td><small>${publishDate}</small></td>
-                    <td class="stats-tooltip" title="Member: ${memberReads} / Total: ${totalReads}"><span class="fw-bold">${formatNumber(memberReads)}</span> / ${formatNumber(totalReads)}</td>
-                    <td class="stats-tooltip" title="Member: ${memberViews} / Total: ${totalViews}"><span class="fw-bold">${formatNumber(memberViews)}</span> / ${formatNumber(totalViews)}</td>
-                    <td>${formatNumber(story.claps || 0)} / ${formatNumber(story.medium_new_followers || 0)}</td>
-                    <td>${formatNumber(story.linkedin_impressions || 0)}</td>
-                    <td><span class="lifetime-text">${lifetimeText}</span></td>
-                    <td class="text-center linkedin-single">${linkedinHtml}</td>
-                    <td>${story.medium_publication ? escapeHtml(story.medium_publication) : '—'}</td>
-                    <td class="action-buttons" onclick="event.stopPropagation()">
-                        <button class="btn btn-sm btn-outline-info" onclick="event.stopPropagation(); showStatsDashboard('${storyKey.replace(/'/g,"\\'")}')" title="Stats Dashboard"><i class="bi bi-graph-up"></i></button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteStory('${storyKey.replace(/'/g,"\\'")}')" title="Delete"><i class="bi bi-trash"></i></button>
-                    </td>
-                </tr>`;
-            }).join('');
+        if (typeof aVal === 'number') {
+            return direction === 'asc' ? aVal - bVal : bVal - aVal;
+        }
+        return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    });
+    
+    tbody.innerHTML = filtered.map(story => {
+        let storyKey = story.key;
+        if (storyKey.toLowerCase().endsWith('.md')) storyKey = storyKey.slice(0, -3);
+        
+        let linkedinHtml = '<span class="linkedin-badge linkedin-not-posted">Not Posted</span>';
+        if (story.linkedin_status === 'scheduled') {
+            linkedinHtml = `<span class="linkedin-badge linkedin-scheduled">📅 ${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</span>`;
+        } else if (story.linkedin_status === 'posted') {
+            linkedinHtml = `<span class="linkedin-badge linkedin-posted">✅ ${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5) : ''}</span>`;
         }
         
-        function filterStories() { renderStoryTable(allStories); }
-        function clearFilters() { filterState = { status: 'All', series: '', search: '', bookmarked: false }; 
+        const publishDate = story.medium_first_published ? story.medium_first_published.split('T')[0] : (story.published_date || 'Unknown');
+        const memberReads = story.medium_member_reads || 0;
+        const totalReads = story.reads || 0;
+        const memberViews = story.medium_member_views || 0;
+        const totalViews = story.view_count || 0;
+        
+        const memberReadPercent = totalReads > 0 ? Math.round((memberReads / totalReads) * 100) : 0;
+        const memberViewPercent = totalViews > 0 ? Math.round((memberViews / totalViews) * 100) : 0;
+        
+        let readRatio = 0;
+        if (totalViews > 0) {
+            readRatio = Math.round((totalReads / totalViews) * 100);
+        } else if (totalReads > 0) {
+            readRatio = 100;
+        }
+        
+        const lifetimeReads = story.lifetime_reads || 0;
+        const lifetimeViews = story.lifetime_views || 0;
+        const presentationCount = story.presentation_count || 0;
+        const lifetimeText = `${formatNumber(lifetimeReads)}/${formatNumber(lifetimeViews)}/${formatNumber(presentationCount)}`;
+        
+        return `<tr class="table-row-clickable" onclick="editStory('${storyKey.replace(/'/g,"\\'")}')">
+            <td class="text-center" onclick="event.stopPropagation()">
+                <i class="bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}" 
+                   onclick="toggleBookmark('${storyKey.replace(/'/g,"\\'")}', event)"></i>
+            </td>
+            <td class="text-center" onclick="event.stopPropagation()">
+                <i class="bi bi-trophy${story.leaderboard ? '-fill' : ''} leaderboard-icon ${story.leaderboard ? 'leaderboard' : ''}" 
+                   onclick="toggleLeaderboard('${storyKey.replace(/'/g,"\\'")}', event)"></i>
+            </td>
+            <td class="text-center"><span class="status-badge ${story.status==='Published'?'status-published':story.status==='Ready'?'status-ready':story.status==='Done'?'status-done':'status-draft'}">${story.status}</span></td>
+            <td><strong title="${escapeHtml(story.name)}">${escapeHtml(story.name.length>40?story.name.substring(0,40)+'...':story.name)}</strong></td>
+            <td><small>${publishDate}</small></td>
+            <td class="stats-tooltip" title="Member: ${memberReads} (${memberReadPercent}%) | Total: ${totalReads}">
+                ${formatNumber(memberReads)} / ${formatNumber(totalReads)}
+            </td>
+            <td class="stats-tooltip" title="Member: ${memberViews} (${memberViewPercent}%) | Total: ${totalViews}">
+                ${formatNumber(memberViews)} / ${formatNumber(totalViews)}
+            </td>
+            <td class="stats-tooltip" title="${readRatio}% of views became reads">
+                <div class="progress" style="height: 4px; width: 60px; display: inline-block; margin-right: 5px;">
+                    <div class="progress-bar bg-success" style="width: ${readRatio}%"></div>
+                </div>
+                ${readRatio}%
+            </td>
+            <td>${formatNumber(story.claps || 0)} / ${formatNumber(story.medium_new_followers || 0)}</td>
+            <td>${formatNumber(story.linkedin_impressions || 0)}</td>
+            <td><span class="lifetime-text">${lifetimeText}</span></td>
+            <td class="text-center linkedin-single">${linkedinHtml}</td>
+            <td>${story.medium_publication ? escapeHtml(story.medium_publication) : '—'}</td>
+            <td class="action-buttons" onclick="event.stopPropagation()">
+                <button class="btn btn-sm btn-outline-info" onclick="event.stopPropagation(); showStatsDashboard('${storyKey.replace(/'/g,"\\'")}')" title="Stats Dashboard"><i class="bi bi-graph-up"></i></button>
+                <button class="btn btn-sm btn-danger" onclick="deleteStory('${storyKey.replace(/'/g,"\\'")}')" title="Delete"><i class="bi bi-trash"></i></button>
+            </td>
+        </tr>`;
+    }).join('');
+}
+function filterStories() { renderStoryTable(allStories); }
+        
+        function clearFilters() { 
+            filterState = { status: 'All', series: '', search: '', bookmarked: false, leaderboard: false }; 
             const statusFilter = document.getElementById('statusFilter');
             const seriesFilter = document.getElementById('seriesFilter');
             const searchFilter = document.getElementById('searchFilter');
             const bookmarkFilter = document.getElementById('bookmarkFilter');
+            const leaderboardFilter = document.getElementById('leaderboardFilter');
             if (statusFilter) statusFilter.value = 'All';
             if (seriesFilter) seriesFilter.value = '';
             if (searchFilter) searchFilter.value = '';
             if (bookmarkFilter) bookmarkFilter.checked = false;
+            if (leaderboardFilter) leaderboardFilter.checked = false;
             filterStories(); 
         }
+        
         function filterStoriesByStatus(status) { filterState.status = status === 'all' ? 'All' : status; loadView('stories'); }
         function filterStoriesByBookmarked() { filterState.bookmarked = true; loadView('stories'); }
         
@@ -1138,7 +1416,6 @@
                 }
                 const story = await res.json();
                 
-                // Helper function to safely set element value
                 const setVal = (id, val) => {
                     const el = document.getElementById(id);
                     if (el) el.value = val || '';
@@ -1149,7 +1426,6 @@
                     if (el) el.innerHTML = html || '-';
                 };
                 
-                // Set basic fields
                 const nameDisplay = document.getElementById('editStoryNameDisplay');
                 if (nameDisplay) nameDisplay.textContent = story.name || '';
                 
@@ -1174,12 +1450,15 @@
                 setVal('editStoryMediumUrl', story.medium_url || '');
                 setVal('editStoryNotes', story.notes || '');
                 
+                // Leaderboard
+                setVal('editStoryLeaderboard', story.leaderboard ? 'true' : 'false');
+                setVal('editStoryLeaderboardNanos', story.leaderboard_nanos || 0);
+                
                 // Lifetime stats
                 setHtml('editStoryLifetimeReads', formatNumber(story.lifetime_reads || 0));
                 setHtml('editStoryLifetimeViews', formatNumber(story.lifetime_views || 0));
                 setHtml('editStoryPresentationCount', formatNumber(story.presentation_count || 0));
                 
-                // Current month stats
                 const engagement = `${formatNumber(story.claps || 0)} / ${formatNumber(story.medium_new_followers || 0)}`;
                 const readTimeWordCount = `${story.medium_reading_time || story.read_time || 0} min / ${formatNumber(story.word_count || 0)} words`;
                 
@@ -1191,7 +1470,6 @@
                 setHtml('editStoryMemberPercent', `${story.medium_member_read_percentage || 0}%`);
                 setHtml('editStoryReadTimeWordCount', readTimeWordCount);
                 
-                // LinkedIn
                 setVal('editStoryLinkedinStatus', story.linkedin_status || '');
                 setVal('editStoryLinkedinTimestamp', story.linkedin_timestamp || '');
                 setVal('editStoryLinkedinImpressions', story.linkedin_impressions || 0);
@@ -1202,8 +1480,6 @@
                 if (modalEl) {
                     const modal = new bootstrap.Modal(modalEl);
                     modal.show();
-                } else {
-                    alert('Modal element not found');
                 }
                 
             } catch (error) {
@@ -1228,7 +1504,9 @@
                 linkedin_status: document.getElementById('editStoryLinkedinStatus')?.value || null,
                 linkedin_timestamp: document.getElementById('editStoryLinkedinTimestamp')?.value || null,
                 linkedin_impressions: parseInt(document.getElementById('editStoryLinkedinImpressions')?.value || '0') || 0,
-                linkedin_url: document.getElementById('editStoryLinkedinUrl')?.value || null
+                linkedin_url: document.getElementById('editStoryLinkedinUrl')?.value || null,
+                leaderboard: document.getElementById('editStoryLeaderboard')?.value === 'true',
+                leaderboard_nanos: parseInt(document.getElementById('editStoryLeaderboardNanos')?.value || '0') || 0
             };
             
             const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(storyKey)}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
@@ -1238,6 +1516,7 @@
                 saveFilterState(); 
                 await loadView(currentView); 
                 restoreFilterState(); 
+                updateLeaderboardTotal();
             } else { 
                 const err = await res.json(); 
                 alert('Error: ' + (err.detail || 'Unknown')); 
@@ -1324,32 +1603,69 @@
             const modal = new bootstrap.Modal(modalEl);
             const contentDiv = document.getElementById('statsDashboardContent');
             if (contentDiv) {
-                contentDiv.innerHTML = '<div class="text-center py-3"><div class="spinner-border text-primary"></div><p class="mt-2">Fetching lifetime stats from Medium...</p></div>';
+                contentDiv.innerHTML = '<div class="text-center py-3"><div class="spinner-border text-primary"></div><p class="mt-2">Fetching stats from Medium...</p></div>';
             }
             modal.show();
             
             setTimeout(async () => {
                 try {
-                    const lifetimeRes = await fetch(`${API_BASE}/stories/fetch-lifetime-stats/${encodeURIComponent(cleanKey)}`, { method: 'POST' });
-                    const lifetimeData = await lifetimeRes.json();
+                    const statsRes = await fetch(`${API_BASE}/stories/fetch-lifetime-stats/${encodeURIComponent(cleanKey)}`, { method: 'POST' });
+                    const statsData = await statsRes.json();
                     
-                    if (lifetimeRes.ok && lifetimeData.stats) {
-                        const lifetime = lifetimeData.stats.lifetime || {};
+                    if (statsRes.ok && statsData.stats) {
+                        const stats = statsData.stats;
+                        const currentMonth = stats.current_month || {};
+                        const lifetime = stats.lifetime || {};
                         
                         if (contentDiv) {
                             contentDiv.innerHTML = `
                                 <div class="compact-stats">
                                     <div class="d-flex justify-content-between align-items-center mb-2 pb-1 border-bottom">
                                         <div>
-                                            <strong>${escapeHtml(story.name)}</strong>
-                                            <div><small class="text-muted">Lifetime Statistics</small></div>
+                                            <strong>${escapeHtml(stats.story_name || story.name)}</strong>
+                                            <div><small class="text-muted">Published: ${stats.medium_first_published ? stats.medium_first_published.split('T')[0] : 'Unknown'}</small></div>
                                         </div>
                                         <a href="${escapeHtml(story.medium_url)}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-box-arrow-up-right"></i></a>
                                     </div>
-                                    <div class="row g-2 mb-3">
+                                    <div class="row mb-2">
+                                        <div class="col-12"><strong><i class="bi bi-calendar-month"></i> Current Month</strong></div>
+                                    </div>
+                                    <div class="row g-1 mb-3">
+                                        <div class="col-4">
+                                            <div class="card compact-card bg-light">
+                                                <div class="card-body text-center p-1">
+                                                    <div class="stat-label">Reads</div>
+                                                    <div class="stat-value">${formatNumber(currentMonth.member_reads || 0)} / ${formatNumber(currentMonth.reads || 0)}</div>
+                                                    <small class="text-muted">Member / Total</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="card compact-card bg-light">
+                                                <div class="card-body text-center p-1">
+                                                    <div class="stat-label">Views</div>
+                                                    <div class="stat-value">${formatNumber(currentMonth.member_views || 0)} / ${formatNumber(currentMonth.views || 0)}</div>
+                                                    <small class="text-muted">Member / Total</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="card compact-card bg-light">
+                                                <div class="card-body text-center p-1">
+                                                    <div class="stat-label">Claps</div>
+                                                    <div class="stat-value">${formatNumber(currentMonth.claps || 0)}</div>
+                                                    <small class="text-muted">Responses: ${formatNumber(currentMonth.responses || 0)}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-12"><strong><i class="bi bi-infinity"></i> Lifetime Stats</strong></div>
+                                    </div>
+                                    <div class="row g-1 mb-3">
                                         <div class="col-4">
                                             <div class="card compact-card" style="background: #6f42c1; color: white;">
-                                                <div class="card-body text-center p-2">
+                                                <div class="card-body text-center p-1">
                                                     <div class="stat-label">Total Reads</div>
                                                     <div class="stat-value">${formatNumber(lifetime.reads || 0)}</div>
                                                 </div>
@@ -1357,23 +1673,42 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="card compact-card" style="background: #fd7e14; color: white;">
-                                                <div class="card-body text-center p-2">
-                                                    <div class="stat-label">Total Views</div>
-                                                    <div class="stat-value">${formatNumber(lifetime.views || 0)}</div>
+                                                <div class="card-body text-center p-1">
+                                                    <div class="stat-label">Total Claps</div>
+                                                    <div class="stat-value">${formatNumber(lifetime.claps || 0)}</div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-4">
                                             <div class="card compact-card" style="background: #20c997; color: white;">
-                                                <div class="card-body text-center p-2">
-                                                    <div class="stat-label">Presentation Count</div>
-                                                    <div class="stat-value">${formatNumber(lifetime.presentation_count || 0)}</div>
+                                                <div class="card-body text-center p-1">
+                                                    <div class="stat-label">Total Views</div>
+                                                    <div class="stat-value">${formatNumber(lifetime.views || 0)}</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    ${(lifetime.tags && lifetime.tags.length > 0) ? `
+                                    <div class="mb-2">
+                                        <small class="text-muted">Tags:</small><br>
+                                        ${lifetime.tags.slice(0,5).map(t => `<span class="badge bg-secondary me-1">${escapeHtml(t)}</span>`).join('')}
+                                        ${lifetime.tags.length > 5 ? `<small class="text-muted">+${lifetime.tags.length-5} more</small>` : ''}
+                                    </div>
+                                    ` : ''}
+                                    <div class="row g-1 mt-1 pt-1 border-top">
+                                        <div class="col-6">
+                                            <small class="text-muted">Read Ratio:</small>
+                                            <div class="progress" style="height: 4px;">
+                                                <div class="progress-bar bg-success" style="width: ${currentMonth.read_ratio || 0}%"></div>
+                                            </div>
+                                            <small>${currentMonth.read_ratio || 0}%</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small class="text-muted">Claps/Read: ${(currentMonth.claps / (currentMonth.reads || 1)).toFixed(2)}</small>
+                                        </div>
+                                    </div>
                                     <div class="text-center mt-2 pt-1 border-top">
-                                        <small class="text-muted">Lifetime stats updated: ${new Date().toLocaleString()}</small>
+                                        <small class="text-muted">Stats updated: ${stats.last_stats_update ? stats.last_stats_update.split('T')[0] : 'Never'}</small>
                                     </div>
                                 </div>
                             `;
@@ -1387,7 +1722,7 @@
                         }, 500);
                     } else {
                         if (contentDiv) {
-                            contentDiv.innerHTML = `<div class="alert alert-danger m-2">Error: ${lifetimeData.error || 'Could not fetch lifetime stats'}</div>`;
+                            contentDiv.innerHTML = `<div class="alert alert-danger m-2">Error: ${statsData.error || 'Could not fetch stats'}</div>`;
                         }
                     }
                 } catch (error) {
@@ -1504,6 +1839,38 @@
                 }
             }
         });
+
+        async function updateLeaderboardStories() {
+    if (!confirm('Fetch current month stats ONLY for stories marked as Leaderboard?\n\nThis will update stats for leaderboard stories.')) {
+        return;
+    }
+    
+    const btn = event.target.closest('button');
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Updating...';
+    
+    setTimeout(async () => {
+        try {
+            const res = await fetch(`${API_BASE}/stories/update-leaderboard-stories`, { method: 'POST' });
+            const data = await res.json();
+            
+            if (res.ok) {
+                saveFilterState();
+                await loadView(currentView);
+                restoreFilterState();
+                alert(`${data.message}\nUpdated: ${data.results?.updated || 0}\nFailed: ${data.results?.failed || 0}`);
+            } else {
+                alert('Error: ' + (data.detail || data.error || 'Unknown error'));
+            }
+        } catch (error) {
+            alert('Error updating leaderboard stories: ' + error.message);
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }
+    }, 100);
+}
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

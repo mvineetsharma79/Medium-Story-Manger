@@ -17,6 +17,8 @@ class StoryCreate(BaseModel):
     reads: int = 0
     created_date: Optional[str] = None
     notes: Optional[str] = ""
+    medium_url: Optional[str] = None
+    medium_first_published: Optional[str] = None
 
 class StoryUpdate(BaseModel):
     name: Optional[str] = None
@@ -49,7 +51,7 @@ class StoryUpdate(BaseModel):
     medium_title: Optional[str] = None
     medium_subtitle: Optional[str] = None
     medium_author: Optional[str] = None
-    medium_publication: Optional[str] = None  # Publication field
+    medium_publication: Optional[str] = None
     last_stats_update: Optional[str] = None
     bookmarked: Optional[bool] = None
     medium_member_reads: Optional[int] = None
@@ -68,10 +70,17 @@ class StoryUpdate(BaseModel):
     
     # Lifetime stats
     lifetime_reads: Optional[int] = None
+    lifetime_claps: Optional[int] = None
     lifetime_views: Optional[int] = None
     presentation_count: Optional[int] = None
+    lifetime_tags: Optional[List[str]] = None
+    lifetime_topics: Optional[List[str]] = None
     lifetime_stats_data: Optional[Dict] = None
     lifetime_stats_updated: Optional[str] = None
+    
+    # Leaderboard
+    leaderboard: Optional[bool] = None
+    leaderboard_nanos: Optional[int] = None
 
 
 class StoryResponse(BaseModel):
@@ -109,7 +118,7 @@ class StoryResponse(BaseModel):
     medium_title: Optional[str] = None
     medium_subtitle: Optional[str] = None
     medium_author: Optional[str] = None
-    medium_publication: Optional[str] = None  # Publication field
+    medium_publication: Optional[str] = None
     last_stats_update: Optional[str] = None
     bookmarked: Optional[bool] = False
     medium_member_reads: Optional[int] = 0
@@ -128,10 +137,17 @@ class StoryResponse(BaseModel):
     
     # Lifetime stats
     lifetime_reads: Optional[int] = 0
+    lifetime_claps: Optional[int] = 0
     lifetime_views: Optional[int] = 0
     presentation_count: Optional[int] = 0
+    lifetime_tags: Optional[List[str]] = None
+    lifetime_topics: Optional[List[str]] = None
     lifetime_stats_data: Optional[Dict] = None
     lifetime_stats_updated: Optional[str] = None
+    
+    # Leaderboard
+    leaderboard: Optional[bool] = False
+    leaderboard_nanos: Optional[int] = 0
 
     class Config:
         from_attributes = True

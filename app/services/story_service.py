@@ -25,7 +25,6 @@ class StoryService:
             for story_key in series_info.get("stories", []):
                 if story_key in stories:
                     total += 1
-                    # Check status field for "Published"
                     if stories[story_key].get("status") == "Published":
                         published += 1
             series_info["total_stories"] = total
@@ -66,22 +65,12 @@ class StoryService:
                     "linkedin_timestamp": None,
                     "linkedin_impressions": 0,
                     "linkedin_url": None,
-                    "claps": 0, 
-                    "responses": 0, 
-                    "bookmarks": 0, 
-                    "view_count": 0,
-                    "read_ratio": 0, 
-                    "medium_reading_time": 0,  # Changed from None to 0
-                    "fan_count": 0,
-                    "medium_first_published": None, 
-                    "medium_last_updated": None,
-                    "medium_tags": [], 
-                    "medium_topics": [], 
-                    "word_count": 0,  # Changed from None to 0
-                    "medium_title": None, 
-                    "medium_subtitle": None,
-                    "medium_author": None, 
-                    "medium_publication": None,
+                    "claps": 0, "responses": 0, "bookmarks": 0, "view_count": 0,
+                    "read_ratio": 0, "medium_reading_time": 0, "fan_count": 0,
+                    "medium_first_published": None, "medium_last_updated": None,
+                    "medium_tags": [], "medium_topics": [], "word_count": 0,
+                    "medium_title": None, "medium_subtitle": None,
+                    "medium_author": None, "medium_publication": None,
                     "last_stats_update": None,
                     "bookmarked": False,
                     "medium_member_reads": 0,
@@ -100,10 +89,13 @@ class StoryService:
                     "lifetime_reads": 0,
                     "lifetime_claps": 0,
                     "lifetime_views": 0,
+                    "presentation_count": 0,
                     "lifetime_tags": [],
                     "lifetime_topics": [],
                     "lifetime_stats_data": None,
-                    "lifetime_stats_updated": None
+                    "lifetime_stats_updated": None,
+                    "leaderboard": False,
+                    "leaderboard_nanos": 0
                 }
                 logger.info(f"Added story: {story_key}")
 
@@ -193,7 +185,7 @@ class StoryService:
             "tags": clean_tags,
             "read_time": story_data.read_time,
             "reads": 0,
-            "medium_url": None,
+            "medium_url": story_data.medium_url,
             "notes": clean_notes,
             "linkedin_status": None,
             "linkedin_timestamp": None,
@@ -201,12 +193,36 @@ class StoryService:
             "linkedin_url": None,
             "claps": 0, "responses": 0, "bookmarks": 0, "view_count": 0,
             "read_ratio": 0, "medium_reading_time": 0, "fan_count": 0,
-            "medium_first_published": None, "medium_last_updated": None,
+            "medium_first_published": story_data.medium_first_published,
+            "medium_last_updated": None,
             "medium_tags": [], "medium_topics": [], "word_count": 0,
             "medium_title": None, "medium_subtitle": None,
             "medium_author": None, "medium_publication": None,
             "last_stats_update": None,
-            "bookmarked": False
+            "bookmarked": False,
+            "medium_member_reads": 0,
+            "medium_member_views": 0,
+            "medium_nonmember_reads": 0,
+            "medium_nonmember_views": 0,
+            "medium_total_views": 0,
+            "medium_claps": 0,
+            "medium_replies": 0,
+            "medium_highlights": 0,
+            "medium_new_followers": 0,
+            "medium_read_ratio": 0,
+            "medium_member_read_percentage": 0,
+            "medium_stats_data": None,
+            "medium_stats_updated": None,
+            "lifetime_reads": 0,
+            "lifetime_claps": 0,
+            "lifetime_views": 0,
+            "presentation_count": 0,
+            "lifetime_tags": [],
+            "lifetime_topics": [],
+            "lifetime_stats_data": None,
+            "lifetime_stats_updated": None,
+            "leaderboard": False,
+            "leaderboard_nanos": 0
         }
 
         data["stories"][story_key] = new_story
@@ -250,13 +266,10 @@ class StoryService:
         old_series = story.get("series")
         old_status = story.get("status")
         
-        # Get update dict - only include fields that were explicitly set
         update_dict = update_data.model_dump(exclude_unset=True)
         
-        # Process each field - handle None values specially for LinkedIn fields
         for field, value in update_dict.items():
             if value is not None:
-                # Handle string fields - strip whitespace
                 if isinstance(value, str):
                     story[field] = value.strip()
                 elif isinstance(value, list):
@@ -270,8 +283,6 @@ class StoryService:
                 else:
                     story[field] = value
             else:
-                # Explicitly set fields to None if they are being cleared
-                # This is for LinkedIn fields and other nullable fields
                 story[field] = None
 
         story["last_updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -324,8 +335,3 @@ class StoryService:
         
         await save_stories_data(data)
         return True
-
-    @staticmethod
-    async def _save_stories_data(data: Dict[str, Any]) -> None:
-        """Internal method to save stories data (used by series router)"""
-        await save_stories_data(data)
