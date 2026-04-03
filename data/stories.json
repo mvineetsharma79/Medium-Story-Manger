@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-04-03T14:37:01.613660",
+  "last_updated": "2026-04-03T17:04:06.393222",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl": {
       "name": "SOLID Principles: Part 2 - Single Responsibility Principl",
@@ -324,10 +324,10 @@
       "status": "Published",
       "published_date": "2026-03-23",
       "created_date": "2026-03-23",
-      "last_updated": "2026-04-03 14:30:37",
+      "last_updated": "2026-04-03 16:45:35",
       "tags": [],
       "read_time": null,
-      "reads": 14,
+      "reads": 16,
       "medium_url": "https://medium.com/@mvineetsharma/architectural-remediation-framework-eliminating-the-12-silent-killers-in-net-10-web-apis-part-1-d5b09b962edc",
       "notes": "",
       "linkedin_status": "posted",
@@ -337,7 +337,7 @@
       "claps": 0,
       "responses": 0,
       "bookmarks": 0,
-      "view_count": 20,
+      "view_count": 23,
       "read_ratio": 0.0,
       "medium_reading_time": 28,
       "fan_count": 0,
@@ -350,21 +350,21 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:30:37.583523",
+      "last_stats_update": "2026-04-03T16:45:35.487197",
       "bookmarked": false,
-      "medium_member_reads": 10,
-      "medium_member_views": 14,
-      "medium_nonmember_reads": 4,
-      "medium_nonmember_views": 6,
+      "medium_member_reads": 11,
+      "medium_member_views": 16,
+      "medium_nonmember_reads": 5,
+      "medium_nonmember_views": 7,
       "medium_total_views": 0,
       "medium_replies": 0,
       "medium_highlights": 0,
       "medium_new_followers": 0,
-      "medium_read_ratio": 70.0,
-      "medium_member_read_percentage": 71.4,
+      "medium_read_ratio": 69.6,
+      "medium_member_read_percentage": 68.8,
       "medium_stats_data": {
         "post_id": "d5b09b962edc",
-        "fetch_timestamp": "2026-04-03T14:30:37.582429",
+        "fetch_timestamp": "2026-04-03T16:45:35.486437",
         "title": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs — Part 1",
         "first_published": "2026-03-23T00:02:47.126000",
         "last_updated": "2026-03-31T08:11:23.105000",
@@ -372,24 +372,24 @@
         "word_count": 6931,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:30:37.582454"
+          "end": "2026-04-03T16:45:35.486464"
         },
         "totals": {
-          "member_reads": 10,
-          "member_views": 14,
-          "nonmember_reads": 4,
-          "nonmember_views": 6,
-          "total_reads": 14,
-          "total_views": 20,
+          "member_reads": 11,
+          "member_views": 16,
+          "nonmember_reads": 5,
+          "nonmember_views": 7,
+          "total_reads": 16,
+          "total_views": 23,
           "claps": 0,
           "replies": 0,
           "highlights": 0,
           "new_followers": 0,
-          "read_ratio": 70.0,
-          "member_read_percentage": 71.4
+          "read_ratio": 69.6,
+          "member_read_percentage": 68.8
         }
       },
-      "medium_stats_updated": "2026-04-03T14:30:37.583537",
+      "medium_stats_updated": "2026-04-03T16:45:35.487202",
       "lifetime_reads": 11,
       "lifetime_claps": 0,
       "lifetime_views": 16,
@@ -602,10 +602,10 @@
       "status": "Published",
       "published_date": "2026-03-17",
       "created_date": "2026-03-15",
-      "last_updated": "2026-04-03 14:01:28",
+      "last_updated": "2026-04-03 16:12:44",
       "tags": [],
       "read_time": null,
-      "reads": 3,
+      "reads": 4,
       "medium_url": "https://medium.com/@mvineetsharma/10-essential-microservices-architecture-patterns-a-professional-reference-architecture-with-net-13aae317b1c4",
       "notes": "",
       "linkedin_status": "posted",
@@ -615,7 +615,7 @@
       "claps": 0,
       "responses": 0,
       "bookmarks": 0,
-      "view_count": 12,
+      "view_count": 14,
       "read_ratio": 0,
       "medium_reading_time": 32,
       "fan_count": 0,
@@ -628,21 +628,21 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:01:28.734119",
+      "last_stats_update": "2026-04-03T16:12:44.115228",
       "bookmarked": false,
-      "medium_member_reads": 2,
-      "medium_member_views": 4,
+      "medium_member_reads": 3,
+      "medium_member_views": 5,
       "medium_nonmember_reads": 1,
-      "medium_nonmember_views": 8,
+      "medium_nonmember_views": 9,
       "medium_total_views": 0,
       "medium_replies": 0,
       "medium_highlights": 0,
       "medium_new_followers": 0,
-      "medium_read_ratio": 25.0,
-      "medium_member_read_percentage": 66.7,
+      "medium_read_ratio": 28.6,
+      "medium_member_read_percentage": 75.0,
       "medium_stats_data": {
         "post_id": "13aae317b1c4",
-        "fetch_timestamp": "2026-04-03T14:01:28.732610",
+        "fetch_timestamp": "2026-04-03T16:12:44.113884",
         "title": "10 Microservices Architecture Patterns: A Reference Architecture with .NET and Azure — Part 1",
         "first_published": "2026-03-17T04:44:13.018000",
         "last_updated": "2026-03-31T08:11:22.980000",
@@ -650,24 +650,24 @@
         "word_count": 8148,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:01:28.732652"
+          "end": "2026-04-03T16:12:44.113918"
         },
         "totals": {
-          "member_reads": 2,
-          "member_views": 4,
+          "member_reads": 3,
+          "member_views": 5,
           "nonmember_reads": 1,
-          "nonmember_views": 8,
-          "total_reads": 3,
-          "total_views": 12,
+          "nonmember_views": 9,
+          "total_reads": 4,
+          "total_views": 14,
           "claps": 0,
           "replies": 0,
           "highlights": 0,
           "new_followers": 0,
-          "read_ratio": 25.0,
-          "member_read_percentage": 66.7
+          "read_ratio": 28.6,
+          "member_read_percentage": 75.0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:01:28.734129",
+      "medium_stats_updated": "2026-04-03T16:12:44.116276",
       "lifetime_reads": 0,
       "lifetime_claps": 0,
       "lifetime_views": 0,
@@ -983,7 +983,7 @@
       "status": "Published",
       "published_date": "2026-03-29",
       "created_date": "2024-01-13",
-      "last_updated": "2026-04-03 14:01:34",
+      "last_updated": "2026-04-03 16:12:49",
       "tags": [
         "Dev Genius"
       ],
@@ -1011,7 +1011,7 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": "Dev Genius",
-      "last_stats_update": "2026-04-03T14:01:34.111675",
+      "last_stats_update": "2026-04-03T16:12:49.646081",
       "bookmarked": true,
       "medium_member_reads": 0,
       "medium_member_views": 0,
@@ -1025,7 +1025,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "bf15512f1bc3",
-        "fetch_timestamp": "2026-04-03T14:01:34.110970",
+        "fetch_timestamp": "2026-04-03T16:12:49.645330",
         "title": "Code Smell — Practical Guide using .Net Core Part-II",
         "first_published": "2024-01-13T06:52:12.583000",
         "last_updated": "2026-04-01T14:15:55.120000",
@@ -1033,7 +1033,7 @@
         "word_count": 1663,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:01:34.110995"
+          "end": "2026-04-03T16:12:49.645357"
         },
         "totals": {
           "member_reads": 0,
@@ -1050,7 +1050,7 @@
           "member_read_percentage": 0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:01:34.111681",
+      "medium_stats_updated": "2026-04-03T16:12:49.646086",
       "lifetime_reads": 0,
       "lifetime_claps": 0,
       "lifetime_views": 0,
@@ -1146,7 +1146,7 @@
       "status": "Published",
       "published_date": "2026-03-16",
       "created_date": "2026-03-15",
-      "last_updated": "2026-04-03 14:01:40",
+      "last_updated": "2026-04-03 16:12:55",
       "tags": [],
       "read_time": null,
       "reads": 1,
@@ -1172,7 +1172,7 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:01:40.611122",
+      "last_stats_update": "2026-04-03T16:12:55.175512",
       "bookmarked": false,
       "medium_member_reads": 0,
       "medium_member_views": 1,
@@ -1186,7 +1186,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "cb911daa7432",
-        "fetch_timestamp": "2026-04-03T14:01:40.609794",
+        "fetch_timestamp": "2026-04-03T16:12:55.174233",
         "title": "Enterprise AI Architecture Part 1: The Foundation — User Access & Data Ingestion",
         "first_published": "2026-03-16T13:30:25.537000",
         "last_updated": "2026-03-31T08:11:22.646000",
@@ -1194,7 +1194,7 @@
         "word_count": 3242,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:01:40.609830"
+          "end": "2026-04-03T16:12:55.174278"
         },
         "totals": {
           "member_reads": 0,
@@ -1211,7 +1211,7 @@
           "member_read_percentage": 0.0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:01:40.611132",
+      "medium_stats_updated": "2026-04-03T16:12:55.175522",
       "lifetime_reads": 0,
       "lifetime_claps": 0,
       "lifetime_views": 0,
@@ -1293,7 +1293,7 @@
       "status": "Published",
       "published_date": "2026-03-15",
       "created_date": "2026-03-16",
-      "last_updated": "2026-04-03 14:01:46",
+      "last_updated": "2026-04-03 16:13:00",
       "tags": [
         "Dev Genius"
       ],
@@ -1321,7 +1321,7 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:01:46.149731",
+      "last_stats_update": "2026-04-03T16:13:00.613167",
       "bookmarked": false,
       "medium_member_reads": 0,
       "medium_member_views": 0,
@@ -1335,7 +1335,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "87c1f17914a3",
-        "fetch_timestamp": "2026-04-03T14:01:46.138573",
+        "fetch_timestamp": "2026-04-03T16:13:00.611825",
         "title": "Enterprise AI Architecture: A Comprehensive Technical Blueprint — Introduction",
         "first_published": "2026-03-15T21:17:32.254000",
         "last_updated": "2026-03-23T18:11:07.449000",
@@ -1343,7 +1343,7 @@
         "word_count": 1496,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:01:46.138607"
+          "end": "2026-04-03T16:13:00.611859"
         },
         "totals": {
           "member_reads": 0,
@@ -1360,7 +1360,7 @@
           "member_read_percentage": 0.0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:01:46.149742",
+      "medium_stats_updated": "2026-04-03T16:13:00.613183",
       "lifetime_reads": 0,
       "lifetime_claps": 0,
       "lifetime_views": 0,
@@ -1520,7 +1520,7 @@
       "status": "Published",
       "published_date": "2026-03-05",
       "created_date": "2026-03-05",
-      "last_updated": "2026-04-03 14:01:51",
+      "last_updated": "2026-04-03 16:13:06",
       "tags": [
         "Dev Genius"
       ],
@@ -1548,7 +1548,7 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:01:51.669798",
+      "last_stats_update": "2026-04-03T16:13:06.131653",
       "bookmarked": false,
       "medium_member_reads": 0,
       "medium_member_views": 0,
@@ -1562,7 +1562,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "94db954e8739",
-        "fetch_timestamp": "2026-04-03T14:01:51.668659",
+        "fetch_timestamp": "2026-04-03T16:13:06.130280",
         "title": "Redefining OOPs: Beyond the Car and Animal Analogy",
         "first_published": "2026-03-05T11:02:26.390000",
         "last_updated": "2026-03-31T08:11:25.437000",
@@ -1570,7 +1570,7 @@
         "word_count": 2898,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:01:51.668694"
+          "end": "2026-04-03T16:13:06.130315"
         },
         "totals": {
           "member_reads": 0,
@@ -1587,7 +1587,7 @@
           "member_read_percentage": 0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:01:51.669807",
+      "medium_stats_updated": "2026-04-03T16:13:06.131667",
       "lifetime_reads": 3,
       "lifetime_claps": 0,
       "lifetime_views": 19,
@@ -1768,17 +1768,17 @@
       "series": "GitHub",
       "raw_path": "GitHub/GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side.md",
       "rel_path": "GitHub/GitHub%20Copilot%20in%20the%20IDE%3A%20Your%20AI%20Pair%20Programmer,%20Always%20by%20Your%20Side.md",
-      "status": "Draft",
+      "status": "Published",
       "published_date": null,
       "created_date": "2026-03-29",
-      "last_updated": "2026-03-29 08:35:13",
+      "last_updated": "2026-04-03 16:58:22",
       "tags": [],
       "read_time": null,
       "reads": 0,
-      "medium_url": null,
+      "medium_url": "https://medium.com/@mvineetsharma/github-copilot-in-the-ide-your-ai-pair-programmer-always-by-your-side-311f792a4581",
       "notes": "",
-      "linkedin_status": null,
-      "linkedin_timestamp": null,
+      "linkedin_status": "posted",
+      "linkedin_timestamp": "2026-04-03T16:19:40",
       "linkedin_impressions": 0,
       "linkedin_url": null,
       "claps": 0,
@@ -1786,19 +1786,106 @@
       "bookmarks": 0,
       "view_count": 0,
       "read_ratio": 0,
-      "medium_reading_time": 0,
+      "medium_reading_time": 15,
       "fan_count": 0,
-      "medium_first_published": null,
-      "medium_last_updated": null,
+      "medium_first_published": "2026-04-03T16:00:36.272000",
+      "medium_last_updated": "2026-04-03T16:00:37.120000",
       "medium_tags": [],
       "medium_topics": [],
-      "word_count": 0,
-      "medium_title": null,
+      "word_count": 3195,
+      "medium_title": "GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": null,
-      "bookmarked": false
+      "last_stats_update": "2026-04-03T16:58:22.485867",
+      "bookmarked": false,
+      "leaderboard": true,
+      "leaderboard_nanos": 0,
+      "medium_member_reads": 0,
+      "medium_member_views": 0,
+      "medium_nonmember_reads": 0,
+      "medium_nonmember_views": 0,
+      "medium_highlights": 0,
+      "medium_new_followers": 0,
+      "medium_read_ratio": 0.0,
+      "medium_member_read_percentage": 0.0,
+      "medium_stats_data": {
+        "post_id": "311f792a4581",
+        "fetch_timestamp": "2026-04-03T16:58:22.484509",
+        "title": "GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
+        "first_published": "2026-04-03T16:00:36.272000",
+        "last_updated": "2026-04-03T16:00:37.120000",
+        "reading_time": 15,
+        "word_count": 3195,
+        "period": {
+          "start": "2026-04-01T00:00:00",
+          "end": "2026-04-03T16:58:22.484560"
+        },
+        "totals": {
+          "member_reads": 0,
+          "member_views": 0,
+          "nonmember_reads": 0,
+          "nonmember_views": 0,
+          "total_reads": 0,
+          "total_views": 0,
+          "claps": 0,
+          "replies": 0,
+          "highlights": 0,
+          "new_followers": 0,
+          "read_ratio": 0,
+          "member_read_percentage": 0
+        },
+        "lifetime_totals": {
+          "total_reads": 0,
+          "total_views": 0,
+          "claps": 0,
+          "replies": 0,
+          "bookmarks": 0
+        },
+        "post_tags": [],
+        "post_topics": []
+      },
+      "medium_stats_updated": "2026-04-03T16:58:22.485880",
+      "lifetime_reads": 0,
+      "lifetime_claps": 0,
+      "lifetime_views": 0,
+      "lifetime_stats_data": {
+        "post_id": "311f792a4581",
+        "fetch_timestamp": "2026-04-03T16:58:22.484509",
+        "title": "GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
+        "first_published": "2026-04-03T16:00:36.272000",
+        "last_updated": "2026-04-03T16:00:37.120000",
+        "reading_time": 15,
+        "word_count": 3195,
+        "period": {
+          "start": "2026-04-01T00:00:00",
+          "end": "2026-04-03T16:58:22.484560"
+        },
+        "totals": {
+          "member_reads": 0,
+          "member_views": 0,
+          "nonmember_reads": 0,
+          "nonmember_views": 0,
+          "total_reads": 0,
+          "total_views": 0,
+          "claps": 0,
+          "replies": 0,
+          "highlights": 0,
+          "new_followers": 0,
+          "read_ratio": 0,
+          "member_read_percentage": 0
+        },
+        "lifetime_totals": {
+          "total_reads": 0,
+          "total_views": 0,
+          "claps": 0,
+          "replies": 0,
+          "bookmarks": 0
+        },
+        "post_tags": [],
+        "post_topics": []
+      },
+      "lifetime_stats_updated": "2026-04-03T16:58:22.485883"
     },
     "GitHub/GitHub Copilot in CI CD: AI-Powered Automation at Scale": {
       "name": "GitHub Copilot in CI CD: AI-Powered Automation at Scale",
@@ -1966,25 +2053,25 @@
       "status": "Published",
       "published_date": "2026-03-27",
       "created_date": "2026-03-27",
-      "last_updated": "2026-04-03 14:37:01",
+      "last_updated": "2026-04-03 16:45:46",
       "tags": [],
       "read_time": null,
-      "reads": 7,
+      "reads": 8,
       "medium_url": "https://medium.com/@mvineetsharma/github-copilot-the-ai-powered-development-ecosystem-1ff02f7934c8",
       "notes": "",
       "linkedin_status": "posted",
       "linkedin_timestamp": "2026-03-28T15:53:30",
-      "linkedin_impressions": 300,
+      "linkedin_impressions": 0,
       "linkedin_url": "https://www.linkedin.com/posts/vineet-sharma-architect_github-copilot-the-ai-powered-development-activity-7443250644917841920-c963?utm_source=share&utm_medium=member_desktop&rcm=ACoAABXg9ycBLK3Er-py9IBEWDhhntMXGRkjTJ4",
       "claps": 0,
       "responses": 0,
       "bookmarks": 0,
-      "view_count": 25,
+      "view_count": 26,
       "read_ratio": 0.0,
       "medium_reading_time": 14,
       "fan_count": 0,
       "medium_first_published": "2026-03-27T16:26:52.584000",
-      "medium_last_updated": "2026-03-31T08:11:23.212000",
+      "medium_last_updated": "2026-04-03T16:10:36.844000",
       "medium_tags": [],
       "medium_topics": [],
       "word_count": 3401,
@@ -1992,80 +2079,80 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:01:57.198765",
+      "last_stats_update": "2026-04-03T16:45:46.351379",
       "bookmarked": false,
-      "medium_member_reads": 3,
+      "medium_member_reads": 4,
       "medium_member_views": 5,
       "medium_nonmember_reads": 4,
-      "medium_nonmember_views": 20,
+      "medium_nonmember_views": 21,
       "medium_total_views": 0,
       "medium_replies": 0,
       "medium_highlights": 0,
       "medium_new_followers": 1,
-      "medium_read_ratio": 28.0,
-      "medium_member_read_percentage": 42.9,
+      "medium_read_ratio": 30.8,
+      "medium_member_read_percentage": 50.0,
       "medium_stats_data": {
         "post_id": "1ff02f7934c8",
-        "fetch_timestamp": "2026-04-03T14:01:57.197400",
+        "fetch_timestamp": "2026-04-03T16:45:46.349852",
         "title": "GitHub Copilot: The AI-Powered Development Ecosystem",
         "first_published": "2026-03-27T16:26:52.584000",
-        "last_updated": "2026-03-31T08:11:23.212000",
+        "last_updated": "2026-04-03T16:10:36.844000",
         "reading_time": 14,
         "word_count": 3401,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:01:57.197434"
+          "end": "2026-04-03T16:45:46.349914"
         },
         "totals": {
-          "member_reads": 3,
+          "member_reads": 4,
           "member_views": 5,
           "nonmember_reads": 4,
-          "nonmember_views": 20,
-          "total_reads": 7,
-          "total_views": 25,
+          "nonmember_views": 21,
+          "total_reads": 8,
+          "total_views": 26,
           "claps": 0,
           "replies": 0,
           "highlights": 0,
           "new_followers": 1,
-          "read_ratio": 28.0,
-          "member_read_percentage": 42.9
+          "read_ratio": 30.8,
+          "member_read_percentage": 50.0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:01:57.198774",
-      "lifetime_reads": 6,
+      "medium_stats_updated": "2026-04-03T16:45:46.351392",
+      "lifetime_reads": 8,
       "lifetime_claps": 0,
-      "lifetime_views": 23,
+      "lifetime_views": 26,
       "lifetime_tags": [],
       "lifetime_topics": [],
       "lifetime_stats_data": {
         "post_id": "1ff02f7934c8",
-        "fetch_timestamp": "2026-04-03T06:58:35.524419",
+        "fetch_timestamp": "2026-04-03T16:20:33.109788",
         "title": "GitHub Copilot: The AI-Powered Development Ecosystem",
         "first_published": "2026-03-27T16:26:52.584000",
-        "last_updated": "2026-03-31T08:11:23.212000",
+        "last_updated": "2026-04-03T16:10:36.844000",
         "reading_time": 14,
         "word_count": 3401,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T06:58:35.524456"
+          "end": "2026-04-03T16:20:33.109855"
         },
         "totals": {
-          "member_reads": 2,
-          "member_views": 3,
+          "member_reads": 4,
+          "member_views": 5,
           "nonmember_reads": 4,
-          "nonmember_views": 20,
-          "total_reads": 6,
-          "total_views": 23,
+          "nonmember_views": 21,
+          "total_reads": 8,
+          "total_views": 26,
           "claps": 0,
           "replies": 0,
           "highlights": 0,
-          "new_followers": 0,
-          "read_ratio": 26.1,
-          "member_read_percentage": 33.3
+          "new_followers": 1,
+          "read_ratio": 30.8,
+          "member_read_percentage": 50.0
         },
         "lifetime_totals": {
-          "total_reads": 6,
-          "total_views": 23,
+          "total_reads": 8,
+          "total_views": 26,
           "claps": 0,
           "replies": 0,
           "bookmarks": 0
@@ -2073,7 +2160,7 @@
         "post_tags": [],
         "post_topics": []
       },
-      "lifetime_stats_updated": "2026-04-03T06:58:35.525732",
+      "lifetime_stats_updated": "2026-04-03T16:20:33.111242",
       "presentation_count": 1232,
       "leaderboard": true,
       "leaderboard_nanos": 0
@@ -2283,7 +2370,7 @@
       "status": "Published",
       "published_date": "2026-03-13",
       "created_date": "2026-03-12",
-      "last_updated": "2026-04-03 14:02:02",
+      "last_updated": "2026-04-03 16:13:22",
       "tags": [],
       "read_time": null,
       "reads": 0,
@@ -2309,7 +2396,7 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:02:02.575457",
+      "last_stats_update": "2026-04-03T16:13:22.310659",
       "bookmarked": false,
       "medium_member_reads": 0,
       "medium_member_views": 0,
@@ -2323,7 +2410,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "4a95a66379bc",
-        "fetch_timestamp": "2026-04-03T14:02:02.573697",
+        "fetch_timestamp": "2026-04-03T16:13:22.309206",
         "title": "Artificial Intelligence: From Basic Concepts to Agentic Systems — Hands-On Implementation Guide",
         "first_published": "2026-03-13T14:21:14.627000",
         "last_updated": "2026-03-31T08:11:23.017000",
@@ -2331,7 +2418,7 @@
         "word_count": 4488,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:02:02.573751"
+          "end": "2026-04-03T16:13:22.309239"
         },
         "totals": {
           "member_reads": 0,
@@ -2348,7 +2435,7 @@
           "member_read_percentage": 0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:02:02.575469",
+      "medium_stats_updated": "2026-04-03T16:13:22.310674",
       "lifetime_reads": 2,
       "lifetime_views": 5,
       "presentation_count": 408,
@@ -2449,7 +2536,7 @@
       "status": "Published",
       "published_date": "2026-03-03",
       "created_date": "2026-03-03",
-      "last_updated": "2026-04-03 14:02:08",
+      "last_updated": "2026-04-03 16:13:27",
       "tags": [],
       "read_time": null,
       "reads": 0,
@@ -2475,7 +2562,7 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:02:08.053299",
+      "last_stats_update": "2026-04-03T16:13:27.944559",
       "bookmarked": false,
       "medium_member_reads": 0,
       "medium_member_views": 0,
@@ -2489,7 +2576,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "e77030c3517b",
-        "fetch_timestamp": "2026-04-03T14:02:08.051639",
+        "fetch_timestamp": "2026-04-03T16:13:27.942648",
         "title": "AI From the Top Down: How Agentic Systems, Generative Models, and Symbolic Logic Build Intelligence",
         "first_published": "2026-03-03T23:12:56.945000",
         "last_updated": "2026-03-31T08:11:22.943000",
@@ -2497,7 +2584,7 @@
         "word_count": 6155,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:02:08.051687"
+          "end": "2026-04-03T16:13:27.942708"
         },
         "totals": {
           "member_reads": 0,
@@ -2514,7 +2601,7 @@
           "member_read_percentage": 0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:02:08.053318"
+      "medium_stats_updated": "2026-04-03T16:13:27.944573"
     },
     "AI Engineering/AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security": {
       "name": "AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
@@ -2721,7 +2808,7 @@
       "status": "Published",
       "published_date": "2026-03-30",
       "created_date": "2026-03-20",
-      "last_updated": "2026-04-03 14:02:13",
+      "last_updated": "2026-04-03 16:13:33",
       "tags": [],
       "read_time": null,
       "reads": 0,
@@ -2747,7 +2834,7 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:02:13.478006",
+      "last_stats_update": "2026-04-03T16:13:33.335324",
       "bookmarked": false,
       "medium_member_reads": 0,
       "medium_member_views": 0,
@@ -2761,7 +2848,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "25b40b0130e4",
-        "fetch_timestamp": "2026-04-03T14:02:13.477328",
+        "fetch_timestamp": "2026-04-03T16:13:33.334467",
         "title": "From REST to gRPC: A Unified Architecture Across .NET 10, Node.js, and Python",
         "first_published": "2026-03-30T05:42:24.629000",
         "last_updated": "2026-04-01T13:11:40.198000",
@@ -2769,7 +2856,7 @@
         "word_count": 2647,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:02:13.477353"
+          "end": "2026-04-03T16:13:33.334494"
         },
         "totals": {
           "member_reads": 0,
@@ -2786,7 +2873,7 @@
           "member_read_percentage": 0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:02:13.478011",
+      "medium_stats_updated": "2026-04-03T16:13:33.335329",
       "leaderboard": false,
       "leaderboard_nanos": 0
     },
@@ -2800,7 +2887,7 @@
       "status": "Published",
       "published_date": "2026-03-14",
       "created_date": "2026-03-13",
-      "last_updated": "2026-04-03 14:02:18",
+      "last_updated": "2026-04-03 16:13:38",
       "tags": [],
       "read_time": null,
       "reads": 0,
@@ -2826,7 +2913,7 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:02:18.904814",
+      "last_stats_update": "2026-04-03T16:13:38.799330",
       "bookmarked": false,
       "medium_member_reads": 0,
       "medium_member_views": 0,
@@ -2840,7 +2927,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "b771c75316ba",
-        "fetch_timestamp": "2026-04-03T14:02:18.904037",
+        "fetch_timestamp": "2026-04-03T16:13:38.798024",
         "title": "The Desktop Phoenix: An Architect’s Guide to WPF in a Multi-Platform World",
         "first_published": "2026-03-14T21:31:01.479000",
         "last_updated": "2026-03-31T08:11:25.444000",
@@ -2848,7 +2935,7 @@
         "word_count": 4537,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:02:18.904064"
+          "end": "2026-04-03T16:13:38.798059"
         },
         "totals": {
           "member_reads": 0,
@@ -2865,7 +2952,7 @@
           "member_read_percentage": 0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:02:18.904819"
+      "medium_stats_updated": "2026-04-03T16:13:38.799343"
     },
     "Miscellaneous/Re-Learning .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure": {
       "name": "Re-Learning .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
@@ -2955,7 +3042,7 @@
       "status": "Published",
       "published_date": "2026-03-26",
       "created_date": "2026-03-25",
-      "last_updated": "2026-04-03 14:02:24",
+      "last_updated": "2026-04-03 16:13:44",
       "tags": [],
       "read_time": null,
       "reads": 0,
@@ -2981,7 +3068,7 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:02:24.434094",
+      "last_stats_update": "2026-04-03T16:13:44.328505",
       "bookmarked": false,
       "lifetime_reads": 0,
       "lifetime_views": 0,
@@ -3033,7 +3120,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "86a423052120",
-        "fetch_timestamp": "2026-04-03T14:02:24.433360",
+        "fetch_timestamp": "2026-04-03T16:13:44.327169",
         "title": "SQL Mechanic to Architect: CTEs, Window Functions, Query Optimization, and Scalable Patterns- Part…",
         "first_published": "2026-03-26T16:19:49.526000",
         "last_updated": "2026-03-31T08:11:25.193000",
@@ -3041,7 +3128,7 @@
         "word_count": 6753,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:02:24.433399"
+          "end": "2026-04-03T16:13:44.327202"
         },
         "totals": {
           "member_reads": 0,
@@ -3058,7 +3145,7 @@
           "member_read_percentage": 0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:02:24.434100",
+      "medium_stats_updated": "2026-04-03T16:13:44.328522",
       "lifetime_claps": 0
     },
     "SQL Mechanic to Data Architect/SQL Mechanic to Architect: Advanced Queries, SPs & Scalable Systems - The Complete Journey": {
@@ -3110,7 +3197,7 @@
       "status": "Published",
       "published_date": "2026-04-01",
       "created_date": "2026-03-29",
-      "last_updated": "2026-04-03 14:30:43",
+      "last_updated": "2026-04-03 16:45:51",
       "tags": [],
       "read_time": null,
       "reads": 4,
@@ -3136,7 +3223,7 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:30:43.057806",
+      "last_stats_update": "2026-04-03T16:45:51.873299",
       "bookmarked": false,
       "medium_member_reads": 4,
       "medium_member_views": 7,
@@ -3150,7 +3237,7 @@
       "medium_member_read_percentage": 100.0,
       "medium_stats_data": {
         "post_id": "ad29db848116",
-        "fetch_timestamp": "2026-04-03T14:30:43.056535",
+        "fetch_timestamp": "2026-04-03T16:45:51.871887",
         "title": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens — Part 1",
         "first_published": "2026-04-01T22:05:53.078000",
         "last_updated": "2026-04-02T02:11:25.539000",
@@ -3158,7 +3245,7 @@
         "word_count": 7352,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:30:43.056570"
+          "end": "2026-04-03T16:45:51.871934"
         },
         "totals": {
           "member_reads": 4,
@@ -3175,7 +3262,7 @@
           "member_read_percentage": 100.0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:30:43.057818",
+      "medium_stats_updated": "2026-04-03T16:45:51.873311",
       "lifetime_reads": 2,
       "lifetime_views": 6,
       "presentation_count": 192,
@@ -3347,7 +3434,7 @@
       "status": "Published",
       "published_date": "2026-03-24",
       "created_date": "2026-03-23",
-      "last_updated": "2026-04-03 14:30:48",
+      "last_updated": "2026-04-03 16:45:57",
       "tags": [],
       "read_time": null,
       "reads": 12,
@@ -3373,7 +3460,7 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:30:48.574425",
+      "last_stats_update": "2026-04-03T16:45:57.403152",
       "bookmarked": false,
       "medium_member_reads": 8,
       "medium_member_views": 11,
@@ -3387,7 +3474,7 @@
       "medium_member_read_percentage": 66.7,
       "medium_stats_data": {
         "post_id": "2e8708034f9d",
-        "fetch_timestamp": "2026-04-03T14:30:48.572893",
+        "fetch_timestamp": "2026-04-03T16:45:57.401796",
         "title": "ISO 8583 vs. REST APIs vs. UPI: Architecting Multi-Network Payment Systems in .NET 10",
         "first_published": "2026-03-24T20:31:04.315000",
         "last_updated": "2026-03-31T08:11:22.265000",
@@ -3395,7 +3482,7 @@
         "word_count": 9797,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:30:48.572929"
+          "end": "2026-04-03T16:45:57.401860"
         },
         "totals": {
           "member_reads": 8,
@@ -3412,7 +3499,7 @@
           "member_read_percentage": 66.7
         }
       },
-      "medium_stats_updated": "2026-04-03T14:30:48.574438",
+      "medium_stats_updated": "2026-04-03T16:45:57.403163",
       "lifetime_reads": 5,
       "lifetime_claps": 0,
       "lifetime_views": 11,
@@ -3544,7 +3631,7 @@
       "status": "Done",
       "published_date": null,
       "created_date": "2024-01-22",
-      "last_updated": "2026-04-03 14:02:40",
+      "last_updated": "2026-04-03 16:14:00",
       "tags": [],
       "read_time": null,
       "reads": 0,
@@ -3570,7 +3657,7 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:02:40.921829",
+      "last_stats_update": "2026-04-03T16:14:00.731303",
       "bookmarked": true,
       "medium_member_reads": 0,
       "medium_member_views": 0,
@@ -3584,7 +3671,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "1313b619901c",
-        "fetch_timestamp": "2026-04-03T14:02:40.920039",
+        "fetch_timestamp": "2026-04-03T16:14:00.729049",
         "title": "Encryption/Dycription explained using .Net",
         "first_published": "2024-01-22T16:26:16.621000",
         "last_updated": "2026-03-29T15:18:42.662000",
@@ -3592,7 +3679,7 @@
         "word_count": 769,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:02:40.920110"
+          "end": "2026-04-03T16:14:00.729097"
         },
         "totals": {
           "member_reads": 0,
@@ -3609,7 +3696,7 @@
           "member_read_percentage": 0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:02:40.921841"
+      "medium_stats_updated": "2026-04-03T16:14:00.731325"
     },
     "./Leveraging Redis Cache with Write-Thru and Write-Back Strategies in .NET Core": {
       "name": "Leveraging Redis Cache with Write-Thru and Write-Back Strategies in .NET Core",
@@ -3816,7 +3903,7 @@
       "status": "Published",
       "published_date": "2026-03-31",
       "created_date": "2026-03-31",
-      "last_updated": "2026-04-03 14:30:54",
+      "last_updated": "2026-04-03 16:46:02",
       "tags": [],
       "read_time": null,
       "reads": 23,
@@ -3829,7 +3916,7 @@
       "claps": 0,
       "responses": 0,
       "bookmarks": 0,
-      "view_count": 59,
+      "view_count": 61,
       "read_ratio": 0,
       "medium_reading_time": 21,
       "fan_count": 0,
@@ -3842,21 +3929,21 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": "Dev Genius",
-      "last_stats_update": "2026-04-03T14:30:54.069790",
+      "last_stats_update": "2026-04-03T16:46:02.833456",
       "bookmarked": false,
       "medium_member_reads": 16,
       "medium_member_views": 28,
       "medium_nonmember_reads": 7,
-      "medium_nonmember_views": 31,
+      "medium_nonmember_views": 33,
       "medium_total_views": 0,
       "medium_replies": 0,
       "medium_highlights": 0,
       "medium_new_followers": 1,
-      "medium_read_ratio": 39.0,
+      "medium_read_ratio": 37.7,
       "medium_member_read_percentage": 69.6,
       "medium_stats_data": {
         "post_id": "a5729bc7c74c",
-        "fetch_timestamp": "2026-04-03T14:30:54.068476",
+        "fetch_timestamp": "2026-04-03T16:46:02.831250",
         "title": "Publishing .NET 10 Apps as Container Images: A Complete Guide to 9 Deployment Approaches — Azure",
         "first_published": "2026-03-31T05:41:07.198000",
         "last_updated": "2026-03-31T07:06:03.577000",
@@ -3864,24 +3951,24 @@
         "word_count": 5132,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:30:54.068512"
+          "end": "2026-04-03T16:46:02.831320"
         },
         "totals": {
           "member_reads": 16,
           "member_views": 28,
           "nonmember_reads": 7,
-          "nonmember_views": 31,
+          "nonmember_views": 33,
           "total_reads": 23,
-          "total_views": 59,
+          "total_views": 61,
           "claps": 0,
           "replies": 0,
           "highlights": 0,
           "new_followers": 1,
-          "read_ratio": 39.0,
+          "read_ratio": 37.7,
           "member_read_percentage": 69.6
         }
       },
-      "medium_stats_updated": "2026-04-03T14:30:54.069805",
+      "medium_stats_updated": "2026-04-03T16:46:02.833477",
       "lifetime_reads": 21,
       "lifetime_claps": 0,
       "lifetime_views": 51,
@@ -6512,7 +6599,7 @@
       "status": "Published",
       "published_date": "2026-03-20",
       "created_date": "2026-03-20",
-      "last_updated": "2026-04-03 14:02:51",
+      "last_updated": "2026-04-03 16:14:11",
       "tags": [],
       "read_time": null,
       "reads": 0,
@@ -6538,7 +6625,7 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:02:51.774156",
+      "last_stats_update": "2026-04-03T16:14:11.773247",
       "bookmarked": false,
       "medium_member_reads": 0,
       "medium_member_views": 0,
@@ -6552,7 +6639,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "bf2f4de8abda",
-        "fetch_timestamp": "2026-04-03T14:02:51.772935",
+        "fetch_timestamp": "2026-04-03T16:14:11.770894",
         "title": "Modernizing the Monolith: Docker, CI/CD & Azure Cloud Deployment — Part 3",
         "first_published": "2026-03-20T13:18:46.599000",
         "last_updated": "2026-03-31T08:11:26.228000",
@@ -6560,7 +6647,7 @@
         "word_count": 4724,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:02:51.772971"
+          "end": "2026-04-03T16:14:11.770946"
         },
         "totals": {
           "member_reads": 0,
@@ -6577,7 +6664,7 @@
           "member_read_percentage": 0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:02:51.774168"
+      "medium_stats_updated": "2026-04-03T16:14:11.773268"
     },
     "Modernizing the Monolith/Modernizing the Monolith: Migration Strategy & .NET 10 Architecture — Part 1": {
       "name": "Modernizing the Monolith: Migration Strategy & .NET 10 Architecture — Part 1",
@@ -6589,7 +6676,7 @@
       "status": "Published",
       "published_date": "2026-02-25",
       "created_date": "2026-02-25",
-      "last_updated": "2026-04-03 14:30:59",
+      "last_updated": "2026-04-03 16:46:08",
       "tags": [],
       "read_time": null,
       "reads": 1,
@@ -6615,7 +6702,7 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:30:59.601741",
+      "last_stats_update": "2026-04-03T16:46:08.257733",
       "bookmarked": false,
       "medium_member_reads": 1,
       "medium_member_views": 3,
@@ -6629,7 +6716,7 @@
       "medium_member_read_percentage": 100.0,
       "medium_stats_data": {
         "post_id": "139f1dce67da",
-        "fetch_timestamp": "2026-04-03T14:30:59.599379",
+        "fetch_timestamp": "2026-04-03T16:46:08.256342",
         "title": "Modernizing the Monolith: Migration Strategy & .NET 10 Architecture — Part 1",
         "first_published": "2026-02-25T17:25:29.781000",
         "last_updated": "2026-03-26T23:10:48.427000",
@@ -6637,7 +6724,7 @@
         "word_count": 2914,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:30:59.599449"
+          "end": "2026-04-03T16:46:08.256392"
         },
         "totals": {
           "member_reads": 1,
@@ -6654,7 +6741,7 @@
           "member_read_percentage": 100.0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:30:59.601763",
+      "medium_stats_updated": "2026-04-03T16:46:08.257746",
       "leaderboard": true,
       "leaderboard_nanos": 0,
       "lifetime_reads": 1,
@@ -6708,7 +6795,7 @@
       "status": "Published",
       "published_date": "2026-03-11",
       "created_date": "2026-03-11",
-      "last_updated": "2026-04-03 14:03:02",
+      "last_updated": "2026-04-03 16:14:22",
       "tags": [],
       "read_time": null,
       "reads": 0,
@@ -6734,7 +6821,7 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:03:02.732341",
+      "last_stats_update": "2026-04-03T16:14:22.829208",
       "bookmarked": false,
       "medium_member_reads": 0,
       "medium_member_views": 0,
@@ -6748,7 +6835,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "37c103009791",
-        "fetch_timestamp": "2026-04-03T14:03:02.729692",
+        "fetch_timestamp": "2026-04-03T16:14:22.828282",
         "title": "Modernizing the Monolith: State, Async & Microservices Deep Dive — Part 2",
         "first_published": "2026-03-11T12:59:33.221000",
         "last_updated": "2026-03-31T08:11:22.412000",
@@ -6756,7 +6843,7 @@
         "word_count": 9812,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:03:02.729741"
+          "end": "2026-04-03T16:14:22.828318"
         },
         "totals": {
           "member_reads": 0,
@@ -6773,7 +6860,7 @@
           "member_read_percentage": 0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:03:02.732377"
+      "medium_stats_updated": "2026-04-03T16:14:22.829214"
     },
     "Modernizing the Monolith/Modernizing the Monolith: Kubernetes on AKS Production Guide — Part 4": {
       "name": "Modernizing the Monolith: Kubernetes on AKS Production Guide — Part 4",
@@ -6863,7 +6950,7 @@
       "status": "Published",
       "published_date": "2026-03-02",
       "created_date": "2026-03-01",
-      "last_updated": "2026-04-03 14:03:08",
+      "last_updated": "2026-04-03 16:14:28",
       "tags": [],
       "read_time": null,
       "reads": 0,
@@ -6889,7 +6976,7 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:03:08.159686",
+      "last_stats_update": "2026-04-03T16:14:28.360915",
       "bookmarked": false,
       "medium_member_reads": 0,
       "medium_member_views": 0,
@@ -6903,7 +6990,7 @@
       "medium_member_read_percentage": 0.0,
       "medium_stats_data": {
         "post_id": "bcb892c4d2f1",
-        "fetch_timestamp": "2026-04-03T14:03:08.156987",
+        "fetch_timestamp": "2026-04-03T16:14:28.358688",
         "title": "Progressive Data Loading in React: Building a High-Performance Trip Viewer",
         "first_published": "2026-03-02T03:24:52.397000",
         "last_updated": "2026-03-31T08:11:21.097000",
@@ -6911,7 +6998,7 @@
         "word_count": 2192,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:03:08.157037"
+          "end": "2026-04-03T16:14:28.358724"
         },
         "totals": {
           "member_reads": 0,
@@ -6928,7 +7015,7 @@
           "member_read_percentage": 0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:03:08.159710"
+      "medium_stats_updated": "2026-04-03T16:14:28.360931"
     },
     "./Zero to Production: .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure": {
       "name": "Zero to Production: .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
@@ -6940,7 +7027,7 @@
       "status": "Published",
       "published_date": "2026-02-26",
       "created_date": "2026-02-25",
-      "last_updated": "2026-04-03 14:03:13",
+      "last_updated": "2026-04-03 16:14:33",
       "tags": [],
       "read_time": null,
       "reads": 3,
@@ -6953,7 +7040,7 @@
       "claps": 0,
       "responses": 0,
       "bookmarks": 0,
-      "view_count": 14,
+      "view_count": 15,
       "read_ratio": 0.0,
       "medium_reading_time": 55,
       "fan_count": 0,
@@ -6966,21 +7053,21 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:03:13.583726",
+      "last_stats_update": "2026-04-03T16:14:33.693449",
       "bookmarked": false,
       "medium_member_reads": 2,
       "medium_member_views": 2,
       "medium_nonmember_reads": 1,
-      "medium_nonmember_views": 12,
+      "medium_nonmember_views": 13,
       "medium_total_views": 0,
       "medium_replies": 0,
       "medium_highlights": 0,
       "medium_new_followers": 0,
-      "medium_read_ratio": 21.4,
+      "medium_read_ratio": 20.0,
       "medium_member_read_percentage": 66.7,
       "medium_stats_data": {
         "post_id": "de5ed25bb135",
-        "fetch_timestamp": "2026-04-03T14:03:13.582343",
+        "fetch_timestamp": "2026-04-03T16:14:33.692056",
         "title": "Zero to Production: .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
         "first_published": "2026-02-26T17:36:53.162000",
         "last_updated": "2026-03-01T06:11:31.049000",
@@ -6988,24 +7075,24 @@
         "word_count": 13887,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:03:13.582386"
+          "end": "2026-04-03T16:14:33.692108"
         },
         "totals": {
           "member_reads": 2,
           "member_views": 2,
           "nonmember_reads": 1,
-          "nonmember_views": 12,
+          "nonmember_views": 13,
           "total_reads": 3,
-          "total_views": 14,
+          "total_views": 15,
           "claps": 0,
           "replies": 0,
           "highlights": 0,
           "new_followers": 0,
-          "read_ratio": 21.4,
+          "read_ratio": 20.0,
           "member_read_percentage": 66.7
         }
       },
-      "medium_stats_updated": "2026-04-03T14:03:13.583741",
+      "medium_stats_updated": "2026-04-03T16:14:33.693462",
       "lifetime_reads": 55,
       "lifetime_views": 290,
       "presentation_count": 599,
@@ -7652,7 +7739,7 @@
       "status": "Published",
       "published_date": "2026-04-01",
       "created_date": "2026-04-01",
-      "last_updated": "2026-04-03 14:17:43",
+      "last_updated": "2026-04-03 16:46:13",
       "tags": [],
       "read_time": null,
       "reads": 4,
@@ -7665,7 +7752,7 @@
       "claps": 0,
       "responses": 0,
       "bookmarks": 0,
-      "view_count": 15,
+      "view_count": 17,
       "read_ratio": 0.0,
       "medium_reading_time": 8,
       "fan_count": 0,
@@ -7678,21 +7765,21 @@
       "medium_subtitle": "",
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:17:43.956274",
+      "last_stats_update": "2026-04-03T16:46:13.685448",
       "bookmarked": false,
       "medium_member_reads": 2,
       "medium_member_views": 5,
       "medium_nonmember_reads": 2,
-      "medium_nonmember_views": 10,
+      "medium_nonmember_views": 12,
       "medium_total_views": 0,
       "medium_replies": 0,
       "medium_highlights": 0,
       "medium_new_followers": 1,
-      "medium_read_ratio": 26.7,
+      "medium_read_ratio": 23.5,
       "medium_member_read_percentage": 50.0,
       "medium_stats_data": {
         "post_id": "93b5bfa4fd07",
-        "fetch_timestamp": "2026-04-03T14:17:43.954944",
+        "fetch_timestamp": "2026-04-03T16:46:13.684137",
         "title": "AI Engineering: The 5-Step Blueprint to Building and Deploying AI Agents That Scale to Millions",
         "first_published": "2026-04-01T01:47:49.228000",
         "last_updated": "2026-04-01T03:06:34.632000",
@@ -7700,24 +7787,24 @@
         "word_count": 1754,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:17:43.954981"
+          "end": "2026-04-03T16:46:13.684194"
         },
         "totals": {
           "member_reads": 2,
           "member_views": 5,
           "nonmember_reads": 2,
-          "nonmember_views": 10,
+          "nonmember_views": 12,
           "total_reads": 4,
-          "total_views": 15,
+          "total_views": 17,
           "claps": 0,
           "replies": 0,
           "highlights": 0,
           "new_followers": 1,
-          "read_ratio": 26.7,
+          "read_ratio": 23.5,
           "member_read_percentage": 50.0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:17:43.956286",
+      "medium_stats_updated": "2026-04-03T16:46:13.685460",
       "lifetime_reads": 4,
       "lifetime_views": 13,
       "presentation_count": 291,
@@ -9722,7 +9809,7 @@
       "status": "Published",
       "published_date": "2026-05-11",
       "created_date": "2025-05-11",
-      "last_updated": "2026-04-03 14:31:10",
+      "last_updated": "2026-04-03 16:46:19",
       "tags": [],
       "read_time": null,
       "reads": 1,
@@ -9748,7 +9835,7 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:31:10.454125",
+      "last_stats_update": "2026-04-03T16:46:19.087101",
       "bookmarked": false,
       "medium_member_reads": 1,
       "medium_member_views": 1,
@@ -9762,7 +9849,7 @@
       "medium_member_read_percentage": 100.0,
       "medium_stats_data": {
         "post_id": "4921747c8c90",
-        "fetch_timestamp": "2026-04-03T14:31:10.452383",
+        "fetch_timestamp": "2026-04-03T16:46:19.085725",
         "title": "Using Microsoft Channels in .NET using Azure Function for Hi-Performence background Processing",
         "first_published": "2025-05-11T19:07:00.600000",
         "last_updated": "2026-04-01T12:40:44.895000",
@@ -9770,7 +9857,7 @@
         "word_count": 1113,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:31:10.452431"
+          "end": "2026-04-03T16:46:19.085776"
         },
         "totals": {
           "member_reads": 1,
@@ -9787,7 +9874,7 @@
           "member_read_percentage": 100.0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:31:10.454137",
+      "medium_stats_updated": "2026-04-03T16:46:19.087113",
       "leaderboard": true,
       "leaderboard_nanos": 0,
       "lifetime_reads": 1,
@@ -9841,7 +9928,7 @@
       "status": "Published",
       "published_date": "2025-02-18",
       "created_date": "2025-02-18",
-      "last_updated": "2026-04-03 14:32:40",
+      "last_updated": "2026-04-03 16:46:24",
       "tags": [],
       "read_time": null,
       "reads": 1,
@@ -9867,7 +9954,7 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:32:40.241595",
+      "last_stats_update": "2026-04-03T16:46:24.541943",
       "bookmarked": false,
       "medium_member_reads": 1,
       "medium_member_views": 3,
@@ -9881,7 +9968,7 @@
       "medium_member_read_percentage": 100.0,
       "medium_stats_data": {
         "post_id": "7221725fa264",
-        "fetch_timestamp": "2026-04-03T14:32:40.240146",
+        "fetch_timestamp": "2026-04-03T16:46:24.539132",
         "title": "Microservice Design Patterns: A Comprehensive Guide",
         "first_published": "2025-02-18T21:31:09.824000",
         "last_updated": "2026-04-01T12:45:12.152000",
@@ -9889,7 +9976,7 @@
         "word_count": 839,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:32:40.240196"
+          "end": "2026-04-03T16:46:24.539197"
         },
         "totals": {
           "member_reads": 1,
@@ -9904,18 +9991,9 @@
           "new_followers": 0,
           "read_ratio": 33.3,
           "member_read_percentage": 100.0
-        },
-        "lifetime_totals": {
-          "total_reads": 1,
-          "total_views": 3,
-          "claps": 0,
-          "replies": 0,
-          "bookmarks": 0
-        },
-        "post_tags": [],
-        "post_topics": []
+        }
       },
-      "medium_stats_updated": "2026-04-03T14:32:40.241610",
+      "medium_stats_updated": "2026-04-03T16:46:24.541987",
       "leaderboard": true,
       "leaderboard_nanos": 0,
       "lifetime_reads": 1,
@@ -9969,7 +10047,7 @@
       "status": "Published",
       "published_date": "2026-02-15",
       "created_date": "2026-02-15",
-      "last_updated": "2026-04-03 14:31:21",
+      "last_updated": "2026-04-03 16:46:29",
       "tags": [],
       "read_time": null,
       "reads": 6,
@@ -9995,7 +10073,7 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": "Dev Genius",
-      "last_stats_update": "2026-04-03T14:31:21.297696",
+      "last_stats_update": "2026-04-03T16:46:29.968411",
       "bookmarked": false,
       "medium_member_reads": 4,
       "medium_member_views": 5,
@@ -10009,7 +10087,7 @@
       "medium_member_read_percentage": 66.7,
       "medium_stats_data": {
         "post_id": "6fa47bbb8e97",
-        "fetch_timestamp": "2026-04-03T14:31:21.295177",
+        "fetch_timestamp": "2026-04-03T16:46:29.966379",
         "title": "Implementing Clean Architecture with Vertical Slice Architecture in .NET 8",
         "first_published": "2026-02-09T15:25:14.549000",
         "last_updated": "2026-02-17T21:10:44.304000",
@@ -10017,7 +10095,7 @@
         "word_count": 3545,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:31:21.295237"
+          "end": "2026-04-03T16:46:29.966427"
         },
         "totals": {
           "member_reads": 4,
@@ -10034,7 +10112,7 @@
           "member_read_percentage": 66.7
         }
       },
-      "medium_stats_updated": "2026-04-03T14:31:21.297722",
+      "medium_stats_updated": "2026-04-03T16:46:29.968432",
       "lifetime_claps": 0,
       "lifetime_views": 348,
       "lifetime_tags": [],
@@ -10062,7 +10140,7 @@
       "status": "Published",
       "published_date": "2025-01-23",
       "created_date": "2025-01-30",
-      "last_updated": "2026-04-03 14:31:26",
+      "last_updated": "2026-04-03 16:46:35",
       "tags": [],
       "read_time": null,
       "reads": 3,
@@ -10088,7 +10166,7 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:31:26.735808",
+      "last_stats_update": "2026-04-03T16:46:35.603916",
       "bookmarked": false,
       "medium_member_reads": 1,
       "medium_member_views": 1,
@@ -10102,7 +10180,7 @@
       "medium_member_read_percentage": 33.3,
       "medium_stats_data": {
         "post_id": "69128ad11caa",
-        "fetch_timestamp": "2026-04-03T14:31:26.734436",
+        "fetch_timestamp": "2026-04-03T16:46:35.600643",
         "title": "Understanding Tasks in VS Code",
         "first_published": "2025-01-30T21:26:47.525000",
         "last_updated": "2026-03-27T07:06:35.173000",
@@ -10110,7 +10188,7 @@
         "word_count": 1599,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:31:26.734484"
+          "end": "2026-04-03T16:46:35.601166"
         },
         "totals": {
           "member_reads": 1,
@@ -10127,7 +10205,7 @@
           "member_read_percentage": 33.3
         }
       },
-      "medium_stats_updated": "2026-04-03T14:31:26.735821",
+      "medium_stats_updated": "2026-04-03T16:46:35.603940",
       "leaderboard": true,
       "leaderboard_nanos": 0,
       "lifetime_reads": 3,
@@ -10181,7 +10259,7 @@
       "status": "Published",
       "published_date": "2026-03-16",
       "created_date": "2026-03-16",
-      "last_updated": "2026-04-03 14:31:32",
+      "last_updated": "2026-04-03 16:46:41",
       "tags": [],
       "read_time": null,
       "reads": 4,
@@ -10194,7 +10272,7 @@
       "claps": 0,
       "responses": 0,
       "bookmarks": 0,
-      "view_count": 13,
+      "view_count": 14,
       "read_ratio": 0,
       "medium_reading_time": 32,
       "fan_count": 0,
@@ -10207,21 +10285,21 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:31:32.218510",
+      "last_stats_update": "2026-04-03T16:46:41.027849",
       "bookmarked": false,
       "medium_member_reads": 3,
       "medium_member_views": 5,
       "medium_nonmember_reads": 1,
-      "medium_nonmember_views": 8,
+      "medium_nonmember_views": 9,
       "medium_total_views": 0,
       "medium_replies": 0,
       "medium_highlights": 0,
       "medium_new_followers": 0,
-      "medium_read_ratio": 30.8,
+      "medium_read_ratio": 28.6,
       "medium_member_read_percentage": 75.0,
       "medium_stats_data": {
         "post_id": "13aae317b1c4",
-        "fetch_timestamp": "2026-04-03T14:31:32.216349",
+        "fetch_timestamp": "2026-04-03T16:46:41.025565",
         "title": "10 Microservices Architecture Patterns: A Reference Architecture with .NET and Azure — Part 1",
         "first_published": "2026-03-17T04:44:13.018000",
         "last_updated": "2026-03-31T08:11:22.980000",
@@ -10229,24 +10307,24 @@
         "word_count": 8148,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:31:32.216410"
+          "end": "2026-04-03T16:46:41.025632"
         },
         "totals": {
           "member_reads": 3,
           "member_views": 5,
           "nonmember_reads": 1,
-          "nonmember_views": 8,
+          "nonmember_views": 9,
           "total_reads": 4,
-          "total_views": 13,
+          "total_views": 14,
           "claps": 0,
           "replies": 0,
           "highlights": 0,
           "new_followers": 0,
-          "read_ratio": 30.8,
+          "read_ratio": 28.6,
           "member_read_percentage": 75.0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:31:32.218532",
+      "medium_stats_updated": "2026-04-03T16:46:41.027872",
       "leaderboard": true,
       "leaderboard_nanos": 0,
       "lifetime_reads": 2,
@@ -10300,7 +10378,7 @@
       "status": "Published",
       "published_date": null,
       "created_date": "2026-04-02",
-      "last_updated": "2026-04-03 14:31:37",
+      "last_updated": "2026-04-03 16:46:46",
       "tags": [],
       "read_time": null,
       "reads": 1,
@@ -10326,7 +10404,7 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:31:37.691334",
+      "last_stats_update": "2026-04-03T16:46:46.505213",
       "bookmarked": false,
       "lifetime_tags": [],
       "lifetime_topics": [],
@@ -10379,7 +10457,7 @@
       "medium_member_read_percentage": 100.0,
       "medium_stats_data": {
         "post_id": "e1f7274672c4",
-        "fetch_timestamp": "2026-04-03T14:31:37.689755",
+        "fetch_timestamp": "2026-04-03T16:46:46.503711",
         "title": "Dynamic Polymorphism in .NET Core with Examples",
         "first_published": "2025-02-05T14:51:41.733000",
         "last_updated": "2026-03-25T22:11:27.252000",
@@ -10387,7 +10465,7 @@
         "word_count": 1051,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:31:37.689787"
+          "end": "2026-04-03T16:46:46.503737"
         },
         "totals": {
           "member_reads": 1,
@@ -10404,7 +10482,7 @@
           "member_read_percentage": 100.0
         }
       },
-      "medium_stats_updated": "2026-04-03T14:31:37.691351",
+      "medium_stats_updated": "2026-04-03T16:46:46.505229",
       "lifetime_reads": 1,
       "lifetime_claps": 0,
       "lifetime_views": 3,
@@ -10539,20 +10617,20 @@
       "status": "Published",
       "published_date": null,
       "created_date": "2026-04-02",
-      "last_updated": "2026-04-03 14:31:43",
+      "last_updated": "2026-04-03 16:49:59",
       "tags": [],
       "read_time": null,
-      "reads": 31,
+      "reads": 32,
       "medium_url": "https://medium.com/@mvineetsharma/asp-net-core-filters-deep-dive-building-maintainable-web-apis-with-net-10-and-reactive-extensions-78cb972195da",
       "notes": "",
-      "linkedin_status": null,
-      "linkedin_timestamp": null,
+      "linkedin_status": "posted",
+      "linkedin_timestamp": "2026-04-03T16:49:57",
       "linkedin_impressions": 0,
       "linkedin_url": null,
       "claps": 1,
       "responses": 0,
       "bookmarks": 0,
-      "view_count": 67,
+      "view_count": 70,
       "read_ratio": 0,
       "medium_reading_time": 21,
       "fan_count": 0,
@@ -10565,22 +10643,22 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-03T14:31:43.120556",
+      "last_stats_update": "2026-04-03T16:46:51.846398",
       "bookmarked": false,
       "medium_member_reads": 23,
       "medium_member_views": 42,
-      "medium_nonmember_reads": 8,
-      "medium_nonmember_views": 25,
+      "medium_nonmember_reads": 9,
+      "medium_nonmember_views": 28,
       "medium_total_views": 0,
       "medium_claps": 0,
       "medium_replies": 0,
       "medium_highlights": 0,
       "medium_new_followers": 0,
-      "medium_read_ratio": 46.3,
-      "medium_member_read_percentage": 74.2,
+      "medium_read_ratio": 45.7,
+      "medium_member_read_percentage": 71.9,
       "medium_stats_data": {
         "post_id": "78cb972195da",
-        "fetch_timestamp": "2026-04-03T14:31:43.119097",
+        "fetch_timestamp": "2026-04-03T16:46:51.844798",
         "title": "ASP.NET Core Filters Deep Dive: Building Maintainable Web APIs with .NET 10 and Reactive Extensions",
         "first_published": "2026-03-27T12:28:40.011000",
         "last_updated": "2026-03-31T08:11:27.366000",
@@ -10588,24 +10666,24 @@
         "word_count": 5262,
         "period": {
           "start": "2026-04-01T00:00:00",
-          "end": "2026-04-03T14:31:43.119148"
+          "end": "2026-04-03T16:46:51.844863"
         },
         "totals": {
           "member_reads": 23,
           "member_views": 42,
-          "nonmember_reads": 8,
-          "nonmember_views": 25,
-          "total_reads": 31,
-          "total_views": 67,
+          "nonmember_reads": 9,
+          "nonmember_views": 28,
+          "total_reads": 32,
+          "total_views": 70,
           "claps": 1,
           "replies": 0,
           "highlights": 0,
           "new_followers": 0,
-          "read_ratio": 46.3,
-          "member_read_percentage": 74.2
+          "read_ratio": 45.7,
+          "member_read_percentage": 71.9
         }
       },
-      "medium_stats_updated": "2026-04-03T14:31:43.120568",
+      "medium_stats_updated": "2026-04-03T16:46:51.846411",
       "lifetime_reads": 30,
       "lifetime_claps": 1,
       "lifetime_views": 65,
@@ -10649,6 +10727,658 @@
       },
       "lifetime_stats_updated": "2026-04-03T14:08:19.240799",
       "leaderboard": true,
+      "leaderboard_nanos": 0
+    },
+    "GitHub Copilot Mastery/GitHub Copilot Mastery: The Complete AI-Powered Development Journey": {
+      "name": "GitHub Copilot Mastery: The Complete AI-Powered Development Journey",
+      "full_name": "GitHub Copilot Mastery: The Complete AI-Powered Development Journey.md.md",
+      "folder": "GitHub Copilot Mastery",
+      "series": "GitHub Copilot Mastery",
+      "raw_path": "GitHub Copilot Mastery/GitHub Copilot Mastery: The Complete AI-Powered Development Journey.md.md",
+      "rel_path": "GitHub%20Copilot%20Mastery/GitHub%20Copilot%20Mastery%3A%20The%20Complete%20AI-Powered%20Development%20Journey.md.md",
+      "status": "Draft",
+      "published_date": null,
+      "created_date": "2026-04-03",
+      "last_updated": "2026-04-03 16:11:23",
+      "tags": [],
+      "read_time": null,
+      "reads": 0,
+      "medium_url": null,
+      "notes": "",
+      "linkedin_status": null,
+      "linkedin_timestamp": null,
+      "linkedin_impressions": 0,
+      "linkedin_url": null,
+      "claps": 0,
+      "responses": 0,
+      "bookmarks": 0,
+      "view_count": 0,
+      "read_ratio": 0,
+      "medium_reading_time": 0,
+      "fan_count": 0,
+      "medium_first_published": null,
+      "medium_last_updated": null,
+      "medium_tags": [],
+      "medium_topics": [],
+      "word_count": 0,
+      "medium_title": null,
+      "medium_subtitle": null,
+      "medium_author": null,
+      "medium_publication": null,
+      "last_stats_update": null,
+      "bookmarked": false,
+      "medium_member_reads": 0,
+      "medium_member_views": 0,
+      "medium_nonmember_reads": 0,
+      "medium_nonmember_views": 0,
+      "medium_total_views": 0,
+      "medium_claps": 0,
+      "medium_replies": 0,
+      "medium_highlights": 0,
+      "medium_new_followers": 0,
+      "medium_read_ratio": 0,
+      "medium_member_read_percentage": 0,
+      "medium_stats_data": null,
+      "medium_stats_updated": null,
+      "lifetime_reads": 0,
+      "lifetime_claps": 0,
+      "lifetime_views": 0,
+      "presentation_count": 0,
+      "lifetime_tags": [],
+      "lifetime_topics": [],
+      "lifetime_stats_data": null,
+      "lifetime_stats_updated": null,
+      "leaderboard": false,
+      "leaderboard_nanos": 0
+    },
+    "./Distinguishing Infrastructure & Domain Exceptions in .NET 10: A Clean Architecture Approach — Part 1": {
+      "name": "Distinguishing Infrastructure & Domain Exceptions in .NET 10: A Clean Architecture Approach — Part 1",
+      "full_name": "Distinguishing Infrastructure & Domain Exceptions in .NET 10: A Clean Architecture Approach — Part 1.md",
+      "folder": ".",
+      "series": "Design Patterns",
+      "raw_path": "./Distinguishing Infrastructure & Domain Exceptions in .NET 10: A Clean Architecture Approach — Part 1.md",
+      "rel_path": "Distinguishing Infrastructure & Domain Exceptions in .NET 10: A Clean Architecture Approach — Part 1",
+      "status": "Published",
+      "published_date": null,
+      "created_date": "2026-04-03",
+      "last_updated": "2026-04-03 16:52:44",
+      "tags": [],
+      "read_time": null,
+      "reads": 1,
+      "medium_url": "https://medium.com/dev-genius/distinguishing-infrastructure-exceptions-from-domain-exceptions-in-net-6b9276cf73a1",
+      "notes": "",
+      "linkedin_status": null,
+      "linkedin_timestamp": null,
+      "linkedin_impressions": 0,
+      "linkedin_url": null,
+      "claps": 0,
+      "responses": 0,
+      "bookmarks": 0,
+      "view_count": 2,
+      "read_ratio": 0,
+      "medium_reading_time": 10,
+      "fan_count": 0,
+      "medium_first_published": "2026-02-23T21:43:00.772000",
+      "medium_last_updated": "2026-03-25T22:11:23.941000",
+      "medium_tags": [],
+      "medium_topics": [],
+      "word_count": 2602,
+      "medium_title": "Distinguishing Infrastructure & Domain Exceptions in .NET - Part 1",
+      "medium_subtitle": null,
+      "medium_author": null,
+      "medium_publication": null,
+      "last_stats_update": "2026-04-03T16:52:44.800232",
+      "bookmarked": false,
+      "medium_member_reads": 1,
+      "medium_member_views": 1,
+      "medium_nonmember_reads": 0,
+      "medium_nonmember_views": 1,
+      "medium_total_views": 0,
+      "medium_claps": 0,
+      "medium_replies": 0,
+      "medium_highlights": 0,
+      "medium_new_followers": 0,
+      "medium_read_ratio": 50.0,
+      "medium_member_read_percentage": 100.0,
+      "medium_stats_data": {
+        "post_id": "6b9276cf73a1",
+        "fetch_timestamp": "2026-04-03T16:52:44.798726",
+        "title": "Distinguishing Infrastructure & Domain Exceptions in .NET - Part 1",
+        "first_published": "2026-02-23T21:43:00.772000",
+        "last_updated": "2026-03-25T22:11:23.941000",
+        "reading_time": 10,
+        "word_count": 2602,
+        "period": {
+          "start": "2026-04-01T00:00:00",
+          "end": "2026-04-03T16:52:44.798792"
+        },
+        "totals": {
+          "member_reads": 1,
+          "member_views": 1,
+          "nonmember_reads": 0,
+          "nonmember_views": 1,
+          "total_reads": 1,
+          "total_views": 2,
+          "claps": 0,
+          "replies": 0,
+          "highlights": 0,
+          "new_followers": 0,
+          "read_ratio": 50.0,
+          "member_read_percentage": 100.0
+        },
+        "lifetime_totals": {
+          "total_reads": 1,
+          "total_views": 2,
+          "claps": 0,
+          "replies": 0,
+          "bookmarks": 0
+        },
+        "post_tags": [],
+        "post_topics": []
+      },
+      "medium_stats_updated": "2026-04-03T16:52:44.800246",
+      "lifetime_reads": 1,
+      "lifetime_claps": 0,
+      "lifetime_views": 2,
+      "presentation_count": 0,
+      "lifetime_tags": [],
+      "lifetime_topics": [],
+      "lifetime_stats_data": {
+        "post_id": "6b9276cf73a1",
+        "fetch_timestamp": "2026-04-03T16:52:44.798726",
+        "title": "Distinguishing Infrastructure & Domain Exceptions in .NET - Part 1",
+        "first_published": "2026-02-23T21:43:00.772000",
+        "last_updated": "2026-03-25T22:11:23.941000",
+        "reading_time": 10,
+        "word_count": 2602,
+        "period": {
+          "start": "2026-04-01T00:00:00",
+          "end": "2026-04-03T16:52:44.798792"
+        },
+        "totals": {
+          "member_reads": 1,
+          "member_views": 1,
+          "nonmember_reads": 0,
+          "nonmember_views": 1,
+          "total_reads": 1,
+          "total_views": 2,
+          "claps": 0,
+          "replies": 0,
+          "highlights": 0,
+          "new_followers": 0,
+          "read_ratio": 50.0,
+          "member_read_percentage": 100.0
+        },
+        "lifetime_totals": {
+          "total_reads": 1,
+          "total_views": 2,
+          "claps": 0,
+          "replies": 0,
+          "bookmarks": 0
+        },
+        "post_tags": [],
+        "post_topics": []
+      },
+      "lifetime_stats_updated": "2026-04-03T16:52:44.800250",
+      "leaderboard": true,
+      "leaderboard_nanos": 0
+    },
+    "./21 AI Tools That Will Supercharge Your Productivity in 2025": {
+      "name": "21 AI Tools That Will Supercharge Your Productivity in 2025",
+      "full_name": "21 AI Tools That Will Supercharge Your Productivity in 2025.md",
+      "folder": ".",
+      "series": "AI Engineering",
+      "raw_path": "./21 AI Tools That Will Supercharge Your Productivity in 2025.md",
+      "rel_path": "21 AI Tools That Will Supercharge Your Productivity in 2025",
+      "status": "Published",
+      "published_date": null,
+      "created_date": "2026-04-03",
+      "last_updated": "2026-04-03 16:55:14",
+      "tags": [],
+      "read_time": null,
+      "reads": 1,
+      "medium_url": "https://medium.com/@mvineetsharma/21-ai-tools-that-will-supercharge-your-productivity-in-2025-392a8dd11e55",
+      "notes": "",
+      "linkedin_status": null,
+      "linkedin_timestamp": null,
+      "linkedin_impressions": 0,
+      "linkedin_url": null,
+      "claps": 0,
+      "responses": 0,
+      "bookmarks": 0,
+      "view_count": 3,
+      "read_ratio": 0,
+      "medium_reading_time": 7,
+      "fan_count": 0,
+      "medium_first_published": "2025-10-10T13:05:34.667000",
+      "medium_last_updated": "2026-02-16T05:42:25.646000",
+      "medium_tags": [],
+      "medium_topics": [],
+      "word_count": 1193,
+      "medium_title": "21 AI Tools That Will Supercharge Your Productivity in 2025",
+      "medium_subtitle": null,
+      "medium_author": null,
+      "medium_publication": null,
+      "last_stats_update": "2026-04-03T16:55:14.576420",
+      "bookmarked": false,
+      "medium_member_reads": 1,
+      "medium_member_views": 1,
+      "medium_nonmember_reads": 0,
+      "medium_nonmember_views": 2,
+      "medium_total_views": 0,
+      "medium_claps": 0,
+      "medium_replies": 0,
+      "medium_highlights": 0,
+      "medium_new_followers": 1,
+      "medium_read_ratio": 33.3,
+      "medium_member_read_percentage": 100.0,
+      "medium_stats_data": {
+        "post_id": "392a8dd11e55",
+        "fetch_timestamp": "2026-04-03T16:55:14.575033",
+        "title": "21 AI Tools That Will Supercharge Your Productivity in 2025",
+        "first_published": "2025-10-10T13:05:34.667000",
+        "last_updated": "2026-02-16T05:42:25.646000",
+        "reading_time": 7,
+        "word_count": 1193,
+        "period": {
+          "start": "2026-04-01T00:00:00",
+          "end": "2026-04-03T16:55:14.575091"
+        },
+        "totals": {
+          "member_reads": 1,
+          "member_views": 1,
+          "nonmember_reads": 0,
+          "nonmember_views": 2,
+          "total_reads": 1,
+          "total_views": 3,
+          "claps": 0,
+          "replies": 0,
+          "highlights": 0,
+          "new_followers": 1,
+          "read_ratio": 33.3,
+          "member_read_percentage": 100.0
+        },
+        "lifetime_totals": {
+          "total_reads": 1,
+          "total_views": 3,
+          "claps": 0,
+          "replies": 0,
+          "bookmarks": 0
+        },
+        "post_tags": [],
+        "post_topics": []
+      },
+      "medium_stats_updated": "2026-04-03T16:55:14.576432",
+      "lifetime_reads": 1,
+      "lifetime_claps": 0,
+      "lifetime_views": 3,
+      "presentation_count": 0,
+      "lifetime_tags": [],
+      "lifetime_topics": [],
+      "lifetime_stats_data": {
+        "post_id": "392a8dd11e55",
+        "fetch_timestamp": "2026-04-03T16:55:14.575033",
+        "title": "21 AI Tools That Will Supercharge Your Productivity in 2025",
+        "first_published": "2025-10-10T13:05:34.667000",
+        "last_updated": "2026-02-16T05:42:25.646000",
+        "reading_time": 7,
+        "word_count": 1193,
+        "period": {
+          "start": "2026-04-01T00:00:00",
+          "end": "2026-04-03T16:55:14.575091"
+        },
+        "totals": {
+          "member_reads": 1,
+          "member_views": 1,
+          "nonmember_reads": 0,
+          "nonmember_views": 2,
+          "total_reads": 1,
+          "total_views": 3,
+          "claps": 0,
+          "replies": 0,
+          "highlights": 0,
+          "new_followers": 1,
+          "read_ratio": 33.3,
+          "member_read_percentage": 100.0
+        },
+        "lifetime_totals": {
+          "total_reads": 1,
+          "total_views": 3,
+          "claps": 0,
+          "replies": 0,
+          "bookmarks": 0
+        },
+        "post_tags": [],
+        "post_topics": []
+      },
+      "lifetime_stats_updated": "2026-04-03T16:55:14.576436",
+      "leaderboard": true,
+      "leaderboard_nanos": 0
+    },
+    "./Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update": {
+      "name": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+      "full_name": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update.md",
+      "folder": ".",
+      "series": "Dotnet Python NodeJS",
+      "raw_path": "./Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update.md",
+      "rel_path": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+      "status": "Published",
+      "published_date": null,
+      "created_date": "2026-04-03",
+      "last_updated": "2026-04-03 16:57:13",
+      "tags": [],
+      "read_time": null,
+      "reads": 11,
+      "medium_url": "https://medium.com/dev-genius/tuning-connection-pools-for-a-10-000-rps-net-core-api-44ba9ef608e4",
+      "notes": "",
+      "linkedin_status": null,
+      "linkedin_timestamp": null,
+      "linkedin_impressions": 0,
+      "linkedin_url": null,
+      "claps": 0,
+      "responses": 0,
+      "bookmarks": 0,
+      "view_count": 26,
+      "read_ratio": 0,
+      "medium_reading_time": 7,
+      "fan_count": 0,
+      "medium_first_published": "2026-01-22T23:47:12.089000",
+      "medium_last_updated": "2026-02-25T15:11:04.271000",
+      "medium_tags": [],
+      "medium_topics": [],
+      "word_count": 1466,
+      "medium_title": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+      "medium_subtitle": null,
+      "medium_author": null,
+      "medium_publication": null,
+      "last_stats_update": "2026-04-03T16:57:13.015148",
+      "bookmarked": false,
+      "medium_member_reads": 5,
+      "medium_member_views": 10,
+      "medium_nonmember_reads": 6,
+      "medium_nonmember_views": 16,
+      "medium_total_views": 0,
+      "medium_claps": 0,
+      "medium_replies": 0,
+      "medium_highlights": 0,
+      "medium_new_followers": 0,
+      "medium_read_ratio": 42.3,
+      "medium_member_read_percentage": 45.5,
+      "medium_stats_data": {
+        "post_id": "44ba9ef608e4",
+        "fetch_timestamp": "2026-04-03T16:57:13.014300",
+        "title": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+        "first_published": "2026-01-22T23:47:12.089000",
+        "last_updated": "2026-02-25T15:11:04.271000",
+        "reading_time": 7,
+        "word_count": 1466,
+        "period": {
+          "start": "2026-04-01T00:00:00",
+          "end": "2026-04-03T16:57:13.014327"
+        },
+        "totals": {
+          "member_reads": 5,
+          "member_views": 10,
+          "nonmember_reads": 6,
+          "nonmember_views": 16,
+          "total_reads": 11,
+          "total_views": 26,
+          "claps": 0,
+          "replies": 0,
+          "highlights": 0,
+          "new_followers": 0,
+          "read_ratio": 42.3,
+          "member_read_percentage": 45.5
+        },
+        "lifetime_totals": {
+          "total_reads": 11,
+          "total_views": 26,
+          "claps": 0,
+          "replies": 0,
+          "bookmarks": 0
+        },
+        "post_tags": [],
+        "post_topics": []
+      },
+      "medium_stats_updated": "2026-04-03T16:57:13.015154",
+      "lifetime_reads": 11,
+      "lifetime_claps": 0,
+      "lifetime_views": 26,
+      "presentation_count": 0,
+      "lifetime_tags": [],
+      "lifetime_topics": [],
+      "lifetime_stats_data": {
+        "post_id": "44ba9ef608e4",
+        "fetch_timestamp": "2026-04-03T16:57:13.014300",
+        "title": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+        "first_published": "2026-01-22T23:47:12.089000",
+        "last_updated": "2026-02-25T15:11:04.271000",
+        "reading_time": 7,
+        "word_count": 1466,
+        "period": {
+          "start": "2026-04-01T00:00:00",
+          "end": "2026-04-03T16:57:13.014327"
+        },
+        "totals": {
+          "member_reads": 5,
+          "member_views": 10,
+          "nonmember_reads": 6,
+          "nonmember_views": 16,
+          "total_reads": 11,
+          "total_views": 26,
+          "claps": 0,
+          "replies": 0,
+          "highlights": 0,
+          "new_followers": 0,
+          "read_ratio": 42.3,
+          "member_read_percentage": 45.5
+        },
+        "lifetime_totals": {
+          "total_reads": 11,
+          "total_views": 26,
+          "claps": 0,
+          "replies": 0,
+          "bookmarks": 0
+        },
+        "post_tags": [],
+        "post_topics": []
+      },
+      "lifetime_stats_updated": "2026-04-03T16:57:13.015156",
+      "leaderboard": true,
+      "leaderboard_nanos": 0
+    },
+    "./Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update": {
+      "name": "Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+      "full_name": "Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update.md",
+      "folder": ".",
+      "series": "Dotnet Python NodeJS",
+      "raw_path": "./Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update.md",
+      "rel_path": "Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+      "status": "Published",
+      "published_date": null,
+      "created_date": "2026-04-03",
+      "last_updated": "2026-04-03 17:01:42",
+      "tags": [],
+      "read_time": null,
+      "reads": 6,
+      "medium_url": "https://medium.com/@mvineetsharma/understanding-appsettings-json-in-net-core-the-complete-guide-5f634ba7c57d",
+      "notes": "",
+      "linkedin_status": null,
+      "linkedin_timestamp": null,
+      "linkedin_impressions": 0,
+      "linkedin_url": null,
+      "claps": 0,
+      "responses": 0,
+      "bookmarks": 0,
+      "view_count": 28,
+      "read_ratio": 0,
+      "medium_reading_time": 8,
+      "fan_count": 0,
+      "medium_first_published": "2025-04-30T21:20:22.887000",
+      "medium_last_updated": "2026-02-25T14:11:01.916000",
+      "medium_tags": [],
+      "medium_topics": [],
+      "word_count": 1947,
+      "medium_title": "Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+      "medium_subtitle": null,
+      "medium_author": null,
+      "medium_publication": null,
+      "last_stats_update": "2026-04-03T17:01:42.976682",
+      "bookmarked": false,
+      "medium_member_reads": 1,
+      "medium_member_views": 3,
+      "medium_nonmember_reads": 5,
+      "medium_nonmember_views": 25,
+      "medium_total_views": 0,
+      "medium_claps": 0,
+      "medium_replies": 0,
+      "medium_highlights": 0,
+      "medium_new_followers": 0,
+      "medium_read_ratio": 21.4,
+      "medium_member_read_percentage": 16.7,
+      "medium_stats_data": {
+        "post_id": "5f634ba7c57d",
+        "fetch_timestamp": "2026-04-03T17:01:42.975949",
+        "title": "Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+        "first_published": "2025-04-30T21:20:22.887000",
+        "last_updated": "2026-02-25T14:11:01.916000",
+        "reading_time": 8,
+        "word_count": 1947,
+        "period": {
+          "start": "2026-04-01T00:00:00",
+          "end": "2026-04-03T17:01:42.975991"
+        },
+        "totals": {
+          "member_reads": 1,
+          "member_views": 3,
+          "nonmember_reads": 5,
+          "nonmember_views": 25,
+          "total_reads": 6,
+          "total_views": 28,
+          "claps": 0,
+          "replies": 0,
+          "highlights": 0,
+          "new_followers": 0,
+          "read_ratio": 21.4,
+          "member_read_percentage": 16.7
+        },
+        "lifetime_totals": {
+          "total_reads": 6,
+          "total_views": 28,
+          "claps": 0,
+          "replies": 0,
+          "bookmarks": 0
+        },
+        "post_tags": [],
+        "post_topics": []
+      },
+      "medium_stats_updated": "2026-04-03T17:01:42.976687",
+      "lifetime_reads": 6,
+      "lifetime_claps": 0,
+      "lifetime_views": 28,
+      "presentation_count": 0,
+      "lifetime_tags": [],
+      "lifetime_topics": [],
+      "lifetime_stats_data": {
+        "post_id": "5f634ba7c57d",
+        "fetch_timestamp": "2026-04-03T17:01:42.975949",
+        "title": "Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+        "first_published": "2025-04-30T21:20:22.887000",
+        "last_updated": "2026-02-25T14:11:01.916000",
+        "reading_time": 8,
+        "word_count": 1947,
+        "period": {
+          "start": "2026-04-01T00:00:00",
+          "end": "2026-04-03T17:01:42.975991"
+        },
+        "totals": {
+          "member_reads": 1,
+          "member_views": 3,
+          "nonmember_reads": 5,
+          "nonmember_views": 25,
+          "total_reads": 6,
+          "total_views": 28,
+          "claps": 0,
+          "replies": 0,
+          "highlights": 0,
+          "new_followers": 0,
+          "read_ratio": 21.4,
+          "member_read_percentage": 16.7
+        },
+        "lifetime_totals": {
+          "total_reads": 6,
+          "total_views": 28,
+          "claps": 0,
+          "replies": 0,
+          "bookmarks": 0
+        },
+        "post_tags": [],
+        "post_topics": []
+      },
+      "lifetime_stats_updated": "2026-04-03T17:01:42.976689",
+      "leaderboard": false,
+      "leaderboard_nanos": 0
+    },
+    "./Dynamic Polymorphism in NET Core with Examples": {
+      "name": "Dynamic Polymorphism in NET Core with Examples",
+      "full_name": "Dynamic Polymorphism in NET Core with Examples.md",
+      "folder": ".",
+      "series": "Dotnet Python NodeJS",
+      "raw_path": "./Dynamic Polymorphism in NET Core with Examples.md",
+      "rel_path": "Dynamic Polymorphism in NET Core with Examples",
+      "status": "Draft",
+      "published_date": null,
+      "created_date": "2026-04-03",
+      "last_updated": "2026-04-03 17:04:06",
+      "tags": [],
+      "read_time": null,
+      "reads": 0,
+      "medium_url": null,
+      "notes": "",
+      "linkedin_status": null,
+      "linkedin_timestamp": null,
+      "linkedin_impressions": 0,
+      "linkedin_url": null,
+      "claps": 0,
+      "responses": 0,
+      "bookmarks": 0,
+      "view_count": 0,
+      "read_ratio": 0,
+      "medium_reading_time": 0,
+      "fan_count": 0,
+      "medium_first_published": null,
+      "medium_last_updated": null,
+      "medium_tags": [],
+      "medium_topics": [],
+      "word_count": 0,
+      "medium_title": null,
+      "medium_subtitle": null,
+      "medium_author": null,
+      "medium_publication": null,
+      "last_stats_update": null,
+      "bookmarked": false,
+      "medium_member_reads": 0,
+      "medium_member_views": 0,
+      "medium_nonmember_reads": 0,
+      "medium_nonmember_views": 0,
+      "medium_total_views": 0,
+      "medium_claps": 0,
+      "medium_replies": 0,
+      "medium_highlights": 0,
+      "medium_new_followers": 0,
+      "medium_read_ratio": 0,
+      "medium_member_read_percentage": 0,
+      "medium_stats_data": null,
+      "medium_stats_updated": null,
+      "lifetime_reads": 0,
+      "lifetime_claps": 0,
+      "lifetime_views": 0,
+      "presentation_count": 0,
+      "lifetime_tags": [],
+      "lifetime_topics": [],
+      "lifetime_stats_data": null,
+      "lifetime_stats_updated": null,
+      "leaderboard": false,
       "leaderboard_nanos": 0
     }
   },
@@ -10734,8 +11464,8 @@
     },
     "Design Patterns": {
       "name": "Design Patterns",
-      "total_stories": 7,
-      "published": 2,
+      "total_stories": 8,
+      "published": 3,
       "spacing_days": 7,
       "stories": [
         "Design Patterns/Design Patterns: Part 1 -  Redefining Design Patterns",
@@ -10744,13 +11474,14 @@
         "Design Patterns/Design Patterns: Part 3 - Structural Patterns Deep Dive",
         "Design Patterns/The Architect's Journey: Mastering Object-Oriented Excellence",
         "Design Patterns/Design Patterns: Part 2 - Creational Patterns Deep Dive",
-        "./Microservice Design Patterns: A Comprehensive Guide"
+        "./Microservice Design Patterns: A Comprehensive Guide",
+        "./Distinguishing Infrastructure & Domain Exceptions in .NET 10: A Clean Architecture Approach — Part 1"
       ]
     },
     "GitHub": {
       "name": "GitHub",
       "total_stories": 7,
-      "published": 1,
+      "published": 2,
       "spacing_days": 7,
       "stories": [
         "GitHub/GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
@@ -10773,8 +11504,8 @@
     },
     "AI Engineering": {
       "name": "AI Engineering",
-      "total_stories": 10,
-      "published": 3,
+      "total_stories": 11,
+      "published": 4,
       "spacing_days": 7,
       "stories": [
         "AI Engineering/AI Agent Engineering - EPILOGUE: The Future of AI Agents",
@@ -10786,13 +11517,14 @@
         "AI Engineering/AI From the Top Down: How Agentic Systems, Generative Models, and Symbolic Logic Build Intelligence",
         "AI Engineering/AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
         "AI Engineering/Prompt Engineering vs Content Engineering vs RAG",
-        "AI Engineering/AI Engineering: The 5-Step Blueprint to Building and Deploying AI Agents That Scale to Millions"
+        "AI Engineering/AI Engineering: The 5-Step Blueprint to Building and Deploying AI Agents That Scale to Millions",
+        "./21 AI Tools That Will Supercharge Your Productivity in 2025"
       ]
     },
     "Dotnet Python NodeJS": {
       "name": "Dotnet Python NodeJS",
-      "total_stories": 10,
-      "published": 6,
+      "total_stories": 13,
+      "published": 8,
       "spacing_days": 7,
       "stories": [
         "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Node",
@@ -10804,7 +11536,10 @@
         "./Using Microsoft Channels in .NET using Azure Function for Hi-Performence background Processing",
         "./Understanding Tasks in VS Code",
         "./10 Microservices Architecture Patterns: A Reference Architecture with .NET 10 and Azure — Part 1",
-        "./Dynamic Polymorphism in .NET Core with Examples"
+        "./Dynamic Polymorphism in .NET Core with Examples",
+        "./Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+        "./Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+        "./Dynamic Polymorphism in NET Core with Examples"
       ]
     },
     "Miscellaneous": {
@@ -11009,7 +11744,7 @@
     },
     "GitHub Copilot Mastery": {
       "name": "GitHub Copilot Mastery",
-      "total_stories": 5,
+      "total_stories": 6,
       "published": 0,
       "spacing_days": 7,
       "stories": [
@@ -11017,7 +11752,8 @@
         "GitHub Copilot Mastery/GitHub Copilot Mastery - The Intelligence Layer",
         "GitHub Copilot Mastery/GitHub Copilot Mastery - The Advanced Workflow Engine",
         "GitHub Copilot Mastery/GitHub Copilot Mastery - The Integration Ecosystem",
-        "GitHub Copilot Mastery/GitHub Copilot Mastery - The Complete AI-Powered Development Journey"
+        "GitHub Copilot Mastery/GitHub Copilot Mastery - The Complete AI-Powered Development Journey",
+        "GitHub Copilot Mastery/GitHub Copilot Mastery: The Complete AI-Powered Development Journey"
       ]
     },
     "Claude Code Mastery": {

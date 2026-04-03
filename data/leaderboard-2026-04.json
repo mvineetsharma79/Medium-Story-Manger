@@ -1,0 +1,576 @@
+[
+    {
+        "data": {
+            "userResult": {
+                "__typename": "User",
+                "id": "6a63927f9b83",
+                "postsConnection": {
+                    "__typename": "RelayPostConnection",
+                    "edges": [
+                        {
+                            "node": {
+                                "id": "78cb972195da",
+                                "firstPublishedAt": 1774594720011,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 390000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 600000000,
+                                        "units": 1,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "ASP.NET Core Filters Deep Dive: Building Maintainable Web APIs with .NET 10 and Reactive Extensions",
+                                "readingTime": 21.256603773584903,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/asp-net-core-filters-deep-dive-building-maintainable-web-apis-with-net-10-and-reactive-extensions-78cb972195da",
+                                "sequence": null,
+                                "uniqueSlug": "asp-net-core-filters-deep-dive-building-maintainable-web-apis-with-net-10-and-reactive-extensions-78cb972195da",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "a5729bc7c74c",
+                                "firstPublishedAt": 1774915867198,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 230000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 400000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Publishing .NET 10 Apps as Container Images: A Complete Guide to 9 Deployment Approaches — Azure",
+                                "readingTime": 20.566037735849054,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/publishing-net-10-apps-as-container-images-a-complete-guide-to-9-deployment-approaches-azure-a5729bc7c74c",
+                                "sequence": null,
+                                "uniqueSlug": "publishing-net-10-apps-as-container-images-a-complete-guide-to-9-deployment-approaches-azure-a5729bc7c74c",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "ad29db848116",
+                                "firstPublishedAt": 1775061353078,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 140000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 140000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens — Part 1",
+                                "readingTime": 29.443396226415093,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/architecting-resilient-systems-20-essential-concepts-through-a-net-lens-part-1-ad29db848116",
+                                "sequence": null,
+                                "uniqueSlug": "architecting-resilient-systems-20-essential-concepts-through-a-net-lens-part-1-ad29db848116",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "6b9276cf73a1",
+                                "firstPublishedAt": 1771863180772,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 120000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 820000000,
+                                        "units": 7,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Distinguishing Infrastructure & Domain Exceptions in .NET - Part 1",
+                                "readingTime": 10.018867924528301,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "domain": "blog.devgenius.io",
+                                    "slug": "dev-genius",
+                                    "__typename": "Collection",
+                                    "name": "Dev Genius",
+                                    "avatar": {
+                                        "id": "1*CvejhRq3NYsivxILYXEdfA.jpeg",
+                                        "__typename": "ImageMetadata"
+                                    },
+                                    "description": "Coding, Tutorials, News, UX, UI and much more related to development",
+                                    "subscriberCount": 31391,
+                                    "customStyleSheet": null
+                                },
+                                "isSeries": false,
+                                "mediumUrl": "https://blog.devgenius.io/distinguishing-infrastructure-exceptions-from-domain-exceptions-in-net-6b9276cf73a1",
+                                "sequence": null,
+                                "uniqueSlug": "distinguishing-infrastructure-exceptions-from-domain-exceptions-in-net-6b9276cf73a1",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "d5b09b962edc",
+                                "firstPublishedAt": 1774204367126,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 120000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 700000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs — Part 1",
+                                "readingTime": 28.254716981132077,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/architectural-remediation-framework-eliminating-the-12-silent-killers-in-net-10-web-apis-part-1-d5b09b962edc",
+                                "sequence": null,
+                                "uniqueSlug": "architectural-remediation-framework-eliminating-the-12-silent-killers-in-net-10-web-apis-part-1-d5b09b962edc",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "4921747c8c90",
+                                "firstPublishedAt": 1746970620600,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 110000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 110000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Using Microsoft Channels in .NET using Azure Function for Hi-Performence background Processing",
+                                "readingTime": 4.75,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/using-microsoft-channels-in-net-using-azure-function-for-hi-performence-background-processing-4921747c8c90",
+                                "sequence": null,
+                                "uniqueSlug": "using-microsoft-channels-in-net-using-azure-function-for-hi-performence-background-processing-4921747c8c90",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "7221725fa264",
+                                "firstPublishedAt": 1739894469824,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 100000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 100000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Microservice Design Patterns: A Comprehensive Guide",
+                                "readingTime": 3.54937106918239,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/microservice-design-patterns-a-comprehensive-guide-7221725fa264",
+                                "sequence": null,
+                                "uniqueSlug": "microservice-design-patterns-a-comprehensive-guide-7221725fa264",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "2e8708034f9d",
+                                "firstPublishedAt": 1774364464315,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 70000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 400000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "ISO 8583 vs. REST APIs vs. UPI: Architecting Multi-Network Payment Systems in .NET 10",
+                                "readingTime": 38.369811320754714,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/iso-8583-vs-rest-apis-vs-upi-architecting-multi-network-payment-systems-in-net-10-2e8708034f9d",
+                                "sequence": null,
+                                "uniqueSlug": "iso-8583-vs-rest-apis-vs-upi-architecting-multi-network-payment-systems-in-net-10-2e8708034f9d",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "139f1dce67da",
+                                "firstPublishedAt": 1772020529781,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 70000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 520000000,
+                                        "units": 2,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Modernizing the Monolith: Migration Strategy & .NET 10 Architecture — Part 1",
+                                "readingTime": 11.379559748427672,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "domain": "blog.devgenius.io",
+                                    "slug": "dev-genius",
+                                    "__typename": "Collection",
+                                    "name": "Dev Genius",
+                                    "avatar": {
+                                        "id": "1*CvejhRq3NYsivxILYXEdfA.jpeg",
+                                        "__typename": "ImageMetadata"
+                                    },
+                                    "description": "Coding, Tutorials, News, UX, UI and much more related to development",
+                                    "subscriberCount": 31391,
+                                    "customStyleSheet": null
+                                },
+                                "isSeries": false,
+                                "mediumUrl": "https://blog.devgenius.io/modernizing-the-monolith-migration-strategy-net-10-architecture-part-1-139f1dce67da",
+                                "sequence": null,
+                                "uniqueSlug": "modernizing-the-monolith-migration-strategy-net-10-architecture-part-1-139f1dce67da",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        },
+                        {
+                            "node": {
+                                "id": "6fa47bbb8e97",
+                                "firstPublishedAt": 1770630914549,
+                                "earnings": {
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 70000000,
+                                        "units": 0,
+                                        "__typename": "Money"
+                                    },
+                                    "lifetimeEarnings": {
+                                        "currencyCode": "USD",
+                                        "nanos": 0,
+                                        "units": 1,
+                                        "__typename": "Money"
+                                    },
+                                    "__typename": "PostEarnings"
+                                },
+                                "title": "Implementing Clean Architecture with Vertical Slice Architecture in .NET 8",
+                                "readingTime": 14.877358490566039,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "firstBoostedAt": null,
+                                "creator": {
+                                    "__typename": "User",
+                                    "id": "6a63927f9b83",
+                                    "customDomainState": {
+                                        "live": {
+                                            "domain": "mvineetsharma.medium.com",
+                                            "__typename": "CustomDomain"
+                                        },
+                                        "__typename": "CustomDomainState"
+                                    },
+                                    "hasSubdomain": true,
+                                    "username": "mvineetsharma",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "membership": null,
+                                    "name": "Vineet Sharma",
+                                    "verifications": {
+                                        "isBookAuthor": false,
+                                        "__typename": "VerifiedInfo"
+                                    }
+                                },
+                                "collection": null,
+                                "isSeries": false,
+                                "mediumUrl": "https://mvineetsharma.medium.com/implementing-clean-architecture-with-vertical-slice-architecture-in-net-8-6fa47bbb8e97",
+                                "sequence": null,
+                                "uniqueSlug": "implementing-clean-architecture-with-vertical-slice-architecture-in-net-8-6fa47bbb8e97",
+                                "__typename": "Post"
+                            },
+                            "__typename": "RelayPostEdge"
+                        }
+                    ],
+                    "pageInfo": {
+                        "endCursor": "10",
+                        "hasNextPage": true,
+                        "__typename": "PageInfoV2"
+                    }
+                }
+            }
+        }
+    }
+]

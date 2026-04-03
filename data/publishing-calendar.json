@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-03T14:31:43.237148",
+  "generated": "2026-04-03T17:03:41.805680",
   "summary": {
-    "total_scheduled": 195,
+    "total_scheduled": 200,
     "stories_per_week": 3,
     "series_spacing_default": 5,
     "start_date": "2026-03-29",
@@ -12,11 +12,11 @@
       "Clean Code Practices": 7,
       "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution": 1,
       "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts": 3,
-      "Design Patterns": 5,
+      "Design Patterns": 6,
       "GitHub": 6,
       "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide": 1,
-      "AI Engineering": 7,
-      "Dotnet Python NodeJS": 5,
+      "AI Engineering": 8,
+      "Dotnet Python NodeJS": 7,
       "Miscellaneous": 4,
       "SQL Mechanic to Data Architect": 1,
       "Vehixcare": 3,
@@ -29,7 +29,7 @@
       "Modernizing the Monolith": 2,
       "Clean Architecture Anti-Pattern .Net": 8,
       "Clean Architecture Anti-Pattern Python": 8,
-      "GitHub Copilot Mastery": 5,
+      "GitHub Copilot Mastery": 6,
       "Claude Code Mastery": 5,
       "The 2026 AI Metromap": 40
     },
@@ -1459,11 +1459,38 @@
       "read_time": null
     },
     {
+      "date": "2027-03-31",
+      "weekday": "Wednesday",
+      "story_key": "GitHub Copilot Mastery/GitHub Copilot Mastery: The Complete AI-Powered Development Journey",
+      "name": "GitHub Copilot Mastery: The Complete AI-Powered Development Journey",
+      "series": "GitHub Copilot Mastery",
+      "part": null,
+      "read_time": null
+    },
+    {
       "date": "2027-04-05",
       "weekday": "Monday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Batch Norm & Dropout – The Safety Systems of Deep Learning",
       "name": "The 2026 AI Metromap: Batch Norm & Dropout – The Safety Systems of Deep Learning",
       "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-04-06",
+      "weekday": "Tuesday",
+      "story_key": "./Distinguishing Infrastructure & Domain Exceptions in .NET 10: A Clean Architecture Approach — Part 1",
+      "name": "Distinguishing Infrastructure & Domain Exceptions in .NET 10: A Clean Architecture Approach — Part 1",
+      "series": "Design Patterns",
+      "part": 1,
+      "read_time": null
+    },
+    {
+      "date": "2027-04-07",
+      "weekday": "Wednesday",
+      "story_key": "./21 AI Tools That Will Supercharge Your Productivity in 2025",
+      "name": "21 AI Tools That Will Supercharge Your Productivity in 2025",
+      "series": "AI Engineering",
       "part": null,
       "read_time": null
     },
@@ -1477,11 +1504,29 @@
       "read_time": null
     },
     {
+      "date": "2027-04-13",
+      "weekday": "Tuesday",
+      "story_key": "./Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+      "name": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+      "series": "Dotnet Python NodeJS",
+      "part": null,
+      "read_time": null
+    },
+    {
       "date": "2027-04-19",
       "weekday": "Monday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Fine-Tuning vs. In-Context Learning – When to Train vs. When to Prompt",
       "name": "The 2026 AI Metromap: Fine-Tuning vs. In-Context Learning – When to Train vs. When to Prompt",
       "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-04-20",
+      "weekday": "Tuesday",
+      "story_key": "./Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+      "name": "Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+      "series": "Dotnet Python NodeJS",
       "part": null,
       "read_time": null
     },
