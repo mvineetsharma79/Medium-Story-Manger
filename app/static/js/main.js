@@ -1,12 +1,15 @@
 // ============================================
-// Main Application
+// Main Application - Entry Point
 // ============================================
 
-const API_BASE = '/api';
+// Global variables
+window.API_BASE = '/api';
 window.currentView = 'dashboard';
 window.allStories = [];
 window.allSeries = [];
+window.currentStatsStoryKey = null;
 
+// Main load function
 async function loadView(view) {
     window.currentView = view;
     const loadingDiv = document.getElementById('loading');
@@ -24,6 +27,7 @@ async function loadView(view) {
         else if (view === 'calendar') await loadCalendar();
         else if (view === 'settings') await loadSettings();
     } catch (error) {
+        console.error('Load view error:', error);
         if (contentDiv) contentDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
     } finally {
         if (loadingDiv) loadingDiv.style.display = 'none';
@@ -49,12 +53,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Modal event handlers
-    document.getElementById('setNowLinkedinBtn')?.addEventListener('click', setNowLinkedinTimestamp);
-    document.getElementById('clearLinkedinTimestampBtn')?.addEventListener('click', clearLinkedinTimestamp);
-    document.getElementById('clearAllLinkedinBtn')?.addEventListener('click', clearAllLinkedinData);
-    document.getElementById('editStoryLinkedinStatus')?.addEventListener('change', onLinkedinStatusChange);
-    document.getElementById('saveStoryEditBtn')?.addEventListener('click', saveStoryEdit);
-    document.getElementById('refreshStatsBtn')?.addEventListener('click', () => {
+    const setNowBtn = document.getElementById('setNowLinkedinBtn');
+    const clearTimestampBtn = document.getElementById('clearLinkedinTimestampBtn');
+    const clearAllBtn = document.getElementById('clearAllLinkedinBtn');
+    const linkedinStatus = document.getElementById('editStoryLinkedinStatus');
+    const saveBtn = document.getElementById('saveStoryEditBtn');
+    const refreshStatsBtn = document.getElementById('refreshStatsBtn');
+    
+    if (setNowBtn) setNowBtn.addEventListener('click', setNowLinkedinTimestamp);
+    if (clearTimestampBtn) clearTimestampBtn.addEventListener('click', clearLinkedinTimestamp);
+    if (clearAllBtn) clearAllBtn.addEventListener('click', clearAllLinkedinData);
+    if (linkedinStatus) linkedinStatus.addEventListener('change', onLinkedinStatusChange);
+    if (saveBtn) saveBtn.addEventListener('click', saveStoryEdit);
+    if (refreshStatsBtn) refreshStatsBtn.addEventListener('click', () => {
         if (window.currentStatsStoryKey) showStatsDashboard(window.currentStatsStoryKey);
     });
 });
@@ -67,6 +78,13 @@ document.addEventListener('show.bs.modal', function(event) {
             seriesSelect.innerHTML = '<option value="">Create in root (no series)</option>' + 
                 window.allSeries.map(s => `<option value="${s.name}">📁 ${s.name}</option>`).join('');
         }
-        document.getElementById('addStoryCreatedDate').value = getTodayDate();
+        const createdDateEl = document.getElementById('addStoryCreatedDate');
+        if (createdDateEl) createdDateEl.value = getTodayDate();
     }
 });
+
+// Helper function to load all series (used by multiple views)
+async function loadAllSeries() {
+    const res = await fetch(`${window.API_BASE}/series/`);
+    window.allSeries = await res.json();
+}

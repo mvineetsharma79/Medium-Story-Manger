@@ -155,44 +155,56 @@ function renderStoryTable(stories) {
     });
     
     tbody.innerHTML = filtered.map(story => {
-        let storyKey = story.key.replace('.md', '');
+        let storyKey = story.key;
+        if (storyKey.toLowerCase().endsWith('.md')) storyKey = storyKey.slice(0, -3);
+        
         const publishDate = story.medium_first_published ? story.medium_first_published.split('T')[0] : (story.published_date || '-');
         const memberReads = story.medium_member_reads || 0;
         const totalReads = story.reads || 0;
         const memberViews = story.medium_member_views || 0;
         const totalViews = story.view_count || 0;
-        const memberReadPercent = calcMemberPercent(memberReads, totalReads);
-        const memberViewPercent = calcMemberPercent(memberViews, totalViews);
+        const memberReadPercent = totalReads > 0 ? Math.round((memberReads / totalReads) * 100) : 0;
+        const memberViewPercent = totalViews > 0 ? Math.round((memberViews / totalViews) * 100) : 0;
         const lifetimeText = `${formatNumber(story.lifetime_reads || 0)}/${formatNumber(story.lifetime_views || 0)}/${formatNumber(story.presentation_count || 0)}`;
         
         let linkedinHtml = '<span class="linkedin-badge linkedin-not-posted">Not Posted</span>';
-        if (story.linkedin_status === 'scheduled') linkedinHtml = `<span class="linkedin-badge linkedin-scheduled">📅 ${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5,10) : ''}</span>`;
-        else if (story.linkedin_status === 'posted') linkedinHtml = `<span class="linkedin-badge linkedin-posted">✅ ${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5,10) : ''}</span>`;
+        if (story.linkedin_status === 'scheduled') {
+            linkedinHtml = `<span class="linkedin-badge linkedin-scheduled">📅 ${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5,10) : ''}</span>`;
+        } else if (story.linkedin_status === 'posted') {
+            linkedinHtml = `<span class="linkedin-badge linkedin-posted">✅ ${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5,10) : ''}</span>`;
+        }
         
-        return `<tr class="table-row-clickable" onclick="editStory('${storyKey.replace(/'/g,"\\'")}')">
-            <td class="text-center" onclick="event.stopPropagation()"><i class="bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark('${storyKey.replace(/'/g,"\\'")}', event)"></i></td>
-            <td class="text-center" onclick="event.stopPropagation()"><i class="bi bi-trophy${story.leaderboard ? '-fill' : ''} leaderboard-icon ${story.leaderboard ? 'leaderboard' : ''}" onclick="toggleLeaderboard('${storyKey.replace(/'/g,"\\'")}', event)"></i></td>
+        return `<tr class="table-row-clickable" onclick="editStory('${storyKey.replace(/'/g, "\\'")}')">
+            <td class="text-center" onclick="event.stopPropagation()" style="width:35px">
+                <i class="bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}" 
+                   onclick="toggleBookmark('${storyKey.replace(/'/g, "\\'")}', event)"></i>
+            </td>
+            <td class="text-center" onclick="event.stopPropagation()" style="width:35px">
+                <i class="bi bi-trophy${story.leaderboard ? '-fill' : ''} leaderboard-icon ${story.leaderboard ? 'leaderboard' : ''}" 
+                   onclick="toggleLeaderboard('${storyKey.replace(/'/g, "\\'")}', event)"></i>
+            </td>
             <td><span class="status-badge ${story.status==='Published'?'status-published':story.status==='Ready'?'status-ready':story.status==='Done'?'status-done':'status-draft'}">${story.status}</span></td>
             <td><strong title="${escapeHtml(story.name)}">${escapeHtml(story.name.length>45?story.name.substring(0,45)+'...':story.name)}</strong></td>
             <td><small>${publishDate}</small></td>
-            <td class="stats-tooltip" title="${memberReads} of ${totalReads} reads (${memberReadPercent}% from members)">${formatNumber(memberReads)}/${formatNumber(totalReads)} - ${memberReadPercent}%</td
-            <td class="stats-tooltip" title="${memberViews} of ${totalViews} views (${memberViewPercent}% from members)">${formatNumber(memberViews)}/${formatNumber(totalViews)} - ${memberViewPercent}%</td
-            <td>${formatNumber(story.claps || 0)}</td
-            <td>${formatNumber(story.linkedin_impressions || 0)}</td
-            <td><span class="lifetime-text">${lifetimeText}</span></td
-            <td class="text-center">${linkedinHtml}</td
-            <td><small>${story.medium_publication ? escapeHtml(story.medium_publication).substring(0,15) : '-'}</small></td
+            <td class="stats-tooltip" title="${memberReads} of ${totalReads} reads (${memberReadPercent}% from members)">${formatNumber(memberReads)}/${formatNumber(totalReads)} - ${memberReadPercent}%</td>
+            <td class="stats-tooltip" title="${memberViews} of ${totalViews} views (${memberViewPercent}% from members)">${formatNumber(memberViews)}/${formatNumber(totalViews)} - ${memberViewPercent}%</td>
+            <td>${formatNumber(story.claps || 0)}</td>
+            <td>${formatNumber(story.linkedin_impressions || 0)}</td>
+            <td><span class="lifetime-text">${lifetimeText}</span></td>
+            <td class="text-center">${linkedinHtml}</td>
+            <td><small>${story.medium_publication ? escapeHtml(story.medium_publication).substring(0,15) : '-'}</small></td>
             <td class="action-buttons" onclick="event.stopPropagation()">
-                <button class="btn btn-sm btn-outline-info" onclick="event.stopPropagation(); showStatsDashboard('${storyKey.replace(/'/g,"\\'")}')" title="Stats"><i class="bi bi-graph-up"></i></button>
-                <button class="btn btn-sm btn-danger" onclick="deleteStory('${storyKey.replace(/'/g,"\\'")}')" title="Delete"><i class="bi bi-trash"></i></button>
-            </td
-         </tr`;
+                <button class="btn btn-sm btn-outline-info" onclick="event.stopPropagation(); showStatsDashboard('${storyKey.replace(/'/g, "\\'")}')" title="Stats"><i class="bi bi-graph-up"></i></button>
+                <button class="btn btn-sm btn-danger" onclick="deleteStory('${storyKey.replace(/'/g, "\\'")}')" title="Delete"><i class="bi bi-trash"></i></button>
+            </td>
+        </tr>`;
     }).join('');
 }
 
 async function toggleBookmark(storyKey, event) {
     event.stopPropagation();
-    let cleanKey = storyKey.replace('.md', '');
+    let cleanKey = storyKey;
+    if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
     const story = window.allStories.find(s => s.key === cleanKey);
     if (!story) return;
     await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, {
@@ -204,7 +216,8 @@ async function toggleBookmark(storyKey, event) {
 
 async function toggleLeaderboard(storyKey, event) {
     event.stopPropagation();
-    let cleanKey = storyKey.replace('.md', '');
+    let cleanKey = storyKey;
+    if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
     const story = window.allStories.find(s => s.key === cleanKey);
     if (!story) return;
     await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, {
@@ -216,14 +229,30 @@ async function toggleLeaderboard(storyKey, event) {
 }
 
 async function editStory(storyKey) {
-    let cleanKey = storyKey.replace('.md', '');
+    let cleanKey = storyKey;
+    if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
     const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`);
     const story = await res.json();
     
     document.getElementById('editStoryKey').value = cleanKey;
     document.getElementById('editStoryNameDisplay').textContent = story.name;
     document.getElementById('editStoryPath').textContent = story.raw_path || story.rel_path;
-    document.getElementById('editStorySeries').textContent = story.series || 'Standalone';
+    
+    // Populate series dropdown (sorted)
+    const seriesSelect = document.getElementById('editStorySeriesSelect');
+    if (seriesSelect && window.allSeries) {
+        // Sort series alphabetically
+        const sortedSeries = [...window.allSeries].sort((a, b) => a.name.localeCompare(b.name));
+        seriesSelect.innerHTML = '<option value="">None (Standalone)</option>';
+        sortedSeries.forEach(s => {
+            const option = document.createElement('option');
+            option.value = s.name;
+            option.textContent = s.name;
+            if (story.series === s.name) option.selected = true;
+            seriesSelect.appendChild(option);
+        });
+    }
+    
     document.getElementById('editStoryStatus').value = story.status || 'Draft';
     document.getElementById('editStoryPublication').value = story.medium_publication || '';
     document.getElementById('editStoryCreatedDate').value = story.created_date?.split('T')[0] || '';
@@ -234,6 +263,10 @@ async function editStory(storyKey) {
     document.getElementById('editStoryLeaderboardNanos').value = story.leaderboard_nanos || 0;
     document.getElementById('editStoryLeaderboardLifetimeNanos').value = story.leaderboard_lifetime_nanos || 0;
     
+    // Medium Publish Date - now editable, populated from JSON if available
+    const mediumPublishDate = story.medium_first_published ? story.medium_first_published.split('T')[0] : (story.published_date || '');
+    document.getElementById('editStoryMediumPublishDate').value = mediumPublishDate;
+    
     document.getElementById('editStoryLifetimeReads').innerHTML = formatNumber(story.lifetime_reads || 0);
     document.getElementById('editStoryLifetimeViews').innerHTML = formatNumber(story.lifetime_views || 0);
     document.getElementById('editStoryPresentationCount').innerHTML = formatNumber(story.presentation_count || 0);
@@ -242,8 +275,8 @@ async function editStory(storyKey) {
     const totalReads = story.reads || 0;
     const memberViews = story.medium_member_views || 0;
     const totalViews = story.view_count || 0;
-    const memberReadPercent = calcMemberPercent(memberReads, totalReads);
-    const memberViewPercent = calcMemberPercent(memberViews, totalViews);
+    const memberReadPercent = totalReads > 0 ? Math.round((memberReads / totalReads) * 100) : 0;
+    const memberViewPercent = totalViews > 0 ? Math.round((memberViews / totalViews) * 100) : 0;
     const readRatio = totalViews > 0 ? Math.round((totalReads / totalViews) * 100) : 0;
     
     document.getElementById('editStoryMemberReads').innerHTML = `${formatNumber(memberReads)}/${formatNumber(totalReads)} - ${memberReadPercent}%`;
@@ -266,16 +299,23 @@ async function editStory(storyKey) {
 async function saveStoryEdit() {
     let storyKey = document.getElementById('editStoryKey')?.value;
     if (!storyKey) return;
-    storyKey = storyKey.replace('.md', '');
+    if (storyKey.toLowerCase().endsWith('.md')) storyKey = storyKey.slice(0, -3);
+    
+    // Get selected series from dropdown
+    const seriesSelect = document.getElementById('editStorySeriesSelect');
+    const selectedSeries = seriesSelect ? seriesSelect.value : null;
     
     const data = {
         status: document.getElementById('editStoryStatus')?.value || 'Draft',
+        series: selectedSeries || null,  // Update series from dropdown
         read_time: parseInt(document.getElementById('editStoryReadTime')?.value) || null,
         tags: document.getElementById('editStoryTags')?.value.split(',').map(t=>t.trim()).filter(t=>t) || [],
         medium_url: document.getElementById('editStoryMediumUrl')?.value || null,
         notes: document.getElementById('editStoryNotes')?.value || '',
         created_date: document.getElementById('editStoryCreatedDate')?.value || null,
         medium_publication: document.getElementById('editStoryPublication')?.value || null,
+        medium_first_published: document.getElementById('editStoryMediumPublishDate')?.value || null,
+        published_date: document.getElementById('editStoryMediumPublishDate')?.value || null,
         linkedin_status: document.getElementById('editStoryLinkedinStatus')?.value || null,
         linkedin_timestamp: document.getElementById('editStoryLinkedinTimestamp')?.value || null,
         linkedin_impressions: parseInt(document.getElementById('editStoryLinkedinImpressions')?.value) || 0,
@@ -285,15 +325,24 @@ async function saveStoryEdit() {
         leaderboard_lifetime_nanos: parseInt(document.getElementById('editStoryLeaderboardLifetimeNanos')?.value) || 0
     };
     
-    const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(storyKey)}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
+    const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(storyKey)}`, { 
+        method: 'PUT', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify(data) 
+    });
+    
     if (res.ok) {
         bootstrap.Modal.getInstance(document.getElementById('editStoryModal')).hide();
+        // Refresh the series list and current view
+        await loadAllSeries();
         await loadView(window.currentView);
         updateLeaderboardTotal();
     } else {
-        alert('Error saving story');
+        const error = await res.json();
+        alert('Error saving story: ' + (error.detail || 'Unknown error'));
     }
 }
+
 
 async function createNewStory() {
     const name = document.getElementById('addStoryName')?.value;
@@ -318,7 +367,9 @@ async function createNewStory() {
 
 async function deleteStory(storyKey) {
     if (confirm('Delete this story?')) {
-        await fetch(`${API_BASE}/stories/${encodeURIComponent(storyKey.replace('.md',''))}`, { method:'DELETE' });
+        let cleanKey = storyKey;
+        if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
+        await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, { method:'DELETE' });
         await loadView(window.currentView);
     }
 }

@@ -12,7 +12,11 @@
                         <div class="col-12">
                             <div class="info-row d-flex justify-content-between flex-wrap">
                                 <span><i class="bi bi-file-text"></i> <strong>File:</strong> <span id="editStoryPath" style="font-family: monospace;"></span></span>
-                                <span><i class="bi bi-folder"></i> <strong>Series:</strong> <span id="editStorySeries"></span></span>
+                                <span><i class="bi bi-folder"></i> <strong>Series:</strong> 
+                                    <select class="form-select form-select-sm d-inline-block w-auto" id="editStorySeriesSelect" style="width: auto; display: inline-block;">
+                                        <option value="">None</option>
+                                    </select>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -31,7 +35,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Medium Publish Date</label>
-                                <input type="date" class="form-control form-control-sm" id="editStoryMediumPublishDate" readonly disabled>
+                                <input type="date" class="form-control form-control-sm" id="editStoryMediumPublishDate">
                             </div>
                         </div>
                         <div class="col-md-4">

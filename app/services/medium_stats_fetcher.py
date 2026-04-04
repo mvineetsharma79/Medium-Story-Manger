@@ -419,7 +419,8 @@ class MediumStatsFetcher:
             'fetch_timestamp': datetime.now().isoformat(),
             'lifetime_reads': 0,
             'lifetime_views': 0,
-            'presentation_count': 0
+            'presentation_count': 0,
+            'feed_click_through_rate': 0
         }
         
         if isinstance(data, list) and len(data) > 0:
@@ -428,12 +429,15 @@ class MediumStatsFetcher:
             if 'data' in response_item:
                 bundle_data = response_item.get('data', {}).get('postStatsTotalBundle', {})
                 if bundle_data:
+                    # These are the REAL lifetime values from the API
                     result['lifetime_reads'] = bundle_data.get('readersCount', 0)
                     result['lifetime_views'] = bundle_data.get('viewersCount', 0)
                     result['presentation_count'] = bundle_data.get('presentationCount', 0)
+                    result['feed_click_through_rate'] = bundle_data.get('feedClickThroughRate', 0)
+                    logger.info(f"Parsed lifetime: reads={result['lifetime_reads']}, views={result['lifetime_views']}, presentations={result['presentation_count']}")
         
-        return result
-    
+        return result   
+     
     async def fetch_current_month_stats(self, medium_url: str) -> Optional[Dict[str, Any]]:
         """Fetch current month stats using the working GraphQL API"""
         if not self.is_authenticated():
@@ -511,7 +515,7 @@ class MediumStatsFetcher:
             return None
     
     async def fetch_complete_stats(self, medium_url: str) -> Optional[Dict[str, Any]]:
-        """Fetch complete stats (current month + lifetime totals + metadata) in one call"""
+        """Fetch complete stats (current month + lifetime totals + metadata)"""
         if not self.is_authenticated():
             logger.warning("Not authenticated. Cannot fetch stats.")
             return None
@@ -528,65 +532,60 @@ class MediumStatsFetcher:
             session.cookies.set(name, value, domain=".medium.com", path="/")
         
         url = "https://medium.com/_/graphql"
-        payload = self._get_current_month_payload(post_id)
-        headers = self._get_headers_for_current_month(post_id)
+        
+        # 1. Fetch CURRENT MONTH stats
+        current_payload = self._get_current_month_payload(post_id)
+        current_headers = self._get_headers_for_current_month(post_id)
         
         time.sleep(2)
         
-        try:
-            response = session.post(url, headers=headers, json=payload, timeout=30)
-            
-            if response.status_code == 200:
-                data = response.json()
-                logger.info(f"✅ Successfully fetched complete stats for {post_id}")
-                
-                # Parse current month stats
-                parsed = self._parse_current_month_response(data, post_id)
-                
-                # Get lifetime totals and metadata from the same response
-                if isinstance(data, list) and len(data) > 0:
-                    stats_data = data[0].get('data', {})
-                    post_obj = stats_data.get('post', {})
-                    
-                    # Try to get distribution data for lifetime totals
-                    distribution = post_obj.get('distribution', {})
-                    if distribution:
-                        parsed['lifetime_totals'] = {
-                            'total_reads': distribution.get('totalReadCount', 0),
-                            'total_views': distribution.get('totalViewCount', 0),
-                            'claps': distribution.get('totalClapCount', 0),
-                            'replies': distribution.get('totalResponseCount', 0),
-                            'bookmarks': distribution.get('totalBookmarkCount', 0)
-                        }
-                    else:
-                        parsed['lifetime_totals'] = {
-                            'total_reads': parsed.get('totals', {}).get('total_reads', 0),
-                            'total_views': parsed.get('totals', {}).get('total_views', 0),
-                            'claps': parsed.get('totals', {}).get('claps', 0),
-                            'replies': parsed.get('totals', {}).get('replies', 0),
-                            'bookmarks': 0
-                        }
-                    
-                    # Extract tags and topics
-                    tags = post_obj.get('tags', [])
-                    parsed['post_tags'] = [tag.get('name') for tag in tags if tag.get('name')] if tags else []
-                    topics = post_obj.get('topics', [])
-                    parsed['post_topics'] = [topic.get('name') for topic in topics if topic.get('name')] if topics else []
-                else:
-                    parsed['lifetime_totals'] = {'total_reads': 0, 'total_views': 0, 'claps': 0, 'replies': 0, 'bookmarks': 0}
-                    parsed['post_tags'] = []
-                    parsed['post_topics'] = []
-                
-                return parsed
-            else:
-                logger.error(f"❌ Failed to fetch complete stats: HTTP {response.status_code}")
-                return None
-                
-        except Exception as e:
-            logger.error(f"❌ Error fetching complete stats: {e}")
-            import traceback
-            traceback.print_exc()
+        current_response = session.post(url, headers=current_headers, json=current_payload, timeout=30)
+        
+        if current_response.status_code != 200:
+            logger.error(f"Failed to fetch current month stats: HTTP {current_response.status_code}")
             return None
+        
+        current_data = current_response.json()
+        
+        # Parse current month stats
+        result = self._parse_current_month_response(current_data, post_id)
+        
+        # 2. Fetch LIFETIME stats (separate API call)
+        lifetime_payload = self._get_lifetime_payload(post_id)
+        lifetime_headers = self._get_headers_for_lifetime(post_id)
+        
+        time.sleep(1)
+        
+        lifetime_response = session.post(url, headers=lifetime_headers, json=lifetime_payload, timeout=30)
+        
+        if lifetime_response.status_code == 200:
+            lifetime_data = lifetime_response.json()
+            
+            # Parse lifetime response to get readersCount and viewersCount
+            if isinstance(lifetime_data, list) and len(lifetime_data) > 0:
+                data_obj = lifetime_data[0].get('data', {})
+                bundle_data = data_obj.get('postStatsTotalBundle', {})
+                
+                if bundle_data:
+                    # This is where we get the REAL lifetime stats from API
+                    result['lifetime_totals'] = {
+                        'total_reads': bundle_data.get('readersCount', 0),      # ← readersCount
+                        'total_views': bundle_data.get('viewersCount', 0),      # ← viewersCount
+                        'presentation_count': bundle_data.get('presentationCount', 0),  # ← presentationCount
+                        'claps': 0,  # Lifetime claps not available in this query
+                    }
+                    result['feed_click_through_rate'] = bundle_data.get('feedClickThroughRate', 0)
+                    
+                    logger.info(f"✅ Lifetime stats from API - reads: {bundle_data.get('readersCount', 0)}, views: {bundle_data.get('viewersCount', 0)}, presentations: {bundle_data.get('presentationCount', 0)}")
+                else:
+                    result['lifetime_totals'] = {'total_reads': 0, 'total_views': 0, 'presentation_count': 0, 'claps': 0}
+            else:
+                result['lifetime_totals'] = {'total_reads': 0, 'total_views': 0, 'presentation_count': 0, 'claps': 0}
+        else:
+            logger.warning(f"Failed to fetch lifetime stats: HTTP {lifetime_response.status_code}")
+            result['lifetime_totals'] = {'total_reads': 0, 'total_views': 0, 'presentation_count': 0, 'claps': 0}
+        
+        return result
     #===================
     async def fetch_leaderboard_earnings(self) -> Optional[List[Dict[str, Any]]]:
         """Fetch monthly earnings for leaderboard"""

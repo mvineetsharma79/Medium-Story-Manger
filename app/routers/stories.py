@@ -262,6 +262,37 @@ async def find_story(search: str):
         logger.error(f"Find story error: {e}")
         return {"error": str(e)}
 
+@router.get("/debug/test-lifetime")
+async def debug_test_lifetime():
+    """Test lifetime API with a known post ID"""
+    try:
+        from app.services.medium_stats_fetcher import MediumStatsFetcher
+        import requests
+        
+        fetcher = MediumStatsFetcher()
+        if not fetcher.is_authenticated():
+            return {"error": "Not authenticated"}
+        
+        # Use a known post ID from your JSON file
+        post_id = "78cb972195da"  # This is from your leaderboard JSON
+        
+        session = requests.Session()
+        for name, value in fetcher.cookies.items():
+            session.cookies.set(name, value, domain=".medium.com", path="/")
+        
+        url = "https://medium.com/_/graphql"
+        payload = fetcher._get_lifetime_payload(post_id)
+        headers = fetcher._get_headers_for_lifetime(post_id)
+        
+        response = session.post(url, headers=headers, json=payload, timeout=30)
+        
+        return {
+            "post_id": post_id,
+            "status_code": response.status_code,
+            "raw_response": response.json() if response.status_code == 200 else None
+        }
+    except Exception as e:
+        return {"error": str(e)}
 
 @router.get("/leaderboard-files")
 async def list_leaderboard_files():
@@ -629,7 +660,41 @@ async def fetch_leaderboard_for_month(request: Request):
         earnings_list = list(unique_earnings.values())
         logger.info(f"Total unique stories after deduplication: {len(earnings_list)}")
         
+        # Get all existing stories
         all_stories = await StoryService.get_all_stories()
+        logger.info(f"Found {len(all_stories)} existing stories in database")
+        
+        def normalize_title(title: str) -> str:
+            """Simple normalization: lowercase, replace all dashes with hyphen, collapse spaces"""
+            if not title:
+                return ""
+            
+            # Convert to lowercase
+            normalized = title.lower().strip()
+            
+            # Remove .md extension if present
+            if normalized.endswith('.md'):
+                normalized = normalized[:-3]
+            
+            # Replace all types of dashes/em-dash/en-dash with standard hyphen
+            import re
+            normalized = re.sub(r'[—–‐‑‒−]', '-', normalized)
+            
+            # Replace all types of spaces with single space
+            normalized = re.sub(r'\s+', ' ', normalized)
+            
+            # Trim
+            return normalized.strip()
+        
+        # Create a map of existing stories by normalized title
+        story_map = {}
+        for story in all_stories:
+            if story.name:
+                normalized = normalize_title(story.name)
+                story_map[normalized] = story
+                logger.info(f"  DB: \"{story.name}\" -> \"{normalized}\"")
+        
+        # Reset leaderboard flags
         reset_count = 0
         for story in all_stories:
             if story.leaderboard:
@@ -640,12 +705,6 @@ async def fetch_leaderboard_for_month(request: Request):
                 ))
                 reset_count += 1
         logger.info(f"Reset leaderboard flags for {reset_count} stories")
-        
-        story_map = {}
-        for story in all_stories:
-            if story.medium_url:
-                normalized_url = story.medium_url.rstrip('/')
-                story_map[normalized_url] = story
         
         updated_count = 0
         added_count = 0
@@ -678,12 +737,15 @@ async def fetch_leaderboard_for_month(request: Request):
             if not medium_url or not title:
                 continue
             
-            normalized_url = medium_url.rstrip('/')
-            existing_story = story_map.get(normalized_url)
+            # Normalize JSON title
+            normalized_json_title = normalize_title(title)
+            logger.info(f"  JSON: \"{title}\" -> \"{normalized_json_title}\"")
+            
+            # Match by normalized title
+            existing_story = story_map.get(normalized_json_title)
             
             reading_time_int = int(round(reading_time)) if reading_time else 0
             
-            # Format publish date from JSON for existing stories
             publish_date = None
             if first_published_at:
                 try:
@@ -694,14 +756,14 @@ async def fetch_leaderboard_for_month(request: Request):
                 publish_date = datetime.now().strftime("%Y-%m-%d")
             
             if existing_story:
-                # Update existing story with ALL data from JSON
-                # IMPORTANT: Do NOT change the series - keep original series
+                # Update existing story - do NOT change series
                 update_data = StoryUpdate(
                     leaderboard=True,
                     leaderboard_nanos=nanos,
                     leaderboard_lifetime_nanos=lifetime_nanos,
                     status="Published",
                     published_date=publish_date,
+                    medium_url=medium_url,
                     medium_title=title,
                     medium_subtitle=subtitle,
                     medium_author=author,
@@ -719,19 +781,19 @@ async def fetch_leaderboard_for_month(request: Request):
                 
                 await StoryService.update_story(existing_story.key, update_data)
                 updated_count += 1
-                logger.info(f"✅ UPDATED: \"{title}\" - Series: \"{existing_story.series}\" (unchanged)")
+                logger.info(f"  ✅ UPDATED: Series \"{existing_story.series}\" (KEPT)")
             else:
-                # Create new story with ALL data from JSON
-                # For new stories: folder = "Leaderboard", created_date = current date
+                # Create NEW story - goes to "Leaderboard" series
                 current_date = datetime.now().strftime("%Y-%m-%d")
+                safe_title = title[:200]
                 
                 new_story = await StoryService.create_story(StoryCreate(
-                    name=title[:200],
+                    name=safe_title,
                     folder="Leaderboard",
                     series="Leaderboard",
                     tags=tags[:10] if tags else [],
                     read_time=reading_time_int if reading_time_int > 0 else None,
-                    created_date=current_date,  # Current date, not from JSON
+                    created_date=current_date,
                     notes=f"Auto-created from leaderboard JSON data for {year}-{month:02d} (source: {source_file})",
                     medium_url=medium_url,
                     medium_first_published=datetime.fromtimestamp(first_published_at/1000).isoformat() if first_published_at else None,
@@ -760,7 +822,7 @@ async def fetch_leaderboard_for_month(request: Request):
                 ))
                 
                 added_count += 1
-                logger.info(f"✅ ADDED NEW: \"{title}\" - Created in \"Leaderboard\" series")
+                logger.info(f"  ✅ ADDED NEW: Created in Leaderboard series")
         
         end_time = datetime.now()
         processing_time_ms = (end_time - start_time).total_seconds() * 1000
@@ -798,12 +860,12 @@ async def fetch_leaderboard_for_month(request: Request):
         logger.error(f"Fetch leaderboard error: {e}")
         import traceback
         traceback.print_exc()
-        return {"error": str(e)}
-
+        return {"error": str(e)}    
+    
 
 @router.post("/update-leaderboard-stats")
 async def update_leaderboard_stats():
-    """Fetch COMPLETE stats (lifetime + current period) for stories with leaderboard flag = true"""
+    """Fetch COMPLETE stats (current month + lifetime) for stories with leaderboard flag = true"""
     try:
         logger.info("=" * 60)
         logger.info("UPDATING LEADERBOARD STORIES WITH COMPLETE STATS")
@@ -838,32 +900,37 @@ async def update_leaderboard_stats():
                     logger.info("   Waiting 3 seconds to avoid rate limiting...")
                     time.sleep(3)
                 
-                # Fetch complete stats from Medium API by URL
+                # Fetch complete stats from Medium API
                 complete_stats = await fetcher.fetch_complete_stats(story.medium_url)
                 
                 if complete_stats:
+                    # Get current month totals (from _get_current_month_payload)
                     totals = complete_stats.get('totals', {})
-                    lifetime = complete_stats.get('lifetime_totals', {})
                     
-                    await StoryService.update_story(story.key, StoryUpdate(
-                        # Current period stats
+                    # Get lifetime totals (from _get_lifetime_payload)
+                    lifetime_totals = complete_stats.get('lifetime_totals', {})
+                    
+                    # Prepare update data with nested objects
+                    update_data = StoryUpdate(
+                        # Current month totals (updated monthly)
+                        medium_member_reads=totals.get('member_reads', 0),
+                        medium_nonmember_reads=totals.get('nonmember_reads', 0),
                         reads=totals.get('total_reads', 0),
+                        medium_member_views=totals.get('member_views', 0),
+                        medium_nonmember_views=totals.get('nonmember_views', 0),
+                        view_count=totals.get('total_views', 0),
                         claps=totals.get('claps', 0),
                         responses=totals.get('replies', 0),
-                        view_count=totals.get('total_views', 0),
-                        medium_member_reads=totals.get('member_reads', 0),
-                        medium_member_views=totals.get('member_views', 0),
-                        medium_nonmember_reads=totals.get('nonmember_reads', 0),
-                        medium_nonmember_views=totals.get('nonmember_views', 0),
+                        medium_highlights=totals.get('highlights', 0),
+                        medium_new_followers=totals.get('new_followers', 0),
                         medium_read_ratio=totals.get('read_ratio', 0),
                         medium_member_read_percentage=totals.get('member_read_percentage', 0),
-                        medium_new_followers=totals.get('new_followers', 0),
-                        medium_highlights=totals.get('highlights', 0),
                         
-                        # Lifetime stats
-                        lifetime_reads=lifetime.get('total_reads', 0),
-                        lifetime_claps=lifetime.get('claps', 0),
-                        lifetime_views=lifetime.get('total_views', 0),
+                        # Lifetime totals (updated monthly)
+                        lifetime_reads=lifetime_totals.get('total_reads', 0),
+                        lifetime_views=lifetime_totals.get('total_views', 0),
+                        lifetime_claps=lifetime_totals.get('claps', 0),
+                        presentation_count=lifetime_totals.get('presentation_count', 0),
                         
                         # Post metadata
                         medium_first_published=complete_stats.get('first_published'),
@@ -874,23 +941,28 @@ async def update_leaderboard_stats():
                         medium_tags=complete_stats.get('post_tags', []),
                         medium_topics=complete_stats.get('post_topics', []),
                         
-                        # Update timestamps
+                        # Update timestamp
                         last_stats_update=datetime.now().isoformat(),
                         medium_stats_updated=datetime.now().isoformat(),
                         lifetime_stats_updated=datetime.now().isoformat(),
                         medium_stats_data=complete_stats,
                         lifetime_stats_data=complete_stats
-                    ))
+                    )
+                    
+                    await StoryService.update_story(story.key, update_data)
                     
                     results['updated'] += 1
                     results['details'].append({
                         'key': story.key,
                         'name': story.name,
                         'success': True,
-                        'reads': totals.get('total_reads', 0),
-                        'lifetime_reads': lifetime.get('total_reads', 0)
+                        'current_reads': totals.get('total_reads', 0),
+                        'lifetime_reads': lifetime_totals.get('total_reads', 0),
+                        'presentation_count': lifetime_totals.get('presentation_count', 0)
                     })
-                    logger.info(f"   ✅ Updated: {totals.get('total_reads', 0)} reads, {lifetime.get('total_reads', 0)} lifetime reads")
+                    
+                    logger.info(f"   ✅ Updated: Current: {totals.get('total_reads', 0)} reads, {totals.get('total_views', 0)} views")
+                    logger.info(f"      Lifetime: {lifetime_totals.get('total_reads', 0)} reads, {lifetime_totals.get('total_views', 0)} views, {lifetime_totals.get('presentation_count', 0)} presentations")
                 else:
                     results['failed'] += 1
                     results['details'].append({
@@ -924,7 +996,7 @@ async def update_leaderboard_stats():
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
-
+    
 
 @router.post("/clear-leaderboard")
 async def clear_leaderboard():
@@ -1041,3 +1113,4 @@ async def get_story(story_key: str = Path(..., description="The story key")):
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
     return story
+

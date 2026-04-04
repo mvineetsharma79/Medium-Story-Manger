@@ -1,634 +1,139 @@
 
 ================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T20:33:00.962670
-Files Processed: 1
-Stories Updated: 0
-Stories Added: 1
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T20:33:24.221303
-Files Processed: 1
-Stories Updated: 0
-Stories Added: 1
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
 Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T20:39:38.706599
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T20:41:13.352780
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T20:42:41.054085
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-03
-Timestamp: 2026-04-03T20:42:52.812575
-Files Processed: 6
-Stories Updated: 58
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $10.37
-Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T20:42:54.896752
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-03
-Timestamp: 2026-04-03T20:43:05.131954
-Files Processed: 6
-Stories Updated: 58
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $10.37
-Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T20:43:44.095223
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T21:29:03.427845
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T21:32:03.396247
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T21:32:10.161812
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T21:32:29.724661
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T21:32:37.335672
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T21:32:46.041235
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T21:32:52.147512
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T21:33:12.302033
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T21:33:19.623135
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-03
-Timestamp: 2026-04-03T21:33:31.316858
-Files Processed: 6
-Stories Updated: 58
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $10.37
-Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T21:35:49.607071
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T21:36:06.633080
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T21:38:36.970278
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T21:39:09.890032
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T21:42:34.422972
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T21:46:54.022262
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T21:47:06.069705
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-03
-Timestamp: 2026-04-03T21:47:19.659255
-Files Processed: 6
-Stories Updated: 58
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $10.37
-Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T21:47:50.466296
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T21:52:18.351697
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T22:00:39.361579
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T22:01:13.031801
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T22:01:20.459307
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T22:01:51.960544
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T22:01:59.995434
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T22:02:09.870984
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T22:02:59.251007
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T22:03:10.249136
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T22:04:46.210689
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T22:35:24.115104
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T22:35:41.258836
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-03
-Timestamp: 2026-04-03T22:35:56.946671
-Files Processed: 6
-Stories Updated: 58
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $10.37
-Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T22:36:15.245870
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T22:36:28.510722
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T22:36:47.311582
-Files Processed: 1
-Stories Updated: 0
-Stories Added: 1
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T22:37:17.633829
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T22:37:35.292457
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T22:41:51.040135
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T22:41:57.448432
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-03
-Timestamp: 2026-04-03T22:42:12.743871
-Files Processed: 6
-Stories Updated: 58
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $10.37
-Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T22:42:59.982205
-Files Processed: 2
-Stories Updated: 19
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $1.61
-Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T23:07:21.488761
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T23:07:33.394605
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-03
-Timestamp: 2026-04-03T23:07:55.935153
-Files Processed: 6
-Stories Updated: 58
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $10.37
-Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T23:08:07.194594
-Files Processed: 2
-Stories Updated: 10
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $2.65
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T23:13:32.291444
+Timestamp: 2026-04-04T02:57:23.332297
 Files Processed: 2
 Stories Updated: 7
+Stories Added: 12
+Stories Reset: 0
+Total Earnings: $1.61
+Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
+================================================================================
+
+================================================================================
+Operation: FETCH_LEADERBOARD_2026-04
+Timestamp: 2026-04-04T03:04:29.663543
+Files Processed: 2
+Stories Updated: 7
+Stories Added: 12
+Stories Reset: 0
+Total Earnings: $1.61
+Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
+================================================================================
+
+================================================================================
+Operation: FETCH_LEADERBOARD_2026-04
+Timestamp: 2026-04-04T03:14:54.742418
+Files Processed: 2
+Stories Updated: 6
+Stories Added: 13
+Stories Reset: 0
+Total Earnings: $1.61
+Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
+================================================================================
+
+================================================================================
+Operation: FETCH_LEADERBOARD_2026-04
+Timestamp: 2026-04-04T03:27:16.015107
+Files Processed: 2
+Stories Updated: 8
+Stories Added: 11
+Stories Reset: 0
+Total Earnings: $1.61
+Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
+================================================================================
+
+================================================================================
+Operation: FETCH_LEADERBOARD_2026-04
+Timestamp: 2026-04-04T03:27:48.554867
+Files Processed: 2
+Stories Updated: 8
+Stories Added: 11
+Stories Reset: 0
+Total Earnings: $1.61
+Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
+================================================================================
+
+================================================================================
+Operation: FETCH_LEADERBOARD_2026-04
+Timestamp: 2026-04-04T03:39:51.364910
+Files Processed: 2
+Stories Updated: 8
+Stories Added: 11
+Stories Reset: 0
+Total Earnings: $1.61
+Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
+================================================================================
+
+================================================================================
+Operation: FETCH_LEADERBOARD_2026-03
+Timestamp: 2026-04-04T03:43:26.378758
+Files Processed: 6
+Stories Updated: 18
+Stories Added: 40
+Stories Reset: 0
+Total Earnings: $10.37
+Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
+================================================================================
+
+================================================================================
+Operation: FETCH_LEADERBOARD_2025-10
+Timestamp: 2026-04-04T03:43:55.413336
+Files Processed: 1
+Stories Updated: 1
+Stories Added: 0
+Stories Reset: 0
+Total Earnings: $0.03
+Source Files: leaderboard-2025-10-part1.json
+================================================================================
+
+================================================================================
+Operation: FETCH_LEADERBOARD_2026-04
+Timestamp: 2026-04-04T03:49:25.991606
+Files Processed: 2
+Stories Updated: 19
+Stories Added: 0
+Stories Reset: 0
+Total Earnings: $1.61
+Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
+================================================================================
+
+================================================================================
+Operation: FETCH_LEADERBOARD_2026-03
+Timestamp: 2026-04-04T03:53:41.326848
+Files Processed: 6
+Stories Updated: 58
+Stories Added: 0
+Stories Reset: 0
+Total Earnings: $10.37
+Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
+================================================================================
+
+================================================================================
+Operation: FETCH_LEADERBOARD_2026-02
+Timestamp: 2026-04-04T03:54:10.268195
+Files Processed: 6
+Stories Updated: 33
 Stories Added: 4
 Stories Reset: 0
-Total Earnings: $0.21
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T23:18:06.414566
-Files Processed: 6
-Stories Updated: 36
-Stories Added: 1
-Stories Reset: 0
 Total Earnings: $3.37
 Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json, leaderboard-2026-02-part3.json, leaderboard-2026-02-part4.json, leaderboard-2026-02-part5.json, leaderboard-2026-02-part6.json
 ================================================================================
 
 ================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T23:18:43.194038
-Files Processed: 6
-Stories Updated: 37
+Operation: FETCH_LEADERBOARD_2025-10
+Timestamp: 2026-04-04T03:54:25.409553
+Files Processed: 1
+Stories Updated: 1
 Stories Added: 0
 Stories Reset: 0
-Total Earnings: $3.37
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json, leaderboard-2026-02-part3.json, leaderboard-2026-02-part4.json, leaderboard-2026-02-part5.json, leaderboard-2026-02-part6.json
+Total Earnings: $0.03
+Source Files: leaderboard-2025-10-part1.json
 ================================================================================
 
 ================================================================================
 Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-03T23:19:47.178823
+Timestamp: 2026-04-04T03:54:37.004406
 Files Processed: 2
 Stories Updated: 19
 Stories Added: 0
@@ -639,172 +144,18 @@ Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
 
 ================================================================================
 Operation: FETCH_LEADERBOARD_2026-03
-Timestamp: 2026-04-03T23:19:59.769141
+Timestamp: 2026-04-04T03:54:48.241998
 Files Processed: 6
 Stories Updated: 58
 Stories Added: 0
 Stories Reset: 0
 Total Earnings: $10.37
 Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T23:40:33.523740
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T23:41:32.618150
-Files Processed: 6
-Stories Updated: 37
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $3.37
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json, leaderboard-2026-02-part3.json, leaderboard-2026-02-part4.json, leaderboard-2026-02-part5.json, leaderboard-2026-02-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-03
-Timestamp: 2026-04-03T23:41:48.567282
-Files Processed: 6
-Stories Updated: 58
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $10.37
-Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T23:50:17.163130
-Files Processed: 6
-Stories Updated: 37
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $3.37
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json, leaderboard-2026-02-part3.json, leaderboard-2026-02-part4.json, leaderboard-2026-02-part5.json, leaderboard-2026-02-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-03
-Timestamp: 2026-04-03T23:50:36.110258
-Files Processed: 6
-Stories Updated: 58
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $10.37
-Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T23:51:19.666550
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T23:51:47.195778
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T23:52:26.805614
-Files Processed: 1
-Stories Updated: 0
-Stories Added: 1
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T23:52:55.327305
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T23:53:18.084193
-Files Processed: 6
-Stories Updated: 36
-Stories Added: 1
-Stories Reset: 0
-Total Earnings: $3.37
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json, leaderboard-2026-02-part3.json, leaderboard-2026-02-part4.json, leaderboard-2026-02-part5.json, leaderboard-2026-02-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T23:53:27.660004
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-03T23:53:44.626203
-Files Processed: 6
-Stories Updated: 37
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $3.37
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json, leaderboard-2026-02-part3.json, leaderboard-2026-02-part4.json, leaderboard-2026-02-part5.json, leaderboard-2026-02-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-03T23:53:51.597602
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-04T00:28:27.634331
-Files Processed: 6
-Stories Updated: 37
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $3.37
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json, leaderboard-2026-02-part3.json, leaderboard-2026-02-part4.json, leaderboard-2026-02-part5.json, leaderboard-2026-02-part6.json
 ================================================================================
 
 ================================================================================
 Operation: FETCH_LEADERBOARD_2026-04
-Timestamp: 2026-04-04T00:29:03.403056
+Timestamp: 2026-04-04T03:55:10.215175
 Files Processed: 2
 Stories Updated: 19
 Stories Added: 0
@@ -814,34 +165,12 @@ Source Files: leaderboard-2026-04-part1.json, leaderboard-2026-04-part2.json
 ================================================================================
 
 ================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-04T00:33:28.558994
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2026-02
-Timestamp: 2026-04-04T00:33:38.045657
+Operation: FETCH_LEADERBOARD_2026-03
+Timestamp: 2026-04-04T03:56:51.865031
 Files Processed: 6
-Stories Updated: 37
+Stories Updated: 58
 Stories Added: 0
 Stories Reset: 0
-Total Earnings: $3.37
-Source Files: leaderboard-2026-02-part1.json, leaderboard-2026-02-part2.json, leaderboard-2026-02-part3.json, leaderboard-2026-02-part4.json, leaderboard-2026-02-part5.json, leaderboard-2026-02-part6.json
-================================================================================
-
-================================================================================
-Operation: FETCH_LEADERBOARD_2025-10
-Timestamp: 2026-04-04T01:13:02.797793
-Files Processed: 1
-Stories Updated: 1
-Stories Added: 0
-Stories Reset: 0
-Total Earnings: $0.03
-Source Files: leaderboard-2025-10-part1.json
+Total Earnings: $10.37
+Source Files: leaderboard-2026-03-part1.json, leaderboard-2026-03-part2.json, leaderboard-2026-03-part3.json, leaderboard-2026-03-part4.json, leaderboard-2026-03-part5.json, leaderboard-2026-03-part6.json
 ================================================================================
