@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-04T05:43:42.583507",
+  "generated": "2026-04-04T08:24:42.403275",
   "summary": {
-    "total_scheduled": 196,
+    "total_scheduled": 195,
     "stories_per_week": 3,
     "series_spacing_default": 7,
     "start_date": "2026-04-04",
@@ -13,7 +13,6 @@
       "Clean Architecture Anti-Pattern .Net": 8,
       "GitHub Copilot Mastery": 6,
       "Clean Code Practices": 8,
-      "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution": 1,
       "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts": 4,
       "Claude Code Mastery": 5,
       "Design Patterns": 5,
@@ -389,10 +388,10 @@
     {
       "date": "2026-07-06",
       "weekday": "Monday",
-      "story_key": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution/LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
-      "name": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
-      "series": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
-      "part": null,
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 2: The Brain - Models, Routing & Intelligent Agents",
+      "name": "Enterprise AI Architecture Part 2: The Brain - Models, Routing & Intelligent Agents",
+      "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "part": 2,
       "read_time": null
     },
     {
@@ -416,10 +415,10 @@
     {
       "date": "2026-07-13",
       "weekday": "Monday",
-      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 2: The Brain - Models, Routing & Intelligent Agents",
-      "name": "Enterprise AI Architecture Part 2: The Brain - Models, Routing & Intelligent Agents",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "name": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
       "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
-      "part": 2,
+      "part": null,
       "read_time": null
     },
     {
@@ -443,10 +442,10 @@
     {
       "date": "2026-07-20",
       "weekday": "Monday",
-      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
-      "name": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 4: The Control Room - Observability, Governance & Security",
+      "name": "Enterprise AI Architecture Part 4: The Control Room - Observability, Governance & Security",
       "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
-      "part": null,
+      "part": 4,
       "read_time": null
     },
     {
@@ -470,10 +469,10 @@
     {
       "date": "2026-07-27",
       "weekday": "Monday",
-      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 4: The Control Room - Observability, Governance & Security",
-      "name": "Enterprise AI Architecture Part 4: The Control Room - Observability, Governance & Security",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 3: The Hands - Agent Execution & Enterprise Integration",
+      "name": "Enterprise AI Architecture Part 3: The Hands - Agent Execution & Enterprise Integration",
       "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
-      "part": 4,
+      "part": 3,
       "read_time": null
     },
     {
@@ -497,10 +496,10 @@
     {
       "date": "2026-08-03",
       "weekday": "Monday",
-      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 3: The Hands - Agent Execution & Enterprise Integration",
-      "name": "Enterprise AI Architecture Part 3: The Hands - Agent Execution & Enterprise Integration",
-      "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
-      "part": 3,
+      "story_key": "Claude Code Mastery/Claude Code Mastery - The Extension & Integration Framework: Skills, Hooks, MCP, and Plugins",
+      "name": "Claude Code Mastery - The Extension & Integration Framework: Skills, Hooks, MCP, and Plugins",
+      "series": "Claude Code Mastery",
+      "part": null,
       "read_time": null
     },
     {
@@ -524,8 +523,8 @@
     {
       "date": "2026-08-10",
       "weekday": "Monday",
-      "story_key": "Claude Code Mastery/Claude Code Mastery - The Extension & Integration Framework: Skills, Hooks, MCP, and Plugins",
-      "name": "Claude Code Mastery - The Extension & Integration Framework: Skills, Hooks, MCP, and Plugins",
+      "story_key": "Claude Code Mastery/Claude Code Mastery - The Complete AI-Powered Development Platform",
+      "name": "Claude Code Mastery - The Complete AI-Powered Development Platform",
       "series": "Claude Code Mastery",
       "part": null,
       "read_time": null
@@ -551,8 +550,8 @@
     {
       "date": "2026-08-17",
       "weekday": "Monday",
-      "story_key": "Claude Code Mastery/Claude Code Mastery - The Complete AI-Powered Development Platform",
-      "name": "Claude Code Mastery - The Complete AI-Powered Development Platform",
+      "story_key": "Claude Code Mastery/Claude Code Mastery - The Memory & Control Layer: CLAUDE, Permissions, Plan Mode, and Checkpoints",
+      "name": "Claude Code Mastery - The Memory & Control Layer: CLAUDE, Permissions, Plan Mode, and Checkpoints",
       "series": "Claude Code Mastery",
       "part": null,
       "read_time": null
@@ -578,8 +577,8 @@
     {
       "date": "2026-08-24",
       "weekday": "Monday",
-      "story_key": "Claude Code Mastery/Claude Code Mastery - The Memory & Control Layer: CLAUDE, Permissions, Plan Mode, and Checkpoints",
-      "name": "Claude Code Mastery - The Memory & Control Layer: CLAUDE, Permissions, Plan Mode, and Checkpoints",
+      "story_key": "Claude Code Mastery/Claude Code Mastery - From Terminal to IDE: Complete VS Code Integration & Real-World Project Workflow",
+      "name": "Claude Code Mastery - From Terminal to IDE: Complete VS Code Integration & Real-World Project Workflow",
       "series": "Claude Code Mastery",
       "part": null,
       "read_time": null
@@ -605,8 +604,8 @@
     {
       "date": "2026-08-31",
       "weekday": "Monday",
-      "story_key": "Claude Code Mastery/Claude Code Mastery - From Terminal to IDE: Complete VS Code Integration & Real-World Project Workflow",
-      "name": "Claude Code Mastery - From Terminal to IDE: Complete VS Code Integration & Real-World Project Workflow",
+      "story_key": "Claude Code Mastery/Claude Code Mastery - The Advanced Workflow Engine: Context Management, Slash Commands, Compaction, and Subagents",
+      "name": "Claude Code Mastery - The Advanced Workflow Engine: Context Management, Slash Commands, Compaction, and Subagents",
       "series": "Claude Code Mastery",
       "part": null,
       "read_time": null
@@ -632,9 +631,9 @@
     {
       "date": "2026-09-07",
       "weekday": "Monday",
-      "story_key": "Claude Code Mastery/Claude Code Mastery - The Advanced Workflow Engine: Context Management, Slash Commands, Compaction, and Subagents",
-      "name": "Claude Code Mastery - The Advanced Workflow Engine: Context Management, Slash Commands, Compaction, and Subagents",
-      "series": "Claude Code Mastery",
+      "story_key": "GitHub/GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
+      "name": "GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
+      "series": "GitHub",
       "part": null,
       "read_time": null
     },
@@ -659,8 +658,8 @@
     {
       "date": "2026-09-14",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
-      "name": "GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
+      "story_key": "GitHub/GitHub Copilot in CI CD: AI-Powered Automation at Scale",
+      "name": "GitHub Copilot in CI CD: AI-Powered Automation at Scale",
       "series": "GitHub",
       "part": null,
       "read_time": null
@@ -686,8 +685,8 @@
     {
       "date": "2026-09-21",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in CI CD: AI-Powered Automation at Scale",
-      "name": "GitHub Copilot in CI CD: AI-Powered Automation at Scale",
+      "story_key": "GitHub/GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
+      "name": "GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
       "series": "GitHub",
       "part": null,
       "read_time": null
@@ -713,8 +712,8 @@
     {
       "date": "2026-09-28",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
-      "name": "GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
+      "story_key": "GitHub/GitHub Copilot on GitHub.com: AI-Powered Collaboration at Scale",
+      "name": "GitHub Copilot on GitHub.com: AI-Powered Collaboration at Scale",
       "series": "GitHub",
       "part": null,
       "read_time": null
@@ -740,8 +739,8 @@
     {
       "date": "2026-10-05",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot on GitHub.com: AI-Powered Collaboration at Scale",
-      "name": "GitHub Copilot on GitHub.com: AI-Powered Collaboration at Scale",
+      "story_key": "GitHub/GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
+      "name": "GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
       "series": "GitHub",
       "part": null,
       "read_time": null
@@ -767,8 +766,8 @@
     {
       "date": "2026-10-12",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
-      "name": "GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
+      "story_key": "GitHub/GitHub Copilot in the Terminal: Your Command Line AI Assistant",
+      "name": "GitHub Copilot in the Terminal: Your Command Line AI Assistant",
       "series": "GitHub",
       "part": null,
       "read_time": null
@@ -794,10 +793,10 @@
     {
       "date": "2026-10-19",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in the Terminal: Your Command Line AI Assistant",
-      "name": "GitHub Copilot in the Terminal: Your Command Line AI Assistant",
-      "series": "GitHub",
-      "part": null,
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Testing & Observability - Part 7",
+      "name": "Clean Architecture Anti-Pattern in Python - Testing & Observability - Part 7",
+      "series": "Clean Architecture Anti-Pattern Python",
+      "part": 7,
       "read_time": null
     },
     {
@@ -821,10 +820,10 @@
     {
       "date": "2026-10-26",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Testing & Observability - Part 7",
-      "name": "Clean Architecture Anti-Pattern in Python - Testing & Observability - Part 7",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Across Real-World Domains - Part 5",
+      "name": "Clean Architecture Anti-Pattern in Python - Across Real-World Domains - Part 5",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 7,
+      "part": 5,
       "read_time": null
     },
     {
@@ -848,10 +847,10 @@
     {
       "date": "2026-11-02",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Across Real-World Domains - Part 5",
-      "name": "Clean Architecture Anti-Pattern in Python - Across Real-World Domains - Part 5",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - A Developer's Guide to Resilience - Part 1",
+      "name": "Clean Architecture Anti-Pattern in Python - A Developer's Guide to Resilience - Part 1",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 5,
+      "part": 1,
       "read_time": null
     },
     {
@@ -875,10 +874,10 @@
     {
       "date": "2026-11-09",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - A Developer's Guide to Resilience - Part 1",
-      "name": "Clean Architecture Anti-Pattern in Python - A Developer's Guide to Resilience - Part 1",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Building the Result Pattern - Part 4",
+      "name": "Clean Architecture Anti-Pattern in Python - Building the Result Pattern - Part 4",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 1,
+      "part": 4,
       "read_time": null
     },
     {
@@ -902,10 +901,10 @@
     {
       "date": "2026-11-16",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Building the Result Pattern - Part 4",
-      "name": "Clean Architecture Anti-Pattern in Python - Building the Result Pattern - Part 4",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Domain Logic in Disguise - Part 2",
+      "name": "Clean Architecture Anti-Pattern in Python - Domain Logic in Disguise - Part 2",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 4,
+      "part": 2,
       "read_time": null
     },
     {
@@ -929,10 +928,10 @@
     {
       "date": "2026-11-23",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Domain Logic in Disguise - Part 2",
-      "name": "Clean Architecture Anti-Pattern in Python - Domain Logic in Disguise - Part 2",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Defining the Boundary - Part 3",
+      "name": "Clean Architecture Anti-Pattern in Python - Defining the Boundary - Part 3",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 2,
+      "part": 3,
       "read_time": null
     },
     {
@@ -956,10 +955,10 @@
     {
       "date": "2026-11-30",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Defining the Boundary - Part 3",
-      "name": "Clean Architecture Anti-Pattern in Python - Defining the Boundary - Part 3",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - The Road Ahead - Part 8",
+      "name": "Clean Architecture Anti-Pattern in Python - The Road Ahead - Part 8",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 3,
+      "part": 8,
       "read_time": null
     },
     {
@@ -983,10 +982,10 @@
     {
       "date": "2026-12-07",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - The Road Ahead - Part 8",
-      "name": "Clean Architecture Anti-Pattern in Python - The Road Ahead - Part 8",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Infrastructure Resilience - Part 6",
+      "name": "Clean Architecture Anti-Pattern in Python - Infrastructure Resilience - Part 6",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 8,
+      "part": 6,
       "read_time": null
     },
     {
@@ -1010,10 +1009,10 @@
     {
       "date": "2026-12-14",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Infrastructure Resilience - Part 6",
-      "name": "Clean Architecture Anti-Pattern in Python - Infrastructure Resilience - Part 6",
-      "series": "Clean Architecture Anti-Pattern Python",
-      "part": 6,
+      "story_key": "DevOps/The Complete Multi-Language Containerization Library: .NET, Python, and Node.js on Azure and AWS",
+      "name": "The Complete Multi-Language Containerization Library: .NET, Python, and Node.js on Azure and AWS",
+      "series": "DevOps",
+      "part": null,
       "read_time": null
     },
     {
@@ -1037,9 +1036,9 @@
     {
       "date": "2026-12-21",
       "weekday": "Monday",
-      "story_key": "DevOps/The Complete Multi-Language Containerization Library: .NET, Python, and Node.js on Azure and AWS",
-      "name": "The Complete Multi-Language Containerization Library: .NET, Python, and Node.js on Azure and AWS",
-      "series": "DevOps",
+      "story_key": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide/artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
+      "name": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
+      "series": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
       "part": null,
       "read_time": null
     },
@@ -1064,9 +1063,9 @@
     {
       "date": "2026-12-28",
       "weekday": "Monday",
-      "story_key": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide/artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
-      "name": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
-      "series": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
+      "story_key": "AI Engineering/AI Agent Engineering - EPILOGUE: The Future of AI Agents",
+      "name": "AI Agent Engineering - EPILOGUE: The Future of AI Agents",
+      "series": "AI Engineering",
       "part": null,
       "read_time": null
     },
@@ -1091,8 +1090,8 @@
     {
       "date": "2027-01-04",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering - EPILOGUE: The Future of AI Agents",
-      "name": "AI Agent Engineering - EPILOGUE: The Future of AI Agents",
+      "story_key": "AI Engineering/AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
+      "name": "AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
@@ -1118,8 +1117,8 @@
     {
       "date": "2027-01-11",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
-      "name": "AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
+      "story_key": "AI Engineering/AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
+      "name": "AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
@@ -1145,8 +1144,8 @@
     {
       "date": "2027-01-18",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
-      "name": "AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
+      "story_key": "AI Engineering/AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
+      "name": "AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
@@ -1172,8 +1171,8 @@
     {
       "date": "2027-01-25",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
-      "name": "AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
+      "story_key": "AI Engineering/AI Agent Engineering 1 - Foundation & LLM Fundamentals",
+      "name": "AI Agent Engineering 1 - Foundation & LLM Fundamentals",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
@@ -1199,8 +1198,8 @@
     {
       "date": "2027-02-01",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 1 - Foundation & LLM Fundamentals",
-      "name": "AI Agent Engineering 1 - Foundation & LLM Fundamentals",
+      "story_key": "AI Engineering/AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
+      "name": "AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
@@ -1226,8 +1225,8 @@
     {
       "date": "2027-02-08",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
-      "name": "AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
+      "story_key": "AI Engineering/Prompt Engineering vs Content Engineering vs RAG",
+      "name": "Prompt Engineering vs Content Engineering vs RAG",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
@@ -1253,9 +1252,9 @@
     {
       "date": "2027-02-15",
       "weekday": "Monday",
-      "story_key": "AI Engineering/Prompt Engineering vs Content Engineering vs RAG",
-      "name": "Prompt Engineering vs Content Engineering vs RAG",
-      "series": "AI Engineering",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production - AWS",
+      "name": "Visual Studio Code Dev Containers: Local Development to Production - AWS",
+      "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
     },
@@ -1280,8 +1279,8 @@
     {
       "date": "2027-02-22",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production - AWS",
-      "name": "Visual Studio Code Dev Containers: Local Development to Production - AWS",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/GitHub Actions + Amazon ECR: CI CD for Python - AWS",
+      "name": "GitHub Actions + Amazon ECR: CI CD for Python - AWS",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1307,8 +1306,8 @@
     {
       "date": "2027-03-01",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/GitHub Actions + Amazon ECR: CI CD for Python - AWS",
-      "name": "GitHub Actions + Amazon ECR: CI CD for Python - AWS",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Pip + Docker: The Classic Python Containerization - AWS",
+      "name": "Pip + Docker: The Classic Python Containerization - AWS",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1334,8 +1333,8 @@
     {
       "date": "2027-03-08",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Pip + Docker: The Classic Python Containerization - AWS",
-      "name": "Pip + Docker: The Classic Python Containerization - AWS",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/AWS App Runner: Fully Managed Python Container Service - AWS",
+      "name": "AWS App Runner: Fully Managed Python Container Service - AWS",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1361,8 +1360,8 @@
     {
       "date": "2027-03-15",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/AWS App Runner: Fully Managed Python Container Service - AWS",
-      "name": "AWS App Runner: Fully Managed Python Container Service - AWS",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Pip + Docker: The Classic Python Containerization",
+      "name": "Pip + Docker: The Classic Python Containerization",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1388,8 +1387,8 @@
     {
       "date": "2027-03-22",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Pip + Docker: The Classic Python Containerization",
-      "name": "Pip + Docker: The Classic Python Containerization",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
+      "name": "Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1415,8 +1414,8 @@
     {
       "date": "2027-03-29",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
-      "name": "Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/UV + Docker: Blazing Fast Python Package Management",
+      "name": "UV + Docker: Blazing Fast Python Package Management",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1442,8 +1441,8 @@
     {
       "date": "2027-04-05",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/UV + Docker: Blazing Fast Python Package Management",
-      "name": "UV + Docker: Blazing Fast Python Package Management",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/AWS Copilot: The Turnkey Container Solution - AWS",
+      "name": "AWS Copilot: The Turnkey Container Solution - AWS",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1469,8 +1468,8 @@
     {
       "date": "2027-04-12",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/AWS Copilot: The Turnkey Container Solution - AWS",
-      "name": "AWS Copilot: The Turnkey Container Solution - AWS",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows",
+      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1496,8 +1495,8 @@
     {
       "date": "2027-04-19",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows",
-      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Amazon EKS: Python Microservices at Scale - AWS",
+      "name": "Amazon EKS: Python Microservices at Scale - AWS",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1523,8 +1522,8 @@
     {
       "date": "2027-04-26",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Amazon EKS: Python Microservices at Scale - AWS",
-      "name": "Amazon EKS: Python Microservices at Scale - AWS",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/GitHub Actions + Container Registry: CI CD for Python",
+      "name": "GitHub Actions + Container Registry: CI CD for Python",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1550,8 +1549,8 @@
     {
       "date": "2027-05-03",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/GitHub Actions + Container Registry: CI CD for Python",
-      "name": "GitHub Actions + Container Registry: CI CD for Python",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Azure Container Apps: Serverless Python Deployment",
+      "name": "Azure Container Apps: Serverless Python Deployment",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1577,8 +1576,8 @@
     {
       "date": "2027-05-10",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Azure Container Apps: Serverless Python Deployment",
-      "name": "Azure Container Apps: Serverless Python Deployment",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production",
+      "name": "Visual Studio Code Dev Containers: Local Development to Production",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1604,8 +1603,8 @@
     {
       "date": "2027-05-17",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production",
-      "name": "Visual Studio Code Dev Containers: Local Development to Production",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Poetry + Docker Multi-Stage: The Modern Python Approach - AWS",
+      "name": "Poetry + Docker Multi-Stage: The Modern Python Approach - AWS",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1622,8 +1621,8 @@
     {
       "date": "2027-05-24",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Poetry + Docker Multi-Stage: The Modern Python Approach - AWS",
-      "name": "Poetry + Docker Multi-Stage: The Modern Python Approach - AWS",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
+      "name": "Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1640,8 +1639,8 @@
     {
       "date": "2027-05-31",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
-      "name": "Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/UV + Docker: Blazing Fast Python Package Management - AWS",
+      "name": "UV + Docker: Blazing Fast Python Package Management - AWS",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1658,8 +1657,8 @@
     {
       "date": "2027-06-07",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/UV + Docker: Blazing Fast Python Package Management - AWS",
-      "name": "UV + Docker: Blazing Fast Python Package Management - AWS",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Azure Kubernetes Service (AKS): Python Microservices at Scale",
+      "name": "Azure Kubernetes Service (AKS): Python Microservices at Scale",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1676,8 +1675,8 @@
     {
       "date": "2027-06-14",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Azure Kubernetes Service (AKS): Python Microservices at Scale",
-      "name": "Azure Kubernetes Service (AKS): Python Microservices at Scale",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Azure Developer CLI (azd) with Python: The Turnkey Solution",
+      "name": "Azure Developer CLI (azd) with Python: The Turnkey Solution",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1694,8 +1693,8 @@
     {
       "date": "2027-06-21",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Azure Developer CLI (azd) with Python: The Turnkey Solution",
-      "name": "Azure Developer CLI (azd) with Python: The Turnkey Solution",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/AWS CDK with Python: Infrastructure as Code for Containers - AWS",
+      "name": "AWS CDK with Python: Infrastructure as Code for Containers - AWS",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1712,8 +1711,8 @@
     {
       "date": "2027-06-28",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/AWS CDK with Python: Infrastructure as Code for Containers - AWS",
-      "name": "AWS CDK with Python: Infrastructure as Code for Containers - AWS",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Poetry + Docker Multi-Stage: The Modern Python Approach",
+      "name": "Poetry + Docker Multi-Stage: The Modern Python Approach",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1730,8 +1729,8 @@
     {
       "date": "2027-07-05",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Poetry + Docker Multi-Stage: The Modern Python Approach",
-      "name": "Poetry + Docker Multi-Stage: The Modern Python Approach",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/AWS CDK & Copilot: Multi-Cloud Python Container Deployments",
+      "name": "AWS CDK & Copilot: Multi-Cloud Python Container Deployments",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1748,8 +1747,8 @@
     {
       "date": "2027-07-12",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/AWS CDK & Copilot: Multi-Cloud Python Container Deployments",
-      "name": "AWS CDK & Copilot: Multi-Cloud Python Container Deployments",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
+      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1760,15 +1759,6 @@
       "story_key": "Publishing Node.js Express Apps as Container Images/GitHub Actions + Amazon ECR: CI CD for Node.js - AWS",
       "name": "GitHub Actions + Amazon ECR: CI CD for Node.js - AWS",
       "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-07-19",
-      "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
-      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
-      "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
     },

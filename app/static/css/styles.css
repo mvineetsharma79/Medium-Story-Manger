@@ -116,3 +116,18 @@
 
 .progress { background-color: #e9ecef; border-radius: 10px; }
 .progress-bar { border-radius: 10px; }
+
+/* Leaderboard Month Display */
+#leaderboardMonthContainer {
+    margin-top: 5px;
+}
+
+#leaderboardMonthDisplay {
+    color: #ffd700;
+    font-weight: 500;
+    text-align: center;
+}
+
+#leaderboardMonthDisplay i {
+    margin-right: 5px;
+}

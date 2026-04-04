@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadLastFetchTime();
     loadView('dashboard');
     loadLeaderboardFileList();
+    loadLeaderboardMonth();  // Add this line
     setInterval(loadLeaderboardFileList, 30000);
     
     // Sidebar navigation
@@ -87,4 +88,75 @@ document.addEventListener('show.bs.modal', function(event) {
 async function loadAllSeries() {
     const res = await fetch(`${window.API_BASE}/series/`);
     window.allSeries = await res.json();
+}
+
+// ============================================
+// Leaderboard Month Display
+// ============================================
+
+let currentLeaderboardMonth = null;
+
+async function loadLeaderboardMonth() {
+    try {
+        const response = await fetch(`${API_BASE}/stories/leaderboard-month`);
+        const data = await response.json();
+        
+        const monthContainer = document.getElementById('leaderboardMonthContainer');
+        const monthDisplay = document.getElementById('leaderboardMonthDisplay');
+        
+        if (monthContainer && monthDisplay) {
+            if (data.leaderboard_month) {
+                currentLeaderboardMonth = data.leaderboard_month;
+                const [year, month] = data.leaderboard_month.split('-');
+                const date = new Date(parseInt(year), parseInt(month) - 1, 1);
+                const monthName = date.toLocaleString('default', { month: 'long', year: 'numeric' });
+                
+                monthDisplay.innerHTML = `<i class="bi bi-calendar-month"></i> <strong>${monthName}</strong>`;
+                monthContainer.style.display = 'block';
+            } else {
+                monthDisplay.innerHTML = `<i class="bi bi-calendar-month"></i> No month loaded`;
+                monthContainer.style.display = 'block';
+            }
+        }
+    } catch (error) {
+        console.error('Error loading leaderboard month:', error);
+    }
+}
+
+async function updateLeaderboardStats() {
+    if (!confirm('Fetch stats for the loaded leaderboard month?\n\nThis will update stats from Medium API.')) {
+        return;
+    }
+    
+    const btn = event.target.closest('button');
+    const originalText = btn.innerHTML;
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+    }
+    
+    try {
+        const res = await fetch(`${API_BASE}/stories/update-leaderboard-stats`, { method: 'POST' });
+        const data = await res.json();
+        
+        if (res.ok) {
+            if (typeof saveFilterState === 'function') saveFilterState();
+            if (typeof loadView === 'function') await loadView(window.currentView);
+            if (typeof restoreFilterState === 'function') restoreFilterState();
+            if (typeof updateLeaderboardTotal === 'function') updateLeaderboardTotal();
+            
+            await loadLeaderboardMonth();
+            
+            alert(`${data.message}\nUpdated: ${data.results?.updated || 0}\nFailed: ${data.results?.failed || 0}`);
+        } else {
+            alert('Error: ' + (data.detail || data.error || 'Unknown error'));
+        }
+    } catch (error) {
+        alert('Error updating leaderboard stats: ' + error.message);
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }
+    }
 }

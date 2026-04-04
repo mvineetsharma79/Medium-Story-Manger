@@ -42,6 +42,12 @@ async function fetchLeaderboardForMonth(year, month, displayName) {
         const data = await response.json();
         
         if (response.ok && !data.error) {
+            // Also set the leaderboard month in the backend
+            await fetch(`${API_BASE}/stories/leaderboard-month?year=${year}&month=${month}`, { method: 'POST' });
+            
+            // Reload the month display
+            if (typeof loadLeaderboardMonth === 'function') await loadLeaderboardMonth();
+            
             if (typeof saveFilterState === 'function') saveFilterState();
             if (typeof loadView === 'function') await loadView(window.currentView);
             if (typeof restoreFilterState === 'function') restoreFilterState();

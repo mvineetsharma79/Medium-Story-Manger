@@ -10,6 +10,7 @@ from pathlib import Path as FilePath
 
 from app.services.story_service import StoryService
 from app.services.medium_stats_fetcher import MediumStatsFetcher
+from app.services.app_status_service import AppStatusService
 from app.models import StoryCreate, StoryUpdate, StoryResponse
 from config import settings
 
@@ -262,6 +263,29 @@ async def find_story(search: str):
         logger.error(f"Find story error: {e}")
         return {"error": str(e)}
 
+
+@router.get("/debug/list-all")
+async def debug_list_all():
+    """List all stories with their keys"""
+    try:
+        stories = await StoryService.get_all_stories()
+        return {
+            "total": len(stories),
+            "stories": [
+                {
+                    "key": s.key,
+                    "name": s.name,
+                    "series": s.series,
+                    "medium_url": s.medium_url
+                }
+                for s in stories
+            ]
+        }
+    except Exception as e:
+        logger.error(f"Debug list all error: {e}")
+        return {"error": str(e)}
+
+
 @router.get("/debug/test-lifetime")
 async def debug_test_lifetime():
     """Test lifetime API with a known post ID"""
@@ -273,8 +297,7 @@ async def debug_test_lifetime():
         if not fetcher.is_authenticated():
             return {"error": "Not authenticated"}
         
-        # Use a known post ID from your JSON file
-        post_id = "78cb972195da"  # This is from your leaderboard JSON
+        post_id = "78cb972195da"
         
         session = requests.Session()
         for name, value in fetcher.cookies.items():
@@ -292,7 +315,61 @@ async def debug_test_lifetime():
             "raw_response": response.json() if response.status_code == 200 else None
         }
     except Exception as e:
+        logger.error(f"Debug test lifetime error: {e}")
         return {"error": str(e)}
+
+
+# ============================================
+# LEADERBOARD MONTH MANAGEMENT ENDPOINTS
+# ============================================
+
+@router.get("/leaderboard-month")
+async def get_leaderboard_month():
+    """Get the currently loaded leaderboard month"""
+    try:
+        month = await AppStatusService.get_leaderboard_month()
+        return {
+            "leaderboard_month": month,
+            "has_month": month is not None
+        }
+    except Exception as e:
+        logger.error(f"Error getting leaderboard month: {e}")
+        return {"error": str(e), "leaderboard_month": None}
+
+
+@router.post("/leaderboard-month")
+async def set_leaderboard_month_endpoint(year: int, month: int):
+    """Set the currently loaded leaderboard month"""
+    try:
+        success = await AppStatusService.set_leaderboard_month(year, month)
+        if success:
+            month_name = datetime(year, month, 1).strftime("%B %Y")
+            return {
+                "message": f"Leaderboard month set to {month_name}",
+                "leaderboard_month": f"{year}-{month:02d}",
+                "success": True
+            }
+        else:
+            return {"error": "Failed to set leaderboard month", "success": False}
+    except Exception as e:
+        logger.error(f"Error setting leaderboard month: {e}")
+        return {"error": str(e), "success": False}
+
+
+@router.delete("/leaderboard-month")
+async def clear_leaderboard_month():
+    """Clear the stored leaderboard month"""
+    try:
+        success = await AppStatusService.clear_leaderboard_month()
+        return {"success": success, "message": "Leaderboard month cleared" if success else "Failed to clear"}
+    except Exception as e:
+        logger.error(f"Error clearing leaderboard month: {e}")
+        return {"error": str(e), "success": False}
+
+
+# ============================================
+# LEADERBOARD FILE MANAGEMENT ENDPOINTS
+# ============================================
 
 @router.get("/leaderboard-files")
 async def list_leaderboard_files():
@@ -493,15 +570,36 @@ async def get_stats_dashboard_by_url(medium_url: str):
 
 
 @router.post("/fetch-lifetime-stats/{story_key:path}")
-async def fetch_complete_story_stats(story_key: str = Path(..., description="The story key")):
-    """Fetch current month AND lifetime stats for a single story"""
+async def fetch_complete_story_stats(
+    story_key: str = Path(..., description="The story key"),
+    year: Optional[int] = None,
+    month: Optional[int] = None
+):
+    """Fetch current month AND lifetime stats for a single story for a specific month"""
     try:
         decoded_key = unquote(story_key)
         if decoded_key.lower().endswith('.md'):
             decoded_key = decoded_key[:-3]
         
+        # Determine which month to fetch stats for
+        if year is None or month is None:
+            # Try to get from stored leaderboard month
+            stored_month = await AppStatusService.get_leaderboard_month()
+            if stored_month:
+                try:
+                    year, month = map(int, stored_month.split('-'))
+                    logger.info(f"Using stored leaderboard month: {year}-{month:02d}")
+                except:
+                    now = datetime.now()
+                    year = now.year
+                    month = now.month
+            else:
+                now = datetime.now()
+                year = now.year
+                month = now.month
+        
         logger.info(f"=" * 60)
-        logger.info(f"FETCHING COMPLETE STATS FOR: {decoded_key}")
+        logger.info(f"FETCHING COMPLETE STATS FOR: {decoded_key} for {year}-{month:02d}")
         logger.info(f"=" * 60)
         
         story = await StoryService.get_story(decoded_key)
@@ -518,48 +616,64 @@ async def fetch_complete_story_stats(story_key: str = Path(..., description="The
         if not fetcher.is_authenticated():
             raise HTTPException(status_code=401, detail="Not authenticated")
         
-        complete_stats = await fetcher.fetch_complete_stats(story.medium_url)
+        # Fetch stats for the specific month (not current month)
+        month_stats = await fetcher.fetch_stats_for_month(story.medium_url, year, month)
         
-        if complete_stats:
-            totals = complete_stats.get('totals', {})
-            lifetime = complete_stats.get('lifetime_totals', {})
+        if month_stats:
+            totals = month_stats.get('totals', {})
+            lifetime_totals = month_stats.get('lifetime_totals', {})
             
+            # Update the story in database with the fetched month's stats
             await StoryService.update_story(decoded_key, StoryUpdate(
+                # Current month stats (for the selected month)
+                medium_member_reads=totals.get('member_reads', 0),
+                medium_nonmember_reads=totals.get('nonmember_reads', 0),
                 reads=totals.get('total_reads', 0),
+                medium_member_views=totals.get('member_views', 0),
+                medium_nonmember_views=totals.get('nonmember_views', 0),
+                view_count=totals.get('total_views', 0),
                 claps=totals.get('claps', 0),
                 responses=totals.get('replies', 0),
-                view_count=totals.get('total_views', 0),
-                medium_member_reads=totals.get('member_reads', 0),
-                medium_member_views=totals.get('member_views', 0),
-                medium_nonmember_reads=totals.get('nonmember_reads', 0),
-                medium_nonmember_views=totals.get('nonmember_views', 0),
+                medium_highlights=totals.get('highlights', 0),
+                medium_new_followers=totals.get('new_followers', 0),
                 medium_read_ratio=totals.get('read_ratio', 0),
                 medium_member_read_percentage=totals.get('member_read_percentage', 0),
-                medium_new_followers=totals.get('new_followers', 0),
-                lifetime_reads=lifetime.get('total_reads', 0),
-                lifetime_claps=lifetime.get('claps', 0),
-                lifetime_views=lifetime.get('total_views', 0),
-                medium_first_published=complete_stats.get('first_published'),
-                medium_last_updated=complete_stats.get('last_updated'),
-                medium_title=complete_stats.get('title'),
-                medium_reading_time=complete_stats.get('reading_time', 0),
-                word_count=complete_stats.get('word_count', 0),
-                medium_tags=complete_stats.get('post_tags', []),
-                medium_topics=complete_stats.get('post_topics', []),
+                
+                # Lifetime stats (always the same)
+                lifetime_reads=lifetime_totals.get('total_reads', 0),
+                lifetime_views=lifetime_totals.get('total_views', 0),
+                lifetime_claps=lifetime_totals.get('claps', 0),
+                presentation_count=lifetime_totals.get('presentation_count', 0),
+                
+                # Post metadata
+                medium_first_published=month_stats.get('first_published'),
+                medium_last_updated=month_stats.get('last_updated'),
+                medium_title=month_stats.get('title'),
+                medium_reading_time=month_stats.get('reading_time', 0),
+                word_count=month_stats.get('word_count', 0),
+                medium_tags=month_stats.get('post_tags', []),
+                medium_topics=month_stats.get('post_topics', []),
+                
+                # Update timestamp
                 last_stats_update=datetime.now().isoformat(),
                 medium_stats_updated=datetime.now().isoformat(),
                 lifetime_stats_updated=datetime.now().isoformat(),
-                medium_stats_data=complete_stats,
-                lifetime_stats_data=complete_stats
+                medium_stats_data=month_stats,
+                lifetime_stats_data=month_stats
             ))
             
+            month_name = datetime(year, month, 1).strftime("%B %Y")
+            
             return {
-                "message": "Stats fetched successfully",
+                "message": f"Stats fetched successfully for {month_name}",
+                "stats_month": f"{year}-{month:02d}",
+                "stats_month_display": month_name,
                 "stats": {
                     "story_key": decoded_key,
                     "story_name": story.name,
                     "medium_url": story.medium_url,
-                    "medium_first_published": complete_stats.get('first_published'),
+                    "medium_first_published": month_stats.get('first_published'),
+                    "last_stats_update": datetime.now().isoformat(),
                     "current_month": {
                         "reads": totals.get('total_reads', 0),
                         "claps": totals.get('claps', 0),
@@ -570,22 +684,23 @@ async def fetch_complete_story_stats(story_key: str = Path(..., description="The
                         "read_ratio": totals.get('read_ratio', 0)
                     },
                     "lifetime": {
-                        "reads": lifetime.get('total_reads', 0),
-                        "claps": lifetime.get('claps', 0),
-                        "views": lifetime.get('total_views', 0),
-                        "tags": complete_stats.get('post_tags', []),
-                        "topics": complete_stats.get('post_topics', [])
+                        "reads": lifetime_totals.get('total_reads', 0),
+                        "claps": lifetime_totals.get('claps', 0),
+                        "views": lifetime_totals.get('total_views', 0),
+                        "presentation_count": lifetime_totals.get('presentation_count', 0),
+                        "tags": month_stats.get('post_tags', []),
+                        "topics": month_stats.get('post_topics', [])
                     },
                     "content": {
-                        "word_count": complete_stats.get('word_count', 0),
-                        "reading_time": complete_stats.get('reading_time', 0),
-                        "tags": complete_stats.get('post_tags', []),
-                        "topics": complete_stats.get('post_topics', [])
+                        "word_count": month_stats.get('word_count', 0),
+                        "reading_time": month_stats.get('reading_time', 0),
+                        "tags": month_stats.get('post_tags', []),
+                        "topics": month_stats.get('post_topics', [])
                     },
                     "metadata": {
-                        "title": complete_stats.get('title'),
-                        "first_published": complete_stats.get('first_published'),
-                        "last_updated": complete_stats.get('last_updated')
+                        "title": month_stats.get('title'),
+                        "first_published": month_stats.get('first_published'),
+                        "last_updated": month_stats.get('last_updated')
                     }
                 }
             }
@@ -597,8 +712,7 @@ async def fetch_complete_story_stats(story_key: str = Path(..., description="The
     except Exception as e:
         logger.error(f"Fetch stats error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-
-
+    
 # ============================================
 # LEADERBOARD FETCH ENDPOINTS
 # ============================================
@@ -669,21 +783,14 @@ async def fetch_leaderboard_for_month(request: Request):
             if not title:
                 return ""
             
-            # Convert to lowercase
             normalized = title.lower().strip()
-            
-            # Remove .md extension if present
             if normalized.endswith('.md'):
                 normalized = normalized[:-3]
             
-            # Replace all types of dashes/em-dash/en-dash with standard hyphen
             import re
             normalized = re.sub(r'[—–‐‑‒−]', '-', normalized)
-            
-            # Replace all types of spaces with single space
             normalized = re.sub(r'\s+', ' ', normalized)
             
-            # Trim
             return normalized.strip()
         
         # Create a map of existing stories by normalized title
@@ -692,7 +799,7 @@ async def fetch_leaderboard_for_month(request: Request):
             if story.name:
                 normalized = normalize_title(story.name)
                 story_map[normalized] = story
-                logger.info(f"  DB: \"{story.name}\" -> \"{normalized}\"")
+                logger.info(f"  DB Story: \"{story.name}\" -> \"{normalized}\"")
         
         # Reset leaderboard flags
         reset_count = 0
@@ -737,11 +844,9 @@ async def fetch_leaderboard_for_month(request: Request):
             if not medium_url or not title:
                 continue
             
-            # Normalize JSON title
             normalized_json_title = normalize_title(title)
-            logger.info(f"  JSON: \"{title}\" -> \"{normalized_json_title}\"")
+            logger.info(f"  JSON Story: \"{title}\" -> \"{normalized_json_title}\"")
             
-            # Match by normalized title
             existing_story = story_map.get(normalized_json_title)
             
             reading_time_int = int(round(reading_time)) if reading_time else 0
@@ -781,7 +886,7 @@ async def fetch_leaderboard_for_month(request: Request):
                 
                 await StoryService.update_story(existing_story.key, update_data)
                 updated_count += 1
-                logger.info(f"  ✅ UPDATED: Series \"{existing_story.series}\" (KEPT)")
+                logger.info(f"✅ UPDATED: \"{title}\" - Series: \"{existing_story.series}\" (KEPT ORIGINAL)")
             else:
                 # Create NEW story - goes to "Leaderboard" series
                 current_date = datetime.now().strftime("%Y-%m-%d")
@@ -822,7 +927,10 @@ async def fetch_leaderboard_for_month(request: Request):
                 ))
                 
                 added_count += 1
-                logger.info(f"  ✅ ADDED NEW: Created in Leaderboard series")
+                logger.info(f"✅ ADDED NEW: \"{title}\" - Created in \"Leaderboard\" series")
+        
+        # After successful fetch, save the month
+        await AppStatusService.set_leaderboard_month(year, month)
         
         end_time = datetime.now()
         processing_time_ms = (end_time - start_time).total_seconds() * 1000
@@ -860,15 +968,34 @@ async def fetch_leaderboard_for_month(request: Request):
         logger.error(f"Fetch leaderboard error: {e}")
         import traceback
         traceback.print_exc()
-        return {"error": str(e)}    
-    
+        return {"error": str(e)}
+
 
 @router.post("/update-leaderboard-stats")
-async def update_leaderboard_stats():
-    """Fetch COMPLETE stats (current month + lifetime) for stories with leaderboard flag = true"""
+async def update_leaderboard_stats(year: Optional[int] = None, month: Optional[int] = None):
+    """Fetch stats for stories with leaderboard flag = true for a specific month"""
     try:
+        # Determine which month to fetch stats for
+        if year is None or month is None:
+            # Try to get from stored leaderboard month
+            stored_month = await AppStatusService.get_leaderboard_month()
+            if stored_month:
+                try:
+                    year, month = map(int, stored_month.split('-'))
+                    logger.info(f"Using stored leaderboard month: {year}-{month:02d}")
+                except:
+                    now = datetime.now()
+                    year = now.year
+                    month = now.month
+                    logger.warning(f"Invalid stored month, using current: {year}-{month:02d}")
+            else:
+                now = datetime.now()
+                year = now.year
+                month = now.month
+                logger.info(f"No stored month, using current: {year}-{month:02d}")
+        
         logger.info("=" * 60)
-        logger.info("UPDATING LEADERBOARD STORIES WITH COMPLETE STATS")
+        logger.info(f"UPDATING LEADERBOARD STORIES FOR {year}-{month:02d}")
         logger.info("=" * 60)
         
         all_stories = await StoryService.get_all_stories()
@@ -889,7 +1016,8 @@ async def update_leaderboard_stats():
             'total': len(leaderboard_stories),
             'updated': 0,
             'failed': 0,
-            'details': []
+            'details': [],
+            'stats_month': f"{year}-{month:02d}"
         }
         
         for i, story in enumerate(leaderboard_stories):
@@ -898,21 +1026,15 @@ async def update_leaderboard_stats():
                 
                 if i > 0:
                     logger.info("   Waiting 3 seconds to avoid rate limiting...")
-                    time.sleep(3)
+                    time.sleep(.5)
                 
-                # Fetch complete stats from Medium API
-                complete_stats = await fetcher.fetch_complete_stats(story.medium_url)
+                month_stats = await fetcher.fetch_stats_for_month(story.medium_url, year, month)
                 
-                if complete_stats:
-                    # Get current month totals (from _get_current_month_payload)
-                    totals = complete_stats.get('totals', {})
+                if month_stats:
+                    totals = month_stats.get('totals', {})
+                    lifetime_totals = month_stats.get('lifetime_totals', {})
                     
-                    # Get lifetime totals (from _get_lifetime_payload)
-                    lifetime_totals = complete_stats.get('lifetime_totals', {})
-                    
-                    # Prepare update data with nested objects
-                    update_data = StoryUpdate(
-                        # Current month totals (updated monthly)
+                    await StoryService.update_story(story.key, StoryUpdate(
                         medium_member_reads=totals.get('member_reads', 0),
                         medium_nonmember_reads=totals.get('nonmember_reads', 0),
                         reads=totals.get('total_reads', 0),
@@ -925,44 +1047,35 @@ async def update_leaderboard_stats():
                         medium_new_followers=totals.get('new_followers', 0),
                         medium_read_ratio=totals.get('read_ratio', 0),
                         medium_member_read_percentage=totals.get('member_read_percentage', 0),
-                        
-                        # Lifetime totals (updated monthly)
                         lifetime_reads=lifetime_totals.get('total_reads', 0),
                         lifetime_views=lifetime_totals.get('total_views', 0),
                         lifetime_claps=lifetime_totals.get('claps', 0),
                         presentation_count=lifetime_totals.get('presentation_count', 0),
-                        
-                        # Post metadata
-                        medium_first_published=complete_stats.get('first_published'),
-                        medium_last_updated=complete_stats.get('last_updated'),
-                        medium_title=complete_stats.get('title'),
-                        medium_reading_time=complete_stats.get('reading_time', 0),
-                        word_count=complete_stats.get('word_count', 0),
-                        medium_tags=complete_stats.get('post_tags', []),
-                        medium_topics=complete_stats.get('post_topics', []),
-                        
-                        # Update timestamp
+                        medium_first_published=month_stats.get('first_published'),
+                        medium_last_updated=month_stats.get('last_updated'),
+                        medium_title=month_stats.get('title'),
+                        medium_reading_time=month_stats.get('reading_time', 0),
+                        word_count=month_stats.get('word_count', 0),
+                        medium_tags=month_stats.get('post_tags', []),
+                        medium_topics=month_stats.get('post_topics', []),
                         last_stats_update=datetime.now().isoformat(),
                         medium_stats_updated=datetime.now().isoformat(),
                         lifetime_stats_updated=datetime.now().isoformat(),
-                        medium_stats_data=complete_stats,
-                        lifetime_stats_data=complete_stats
-                    )
-                    
-                    await StoryService.update_story(story.key, update_data)
+                        medium_stats_data=month_stats,
+                        lifetime_stats_data=month_stats
+                    ))
                     
                     results['updated'] += 1
                     results['details'].append({
                         'key': story.key,
                         'name': story.name,
                         'success': True,
-                        'current_reads': totals.get('total_reads', 0),
-                        'lifetime_reads': lifetime_totals.get('total_reads', 0),
-                        'presentation_count': lifetime_totals.get('presentation_count', 0)
+                        'reads': totals.get('total_reads', 0),
+                        'views': totals.get('total_views', 0),
+                        'lifetime_reads': lifetime_totals.get('total_reads', 0)
                     })
                     
-                    logger.info(f"   ✅ Updated: Current: {totals.get('total_reads', 0)} reads, {totals.get('total_views', 0)} views")
-                    logger.info(f"      Lifetime: {lifetime_totals.get('total_reads', 0)} reads, {lifetime_totals.get('total_views', 0)} views, {lifetime_totals.get('presentation_count', 0)} presentations")
+                    logger.info(f"   ✅ Updated for {year}-{month:02d}: {totals.get('total_reads', 0)} reads, {totals.get('total_views', 0)} views")
                 else:
                     results['failed'] += 1
                     results['details'].append({
@@ -970,7 +1083,7 @@ async def update_leaderboard_stats():
                         'name': story.name,
                         'success': False
                     })
-                    logger.warning(f"   ❌ Failed to fetch complete stats")
+                    logger.warning(f"   ❌ Failed to fetch stats for {year}-{month:02d}")
                     
             except Exception as e:
                 results['failed'] += 1
@@ -982,13 +1095,16 @@ async def update_leaderboard_stats():
                 })
                 logger.error(f"   ❌ Error: {e}")
         
+        month_name = datetime(year, month, 1).strftime("%B %Y")
         logger.info(f"\n{'='*60}")
-        logger.info(f"COMPLETE: {results['updated']}/{results['total']} leaderboard stories updated")
+        logger.info(f"COMPLETE: {results['updated']}/{results['total']} stories updated for {month_name}")
         logger.info(f"{'='*60}")
         
         return {
-            "message": f"Updated {results['updated']} of {results['total']} leaderboard stories with complete stats",
-            "results": results
+            "message": f"Updated {results['updated']} of {results['total']} leaderboard stories for {month_name}",
+            "results": results,
+            "stats_month": f"{year}-{month:02d}",
+            "display_name": month_name
         }
 
     except Exception as e:
@@ -996,7 +1112,7 @@ async def update_leaderboard_stats():
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
-    
+
 
 @router.post("/clear-leaderboard")
 async def clear_leaderboard():
@@ -1113,4 +1229,3 @@ async def get_story(story_key: str = Path(..., description="The story key")):
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
     return story
-
