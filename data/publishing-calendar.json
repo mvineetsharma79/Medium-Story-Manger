@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-04T08:24:42.403275",
+  "generated": "2026-04-05T00:53:53.791830",
   "summary": {
-    "total_scheduled": 195,
+    "total_scheduled": 200,
     "stories_per_week": 3,
     "series_spacing_default": 7,
     "start_date": "2026-04-04",
@@ -16,22 +16,25 @@
       "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts": 4,
       "Claude Code Mastery": 5,
       "Design Patterns": 5,
-      "GitHub": 6,
+      "GitHub": 5,
       "Publishing .NET 10 Apps as Container Images": 21,
       "Clean Architecture Anti-Pattern Python": 8,
       "DevOps": 1,
       "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide": 1,
       "AI Engineering": 7,
-      "Dotnet Python NodeJS": 4,
+      "Dotnet Python NodeJS": 3,
       " Publishing Python FastAPI Apps as Container Images": 22,
       "Miscellaneous": 2,
       "Modernizing the Monolith": 3,
-      "Publishing Node.js Express Apps as Container Images": 22,
+      "Publishing Node.js Express Apps as Container Images": 21,
       "SQL Mechanic to Data Architect": 3,
       "Vehixcare": 3,
-      "Code to Cluster": 2
+      "Code to Cluster": 2,
+      "Kafka Design Patterns - Azure + .NET 10": 3,
+      "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution": 1,
+      "Kafka Design Patterns - AWS": 4
     },
-    "remaining_unpublished": 0
+    "remaining_unpublished": 1
   },
   "schedule": [
     {
@@ -631,8 +634,8 @@
     {
       "date": "2026-09-07",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
-      "name": "GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
+      "story_key": "GitHub/GitHub Copilot in CI CD: AI-Powered Automation at Scale",
+      "name": "GitHub Copilot in CI CD: AI-Powered Automation at Scale",
       "series": "GitHub",
       "part": null,
       "read_time": null
@@ -658,8 +661,8 @@
     {
       "date": "2026-09-14",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in CI CD: AI-Powered Automation at Scale",
-      "name": "GitHub Copilot in CI CD: AI-Powered Automation at Scale",
+      "story_key": "GitHub/GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
+      "name": "GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
       "series": "GitHub",
       "part": null,
       "read_time": null
@@ -685,8 +688,8 @@
     {
       "date": "2026-09-21",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
-      "name": "GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
+      "story_key": "GitHub/GitHub Copilot on GitHub.com: AI-Powered Collaboration at Scale",
+      "name": "GitHub Copilot on GitHub.com: AI-Powered Collaboration at Scale",
       "series": "GitHub",
       "part": null,
       "read_time": null
@@ -712,8 +715,8 @@
     {
       "date": "2026-09-28",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot on GitHub.com: AI-Powered Collaboration at Scale",
-      "name": "GitHub Copilot on GitHub.com: AI-Powered Collaboration at Scale",
+      "story_key": "GitHub/GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
+      "name": "GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
       "series": "GitHub",
       "part": null,
       "read_time": null
@@ -739,8 +742,8 @@
     {
       "date": "2026-10-05",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
-      "name": "GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
+      "story_key": "GitHub/GitHub Copilot in the Terminal: Your Command Line AI Assistant",
+      "name": "GitHub Copilot in the Terminal: Your Command Line AI Assistant",
       "series": "GitHub",
       "part": null,
       "read_time": null
@@ -766,10 +769,10 @@
     {
       "date": "2026-10-12",
       "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in the Terminal: Your Command Line AI Assistant",
-      "name": "GitHub Copilot in the Terminal: Your Command Line AI Assistant",
-      "series": "GitHub",
-      "part": null,
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Testing & Observability - Part 7",
+      "name": "Clean Architecture Anti-Pattern in Python - Testing & Observability - Part 7",
+      "series": "Clean Architecture Anti-Pattern Python",
+      "part": 7,
       "read_time": null
     },
     {
@@ -793,10 +796,10 @@
     {
       "date": "2026-10-19",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Testing & Observability - Part 7",
-      "name": "Clean Architecture Anti-Pattern in Python - Testing & Observability - Part 7",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Across Real-World Domains - Part 5",
+      "name": "Clean Architecture Anti-Pattern in Python - Across Real-World Domains - Part 5",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 7,
+      "part": 5,
       "read_time": null
     },
     {
@@ -820,10 +823,10 @@
     {
       "date": "2026-10-26",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Across Real-World Domains - Part 5",
-      "name": "Clean Architecture Anti-Pattern in Python - Across Real-World Domains - Part 5",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - A Developer's Guide to Resilience - Part 1",
+      "name": "Clean Architecture Anti-Pattern in Python - A Developer's Guide to Resilience - Part 1",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 5,
+      "part": 1,
       "read_time": null
     },
     {
@@ -847,10 +850,10 @@
     {
       "date": "2026-11-02",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - A Developer's Guide to Resilience - Part 1",
-      "name": "Clean Architecture Anti-Pattern in Python - A Developer's Guide to Resilience - Part 1",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Building the Result Pattern - Part 4",
+      "name": "Clean Architecture Anti-Pattern in Python - Building the Result Pattern - Part 4",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 1,
+      "part": 4,
       "read_time": null
     },
     {
@@ -874,10 +877,10 @@
     {
       "date": "2026-11-09",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Building the Result Pattern - Part 4",
-      "name": "Clean Architecture Anti-Pattern in Python - Building the Result Pattern - Part 4",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Domain Logic in Disguise - Part 2",
+      "name": "Clean Architecture Anti-Pattern in Python - Domain Logic in Disguise - Part 2",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 4,
+      "part": 2,
       "read_time": null
     },
     {
@@ -901,10 +904,10 @@
     {
       "date": "2026-11-16",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Domain Logic in Disguise - Part 2",
-      "name": "Clean Architecture Anti-Pattern in Python - Domain Logic in Disguise - Part 2",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Defining the Boundary - Part 3",
+      "name": "Clean Architecture Anti-Pattern in Python - Defining the Boundary - Part 3",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 2,
+      "part": 3,
       "read_time": null
     },
     {
@@ -928,10 +931,10 @@
     {
       "date": "2026-11-23",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Defining the Boundary - Part 3",
-      "name": "Clean Architecture Anti-Pattern in Python - Defining the Boundary - Part 3",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - The Road Ahead - Part 8",
+      "name": "Clean Architecture Anti-Pattern in Python - The Road Ahead - Part 8",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 3,
+      "part": 8,
       "read_time": null
     },
     {
@@ -955,10 +958,10 @@
     {
       "date": "2026-11-30",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - The Road Ahead - Part 8",
-      "name": "Clean Architecture Anti-Pattern in Python - The Road Ahead - Part 8",
+      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Infrastructure Resilience - Part 6",
+      "name": "Clean Architecture Anti-Pattern in Python - Infrastructure Resilience - Part 6",
       "series": "Clean Architecture Anti-Pattern Python",
-      "part": 8,
+      "part": 6,
       "read_time": null
     },
     {
@@ -982,10 +985,10 @@
     {
       "date": "2026-12-07",
       "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Infrastructure Resilience - Part 6",
-      "name": "Clean Architecture Anti-Pattern in Python - Infrastructure Resilience - Part 6",
-      "series": "Clean Architecture Anti-Pattern Python",
-      "part": 6,
+      "story_key": "DevOps/The Complete Multi-Language Containerization Library: .NET, Python, and Node.js on Azure and AWS",
+      "name": "The Complete Multi-Language Containerization Library: .NET, Python, and Node.js on Azure and AWS",
+      "series": "DevOps",
+      "part": null,
       "read_time": null
     },
     {
@@ -1009,9 +1012,9 @@
     {
       "date": "2026-12-14",
       "weekday": "Monday",
-      "story_key": "DevOps/The Complete Multi-Language Containerization Library: .NET, Python, and Node.js on Azure and AWS",
-      "name": "The Complete Multi-Language Containerization Library: .NET, Python, and Node.js on Azure and AWS",
-      "series": "DevOps",
+      "story_key": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide/artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
+      "name": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
+      "series": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
       "part": null,
       "read_time": null
     },
@@ -1036,9 +1039,9 @@
     {
       "date": "2026-12-21",
       "weekday": "Monday",
-      "story_key": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide/artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
-      "name": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
-      "series": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
+      "story_key": "AI Engineering/AI Agent Engineering - EPILOGUE: The Future of AI Agents",
+      "name": "AI Agent Engineering - EPILOGUE: The Future of AI Agents",
+      "series": "AI Engineering",
       "part": null,
       "read_time": null
     },
@@ -1063,8 +1066,8 @@
     {
       "date": "2026-12-28",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering - EPILOGUE: The Future of AI Agents",
-      "name": "AI Agent Engineering - EPILOGUE: The Future of AI Agents",
+      "story_key": "AI Engineering/AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
+      "name": "AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
@@ -1090,8 +1093,8 @@
     {
       "date": "2027-01-04",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
-      "name": "AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
+      "story_key": "AI Engineering/AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
+      "name": "AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
@@ -1117,8 +1120,8 @@
     {
       "date": "2027-01-11",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
-      "name": "AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
+      "story_key": "AI Engineering/AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
+      "name": "AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
@@ -1144,8 +1147,8 @@
     {
       "date": "2027-01-18",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
-      "name": "AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
+      "story_key": "AI Engineering/AI Agent Engineering 1 - Foundation & LLM Fundamentals",
+      "name": "AI Agent Engineering 1 - Foundation & LLM Fundamentals",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
@@ -1171,8 +1174,8 @@
     {
       "date": "2027-01-25",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 1 - Foundation & LLM Fundamentals",
-      "name": "AI Agent Engineering 1 - Foundation & LLM Fundamentals",
+      "story_key": "AI Engineering/AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
+      "name": "AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
@@ -1198,8 +1201,8 @@
     {
       "date": "2027-02-01",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
-      "name": "AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
+      "story_key": "AI Engineering/Prompt Engineering vs Content Engineering vs RAG",
+      "name": "Prompt Engineering vs Content Engineering vs RAG",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
@@ -1225,9 +1228,9 @@
     {
       "date": "2027-02-08",
       "weekday": "Monday",
-      "story_key": "AI Engineering/Prompt Engineering vs Content Engineering vs RAG",
-      "name": "Prompt Engineering vs Content Engineering vs RAG",
-      "series": "AI Engineering",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production - AWS",
+      "name": "Visual Studio Code Dev Containers: Local Development to Production - AWS",
+      "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
     },
@@ -1252,8 +1255,8 @@
     {
       "date": "2027-02-15",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production - AWS",
-      "name": "Visual Studio Code Dev Containers: Local Development to Production - AWS",
+      "story_key": " Publishing Python FastAPI Apps as Container Images/GitHub Actions + Amazon ECR: CI CD for Python - AWS",
+      "name": "GitHub Actions + Amazon ECR: CI CD for Python - AWS",
       "series": " Publishing Python FastAPI Apps as Container Images",
       "part": null,
       "read_time": null
@@ -1279,33 +1282,6 @@
     {
       "date": "2027-02-22",
       "weekday": "Monday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/GitHub Actions + Amazon ECR: CI CD for Python - AWS",
-      "name": "GitHub Actions + Amazon ECR: CI CD for Python - AWS",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-02-23",
-      "weekday": "Tuesday",
-      "story_key": "Dotnet Python NodeJS/From REST to gRPC: A Unified Architecture Across NET 10, NodeJS, and Python",
-      "name": "From REST to gRPC: A Unified Architecture Across NET 10, NodeJS, and Python",
-      "series": "Dotnet Python NodeJS",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-02-24",
-      "weekday": "Wednesday",
-      "story_key": "Miscellaneous/The Desktop Phoenix: An Architect's Guide to WPF in a Multi-Platform World",
-      "name": "The Desktop Phoenix: An Architect's Guide to WPF in a Multi-Platform World",
-      "series": "Miscellaneous",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-03-01",
-      "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Pip + Docker: The Classic Python Containerization - AWS",
       "name": "Pip + Docker: The Classic Python Containerization - AWS",
       "series": " Publishing Python FastAPI Apps as Container Images",
@@ -1313,8 +1289,17 @@
       "read_time": null
     },
     {
-      "date": "2027-03-02",
+      "date": "2027-02-23",
       "weekday": "Tuesday",
+      "story_key": "Miscellaneous/The Desktop Phoenix: An Architect's Guide to WPF in a Multi-Platform World",
+      "name": "The Desktop Phoenix: An Architect's Guide to WPF in a Multi-Platform World",
+      "series": "Miscellaneous",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-02-24",
+      "weekday": "Wednesday",
       "story_key": "Modernizing the Monolith/Modernizing the Monolith: Docker, CI CD & Azure Cloud Deployment — Part 3",
       "name": "Modernizing the Monolith: Docker, CI CD & Azure Cloud Deployment — Part 3",
       "series": "Modernizing the Monolith",
@@ -1322,16 +1307,7 @@
       "read_time": null
     },
     {
-      "date": "2027-03-03",
-      "weekday": "Wednesday",
-      "story_key": "Miscellaneous/Re-Learning .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
-      "name": "Re-Learning .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
-      "series": "Miscellaneous",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-03-08",
+      "date": "2027-03-01",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/AWS App Runner: Fully Managed Python Container Service - AWS",
       "name": "AWS App Runner: Fully Managed Python Container Service - AWS",
@@ -1340,8 +1316,17 @@
       "read_time": null
     },
     {
-      "date": "2027-03-09",
+      "date": "2027-03-02",
       "weekday": "Tuesday",
+      "story_key": "Miscellaneous/Re-Learning .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
+      "name": "Re-Learning .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
+      "series": "Miscellaneous",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-03-03",
+      "weekday": "Wednesday",
       "story_key": "Modernizing the Monolith/Modernizing the Monolith: Kubernetes on AKS Production Guide — Part 4",
       "name": "Modernizing the Monolith: Kubernetes on AKS Production Guide — Part 4",
       "series": "Modernizing the Monolith",
@@ -1349,16 +1334,7 @@
       "read_time": null
     },
     {
-      "date": "2027-03-10",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows - Azure",
-      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows - Azure",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-03-15",
+      "date": "2027-03-08",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Pip + Docker: The Classic Python Containerization",
       "name": "Pip + Docker: The Classic Python Containerization",
@@ -1367,8 +1343,17 @@
       "read_time": null
     },
     {
-      "date": "2027-03-16",
+      "date": "2027-03-09",
       "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows - Azure",
+      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows - Azure",
+      "series": "Publishing Node.js Express Apps as Container Images",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-03-10",
+      "weekday": "Wednesday",
       "story_key": "Modernizing the Monolith/Modernizing the Monolith: React 19 Security, Performance & Best Practices — Part 5",
       "name": "Modernizing the Monolith: React 19 Security, Performance & Best Practices — Part 5",
       "series": "Modernizing the Monolith",
@@ -1376,16 +1361,7 @@
       "read_time": null
     },
     {
-      "date": "2027-03-17",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production - AWS",
-      "name": "Visual Studio Code Dev Containers: Local Development to Production - AWS",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-03-22",
+      "date": "2027-03-15",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
       "name": "Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
@@ -1394,8 +1370,17 @@
       "read_time": null
     },
     {
-      "date": "2027-03-23",
+      "date": "2027-03-16",
       "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production - AWS",
+      "name": "Visual Studio Code Dev Containers: Local Development to Production - AWS",
+      "series": "Publishing Node.js Express Apps as Container Images",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-03-17",
+      "weekday": "Wednesday",
       "story_key": "SQL Mechanic to Data Architect/SQL Mechanic to Architect: Database UDFs, Stored Procedures, & Production-Grade Patterns — Part 2",
       "name": "SQL Mechanic to Architect: Database UDFs, Stored Procedures, & Production-Grade Patterns — Part 2",
       "series": "SQL Mechanic to Data Architect",
@@ -1403,16 +1388,7 @@
       "read_time": null
     },
     {
-      "date": "2027-03-24",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/pnpm + Docker: Disk-Efficient Node.js Containers - Azure",
-      "name": "pnpm + Docker: Disk-Efficient Node.js Containers - Azure",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-03-29",
+      "date": "2027-03-22",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/UV + Docker: Blazing Fast Python Package Management",
       "name": "UV + Docker: Blazing Fast Python Package Management",
@@ -1421,8 +1397,17 @@
       "read_time": null
     },
     {
-      "date": "2027-03-30",
+      "date": "2027-03-23",
       "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/pnpm + Docker: Disk-Efficient Node.js Containers - Azure",
+      "name": "pnpm + Docker: Disk-Efficient Node.js Containers - Azure",
+      "series": "Publishing Node.js Express Apps as Container Images",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-03-24",
+      "weekday": "Wednesday",
       "story_key": "SQL Mechanic to Data Architect/SQL Mechanic to Architect: CTEs, Window Functions, Query Optimization, and Scalable Patterns- Part 1",
       "name": "SQL Mechanic to Architect: CTEs, Window Functions, Query Optimization, and Scalable Patterns- Part 1",
       "series": "SQL Mechanic to Data Architect",
@@ -1430,16 +1415,7 @@
       "read_time": null
     },
     {
-      "date": "2027-03-31",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/GitHub Actions + Container Registry: CI CD for Node",
-      "name": "GitHub Actions + Container Registry: CI CD for Node",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-05",
+      "date": "2027-03-29",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/AWS Copilot: The Turnkey Container Solution - AWS",
       "name": "AWS Copilot: The Turnkey Container Solution - AWS",
@@ -1448,8 +1424,17 @@
       "read_time": null
     },
     {
-      "date": "2027-04-06",
+      "date": "2027-03-30",
       "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/GitHub Actions + Container Registry: CI CD for Node",
+      "name": "GitHub Actions + Container Registry: CI CD for Node",
+      "series": "Publishing Node.js Express Apps as Container Images",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-03-31",
+      "weekday": "Wednesday",
       "story_key": "SQL Mechanic to Data Architect/SQL Mechanic to Architect: Advanced Queries, SPs & Scalable Systems - The Complete Journey",
       "name": "SQL Mechanic to Architect: Advanced Queries, SPs & Scalable Systems - The Complete Journey",
       "series": "SQL Mechanic to Data Architect",
@@ -1457,16 +1442,7 @@
       "read_time": null
     },
     {
-      "date": "2027-04-07",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/AWS App Runner: Fully Managed Node.js Container Service - AWS",
-      "name": "AWS App Runner: Fully Managed Node.js Container Service - AWS",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-12",
+      "date": "2027-04-05",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows",
       "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows",
@@ -1475,8 +1451,17 @@
       "read_time": null
     },
     {
-      "date": "2027-04-13",
+      "date": "2027-04-06",
       "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/AWS App Runner: Fully Managed Node.js Container Service - AWS",
+      "name": "AWS App Runner: Fully Managed Node.js Container Service - AWS",
+      "series": "Publishing Node.js Express Apps as Container Images",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-04-07",
+      "weekday": "Wednesday",
       "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 3",
       "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 3",
       "series": "Vehixcare",
@@ -1484,16 +1469,7 @@
       "read_time": null
     },
     {
-      "date": "2027-04-14",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Azure Container Apps: Serverless Node.js Deployment",
-      "name": "Azure Container Apps: Serverless Node.js Deployment",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-19",
+      "date": "2027-04-12",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Amazon EKS: Python Microservices at Scale - AWS",
       "name": "Amazon EKS: Python Microservices at Scale - AWS",
@@ -1502,8 +1478,17 @@
       "read_time": null
     },
     {
-      "date": "2027-04-20",
+      "date": "2027-04-13",
       "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/Azure Container Apps: Serverless Node.js Deployment",
+      "name": "Azure Container Apps: Serverless Node.js Deployment",
+      "series": "Publishing Node.js Express Apps as Container Images",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-04-14",
+      "weekday": "Wednesday",
       "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 4",
       "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 4",
       "series": "Vehixcare",
@@ -1511,16 +1496,7 @@
       "read_time": null
     },
     {
-      "date": "2027-04-21",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/AWS Copilot: The Turnkey Container Solution - AWS",
-      "name": "AWS Copilot: The Turnkey Container Solution - AWS",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-26",
+      "date": "2027-04-19",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/GitHub Actions + Container Registry: CI CD for Python",
       "name": "GitHub Actions + Container Registry: CI CD for Python",
@@ -1529,8 +1505,17 @@
       "read_time": null
     },
     {
-      "date": "2027-04-27",
+      "date": "2027-04-20",
       "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/AWS Copilot: The Turnkey Container Solution - AWS",
+      "name": "AWS Copilot: The Turnkey Container Solution - AWS",
+      "series": "Publishing Node.js Express Apps as Container Images",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-04-21",
+      "weekday": "Wednesday",
       "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 2",
       "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 2",
       "series": "Vehixcare",
@@ -1538,16 +1523,7 @@
       "read_time": null
     },
     {
-      "date": "2027-04-28",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Amazon EKS: Node.js Microservices at Scale - AWS",
-      "name": "Amazon EKS: Node.js Microservices at Scale - AWS",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-03",
+      "date": "2027-04-26",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Azure Container Apps: Serverless Python Deployment",
       "name": "Azure Container Apps: Serverless Python Deployment",
@@ -1556,8 +1532,17 @@
       "read_time": null
     },
     {
-      "date": "2027-05-04",
+      "date": "2027-04-27",
       "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/Amazon EKS: Node.js Microservices at Scale - AWS",
+      "name": "Amazon EKS: Node.js Microservices at Scale - AWS",
+      "series": "Publishing Node.js Express Apps as Container Images",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-04-28",
+      "weekday": "Wednesday",
       "story_key": "Code to Cluster/Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
       "name": "Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
       "series": "Code to Cluster",
@@ -1565,16 +1550,7 @@
       "read_time": null
     },
     {
-      "date": "2027-05-05",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Publishing Node.js Express Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
-      "name": "Publishing Node.js Express Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-10",
+      "date": "2027-05-03",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production",
       "name": "Visual Studio Code Dev Containers: Local Development to Production",
@@ -1583,8 +1559,17 @@
       "read_time": null
     },
     {
-      "date": "2027-05-11",
+      "date": "2027-05-04",
       "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/Publishing Node.js Express Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
+      "name": "Publishing Node.js Express Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
+      "series": "Publishing Node.js Express Apps as Container Images",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-05-05",
+      "weekday": "Wednesday",
       "story_key": "Code to Cluster/Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on Azure",
       "name": "Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on Azure",
       "series": "Code to Cluster",
@@ -1592,16 +1577,7 @@
       "read_time": null
     },
     {
-      "date": "2027-05-12",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Publishing Node.js Express Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
-      "name": "Publishing Node.js Express Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-17",
+      "date": "2027-05-10",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Poetry + Docker Multi-Stage: The Modern Python Approach - AWS",
       "name": "Poetry + Docker Multi-Stage: The Modern Python Approach - AWS",
@@ -1610,16 +1586,25 @@
       "read_time": null
     },
     {
-      "date": "2027-05-19",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production - Azure",
-      "name": "Visual Studio Code Dev Containers: Local Development to Production - Azure",
+      "date": "2027-05-11",
+      "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/Publishing Node.js Express Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
+      "name": "Publishing Node.js Express Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
       "series": "Publishing Node.js Express Apps as Container Images",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-05-24",
+      "date": "2027-05-12",
+      "weekday": "Wednesday",
+      "story_key": "Kafka Design Patterns - Azure + .NET 10/11 Kafka Design Patterns — Reliability & Ordering Deep Dive (Azure + .NET 10 Edition)",
+      "name": "11 Kafka Design Patterns — Reliability & Ordering Deep Dive (Azure + .NET 10 Edition)",
+      "series": "Kafka Design Patterns - Azure + .NET 10",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-05-17",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
       "name": "Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
@@ -1628,16 +1613,25 @@
       "read_time": null
     },
     {
-      "date": "2027-05-26",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Yarn + Docker: Deterministic Dependency Management - AWS",
-      "name": "Yarn + Docker: Deterministic Dependency Management - AWS",
+      "date": "2027-05-18",
+      "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production - Azure",
+      "name": "Visual Studio Code Dev Containers: Local Development to Production - Azure",
       "series": "Publishing Node.js Express Apps as Container Images",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-05-31",
+      "date": "2027-05-19",
+      "weekday": "Wednesday",
+      "story_key": "Kafka Design Patterns - Azure + .NET 10/11 Kafka Design Patterns — Overview (All 11 Patterns)  - Azure + .NET 10 Edition",
+      "name": "11 Kafka Design Patterns — Overview (All 11 Patterns)  - Azure + .NET 10 Edition",
+      "series": "Kafka Design Patterns - Azure + .NET 10",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-05-24",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/UV + Docker: Blazing Fast Python Package Management - AWS",
       "name": "UV + Docker: Blazing Fast Python Package Management - AWS",
@@ -1646,16 +1640,25 @@
       "read_time": null
     },
     {
-      "date": "2027-06-02",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/NPM + Docker Multi-Stage: The Classic Node.js Approach - AWS",
-      "name": "NPM + Docker Multi-Stage: The Classic Node.js Approach - AWS",
+      "date": "2027-05-25",
+      "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/Yarn + Docker: Deterministic Dependency Management - AWS",
+      "name": "Yarn + Docker: Deterministic Dependency Management - AWS",
       "series": "Publishing Node.js Express Apps as Container Images",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-06-07",
+      "date": "2027-05-26",
+      "weekday": "Wednesday",
+      "story_key": "Kafka Design Patterns - Azure + .NET 10/11 Kafka Design Patterns — Data & State Deep Dive (Azure + .NET 10 Edition)",
+      "name": "11 Kafka Design Patterns — Data & State Deep Dive (Azure + .NET 10 Edition)",
+      "series": "Kafka Design Patterns - Azure + .NET 10",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-05-31",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Azure Kubernetes Service (AKS): Python Microservices at Scale",
       "name": "Azure Kubernetes Service (AKS): Python Microservices at Scale",
@@ -1664,16 +1667,25 @@
       "read_time": null
     },
     {
-      "date": "2027-06-09",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/pnpm + Docker: Disk-Efficient Node.js Containers - AWS",
-      "name": "pnpm + Docker: Disk-Efficient Node.js Containers - AWS",
+      "date": "2027-06-01",
+      "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/NPM + Docker Multi-Stage: The Classic Node.js Approach - AWS",
+      "name": "NPM + Docker Multi-Stage: The Classic Node.js Approach - AWS",
       "series": "Publishing Node.js Express Apps as Container Images",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-06-14",
+      "date": "2027-06-02",
+      "weekday": "Wednesday",
+      "story_key": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution/LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
+      "name": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
+      "series": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-06-07",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Azure Developer CLI (azd) with Python: The Turnkey Solution",
       "name": "Azure Developer CLI (azd) with Python: The Turnkey Solution",
@@ -1682,16 +1694,25 @@
       "read_time": null
     },
     {
-      "date": "2027-06-16",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/AWS CDK with TypeScript: Infrastructure as Code for Containers - AWS",
-      "name": "AWS CDK with TypeScript: Infrastructure as Code for Containers - AWS",
+      "date": "2027-06-08",
+      "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/pnpm + Docker: Disk-Efficient Node.js Containers - AWS",
+      "name": "pnpm + Docker: Disk-Efficient Node.js Containers - AWS",
       "series": "Publishing Node.js Express Apps as Container Images",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-06-21",
+      "date": "2027-06-09",
+      "weekday": "Wednesday",
+      "story_key": "Kafka Design Patterns - AWS/11 Kafka Design Patterns for Every Backend Engineer",
+      "name": "11 Kafka Design Patterns for Every Backend Engineer",
+      "series": "Kafka Design Patterns - AWS",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-06-14",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/AWS CDK with Python: Infrastructure as Code for Containers - AWS",
       "name": "AWS CDK with Python: Infrastructure as Code for Containers - AWS",
@@ -1700,16 +1721,25 @@
       "read_time": null
     },
     {
-      "date": "2027-06-23",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/AWS CDK & Copilot: Multi-Cloud Node.js Container Deployments",
-      "name": "AWS CDK & Copilot: Multi-Cloud Node.js Container Deployments",
+      "date": "2027-06-15",
+      "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/AWS CDK with TypeScript: Infrastructure as Code for Containers - AWS",
+      "name": "AWS CDK with TypeScript: Infrastructure as Code for Containers - AWS",
       "series": "Publishing Node.js Express Apps as Container Images",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-06-28",
+      "date": "2027-06-16",
+      "weekday": "Wednesday",
+      "story_key": "Kafka Design Patterns - AWS/11 Kafka Design Patterns - Reliability & Ordering Deep Dive",
+      "name": "11 Kafka Design Patterns - Reliability & Ordering Deep Dive",
+      "series": "Kafka Design Patterns - AWS",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-06-21",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Poetry + Docker Multi-Stage: The Modern Python Approach",
       "name": "Poetry + Docker Multi-Stage: The Modern Python Approach",
@@ -1718,16 +1748,25 @@
       "read_time": null
     },
     {
-      "date": "2027-06-30",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/NPM + Docker Multi-Stage: The Classic Node.js Approach - Azure",
-      "name": "NPM + Docker Multi-Stage: The Classic Node.js Approach - Azure",
+      "date": "2027-06-22",
+      "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/AWS CDK & Copilot: Multi-Cloud Node.js Container Deployments",
+      "name": "AWS CDK & Copilot: Multi-Cloud Node.js Container Deployments",
       "series": "Publishing Node.js Express Apps as Container Images",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-07-05",
+      "date": "2027-06-23",
+      "weekday": "Wednesday",
+      "story_key": "Kafka Design Patterns - AWS/11 Kafka Design Patterns - Data & State Deep Dive",
+      "name": "11 Kafka Design Patterns - Data & State Deep Dive",
+      "series": "Kafka Design Patterns - AWS",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-06-28",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/AWS CDK & Copilot: Multi-Cloud Python Container Deployments",
       "name": "AWS CDK & Copilot: Multi-Cloud Python Container Deployments",
@@ -1736,16 +1775,25 @@
       "read_time": null
     },
     {
-      "date": "2027-07-07",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Azure Kubernetes Service (AKS): Node.js Microservices at Scale",
-      "name": "Azure Kubernetes Service (AKS): Node.js Microservices at Scale",
+      "date": "2027-06-29",
+      "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/NPM + Docker Multi-Stage: The Classic Node.js Approach - Azure",
+      "name": "NPM + Docker Multi-Stage: The Classic Node.js Approach - Azure",
       "series": "Publishing Node.js Express Apps as Container Images",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-07-12",
+      "date": "2027-06-30",
+      "weekday": "Wednesday",
+      "story_key": "Kafka Design Patterns - AWS/11 Kafka Design Patterns - Performance & Integration Deep Dive",
+      "name": "11 Kafka Design Patterns - Performance & Integration Deep Dive",
+      "series": "Kafka Design Patterns - AWS",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-07-05",
       "weekday": "Monday",
       "story_key": " Publishing Python FastAPI Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
       "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
@@ -1754,8 +1802,17 @@
       "read_time": null
     },
     {
-      "date": "2027-07-14",
-      "weekday": "Wednesday",
+      "date": "2027-07-06",
+      "weekday": "Tuesday",
+      "story_key": "Publishing Node.js Express Apps as Container Images/Azure Kubernetes Service (AKS): Node.js Microservices at Scale",
+      "name": "Azure Kubernetes Service (AKS): Node.js Microservices at Scale",
+      "series": "Publishing Node.js Express Apps as Container Images",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-07-13",
+      "weekday": "Tuesday",
       "story_key": "Publishing Node.js Express Apps as Container Images/GitHub Actions + Amazon ECR: CI CD for Node.js - AWS",
       "name": "GitHub Actions + Amazon ECR: CI CD for Node.js - AWS",
       "series": "Publishing Node.js Express Apps as Container Images",
@@ -1763,8 +1820,8 @@
       "read_time": null
     },
     {
-      "date": "2027-07-21",
-      "weekday": "Wednesday",
+      "date": "2027-07-20",
+      "weekday": "Tuesday",
       "story_key": "Publishing Node.js Express Apps as Container Images/Azure Developer CLI (azd) with Node.js: The Turnkey Solution",
       "name": "Azure Developer CLI (azd) with Node.js: The Turnkey Solution",
       "series": "Publishing Node.js Express Apps as Container Images",
@@ -1772,19 +1829,10 @@
       "read_time": null
     },
     {
-      "date": "2027-07-28",
-      "weekday": "Wednesday",
+      "date": "2027-07-27",
+      "weekday": "Tuesday",
       "story_key": "Publishing Node.js Express Apps as Container Images/Yarn + Docker: Deterministic Dependency Management - Azure",
       "name": "Yarn + Docker: Deterministic Dependency Management - Azure",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-08-04",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
-      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
       "series": "Publishing Node.js Express Apps as Container Images",
       "part": null,
       "read_time": null
