@@ -289,6 +289,9 @@ class StoryService:
         
         update_dict = update_data.model_dump(exclude_unset=True)
         
+        # Track if series is being updated
+        series_in_update = 'series' in update_dict
+        
         for field, value in update_dict.items():
             if value is not None:
                 if isinstance(value, str):
@@ -311,7 +314,10 @@ class StoryService:
         new_series = story.get("series")
         new_status = story.get("status")
         
-        if old_series != new_series or old_status != new_status:
+        # Only update series counts if series was explicitly updated
+        if series_in_update and old_series != new_series:
+            data = await StoryService._update_series_counts(data)
+        elif old_status != new_status:
             data = await StoryService._update_series_counts(data)
         
         await save_stories_data(data)

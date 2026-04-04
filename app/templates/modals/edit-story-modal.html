@@ -1,0 +1,183 @@
+<div class="modal fade" id="editStoryModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title"><i class="bi bi-pencil-square"></i> Edit Story: <span id="editStoryNameDisplay" class="text-primary"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editStoryForm">
+                    <input type="hidden" id="editStoryKey">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <div class="info-row d-flex justify-content-between flex-wrap">
+                                <span><i class="bi bi-file-text"></i> <strong>File:</strong> <span id="editStoryPath" style="font-family: monospace;"></span></span>
+                                <span><i class="bi bi-folder"></i> <strong>Series:</strong> 
+                                    <select class="form-select form-select-sm d-inline-block w-auto" id="editStorySeriesSelect" style="width: auto; display: inline-block;">
+                                        <option value="">None</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Status</label>
+                                <select class="form-select form-select-sm" id="editStoryStatus">
+                                    <option value="Draft">📝 Draft</option>
+                                    <option value="Done">✅ Done</option>
+                                    <option value="Ready">🚀 Ready</option>
+                                    <option value="Published">📢 Published</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Medium Publish Date</label>
+                                <input type="date" class="form-control form-control-sm" id="editStoryMediumPublishDate">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Publication</label>
+                                <input type="text" class="form-control form-control-sm" id="editStoryPublication" placeholder="Medium publication name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Local Created Date</label>
+                                <div class="date-input-group">
+                                    <input type="date" class="form-control form-control-sm" id="editStoryCreatedDate">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setTodayDate('editStoryCreatedDate')">Today</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Tags</label>
+                                <input type="text" class="form-control form-control-sm" id="editStoryTags" placeholder="python, api, tutorial">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold"><i class="bi bi-medium"></i> Medium URL</label>
+                        <input type="url" class="form-control form-control-sm" id="editStoryMediumUrl" placeholder="https://medium.com/...">
+                    </div>
+                    
+                    <div class="card mb-2">
+                        <div class="card-header bg-light py-1"><small><i class="bi bi-infinity"></i> <strong>Lifetime Stats</strong></small></div>
+                        <div class="card-body py-1">
+                            <div class="row g-1">
+                                <div class="col-md-4"><small class="text-muted">Lifetime Reads</small><div class="form-control form-control-sm bg-light" id="editStoryLifetimeReads">-</div></div>
+                                <div class="col-md-4"><small class="text-muted">Lifetime Views</small><div class="form-control form-control-sm bg-light" id="editStoryLifetimeViews">-</div></div>
+                                <div class="col-md-4"><small class="text-muted">Presentation Count</small><div class="form-control form-control-sm bg-light" id="editStoryPresentationCount">-</div></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-2">
+                        <div class="card-header bg-light py-1"><small><i class="bi bi-calendar-month"></i> <strong>Current Month Stats</strong></small></div>
+                        <div class="card-body py-1">
+                            <div class="row g-1">
+                                <div class="col-md-4"><small class="text-muted">Member Reads</small><div class="form-control form-control-sm bg-light" id="editStoryMemberReads">-</div></div>
+                                <div class="col-md-4"><small class="text-muted">Member Views</small><div class="form-control form-control-sm bg-light" id="editStoryMemberViews">-</div></div>
+                                <div class="col-md-4"><small class="text-muted">Claps / Followers</small><div class="form-control form-control-sm bg-light" id="editStoryEngagement">-</div></div>
+                            </div>
+                            <div class="row g-1 mt-1">
+                                <div class="col-md-4"><small class="text-muted">Read Ratio</small><div class="form-control form-control-sm bg-light" id="editStoryReadRatio">-</div></div>
+                                <div class="col-md-4"><small class="text-muted">Member Read %</small><div class="form-control form-control-sm bg-light" id="editStoryMemberPercent">-</div></div>
+                                <div class="col-md-4"><small class="text-muted">Reading Time / Words</small><div class="form-control form-control-sm bg-light" id="editStoryReadTimeWordCount">-</div></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-2">
+                        <div class="card-header bg-light py-1"><small><i class="bi bi-trophy"></i> <strong>Leaderboard</strong></small></div>
+                        <div class="card-body py-1">
+                            <div class="row g-1">
+                                <div class="col-md-6">
+                                    <small class="text-muted">Leaderboard Status</small>
+                                    <select class="form-select form-select-sm" id="editStoryLeaderboard">
+                                        <option value="false">Not on Leaderboard</option>
+                                        <option value="true">On Leaderboard</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <small class="text-muted">Monthly Earnings (nanos)</small>
+                                    <input type="number" class="form-control form-control-sm" id="editStoryLeaderboardNanos" placeholder="0">
+                                    <small class="text-muted" style="font-size: 0.6rem;">$1 = 1,000,000,000 nanos</small>
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-12">
+                                    <small class="text-muted">Lifetime Earnings (nanos)</small>
+                                    <input type="number" class="form-control form-control-sm" id="editStoryLeaderboardLifetimeNanos" placeholder="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-2">
+                        <div class="card-header bg-light py-1"><small><i class="bi bi-linkedin text-primary"></i> <strong>LinkedIn Marketing</strong></small></div>
+                        <div class="card-body py-1">
+                            <div class="row g-1">
+                                <div class="col-md-4">
+                                    <small class="text-muted">Post Status</small>
+                                    <select class="form-select form-select-sm" id="editStoryLinkedinStatus">
+                                        <option value="">Not Posted</option>
+                                        <option value="scheduled">📅 Scheduled</option>
+                                        <option value="posted">✅ Posted</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-muted">Post Timestamp</small>
+                                    <div class="date-input-group">
+                                        <input type="datetime-local" class="form-control form-control-sm" id="editStoryLinkedinTimestamp">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="setNowLinkedinBtn">Now</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" id="clearLinkedinTimestampBtn">Clear</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-muted">Impressions</small>
+                                    <input type="number" class="form-control form-control-sm" id="editStoryLinkedinImpressions" value="0">
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-12">
+                                    <small class="text-muted"><i class="bi bi-link"></i> LinkedIn Post URL</small>
+                                    <input type="url" class="form-control form-control-sm" id="editStoryLinkedinUrl" placeholder="https://www.linkedin.com/feed/update/...">
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-sm btn-danger w-100" id="clearAllLinkedinBtn"><i class="bi bi-trash"></i> Clear All LinkedIn Data</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-2">
+                        <label class="form-label fw-bold small">Notes</label>
+                        <textarea class="form-control form-control-sm" id="editStoryNotes" rows="2" placeholder="Internal notes..."></textarea>
+                    </div>
+                    
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="info-row d-flex justify-content-between flex-wrap">
+                                <span><i class="bi bi-calendar-check"></i> <strong>Last Updated:</strong> <span id="editStoryLastUpdated"></span></span>
+                                <span id="editStoryLinkedinDisplay"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-primary" id="saveStoryEditBtn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>

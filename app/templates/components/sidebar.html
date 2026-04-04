@@ -1,0 +1,44 @@
+<div class="sidebar">
+    <div class="sidebar-logo">
+        <div class="logo-icon">📚</div>
+        <div class="logo-text">Story Manager</div>
+        <div class="logo-sub">Content Dashboard</div>
+    </div>
+
+    <!-- Leaderboard Month Display -->
+    <div id="leaderboardMonthContainer" class="px-3 mb-2" style="display: none;">
+        <div class="alert alert-info py-1 px-2 mb-0"
+            style="background: #0f3460; border: none; font-size: 0.7rem; border-radius: 6px;">
+            <div id="leaderboardMonthDisplay">
+                <i class="bi bi-calendar-month"></i> Loading...
+            </div>
+        </div>
+    </div>
+
+    <div class="nav flex-column">
+        <a href="#" class="nav-link active" data-view="dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="#" class="nav-link" data-view="stories"><i class="bi bi-files"></i> Stories</a>
+        <a href="#" class="nav-link" data-view="series"><i class="bi bi-collection"></i> Series</a>
+        <a href="#" class="nav-link" data-view="calendar"><i class="bi bi-calendar-week"></i> Calendar</a>
+        <a href="#" class="nav-link" data-view="settings"><i class="bi bi-gear"></i> Settings</a>
+    </div>
+
+    <div class="mt-3 px-2">
+        <hr class="my-2" style="border-color: rgba(255,255,255,0.1);">
+        <h6 class="text-muted mb-1 px-1" style="font-size: 0.7rem;"><i class="bi bi-trophy"></i> Leaderboard Data</h6>
+        <div id="leaderboardFileList" class="small" style="max-height: 320px; overflow-y: auto; font-size: 0.65rem;">
+            <div class="text-center text-muted py-2">
+                <div class="spinner-border spinner-border-sm" role="status"></div>
+                <div class="mt-1">Loading files...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="position-absolute bottom-0 p-2" style="width: 100%;">
+        <div class="fetch-status"><i class="bi bi-cloud-arrow-down"></i> Last fetch: <span
+                id="lastFetchTime">Never</span></div>
+        <div class="leaderboard-total"><i class="bi bi-trophy"></i> Leaderboard: <span id="leaderboardCount">0</span>
+            stories<br><small>$<span id="leaderboardAmount">0.00</span></small></div>
+        <div class="text-center mt-1"><small class="text-muted" style="font-size: 0.6rem;">v2.0.0</small></div>
+    </div>
+</div>

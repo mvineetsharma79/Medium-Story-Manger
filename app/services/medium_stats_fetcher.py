@@ -10,7 +10,7 @@ import tempfile
 import shutil
 import time
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 import logging
@@ -182,6 +182,68 @@ class MediumStatsFetcher:
         
         start_at = int(start_of_month.timestamp() * 1000)
         end_at = int(now.timestamp() * 1000)
+
+        return [{
+            "operationName": "useStatsPostNewChartDataQuery",
+            "variables": {
+                "postId": post_id,
+                "startAt": start_at,
+                "endAt": end_at,
+                "postStatsDailyBundleInput": {
+                    "postId": post_id,
+                    "fromDayStartsAt": start_at,
+                    "toDayStartsAt": end_at
+                }
+            },
+            "query": """query useStatsPostNewChartDataQuery($postId: ID!, $startAt: Long!, $endAt: Long!, $postStatsDailyBundleInput: PostStatsDailyBundleInput!) {
+  post(id: $postId) {
+    id
+    title
+    createdAt
+    firstPublishedAt
+    updatedAt
+    readingTime
+    wordCount
+    earnings {
+      dailyEarnings(startAt: $startAt, endAt: $endAt) {
+        periodStartedAt
+        amount
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  postStatsDailyBundle(postStatsDailyBundleInput: $postStatsDailyBundleInput) {
+    buckets {
+      dayStartsAt
+      membershipType
+      readersThatReadCount
+      readersThatViewedCount
+      readersThatClappedCount
+      readersThatRepliedCount
+      readersThatHighlightedCount
+      readersThatInitiallyFollowedAuthorFromThisPostCount
+      __typename
+    }
+    __typename
+  }
+}"""
+        }]
+    
+    def _get_current_month_payload_for_month(self, post_id: str, year: int, month: int) -> List[Dict]:
+        """Generate GraphQL payload for a specific month's stats"""
+        # Start of the specified month
+        start_of_month = datetime(year, month, 1, 0, 0, 0, tzinfo=timezone.utc)
+        
+        # End of the specified month (last day, 23:59:59)
+        if month == 12:
+            end_of_month = datetime(year + 1, 1, 1, 0, 0, 0, tzinfo=timezone.utc) - timedelta(seconds=1)
+        else:
+            end_of_month = datetime(year, month + 1, 1, 0, 0, 0, tzinfo=timezone.utc) - timedelta(seconds=1)
+        
+        start_at = int(start_of_month.timestamp() * 1000)
+        end_at = int(end_of_month.timestamp() * 1000)
 
         return [{
             "operationName": "useStatsPostNewChartDataQuery",
@@ -419,7 +481,8 @@ class MediumStatsFetcher:
             'fetch_timestamp': datetime.now().isoformat(),
             'lifetime_reads': 0,
             'lifetime_views': 0,
-            'presentation_count': 0
+            'presentation_count': 0,
+            'feed_click_through_rate': 0
         }
         
         if isinstance(data, list) and len(data) > 0:
@@ -431,6 +494,8 @@ class MediumStatsFetcher:
                     result['lifetime_reads'] = bundle_data.get('readersCount', 0)
                     result['lifetime_views'] = bundle_data.get('viewersCount', 0)
                     result['presentation_count'] = bundle_data.get('presentationCount', 0)
+                    result['feed_click_through_rate'] = bundle_data.get('feedClickThroughRate', 0)
+                    logger.info(f"Parsed lifetime: reads={result['lifetime_reads']}, views={result['lifetime_views']}, presentations={result['presentation_count']}")
         
         return result
     
@@ -455,7 +520,7 @@ class MediumStatsFetcher:
         payload = self._get_current_month_payload(post_id)
         headers = self._get_headers_for_current_month(post_id)
         
-        time.sleep(2)
+        time.sleep(.5)
         
         try:
             response = session.post(url, headers=headers, json=payload, timeout=30)
@@ -493,7 +558,7 @@ class MediumStatsFetcher:
         payload = self._get_lifetime_payload(post_id)
         headers = self._get_headers_for_lifetime(post_id)
         
-        time.sleep(2)
+        time.sleep(.5)
         
         try:
             response = session.post(url, headers=headers, json=payload, timeout=30)
@@ -511,7 +576,7 @@ class MediumStatsFetcher:
             return None
     
     async def fetch_complete_stats(self, medium_url: str) -> Optional[Dict[str, Any]]:
-        """Fetch complete stats (current month + lifetime totals + metadata) in one call"""
+        """Fetch complete stats (current month + lifetime totals + metadata)"""
         if not self.is_authenticated():
             logger.warning("Not authenticated. Cannot fetch stats.")
             return None
@@ -528,79 +593,139 @@ class MediumStatsFetcher:
             session.cookies.set(name, value, domain=".medium.com", path="/")
         
         url = "https://medium.com/_/graphql"
-        payload = self._get_current_month_payload(post_id)
+        
+        # 1. Fetch current month stats
+        current_payload = self._get_current_month_payload(post_id)
+        current_headers = self._get_headers_for_current_month(post_id)
+        
+        time.sleep(.5)
+        
+        current_response = session.post(url, headers=current_headers, json=current_payload, timeout=30)
+        
+        if current_response.status_code != 200:
+            logger.error(f"Failed to fetch current month stats: HTTP {current_response.status_code}")
+            return None
+        
+        current_data = current_response.json()
+        
+        # Parse current month stats
+        result = self._parse_current_month_response(current_data, post_id)
+        
+        # 2. Fetch lifetime stats (separate API call)
+        lifetime_payload = self._get_lifetime_payload(post_id)
+        lifetime_headers = self._get_headers_for_lifetime(post_id)
+        
+        time.sleep(.5)
+        
+        lifetime_response = session.post(url, headers=lifetime_headers, json=lifetime_payload, timeout=30)
+        
+        if lifetime_response.status_code == 200:
+            lifetime_data = lifetime_response.json()
+            
+            # Parse lifetime response
+            if isinstance(lifetime_data, list) and len(lifetime_data) > 0:
+                data_obj = lifetime_data[0].get('data', {})
+                bundle_data = data_obj.get('postStatsTotalBundle', {})
+                
+                if bundle_data:
+                    result['lifetime_totals'] = {
+                        'total_reads': bundle_data.get('readersCount', 0),
+                        'total_views': bundle_data.get('viewersCount', 0),
+                        'presentation_count': bundle_data.get('presentationCount', 0),
+                        'claps': 0,
+                    }
+                    result['feed_click_through_rate'] = bundle_data.get('feedClickThroughRate', 0)
+                    
+                    logger.info(f"✅ Lifetime stats: {bundle_data.get('readersCount', 0)} reads, {bundle_data.get('viewersCount', 0)} views, {bundle_data.get('presentationCount', 0)} presentations")
+                else:
+                    result['lifetime_totals'] = {'total_reads': 0, 'total_views': 0, 'presentation_count': 0, 'claps': 0}
+            else:
+                result['lifetime_totals'] = {'total_reads': 0, 'total_views': 0, 'presentation_count': 0, 'claps': 0}
+        else:
+            logger.warning(f"Failed to fetch lifetime stats: HTTP {lifetime_response.status_code}")
+            result['lifetime_totals'] = {'total_reads': 0, 'total_views': 0, 'presentation_count': 0, 'claps': 0}
+        
+        result['stats_month'] = datetime.now().strftime("%Y-%m")
+
+    
+    async def fetch_stats_for_month(self, medium_url: str, year: int, month: int) -> Optional[Dict[str, Any]]:
+        """Fetch stats for a specific month/year from Medium API"""
+        if not self.is_authenticated():
+            logger.warning("Not authenticated. Cannot fetch stats.")
+            return None
+        
+        post_id = self.extract_post_id_from_url(medium_url)
+        if not post_id:
+            logger.warning(f"Could not extract post ID from URL: {medium_url}")
+            return None
+        
+        logger.info(f"📝 Fetching stats for {year}-{month:02d} - Post ID: {post_id}")
+        
+        session = requests.Session()
+        for name, value in self.cookies.items():
+            session.cookies.set(name, value, domain=".medium.com", path="/")
+        
+        url = "https://medium.com/_/graphql"
+        
+        # Fetch stats for the specific month
+        payload = self._get_current_month_payload_for_month(post_id, year, month)
         headers = self._get_headers_for_current_month(post_id)
         
-        time.sleep(2)
+        time.sleep(.5)
         
-        try:
-            response = session.post(url, headers=headers, json=payload, timeout=30)
-            
-            if response.status_code == 200:
-                data = response.json()
-                logger.info(f"✅ Successfully fetched complete stats for {post_id}")
-                
-                # Parse current month stats
-                parsed = self._parse_current_month_response(data, post_id)
-                
-                # Get lifetime totals and metadata from the same response
-                if isinstance(data, list) and len(data) > 0:
-                    stats_data = data[0].get('data', {})
-                    post_obj = stats_data.get('post', {})
-                    
-                    # Try to get distribution data for lifetime totals
-                    distribution = post_obj.get('distribution', {})
-                    if distribution:
-                        parsed['lifetime_totals'] = {
-                            'total_reads': distribution.get('totalReadCount', 0),
-                            'total_views': distribution.get('totalViewCount', 0),
-                            'claps': distribution.get('totalClapCount', 0),
-                            'replies': distribution.get('totalResponseCount', 0),
-                            'bookmarks': distribution.get('totalBookmarkCount', 0)
-                        }
-                    else:
-                        parsed['lifetime_totals'] = {
-                            'total_reads': parsed.get('totals', {}).get('total_reads', 0),
-                            'total_views': parsed.get('totals', {}).get('total_views', 0),
-                            'claps': parsed.get('totals', {}).get('claps', 0),
-                            'replies': parsed.get('totals', {}).get('replies', 0),
-                            'bookmarks': 0
-                        }
-                    
-                    # Extract tags and topics
-                    tags = post_obj.get('tags', [])
-                    parsed['post_tags'] = [tag.get('name') for tag in tags if tag.get('name')] if tags else []
-                    topics = post_obj.get('topics', [])
-                    parsed['post_topics'] = [topic.get('name') for topic in topics if topic.get('name')] if topics else []
-                else:
-                    parsed['lifetime_totals'] = {'total_reads': 0, 'total_views': 0, 'claps': 0, 'replies': 0, 'bookmarks': 0}
-                    parsed['post_tags'] = []
-                    parsed['post_topics'] = []
-                
-                return parsed
-            else:
-                logger.error(f"❌ Failed to fetch complete stats: HTTP {response.status_code}")
-                return None
-                
-        except Exception as e:
-            logger.error(f"❌ Error fetching complete stats: {e}")
-            import traceback
-            traceback.print_exc()
+        response = session.post(url, headers=headers, json=payload, timeout=30)
+        
+        if response.status_code != 200:
+            logger.error(f"Failed to fetch stats for {year}-{month:02d}: HTTP {response.status_code}")
             return None
-    #===================
+        
+        data = response.json()
+        result = self._parse_current_month_response(data, post_id)
+        
+        # Also fetch lifetime stats (these are always the same regardless of month)
+        lifetime_payload = self._get_lifetime_payload(post_id)
+        lifetime_headers = self._get_headers_for_lifetime(post_id)
+        
+        time.sleep(.5)
+        
+        lifetime_response = session.post(url, headers=lifetime_headers, json=lifetime_payload, timeout=30)
+        
+        if lifetime_response.status_code == 200:
+            lifetime_data = lifetime_response.json()
+            
+            if isinstance(lifetime_data, list) and len(lifetime_data) > 0:
+                data_obj = lifetime_data[0].get('data', {})
+                bundle_data = data_obj.get('postStatsTotalBundle', {})
+                
+                if bundle_data:
+                    result['lifetime_totals'] = {
+                        'total_reads': bundle_data.get('readersCount', 0),
+                        'total_views': bundle_data.get('viewersCount', 0),
+                        'presentation_count': bundle_data.get('presentationCount', 0),
+                        'claps': 0,
+                    }
+                    logger.info(f"✅ Lifetime stats: {bundle_data.get('readersCount', 0)} reads, {bundle_data.get('viewersCount', 0)} views")
+                else:
+                    result['lifetime_totals'] = {'total_reads': 0, 'total_views': 0, 'presentation_count': 0, 'claps': 0}
+            else:
+                result['lifetime_totals'] = {'total_reads': 0, 'total_views': 0, 'presentation_count': 0, 'claps': 0}
+        else:
+            result['lifetime_totals'] = {'total_reads': 0, 'total_views': 0, 'presentation_count': 0, 'claps': 0}
+        
+        result['stats_month'] = f"{year}-{month:02d}"
+        
+        return result
+    
     async def fetch_leaderboard_earnings(self) -> Optional[List[Dict[str, Any]]]:
         """Fetch monthly earnings for leaderboard"""
         if not self.is_authenticated():
             logger.warning("Not authenticated. Cannot fetch earnings.")
             return None
         
-        # Create session with cookies - EXACT same as current month stats
         session = requests.Session()
         
-        # Set cookies with proper domain and path
         for name, value in self.cookies.items():
             session.cookies.set(name, value, domain=".medium.com", path="/")
-            # Also set for www subdomain
             session.cookies.set(name, value, domain="www.medium.com", path="/")
         
         now = datetime.now()
@@ -612,7 +737,6 @@ class MediumStatsFetcher:
         
         url = "https://medium.com/_/graphql"
         
-        # Use headers similar to current month stats
         headers = {
             "accept": "*/*",
             "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
@@ -629,7 +753,6 @@ class MediumStatsFetcher:
             "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
         }
         
-        # Also add the cookie header explicitly
         cookie_str = "; ".join([f"{k}={v}" for k, v in self.cookies.items()])
         headers["cookie"] = cookie_str
         
@@ -689,7 +812,6 @@ class MediumStatsFetcher:
                 if data and len(data) > 0:
                     if 'errors' in data[0]:
                         logger.error(f"GraphQL Errors: {data[0]['errors']}")
-                        # Check if it's a cookie expiration issue
                         if "UNAUTHENTICATED" in str(data[0]['errors']):
                             logger.error("Authentication failed. Please:")
                             logger.error("  1. Close your browser completely")
@@ -739,7 +861,7 @@ class MediumStatsFetcher:
             import traceback
             traceback.print_exc()
             return None
-# ====                    
+    
     async def fetch_all_stories_stats(self, stories: List[Dict]) -> Dict[str, Any]:
         """Fetch current month stats for multiple stories"""
         results = {
@@ -754,7 +876,7 @@ class MediumStatsFetcher:
                 logger.info(f"📊 ({i+1}/{len(stories)}): {story['name'][:50]}...")
                 
                 if i > 0:
-                    time.sleep(3)
+                    time.sleep(.5)
                 
                 details = await self.fetch_current_month_stats(story['medium_url'])
                 if details:

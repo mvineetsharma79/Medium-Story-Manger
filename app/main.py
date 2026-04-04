@@ -3,27 +3,20 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
-from fastapi.staticfiles import StaticFiles
-
 import logging
 
 from app.routers import stories, series, calendar, settings
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Story Manager", version="1.0.0")
 
 # Mount static files
-static_path = Path(__file__).parent.parent / "static"
-static_path.mkdir(parents=True, exist_ok=True)
-app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 # Templates
-templates_path = Path(__file__).parent / "templates"
-templates_path.mkdir(parents=True, exist_ok=True)
-templates = Jinja2Templates(directory=str(templates_path))
+templates = Jinja2Templates(directory="app/templates")
 
 # Include routers
 app.include_router(stories.router, prefix="/api/stories", tags=["stories"])
