@@ -904,3 +904,90 @@ class MediumStatsFetcher:
                 })
         
         return results
+
+    async def fetch_stats_for_date_range(self, medium_url: str, start_date: datetime, end_date: datetime) -> Optional[Dict[str, Any]]:
+        """Fetch stats for a custom date range from Medium API"""
+        if not self.is_authenticated():
+            logger.warning("Not authenticated. Cannot fetch stats.")
+            return None
+        
+        post_id = self.extract_post_id_from_url(medium_url)
+        if not post_id:
+            logger.warning(f"Could not extract post ID from URL: {medium_url}")
+            return None
+        
+        start_at = int(start_date.timestamp() * 1000)
+        end_at = int(end_date.timestamp() * 1000)
+        
+        logger.info(f"📝 Fetching stats for post ID: {post_id} from {start_date} to {end_date}")
+        
+        session = requests.Session()
+        for name, value in self.cookies.items():
+            session.cookies.set(name, value, domain=".medium.com", path="/")
+        
+        url = "https://medium.com/_/graphql"
+        
+        # Build payload for date range
+        payload = [{
+            "operationName": "useStatsPostNewChartDataQuery",
+            "variables": {
+                "postId": post_id,
+                "startAt": start_at,
+                "endAt": end_at,
+                "postStatsDailyBundleInput": {
+                    "postId": post_id,
+                    "fromDayStartsAt": start_at,
+                    "toDayStartsAt": end_at
+                }
+            },
+            "query": """query useStatsPostNewChartDataQuery($postId: ID!, $startAt: Long!, $endAt: Long!, $postStatsDailyBundleInput: PostStatsDailyBundleInput!) {
+    post(id: $postId) {
+        id
+        title
+        createdAt
+        firstPublishedAt
+        updatedAt
+        readingTime
+        wordCount
+        __typename
+    }
+    postStatsDailyBundle(postStatsDailyBundleInput: $postStatsDailyBundleInput) {
+        buckets {
+        dayStartsAt
+        membershipType
+        readersThatReadCount
+        readersThatViewedCount
+        readersThatClappedCount
+        readersThatRepliedCount
+        readersThatHighlightedCount
+        readersThatInitiallyFollowedAuthorFromThisPostCount
+        __typename
+        }
+        __typename
+    }
+    }"""
+        }]
+        
+        headers = self._get_headers_for_current_month(post_id)
+        
+        time.sleep(0.5)
+        
+        try:
+            response = session.post(url, headers=headers, json=payload, timeout=30)
+            
+            if response.status_code == 200:
+                data = response.json()
+                result = self._parse_current_month_response(data, post_id)
+                result['date_range'] = {
+                    'start': start_date.isoformat(),
+                    'end': end_date.isoformat()
+                }
+                logger.info(f"✅ Successfully fetched stats for date range")
+                return result
+            else:
+                logger.error(f"❌ Failed to fetch stats: HTTP {response.status_code}")
+                return None
+                
+        except Exception as e:
+            logger.error(f"❌ Error fetching stats: {e}")
+            return None

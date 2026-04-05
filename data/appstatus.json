@@ -1,4 +1,9 @@
 {
-  "leaderboard_month": "2026-04",
-  "last_updated": "2026-04-04T17:23:19.541511"
+  "leaderboard_month": "2026-03",
+  "last_updated": "2026-04-05T22:18:59.533020",
+  "current_mode": "month",
+  "current_month": {
+    "year": 2026,
+    "month": 3
+  }
 }

@@ -12,6 +12,8 @@ class StoryCreate(BaseModel):
     name: str
     folder: Optional[str] = None
     series: Optional[str] = None
+    status: Optional[str] = "Draft"  # Add this line
+
     tags: List[str] = []
     read_time: Optional[int] = None
     reads: int = 0

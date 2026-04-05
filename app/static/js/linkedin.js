@@ -24,18 +24,23 @@ function clearAllLinkedinData() {
     }
     
     let cleanKey = storyKey;
-    if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
+    if (cleanKey && cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
+    
+    const statusEl = document.getElementById('editStoryLinkedinStatus');
+    const timestampEl = document.getElementById('editStoryLinkedinTimestamp');
+    const impressionsEl = document.getElementById('editStoryLinkedinImpressions');
+    const urlEl = document.getElementById('editStoryLinkedinUrl');
+    
+    if (statusEl) statusEl.value = '';
+    if (timestampEl) timestampEl.value = '';
+    if (impressionsEl) impressionsEl.value = '0';
+    if (urlEl) urlEl.value = '';
+    updateLinkedinDisplay();
     
     fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            status: document.getElementById('editStoryStatus')?.value || 'Draft',
-            tags: document.getElementById('editStoryTags')?.value.split(',').map(t=>t.trim()).filter(t=>t) || [],
-            medium_url: document.getElementById('editStoryMediumUrl')?.value || null,
-            notes: document.getElementById('editStoryNotes')?.value || '',
-            created_date: document.getElementById('editStoryCreatedDate')?.value || null,
-            medium_publication: document.getElementById('editStoryPublication')?.value || null,
             linkedin_status: null,
             linkedin_timestamp: null,
             linkedin_impressions: 0,
@@ -70,10 +75,17 @@ function updateLinkedinDisplay() {
     if (!display) return;
     
     if (status === 'scheduled') {
-        display.innerHTML = `<i class="bi bi-calendar"></i> Scheduled for ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions}`;
+        display.innerHTML = `<i class="bi bi-calendar"></i> <strong>LinkedIn:</strong> Scheduled for ${timestamp ? formatTimestampForDisplay(timestamp) : 'No date'} | Impressions: ${impressions}`;
     } else if (status === 'posted') {
         display.innerHTML = `<i class="bi bi-check-circle-fill text-success"></i> Posted ${timestamp ? formatTimestampForDisplay(timestamp) : ''} | Impressions: ${impressions}`;
     } else {
-        display.innerHTML = '<i class="bi bi-linkedin"></i> Not posted';
+        display.innerHTML = '<i class="bi bi-linkedin"></i> <strong>LinkedIn:</strong> Not posted';
     }
 }
+
+// Make functions globally available
+window.setNowLinkedinTimestamp = setNowLinkedinTimestamp;
+window.clearLinkedinTimestamp = clearLinkedinTimestamp;
+window.clearAllLinkedinData = clearAllLinkedinData;
+window.onLinkedinStatusChange = onLinkedinStatusChange;
+window.updateLinkedinDisplay = updateLinkedinDisplay;

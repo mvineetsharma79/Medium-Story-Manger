@@ -1,388 +1,204 @@
 // ============================================
-// Stories CRUD Functions
+// Series Management Functions
 // ============================================
 
-let filterState = { status: 'All', series: '', search: '', bookmarked: false, leaderboard: false };
-let sortState = { stories: { column: 'reads', direction: 'desc' } };
+let seriesSortState = { column: 'name', direction: 'asc' };
 
-function saveFilterState() {
-    filterState.status = document.getElementById('statusFilter')?.value || 'All';
-    filterState.series = document.getElementById('seriesFilter')?.value || '';
-    filterState.search = document.getElementById('searchFilter')?.value || '';
-    filterState.bookmarked = document.getElementById('bookmarkFilter')?.checked || false;
-    filterState.leaderboard = document.getElementById('leaderboardFilter')?.checked || false;
-}
-
-function restoreFilterState() {
-    const statusFilter = document.getElementById('statusFilter');
-    const seriesFilter = document.getElementById('seriesFilter');
-    const searchFilter = document.getElementById('searchFilter');
-    const bookmarkFilter = document.getElementById('bookmarkFilter');
-    const leaderboardFilter = document.getElementById('leaderboardFilter');
-    
-    if (statusFilter) statusFilter.value = filterState.status;
-    if (seriesFilter) seriesFilter.value = filterState.series;
-    if (searchFilter) searchFilter.value = filterState.search;
-    if (bookmarkFilter) bookmarkFilter.checked = filterState.bookmarked;
-    if (leaderboardFilter) leaderboardFilter.checked = filterState.leaderboard;
-    if (typeof filterStories === 'function') filterStories();
-}
-
-function filterStories() {
-    if (typeof renderStoryTable === 'function') renderStoryTable(window.allStories);
-}
-
-function clearFilters() {
-    filterState = { status: 'All', series: '', search: '', bookmarked: false, leaderboard: false };
-    const statusFilter = document.getElementById('statusFilter');
-    const seriesFilter = document.getElementById('seriesFilter');
-    const searchFilter = document.getElementById('searchFilter');
-    const bookmarkFilter = document.getElementById('bookmarkFilter');
-    const leaderboardFilter = document.getElementById('leaderboardFilter');
-    
-    if (statusFilter) statusFilter.value = 'All';
-    if (seriesFilter) seriesFilter.value = '';
-    if (searchFilter) searchFilter.value = '';
-    if (bookmarkFilter) bookmarkFilter.checked = false;
-    if (leaderboardFilter) leaderboardFilter.checked = false;
-    filterStories();
-}
-
-function sortStories(column) {
-    const direction = sortState.stories.column === column && sortState.stories.direction === 'asc' ? 'desc' : 'asc';
-    sortState.stories = { column, direction };
-    renderStoryTable(window.allStories);
-    updateSortIcons('stories', column, direction);
-}
-
-function updateSortIcons(table, column, direction) {
-    const headerId = table === 'stories' ? 'storiesTableHeader' : (table === 'series' ? 'seriesTableHeader' : 'calendarTableHeader');
-    const header = document.getElementById(headerId);
-    if (!header) return;
-    
-    header.querySelectorAll('.sortable').forEach(th => {
-        th.classList.remove('active');
-        const iconSpan = th.querySelector('.sort-icon');
-        if (iconSpan) iconSpan.textContent = '↕';
+function sortSeries(column) {
+    const direction = seriesSortState.column === column && seriesSortState.direction === 'asc' ? 'desc' : 'asc';
+    seriesSortState = { column, direction };
+    const sorted = [...window.allSeries].sort((a, b) => {
+        let aVal = a[column];
+        let bVal = b[column];
+        if (column === 'total_stories' || column === 'published') {
+            aVal = aVal || 0;
+            bVal = bVal || 0;
+            return direction === 'asc' ? aVal - bVal : bVal - aVal;
+        }
+        aVal = (aVal || '').toString().toLowerCase();
+        bVal = (bVal || '').toString().toLowerCase();
+        return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
     });
-    
-    const activeTh = header.querySelector(`.sortable[data-sort="${column}"]`);
-    if (activeTh) {
-        activeTh.classList.add('active');
-        const iconSpan = activeTh.querySelector('.sort-icon');
-        if (iconSpan) iconSpan.textContent = direction === 'asc' ? '↑' : '↓';
+    renderSeriesTable(sorted);
+    updateSortIcons('series', column, direction);
+}
+
+async function loadSeries() {
+    try {
+        const res = await fetch(`${API_BASE}/series/`);
+        window.allSeries = await res.json();
+        
+        document.getElementById('content').innerHTML = `
+            <div class="d-flex justify-content-between mb-3">
+                <h1 class="h3">Series</h1>
+                <button class="btn btn-sm btn-primary" onclick="addSeries()"><i class="bi bi-plus-lg"></i> Add Series</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover">
+                    <thead id="seriesTableHeader" class="table-light">
+                        <tr>
+                            <th class="sortable" data-sort="name" onclick="sortSeries('name')">Series Name <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                            <th class="sortable" data-sort="total_stories" onclick="sortSeries('total_stories')">Progress <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                            <th class="sortable" data-sort="spacing_days" onclick="sortSeries('spacing_days')">Spacing (days) <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="seriesTableBody"></tbody>
+                </table>
+            </div>
+        `;
+        renderSeriesTable(window.allSeries);
+        sortSeries(seriesSortState.column);
+    } catch (error) {
+        console.error('Error loading series:', error);
+        document.getElementById('content').innerHTML = `<div class="alert alert-danger">Error loading series: ${error.message}</div>`;
     }
 }
 
-async function loadStories() {
-    const res = await fetch(`${API_BASE}/stories/`);
-    const stories = await res.json();
-    window.allStories = stories;
-    const statuses = ['All', 'Draft', 'Done', 'Ready', 'Published'];
-    
-    document.getElementById('content').innerHTML = `
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1 class="h3 mb-0">Stories</h1>
-            <div>
-                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addStoryModal"><i class="bi bi-plus-lg"></i> Add Story</button>
-                <button class="btn btn-sm btn-success ms-2" onclick="updateLeaderboardStats()"><i class="bi bi-trophy"></i> Update Leaderboard Stats</button>
-            </div>
-        </div>
-        <div class="filter-bar d-flex gap-2 flex-wrap">
-            <select id="statusFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">
-                ${statuses.map(s => `<option value="${s}" ${filterState.status === s ? 'selected' : ''}>${s}</option>`).join('')}
-            </select>
-            <select id="seriesFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">
-                <option value="">All Series</option>
-                ${window.allSeries.map(s => `<option value="${s.name}" ${filterState.series === s.name ? 'selected' : ''}>${s.name}</option>`).join('')}
-            </select>
-            <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search..." onkeyup="saveFilterState(); filterStories()" value="${escapeHtml(filterState.search)}">
-            <div class="form-check"><input class="form-check-input" type="checkbox" id="bookmarkFilter" onchange="saveFilterState(); filterStories()" ${filterState.bookmarked ? 'checked' : ''}><label class="form-check-label small">Bookmarked</label></div>
-            <div class="form-check"><input class="form-check-input" type="checkbox" id="leaderboardFilter" onchange="saveFilterState(); filterStories()" ${filterState.leaderboard ? 'checked' : ''}><label class="form-check-label small">Leaderboard</label></div>
-            <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">Clear</button>
-        </div>
-        <div class="mb-2 text-muted"><small id="filterCountDisplay">Showing all ${stories.length} stories</small></div>
-        <div class="table-responsive">
-            <table class="table table-sm table-hover">
-                <thead id="storiesTableHeader" class="table-light">
-                    <tr>
-                        <th class="sortable text-center" data-sort="bookmarked" onclick="sortStories('bookmarked')" style="width:35px;"><i class="bi bi-bookmark"></i> <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable text-center" data-sort="leaderboard" onclick="sortStories('leaderboard')" style="width:35px;"><i class="bi bi-trophy"></i> <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable" data-sort="status" onclick="sortStories('status')" style="width:80px;">Status <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable" data-sort="name" onclick="sortStories('name')">Story Name <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable" data-sort="medium_first_published" onclick="sortStories('medium_first_published')" style="width:100px;">Publish Date <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable" data-sort="reads" onclick="sortStories('reads')" style="width:100px;">Reads <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable" data-sort="view_count" onclick="sortStories('view_count')" style="width:100px;">Views <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable" data-sort="claps" onclick="sortStories('claps')" style="width:60px;">Claps <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable" data-sort="linkedin_impressions" onclick="sortStories('linkedin_impressions')" style="width:90px;">Impressions <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable" data-sort="lifetime_reads" onclick="sortStories('lifetime_reads')" style="width:100px;">Lifetime <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th style="width:90px;">LinkedIn</th>
-                        <th style="width:90px;">Publication</th>
-                        <th style="width:80px;">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="storiesTableBody"></tbody>
-            </table>
-        </div>
-    `;
-    renderStoryTable(stories);
-    restoreFilterState();
-    sortStories(sortState.stories.column);
-}
-
-function renderStoryTable(stories) {
-    const tbody = document.getElementById('storiesTableBody');
+function renderSeriesTable(series) {
+    const tbody = document.getElementById('seriesTableBody');
     if (!tbody) return;
     
-    let filtered = [...stories];
-    if (filterState.status !== 'All') filtered = filtered.filter(s => s.status === filterState.status);
-    if (filterState.series) filtered = filtered.filter(s => s.series === filterState.series);
-    if (filterState.search) filtered = filtered.filter(s => s.name.toLowerCase().includes(filterState.search.toLowerCase()));
-    if (filterState.bookmarked) filtered = filtered.filter(s => s.bookmarked === true);
-    if (filterState.leaderboard) filtered = filtered.filter(s => s.leaderboard === true);
-    
-    const filterCountDisplay = document.getElementById('filterCountDisplay');
-    if (filterCountDisplay) {
-        const filteredCount = filtered.length;
-        filterCountDisplay.innerHTML = filteredCount === stories.length ? `Showing all ${stories.length} stories` : `Showing ${filteredCount} of ${stories.length} stories`;
+    if (!series || !Array.isArray(series)) {
+        tbody.innerHTML = '<tr><td colspan="4" class="text-center">No series available</td</tr>';
+        return;
     }
     
-    const { column, direction } = sortState.stories;
-    filtered.sort((a, b) => {
-        let aVal = a[column] || '', bVal = b[column] || '';
-        if (typeof aVal === 'number') return direction === 'asc' ? aVal - bVal : bVal - aVal;
-        return direction === 'asc' ? String(aVal).localeCompare(String(bVal)) : String(bVal).localeCompare(String(aVal));
-    });
-    
-    tbody.innerHTML = filtered.map(story => {
-        let storyKey = story.key;
-        if (storyKey.toLowerCase().endsWith('.md')) storyKey = storyKey.slice(0, -3);
-        
-        const publishDate = story.medium_first_published ? story.medium_first_published.split('T')[0] : (story.published_date || '-');
-        const memberReads = story.medium_member_reads || 0;
-        const totalReads = story.reads || 0;
-        const memberViews = story.medium_member_views || 0;
-        const totalViews = story.view_count || 0;
-        const memberReadPercent = totalReads > 0 ? Math.round((memberReads / totalReads) * 100) : 0;
-        const memberViewPercent = totalViews > 0 ? Math.round((memberViews / totalViews) * 100) : 0;
-        const lifetimeText = `${formatNumber(story.lifetime_reads || 0)}/${formatNumber(story.lifetime_views || 0)}/${formatNumber(story.presentation_count || 0)}`;
-        
-        let linkedinHtml = '<span class="linkedin-badge linkedin-not-posted">Not Posted</span>';
-        if (story.linkedin_status === 'scheduled') {
-            linkedinHtml = `<span class="linkedin-badge linkedin-scheduled">📅 ${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5,10) : ''}</span>`;
-        } else if (story.linkedin_status === 'posted') {
-            linkedinHtml = `<span class="linkedin-badge linkedin-posted">✅ ${story.linkedin_timestamp ? formatTimestampForDisplay(story.linkedin_timestamp).substring(5,10) : ''}</span>`;
+    const { column, direction } = seriesSortState;
+    const sorted = [...series].sort((a, b) => {
+        let aVal = a[column];
+        let bVal = b[column];
+        if (column === 'total_stories' || column === 'published' || column === 'spacing_days') {
+            aVal = aVal || 0;
+            bVal = bVal || 0;
+            return direction === 'asc' ? aVal - bVal : bVal - aVal;
         }
-        
-        return `<tr class="table-row-clickable" onclick="editStory('${storyKey.replace(/'/g, "\\'")}')">
-            <td class="text-center" onclick="event.stopPropagation()" style="width:35px">
-                <i class="bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}" 
-                   onclick="toggleBookmark('${storyKey.replace(/'/g, "\\'")}', event)"></i>
-            </td>
-            <td class="text-center" onclick="event.stopPropagation()" style="width:35px">
-                <i class="bi bi-trophy${story.leaderboard ? '-fill' : ''} leaderboard-icon ${story.leaderboard ? 'leaderboard' : ''}" 
-                   onclick="toggleLeaderboard('${storyKey.replace(/'/g, "\\'")}', event)"></i>
-            </td>
-            <td><span class="status-badge ${story.status==='Published'?'status-published':story.status==='Ready'?'status-ready':story.status==='Done'?'status-done':'status-draft'}">${story.status}</span></td>
-            <td><strong title="${escapeHtml(story.name)}">${escapeHtml(story.name.length>45?story.name.substring(0,45)+'...':story.name)}</strong></td>
-            <td><small>${publishDate}</small></td>
-            <td class="stats-tooltip" title="${memberReads} of ${totalReads} reads (${memberReadPercent}% from members)">${formatNumber(memberReads)}/${formatNumber(totalReads)} - ${memberReadPercent}%</td>
-            <td class="stats-tooltip" title="${memberViews} of ${totalViews} views (${memberViewPercent}% from members)">${formatNumber(memberViews)}/${formatNumber(totalViews)} - ${memberViewPercent}%</td>
-            <td>${formatNumber(story.claps || 0)}</td>
-            <td>${formatNumber(story.linkedin_impressions || 0)}</td>
-            <td><span class="lifetime-text">${lifetimeText}</span></td>
-            <td class="text-center">${linkedinHtml}</td>
-            <td><small>${story.medium_publication ? escapeHtml(story.medium_publication).substring(0,15) : '-'}</small></td>
-            <td class="action-buttons" onclick="event.stopPropagation()">
-                <button class="btn btn-sm btn-outline-info" onclick="event.stopPropagation(); showStatsDashboard('${storyKey.replace(/'/g, "\\'")}')" title="Stats"><i class="bi bi-graph-up"></i></button>
-                <button class="btn btn-sm btn-danger" onclick="deleteStory('${storyKey.replace(/'/g, "\\'")}')" title="Delete"><i class="bi bi-trash"></i></button>
-            </td>
-        </tr>`;
-    }).join('');
-}
-
-async function toggleBookmark(storyKey, event) {
-    event.stopPropagation();
-    let cleanKey = storyKey;
-    if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
-    const story = window.allStories.find(s => s.key === cleanKey);
-    if (!story) return;
-    await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bookmarked: !story.bookmarked })
+        aVal = (aVal || '').toString().toLowerCase();
+        bVal = (bVal || '').toString().toLowerCase();
+        return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
     });
-    await loadView(window.currentView);
+    
+    tbody.innerHTML = sorted.map(s => `
+        <tr>
+            <td><strong class="series-link" onclick="filterBySeries('${escapeHtml(s.name)}')">${escapeHtml(s.name)}</strong></td>
+            <td>
+                <div class="d-flex gap-2 align-items-center">
+                    <div class="progress" style="width:150px;height:6px;">
+                        <div class="progress-bar" style="width:${(s.published / (s.total_stories || 1)) * 100}%"></div>
+                    </div>
+                    <small>${s.published}/${s.total_stories || 0}</small>
+                </div>
+            </td
+            <td>
+                <input type="number" class="form-control form-control-sm" style="width:80px;" value="${s.spacing_days}" 
+                       onchange="updateSeriesSpacing('${escapeHtml(s.name)}', this.value)">
+            </td
+            <td>
+                <button class="btn btn-sm btn-danger" onclick="deleteSeries('${escapeHtml(s.name)}')">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td
+         </tr
+    `).join('');
 }
 
-async function toggleLeaderboard(storyKey, event) {
-    event.stopPropagation();
-    let cleanKey = storyKey;
-    if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
-    const story = window.allStories.find(s => s.key === cleanKey);
-    if (!story) return;
-    await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ leaderboard: !story.leaderboard, leaderboard_nanos: story.leaderboard_nanos || 0 })
-    });
-    await loadView(window.currentView);
-    updateLeaderboardTotal();
-}
-
-async function editStory(storyKey) {
-    let cleanKey = storyKey;
-    if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
-    const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`);
-    const story = await res.json();
+async function addSeries() {
+    const name = prompt('Enter series name:');
+    if (!name || name.trim() === '') return;
     
-    document.getElementById('editStoryKey').value = cleanKey;
-    document.getElementById('editStoryNameDisplay').textContent = story.name;
-    document.getElementById('editStoryPath').textContent = story.raw_path || story.rel_path;
+    const cleanName = name.trim();
     
-    // Populate series dropdown (sorted)
-    const seriesSelect = document.getElementById('editStorySeriesSelect');
-    if (seriesSelect && window.allSeries) {
-        // Sort series alphabetically
-        const sortedSeries = [...window.allSeries].sort((a, b) => a.name.localeCompare(b.name));
-        seriesSelect.innerHTML = '<option value="">None (Standalone)</option>';
-        sortedSeries.forEach(s => {
-            const option = document.createElement('option');
-            option.value = s.name;
-            option.textContent = s.name;
-            if (story.series === s.name) option.selected = true;
-            seriesSelect.appendChild(option);
+    try {
+        const res = await fetch(`${API_BASE}/series/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: cleanName, spacing_days: 7 })
         });
-    }
-    
-    document.getElementById('editStoryStatus').value = story.status || 'Draft';
-    document.getElementById('editStoryPublication').value = story.medium_publication || '';
-    document.getElementById('editStoryCreatedDate').value = story.created_date?.split('T')[0] || '';
-    document.getElementById('editStoryTags').value = story.tags?.join(', ') || '';
-    document.getElementById('editStoryMediumUrl').value = story.medium_url || '';
-    document.getElementById('editStoryNotes').value = story.notes || '';
-    document.getElementById('editStoryLeaderboard').value = story.leaderboard ? 'true' : 'false';
-    document.getElementById('editStoryLeaderboardNanos').value = story.leaderboard_nanos || 0;
-    document.getElementById('editStoryLeaderboardLifetimeNanos').value = story.leaderboard_lifetime_nanos || 0;
-    
-    // Medium Publish Date - now editable, populated from JSON if available
-    const mediumPublishDate = story.medium_first_published ? story.medium_first_published.split('T')[0] : (story.published_date || '');
-    document.getElementById('editStoryMediumPublishDate').value = mediumPublishDate;
-    
-    document.getElementById('editStoryLifetimeReads').innerHTML = formatNumber(story.lifetime_reads || 0);
-    document.getElementById('editStoryLifetimeViews').innerHTML = formatNumber(story.lifetime_views || 0);
-    document.getElementById('editStoryPresentationCount').innerHTML = formatNumber(story.presentation_count || 0);
-    
-    const memberReads = story.medium_member_reads || 0;
-    const totalReads = story.reads || 0;
-    const memberViews = story.medium_member_views || 0;
-    const totalViews = story.view_count || 0;
-    const memberReadPercent = totalReads > 0 ? Math.round((memberReads / totalReads) * 100) : 0;
-    const memberViewPercent = totalViews > 0 ? Math.round((memberViews / totalViews) * 100) : 0;
-    const readRatio = totalViews > 0 ? Math.round((totalReads / totalViews) * 100) : 0;
-    
-    document.getElementById('editStoryMemberReads').innerHTML = `${formatNumber(memberReads)}/${formatNumber(totalReads)} - ${memberReadPercent}%`;
-    document.getElementById('editStoryMemberViews').innerHTML = `${formatNumber(memberViews)}/${formatNumber(totalViews)} - ${memberViewPercent}%`;
-    document.getElementById('editStoryEngagement').innerHTML = `${formatNumber(story.claps || 0)}/${formatNumber(story.medium_new_followers || 0)}`;
-    document.getElementById('editStoryReadRatio').innerHTML = `${readRatio}%`;
-    document.getElementById('editStoryMemberPercent').innerHTML = `${memberReadPercent}%`;
-    document.getElementById('editStoryReadTimeWordCount').innerHTML = `${story.medium_reading_time || story.read_time || 0} min / ${formatNumber(story.word_count || 0)} words`;
-    document.getElementById('editStoryLastUpdated').textContent = story.last_updated || 'Never';
-    
-    document.getElementById('editStoryLinkedinStatus').value = story.linkedin_status || '';
-    document.getElementById('editStoryLinkedinTimestamp').value = story.linkedin_timestamp || '';
-    document.getElementById('editStoryLinkedinImpressions').value = story.linkedin_impressions || 0;
-    document.getElementById('editStoryLinkedinUrl').value = story.linkedin_url || '';
-    updateLinkedinDisplay();
-    
-    new bootstrap.Modal(document.getElementById('editStoryModal')).show();
-}
-
-async function saveStoryEdit() {
-    let storyKey = document.getElementById('editStoryKey')?.value;
-    if (!storyKey) return;
-    if (storyKey.toLowerCase().endsWith('.md')) storyKey = storyKey.slice(0, -3);
-    
-    // Get selected series from dropdown
-    const seriesSelect = document.getElementById('editStorySeriesSelect');
-    const selectedSeries = seriesSelect ? seriesSelect.value : null;
-    
-    const data = {
-        status: document.getElementById('editStoryStatus')?.value || 'Draft',
-        series: selectedSeries || null,  // Update series from dropdown
-        read_time: parseInt(document.getElementById('editStoryReadTime')?.value) || null,
-        tags: document.getElementById('editStoryTags')?.value.split(',').map(t=>t.trim()).filter(t=>t) || [],
-        medium_url: document.getElementById('editStoryMediumUrl')?.value || null,
-        notes: document.getElementById('editStoryNotes')?.value || '',
-        created_date: document.getElementById('editStoryCreatedDate')?.value || null,
-        medium_publication: document.getElementById('editStoryPublication')?.value || null,
-        medium_first_published: document.getElementById('editStoryMediumPublishDate')?.value || null,
-        published_date: document.getElementById('editStoryMediumPublishDate')?.value || null,
-        linkedin_status: document.getElementById('editStoryLinkedinStatus')?.value || null,
-        linkedin_timestamp: document.getElementById('editStoryLinkedinTimestamp')?.value || null,
-        linkedin_impressions: parseInt(document.getElementById('editStoryLinkedinImpressions')?.value) || 0,
-        linkedin_url: document.getElementById('editStoryLinkedinUrl')?.value || null,
-        leaderboard: document.getElementById('editStoryLeaderboard')?.value === 'true',
-        leaderboard_nanos: parseInt(document.getElementById('editStoryLeaderboardNanos')?.value) || 0,
-        leaderboard_lifetime_nanos: parseInt(document.getElementById('editStoryLeaderboardLifetimeNanos')?.value) || 0
-    };
-    
-    const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(storyKey)}`, { 
-        method: 'PUT', 
-        headers: { 'Content-Type': 'application/json' }, 
-        body: JSON.stringify(data) 
-    });
-    
-    if (res.ok) {
-        bootstrap.Modal.getInstance(document.getElementById('editStoryModal')).hide();
-        // Refresh the series list and current view
-        await loadAllSeries();
-        await loadView(window.currentView);
-        updateLeaderboardTotal();
-    } else {
-        const error = await res.json();
-        alert('Error saving story: ' + (error.detail || 'Unknown error'));
+        
+        if (res.ok) {
+            await loadSeries();
+            // Also refresh series dropdown in modals
+            if (typeof loadAllSeries === 'function') {
+                await loadAllSeries();
+            }
+        } else {
+            const error = await res.json();
+            alert('Failed to add series: ' + (error.detail || 'Unknown error'));
+        }
+    } catch (error) {
+        console.error('Error adding series:', error);
+        alert('Error adding series: ' + error.message);
     }
 }
 
-
-async function createNewStory() {
-    const name = document.getElementById('addStoryName')?.value;
-    if (!name) { alert('Story name required'); return; }
+async function updateSeriesSpacing(seriesName, days) {
+    const spacingDays = parseInt(days);
+    if (isNaN(spacingDays) || spacingDays < 1 || spacingDays > 30) {
+        alert('Spacing days must be between 1 and 30');
+        await loadSeries();
+        return;
+    }
     
-    const data = {
-        name: name,
-        series: document.getElementById('addStorySeries')?.value || null,
-        tags: document.getElementById('addStoryTags')?.value.split(',').map(t=>t.trim()).filter(t=>t) || [],
-        read_time: parseInt(document.getElementById('addStoryReadTime')?.value) || null,
-        created_date: document.getElementById('addStoryCreatedDate')?.value || getTodayDate()
-    };
-    
-    const res = await fetch(`${API_BASE}/stories/`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
-    if (res.ok) {
-        bootstrap.Modal.getInstance(document.getElementById('addStoryModal')).hide();
-        await loadView('stories');
-    } else {
-        alert('Error creating story');
+    try {
+        const res = await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ spacing_days: spacingDays })
+        });
+        
+        if (!res.ok) {
+            const error = await res.json();
+            alert('Failed to update spacing: ' + (error.detail || 'Unknown error'));
+            await loadSeries();
+        }
+    } catch (error) {
+        console.error('Error updating series spacing:', error);
+        alert('Error updating spacing: ' + error.message);
+        await loadSeries();
     }
 }
 
-async function deleteStory(storyKey) {
-    if (confirm('Delete this story?')) {
-        let cleanKey = storyKey;
-        if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
-        await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`, { method:'DELETE' });
-        await loadView(window.currentView);
+async function deleteSeries(seriesName) {
+    if (!confirm(`Are you sure you want to delete the series "${seriesName}"?\n\nThis will NOT delete the stories, only remove the series association.`)) {
+        return;
+    }
+    
+    try {
+        const res = await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, { method: 'DELETE' });
+        
+        if (res.ok) {
+            await loadSeries();
+            // Also refresh series dropdown in modals
+            if (typeof loadAllSeries === 'function') {
+                await loadAllSeries();
+            }
+        } else {
+            const error = await res.json();
+            alert('Failed to delete series: ' + (error.detail || 'Unknown error'));
+        }
+    } catch (error) {
+        console.error('Error deleting series:', error);
+        alert('Error deleting series: ' + error.message);
     }
 }
 
-async function syncStories() {
-    await fetch(`${API_BASE}/stories/sync`, { method:'POST' });
-    await loadView(window.currentView);
+function filterBySeries(seriesName) {
+    // This function is called when clicking on a series name
+    // It filters the stories view to show only stories from this series
+    if (typeof filterState !== 'undefined') {
+        filterState.series = seriesName;
+        filterState.status = 'All';
+    }
+    if (typeof loadView === 'function') {
+        loadView('stories');
+    }
 }
 
-async function updateLeaderboardStats() {
-    if (!confirm('Fetch complete stats for stories marked as Leaderboard?')) return;
-    const res = await fetch(`${API_BASE}/stories/update-leaderboard-stats`, { method: 'POST' });
-    const data = await res.json();
-    alert(`${data.message}\nUpdated: ${data.results?.updated || 0}\nFailed: ${data.results?.failed || 0}`);
-    await loadView(window.currentView);
-}
+// Make functions globally available
+window.sortSeries = sortSeries;
+window.loadSeries = loadSeries;
+window.renderSeriesTable = renderSeriesTable;
+window.addSeries = addSeries;
+window.updateSeriesSpacing = updateSeriesSpacing;
+window.deleteSeries = deleteSeries;
+window.filterBySeries = filterBySeries;

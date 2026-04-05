@@ -26,59 +26,64 @@ function sortCalendar(column) {
 }
 
 async function loadCalendar() {
-    const res = await fetch(`${API_BASE}/calendar/`);
-    const calendar = await res.json();
-    allCalendar = calendar.schedule || [];
-    
-    document.getElementById('content').innerHTML = `
-        <div class="d-flex justify-content-between mb-3">
-            <h1 class="h3">Publishing Calendar</h1>
-            <button class="btn btn-sm btn-primary" onclick="generateCalendar()"><i class="bi bi-arrow-repeat"></i> Regenerate</button>
-        </div>
-        <div class="row g-2 mb-3">
-            <div class="col-md-3">
-                <div class="card bg-info text-white p-2">
-                    <small>Scheduled</small>
-                    <h5>${calendar.summary?.total_scheduled || 0}</h5>
+    try {
+        const res = await fetch(`${API_BASE}/calendar/`);
+        const calendar = await res.json();
+        allCalendar = calendar.schedule || [];
+        
+        document.getElementById('content').innerHTML = `
+            <div class="d-flex justify-content-between mb-3">
+                <h1 class="h3">Publishing Calendar</h1>
+                <button class="btn btn-sm btn-primary" onclick="generateCalendar()"><i class="bi bi-arrow-repeat"></i> Regenerate</button>
+            </div>
+            <div class="row g-2 mb-3">
+                <div class="col-md-3">
+                    <div class="card bg-info text-white p-2">
+                        <small>Scheduled</small>
+                        <h5>${calendar.summary?.total_scheduled || 0}</h5>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-warning text-white p-2">
+                        <small>Stories/Week</small>
+                        <h5>${calendar.summary?.stories_per_week || 3}</h5>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-secondary text-white p-2">
+                        <small>Series Spacing</small>
+                        <h5>${calendar.summary?.series_spacing_default || 7} days</h5>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-dark text-white p-2">
+                        <small>Remaining</small>
+                        <h5>${calendar.summary?.remaining_unpublished || 0}</h5>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card bg-warning text-white p-2">
-                    <small>Stories/Week</small>
-                    <h5>${calendar.summary?.stories_per_week || 3}</h5>
-                </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover">
+                    <thead id="calendarTableHeader" class="table-light">
+                        <tr>
+                            <th class="sortable" data-sort="date" onclick="sortCalendar('date')" style="width: 120px;">Date <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                            <th class="sortable" data-sort="name" onclick="sortCalendar('name')">Story <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                            <th class="sortable" data-sort="series" onclick="sortCalendar('series')" style="width: 150px;">Series <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                            <th class="sortable" data-sort="part" onclick="sortCalendar('part')" style="width: 80px;">Part <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                            <th class="sortable" data-sort="read_time" onclick="sortCalendar('read_time')" style="width: 100px;">Read Time <i class="bi bi-arrow-down-up sort-icon"></i></th>
+                            <th style="width: 100px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendarTableBody"></tbody>
+                </table>
             </div>
-            <div class="col-md-3">
-                <div class="card bg-secondary text-white p-2">
-                    <small>Series Spacing</small>
-                    <h5>${calendar.summary?.series_spacing_default || 7} days</h5>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card bg-dark text-white p-2">
-                    <small>Remaining</small>
-                    <h5>${calendar.summary?.remaining_unpublished || 0}</h5>
-                </div>
-            </div>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-sm table-hover">
-                <thead id="calendarTableHeader" class="table-light">
-                    <tr>
-                        <th class="sortable" data-sort="date" onclick="sortCalendar('date')" style="width: 120px;">Date <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable" data-sort="name" onclick="sortCalendar('name')">Story <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable" data-sort="series" onclick="sortCalendar('series')" style="width: 150px;">Series <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable" data-sort="part" onclick="sortCalendar('part')" style="width: 80px;">Part <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th class="sortable" data-sort="read_time" onclick="sortCalendar('read_time')" style="width: 100px;">Read Time <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                        <th style="width: 100px;">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="calendarTableBody"></tbody>
-            </table>
-        </div>
-    `;
-    renderCalendarTable(allCalendar);
-    sortCalendar(calendarSortState.column);
+        `;
+        renderCalendarTable(allCalendar);
+        sortCalendar(calendarSortState.column);
+    } catch (error) {
+        console.error('Error loading calendar:', error);
+        document.getElementById('content').innerHTML = `<div class="alert alert-danger">Error loading calendar: ${error.message}</div>`;
+    }
 }
 
 function renderCalendarTable(calendar) {
@@ -127,6 +132,7 @@ async function generateCalendar() {
             alert('Failed to generate calendar: ' + (error.detail || 'Unknown error'));
         }
     } catch (error) {
+        console.error('Error generating calendar:', error);
         alert('Error generating calendar: ' + error.message);
     }
 }
@@ -152,6 +158,7 @@ async function markPublished(storyKey) {
             alert('Failed to mark as published: ' + (error.detail || 'Unknown error'));
         }
     } catch (error) {
+        console.error('Error marking as published:', error);
         alert('Error: ' + error.message);
     }
 }
@@ -179,3 +186,11 @@ function updateSortIcons(table, column, direction) {
         }
     }
 }
+
+// Make functions globally available
+window.sortCalendar = sortCalendar;
+window.loadCalendar = loadCalendar;
+window.renderCalendarTable = renderCalendarTable;
+window.generateCalendar = generateCalendar;
+window.markPublished = markPublished;
+window.updateSortIcons = updateSortIcons;

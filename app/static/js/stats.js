@@ -9,37 +9,50 @@ let currentStatsModal = null;
 
 async function showStatsDashboard(storyKey) {
     let cleanKey = storyKey;
-    if (cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
+    if (cleanKey && cleanKey.toLowerCase().endsWith('.md')) cleanKey = cleanKey.slice(0, -3);
     currentStatsStoryKey = cleanKey;
     
-    // Get current leaderboard month
+    // Get current mode and month
     let monthDisplay = '';
+    let targetYear = null;
+    let targetMonth = null;
+    
     try {
-        const monthRes = await fetch(`${API_BASE}/stories/leaderboard-month`);
-        const monthData = await monthRes.json();
-        if (monthData.leaderboard_month) {
-            const [year, month] = monthData.leaderboard_month.split('-');
-            currentStatsYear = parseInt(year);
-            currentStatsMonth = parseInt(month);
-            const date = new Date(currentStatsYear, currentStatsMonth - 1, 1);
+        const modeRes = await fetch(`${API_BASE}/stories/mode`);
+        const modeData = await modeRes.json();
+        
+        if (modeData.mode === 'month' && modeData.current_month) {
+            targetYear = modeData.current_month.year;
+            targetMonth = modeData.current_month.month;
+            const date = new Date(targetYear, targetMonth - 1, 1);
             const monthName = date.toLocaleString('default', { month: 'long', year: 'numeric' });
             monthDisplay = `<div class="alert alert-info py-1 px-2 mb-2 text-center" style="background: #e3f2fd; font-size: 0.75rem;">
                 <i class="bi bi-calendar-month"></i> Stats for: <strong>${monthName}</strong>
             </div>`;
         } else {
-            monthDisplay = `<div class="alert alert-warning py-1 px-2 mb-2 text-center" style="background: #fff3cd; font-size: 0.75rem;">
-                <i class="bi bi-exclamation-triangle"></i> No leaderboard month loaded
+            const now = new Date();
+            targetYear = now.getFullYear();
+            targetMonth = now.getMonth() + 1;
+            const monthName = now.toLocaleString('default', { month: 'long', year: 'numeric' });
+            monthDisplay = `<div class="alert alert-info py-1 px-2 mb-2 text-center" style="background: #e3f2fd; font-size: 0.75rem;">
+                <i class="bi bi-calendar-month"></i> Stats for: <strong>${monthName}</strong> (Current Month)
             </div>`;
         }
+        currentStatsYear = targetYear;
+        currentStatsMonth = targetMonth;
     } catch (error) {
-        console.error('Error getting leaderboard month:', error);
+        console.error('Error getting mode:', error);
+        const now = new Date();
+        targetYear = now.getFullYear();
+        targetMonth = now.getMonth() + 1;
+        currentStatsYear = targetYear;
+        currentStatsMonth = targetMonth;
     }
     
     const modalEl = document.getElementById('statsDashboardModal');
     const contentDiv = document.getElementById('statsDashboardContent');
     if (!modalEl || !contentDiv) return;
     
-    // Store modal instance for later cleanup
     currentStatsModal = new bootstrap.Modal(modalEl);
     
     contentDiv.innerHTML = `
@@ -52,37 +65,37 @@ async function showStatsDashboard(storyKey) {
     currentStatsModal.show();
     
     try {
-        // First, get the story from database (already has stats)
         const storyRes = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}`);
         const story = await storyRes.json();
         
-        // Display stats from database
-        const memberReads = story.medium_member_reads || 0;
-        const totalReads = story.reads || 0;
-        const memberViews = story.medium_member_views || 0;
-        const totalViews = story.view_count || 0;
-        const memberReadPercent = calcMemberPercent(memberReads, totalReads);
-        const memberViewPercent = calcMemberPercent(memberViews, totalViews);
-        const readRatio = totalViews > 0 ? Math.round((totalReads / totalViews) * 100) : 0;
-        
-        let statsMonthDisplay = monthDisplay;
-        if (currentStatsYear && currentStatsMonth) {
-            const date = new Date(currentStatsYear, currentStatsMonth - 1, 1);
-            const monthName = date.toLocaleString('default', { month: 'long', year: 'numeric' });
-            statsMonthDisplay = `<div class="alert alert-info py-1 px-2 mb-2 text-center" style="background: #e3f2fd; font-size: 0.75rem;">
-                <i class="bi bi-calendar-month"></i> Stats for: <strong>${monthName}</strong>
-            </div>`;
+        let monthlyStats = {};
+        try {
+            const monthlyRes = await fetch(`${API_BASE}/stories/stats-by-url?medium_url=${encodeURIComponent(story.medium_url || '')}`);
+            if (monthlyRes.ok) {
+                const monthlyData = await monthlyRes.json();
+                monthlyStats = monthlyData.current_month || {};
+            }
+        } catch (e) {
+            console.warn('Could not fetch monthly stats:', e);
         }
         
+        const memberReads = monthlyStats.member_reads || 0;
+        const totalReads = monthlyStats.reads || 0;
+        const memberViews = monthlyStats.member_views || 0;
+        const totalViews = monthlyStats.views || 0;
+        const memberReadPercent = totalReads > 0 ? Math.round((memberReads / totalReads) * 100) : 0;
+        const memberViewPercent = totalViews > 0 ? Math.round((memberViews / totalViews) * 100) : 0;
+        const readRatio = totalViews > 0 ? Math.round((totalReads / totalViews) * 100) : 0;
+        
         contentDiv.innerHTML = `
-            ${statsMonthDisplay}
+            ${monthDisplay}
             <div class="compact-stats">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <strong>${escapeHtml(story.name)}</strong>
                     <a href="${escapeHtml(story.medium_url)}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-box-arrow-up-right"></i></a>
                 </div>
                 <div class="row g-1 mb-2">
-                    <div class="col-12"><strong><i class="bi bi-calendar-month"></i> Current Month Stats</strong></div>
+                    <div class="col-12"><strong><i class="bi bi-calendar-month"></i> Monthly Stats</strong></div>
                 </div>
                 <div class="row g-1 mb-2">
                     <div class="col-4">
@@ -100,7 +113,7 @@ async function showStatsDashboard(storyKey) {
                     <div class="col-4">
                         <div class="card bg-light p-1 text-center">
                             <small>Claps</small>
-                            <strong>${formatNumber(story.claps || 0)}</strong>
+                            <strong>${formatNumber(monthlyStats.claps || 0)}</strong>
                         </div>
                     </div>
                 </div>
@@ -133,35 +146,22 @@ async function showStatsDashboard(storyKey) {
                         </div>
                     </div>
                 </div>
-                ${story.presentation_count ? `
-                <div class="row g-1 mt-2">
-                    <div class="col-12">
-                        <div class="card bg-secondary text-white p-1 text-center">
-                            <small>Presentation Count</small>
-                            <strong>${formatNumber(story.presentation_count)}</strong>
-                        </div>
-                    </div>
-                </div>
-                ` : ''}
                 <div class="text-center mt-2">
                     <small class="text-muted">Read Ratio: ${readRatio}%</small>
                 </div>
                 <div class="text-center mt-1">
-                    <small class="text-muted">Stats updated: ${story.last_stats_update ? story.last_stats_update.split('T')[0] : 'Never'}</small>
+                    <small class="text-muted">Stats updated: ${monthlyStats.last_stats_update ? monthlyStats.last_stats_update.split('T')[0] : story.last_stats_update?.split('T')[0] || 'Never'}</small>
                 </div>
             </div>
         `;
         
-        // Update refresh button
         const refreshBtn = document.getElementById('refreshStatsBtn');
         if (refreshBtn) {
-            // Remove any existing event listeners by cloning and replacing
             const newRefreshBtn = refreshBtn.cloneNode(true);
             refreshBtn.parentNode.replaceChild(newRefreshBtn, refreshBtn);
             newRefreshBtn.onclick = () => refreshStatsForCurrentMonth();
         }
         
-        // Handle modal close properly
         modalEl.addEventListener('hidden.bs.modal', function() {
             document.body.classList.remove('modal-open');
             const backdrops = document.querySelectorAll('.modal-backdrop');
@@ -171,14 +171,15 @@ async function showStatsDashboard(storyKey) {
         }, { once: true });
         
     } catch (error) {
-        contentDiv.innerHTML = `<div class="alert alert-danger m-2">Error: ${error.message}</div>`;
+        console.error('Error loading stats:', error);
+        contentDiv.innerHTML = `<div class="alert alert-danger m-2">Error loading stats: ${error.message}</div>`;
     }
 }
 
 async function refreshStatsForCurrentMonth() {
     if (!currentStatsStoryKey) return;
     
-    if (!confirm(`Refresh stats from Medium for the loaded leaderboard month?`)) {
+    if (!confirm(`Refresh stats from Medium for the current month?`)) {
         return;
     }
     
@@ -195,7 +196,6 @@ async function refreshStatsForCurrentMonth() {
     try {
         let url = `${API_BASE}/stories/fetch-lifetime-stats/${encodeURIComponent(currentStatsStoryKey)}`;
         
-        // Pass the year and month as query parameters
         if (currentStatsYear && currentStatsMonth) {
             url += `?year=${currentStatsYear}&month=${currentStatsMonth}`;
         }
@@ -204,15 +204,19 @@ async function refreshStatsForCurrentMonth() {
         const data = await res.json();
         
         if (res.ok && data.stats) {
-            // Refresh the display with new data
             await showStatsDashboard(currentStatsStoryKey);
-            alert(`Stats refreshed successfully for ${data.stats_month_display || 'the loaded month'}`);
+            alert(`Stats refreshed successfully`);
         } else {
             alert('Error refreshing stats: ' + (data.error || 'Unknown error'));
             await showStatsDashboard(currentStatsStoryKey);
         }
     } catch (error) {
+        console.error('Error refreshing stats:', error);
         alert('Error refreshing stats: ' + error.message);
         await showStatsDashboard(currentStatsStoryKey);
     }
 }
+
+// Make functions globally available
+window.showStatsDashboard = showStatsDashboard;
+window.refreshStatsForCurrentMonth = refreshStatsForCurrentMonth;

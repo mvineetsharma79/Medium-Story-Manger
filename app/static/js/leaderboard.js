@@ -26,12 +26,15 @@ async function loadLeaderboardFileList() {
         });
         container.innerHTML = html;
     } catch (error) {
-        container.innerHTML = `<div class="text-danger small text-center">Error</div>`;
+        console.error('Error loading leaderboard files:', error);
+        container.innerHTML = `<div class="text-danger small text-center">Error loading files</div>`;
     }
 }
 
 async function fetchLeaderboardForMonth(year, month, displayName) {
-    if (!confirm(`Fetch leaderboard data for ${displayName}?`)) return;
+    if (!confirm(`Fetch leaderboard data for ${displayName}?\n\nThis will:\n1. Reset ALL leaderboard flags\n2. Update stories with earnings from ${displayName}`)) {
+        return;
+    }
     
     try {
         const response = await fetch(`${API_BASE}/stories/fetch-leaderboard-for-month`, {
@@ -42,19 +45,13 @@ async function fetchLeaderboardForMonth(year, month, displayName) {
         const data = await response.json();
         
         if (response.ok && !data.error) {
-            // Also set the leaderboard month in the backend
-            await fetch(`${API_BASE}/stories/leaderboard-month?year=${year}&month=${month}`, { method: 'POST' });
-            
-            // Reload the month display
-            if (typeof loadLeaderboardMonth === 'function') await loadLeaderboardMonth();
-            
             if (typeof saveFilterState === 'function') saveFilterState();
             if (typeof loadView === 'function') await loadView(window.currentView);
             if (typeof restoreFilterState === 'function') restoreFilterState();
             if (typeof updateLeaderboardTotal === 'function') updateLeaderboardTotal();
             await loadLeaderboardFileList();
             
-            alert(`✅ ${displayName}: ${data.updated || 0} updated, ${data.added || 0} added\nTotal: $${(data.total_dollars || 0).toFixed(2)}`);
+            alert(`✅ ${displayName}: ${data.updated || 0} updated, ${data.added || 0} added`);
         } else {
             alert(`Error: ${data.error || data.message || 'Unknown error'}`);
         }
@@ -62,3 +59,7 @@ async function fetchLeaderboardForMonth(year, month, displayName) {
         alert(`Error: ${error.message}`);
     }
 }
+
+// Make functions globally available
+window.loadLeaderboardFileList = loadLeaderboardFileList;
+window.fetchLeaderboardForMonth = fetchLeaderboardForMonth;
