@@ -29,6 +29,9 @@ let currentEditStoryKey = null;
 let currentEditStoryYear = null;
 let currentEditStoryMonth = null;
 
+let allStoriesFromJson = []; // Add this with other global variables
+
+
 // ============================================
 // UTILITY FUNCTIONS
 // ============================================
@@ -271,147 +274,29 @@ function sortStories(column) {
 }
 
 async function loadStories() {
+    console.log('loadStories called');
     try {
-        // Get target month based on mode
-        let targetYear, targetMonth;
-        let isMonthMode = false;
-        
-        if (currentMode === 'month' && currentMonthYear) {
-            targetYear = currentMonthYear.year;
-            targetMonth = currentMonthYear.month;
-            isMonthMode = true;
-            console.log(`Month View Mode: ${targetYear}-${targetMonth}`);
-        } else {
-            const now = new Date();
-            targetYear = now.getFullYear();
-            targetMonth = now.getMonth() + 1;
-            console.log(`Dashboard Mode: current month ${targetYear}-${targetMonth}`);
-        }
-        
-        // For Dashboard mode, load which stories ever had leaderboard
-        let globalLeaderboardSet = new Set();
-        if (!isMonthMode) {
-            try {
-                const leaderboardRes = await fetch(`${API_BASE}/stories/leaderboard-status`);
-                const leaderboardData = await leaderboardRes.json();
-                globalLeaderboardSet = new Set(leaderboardData.leaderboard_stories || []);
-                console.log(`Dashboard Mode: ${globalLeaderboardSet.size} stories ever on leaderboard`);
-            } catch (e) {
-                console.log('Could not load leaderboard status:', e);
-            }
-        }
-        
-        // Fetch monthly stats for the target month
-        let monthlyStatsMap = {};
-        try {
-            const monthlyRes = await fetch(`${API_BASE}/stories/month/${targetYear}/${targetMonth}`);
-            if (monthlyRes.ok) {
-                const monthlyStories = await monthlyRes.json();
-                monthlyStatsMap = monthlyStories.reduce((map, story) => {
-                    map[story.key] = story.monthly_stats || {};
-                    return map;
-                }, {});
-                console.log(`Loaded monthly stats for ${targetYear}-${targetMonth}, found ${Object.keys(monthlyStatsMap).length} stories`);
-            }
-        } catch (e) {
-            console.log('No monthly stats available');
-        }
-        
-        // Fetch all stories from permanent storage
+        // Simple test - just load stories.json first
         const res = await fetch(`${API_BASE}/stories/`);
         const stories = await res.json();
         
-        // Merge data based on mode
-        const mergedStories = stories.map(story => {
-            const monthlyStats = monthlyStatsMap[story.key] || {};
-            
-            let leaderboardDisplay = false;
-            let leaderboardNanos = 0;
-            
-            if (isMonthMode) {
-                // MONTH MODE: Leaderboard from selected month's monthly file only
-                leaderboardDisplay = monthlyStats.leaderboard || false;
-                leaderboardNanos = monthlyStats.leaderboard_nanos || 0;
-            } else {
-                // DASHBOARD MODE: Leaderboard = TRUE if story ever had leaderboard in ANY month
-                leaderboardDisplay = globalLeaderboardSet.has(story.key);
-                leaderboardNanos = monthlyStats.leaderboard_nanos || 0;
-            }
-            
-            return {
-                ...story,
-                leaderboard: leaderboardDisplay,
-                leaderboard_nanos: leaderboardNanos,
-                reads: monthlyStats.reads || 0,
-                view_count: monthlyStats.view_count || 0,
-                claps: monthlyStats.claps || 0,
-                responses: monthlyStats.responses || 0,
-                medium_member_reads: monthlyStats.medium_member_reads || 0,
-                medium_member_views: monthlyStats.medium_member_views || 0,
-                medium_nonmember_reads: monthlyStats.medium_nonmember_reads || 0,
-                medium_nonmember_views: monthlyStats.medium_nonmember_views || 0,
-                medium_read_ratio: monthlyStats.medium_read_ratio || 0,
-                medium_member_read_percentage: monthlyStats.medium_member_read_percentage || 0,
-                medium_new_followers: monthlyStats.medium_new_followers || 0,
-                medium_highlights: monthlyStats.medium_highlights || 0
-            };
-        });
-        
-        window.allStories = mergedStories;
-        
-        // Get unique series for filter dropdown
-        const uniqueSeries = [...new Set(mergedStories.map(s => s.series).filter(s => s))];
-        
-        // Build the stories view HTML (keep your existing HTML structure)
+        // Create a simple table to test
         document.getElementById('content').innerHTML = `
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="h3 mb-0">Stories</h1>
+                <h1 class="h3 mb-0">Stories (Test)</h1>
                 <div>
                     <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addStoryModal"><i class="bi bi-plus-lg"></i> Add Story</button>
-                    <button class="btn btn-sm btn-success ms-2" onclick="updateLeaderboardStatsForMonth()"><i class="bi bi-trophy"></i> Update Leaderboard Stats</button>
                 </div>
             </div>
-            <div class="filter-bar d-flex gap-2 flex-wrap">
-                <select id="statusFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">
-                    <option value="All">All Status</option>
-                    <option value="Published">Published</option>
-                    <option value="Ready">Ready</option>
-                    <option value="Draft">Draft</option>
-                    <option value="Done">Done</option>
-                </select>
-                <select id="seriesFilter" class="form-select form-select-sm w-auto" onchange="saveFilterState(); filterStories()">
-                    <option value="">All Series</option>
-                    ${uniqueSeries.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('')}
-                </select>
-                <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search..." onkeyup="saveFilterState(); filterStories()" value="${escapeHtml(filterState.search || '')}">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="bookmarkFilter" onchange="saveFilterState(); filterStories()" ${filterState.bookmarked ? 'checked' : ''}>
-                    <label class="form-check-label small">Bookmarked</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="leaderboardFilter" onchange="saveFilterState(); filterStories()" ${filterState.leaderboard ? 'checked' : ''}>
-                    <label class="form-check-label small">Leaderboard</label>
-                </div>
-                <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">Clear</button>
-            </div>
-            <div class="mb-2 text-muted"><small id="filterCountDisplay">Showing all ${mergedStories.length} stories</small></div>
             <div class="table-responsive">
                 <table class="table table-sm table-hover">
-                    <thead id="storiesTableHeader" class="table-light">
+                    <thead class="table-light">
                         <tr>
-                            <th class="sortable text-center" onclick="sortStories('bookmarked')" style="width:35px;"><i class="bi bi-bookmark"></i> <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable text-center" onclick="sortStories('leaderboard')" style="width:35px;"><i class="bi bi-trophy"></i> <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable" onclick="sortStories('status')" style="width:80px;">Status <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable" onclick="sortStories('name')">Story Name <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable" onclick="sortStories('series')" style="width:120px;">Series <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable" onclick="sortStories('medium_first_published')" style="width:100px;">Publish Date <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable" onclick="sortStories('reads')" style="width:100px;">Reads <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable" onclick="sortStories('view_count')" style="width:100px;">Views <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable" onclick="sortStories('claps')" style="width:60px;">Claps <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable" onclick="sortStories('linkedin_impressions')" style="width:90px;">Impressions <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th style="width:80px;">LinkedIn</th>
-                            <th style="width:80px;">Lifetime</th>
-                            <th style="width:80px;">Actions</th>
+                            <th>Status</th>
+                            <th>Story Name</th>
+                            <th>Series</th>
+                            <th>Reads</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="storiesTableBody"></tbody>
@@ -419,25 +304,45 @@ async function loadStories() {
             </div>
         `;
         
-        renderStoryTable(mergedStories);
-        restoreFilterState();
-        sortStories(sortState.stories.column);
-        updateLeaderboardTotal();
+        const tbody = document.getElementById('storiesTableBody');
+        if (!tbody) {
+            console.error('tbody not found');
+            return;
+        }
+        
+        let html = '';
+        for (const story of stories.slice(0, 10)) {
+            html += `
+                <tr>
+                    <td><span class="status-badge status-draft">${story.status || 'Draft'}</span></td
+                    <td><strong>${escapeHtml(story.name || 'Unknown')}</strong></td
+                    <td>${story.series || '—'}</td
+                    <td>${story.reads || 0}</td
+                    <td><button class="btn btn-sm btn-outline-info" onclick="openEditStory('${story.key}')">Edit</button></td
+                 </tr
+            `;
+        }
+        tbody.innerHTML = html;
+        
+        window.allStories = stories;
+        console.log(`Loaded ${stories.length} stories`);
         
     } catch (error) {
-        console.error('Error loading stories:', error);
-        document.getElementById('content').innerHTML = `<div class="alert alert-danger">Error loading stories: ${error.message}</div>`;
+        console.error('Error:', error);
+        document.getElementById('content').innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
     }
 }
 
-
 function renderStoryTable(stories) {
     const tbody = document.getElementById('storiesTableBody');
-    if (!tbody) return;
+    if (!tbody) {
+        console.log('Table body not found yet');
+        return;
+    }
     
-    if (!stories || !Array.isArray(stories) || stories.length === 0) { 
+    if (!stories || stories.length === 0) {
         tbody.innerHTML = '<tr><td colspan="13" class="text-center text-muted py-3">No stories available</td></tr>';
-        return; 
+        return;
     }
     
     let filtered = [...stories];
@@ -447,46 +352,22 @@ function renderStoryTable(stories) {
     if (filterState.bookmarked) filtered = filtered.filter(s => s.bookmarked === true);
     if (filterState.leaderboard) filtered = filtered.filter(s => s.leaderboard === true);
     
-    const filterCountDisplay = document.getElementById('filterCountDisplay');
-    if (filterCountDisplay) {
-        filterCountDisplay.innerHTML = `Showing ${filtered.length} of ${stories.length} stories`;
-    }
-    
-    const { column, direction } = sortState.stories;
-    filtered.sort((a, b) => {
-        let aVal = a[column] !== undefined ? a[column] : '';
-        let bVal = b[column] !== undefined ? b[column] : '';
-        if (typeof aVal === 'number') return direction === 'asc' ? aVal - bVal : bVal - aVal;
-        return direction === 'asc' ? String(aVal).localeCompare(String(bVal)) : String(bVal).localeCompare(String(aVal));
-    });
+    document.getElementById('filterCountDisplay').innerHTML = `Showing ${filtered.length} of ${stories.length} stories`;
     
     let html = '';
     for (const story of filtered) {
         let storyKey = story.key || '';
-        if (storyKey && storyKey.toLowerCase().endsWith('.md')) storyKey = storyKey.slice(0, -3);
+        if (storyKey.endsWith('.md')) storyKey = storyKey.slice(0, -3);
         
         const publishDate = story.medium_first_published ? story.medium_first_published.split('T')[0] : (story.published_date || '-');
         const seriesName = story.series || '—';
-        
-        // Monthly stats with safe defaults
-        const memberReads = story.medium_member_reads || 0;
         const totalReads = story.reads || 0;
-        const memberViews = story.medium_member_views || 0;
-        const totalViews = story.view_count || 0;
-        const memberReadPercent = totalReads > 0 ? Math.round((memberReads / totalReads) * 100) : 0;
-        
-        // Lifetime stats
-        const lifetimeReads = story.lifetime_reads || 0;
-        const lifetimeViews = story.lifetime_views || 0;
-        const lifetimeClaps = story.lifetime_claps || 0;
-        const lifetimeText = `${formatNumber(lifetimeReads)}/${formatNumber(lifetimeViews)}/${formatNumber(lifetimeClaps)}`;
+        const memberReadPercent = story.medium_member_reads && totalReads > 0 ? Math.round((story.medium_member_reads / totalReads) * 100) : 0;
+        const lifetimeText = `${formatNumber(story.lifetime_reads || 0)}/${formatNumber(story.lifetime_views || 0)}/${formatNumber(story.lifetime_claps || 0)}`;
         
         let linkedinHtml = '<span class="linkedin-badge linkedin-not-posted">Not Posted</span>';
-        if (story.linkedin_status === 'scheduled') {
-            linkedinHtml = `<span class="linkedin-badge linkedin-scheduled">📅 Scheduled</span>`;
-        } else if (story.linkedin_status === 'posted') {
-            linkedinHtml = `<span class="linkedin-badge linkedin-posted">✅ Posted</span>`;
-        }
+        if (story.linkedin_status === 'scheduled') linkedinHtml = '<span class="linkedin-badge linkedin-scheduled">📅 Scheduled</span>';
+        else if (story.linkedin_status === 'posted') linkedinHtml = '<span class="linkedin-badge linkedin-posted">✅ Posted</span>';
         
         const statusClass = story.status === 'Published' ? 'status-published' : 
                            story.status === 'Ready' ? 'status-ready' : 
@@ -494,38 +375,35 @@ function renderStoryTable(stories) {
         
         html += `
             <tr class="table-row-clickable" onclick="openEditStory('${storyKey.replace(/'/g, "\\'")}')">
-                <td class="text-center" onclick="event.stopPropagation()" style="width:35px">
+                <td class="text-center" onclick="event.stopPropagation()">
                     <i class="bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}" 
                        onclick="toggleBookmark('${storyKey.replace(/'/g, "\\'")}', event)"></i>
                 </td>
-                <td class="text-center" onclick="event.stopPropagation()" style="width:35px">
+                <td class="text-center" onclick="event.stopPropagation()">
                     <i class="bi bi-trophy${story.leaderboard ? '-fill' : ''} leaderboard-icon ${story.leaderboard ? 'leaderboard' : ''}" 
                        onclick="toggleLeaderboard('${storyKey.replace(/'/g, "\\'")}', event)"></i>
                 </td>
                 <td><span class="status-badge ${statusClass}">${story.status || 'Draft'}</span></td>
-                <td><strong title="${escapeHtml(story.name || '')}">${escapeHtml(story.name && story.name.length > 45 ? story.name.substring(0,45)+'...' : story.name || 'Unknown')}</strong></td>
-                <td><small>${escapeHtml(seriesName)}</small></td>
-                <td><small>${publishDate}</small></td>
-                <td class="stats-tooltip" title="${memberReads} of ${totalReads} reads (${memberReadPercent}% from members)">
+                <td><strong>${escapeHtml(story.name || 'Unknown')}</strong></td>
+                <td>${escapeHtml(seriesName)}</td
+                <td>${publishDate}</td
+                <td class="stats-tooltip" title="${memberReadPercent}% members">
                     ${formatNumber(totalReads)}<br><small>${memberReadPercent}%</small>
-                </td>
-                <td>${formatNumber(totalViews)}</td>
-                <td>${formatNumber(story.claps || 0)}</td>
-                <td>${formatNumber(story.linkedin_impressions || 0)}</td>
-                <td class="text-center">${linkedinHtml}</td>
-                <td class="stats-tooltip" title="Lifetime Reads/Views/Claps">
-                    <span class="lifetime-text">${lifetimeText}</span>
-                </td>
+                </td
+                <td>${formatNumber(story.view_count || 0)}</td
+                <td>${formatNumber(story.claps || 0)}</td
+                <td>${formatNumber(story.linkedin_impressions || 0)}</td
+                <td>${linkedinHtml}</td
+                <td class="stats-tooltip" title="Lifetime Reads/Views/Claps">${lifetimeText}</td
                 <td class="action-buttons" onclick="event.stopPropagation()">
-                    <button class="btn btn-sm btn-outline-info" onclick="event.stopPropagation(); showStatsDashboard('${storyKey.replace(/'/g, "\\'")}')" title="Stats"><i class="bi bi-graph-up"></i></button>
+                    <button class="btn btn-sm btn-outline-info" onclick="showStatsDashboard('${storyKey.replace(/'/g, "\\'")}')" title="Stats"><i class="bi bi-graph-up"></i></button>
                     <button class="btn btn-sm btn-danger" onclick="deleteStory('${storyKey.replace(/'/g, "\\'")}')" title="Delete"><i class="bi bi-trash"></i></button>
-                </td>
-            </tr>
+                 </td
+             </tr
         `;
     }
     tbody.innerHTML = html;
 }
-
 
 async function toggleBookmark(storyKey, event) {
     event.stopPropagation();
