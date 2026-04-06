@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Publishing Calendar</h1>
+    <button class="btn btn-sm btn-primary" onclick="regenerateCalendar()">
+        <i class="bi bi-arrow-repeat"></i> Regenerate
+    </button>
+</div>
+
+<!-- Summary Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h6>Scheduled</h6>
+                <h3 id="scheduledCount">-</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <h6>Stories/Week</h6>
+                <h3 id="storiesPerWeek">-</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-secondary text-white">
+            <div class="card-body">
+                <h6>Series Spacing</h6>
+                <h3 id="seriesSpacing">-</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-dark text-white">
+            <div class="card-body">
+                <h6>Remaining</h6>
+                <h3 id="remainingCount">-</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Calendar Table -->
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Date</th>
+                <th>Story</th>
+                <th>Series</th>
+                <th>Part</th>
+                <th>Read Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="calendarTableBody"></tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/calendar.js"></script>
+{% endblock %}

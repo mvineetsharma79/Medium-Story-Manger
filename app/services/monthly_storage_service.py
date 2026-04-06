@@ -1,3 +1,5 @@
+# app/services/monthly_storage_service.py
+
 """
 Monthly Storage Service - Manages stories-YYYY-MM.json files for monthly statistics
 """
@@ -33,8 +35,7 @@ class MonthlyStorageService:
         
         months = []
         for file_path in data_dir.glob("stories-*.json"):
-            # Extract YYYY-MM from filename
-            filename = file_path.stem  # stories-2026-04
+            filename = file_path.stem
             if filename.startswith("stories-"):
                 month_str = filename.replace("stories-", "")
                 if len(month_str) == 7 and month_str[4] == '-':
@@ -50,7 +51,6 @@ class MonthlyStorageService:
                     except:
                         pass
         
-        # Sort by year-month descending (newest first)
         months.sort(key=lambda x: (x["year"], x["month"]), reverse=True)
         return months
     
@@ -69,7 +69,6 @@ class MonthlyStorageService:
             try:
                 with open(file_path, 'r', encoding='utf-8') as f:
                     data = json.load(f)
-                    # Ensure required fields exist
                     if "stories" not in data:
                         data["stories"] = {}
                     if "month" not in data:
@@ -122,7 +121,7 @@ class MonthlyStorageService:
             if story_key not in data["stories"]:
                 data["stories"][story_key] = {}
             
-            # Update stats
+            # Update stats - save all fields passed
             for key, value in stats_data.items():
                 if value is not None:
                     data["stories"][story_key][key] = value
@@ -165,6 +164,7 @@ class MonthlyStorageService:
                 "medium_highlights": 0,
                 "leaderboard": False,
                 "leaderboard_nanos": 0,
+                "medium_earnings": 0,
                 "last_stats_update": datetime.now().isoformat()
             }
             return await MonthlyStorageService.save_monthly_stats(year, month, data)

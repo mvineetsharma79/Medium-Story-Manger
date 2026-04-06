@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Series{% endblock %}
+
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Series</h1>
+    <button class="btn btn-sm btn-primary" onclick="addSeries()">
+        <i class="bi bi-plus-lg"></i> Add Series
+    </button>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Series Name</th>
+                <th style="width:200px">Progress</th>
+                <th style="width:120px">Spacing (days)</th>
+                <th style="width:100px">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="seriesTableBody"></tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/series.js"></script>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<div class="page-header mb-3">
+    <h1 class="h3">Settings</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h6>Calendar Settings</h6>
+            </div>
+            <div class="card-body">
+                <form id="calendarSettingsForm">
+                    <div class="mb-2">
+                        <label>Series Spacing (days)</label>
+                        <input type="number" class="form-control form-control-sm" id="seriesSpacingDays" min="5" max="14">
+                    </div>
+                    <div class="mb-2">
+                        <label>Stories Per Week</label>
+                        <input type="number" class="form-control form-control-sm" id="storiesPerWeek" min="1" max="7">
+                    </div>
+                    <div class="mb-2">
+                        <label>Preferred Publish Days</label>
+                        <div class="d-flex gap-2 flex-wrap" id="preferredDays"></div>
+                    </div>
+                    <div class="mb-2">
+                        <label>Start Date</label>
+                        <input type="date" class="form-control form-control-sm" id="startDate">
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary">Save Settings</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h6>System</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Stories Root:</strong> <span id="storiesRoot"></span></p>
+                <p><strong>Data Directory:</strong> <span id="dataDir"></span></p>
+                <hr>
+                <button class="btn btn-sm btn-primary" onclick="syncStories()">
+                    <i class="bi bi-arrow-repeat"></i> Sync Files
+                </button>
+                <button class="btn btn-sm btn-secondary ms-2" onclick="generateCalendar()">
+                    <i class="bi bi-calendar"></i> Generate Calendar
+                </button>
+                <hr>
+                <div class="alert alert-warning small">
+                    <i class="bi bi-exclamation-triangle"></i> This will overwrite all monthly data with values from leaderboard JSON files.
+                </div>
+                <button class="btn btn-sm btn-danger w-100" onclick="importAllLeaderboard()">
+                    <i class="bi bi-cloud-upload"></i> Import All Leaderboard Data
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/settings.js"></script>
+{% endblock %}

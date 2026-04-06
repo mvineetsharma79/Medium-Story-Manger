@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Stories{% endblock %}
+
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Stories</h1>
+    <div>
+        <button class="btn btn-sm btn-primary" onclick="openAddStoryModal()">
+            <i class="bi bi-plus-lg"></i> Add Story
+        </button>
+        <button class="btn btn-sm btn-success ms-2" onclick="updateLeaderboardStats()">
+            <i class="bi bi-trophy"></i> Update Stats
+        </button>
+    </div>
+</div>
+
+<!-- Row 1: Months Dropdown + Filters -->
+<div class="filter-bar d-flex gap-3 flex-wrap align-items-center mb-2">
+    <div class="d-flex align-items-center gap-2">
+        <span class="small text-muted">View:</span>
+        <select id="monthSelector" class="form-select form-select-sm" style="width: 110px;" onchange="onMonthChange()">
+            <option value="all">All Time</option>
+        </select>
+    </div>
+    <div class="vr"></div>
+    <select id="statusFilter" class="form-select form-select-sm w-auto" onchange="applyFilters()">
+        <option value="All">All Status</option>
+        <option value="Published">Published</option>
+        <option value="Ready">Ready</option>
+        <option value="Draft">Draft</option>
+        <option value="Done">Done</option>
+    </select>
+    <select id="seriesFilter" class="form-select form-select-sm w-auto" onchange="applyFilters()">
+        <option value="">All Series</option>
+    </select>
+    <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search..." onkeyup="applyFilters()">
+</div>
+
+<!-- Row 2: Checkboxes and Clear Button -->
+<div class="filter-bar d-flex gap-3 flex-wrap align-items-center">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="bookmarkFilter" onchange="applyFilters()">
+        <label class="form-check-label small">Bookmarked</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="leaderboardFilter" onchange="applyFilters()">
+        <label class="form-check-label small">Leaderboard</label>
+    </div>
+    <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">Clear Filters</button>
+</div>
+
+<div class="mb-2 text-muted mt-2"><small id="filterCountDisplay">Loading...</small></div>
+
+<!-- Sortable Table Headers -->
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
+        <thead class="table-light">
+            <tr>
+                <th style="width:35px" class="sortable" onclick="sortStories('bookmarked')"><i class="bi bi-bookmark"></i></th>
+                <th style="width:35px" class="sortable" onclick="sortStories('leaderboard')"><i class="bi bi-trophy"></i></th>
+                <th style="width:70px" class="sortable" onclick="sortStories('status')">Status</th>
+                <th class="sortable" onclick="sortStories('name')">Story Name</th>
+                <th style="width:100px" class="sortable" onclick="sortStories('series')">Series</th>
+                <th style="width:90px" class="sortable" onclick="sortStories('published_date')">Published</th>
+                <th style="width:80px" class="sortable" onclick="sortStories('reads')">Reads</th>
+                <th style="width:70px" class="sortable" onclick="sortStories('views')">Views</th>
+                <th style="width:60px" class="sortable" onclick="sortStories('claps')">Claps</th>
+                <th style="width:80px" class="sortable" onclick="sortStories('linkedin_impressions')">Impressions</th>
+                <th style="width:70px">LinkedIn</th>
+                <th style="width:80px">Lifetime</th>
+                <th style="width:100px">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="storiesTableBody"></tbody>
+    </table>
+</div>
+
+<!-- Modals -->
+{% include "edit-story-modal.html" %}
+{% include "add-story-modal.html" %}
+{% include "stats-modal.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/stories.js"></script>
+{% endblock %}

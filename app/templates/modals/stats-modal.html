@@ -1,26 +1,86 @@
-<div class="modal fade" id="statsDashboardModal" tabindex="-1" aria-labelledby="statsDashboardModalLabel" aria-hidden="true">
+<div class="modal fade" id="statsModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white py-2">
-                <h5 class="modal-title" id="statsDashboardModalLabel">
-                    <i class="bi bi-graph-up"></i> Medium Stats Dashboard
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Stats Dashboard: <span id="statsStoryName"></span></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body p-2" id="statsDashboardContent">
-                <div class="text-center py-3">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
+            <div class="modal-body">
+                <h6 class="mb-3">Monthly Stats</h6>
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h6>Reads</h6>
+                                <h3 id="statsReads">0</h3>
+                            </div>
+                        </div>
                     </div>
-                    <p class="mt-2">Loading stats...</p>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h6>Views</h6>
+                                <h3 id="statsViews">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h6>Claps</h6>
+                                <h3 id="statsClaps">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="mb-3">Member Stats</h6>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h6>Member Reads</h6>
+                                <h3 id="statsMemberReads">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h6>Member Views</h6>
+                                <h3 id="statsMemberViews">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="mb-3">Lifetime Stats</h6>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <h6>Reads</h6>
+                                        <h4 id="statsLifetimeReads">0</h4>
+                                    </div>
+                                    <div class="col-4">
+                                        <h6>Views</h6>
+                                        <h4 id="statsLifetimeViews">0</h4>
+                                    </div>
+                                    <div class="col-4">
+                                        <h6>Claps</h6>
+                                        <h4 id="statsLifetimeClaps">0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer py-2">
-                <div class="me-auto">
-                    <small class="text-muted" id="statsMonthIndicator"></small>
-                </div>
-                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-sm btn-primary" id="refreshStatsBtn">Refresh from Medium</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="refreshStoryStatsForCurrent()">Refresh from Medium</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

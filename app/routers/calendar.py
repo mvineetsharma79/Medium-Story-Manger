@@ -1,9 +1,11 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any
 import json
-
+import logging
 from app.services.calendar_service import CalendarService
 from app.models import CalendarResponse
+
+logger = logging.getLogger(__name__)
 
 # Create the router instance - THIS IS CRITICAL
 router = APIRouter()
@@ -71,3 +73,27 @@ async def debug_calendar():
         import traceback
         traceback.print_exc()
         return {"error": str(e)}
+
+@router.get("/schedule")
+async def get_calendar_schedule():
+    """Get calendar schedule"""
+    try:
+        response = await CalendarService.save_calendar_files()
+        return {
+            "schedule": [
+                {
+                    "date": c.date,
+                    "weekday": c.weekday,
+                    "name": c.name,
+                    "series": c.series,
+                    "part": c.part,
+                    "read_time": c.read_time,
+                    "story_key": c.story_key
+                }
+                for c in response.schedule
+            ],
+            "summary": response.summary
+        }
+    except Exception as e:
+        logger.error(f"Error getting calendar schedule: {e}")
+        raise HTTPException(status_code=500, detail=str(e))

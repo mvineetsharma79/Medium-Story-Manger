@@ -1,196 +1,73 @@
 // ============================================
-// Calendar Functions
+// CALENDAR PAGE - API calls and rendering only
 // ============================================
 
-let calendarSortState = { column: 'date', direction: 'asc' };
-let allCalendar = [];
-
-function sortCalendar(column) {
-    const direction = calendarSortState.column === column && calendarSortState.direction === 'asc' ? 'desc' : 'asc';
-    calendarSortState = { column, direction };
-    const sorted = [...allCalendar].sort((a, b) => {
-        if (column === 'date') {
-            return direction === 'asc' ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date);
-        }
-        if (column === 'read_time') {
-            const aVal = a.read_time || 0;
-            const bVal = b.read_time || 0;
-            return direction === 'asc' ? aVal - bVal : bVal - aVal;
-        }
-        const aVal = String(a[column] || '').toLowerCase();
-        const bVal = String(b[column] || '').toLowerCase();
-        return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-    });
-    renderCalendarTable(sorted);
-    updateSortIcons('calendar', column, direction);
-}
-
 async function loadCalendar() {
+    showLoading();
     try {
-        const res = await fetch(`${API_BASE}/calendar/`);
-        const calendar = await res.json();
-        allCalendar = calendar.schedule || [];
+        const res = await fetch(`${API_BASE}/calendar/schedule`);
+        const data = await res.json();
         
-        document.getElementById('content').innerHTML = `
-            <div class="d-flex justify-content-between mb-3">
-                <h1 class="h3">Publishing Calendar</h1>
-                <button class="btn btn-sm btn-primary" onclick="generateCalendar()"><i class="bi bi-arrow-repeat"></i> Regenerate</button>
-            </div>
-            <div class="row g-2 mb-3">
-                <div class="col-md-3">
-                    <div class="card bg-info text-white p-2">
-                        <small>Scheduled</small>
-                        <h5>${calendar.summary?.total_scheduled || 0}</h5>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card bg-warning text-white p-2">
-                        <small>Stories/Week</small>
-                        <h5>${calendar.summary?.stories_per_week || 3}</h5>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card bg-secondary text-white p-2">
-                        <small>Series Spacing</small>
-                        <h5>${calendar.summary?.series_spacing_default || 7} days</h5>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card bg-dark text-white p-2">
-                        <small>Remaining</small>
-                        <h5>${calendar.summary?.remaining_unpublished || 0}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-sm table-hover">
-                    <thead id="calendarTableHeader" class="table-light">
-                        <tr>
-                            <th class="sortable" data-sort="date" onclick="sortCalendar('date')" style="width: 120px;">Date <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable" data-sort="name" onclick="sortCalendar('name')">Story <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable" data-sort="series" onclick="sortCalendar('series')" style="width: 150px;">Series <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable" data-sort="part" onclick="sortCalendar('part')" style="width: 80px;">Part <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th class="sortable" data-sort="read_time" onclick="sortCalendar('read_time')" style="width: 100px;">Read Time <i class="bi bi-arrow-down-up sort-icon"></i></th>
-                            <th style="width: 100px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="calendarTableBody"></tbody>
-                </table>
-            </div>
-        `;
-        renderCalendarTable(allCalendar);
-        sortCalendar(calendarSortState.column);
+        // Update summary cards
+        document.getElementById('scheduledCount').textContent = data.summary?.total_scheduled || 0;
+        document.getElementById('storiesPerWeek').textContent = data.summary?.stories_per_week || 3;
+        document.getElementById('seriesSpacing').textContent = `${data.summary?.series_spacing_default || 7} days`;
+        document.getElementById('remainingCount').textContent = data.summary?.remaining_unpublished || 0;
+        
+        // Render table
+        const tbody = document.getElementById('calendarTableBody');
+        
+        if (!data.schedule || !data.schedule.length) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No scheduled stories. Click "Regenerate" to create a schedule.</td</tr>';
+            return;
+        }
+        
+        tbody.innerHTML = data.schedule.map(c => `
+            <tr>
+                <td><strong>${c.date}</strong><br><small>${c.weekday}</small></td>
+                <td>${escapeHtml(c.name)}</td
+                <td>${c.series || 'Standalone'}</td
+                <td>${c.part ? `Part ${c.part}` : '—'}</td
+                <td>${c.read_time} min</td
+                <td><button class="btn btn-sm btn-success" onclick="markPublished('${escapeHtml(c.story_key)}')">Publish</button></td
+             </tr
+        `).join('');
+        
     } catch (error) {
         console.error('Error loading calendar:', error);
-        document.getElementById('content').innerHTML = `<div class="alert alert-danger">Error loading calendar: ${error.message}</div>`;
+        showToast('Error loading calendar', 'error');
+    } finally {
+        hideLoading();
     }
 }
 
-function renderCalendarTable(calendar) {
-    const tbody = document.getElementById('calendarTableBody');
-    if (!tbody) return;
-    
-    if (!calendar || calendar.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="text-center">No scheduled stories</td></tr>';
-        return;
-    }
-    
-    let html = '';
-    for (const c of calendar) {
-        const dateStr = c.date || '';
-        const weekdayStr = c.weekday || '';
-        const nameStr = escapeHtml(c.name || '');
-        const seriesStr = escapeHtml(c.series || 'Standalone');
-        const partStr = c.part ? `Part ${c.part}` : '—';
-        const readTimeStr = c.read_time ? `${c.read_time} min` : '—';
-        const storyKey = (c.story_key || '').replace(/'/g, "\\'");
-        
-        html += `
-            <tr class="table-row-clickable" onclick="markPublished('${storyKey}')">
-                <td><strong>${dateStr}</strong><br><small>${weekdayStr}</small></td>
-                <td>${nameStr}</td>
-                <td>${seriesStr}</td>
-                <td>${partStr}</td>
-                <td>${readTimeStr}</td>
-                <td>
-                    <button class="btn btn-sm btn-success" onclick="event.stopPropagation(); markPublished('${storyKey}')">Publish</button>
-                </td>
-            </tr>
-        `;
-    }
-    tbody.innerHTML = html;
-}
-
-async function generateCalendar() {
+async function regenerateCalendar() {
+    showLoading();
     try {
-        const res = await fetch(`${API_BASE}/calendar/generate`, { method: 'POST' });
-        if (res.ok) {
-            await loadCalendar();
-            alert('Calendar regenerated successfully');
-        } else {
-            const error = await res.json();
-            alert('Failed to generate calendar: ' + (error.detail || 'Unknown error'));
-        }
+        await fetch(`${API_BASE}/calendar/generate`, { method: 'POST' });
+        await loadCalendar();
+        showToast('Calendar regenerated', 'success');
     } catch (error) {
-        console.error('Error generating calendar:', error);
-        alert('Error generating calendar: ' + error.message);
+        showToast('Error generating calendar', 'error');
+    } finally {
+        hideLoading();
     }
 }
 
 async function markPublished(storyKey) {
-    if (!storyKey) return;
+    if (!confirm('Mark this story as published?')) return;
     
-    let cleanKey = storyKey;
-    if (cleanKey.toLowerCase().endsWith('.md')) {
-        cleanKey = cleanKey.slice(0, -3);
-    }
-    
+    showLoading();
     try {
-        const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}/publish`, { method: 'POST' });
-        if (res.ok) {
-            await loadCalendar();
-            if (typeof loadView === 'function') {
-                await loadView(window.currentView);
-            }
-            alert('Story marked as published');
-        } else {
-            const error = await res.json();
-            alert('Failed to mark as published: ' + (error.detail || 'Unknown error'));
-        }
+        let cleanKey = storyKey.replace(/\.md$/, '');
+        await fetch(`${API_BASE}/stories/${encodeURIComponent(cleanKey)}/publish`, { method: 'POST' });
+        await loadCalendar();
+        showToast('Story marked as published', 'success');
     } catch (error) {
-        console.error('Error marking as published:', error);
-        alert('Error: ' + error.message);
+        showToast('Error marking as published', 'error');
+    } finally {
+        hideLoading();
     }
 }
 
-function updateSortIcons(table, column, direction) {
-    const headerId = table === 'stories' ? 'storiesTableHeader' : (table === 'series' ? 'seriesTableHeader' : 'calendarTableHeader');
-    const header = document.getElementById(headerId);
-    if (!header) return;
-    
-    const sortableHeaders = header.querySelectorAll('.sortable');
-    for (const th of sortableHeaders) {
-        th.classList.remove('active');
-        const iconSpan = th.querySelector('.sort-icon');
-        if (iconSpan) {
-            iconSpan.textContent = '↕';
-        }
-    }
-    
-    const activeTh = header.querySelector(`.sortable[data-sort="${column}"]`);
-    if (activeTh) {
-        activeTh.classList.add('active');
-        const iconSpan = activeTh.querySelector('.sort-icon');
-        if (iconSpan) {
-            iconSpan.textContent = direction === 'asc' ? '↑' : '↓';
-        }
-    }
-}
-
-// Make functions globally available
-window.sortCalendar = sortCalendar;
-window.loadCalendar = loadCalendar;
-window.renderCalendarTable = renderCalendarTable;
-window.generateCalendar = generateCalendar;
-window.markPublished = markPublished;
-window.updateSortIcons = updateSortIcons;
+document.addEventListener('DOMContentLoaded', loadCalendar);

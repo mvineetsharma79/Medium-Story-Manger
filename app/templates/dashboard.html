@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header mb-3">
+    <h1 class="h3">Dashboard</h1>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-3 mb-4" id="statsCards">
+    <div class="col-md-2">
+        <div class="card stat-card bg-primary text-white" onclick="window.location.href='/stories'">
+            <div class="card-body">
+                <h6>Total Stories</h6>
+                <h2 id="totalCount">-</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card stat-card bg-success text-white" onclick="filterByStatus('Published')">
+            <div class="card-body">
+                <h6>Published</h6>
+                <h2 id="publishedCount">-</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card stat-card bg-info text-white" onclick="filterByStatus('Ready')">
+            <div class="card-body">
+                <h6>Ready</h6>
+                <h2 id="readyCount">-</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card stat-card bg-secondary text-white" onclick="filterByStatus('Done')">
+            <div class="card-body">
+                <h6>Done</h6>
+                <h2 id="doneCount">-</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card stat-card" style="background:#ffc107;color:#000;" onclick="filterByBookmarked()">
+            <div class="card-body">
+                <h6>Bookmarked</h6>
+                <h2 id="bookmarkedCount">-</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card stat-card" style="background:#ffd700;color:#000;" onclick="filterByLeaderboard()">
+            <div class="card-body">
+                <h6>Leaderboard</h6>
+                <h2 id="leaderboardCount">-</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Row -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6>Reads (Member/Total)</h6>
+                <h3 id="totalReads">-</h3>
+                <small id="memberReadPercent" class="text-muted">-</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6>Views (Member/Total)</h6>
+                <h3 id="totalViews">-</h3>
+                <small id="memberViewPercent" class="text-muted">-</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6>Read Ratio</h6>
+                <h3 id="readRatio">-</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6>Total Claps</h6>
+                <h3 id="totalClaps">-</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Leaderboard Section -->
+<div class="card mb-4" style="border:1px solid #ffd700;background:#fff8e7;">
+    <div class="card-header" style="background:#ffd700;color:#000;">
+        <i class="bi bi-trophy"></i> Leaderboard Stats
+        <button class="btn btn-sm btn-primary float-end" onclick="updateLeaderboardStats()">
+            <i class="bi bi-arrow-repeat"></i> Update
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="bg-info text-white p-2 rounded text-center">
+                    <small>Stories</small>
+                    <h4 id="leaderboardStoryCount">-</h4>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-primary text-white p-2 rounded text-center">
+                    <small>Total Reads</small>
+                    <h4 id="leaderboardReads">-</h4>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-warning text-white p-2 rounded text-center">
+                    <small>Total Claps</small>
+                    <h4 id="leaderboardClaps">-</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Stories & Schedule -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span>Recent Stories</span>
+                <a href="/stories" class="btn btn-sm btn-primary">View All</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush" id="recentStories"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span>Upcoming Schedule</span>
+                <button class="btn btn-sm btn-primary" onclick="regenerateCalendar()">Generate</button>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush" id="upcomingSchedule"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/dashboard.js"></script>
+{% endblock %}
