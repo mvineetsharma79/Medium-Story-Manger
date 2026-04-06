@@ -80,11 +80,14 @@ class MonthlyStorageService:
         
         return default_data
     
+
     @staticmethod
     async def save_monthly_stats(year: int, month: int, data: Dict[str, Any]) -> bool:
         """Save monthly stats for a specific month"""
         try:
             file_path = MonthlyStorageService.get_monthly_stats_path(year, month)
+            # Ensure directory exists
+            file_path.parent.mkdir(parents=True, exist_ok=True)
             data["last_updated"] = datetime.now().isoformat()
             
             with open(file_path, 'w', encoding='utf-8') as f:
@@ -212,3 +215,16 @@ class MonthlyStorageService:
                 })
         
         return result
+
+@staticmethod
+async def delete_story_from_month(story_key: str, year: int, month: int) -> bool:
+    """Remove a story from a monthly file"""
+    try:
+        data = await MonthlyStorageService.load_monthly_stats(year, month)
+        if story_key in data["stories"]:
+            del data["stories"][story_key]
+            return await MonthlyStorageService.save_monthly_stats(year, month, data)
+        return True
+    except Exception as e:
+        logger.error(f"Error deleting story from month: {e}")
+        return False

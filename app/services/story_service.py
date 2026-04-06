@@ -3,6 +3,9 @@ from datetime import datetime
 import logging
 import urllib.parse
 
+import re
+import unicodedata
+
 from app.services.file_service import (
     load_stories_data, save_stories_data, scan_markdown_files,
     parse_series_number
@@ -362,3 +365,23 @@ class StoryService:
         
         await save_stories_data(data)
         return True
+    
+    # Add this function to app/services/story_service.py
+
+
+def normalize_title(title: str) -> str:
+    """Normalize title to create a consistent key"""
+    if not title:
+        return ""
+    # Convert to lowercase
+    title = title.lower()
+    # Normalize unicode characters
+    title = unicodedata.normalize('NFKD', title).encode('ASCII', 'ignore').decode('ASCII')
+    # Replace spaces and special characters with hyphens
+    title = re.sub(r'[^\w\s-]', '', title)
+    title = re.sub(r'[\s]+', '-', title)
+    # Remove multiple hyphens
+    title = re.sub(r'-+', '-', title)
+    # Strip hyphens from start and end
+    title = title.strip('-')
+    return title

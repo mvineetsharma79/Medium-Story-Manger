@@ -19,8 +19,8 @@
 <div class="filter-bar d-flex gap-3 flex-wrap align-items-center mb-2">
     <div class="d-flex align-items-center gap-2">
         <span class="small text-muted">View:</span>
-        <select id="monthSelector" class="form-select form-select-sm" style="width: 110px;" onchange="onMonthChange()">
-            <option value="all">All Time</option>
+        <select id="monthSelector" class="form-select form-select-sm" style="width: 150px;" onchange="onMonthChange()">
+            <option value="all">All Time (Dashboard)</option>
         </select>
     </div>
     <div class="vr"></div>
@@ -31,10 +31,7 @@
         <option value="Draft">Draft</option>
         <option value="Done">Done</option>
     </select>
-    <select id="seriesFilter" class="form-select form-select-sm w-auto" onchange="applyFilters()">
-        <option value="">All Series</option>
-    </select>
-    <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search..." onkeyup="applyFilters()">
+    <input type="text" id="searchFilter" class="form-control form-control-sm w-auto" placeholder="Search stories..." onkeyup="applyFilters()">
 </div>
 
 <!-- Row 2: Checkboxes and Clear Button -->
@@ -50,36 +47,412 @@
     <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">Clear Filters</button>
 </div>
 
-<div class="mb-2 text-muted mt-2"><small id="filterCountDisplay">Loading...</small></div>
+<div class="mb-2 text-muted"><small id="filterCountDisplay">Loading...</small></div>
 
-<!-- Sortable Table Headers -->
+<!-- Sortable Table - 15 Columns (Added LinkedIn Status) -->
 <div class="table-responsive">
     <table class="table table-sm table-hover">
-        <thead class="table-light">
+<thead class="table-light">
+    <tr>
+        <th style="width:35px" class="sortable" onclick="sortStories('bookmarked')" title="Bookmark">
+            <i class="bi bi-bookmark"></i>
+        </th>
+        <th style="width:35px" class="sortable" onclick="sortStories('leaderboard')" title="Leaderboard">
+            <i class="bi bi-trophy"></i>
+        </th>
+        <th style="width:75px" class="sortable" onclick="sortStories('status')">Status</th>
+        <th style="width:250px" class="sortable" onclick="sortStories('name')">Title</th>
+        <th style="width:95px" class="sortable" onclick="sortStories('created_date')">Created</th>
+        <th style="width:95px" class="sortable" onclick="sortStories('medium_first_published')">Published</th>
+        <th style="width:110px" class="sortable" onclick="sortStories('reads')">Reads</th>
+        <th style="width:110px" class="sortable" onclick="sortStories('views')">Views</th>
+        <th style="width:120px" class="sortable" onclick="sortStories('presentation_count')">Impression</th>
+        <th style="width:90px" class="sortable" onclick="sortStories('claps')">Claps</th>
+        <th style="width:100px" class="sortable" onclick="sortStories('medium_earnings')">Earnings</th>
+        <th style="width:100px" class="sortable" onclick="sortStories('medium_new_followers')">Followers</th>
+        <th style="width:100px" class="sortable" onclick="sortStories('reading_time')">Read Time</th>
+        <th style="width:120px" class="sortable" onclick="sortStories('medium_publication')">Publisher</th>
+        <th style="width:80px" class="sortable" onclick="sortStories('linkedin_status')">LinkedIn</th>
+        <th style="width:85px">Actions</th>
+    </tr>
+</thead>
+        <tbody id="storiesTableBody">
             <tr>
-                <th style="width:35px" class="sortable" onclick="sortStories('bookmarked')"><i class="bi bi-bookmark"></i></th>
-                <th style="width:35px" class="sortable" onclick="sortStories('leaderboard')"><i class="bi bi-trophy"></i></th>
-                <th style="width:70px" class="sortable" onclick="sortStories('status')">Status</th>
-                <th class="sortable" onclick="sortStories('name')">Story Name</th>
-                <th style="width:100px" class="sortable" onclick="sortStories('series')">Series</th>
-                <th style="width:90px" class="sortable" onclick="sortStories('published_date')">Published</th>
-                <th style="width:80px" class="sortable" onclick="sortStories('reads')">Reads</th>
-                <th style="width:70px" class="sortable" onclick="sortStories('views')">Views</th>
-                <th style="width:60px" class="sortable" onclick="sortStories('claps')">Claps</th>
-                <th style="width:80px" class="sortable" onclick="sortStories('linkedin_impressions')">Impressions</th>
-                <th style="width:70px">LinkedIn</th>
-                <th style="width:80px">Lifetime</th>
-                <th style="width:100px">Actions</th>
+                <td colspan="15" class="text-center text-muted py-4">
+                    <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                    Loading stories...
+                </td>
             </tr>
-        </thead>
-        <tbody id="storiesTableBody"></tbody>
+        </tbody>
     </table>
 </div>
 
 <!-- Modals -->
-{% include "edit-story-modal.html" %}
-{% include "add-story-modal.html" %}
-{% include "stats-modal.html" %}
+<div class="modal fade" id="addStoryModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title"><i class="bi bi-plus-circle"></i> Add New Story</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-2">
+                    <label class="form-label small fw-bold">Story Name *</label>
+                    <input type="text" id="addStoryName" class="form-control form-control-sm" placeholder="Enter story title">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label small fw-bold">Series</label>
+                    <select id="addStorySeries" class="form-select form-select-sm">
+                        <option value="">None</option>
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label small fw-bold">Tags</label>
+                    <input type="text" id="addStoryTags" class="form-control form-control-sm" placeholder="python, tutorial, api">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label small fw-bold">Read Time (minutes)</label>
+                    <input type="number" id="addStoryReadTime" class="form-control form-control-sm" placeholder="Estimated reading time">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label small fw-bold">Created Date</label>
+                    <input type="date" id="addStoryCreatedDate" class="form-control form-control-sm">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label small fw-bold">Published Date</label>
+                    <input type="date" id="addStoryPublishedDate" class="form-control form-control-sm">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label small fw-bold">Medium URL</label>
+                    <input type="url" id="addStoryMediumUrl" class="form-control form-control-sm" placeholder="https://medium.com/@username/post-title">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label small fw-bold">Publication</label>
+                    <input type="text" id="addStoryPublication" class="form-control form-control-sm" placeholder="Publication name">
+                </div>
+            </div>
+            <div class="modal-footer py-2">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-primary" id="addStoryCreateBtn">Create Story</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editStoryModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white py-2">
+                <h5 class="modal-title" id="editStoryModalTitle">
+                    <i class="bi bi-pencil-square"></i> Edit Story
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body py-2">
+                <input type="hidden" id="editStoryKey">
+                <input type="hidden" id="editStoryName">
+
+                <!-- SECTION 1: METADATA (stories.json fields) -->
+                <div class="row g-2 mb-2">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-header py-1 bg-light">
+                                <small><i class="bi bi-info-circle"></i> Story Metadata (stories.json)</small>
+                            </div>
+                            <div class="card-body py-2">
+                                <div class="row g-1">
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0">Status</label>
+                                        <select id="editStatus" class="form-select form-select-sm">
+                                            <option value="Draft">Draft</option>
+                                            <option value="Ready">Ready</option>
+                                            <option value="Done">Done</option>
+                                            <option value="Published">Published</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0">Series</label>
+                                        <select id="editSeries" class="form-select form-select-sm">
+                                            <option value="">None</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0">Created Date</label>
+                                        <input type="date" id="editCreatedDate" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0">Published Date</label>
+                                        <input type="date" id="editPublishedDate" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label small mb-0">Medium URL</label>
+                                        <input type="url" id="editMediumUrl" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label small mb-0">Publication</label>
+                                        <input type="text" id="editPublication" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label small mb-0">Tags</label>
+                                        <input type="text" id="editTags" class="form-control form-control-sm" placeholder="python, api, tutorial">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label small mb-0">Notes</label>
+                                        <textarea id="editNotes" class="form-control form-control-sm" rows="2" placeholder="Internal notes..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-header py-1 bg-light">
+                                <small><i class="bi bi-linkedin"></i> LinkedIn Marketing (stories.json)</small>
+                            </div>
+                            <div class="card-body py-2">
+                                <div class="row g-1">
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0">Status</label>
+                                        <select id="editLinkedinStatus" class="form-select form-select-sm">
+                                            <option value="">Not Posted</option>
+                                            <option value="scheduled">Scheduled</option>
+                                            <option value="posted">Posted</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0">Timestamp</label>
+                                        <input type="datetime-local" id="editLinkedinTimestamp" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0">Impressions</label>
+                                        <input type="number" id="editLinkedinImpressions" class="form-control form-control-sm" value="0">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0">Post URL</label>
+                                        <input type="url" id="editLinkedinUrl" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label small mb-0">Bookmarked</label>
+                                        <select id="editBookmarked" class="form-select form-select-sm">
+                                            <option value="false">No</option>
+                                            <option value="true">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: LIFETIME STATS (from stories.json) -->
+                <div class="card mb-2">
+                    <div class="card-header py-1 bg-light">
+                        <small><i class="bi bi-infinity"></i> Lifetime Stats (stories.json)</small>
+                    </div>
+                    <div class="card-body py-2">
+                        <div class="row text-center g-1">
+                            <div class="col-3">
+                                <div class="border rounded p-1">
+                                    <small>Total Reads</small><br>
+                                    <strong id="lifetimeReads">0</strong>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="border rounded p-1">
+                                    <small>Total Views</small><br>
+                                    <strong id="lifetimeViews">0</strong>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="border rounded p-1">
+                                    <small>Total Claps</small><br>
+                                    <strong id="lifetimeClaps">0</strong>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="border rounded p-1">
+                                    <small>Presentations</small><br>
+                                    <strong id="presentationCount">0</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center g-1 mt-1">
+                            <div class="col-4">
+                                <div class="border rounded p-1">
+                                    <small>Word Count</small><br>
+                                    <strong id="wordCount">0</strong>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="border rounded p-1">
+                                    <small>Reading Time</small><br>
+                                    <strong id="readingTime">0</strong> min
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="border rounded p-1">
+                                    <small>Total Followers</small><br>
+                                    <strong id="totalFollowers">0</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: CURRENT MONTH STATS (from monthly data) -->
+                <div class="card mb-2">
+                    <div class="card-header py-1 bg-light d-flex justify-content-between align-items-center">
+                        <small><i class="bi bi-calendar-month"></i> Monthly Stats for <span id="currentMonthLabel"></span> (from monthly data)</small>
+                        <button class="btn btn-sm btn-outline-primary py-0" onclick="refreshCurrentStoryStats()">
+                            <i class="bi bi-cloud-download"></i> Fetch from Medium
+                        </button>
+                    </div>
+                    <div class="card-body py-2">
+                        <div class="row g-1">
+                            <div class="col-md-3">
+                                <label class="form-label small mb-0">Member Reads</label>
+                                <input type="number" id="editMemberReads" class="form-control form-control-sm" value="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small mb-0">Non-Member Reads</label>
+                                <input type="number" id="editNonMemberReads" class="form-control form-control-sm" value="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small mb-0">Member Views</label>
+                                <input type="number" id="editMemberViews" class="form-control form-control-sm" value="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small mb-0">Non-Member Views</label>
+                                <input type="number" id="editNonMemberViews" class="form-control form-control-sm" value="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small mb-0">Monthly Claps</label>
+                                <input type="number" id="editClaps" class="form-control form-control-sm" value="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small mb-0">Responses</label>
+                                <input type="number" id="editResponses" class="form-control form-control-sm" value="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small mb-0">New Followers (Month)</label>
+                                <input type="number" id="editNewFollowers" class="form-control form-control-sm" value="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small mb-0">Highlights</label>
+                                <input type="number" id="editHighlights" class="form-control form-control-sm" value="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small mb-0">Leaderboard</label>
+                                <select id="editLeaderboard" class="form-select form-select-sm">
+                                    <option value="false">No</option>
+                                    <option value="true">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small mb-0">Earnings (cents)</label>
+                                <input type="number" id="editLeaderboardNanos" class="form-control form-control-sm" value="0" step="1">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small mb-0">Monthly Earnings ($)</label>
+                                <input type="number" id="editMediumEarnings" class="form-control form-control-sm" value="0" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 4: ALL MONTHS STATS LIST -->
+                <div class="card">
+                    <div class="card-header py-1 bg-light">
+                        <small><i class="bi bi-calendar-range"></i> All Months Stats</small>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="allMonthsStatsList" style="max-height: 250px; overflow-y: auto;">
+                            <div class="text-center p-3 text-muted">No monthly data</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer py-2">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-primary" id="saveStoryEditBtn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="statsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Stats Dashboard: <span id="statsStoryName"></span></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="mb-3">Current Month Stats</h6>
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h6>Reads</h6>
+                                <h3 id="statsReads">0</h3>
+                                <small id="statsReadPercent">0% members</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h6>Views</h6>
+                                <h3 id="statsViews">0</h3>
+                                <small id="statsViewPercent">0% members</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h6>Claps</h6>
+                                <h3 id="statsClaps">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="mb-3">Lifetime Stats (stories.json)</h6>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row text-center">
+                                    <div class="col-3">
+                                        <h6>Reads</h6>
+                                        <h4 id="statsLifetimeReads">0</h4>
+                                    </div>
+                                    <div class="col-3">
+                                        <h6>Views</h6>
+                                        <h4 id="statsLifetimeViews">0</h4>
+                                    </div>
+                                    <div class="col-3">
+                                        <h6>Claps</h6>
+                                        <h4 id="statsLifetimeClaps">0</h4>
+                                    </div>
+                                    <div class="col-3">
+                                        <h6>Presentations</h6>
+                                        <h4 id="statsPresentationCount">0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}

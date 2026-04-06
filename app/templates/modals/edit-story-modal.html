@@ -1,54 +1,65 @@
 <div class="modal fade" id="editStoryModal" tabindex="-1">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title">
-                    <i class="bi bi-pencil-square"></i> Edit Story: <span id="editStoryName"></span>
+            <div class="modal-header bg-primary text-white py-2">
+                <h5 class="modal-title" id="editStoryModalTitle">
+                    <i class="bi bi-pencil-square"></i> Edit Story
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body py-2">
                 <input type="hidden" id="editStoryKey">
+                <input type="hidden" id="editStoryName">
 
-                <!-- SECTION 1: Story Metadata + LinkedIn (two columns) -->
-                <div class="row">
-                    <!-- Left Column: Story Metadata -->
+                <!-- SECTION 1: METADATA (2 columns) -->
+                <div class="row g-2 mb-2">
+                    <!-- Left Column -->
                     <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-header bg-light">
-                                <i class="bi bi-info-circle"></i> Story Metadata
+                        <div class="card h-100">
+                            <div class="card-header py-1 bg-light">
+                                <small><i class="bi bi-info-circle"></i> Story Metadata</small>
                             </div>
-                            <div class="card-body">
-                                <div class="mb-2">
-                                    <label class="form-label"><i class="bi bi-collection"></i> Series</label>
-                                    <select id="editSeries" class="form-select">
-                                        <option value="">None</option>
-                                    </select>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label"><i class="bi bi-tag"></i> Status</label>
-                                    <select id="editStatus" class="form-select">
-                                        <option value="Draft">📝 Draft</option>
-                                        <option value="Ready">🚀 Ready</option>
-                                        <option value="Done">✅ Done</option>
-                                        <option value="Published">📢 Published</option>
-                                    </select>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label"><i class="bi bi-calendar"></i> Published Date</label>
-                                    <input type="date" id="editPublishedDate" class="form-control">
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label"><i class="bi bi-link-45deg"></i> Medium URL</label>
-                                    <input type="url" id="editMediumUrl" class="form-control">
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label"><i class="bi bi-hash"></i> Tags</label>
-                                    <input type="text" id="editTags" class="form-control" placeholder="python, api, tutorial">
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label"><i class="bi bi-journal"></i> Notes</label>
-                                    <textarea id="editNotes" class="form-control" rows="3"></textarea>
+                            <div class="card-body py-2">
+                                <div class="row g-1">
+                                    <div class="col-12">
+                                        <label class="form-label small mb-0"><i class="bi bi-collection"></i> Series</label>
+                                        <select id="editSeries" class="form-select form-select-sm">
+                                            <option value="">None</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0"><i class="bi bi-tag"></i> Status</label>
+                                        <select id="editStatus" class="form-select form-select-sm">
+                                            <option value="Draft">Draft</option>
+                                            <option value="Ready">Ready</option>
+                                            <option value="Done">Done</option>
+                                            <option value="Published">Published</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0"><i class="bi bi-calendar-plus"></i> Created Date</label>
+                                        <input type="date" id="editCreatedDate" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0"><i class="bi bi-calendar-check"></i> Published Date</label>
+                                        <input type="date" id="editPublishedDate" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0"><i class="bi bi-link-45deg"></i> Medium URL</label>
+                                        <input type="url" id="editMediumUrl" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label small mb-0"><i class="bi bi-building"></i> Publication</label>
+                                        <input type="text" id="editPublication" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label small mb-0"><i class="bi bi-hash"></i> Tags</label>
+                                        <input type="text" id="editTags" class="form-control form-control-sm" placeholder="python, api, tutorial">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label small mb-0"><i class="bi bi-journal"></i> Notes</label>
+                                        <textarea id="editNotes" class="form-control form-control-sm" rows="2" placeholder="Internal notes..."></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -56,137 +67,178 @@
 
                     <!-- Right Column: LinkedIn Marketing -->
                     <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-header bg-light">
-                                <i class="bi bi-linkedin"></i> LinkedIn Marketing
+                        <div class="card h-100">
+                            <div class="card-header py-1 bg-light">
+                                <small><i class="bi bi-linkedin"></i> LinkedIn Marketing</small>
                             </div>
-                            <div class="card-body">
-                                <div class="mb-2">
-                                    <label class="form-label"><i class="bi bi-flag"></i> Status</label>
-                                    <select id="editLinkedinStatus" class="form-select">
-                                        <option value="">Not Posted</option>
-                                        <option value="scheduled">📅 Scheduled</option>
-                                        <option value="posted">✅ Posted</option>
-                                    </select>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label"><i class="bi bi-clock"></i> Timestamp</label>
-                                    <input type="datetime-local" id="editLinkedinTimestamp" class="form-control">
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label"><i class="bi bi-eye"></i> Impressions</label>
-                                    <input type="number" id="editLinkedinImpressions" class="form-control" value="0">
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label"><i class="bi bi-link"></i> Post URL</label>
-                                    <input type="url" id="editLinkedinUrl" class="form-control">
+                            <div class="card-body py-2">
+                                <div class="row g-1">
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0"><i class="bi bi-flag"></i> Status</label>
+                                        <select id="editLinkedinStatus" class="form-select form-select-sm">
+                                            <option value="">Not Posted</option>
+                                            <option value="scheduled">Scheduled</option>
+                                            <option value="posted">Posted</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0"><i class="bi bi-clock"></i> Timestamp</label>
+                                        <input type="datetime-local" id="editLinkedinTimestamp" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0"><i class="bi bi-eye"></i> Impressions</label>
+                                        <input type="number" id="editLinkedinImpressions" class="form-control form-control-sm" value="0">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small mb-0"><i class="bi bi-link"></i> Post URL</label>
+                                        <input type="url" id="editLinkedinUrl" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label small mb-0"><i class="bi bi-bookmark"></i> Bookmarked</label>
+                                        <select id="editBookmarked" class="form-select form-select-sm">
+                                            <option value="false">No</option>
+                                            <option value="true">Yes</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SECTION 2: Lifetime Stats with Fetch Button -->
-                <div class="card mb-3">
-                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                        <span><i class="bi bi-infinity"></i> Lifetime Stats</span>
-                        <button class="btn btn-sm btn-outline-primary" onclick="refreshCurrentStoryStats()">
+                <!-- SECTION 2: LIFETIME STATS -->
+                <div class="card mb-2">
+                    <div class="card-header py-1 bg-light d-flex justify-content-between align-items-center">
+                        <small><i class="bi bi-infinity"></i> Lifetime Stats</small>
+                        <button class="btn btn-sm btn-outline-primary py-0" onclick="refreshCurrentStoryStats()">
                             <i class="bi bi-cloud-download"></i> Fetch from Medium
                         </button>
                     </div>
-                    <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-md-3">
-                                <div class="border rounded p-2">
-                                    <i class="bi bi-book"></i> Reads<br>
+                    <div class="card-body py-2">
+                        <div class="row text-center g-1">
+                            <div class="col-3">
+                                <div class="border rounded p-1">
+                                    <small>Reads</small><br>
                                     <strong id="lifetimeReads">0</strong>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="border rounded p-2">
-                                    <i class="bi bi-eye"></i> Views<br>
+                            <div class="col-3">
+                                <div class="border rounded p-1">
+                                    <small>Views</small><br>
                                     <strong id="lifetimeViews">0</strong>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="border rounded p-2">
-                                    <i class="bi bi-hand-thumbs-up"></i> Claps<br>
+                            <div class="col-3">
+                                <div class="border rounded p-1">
+                                    <small>Claps</small><br>
                                     <strong id="lifetimeClaps">0</strong>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="border rounded p-2">
-                                    <i class="bi bi-people"></i> Followers<br>
-                                    <strong id="lifetimeFollowers">0</strong>
+                            <div class="col-3">
+                                <div class="border rounded p-1">
+                                    <small>Presentations</small><br>
+                                    <strong id="presentationCount">0</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center g-1 mt-1">
+                            <div class="col-4">
+                                <div class="border rounded p-1">
+                                    <small>Word Count</small><br>
+                                    <strong id="wordCount">0</strong>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="border rounded p-1">
+                                    <small>Reading Time</small><br>
+                                    <strong id="readingTime">0</strong> min
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="border rounded p-1">
+                                    <small>Feed CTR</small><br>
+                                    <strong id="feedClickThroughRate">0</strong>%
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SECTION 3: Current/Selected Month Stats (Editable) -->
-                <div class="card mb-3">
-                    <div class="card-header bg-light">
-                        <i class="bi bi-calendar-month"></i> Monthly Stats for <span id="currentMonthLabel"></span>
+                <!-- SECTION 3: CURRENT MONTH STATS -->
+                <div class="card mb-2">
+                    <div class="card-header py-1 bg-light">
+                        <small><i class="bi bi-calendar-month"></i> Monthly Stats for <span id="currentMonthLabel"></span></small>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
+                    <div class="card-body py-2">
+                        <div class="row g-1">
                             <div class="col-md-3">
-                                <label class="form-label"><i class="bi bi-book"></i> Member Reads</label>
-                                <input type="number" id="editMemberReads" class="form-control" value="0">
+                                <label class="form-label small mb-0">Member Reads</label>
+                                <input type="number" id="editMemberReads" class="form-control form-control-sm" value="0">
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label"><i class="bi bi-people"></i> Non-Member Reads</label>
-                                <input type="number" id="editNonMemberReads" class="form-control" value="0">
+                                <label class="form-label small mb-0">Non-Member Reads</label>
+                                <input type="number" id="editNonMemberReads" class="form-control form-control-sm" value="0">
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label"><i class="bi bi-eye"></i> Member Views</label>
-                                <input type="number" id="editMemberViews" class="form-control" value="0">
+                                <label class="form-label small mb-0">Member Views</label>
+                                <input type="number" id="editMemberViews" class="form-control form-control-sm" value="0">
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label"><i class="bi bi-people"></i> Non-Member Views</label>
-                                <input type="number" id="editNonMemberViews" class="form-control" value="0">
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-3">
-                                <label class="form-label"><i class="bi bi-hand-thumbs-up"></i> Claps</label>
-                                <input type="number" id="editClaps" class="form-control" value="0">
+                                <label class="form-label small mb-0">Non-Member Views</label>
+                                <input type="number" id="editNonMemberViews" class="form-control form-control-sm" value="0">
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label"><i class="bi bi-chat"></i> Responses</label>
-                                <input type="number" id="editResponses" class="form-control" value="0">
+                                <label class="form-label small mb-0">Claps</label>
+                                <input type="number" id="editClaps" class="form-control form-control-sm" value="0">
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label"><i class="bi bi-trophy"></i> Leaderboard</label>
-                                <select id="editLeaderboard" class="form-select">
+                                <label class="form-label small mb-0">Responses</label>
+                                <input type="number" id="editResponses" class="form-control form-control-sm" value="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small mb-0">Leaderboard</label>
+                                <select id="editLeaderboard" class="form-select form-select-sm">
                                     <option value="false">No</option>
                                     <option value="true">Yes</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label"><i class="bi bi-currency-dollar"></i> Earnings (nanos)</label>
-                                <input type="number" id="editLeaderboardNanos" class="form-control" value="0">
+                                <label class="form-label small mb-0">Earnings (cents)</label>
+                                <input type="number" id="editLeaderboardNanos" class="form-control form-control-sm" value="0">
+                            </div>
+                        </div>
+                        <div class="row g-1 mt-1">
+                            <div class="col-md-4">
+                                <label class="form-label small mb-0">Read Ratio (%)</label>
+                                <input type="number" id="editReadRatio" class="form-control form-control-sm" value="0" step="0.1">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small mb-0">Member Read %</label>
+                                <input type="number" id="editMemberReadPercent" class="form-control form-control-sm" value="0" step="0.1">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small mb-0">Highlights</label>
+                                <input type="number" id="editHighlights" class="form-control form-control-sm" value="0">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SECTION 4: All Months Stats List (Scrollable) -->
+                <!-- SECTION 4: ALL MONTHS STATS LIST -->
                 <div class="card">
-                    <div class="card-header bg-light">
-                        <i class="bi bi-calendar-range"></i> All Months Stats
+                    <div class="card-header py-1 bg-light">
+                        <small><i class="bi bi-calendar-range"></i> All Months Stats</small>
                     </div>
                     <div class="card-body p-0">
-                        <div id="allMonthsStatsList" style="max-height: 300px; overflow-y: auto;">
-                            <div class="text-center p-3 text-muted">Loading months...</div>
+                        <div id="allMonthsStatsList" style="max-height: 250px; overflow-y: auto;">
+                            <div class="text-center p-3 text-muted">No monthly data</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="saveStoryEdit()">Save Changes</button>
+            <div class="modal-footer py-2">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-primary" onclick="saveStoryEdit()">Save Changes</button>
             </div>
         </div>
     </div>

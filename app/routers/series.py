@@ -35,6 +35,36 @@ async def list_series():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.get("/list")
+async def get_series_list():
+    """Get all series with computed stats - used by frontend series.js"""
+    try:
+        data = await load_stories_data()
+        series_data = data.get("series", {})
+        settings = data.get("calendar_settings", {})
+        default_spacing = settings.get("series_spacing_days", 7)
+        
+        result = []
+        for name, info in series_data.items():
+            total_stories = info.get("total_stories", 0)
+            published = info.get("published", 0)
+            progress_percent = round((published / max(total_stories, 1)) * 100, 1)
+            
+            result.append({
+                "name": name,
+                "total_stories": total_stories,
+                "published": published,
+                "spacing_days": info.get("spacing_days", default_spacing),
+                "progress_percent": progress_percent
+            })
+        
+        return {"series": result, "total": len(result)}
+        
+    except Exception as e:
+        logger.error(f"Error getting series list: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.get("/{series_name}", response_model=SeriesResponse)
 async def get_series(series_name: str):
     """Get a single series"""
@@ -70,7 +100,6 @@ async def create_series(series_data: SeriesCreate):
         data = await load_stories_data()
         series = data.get("series", {})
         
-        # Clean series name
         clean_name = series_data.name.strip()
         
         if clean_name in series:
@@ -84,7 +113,6 @@ async def create_series(series_data: SeriesCreate):
             "stories": []
         }
         
-        # Save the updated data
         await save_stories_data(data)
         
         return SeriesResponse(
@@ -113,7 +141,6 @@ async def update_series(series_name: str, update_data: SeriesUpdate):
             raise HTTPException(status_code=404, detail="Series not found")
         
         if update_data.name:
-            # Rename series - clean the new name
             new_name = update_data.name.strip()
             old_name = series_name
             
@@ -122,11 +149,9 @@ async def update_series(series_name: str, update_data: SeriesUpdate):
             elif new_name in series:
                 raise HTTPException(status_code=400, detail="Series with new name already exists")
             else:
-                # Update the series dictionary
                 series[new_name] = series.pop(old_name)
                 series[new_name]["name"] = new_name
                 
-                # Update all stories that belong to this series
                 for story_key in series[new_name]["stories"]:
                     if story_key in stories:
                         stories[story_key]["series"] = new_name
@@ -136,11 +161,9 @@ async def update_series(series_name: str, update_data: SeriesUpdate):
         if update_data.spacing_days:
             series[series_name]["spacing_days"] = update_data.spacing_days
         
-        # Update stories in data
         data["stories"] = stories
         data["series"] = series
         
-        # Save the updated data
         await save_stories_data(data)
         
         settings = data.get("calendar_settings", {})
@@ -171,19 +194,16 @@ async def delete_series(series_name: str):
         if series_name not in series:
             raise HTTPException(status_code=404, detail="Series not found")
         
-        # Remove series association from all stories
         stories = data.get("stories", {})
         for story_key in series[series_name].get("stories", []):
             if story_key in stories:
                 stories[story_key]["series"] = None
         
-        # Delete the series
         del series[series_name]
         
         data["stories"] = stories
         data["series"] = series
         
-        # Save the updated data
         await save_stories_data(data)
         
         return {"message": f"Series '{series_name}' deleted successfully"}
@@ -191,29 +211,4 @@ async def delete_series(series_name: str):
         raise
     except Exception as e:
         logger.error(f"Delete series error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-    
-@router.get("/list")
-async def get_series_list():
-    """Get all series with computed stats"""
-    try:
-        data = await load_stories_data()
-        series_data = data.get("series", {})
-        settings = data.get("calendar_settings", {})
-        default_spacing = settings.get("series_spacing_days", 7)
-        
-        result = []
-        for name, info in series_data.items():
-            result.append({
-                "name": name,
-                "total_stories": info.get("total_stories", 0),
-                "published": info.get("published", 0),
-                "spacing_days": info.get("spacing_days", default_spacing),
-                "progress_percent": round((info.get("published", 0) / max(info.get("total_stories", 1), 1)) * 100, 1)
-            })
-        
-        return {"series": result, "total": len(result)}
-        
-    except Exception as e:
-        logger.error(f"Error getting series list: {e}")
         raise HTTPException(status_code=500, detail=str(e))

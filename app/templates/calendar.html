@@ -46,6 +46,16 @@
     </div>
 </div>
 
+<!-- Series Breakdown - Clickable links -->
+<div class="card mb-3" id="seriesBreakdownCard">
+    <div class="card-header py-1">
+        <small><i class="bi bi-collection"></i> Series Breakdown (click to filter)</small>
+    </div>
+    <div class="card-body p-2">
+        <div class="row g-1" id="seriesBreakdown"></div>
+    </div>
+</div>
+
 <!-- Calendar Table -->
 <div class="table-responsive">
     <table class="table table-sm table-hover">
@@ -59,7 +69,14 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody id="calendarTableBody"></tbody>
+        <tbody id="calendarTableBody">
+            <tr>
+                <td colspan="6" class="text-center text-muted py-4">
+                    <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                    Loading calendar...
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 // ============================================
-// SERIES PAGE - API calls and rendering only
+// SERIES PAGE - API calls and rendering only (NO HTML)
 // ============================================
 
 async function loadSeries() {
@@ -9,38 +9,83 @@ async function loadSeries() {
         const data = await res.json();
         
         const tbody = document.getElementById('seriesTableBody');
+        if (!tbody) return;
         
-        if (!data.series.length) {
-            tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No series found</td</tr>';
+        tbody.innerHTML = '';
+        
+        if (!data.series || data.series.length === 0) {
+            const row = tbody.insertRow();
+            const cell = row.insertCell(0);
+            cell.colSpan = 4;
+            cell.className = 'text-center text-muted';
+            cell.textContent = 'No series found. Click "Add Series" to create one.';
             return;
         }
         
-        tbody.innerHTML = data.series.map(s => `
-            <tr>
-                <td><strong>${escapeHtml(s.name)}</strong></td>
-                <td>
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="progress" style="width:150px;height:6px;">
-                            <div class="progress-bar bg-success" style="width: ${s.progress_percent}%"></div>
-                        </div>
-                        <small>${s.published}/${s.total_stories}</small>
-                    </div>
-                </td>
-                <td>
-                    <input type="number" class="form-control form-control-sm" style="width:80px;" value="${s.spacing_days}" 
-                           onchange="updateSeriesSpacing('${escapeHtml(s.name)}', this.value)">
-                </td>
-                <td>
-                    <button class="btn btn-sm btn-danger" onclick="deleteSeries('${escapeHtml(s.name)}')">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </td>
-             </tr
-        `).join('');
+        for (const s of data.series) {
+            const row = tbody.insertRow();
+            
+            // Series Name cell
+            const nameCell = row.insertCell(0);
+            const nameStrong = document.createElement('strong');
+            nameStrong.textContent = s.name;
+            nameCell.appendChild(nameStrong);
+            
+            // Progress cell
+            const progressCell = row.insertCell(1);
+            const progressDiv = document.createElement('div');
+            progressDiv.className = 'd-flex align-items-center gap-2';
+            
+            const progressWrapper = document.createElement('div');
+            progressWrapper.className = 'progress';
+            progressWrapper.style.width = '150px';
+            progressWrapper.style.height = '6px';
+            
+            const progressBar = document.createElement('div');
+            progressBar.className = 'progress-bar bg-success';
+            progressBar.style.width = `${s.progress_percent}%`;
+            progressWrapper.appendChild(progressBar);
+            
+            const progressText = document.createElement('small');
+            progressText.textContent = `${s.published}/${s.total_stories}`;
+            
+            progressDiv.appendChild(progressWrapper);
+            progressDiv.appendChild(progressText);
+            progressCell.appendChild(progressDiv);
+            
+            // Spacing cell
+            const spacingCell = row.insertCell(2);
+            const spacingInput = document.createElement('input');
+            spacingInput.type = 'number';
+            spacingInput.className = 'form-control form-control-sm';
+            spacingInput.style.width = '80px';
+            spacingInput.value = s.spacing_days;
+            spacingInput.min = '1';
+            spacingInput.max = '30';
+            spacingInput.onchange = () => updateSeriesSpacing(s.name, spacingInput.value);
+            spacingCell.appendChild(spacingInput);
+            
+            // Actions cell
+            const actionsCell = row.insertCell(3);
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'btn btn-sm btn-danger';
+            deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
+            deleteBtn.onclick = () => deleteSeries(s.name);
+            actionsCell.appendChild(deleteBtn);
+        }
         
     } catch (error) {
         console.error('Error loading series:', error);
-        showToast('Error loading series', 'error');
+        showToast('Error loading series: ' + error.message, 'error');
+        const tbody = document.getElementById('seriesTableBody');
+        if (tbody) {
+            tbody.innerHTML = '';
+            const row = tbody.insertRow();
+            const cell = row.insertCell(0);
+            cell.colSpan = 4;
+            cell.className = 'text-center text-danger';
+            cell.textContent = 'Error loading series. Please refresh.';
+        }
     } finally {
         hideLoading();
     }
@@ -52,15 +97,21 @@ async function addSeries() {
     
     showLoading();
     try {
-        await fetch(`${API_BASE}/series/`, {
+        const response = await fetch(`${API_BASE}/series/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: name.trim(), spacing_days: 7 })
         });
-        await loadSeries();
-        showToast('Series added', 'success');
+        
+        if (response.ok) {
+            await loadSeries();
+            showToast('Series added', 'success');
+        } else {
+            const error = await response.json();
+            showToast('Error adding series: ' + (error.detail || 'Unknown error'), 'error');
+        }
     } catch (error) {
-        showToast('Error adding series', 'error');
+        showToast('Error adding series: ' + error.message, 'error');
     } finally {
         hideLoading();
     }
@@ -76,15 +127,21 @@ async function updateSeriesSpacing(seriesName, days) {
     
     showLoading();
     try {
-        await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, {
+        const response = await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ spacing_days: spacingDays })
         });
-        await loadSeries();
-        showToast('Spacing updated', 'success');
+        
+        if (response.ok) {
+            await loadSeries();
+            showToast('Spacing updated', 'success');
+        } else {
+            const error = await response.json();
+            showToast('Error updating spacing: ' + (error.detail || 'Unknown error'), 'error');
+        }
     } catch (error) {
-        showToast('Error updating spacing', 'error');
+        showToast('Error updating spacing: ' + error.message, 'error');
     } finally {
         hideLoading();
     }
@@ -95,11 +152,17 @@ async function deleteSeries(seriesName) {
     
     showLoading();
     try {
-        await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, { method: 'DELETE' });
-        await loadSeries();
-        showToast('Series deleted', 'success');
+        const response = await fetch(`${API_BASE}/series/${encodeURIComponent(seriesName)}`, { method: 'DELETE' });
+        
+        if (response.ok) {
+            await loadSeries();
+            showToast('Series deleted', 'success');
+        } else {
+            const error = await response.json();
+            showToast('Error deleting series: ' + (error.detail || 'Unknown error'), 'error');
+        }
     } catch (error) {
-        showToast('Error deleting series', 'error');
+        showToast('Error deleting series: ' + error.message, 'error');
     } finally {
         hideLoading();
     }

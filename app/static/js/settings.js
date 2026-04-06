@@ -2,6 +2,10 @@
 // SETTINGS PAGE - API calls and rendering only
 // ============================================
 
+// ============================================
+// SETTINGS PAGE - API calls and rendering only
+// ============================================
+
 async function loadSettings() {
     showLoading();
     try {
@@ -24,13 +28,27 @@ async function loadSettings() {
         const savedDays = settings.preferred_publish_days || ['Monday', 'Tuesday', 'Wednesday', 'Thursday'];
         
         const container = document.getElementById('preferredDays');
-        container.innerHTML = preferredDays.map(day => `
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="${day}" id="day_${day}" 
-                       ${savedDays.includes(day) ? 'checked' : ''}>
-                <label class="form-check-label small" for="day_${day}">${day.slice(0,3)}</label>
-            </div>
-        `).join('');
+        container.innerHTML = '';
+        preferredDays.forEach(day => {
+            const div = document.createElement('div');
+            div.className = 'form-check';
+            
+            const input = document.createElement('input');
+            input.className = 'form-check-input';
+            input.type = 'checkbox';
+            input.value = day;
+            input.id = `day_${day}`;
+            input.checked = savedDays.includes(day);
+            
+            const label = document.createElement('label');
+            label.className = 'form-check-label small';
+            label.htmlFor = `day_${day}`;
+            label.textContent = day.slice(0, 3);
+            
+            div.appendChild(input);
+            div.appendChild(label);
+            container.appendChild(div);
+        });
         
     } catch (error) {
         console.error('Error loading settings:', error);
@@ -39,6 +57,107 @@ async function loadSettings() {
         hideLoading();
     }
 }
+
+async function saveSettings() {
+    showLoading();
+    try {
+        const preferredDays = Array.from(document.querySelectorAll('#preferredDays input:checked'))
+            .map(cb => cb.value);
+        
+        const data = {
+            series_spacing_days: parseInt(document.getElementById('seriesSpacingDays').value),
+            stories_per_week: parseInt(document.getElementById('storiesPerWeek').value),
+            preferred_publish_days: preferredDays,
+            start_date: document.getElementById('startDate').value || null
+        };
+        
+        const response = await fetch(`${API_BASE}/settings/calendar`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+            showToast('Settings saved', 'success');
+        } else {
+            showToast('Error saving settings', 'error');
+        }
+    } catch (error) {
+        showToast('Error saving settings', 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
+async function syncStories() {
+    showLoading();
+    try {
+        const response = await fetch(`${API_BASE}/stories/sync`, { method: 'POST' });
+        if (response.ok) {
+            showToast('Stories synced', 'success');
+        } else {
+            showToast('Error syncing stories', 'error');
+        }
+    } catch (error) {
+        showToast('Error syncing stories', 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
+async function generateCalendar() {
+    showLoading();
+    try {
+        const response = await fetch(`${API_BASE}/calendar/generate`, { method: 'POST' });
+        if (response.ok) {
+            showToast('Calendar generated', 'success');
+        } else {
+            showToast('Error generating calendar', 'error');
+        }
+    } catch (error) {
+        showToast('Error generating calendar', 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
+async function importAllLeaderboard() {
+    if (!confirm('⚠️ WARNING: This will OVERWRITE all monthly data with values from leaderboard JSON files.\n\nThis action cannot be undone. Continue?')) return;
+    
+    const btn = event?.target?.closest('button');
+    const originalText = btn ? btn.innerHTML : 'Importing...';
+    if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Importing...'; }
+    
+    showLoading();
+    try {
+        const response = await fetch(`${API_BASE}/stories/import-all-leaderboard`, { method: 'POST' });
+        const data = await response.json();
+        
+        if (response.ok) {
+            showToast(`Import complete: ${data.months_imported} months, ${data.total_stories} stories`, 'success');
+            // Reload page to refresh data
+            setTimeout(() => window.location.reload(), 1500);
+        } else {
+            showToast('Error: ' + (data.error || data.message || 'Unknown error'), 'error');
+        }
+    } catch (error) {
+        console.error('Error importing leaderboard:', error);
+        showToast('Error importing leaderboard data: ' + error.message, 'error');
+    } finally {
+        hideLoading();
+        if (btn) { btn.disabled = false; btn.innerHTML = originalText; }
+    }
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    loadSettings();
+    document.getElementById('calendarSettingsForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        saveSettings();
+    });
+});
+
 
 async function saveSettings() {
     showLoading();
