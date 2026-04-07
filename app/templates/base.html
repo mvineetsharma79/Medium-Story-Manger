@@ -16,19 +16,19 @@
                 <div class="logo">📚 Story Manager</div>
             </div>
             <nav class="sidebar-nav">
-                <a href="/dashboard" class="nav-item {% if request.url.path == '/dashboard' %}active{% endif %}">
+                <a href="/dashboard" class="nav-item">
                     <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
                 </a>
-                <a href="/stories" class="nav-item {% if request.url.path == '/stories' %}active{% endif %}">
+                <a href="/stories" class="nav-item">
                     <i class="bi bi-files"></i> <span>Stories</span>
                 </a>
-                <a href="/series" class="nav-item {% if request.url.path == '/series' %}active{% endif %}">
+                <a href="/series" class="nav-item">
                     <i class="bi bi-collection"></i> <span>Series</span>
                 </a>
-                <a href="/calendar" class="nav-item {% if request.url.path == '/calendar' %}active{% endif %}">
+                <a href="/calendar" class="nav-item">
                     <i class="bi bi-calendar-week"></i> <span>Calendar</span>
                 </a>
-                <a href="/settings" class="nav-item {% if request.url.path == '/settings' %}active{% endif %}">
+                <a href="/settings" class="nav-item">
                     <i class="bi bi-gear"></i> <span>Settings</span>
                 </a>
             </nav>
@@ -52,6 +52,11 @@
             {% block content %}{% endblock %}
         </main>
     </div>
+
+    <!-- Modals -->
+    {% include "modals/add-story-modal.html" %}
+    {% include "modals/edit-story-modal.html" %}
+    {% include "modals/stats-modal.html" %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/static/js/utils.js"></script>

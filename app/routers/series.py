@@ -1,3 +1,8 @@
+"""
+Series Router - Endpoints for series management
+All endpoints include curl examples for documentation
+"""
+
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any
 import logging
@@ -5,11 +10,18 @@ import logging
 from app.services.story_service import StoryService
 from app.models import SeriesResponse, SeriesCreate, SeriesUpdate
 from app.services.file_service import save_stories_data, load_stories_data
+from app.utils import parse_series_number
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
+"""
+GET /api/series/
+Description: List all series
+
+curl -X GET "http://localhost:8000/api/series/" | jq '.'
+"""
 @router.get("/", response_model=List[SeriesResponse])
 async def list_series():
     """List all series"""
@@ -35,6 +47,12 @@ async def list_series():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+"""
+GET /api/series/list
+Description: Get all series with computed stats - used by frontend
+
+curl -X GET "http://localhost:8000/api/series/list" | jq '.'
+"""
 @router.get("/list")
 async def get_series_list():
     """Get all series with computed stats - used by frontend series.js"""
@@ -65,6 +83,12 @@ async def get_series_list():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+"""
+GET /api/series/{series_name}
+Description: Get a single series
+
+curl -X GET "http://localhost:8000/api/series/SOLID%20Principles" | jq '.'
+"""
 @router.get("/{series_name}", response_model=SeriesResponse)
 async def get_series(series_name: str):
     """Get a single series"""
@@ -93,6 +117,14 @@ async def get_series(series_name: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+"""
+POST /api/series/
+Description: Create a new series
+
+curl -X POST "http://localhost:8000/api/series/" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Python Tutorials", "spacing_days": 7}' | jq '.'
+"""
 @router.post("/", response_model=SeriesResponse, status_code=201)
 async def create_series(series_data: SeriesCreate):
     """Create a new series"""
@@ -129,6 +161,14 @@ async def create_series(series_data: SeriesCreate):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+"""
+PUT /api/series/{series_name}
+Description: Update a series (rename or change spacing)
+
+curl -X PUT "http://localhost:8000/api/series/Python%20Tutorials" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Python Advanced", "spacing_days": 10}' | jq '.'
+"""
 @router.put("/{series_name}", response_model=SeriesResponse)
 async def update_series(series_name: str, update_data: SeriesUpdate):
     """Update a series (rename or change spacing)"""
@@ -184,6 +224,12 @@ async def update_series(series_name: str, update_data: SeriesUpdate):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+"""
+DELETE /api/series/{series_name}
+Description: Delete a series
+
+curl -X DELETE "http://localhost:8000/api/series/Python%20Tutorials" | jq '.'
+"""
 @router.delete("/{series_name}")
 async def delete_series(series_name: str):
     """Delete a series"""

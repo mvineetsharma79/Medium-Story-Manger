@@ -1,15 +1,28 @@
+"""
+Calendar Router - Endpoints for publishing calendar management
+All endpoints include curl examples for documentation
+"""
+
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any
 import json
 import logging
 from app.services.calendar_service import CalendarService
 from app.models import CalendarResponse
+from app.services.file_service import load_stories_data
 
 logger = logging.getLogger(__name__)
 
-# Create the router instance - THIS IS CRITICAL
+# Create the router instance
 router = APIRouter()
 
+
+"""
+GET /api/calendar/
+Description: Get the publishing calendar
+
+curl -X GET "http://localhost:8000/api/calendar/" | jq '.'
+"""
 @router.get("/", response_model=CalendarResponse)
 async def get_calendar():
     """Get the publishing calendar"""
@@ -21,6 +34,13 @@ async def get_calendar():
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
+
+"""
+POST /api/calendar/generate
+Description: Generate and save calendar files
+
+curl -X POST "http://localhost:8000/api/calendar/generate" | jq '.'
+"""
 @router.post("/generate")
 async def generate_calendar():
     """Generate and save calendar files"""
@@ -33,6 +53,13 @@ async def generate_calendar():
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
+
+"""
+GET /api/calendar/debug
+Description: Debug endpoint to check calendar data
+
+curl -X GET "http://localhost:8000/api/calendar/debug" | jq '.'
+"""
 @router.get("/debug")
 async def debug_calendar():
     """Debug endpoint to check calendar data"""
@@ -74,6 +101,13 @@ async def debug_calendar():
         traceback.print_exc()
         return {"error": str(e)}
 
+
+"""
+GET /api/calendar/schedule
+Description: Get calendar schedule
+
+curl -X GET "http://localhost:8000/api/calendar/schedule" | jq '.'
+"""
 @router.get("/schedule")
 async def get_calendar_schedule():
     """Get calendar schedule"""

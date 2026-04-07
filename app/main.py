@@ -4,15 +4,21 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
 import jinja2
-
+from app.services.medium_api_service import get_medium_api_service
 from app.routers import dashboard, stories, series, calendar, settings
 
 app = FastAPI(title="Story Manager")
+api_service = get_medium_api_service()
 
-# Mount static files
+# lifetime_response = api_service.fetch_lifetime_stats('dddc86088f5e')
+#lifetime_response = api_service.fetch_all_stories_stats('mvineetsharma', 1)
+lifetime_response = api_service.get_story_earnings('mvineetsharma', 1)
+# lifetime_response = api_service.get_lifetime_stats('mvineetsharma')
+
+# Mount static files 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-# Configure templates with multiple directories (main + modals folder)
+# Configure templates with multiple directories
 templates = Jinja2Templates(directory="app/templates")
 templates.env.loader = jinja2.FileSystemLoader([
     Path("app/templates"),
@@ -26,8 +32,11 @@ app.include_router(series.router, prefix="/api/series", tags=["series"])
 app.include_router(calendar.router, prefix="/api/calendar", tags=["calendar"])
 app.include_router(settings.router, prefix="/api/settings", tags=["settings"])
 
-# Page routes
+# Page routes - using individual templates
 @app.get("/", response_class=HTMLResponse)
+async def root(request: Request):
+    return templates.TemplateResponse("dashboard.html", {"request": request})
+
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
     return templates.TemplateResponse("dashboard.html", {"request": request})

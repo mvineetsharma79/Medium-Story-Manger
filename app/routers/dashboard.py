@@ -1,3 +1,8 @@
+"""
+Dashboard Router - Endpoints for dashboard statistics
+All endpoints include curl examples for documentation
+"""
+
 from fastapi import APIRouter, HTTPException
 from typing import Dict, Any, List
 from datetime import datetime
@@ -6,11 +11,18 @@ import logging
 from app.services.story_service import StoryService
 from app.services.monthly_storage_service import MonthlyStorageService
 from app.services.app_status_service import AppStatusService
+from app.utils import get_current_year_month
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
+"""
+GET /api/dashboard/stats
+Description: Get all dashboard statistics - pre-processed by Python
+
+curl -X GET "http://localhost:8000/api/dashboard/stats" | jq '.'
+"""
 @router.get("/stats")
 async def get_dashboard_stats():
     """Get all dashboard statistics - pre-processed by Python"""
@@ -20,9 +32,10 @@ async def get_dashboard_stats():
         current_month = await AppStatusService.get_current_month()
         
         # Get current year/month for stats
-        now = datetime.now()
-        year = current_month.get("year", now.year)
-        month = current_month.get("month", now.month)
+        year, month = get_current_year_month()
+        if current_month.get("year"):
+            year = current_month.get("year", year)
+            month = current_month.get("month", month)
         
         # Load monthly stats
         monthly_data = await MonthlyStorageService.load_monthly_stats(year, month)
@@ -129,6 +142,12 @@ async def get_dashboard_stats():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+"""
+GET /api/dashboard/schedule
+Description: Get upcoming schedule - pre-processed by Python
+
+curl -X GET "http://localhost:8000/api/dashboard/schedule" | jq '.'
+"""
 @router.get("/schedule")
 async def get_upcoming_schedule():
     """Get upcoming schedule - pre-processed by Python"""

@@ -10,17 +10,31 @@
     </button>
 </div>
 
+<!-- Sortable Series Table -->
 <div class="table-responsive">
     <table class="table table-sm table-hover">
-        <thead class="table-light">
+        <thead id="seriesTableHeader" class="table-light">
             <tr>
-                <th>Series Name</th>
-                <th style="width:200px">Progress</th>
-                <th style="width:120px">Spacing (days)</th>
-                <th style="width:100px">Actions</th>
+                <th class="sortable" data-sort="name" onclick="sortSeries('name')" style="cursor: pointer;">
+                    Series Name <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th class="sortable" data-sort="total_stories" onclick="sortSeries('total_stories')" style="cursor: pointer; width: 200px;">
+                    Progress <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th class="sortable" data-sort="spacing_days" onclick="sortSeries('spacing_days')" style="cursor: pointer; width: 120px;">
+                    Spacing (days) <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th style="width: 100px;">Actions</th>
             </tr>
         </thead>
-        <tbody id="seriesTableBody"></tbody>
+        <tbody id="seriesTableBody">
+            <tr>
+                <td colspan="4" class="text-center text-muted py-4">
+                    <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                    Loading series...
+                </td
+            </tr>
+        </tbody>
     </table>
 </div>
 {% endblock %}

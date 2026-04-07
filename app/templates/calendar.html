@@ -47,26 +47,38 @@
 </div>
 
 <!-- Series Breakdown - Clickable links -->
-<div class="card mb-3" id="seriesBreakdownCard">
+<div class="card mb-3">
     <div class="card-header py-1">
         <small><i class="bi bi-collection"></i> Series Breakdown (click to filter)</small>
     </div>
     <div class="card-body p-2">
-        <div class="row g-1" id="seriesBreakdown"></div>
+        <div id="seriesBreakdown" class="d-flex flex-wrap gap-1">
+            <div class="text-muted small">Loading...</div>
+        </div>
     </div>
 </div>
 
-<!-- Calendar Table -->
+<!-- Sortable Calendar Table -->
 <div class="table-responsive">
     <table class="table table-sm table-hover">
-        <thead class="table-light">
+        <thead id="calendarTableHeader" class="table-light">
             <tr>
-                <th>Date</th>
-                <th>Story</th>
-                <th>Series</th>
-                <th>Part</th>
-                <th>Read Time</th>
-                <th>Actions</th>
+                <th class="sortable" data-sort="date" onclick="sortCalendar('date')" style="cursor: pointer; width: 120px;">
+                    Date <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th class="sortable" data-sort="name" onclick="sortCalendar('name')" style="cursor: pointer;">
+                    Story <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th class="sortable" data-sort="series" onclick="sortCalendar('series')" style="cursor: pointer; width: 150px;">
+                    Series <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th class="sortable" data-sort="part" onclick="sortCalendar('part')" style="cursor: pointer; width: 80px;">
+                    Part <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th class="sortable" data-sort="read_time" onclick="sortCalendar('read_time')" style="cursor: pointer; width: 100px;">
+                    Read Time <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th style="width: 100px;">Actions</th>
             </tr>
         </thead>
         <tbody id="calendarTableBody">

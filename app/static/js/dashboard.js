@@ -1,11 +1,8 @@
-// ============================================
-// DASHBOARD PAGE - Only API calls and rendering
-// ============================================
+// Dashboard Page - Specific functionality
 
 async function loadDashboard() {
     showLoading();
     try {
-        // Load stats
         const statsRes = await fetch(`${API_BASE}/dashboard/stats`);
         const stats = await statsRes.json();
         
@@ -69,41 +66,77 @@ async function loadDashboard() {
     }
 }
 
-function filterByStatus(status) {
+function filterStoriesByStatus(status) {
     sessionStorage.setItem('storiesFilterStatus', status);
     window.location.href = '/stories';
 }
 
-function filterByBookmarked() {
+function filterStoriesByBookmarked() {
     sessionStorage.setItem('storiesFilterBookmarked', 'true');
     window.location.href = '/stories';
 }
 
-function filterByLeaderboard() {
+function filterStoriesByLeaderboard() {
     sessionStorage.setItem('storiesFilterLeaderboard', 'true');
     window.location.href = '/stories';
 }
 
-function updateLeaderboardStats() {
-    showLoading();
-    fetch(`${API_BASE}/stories/update-leaderboard-stats`, { method: 'POST' })
-        .then(() => {
-            showToast('Leaderboard stats updated', 'success');
-            loadDashboard();
-        })
-        .catch(e => showToast('Error updating stats', 'error'))
-        .finally(() => hideLoading());
+async function updateLeaderboardStatsForMonth() {
+    if (!confirm('Update stats for current month?')) return;
+    
+    const btn = event?.target?.closest('button');
+    const originalText = btn ? btn.innerHTML : 'Updating...';
+    if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>'; }
+    
+    try {
+        const response = await fetch(`${API_BASE}/stories/update-leaderboard-stats`, { method: 'POST' });
+        const data = await response.json();
+        
+        if (response.ok) {
+            await loadDashboard();
+            showToast(`${data.message}\nUpdated: ${data.results?.updated || 0}\nFailed: ${data.results?.failed || 0}`, 'success');
+        } else {
+            showToast('Error: ' + (data.detail || data.error), 'error');
+        }
+    } catch (error) {
+        showToast('Error: ' + error.message, 'error');
+    } finally {
+        if (btn) { btn.disabled = false; btn.innerHTML = originalText; }
+    }
 }
 
-function regenerateCalendar() {
+async function syncStories() {
     showLoading();
-    fetch(`${API_BASE}/calendar/generate`, { method: 'POST' })
-        .then(() => {
-            showToast('Calendar regenerated', 'success');
-            loadDashboard();
-        })
-        .catch(e => showToast('Error generating calendar', 'error'))
-        .finally(() => hideLoading());
+    try {
+        const response = await fetch(`${API_BASE}/stories/sync`, { method: 'POST' });
+        if (response.ok) {
+            showToast('Stories synced successfully', 'success');
+            await loadDashboard();
+        } else {
+            showToast('Error syncing stories', 'error');
+        }
+    } catch (error) {
+        showToast('Error syncing stories: ' + error.message, 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
+async function generateCalendar() {
+    showLoading();
+    try {
+        const response = await fetch(`${API_BASE}/calendar/generate`, { method: 'POST' });
+        if (response.ok) {
+            showToast('Calendar generated successfully', 'success');
+            await loadDashboard();
+        } else {
+            showToast('Error generating calendar', 'error');
+        }
+    } catch (error) {
+        showToast('Error generating calendar: ' + error.message, 'error');
+    } finally {
+        hideLoading();
+    }
 }
 
 // Load on page ready
