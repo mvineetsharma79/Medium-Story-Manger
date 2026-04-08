@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-04-08T12:39:32.101916",
+  "last_updated": "2026-04-08T09:54:46.344983",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl": {
       "name": "SOLID Principles: Part 2 - Single Responsibility Principl",
@@ -11100,7 +11100,7 @@
       "status": "Published",
       "published_date": null,
       "created_date": "2026-04-07",
-      "last_updated": "2026-04-08 12:39:32",
+      "last_updated": "2026-04-08 09:54:46",
       "tags": [],
       "read_time": null,
       "reads": 0,
@@ -11126,7 +11126,7 @@
       "medium_subtitle": null,
       "medium_author": null,
       "medium_publication": null,
-      "last_stats_update": "2026-04-08T12:39:32.093517",
+      "last_stats_update": "2026-04-08T09:54:46.336626",
       "bookmarked": false,
       "medium_member_reads": 0,
       "medium_member_views": 0,

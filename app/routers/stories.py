@@ -24,6 +24,11 @@ from app.utils import (
     calculate_percentages,
     get_current_year_month
 )
+
+from app.services.file_service import (
+    load_stories_data, save_stories_data, scan_markdown_files,
+    parse_series_number
+)
 from config import settings
 
 logger = logging.getLogger(__name__)
@@ -1797,7 +1802,8 @@ async def fetch_and_save_story_stats(
         # Step 1: Fetch and save lifetime stats (to stories.json)
         # lifetime_response = api_service.fetch_lifetime_stats(post_id)
         #lifetime_response = api_service.get_story_earnings('mvineetsharma', 10)
-        lifetime_response = api_service.get_story_earnings('mvineetsharma', 1)
+        lifetime_response = api_service.get_story_earnings_medium('mvineetsharma', 2)
+        save_stories_data(lifetime_response) 
         if lifetime_response:
             parsed_lifetime = api_service.parse_lifetime_response(lifetime_response, post_id)
             results["lifetime"] = parsed_lifetime
@@ -1810,7 +1816,6 @@ async def fetch_and_save_story_stats(
                 feed_click_through_rate=parsed_lifetime.get("feed_click_through_rate", 0),
                 last_stats_update=datetime.now().isoformat()
             )
-            
             updated_story = await StoryService.update_story(story.key, update_data)
             if updated_story:
                 results["story_updated"] = True

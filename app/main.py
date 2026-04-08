@@ -12,7 +12,7 @@ api_service = get_medium_api_service()
 
 # lifetime_response = api_service.fetch_lifetime_stats('dddc86088f5e')
 #lifetime_response = api_service.fetch_all_stories_stats('mvineetsharma', 1)
-lifetime_response = api_service.get_story_earnings('mvineetsharma', 1)
+lifetime_response = api_service.get_story_earnings_medium('mvineetsharma', 2)
 # lifetime_response = api_service.get_lifetime_stats('mvineetsharma')
 
 # Mount static files 

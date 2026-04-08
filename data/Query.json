@@ -1,0 +1,217 @@
+query StoryEarningsQuery(
+        $username: ID!
+        $first: Int!
+        $after: String!
+        $startAt: Long!
+        $endAt: Long!
+        ) {
+        userResult(username: $username) {
+            __typename
+            ... on User {
+            id
+            username
+            name
+            imageId
+            hasSubdomain
+            customDomainState {
+                live {
+                domain
+                __typename
+                }
+                __typename
+            }
+            membership {
+                tier
+                id
+                __typename
+            }
+            verifications {
+                isBookAuthor
+                __typename
+            }
+            
+            postsConnection(
+                first: $first
+                after: $after
+                orderBy: { lifetimeEarnings: DESC }
+                filter: { published: true }
+                timeRange: { startAt: $startAt, endAt: $endAt }
+            ) {
+                edges {
+                node {
+                    # Core metadata
+                    id
+                    title
+                    uniqueSlug
+                    firstPublishedAt
+                    # publishedAt - ERROR: Use firstPublishedAt instead
+                    updatedAt
+                    createdAt
+                    
+                    # Content metrics
+                    wordCount
+                    readingTime
+                    previewContent {
+                    subtitle
+                    __typename
+                    }
+                    
+                    # Engagement metrics
+                    clapCount
+                    voterCount
+                    responsesCount
+                    
+                    # Paywall & visibility
+                    isLocked
+                    isSeries
+                    # hasLateAccess - ERROR: Field doesn't exist
+                    isPublished
+                    
+                    # Boost & curation
+                    firstBoostedAt
+                    # isBoostingEnabled - ERROR: Field doesn't exist
+                    
+                    # Media
+                    mediumUrl
+                    # imageUrl - ERROR: Use draftUrl instead
+                    draftUrl
+                    
+                    # Sequence (for series)
+                    sequence {
+                    slug
+                    title
+                    __typename
+                    }
+                    
+                    
+                    # Stats (lifetime)
+                    totalStats {
+                    views
+                    reads
+                    
+                    __typename
+                    }
+                    
+                    # Monthly Earnings
+                    monthlyEarnings: earnings {
+                    total(input: { between: { startAt: $startAt, endAt: $endAt } }) {
+                        currencyCode
+                        units
+                        nanos
+                        __typename
+                    }
+                    __typename
+                    }
+                    
+                    # Lifetime Earnings
+                    lifetimeEarnings: earnings {
+                    total {
+                        currencyCode
+                        units
+                        nanos
+                        __typename
+                    }
+                    __typename
+                    }
+                    
+                    # Author with more fields
+                    creator {
+                    id
+                    username
+                    name
+                    imageId
+                    bio
+                    twitterScreenName
+                    isWriterProgramEnrolled
+                    profileLinks {
+                        url
+                        __typename
+                    }
+                    verifications {
+                        isBookAuthor
+                        __typename
+                    }
+                    membership {
+                        tier
+                        __typename
+                    }
+                    hasSubdomain
+                    customDomainState {
+                        live {
+                        domain
+                        __typename
+                        }
+                        __typename
+                    }
+                    __typename
+                    }
+                    
+                    # Publication with more fields
+                    collection {
+                    id
+                    name
+                    slug
+                    domain
+                    description
+                    subscriberCount
+                    avatar {
+                        id
+                        __typename
+                    }
+                    customStyleSheet {
+                        header {
+                        backgroundImage {
+                            id
+                            __typename
+                        }
+                        __typename
+                        }
+                        __typename
+                    }
+                    __typename
+                    }
+                    
+                    # Tags
+                    tags {
+                    id
+                    __typename
+                    }
+                    
+                    # Response info
+                    responsesLocked
+                    responseRootPost {
+                    __typename
+                    }
+                    inResponseToPost {
+                    id
+                    title
+                    uniqueSlug
+                    creator {
+                        id
+                        username
+                        __typename
+                    }
+                    __typename
+                    }
+                    
+                    # Sharing
+                    shareKey
+                    
+                    # License
+                    license
+                    
+                    __typename
+                }
+                __typename
+                }
+                pageInfo {
+                endCursor
+                hasNextPage
+                __typename
+                }
+                __typename
+            }
+            __typename
+            }
+        }
+        }

@@ -4,6 +4,7 @@ Medium API Service - Pure API client for Medium GraphQL calls
 
 import os
 import json
+from urllib import response
 import requests
 import sqlite3
 import tempfile
@@ -153,27 +154,6 @@ class MediumAPIService:
     # UTILITY METHODS
     # ============================================
     
-    def extract_post_id_from_url(self, medium_url: str) -> Optional[str]:
-        """Extract post ID from Medium URL"""
-        if not medium_url:
-            return None
-        
-        import re
-        
-        url = medium_url.rstrip('/')
-        parts = url.split('/')
-        last_part = parts[-1]
-        
-        if '-' in last_part:
-            post_id = last_part.split('-')[-1]
-            if len(post_id) >= 10:
-                return post_id
-        
-        if len(last_part) >= 10 and re.match(r'^[a-f0-9]+$', last_part):
-            return last_part
-        
-        return None
-
     def get_month_timestamps(self, year: int, month: int) -> tuple:
         """Get start and end timestamps for a month (start of month to start of next month)"""
         start_date = datetime(year, month, 1, 0, 0, 0, tzinfo=timezone.utc)
@@ -200,13 +180,16 @@ class MediumAPIService:
         if self.cookies:
             cookie_string = "; ".join([f"{k}={v}" for k, v in self.cookies.items() if v])
             headers["cookie"] = cookie_string
-        
+     
         try:
             response = requests.post(url, headers=headers, json=payload, timeout=30)
             
             if response.status_code == 200:
                 response_data = response.json()
                 self._debug_print(f"{request_type} Response", response_data)
+                with open('./data/mediumresponse.json', 'w') as file:
+                    file.write(response.text)
+                    #json.dump(response, file)
                 return response_data
             else:
                 self._debug_print(f"{request_type} Error", {"status": response.status_code, "text": response.text[:500]})
@@ -268,7 +251,7 @@ class MediumAPIService:
     # MONTHLY STATS (for single story)
     # ============================================
     
-    def fetch_stats(self, post_id: str, year: int, month: int) -> Optional[Dict]:
+    def get_story_metadata_medium(self, post_id: str, year: int, month: int) -> Optional[Dict]:
         """Fetch monthly stats for a specific story and month"""
         if not self.is_authenticated():
             logger.warning("Not authenticated. Cannot fetch stats.")
@@ -276,34 +259,36 @@ class MediumAPIService:
         
         start_at, end_at = self.get_month_timestamps(year, month)
         
-        query = """query useStatsPostNewChartDataQuery($postId: ID!, $startAt: Long!, $endAt: Long!, $postStatsDailyBundleInput: PostStatsDailyBundleInput!) {
-  post(id: $postId) {
-    id
-    earnings {
-      dailyEarnings(startAt: $startAt, endAt: $endAt) {
-        periodStartedAt
-        amount
-        __typename
-      }
-      __typename
-    }
-    __typename
-  }
-  postStatsDailyBundle(postStatsDailyBundleInput: $postStatsDailyBundleInput) {
-    buckets {
-      dayStartsAt
-      membershipType
-      readersThatReadCount
-      readersThatViewedCount
-      readersThatClappedCount
-      readersThatRepliedCount
-      readersThatHighlightedCount
-      readersThatInitiallyFollowedAuthorFromThisPostCount
-      __typename
-    }
-    __typename
-  }
-}"""
+        query = """query useStatsPostNewChartDataQuery(
+        $postId: ID!
+        $startAt: Long!
+        $endAt: Long!
+        $postStatsDailyBundleInput: PostStatsDailyBundleInput!
+        ) {
+        post(id: $postId) {
+            id
+            earnings {
+            dailyEarnings(startAt: $startAt, endAt: $endAt) {
+                periodStartedAt
+                amount
+            }
+            }
+        }
+        
+        postStatsDailyBundle(postStatsDailyBundleInput: $postStatsDailyBundleInput) {
+            buckets {
+            dayStartsAt
+            membershipType
+            readersThatReadCount
+            readersThatViewedCount
+            readersThatClappedCount
+            readersThatRepliedCount
+            readersThatHighlightedCount
+            readersThatInitiallyFollowedAuthorFromThisPostCount
+            }
+        }
+        }
+        }"""
         
         variables = {
             "postId": post_id,
@@ -325,7 +310,8 @@ class MediumAPIService:
     # ============================================
     # Get Earninngs
     # ============================================
-    def get_story_earnings(self, username, first=10, after="", start_at=None, end_at=None):
+
+    def  get_story_earnings_medium(self, username, first=10, after="", start_at=None, end_at=None):
         """
         Fetch story earnings for posts within a specific date range
         
@@ -351,166 +337,111 @@ class MediumAPIService:
             start_date = datetime.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
             start_at = int(start_date.timestamp() * 1000)
         
-        query = """query StoryEarningsQuery(
-  $username: ID!
-  $first: Int!
-  $after: String!
-  $startAt: Long!
-  $endAt: Long!
-) {
-  userResult(username: $username) {
-    __typename
-    ... on User {
-      id
-      postsConnection(
-        first: $first
-        after: $after
-        orderBy: { lifetimeEarnings: DESC }
-        filter: { published: true }
-        timeRange: { startAt: $startAt, endAt: $endAt }
-      ) {
-        __typename
-        edges {
-          node {
-            ...StoryEarningsTable_post
-            ...MobileStoryEarningsTable_post
-            __typename
-          }
-          __typename
+        query = """query StoryEarningsQuery($username: ID!, $first: Int!, $after: String!, $startAt: Long!, $endAt: Long!) {
+        userResult(username: $username) {
+            ... on User {
+            id
+            username
+            name
+                        
+            postsConnection(
+                first: $first
+                after: $after
+                orderBy: {lifetimeEarnings: DESC}
+                filter: {published: true}
+                timeRange: {startAt: $startAt, endAt: $endAt}
+            ) {
+                edges {
+                node {
+                    # Identification
+                    id
+                    __typename
+                    title
+                    uniqueSlug
+                    mediumUrl
+                    
+                    # Dates
+                    createdAt
+                    updatedAt
+                    firstPublishedAt
+                    
+                    # Total Stats
+                    totalStats {
+                        presentations  # Impressions
+                        views         # Clicks
+                        reads         # Full reads
+                        __typename
+                    }                    
+                    # Metrics
+                    readingTime
+                    wordCount
+                    clapCount
+                    responsesCount
+                    voterCount
+                    
+                    # Status
+                    isLocked
+                    visibility
+                    isSeries
+                    isShortform
+                    firstBoostedAt
+                    license
+                    
+                    # Tags
+                    tags {
+                    id
+                    }
+                    
+                    # Earnings
+                    earnings {
+                    total {
+                        currencyCode
+                        units
+                        nanos
+                    }
+                    monthlyEarnings: total(input: {between: {startAt: $startAt, endAt: $endAt}}) {
+                        currencyCode
+                        units
+                        nanos
+                    }
+                    }
+
+                    # Author (removed updatedAt)
+                    creator {
+                    id
+                    username
+                    name
+                    bio
+                    imageId
+                    twitterScreenName
+                    createdAt
+                    # updatedAt - removed (doesn't exist on User)
+                    }
+                    
+                    # Publication (removed updatedAt)
+                    collection {
+                    id
+                    name
+                    slug
+                    domain
+                    subscriberCount
+                    createdAt
+                    # updatedAt - removed (doesn't exist on Collection)
+                    }
+                    
+                    __typename
+                }
+                cursor
+                }
+                pageInfo {
+                endCursor
+                hasNextPage
+                }
+            }
+            }
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          __typename
         }
-      }
-      __typename
-    }
-  }
-}
-
-fragment moneyUtils_money on Money {
-  currencyCode
-  nanos
-  units
-  __typename
-}
-
-fragment usePostUrl_post on Post {
-  id
-  mediumUrl
-  uniqueSlug
-  __typename
-}
-
-fragment Star_post on Post {
-  id
-  __typename
-}
-
-fragment TablePostInfos_post on Post {
-  id
-  title
-  wordCount
-  readingTime
-  clapCount
-  uniqueSlug
-  voterCount
-  totalStats {
-    views
-    reads
-  }
-  monthlyEarnings: earnings {
-    total(input: { between: { startAt: $startAt, endAt: $endAt } }) {
-      currencyCode
-      units
-      nanos
-      __typename
-    }
-    __typename
-  }
-  
-  
-  lifetimeEarnings: earnings {
-    total {
-      currencyCode
-      units
-      nanos
-      __typename
-    }
-    __typename
-  }
-  isLocked
-  firstBoostedAt
-  ...usePostUrl_post
-  ...Star_post
-  __typename
-}
-
-fragment usePostStatsUrl_post on Post {
-  id
-  creator {
-    id
-    username
-    __typename
-  }
-  __typename
-}
-
-fragment StoryEarningsTableRow_post on Post {
-  id
-  firstPublishedAt
-  earnings {
-    monthlyEarnings: total(
-      input: { between: { startAt: $startAt, endAt: $endAt } }
-    ) {
-      ...moneyUtils_money
-      __typename
-    }
-    lifetimeEarnings: total {
-      currencyCode
-      ...moneyUtils_money
-      __typename
-    }
-    __typename
-  }
-  
-  
-  ...TablePostInfos_post
-  ...usePostStatsUrl_post
-  __typename
-}
-
-fragment StoryEarningsTable_post on Post {
-  id
-  ...StoryEarningsTableRow_post
-  __typename
-}
-
-fragment MobileStoryEarningsTable_post on Post {
-  id
-  firstPublishedAt
-  earnings {
-    monthlyEarnings: total(
-      input: { between: { startAt: $startAt, endAt: $endAt } }
-    ) {
-      ...moneyUtils_money
-      __typename
-    }
-    lifetimeEarnings: total {
-      currencyCode
-      ...moneyUtils_money
-      __typename
-    }
-    __typename
-  }
-  
-  
-  ...TablePostInfos_post
-  ...usePostStatsUrl_post
-  __typename
-}
-"""
+        """
         
         variables = {
             "username": username,
@@ -524,532 +455,13 @@ fragment MobileStoryEarningsTable_post on Post {
         headers = self._get_common_headers(username, "StoryEarningsQuery")
         
         time.sleep(0.5)
-        return self._make_request(self.GRAPHQL_URL, headers, payload, "Lifetime ALL Stats")
+        output_json = self._make_request(self.GRAPHQL_URL, headers, payload, "Lifetime ALL Stats") 
+        with open('./output.json', 'w') as file:
+            json.dump(output_json, file)    
 
-        
-        # # Build the request payload
-        # payload = self._build_graphql_request(
-        #     "StoryEarningsQuery", 
-        #     variables, 
-        #     query, 
-        #     "/me/partner/dashboard"
-        # )
-        
-        # # Get headers specific to this operation
-        # headers = self._get_common_headers(
-        #     username,
-        #     "StoryEarningsQuery",
-        #     route="ShowPartnerDashboard",
-        #     path="/me/partner/dashboard"
-        # )
-        
-        # # Make the request
-        # return self._make_request(
-        #     self.GRAPHQL_URL, 
-        #     headers, 
-        #     payload, 
-        #     "Story Earnings"
-        # )
+        return output_json
+    
 
-
-    # ============================================
-    # LIFETIME STATS
-    # ============================================
-    
-    def fetch_lifetime_stats(self, post_id: str) -> Optional[Dict]:
-        """Fetch lifetime stats for a story"""
-        if not self.is_authenticated():
-            logger.warning("Not authenticated. Cannot fetch lifetime stats.")
-            return None
-        
-        query = """query StatsPostFunnelQuery($postStatsTotalBundleInput: PostStatsTotalBundleInput!) {
-  postStatsTotalBundle(postStatsTotalBundleInput: $postStatsTotalBundleInput) {
-    post {
-      id
-      __typename
-    }
-    readersCount
-    viewersCount
-    feedClickThroughRate
-    presentationCount
-    __typename
-  }
-}"""
-        
-        variables = {
-            "postStatsTotalBundleInput": {
-                "postId": post_id
-            }
-        }
-        
-        payload = self._build_graphql_request("StatsPostFunnelQuery", variables, query, post_id, "stats-post")
-        headers = self._get_common_headers(post_id, "StatsPostFunnelQuery")
-        
-        time.sleep(0.5)
-        return self._make_request(self.GRAPHQL_URL, headers, payload, "Lifetime Stats")
-    
-    # ============================================
-    # LIFETIME all stories stat
-    # ============================================
-    
-    def fetch_all_stories_stats(self, username, first=10, after="", order_by=None, filter_params=None):
-        """Fetch lifetime stats for a story"""
-        if not self.is_authenticated():
-            logger.warning("Not authenticated. Cannot fetch lifetime stats.")
-            return None
-        
-        query = """query UserLifetimeStoryStatsPostsQuery($username: ID!, $first: Int!, $after: String!, $orderBy: UserPostsOrderBy, $filter: UserPostsFilter) {
-      user(username: $username) {
-        id
-        postsConnection(
-          first: $first
-          after: $after
-          orderBy: $orderBy
-          filter: $filter
-        ) {
-          __typename
-          edges {
-            ...UserLifetimeStoryStats_relayPostEdge
-            __typename
-          }
-          pageInfo {
-            endCursor
-            hasNextPage
-            __typename
-          }
-        }
-        __typename
-      }
-    }
-    
-    fragment userUrl_user on User {
-      __typename
-      id
-      customDomainState {
-        live {
-          domain
-          __typename
-        }
-        __typename
-      }
-      hasSubdomain
-      username
-    }
-    
-    fragment usePostUrl_post on Post {
-      id
-
-      collection {
-        id
-        domain
-        slug
-        __typename
-      }
-      isSeries
-      mediumUrl
-      sequence {
-        slug 
-        __typename
-      }
-      uniqueSlug
-      __typename
-    }
-    
-    fragment Star_post on Post {
-      id
-      __typename
-    }
-    
-    fragment UserAvatar_user on User {
-      __typename
-      id
-      imageId
-      membership {
-        tier
-        __typename
-        id
-      }
-      name
-      username
-      ...userUrl_user
-    }
-    
-    fragment PostPreviewBylineAuthorAvatar_user on User {
-      ...UserAvatar_user
-      __typename
-      id
-    }
-    
-    fragment isUserVerifiedBookAuthor_user on User {
-      verifications {
-        isBookAuthor
-        __typename
-      }
-      __typename
-      id
-    }
-    
-    
-    
-    fragment UserName_user on User {
-      id
-      name
-      ...isUserVerifiedBookAuthor_user
-      
-      __typename
-    }
-    
-    fragment PostPreviewByLineAuthor_user on User {
-      ...PostPreviewBylineAuthorAvatar_user
-      ...UserName_user
-      __typename
-      id
-    }
-    
-    fragment collectionUrl_collection on Collection {
-      id
-      domain
-      slug
-      __typename
-    }
-    
-    fragment CollectionAvatar_collection on Collection {
-      name
-      avatar {
-        id
-        __typename
-      }
-      ...collectionUrl_collection
-      __typename
-      id
-    }
-    
-    fragment SignInOptions_collection on Collection {
-      id
-      name
-      __typename
-    }
-    
-    fragment SignUpOptions_collection on Collection {
-      id
-      name
-      __typename
-    }
-    
-    fragment SusiModal_collection on Collection {
-      name
-      ...SignInOptions_collection
-      ...SignUpOptions_collection
-      __typename
-      id
-    }
-    
-    fragment PublicationFollowButton_collection on Collection {
-      id
-      slug
-      name
-      ...SusiModal_collection
-      __typename
-    }
-    
-    fragment EntityPresentationRankedModulePublishingTracker_entity on RankedModulePublishingEntity {
-      __typename
-      ... on Collection {
-        id
-        __typename
-      }
-      ... on User {
-        id
-        __typename
-      }
-    }
-    
-    fragment CollectionTooltip_collection on Collection {
-      id
-      name
-      slug
-      description
-      subscriberCount
-      customStyleSheet {
-        header {
-          backgroundImage {
-            id
-            __typename
-          }
-          __typename
-        }
-        __typename
-        id
-      }
-      ...CollectionAvatar_collection
-      ...PublicationFollowButton_collection
-      ...EntityPresentationRankedModulePublishingTracker_entity
-      __typename
-    }
-    
-    fragment CollectionLinkWithPopover_collection on Collection {
-      name
-      ...collectionUrl_collection
-      ...CollectionTooltip_collection
-      __typename
-      id
-    }
-    
-    fragment PostPreviewByLineCollection_collection on Collection {
-      ...CollectionAvatar_collection
-      ...CollectionTooltip_collection
-      ...CollectionLinkWithPopover_collection
-      __typename
-      id
-    }
-    
-    fragment PostPreviewByLine_post on Post {
-      collection {
-        ...PostPreviewByLineCollection_collection
-        __typename
-        id
-      }
-      __typename
-      id
-    }
-    
-    fragment TablePostInfos_post on Post {
-      id
-      title
-      readingTime
-      isLocked
-      visibility
-      firstBoostedAt
-      ...usePostUrl_post
-      ...Star_post
-      ...PostPreviewByLine_post
-      __typename
-    }
-    
-    fragment usePostStatsUrl_post on Post {
-      id
-
-      __typename
-    }
-    
-    fragment shouldDisplayFeaturedIcon_post on Post {
-      id
-      isFeaturedInPublishedPublication
-      collection {
-        id
-        __typename
-      }
-      __typename
-    }
-    
-    fragment StoryStatsTableRow_post on Post {
-      id
-      isLocked
-      totalStats {
-        presentations
-        views
-        reads
-        __typename
-      }
-      earnings {
-        total {
-          currencyCode
-          nanos
-          units
-          __typename
-        }
-        __typename
-      }
-      ...TablePostInfos_post
-      ...usePostStatsUrl_post
-      ...shouldDisplayFeaturedIcon_post
-      __typename
-    }
-    
-    fragment StoryStatsTable_post on Post {
-      ...StoryStatsTableRow_post
-      __typename
-      id
-    }
-    
-    fragment MobileStoryStatsTable_post on Post {
-      id
-      isLocked
-      totalStats {
-        presentations
-        reads
-        views
-        __typename
-      }
-      earnings {
-        total {
-          currencyCode
-          nanos
-          units
-          __typename
-        }
-        __typename
-      }
-      ...TablePostInfos_post
-      ...usePostStatsUrl_post
-      ...shouldDisplayFeaturedIcon_post
-      __typename
-    }
-    
-    fragment LifetimeStoryStats_post on Post {
-      id
-      ...StoryStatsTable_post
-      ...MobileStoryStatsTable_post
-      __typename
-    }
-    
-    fragment UserLifetimeStoryStats_relayPostEdge on RelayPostEdge {
-      node {
-        id
-        firstPublishedAt
-        ...LifetimeStoryStats_post
-        __typename
-      }
-      __typename
-    }"""
-#+++++++        
-        if order_by is None:
-            order_by = {"publishedAt": "DESC"}
-        
-        if filter_params is None:
-            filter_params = {"published": True}
-        
-        variables = {
-            "username": username,
-            "first": first,
-            "after": after,
-            "orderBy": order_by,
-            "filter": filter_params
-        }
-        
-        payload = self._build_graphql_request("UserLifetimeStoryStatsPostsQuery", variables, query, username, "stats-post")
-        headers = self._get_common_headers(username, "UserLifetimeStoryStatsPostsQuery")
-        
-        time.sleep(0.5)
-        return self._make_request(self.GRAPHQL_URL, headers, payload, "Lifetime ALL Stats")
- 
-    # ============================================
-    # LEADERBOARD EARNINGS (for all published stories)
-    # ============================================
-    
-    def fetch_leaderboard_earnings(self, username: str, year: int, month: int) -> Optional[List[Dict]]:
-        """
-        Fetch monthly earnings for all published stories (leaderboard data).
-        
-        This method:
-        1. Uses the same common request pattern as fetch_stats
-        2. Returns list of stories with earnings
-        3. Only includes published stories automatically (Medium API filter)
-        """
-        if not self.is_authenticated():
-            logger.warning("Not authenticated. Cannot fetch earnings.")
-            return None
-        
-        start_at, end_at = self.get_month_timestamps(year, month)
-        
-        logger.info(f"📊 Fetching leaderboard earnings for {username} for {year}-{month:02d}")
-        
-        query = """query StoryEarningsQuery($username: ID!, $first: Int!, $after: String!, $startAt: Long!, $endAt: Long!) {
-            userResult(username: $username) {
-                __typename
-                ... on User {
-                    id
-                    postsConnection(
-                        first: $first
-                        after: $after
-                        orderBy: {lifetimeEarnings: DESC}
-                        filter: {published: true}
-                        timeRange: {startAt: $startAt, endAt: $endAt}
-                    ) {
-                        edges {
-                            node {
-                                id
-                                firstPublishedAt
-                                earnings {
-                                    monthlyEarnings: total(input: {between: {startAt: $startAt, endAt: $endAt}}) {
-                                        currencyCode
-                                        
-                                        nanos
-                                        units
-                                    }
-                                }
-                                title
-                                mediumUrl
-                            }
-                        }
-                        pageInfo {
-                            hasNextPage
-                            endCursor
-                        }
-                    }
-                }
-            }
-        }"""
-        
-        variables = {
-            "username": username,
-            "first": 50,
-            "after": "",
-            "startAt": start_at,
-            "endAt": end_at
-        }
-        
-        # Build headers for leaderboard request (different path)
-        headers = self._get_common_headers(None, "StoryEarningsQuery")
-        headers["medium-frontend-app"] = "lite/main-20260403-204212-a07bb9cfad"
-        headers["medium-frontend-path"] = "/me/partner/dashboard"
-        headers["medium-frontend-route"] = "ShowPartnerDashboard"
-        headers["referer"] = "https://medium.com/me/partner/dashboard"
-        
-        payload = self._build_graphql_request("StoryEarningsQuery", variables, query, None, "ShowPartnerDashboard")
-        
-        time.sleep(0.5)
-        response = self._make_request(self.GRAPHQL_URL, headers, payload, "Leaderboard Earnings")
-        
-        if not response:
-            logger.error("Failed to fetch earnings")
-            return None
-        
-        if response and len(response) > 0:
-            if 'errors' in response[0]:
-                self._debug_print("GraphQL Errors", response[0]['errors'])
-                logger.error(f"GraphQL Errors: {response[0]['errors']}")
-                return []
-            
-            user_result = response[0].get('data', {}).get('userResult', {})
-            
-            if user_result and user_result.get('__typename') == 'User':
-                posts_connection = user_result.get('postsConnection', {})
-                edges = posts_connection.get('edges', [])
-                
-                results = []
-                for edge in edges:
-                    node = edge.get('node', {})
-                    earnings = node.get('earnings', {})
-                    monthly_earnings = earnings.get('monthlyEarnings', {})
-                    
-                    nanos = monthly_earnings.get('nanos', 0)
-                    results.append({
-                        'title': node.get('title'),
-                        'medium_url': node.get('mediumUrl'),
-                        'first_published_at': node.get('firstPublishedAt'),
-                        'nanos': nanos,
-                        'currency': monthly_earnings.get('currencyCode', 'USD')
-                    })
-                
-                self._debug_print("Parsed Leaderboard Results", {
-                    "count": len(results),
-                    "results": results[:10]
-                })
-                
-                return results
-        
-        return None
     
     # ============================================
     # RESPONSE PARSERS

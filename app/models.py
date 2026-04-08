@@ -14,6 +14,7 @@ class StoryStatus(str, Enum):
     DONE = "Done"
     READY = "Ready"
     PUBLISHED = "Published"
+    PUBLISHED_Due = "Published Due"
 
 
 # ============================================
