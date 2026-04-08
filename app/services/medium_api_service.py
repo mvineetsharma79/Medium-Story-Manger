@@ -4,7 +4,6 @@ Medium API Service - Pure API client for Medium GraphQL calls
 
 import os
 import json
-from urllib import response
 import requests
 import sqlite3
 import tempfile
@@ -343,7 +342,7 @@ class MediumAPIService:
             id
             username
             name
-                        
+            
             postsConnection(
                 first: $first
                 after: $after
@@ -365,7 +364,7 @@ class MediumAPIService:
                     updatedAt
                     firstPublishedAt
                     
-                    # Total Stats
+                    # Total
                     totalStats {
                         presentations  # Impressions
                         views         # Clicks
@@ -453,11 +452,10 @@ class MediumAPIService:
         
         payload = self._build_graphql_request("StoryEarningsQuery", variables, query, username, "stats-post")
         headers = self._get_common_headers(username, "StoryEarningsQuery")
-        
+
         time.sleep(0.5)
         output_json = self._make_request(self.GRAPHQL_URL, headers, payload, "Lifetime ALL Stats") 
-        with open('./output.json', 'w') as file:
-            json.dump(output_json, file)    
+            
 
         return output_json
     
