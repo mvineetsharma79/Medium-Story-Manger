@@ -77,6 +77,7 @@ async def get_stories_for_month(
                 "medium_highlights": monthly_stats.get("medium_highlights", 0),
                 "leaderboard": monthly_stats.get("leaderboard", False),
                 "leaderboard_nanos": monthly_stats.get("leaderboard_nanos", 0),
+                "medium_earnings": monthly_stats.get("medium_earnings", 0),
                 "last_stats_update": monthly_stats.get("last_stats_update")
             }
             
@@ -135,7 +136,8 @@ async def get_story_for_month(
             "medium_new_followers": 0,
             "medium_highlights": 0,
             "leaderboard": False,
-            "leaderboard_nanos": 0
+            "leaderboard_nanos": 0,
+            "medium_earnings": 0
         }
         story_dict["current_month"] = f"{year}-{month:02d}"
         story_dict["has_monthly_data"] = monthly_stats is not None
@@ -270,4 +272,103 @@ async def ensure_story_in_month(
         raise
     except Exception as e:
         logger.error(f"Error ensuring story in month: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/summary")
+async def get_monthly_summary(
+    year: Optional[int] = Query(None),
+    month: Optional[int] = Query(None)
+):
+    """Get summary statistics for a specific month"""
+    try:
+        if year is None or month is None:
+            current = await AppStatusService.get_current_month()
+            year = current["year"]
+            month = current["month"]
+        
+        summary = await MonthlyStorageService.get_monthly_summary(year, month)
+        return summary
+        
+    except Exception as e:
+        logger.error(f"Error getting monthly summary: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.delete("/month")
+async def delete_month(year: int, month: int):
+    """Delete a monthly stats file entirely"""
+    try:
+        success = await MonthlyStorageService.delete_month(year, month)
+        
+        if not success:
+            raise HTTPException(status_code=404, detail=f"No data found for {year}-{month:02d}")
+        
+        return {"message": f"Deleted monthly data for {year}-{month:02d}", "success": True}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting month: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/copy-month")
+async def copy_month(
+    source_year: int,
+    source_month: int,
+    target_year: int,
+    target_month: int
+):
+    """Copy monthly stats from one month to another"""
+    try:
+        success = await MonthlyStorageService.copy_monthly_stats(
+            source_year, source_month, target_year, target_month
+        )
+        
+        if not success:
+            raise HTTPException(
+                status_code=500, 
+                detail=f"Failed to copy from {source_year}-{source_month:02d} to {target_year}-{target_month:02d}"
+            )
+        
+        return {
+            "message": f"Copied monthly data from {source_year}-{source_month:02d} to {target_year}-{target_month:02d}",
+            "success": True,
+            "source": f"{source_year}-{source_month:02d}",
+            "target": f"{target_year}-{target_month:02d}"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error copying month: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/batch-update")
+async def batch_update_monthly_stats(
+    year: int,
+    month: int,
+    updates: Dict[str, Dict[str, Any]]
+):
+    """Update multiple stories' monthly stats in one operation"""
+    try:
+        results = await MonthlyStorageService.batch_update_monthly_stats(updates, year, month)
+        
+        success_count = sum(1 for v in results.values() if v)
+        failed_count = len(results) - success_count
+        
+        return {
+            "message": f"Updated {success_count} stories, {failed_count} failed",
+            "success": success_count > 0,
+            "year": year,
+            "month": month,
+            "results": results,
+            "success_count": success_count,
+            "failed_count": failed_count
+        }
+        
+    except Exception as e:
+        logger.error(f"Error in batch update: {e}")
         raise HTTPException(status_code=500, detail=str(e))

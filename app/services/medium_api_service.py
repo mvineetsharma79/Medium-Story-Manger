@@ -1,5 +1,7 @@
 """
 Medium API Service - Pure API client for Medium GraphQL calls
+
+This service handles all direct communication with Medium's GraphQL API.
 """
 
 import os
@@ -9,19 +11,14 @@ import sqlite3
 import tempfile
 import shutil
 import time
-import asyncio
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 import logging
-import calendar
 import re
 
 logger = logging.getLogger(__name__)
 
-# ============================================
-# DEBUG SETTINGS
-# ============================================
 DEBUG = os.environ.get("MEDIUM_API_DEBUG", "false").lower() == "true"
 
 
@@ -41,19 +38,13 @@ class MediumAPIService:
         """Pretty print debug output if DEBUG is True"""
         if not DEBUG:
             return
-        
         print("\n" + "=" * 80)
         print(f"🔍 DEBUG: {title}")
         print("=" * 80)
-        
         if isinstance(data, (dict, list)):
             print(json.dumps(data, indent=2, ensure_ascii=False)[:max_length])
         else:
             print(str(data)[:max_length])
-        
-        if len(str(data)) > max_length:
-            print(f"\n... (truncated, showing first {max_length} characters)")
-        
         print("=" * 80 + "\n")
     
     # ============================================
@@ -146,7 +137,7 @@ class MediumAPIService:
         print("=" * 60 + "\n")
     
     def is_authenticated(self) -> bool:
-        """Check if we have valid cookies"""
+        """Check if we have valid cookies for authentication"""
         return self.cookies is not None and self.cookies.get('sid') is not None
     
     # ============================================
@@ -154,17 +145,77 @@ class MediumAPIService:
     # ============================================
     
     def get_month_timestamps(self, year: int, month: int) -> tuple:
-        """Get start and end timestamps for a month (start of month to start of next month)"""
+        """
+        Convert year/month to start and end timestamps (milliseconds).
+        
+        CRITICAL: 
+        - start_at = first day of month at 00:00:00
+        - end_at   = last day of month at 23:59:59
+        
+        Args:
+            year: Year (e.g., 2026)
+            month: Month (1-12)
+        
+        Returns:
+            Tuple of (start_timestamp, end_timestamp) in milliseconds
+        
+        Example:
+            get_month_timestamps(2026, 4)
+            returns: (1746057600000, 1748735999000)
+            # April 1, 2026 00:00:00 to April 30, 2026 23:59:59
+        """
+        from datetime import datetime, timezone, timedelta
+        
+        # Start of month: first day at 00:00:00
         start_date = datetime(year, month, 1, 0, 0, 0, tzinfo=timezone.utc)
         start_at = int(start_date.timestamp() * 1000)
         
+        # End of month: last day at 23:59:59
+        # Get the last day of the month
         if month == 12:
-            end_date = datetime(year + 1, 1, 1, 0, 0, 0, tzinfo=timezone.utc)
+            last_day = 31
         else:
-            end_date = datetime(year, month + 1, 1, 0, 0, 0, tzinfo=timezone.utc)
+            # Get first day of next month, subtract 1 day to get last day of current month
+            next_month = datetime(year, month + 1, 1, 0, 0, 0, tzinfo=timezone.utc)
+            last_day = (next_month - timedelta(days=1)).day
+        
+        end_date = datetime(year, month, last_day, 23, 59, 59, tzinfo=timezone.utc)
         end_at = int(end_date.timestamp() * 1000)
         
+        logger.info(f"Month timestamps for {year}-{month:02d}:")
+        logger.info(f"  start_at: {start_at} ({start_date})")
+        logger.info(f"  end_at:   {end_at} ({end_date})")
+        
         return start_at, end_at
+    
+    def extract_post_id_from_url(self, medium_url: str) -> Optional[str]:
+        """
+        Extract post ID from Medium URL.
+        
+        Args:
+            medium_url: Full Medium URL
+        
+        Returns:
+            Post ID or None if not found
+        """
+        if not medium_url:
+            return None
+        
+        url = medium_url.rstrip('/')
+        parts = url.split('/')
+        last_part = parts[-1]
+        
+        # Check for post ID at the end of URL (after hyphen)
+        if '-' in last_part:
+            post_id = last_part.split('-')[-1]
+            if len(post_id) >= 10 and re.match(r'^[a-f0-9]+$', post_id):
+                return post_id
+        
+        # Check if last part itself is a post ID
+        if len(last_part) >= 10 and re.match(r'^[a-f0-9]+$', last_part):
+            return last_part
+        
+        return None
     
     # ============================================
     # COMMON REQUEST METHOD
@@ -174,7 +225,6 @@ class MediumAPIService:
         """Make HTTP request with debug logging and explicit cookie header"""
         self._debug_print(f"{request_type} Request Headers", headers)
         self._debug_print(f"{request_type} Request Payload", payload)
-        # self._debug_print(f"{request_type} Cookies", self.cookies)
         
         if self.cookies:
             cookie_string = "; ".join([f"{k}={v}" for k, v in self.cookies.items() if v])
@@ -186,9 +236,6 @@ class MediumAPIService:
             if response.status_code == 200:
                 response_data = response.json()
                 self._debug_print(f"{request_type} Response", response_data)
-                with open('./data/mediumresponse.json', 'w') as file:
-                    file.write(response.text)
-                    #json.dump(response, file)
                 return response_data
             else:
                 self._debug_print(f"{request_type} Error", {"status": response.status_code, "text": response.text[:500]})
@@ -196,10 +243,6 @@ class MediumAPIService:
         except Exception as e:
             self._debug_print(f"{request_type} Exception", {"error": str(e)})
             return None
-    
-    # ============================================
-    # COMMON GRAPHQL REQUEST BUILDER
-    # ============================================
     
     def _build_graphql_request(self, operation_name: str, variables: Dict, query: str, 
                                 path: str, route: str) -> List[Dict]:
@@ -247,13 +290,253 @@ class MediumAPIService:
         return headers
     
     # ============================================
-    # MONTHLY STATS (for single story)
+    # MAIN METHOD: Fetch ALL posts for a period
     # ============================================
     
-    def get_story_metadata_medium(self, post_id: str, year: int, month: int) -> Optional[Dict]:
-        """Fetch monthly stats for a specific story and month"""
+    def fetch_medium_stories(self, period: str) -> Optional[List[Dict[str, Any]]]:
+        """
+        Fetch ALL published posts for a specific period (month).
+        
+        This is the PRIMARY method for refreshing stats. It returns all posts
+        with their metadata, stats, and earnings for the specified month.
+        
+        Args:
+            period: Period in YYYY-MM format (e.g., "2026-04")
+        
+        Returns:
+            List of posts with fields:
+            - id: Post ID
+            - title: Post title
+            - mediumUrl: Full Medium URL
+            - uniqueSlug: URL slug
+            - firstPublishedAt: Publication timestamp
+            - readingTime: Estimated reading time
+            - wordCount: Word count
+            - clapCount: Number of claps
+            - responsesCount: Number of responses
+            - totalStats: {presentations, views, reads}
+            - earnings: {total, monthlyEarnings}
+            - creator: Author info
+            - collection: Publication info
+        
+        Example:
+            service = MediumAPIService()
+            posts = service.fetch_medium_stories("2026-04")
+            for post in posts:
+                print(f"{post['title']}: {post['totalStats']['reads']} reads")
+        
+        curl equivalent:
+            curl -X POST "http://localhost:8000/api/stories/refresh-stats/2026-04" | jq '.'
+        """
+        from config import settings
+        
         if not self.is_authenticated():
             logger.warning("Not authenticated. Cannot fetch stats.")
+            return None
+        
+        # Parse period to year and month
+        try:
+            parts = period.split('-')
+            year = int(parts[0])
+            month = int(parts[1])
+        except (ValueError, IndexError):
+            logger.error(f"Invalid period format: {period}. Use YYYY-MM")
+            return None
+        
+        username = settings.medium_username
+        start_at, end_at = self.get_month_timestamps(year, month)
+        #start_at, end_at  = 1775001600000, 1777593599000 # Apr
+        start_at, end_at  = 1772323200000, 1774915200000 # Mar
+         
+        logger.info(f"Fetching posts for {username} from {start_at} to {end_at}")
+        
+        # GraphQL query
+        query = """query StoryEarningsQuery($username: ID!, $first: Int!, $after: String!, $startAt: Long!, $endAt: Long!) {
+        userResult(username: $username) {
+            ... on User {
+            id
+            username
+            name
+            postsConnection(
+                first: $first
+                after: $after
+                orderBy: {lifetimeEarnings: DESC}
+                filter: {published: true}
+                timeRange: {startAt: $startAt, endAt: $endAt}
+            ) {
+                edges {
+                node {
+                    id
+                    __typename
+                    title
+                    uniqueSlug
+                    mediumUrl
+                    createdAt
+                    updatedAt
+                    firstPublishedAt
+                    totalStats {
+                        presentations
+                        views
+                        reads
+                        __typename
+                    }
+                    readingTime
+                    wordCount
+                    clapCount
+                    responsesCount
+                    voterCount
+                    isLocked
+                    visibility
+                    isSeries
+                    isShortform
+                    firstBoostedAt
+                    license
+                    tags {
+                        id
+                    }
+                    earnings {
+                        total {
+                            currencyCode
+                            units
+                            nanos
+                        }
+                        monthlyEarnings: total(input: {between: {startAt: $startAt, endAt: $endAt}}) {
+                            currencyCode
+                            units
+                            nanos
+                        }
+                    }
+                    creator {
+                        id
+                        username
+                        name
+                        bio
+                        imageId
+                        twitterScreenName
+                        createdAt
+                    }
+                    collection {
+                        id
+                        name
+                        slug
+                        domain
+                        subscriberCount
+                        createdAt
+                    }
+                    __typename
+                }
+                cursor
+                }
+                pageInfo {
+                    endCursor
+                    hasNextPage
+                }
+            }
+            }
+        }
+        }
+        """
+        
+        variables = {
+            "username": username,
+            "first": 100,
+            "after": "",
+            "startAt": start_at,
+            "endAt": end_at
+        }
+        
+        payload = self._build_graphql_request("StoryEarningsQuery", variables, query, username, "stats-post")
+        headers = self._get_common_headers(username, "StoryEarningsQuery")
+        
+        time.sleep(0.5)
+        response = self._make_request(self.GRAPHQL_URL, headers, payload, f"Fetch Medium Stories {period}")
+        
+        # DEBUG: Print the response structure to console
+        print("\n" + "=" * 80)
+        print("RAW API RESPONSE:")
+        print("=" * 80)
+        print(json.dumps(response, indent=2)[:2000])  # Print first 2000 chars
+        print("=" * 80 + "\n")
+        
+        if not response:
+            logger.warning(f"No response from Medium API for {period}")
+            return None
+        
+        # Parse posts from response - FIXED PARSING
+        posts = []
+        
+        # Case 1: response is a list
+        if isinstance(response, list) and len(response) > 0:
+            response_item = response[0]
+            
+            # Check for data field
+            if 'data' in response_item:
+                data_obj = response_item['data']
+                
+                # Check for userResult
+                if 'userResult' in data_obj:
+                    user_result = data_obj['userResult']
+                    
+                    # userResult could be a dict or None
+                    if user_result and isinstance(user_result, dict):
+                        # Check for postsConnection
+                        if 'postsConnection' in user_result:
+                            posts_connection = user_result['postsConnection']
+                            
+                            # Check for edges
+                            if 'edges' in posts_connection:
+                                edges = posts_connection['edges']
+                                
+                                for edge in edges:
+                                    if 'node' in edge:
+                                        node = edge['node']
+                                        if node:
+                                            posts.append(node)
+                                            logger.info(f"Found post: {node.get('title', 'Unknown')}")
+        
+        # Case 2: direct data structure (fallback)
+        if not posts and isinstance(response, dict):
+            if 'data' in response:
+                user_result = response['data'].get('userResult')
+                if user_result:
+                    posts_connection = user_result.get('postsConnection', {})
+                    edges = posts_connection.get('edges', [])
+                    for edge in edges:
+                        node = edge.get('node')
+                        if node:
+                            posts.append(node)
+        
+        logger.info(f"Parsed {len(posts)} posts from Medium API response")
+        
+        # Debug: Print first post title if any
+        if posts:
+            logger.info(f"First post title: {posts[0].get('title', 'Unknown')}")
+        else:
+            logger.warning("No posts parsed from response. Check response structure above.")
+        
+        return posts if posts else None
+        
+    # ============================================
+    # METHOD: Fetch stats for a SINGLE story
+    # ============================================
+    
+    def fetch_story_stats(self, post_id: str, year: int, month: int) -> Optional[Dict[str, Any]]:
+        """
+        Fetch detailed monthly stats for a single story.
+        
+        This method is used when editing a specific story to get its
+        detailed daily breakdown for a month.
+        
+        Args:
+            post_id: Medium post ID (e.g., "78cb972195da")
+            year: Year (e.g., 2026)
+            month: Month (1-12)
+        
+        Returns:
+            Dict with aggregated totals for the month
+        """
+        if not self.is_authenticated():
+            logger.warning("Not authenticated. Cannot fetch story stats.")
             return None
         
         start_at, end_at = self.get_month_timestamps(year, month)
@@ -267,27 +550,27 @@ class MediumAPIService:
         post(id: $postId) {
             id
             earnings {
-            dailyEarnings(startAt: $startAt, endAt: $endAt) {
-                periodStartedAt
-                amount
-            }
+                dailyEarnings(startAt: $startAt, endAt: $endAt) {
+                    periodStartedAt
+                    amount
+                }
             }
         }
         
         postStatsDailyBundle(postStatsDailyBundleInput: $postStatsDailyBundleInput) {
             buckets {
-            dayStartsAt
-            membershipType
-            readersThatReadCount
-            readersThatViewedCount
-            readersThatClappedCount
-            readersThatRepliedCount
-            readersThatHighlightedCount
-            readersThatInitiallyFollowedAuthorFromThisPostCount
+                dayStartsAt
+                membershipType
+                readersThatReadCount
+                readersThatViewedCount
+                readersThatClappedCount
+                readersThatRepliedCount
+                readersThatHighlightedCount
+                readersThatInitiallyFollowedAuthorFromThisPostCount
             }
         }
         }
-        }"""
+        """
         
         variables = {
             "postId": post_id,
@@ -304,169 +587,29 @@ class MediumAPIService:
         headers = self._get_common_headers(post_id, "useStatsPostNewChartDataQuery")
         
         time.sleep(0.5)
-        return self._make_request(self.GRAPHQL_URL, headers, payload, f"Monthly Stats {year}-{month:02d}")
-    
-    # ============================================
-    # Get Earninngs
-    # ============================================
-
-    def  get_story_earnings_medium(self, username, first=10, after="", start_at=None, end_at=None):
-        """
-        Fetch story earnings for posts within a specific date range
+        response = self._make_request(self.GRAPHQL_URL, headers, payload, f"Story Stats {post_id} {year}-{month:02d}")
         
-        Args:
-            username (str): The Medium username
-            first (int): Number of posts to fetch (default: 10)
-            after (str): Cursor for pagination
-            start_at (int): Start timestamp in milliseconds (optional, defaults to current month start)
-            end_at (int): End timestamp in milliseconds (optional, defaults to current date)
+        if not response:
+            logger.warning(f"No stats found for post {post_id} in {year}-{month:02d}")
+            return None
         
-        Returns:
-            dict: Story earnings data including monthly and lifetime earnings per post
-        """
-        from datetime import datetime, timedelta
-        end_at= 1775001600000
-        # Set default date range if not provided (current month to date)
-        if end_at is None:
-            end_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-            end_at = int(end_date.timestamp() * 1000)
-        start_at = 1772323200000
-        if start_at is None:
-            # Start of current month
-            start_date = datetime.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-            start_at = int(start_date.timestamp() * 1000)
-        
-        query = """query StoryEarningsQuery($username: ID!, $first: Int!, $after: String!, $startAt: Long!, $endAt: Long!) {
-        userResult(username: $username) {
-            ... on User {
-            id
-            username
-            name
-            
-            postsConnection(
-                first: $first
-                after: $after
-                orderBy: {lifetimeEarnings: DESC}
-                filter: {published: true}
-                timeRange: {startAt: $startAt, endAt: $endAt}
-            ) {
-                edges {
-                node {
-                    # Identification
-                    id
-                    __typename
-                    title
-                    uniqueSlug
-                    mediumUrl
-                    
-                    # Dates
-                    createdAt
-                    updatedAt
-                    firstPublishedAt
-                    
-                    # Total
-                    totalStats {
-                        presentations  # Impressions
-                        views         # Clicks
-                        reads         # Full reads
-                        __typename
-                    }                    
-                    # Metrics
-                    readingTime
-                    wordCount
-                    clapCount
-                    responsesCount
-                    voterCount
-                    
-                    # Status
-                    isLocked
-                    visibility
-                    isSeries
-                    isShortform
-                    firstBoostedAt
-                    license
-                    
-                    # Tags
-                    tags {
-                    id
-                    }
-                    
-                    # Earnings
-                    earnings {
-                    total {
-                        currencyCode
-                        units
-                        nanos
-                    }
-                    monthlyEarnings: total(input: {between: {startAt: $startAt, endAt: $endAt}}) {
-                        currencyCode
-                        units
-                        nanos
-                    }
-                    }
-
-                    # Author (removed updatedAt)
-                    creator {
-                    id
-                    username
-                    name
-                    bio
-                    imageId
-                    twitterScreenName
-                    createdAt
-                    # updatedAt - removed (doesn't exist on User)
-                    }
-                    
-                    # Publication (removed updatedAt)
-                    collection {
-                    id
-                    name
-                    slug
-                    domain
-                    subscriberCount
-                    createdAt
-                    # updatedAt - removed (doesn't exist on Collection)
-                    }
-                    
-                    __typename
-                }
-                cursor
-                }
-                pageInfo {
-                endCursor
-                hasNextPage
-                }
-            }
-            }
-        }
-        }
-        """
-        
-        variables = {
-            "username": username,
-            "first": first,
-            "after": after,
-            "startAt": start_at,
-            "endAt": end_at
-        }
-        
-        payload = self._build_graphql_request("StoryEarningsQuery", variables, query, username, "stats-post")
-        headers = self._get_common_headers(username, "StoryEarningsQuery")
-
-        time.sleep(0.5)
-        output_json = self._make_request(self.GRAPHQL_URL, headers, payload, "Lifetime ALL Stats") 
-            
-
-        return output_json
-    
-
+        return self._parse_story_stats_response(response, post_id)
     
     # ============================================
     # RESPONSE PARSERS
     # ============================================
     
-    def parse_stats_response(self, data: Any, post_id: str) -> Dict[str, Any]:
-        """Parse monthly stats response"""
+    def _parse_story_stats_response(self, data: Any, post_id: str) -> Dict[str, Any]:
+        """
+        Parse the detailed monthly stats response for a single story.
+        
+        Args:
+            data: Raw API response
+            post_id: Post ID for reference
+        
+        Returns:
+            Dict with aggregated totals for the month
+        """
         result = {
             'post_id': post_id,
             'totals': {
@@ -490,7 +633,7 @@ class MediumAPIService:
             if 'data' in response_item:
                 stats_data = response_item.get('data', {})
                 
-                # Parse earnings
+                # Parse earnings from daily data
                 post_obj = stats_data.get('post', {})
                 if post_obj:
                     earnings = post_obj.get('earnings', {})
@@ -526,28 +669,6 @@ class MediumAPIService:
                     result['totals']['new_followers'] += new_followers
         
         return result
-    
-    def parse_lifetime_response(self, data: Any, post_id: str) -> Dict[str, Any]:
-        """Parse lifetime stats response"""
-        result = {
-            'lifetime_reads': 0,
-            'lifetime_views': 0,
-            'presentation_count': 0,
-            'feed_click_through_rate': 0
-        }
-        
-        if isinstance(data, list) and len(data) > 0:
-            response_item = data[0]
-            
-            if 'data' in response_item:
-                bundle_data = response_item.get('data', {}).get('postStatsTotalBundle', {})
-                if bundle_data:
-                    result['lifetime_reads'] = bundle_data.get('readersCount', 0)
-                    result['lifetime_views'] = bundle_data.get('viewersCount', 0)
-                    result['presentation_count'] = bundle_data.get('presentationCount', 0)
-                    result['feed_click_through_rate'] = bundle_data.get('feedClickThroughRate', 0)
-        
-        return result
 
 
 # ============================================
@@ -557,6 +678,7 @@ class MediumAPIService:
 _medium_api_service = None
 
 def get_medium_api_service() -> MediumAPIService:
+    """Get or create the singleton MediumAPIService instance"""
     global _medium_api_service
     if _medium_api_service is None:
         _medium_api_service = MediumAPIService()
@@ -564,6 +686,7 @@ def get_medium_api_service() -> MediumAPIService:
 
 
 def set_debug_mode(enabled: bool = True):
+    """Enable or disable debug mode for API calls"""
     global DEBUG
     DEBUG = enabled
     print(f"🔍 Medium API Debug mode: {'ON' if DEBUG else 'OFF'}")

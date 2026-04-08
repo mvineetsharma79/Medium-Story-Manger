@@ -5,24 +5,29 @@
         <div class="logo-sub">Content Dashboard</div>
     </div>
     
-    <div class="nav flex-column">
-        <a href="#" class="nav-link active" data-view="dashboard">
-            <i class="bi bi-speedometer2"></i> Dashboard
-        </a>
-        <a href="#" class="nav-link" data-view="stories">
-            <i class="bi bi-files"></i> Stories
-        </a>
-        <a href="#" class="nav-link" data-view="series">
-            <i class="bi bi-collection"></i> Series
-        </a>
-        <a href="#" class="nav-link" data-view="calendar">
-            <i class="bi bi-calendar-week"></i> Calendar
-        </a>
-        <a href="#" class="nav-link" data-view="settings">
-            <i class="bi bi-gear"></i> Settings
-        </a>
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="logo">📚 Story Manager</div>
     </div>
-    
+    <nav class="sidebar-nav">
+        <a href="#" class="nav-item" onclick="loadView('dashboard'); return false;">
+            <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" onclick="loadView('stories'); return false;">
+            <i class="bi bi-files"></i> <span>Stories</span>
+        </a>
+        <a href="#" class="nav-item" onclick="loadView('series'); return false;">
+            <i class="bi bi-collection"></i> <span>Series</span>
+        </a>
+        <a href="#" class="nav-item" onclick="loadView('calendar'); return false;">
+            <i class="bi bi-calendar-week"></i> <span>Calendar</span>
+        </a>
+        <a href="#" class="nav-item" onclick="loadView('settings'); return false;">
+            <i class="bi bi-gear"></i> <span>Settings</span>
+        </a>
+    </nav>
+    <!-- rest of sidebar -->
+</div>    
     <!-- Month Selector Section -->
     <div class="mt-3 px-2">
         <hr class="my-2" style="border-color: rgba(255,255,255,0.1);">

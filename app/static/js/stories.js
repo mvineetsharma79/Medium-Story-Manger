@@ -1,15 +1,301 @@
-// ============================================
-// STORIES JS - Working with all modal elements
-// ============================================
+// app/static/js/stories.js
 
 let allStories = [];
 let allSeriesNames = [];
-let currentEditStoryName = null;
-let currentStatsStoryName = null;
-let currentMonth = 'all';
-let currentSort = { column: 'name', direction: 'asc' };
-let totalEarnings = 0;
-let monthlyEarnings = 0;
+let currentSort = { column: 'title', direction: 'asc' };
+
+// ============================================
+// LOAD STORIES
+// ============================================
+
+async function loadStories() {
+    showLoading();
+    try {
+        const response = await fetch(`${API_BASE}/stories/list`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        
+        allStories = data.stories || [];
+        
+        // Extract unique series names
+        const seriesSet = new Set();
+        allStories.forEach(story => {
+            if (story.series && story.series !== 'null' && story.series !== '') {
+                seriesSet.add(story.series);
+            }
+        });
+        allSeriesNames = Array.from(seriesSet).sort();
+        
+        updateSeriesDropdown();
+        renderStoryTable();
+        updateFilterCount();
+    } catch (error) {
+        console.error('Error loading stories:', error);
+        showToast('Error loading stories: ' + error.message, 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
+function updateSeriesDropdown() {
+    const seriesFilter = document.getElementById('seriesFilter');
+    if (!seriesFilter) return;
+    
+    const currentValue = seriesFilter.value;
+    seriesFilter.innerHTML = '<option value="">All Series</option>';
+    
+    allSeriesNames.forEach(series => {
+        const option = document.createElement('option');
+        option.value = series;
+        option.textContent = series;
+        seriesFilter.appendChild(option);
+    });
+    
+    if (currentValue && allSeriesNames.includes(currentValue)) {
+        seriesFilter.value = currentValue;
+    }
+}
+
+function updateFilterCount() {
+    const filtered = getFilteredStories();
+    const filterCountDisplay = document.getElementById('filterCountDisplay');
+    if (filterCountDisplay) {
+        filterCountDisplay.textContent = `Showing ${filtered.length} of ${allStories.length} stories`;
+    }
+}
+
+function getFilteredStories() {
+    const statusFilter = document.getElementById('statusFilter');
+    const seriesFilter = document.getElementById('seriesFilter');
+    const searchFilter = document.getElementById('searchFilter');
+    const bookmarkedOnly = document.getElementById('bookmarkFilter');
+    const leaderboardOnly = document.getElementById('leaderboardFilter');
+    
+    let filtered = [...allStories];
+    
+    if (statusFilter && statusFilter.value !== 'All') {
+        filtered = filtered.filter(s => s.status === statusFilter.value);
+    }
+    if (seriesFilter && seriesFilter.value) {
+        filtered = filtered.filter(s => s.series === seriesFilter.value);
+    }
+    if (searchFilter && searchFilter.value) {
+        const searchTerm = searchFilter.value.toLowerCase();
+        filtered = filtered.filter(s => {
+            return (s.title && s.title.toLowerCase().includes(searchTerm)) ||
+                   (s.name && s.name.toLowerCase().includes(searchTerm));
+        });
+    }
+    if (bookmarkedOnly && bookmarkedOnly.checked) {
+        filtered = filtered.filter(s => s.bookmarked === true);
+    }
+    if (leaderboardOnly && leaderboardOnly.checked) {
+        filtered = filtered.filter(s => s.leaderboard === true);
+    }
+    
+    return filtered;
+}
+
+function getSortedStories() {
+    const filtered = getFilteredStories();
+    
+    filtered.sort((a, b) => {
+        let aVal = a[currentSort.column];
+        let bVal = b[currentSort.column];
+        
+        if (typeof aVal === 'boolean') {
+            aVal = aVal ? 1 : 0;
+            bVal = bVal ? 1 : 0;
+        }
+        if (typeof aVal === 'string') {
+            aVal = (aVal || '').toLowerCase();
+            bVal = (bVal || '').toLowerCase();
+        }
+        if (typeof aVal === 'number') {
+            aVal = aVal || 0;
+            bVal = bVal || 0;
+        }
+        
+        return currentSort.direction === 'asc' ? (aVal > bVal ? 1 : -1) : (aVal < bVal ? 1 : -1);
+    });
+    
+    return filtered;
+}
+
+function renderStoryTable() {
+    const tbody = document.getElementById('storiesTableBody');
+    if (!tbody) return;
+    
+    const sortedStories = getSortedStories();
+    tbody.innerHTML = '';
+    
+    if (sortedStories.length === 0) {
+        const row = tbody.insertRow();
+        const cell = row.insertCell(0);
+        cell.colSpan = 13;
+        cell.className = 'text-center text-muted py-3';
+        cell.textContent = 'No stories found';
+        return;
+    }
+    
+    sortedStories.forEach(story => {
+        const row = tbody.insertRow();
+        row.className = 'table-row-clickable';
+        
+        const uniqueSlug = story.uniqueSlug || story.key?.split('/').pop();
+        const encodedSlug = encodeURIComponent(uniqueSlug);
+        
+        // Get medium data (nested object)
+        const medium = story.medium || {};
+        const totalStats = medium.totalStats || {};
+        const monthlyStats = medium.monthlyStats || [];
+        const currentMonthStats = monthlyStats.length > 0 ? monthlyStats[monthlyStats.length - 1] : {};
+        const totalEarnings = medium.totalEarnings || {};
+        const monthlyEarnings = medium.monthlyEarnings || [];
+        const currentMonthEarnings = monthlyEarnings.length > 0 ? monthlyEarnings[monthlyEarnings.length - 1] : {};
+        
+        // Get LinkedIn data
+        const linkedin = story.linkedin || {};
+        
+        // 1. Bookmark
+        const bookmarkCell = row.insertCell(0);
+        bookmarkCell.className = 'text-center';
+        const bookmarkIcon = document.createElement('i');
+        bookmarkIcon.className = `bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}`;
+        bookmarkIcon.style.cursor = 'pointer';
+        bookmarkIcon.onclick = (e) => { e.stopPropagation(); toggleBookmark(encodedSlug); };
+        bookmarkCell.appendChild(bookmarkIcon);
+        
+        // 2. Leaderboard
+        const leaderboardCell = row.insertCell(1);
+        leaderboardCell.className = 'text-center';
+        const leaderboardIcon = document.createElement('i');
+        leaderboardIcon.className = `bi bi-trophy${story.leaderboard ? '-fill' : ''} leaderboard-icon ${story.leaderboard ? 'leaderboard' : ''}`;
+        leaderboardIcon.style.cursor = 'pointer';
+        leaderboardIcon.onclick = (e) => { e.stopPropagation(); toggleLeaderboard(encodedSlug); };
+        leaderboardCell.appendChild(leaderboardIcon);
+        
+        // 3. Status
+        const statusCell = row.insertCell(2);
+        const statusSpan = document.createElement('span');
+        const statusClass = story.status === 'Published' ? 'status-published' : 
+                           story.status === 'Ready' ? 'status-ready' : 
+                           story.status === 'Done' ? 'status-done' : 'status-draft';
+        statusSpan.className = `status-badge ${statusClass}`;
+        statusSpan.textContent = story.status || 'Draft';
+        statusCell.appendChild(statusSpan);
+        
+        // 4. Title (click = edit modal)
+        const titleCell = row.insertCell(3);
+        const titleStrong = document.createElement('strong');
+        titleStrong.style.cursor = 'pointer';
+        titleStrong.textContent = story.title || story.name || 'Unknown';
+        titleStrong.onclick = () => openEditStory(encodedSlug);
+        titleCell.appendChild(titleStrong);
+        
+        // 5. Series
+        const seriesCell = row.insertCell(4);
+        if (story.series) {
+            const seriesSpan = document.createElement('span');
+            seriesSpan.className = 'series-badge';
+            seriesSpan.style.cursor = 'pointer';
+            seriesSpan.textContent = story.series;
+            seriesSpan.onclick = (e) => { e.stopPropagation(); filterBySeries(story.series); };
+            seriesCell.appendChild(seriesSpan);
+        } else {
+            seriesCell.textContent = '—';
+            seriesCell.className = 'text-muted';
+        }
+        
+        // 6. Created Date (from story root)
+        const createdCell = row.insertCell(5);
+        createdCell.textContent = story.createdDate ? story.createdDate.split('T')[0] : '-';
+        
+        // 7. Published Date (from story root)
+        const publishedCell = row.insertCell(6);
+        publishedCell.textContent = story.publishedDate ? story.publishedDate.split('T')[0] : '-';
+        
+        // 8. Engagement (claps / voters / followers from medium)
+        const engagementCell = row.insertCell(7);
+        const engagementSmall = document.createElement('small');
+        const claps = medium.clapCount || 0;
+        const voters = medium.voterCount || 0;
+        const followers = medium.followerCount || 0;
+        engagementSmall.innerHTML = `💚 ${formatNumber(claps)}<br>👥 ${formatNumber(voters)}<br>📢 ${formatNumber(followers)}`;
+        engagementCell.appendChild(engagementSmall);
+        
+        // 9. Earnings (Monthly / Total from medium)
+        const earningsCell = row.insertCell(8);
+        const earningsSmall = document.createElement('small');
+        const monthlyEarnNanos = currentMonthEarnings.nanos || 0;
+        const totalEarnNanos = totalEarnings.nanos || 0;
+        earningsSmall.innerHTML = `💰 $${(monthlyEarnNanos / 1000000000).toFixed(2)}<br>🏦 $${(totalEarnNanos / 1000000000).toFixed(2)}`;
+        earningsCell.appendChild(earningsSmall);
+        
+        // 10. Impression (reads / views / responses from medium totalStats)
+        const impressionCell = row.insertCell(9);
+        const impressionSmall = document.createElement('small');
+        const reads = totalStats.reads || 0;
+        const views = totalStats.views || 0;
+        const responses = medium.responsesCount || 0;
+        impressionSmall.innerHTML = `📖 ${formatNumber(reads)}<br>👁️ ${formatNumber(views)}<br>💬 ${formatNumber(responses)}`;
+        impressionCell.appendChild(impressionSmall);
+        
+        // 11. Read Time (from medium)
+        const readTimeCell = row.insertCell(10);
+        const readTimeSmall = document.createElement('small');
+        const readingTime = medium.readingTime || 0;
+        const hours = Math.floor(readingTime / 60);
+        const minutes = readingTime % 60;
+        const timeStr = hours > 0 ? `${hours}:${minutes.toString().padStart(2, '0')}` : `${minutes}:00`;
+        const wordCount = medium.wordCount || 0;
+        readTimeSmall.innerHTML = `⏱️ ${timeStr}<br>📝 ${formatNumber(wordCount)}`;
+        readTimeCell.appendChild(readTimeSmall);
+        
+        // 12. LinkedIn (from linkedin object)
+        const linkedinCell = row.insertCell(11);
+        const linkedinSpan = document.createElement('span');
+        const linkedinStatus = linkedin.status || story.linkedin_status;
+        if (linkedinStatus === 'scheduled') {
+            linkedinSpan.className = 'linkedin-badge linkedin-scheduled';
+            linkedinSpan.textContent = '📅 Scheduled';
+        } else if (linkedinStatus === 'posted') {
+            linkedinSpan.className = 'linkedin-badge linkedin-posted';
+            linkedinSpan.textContent = '✅ Posted';
+        } else {
+            linkedinSpan.className = 'linkedin-badge linkedin-not-posted';
+            linkedinSpan.textContent = 'Not Posted';
+        }
+        linkedinCell.appendChild(linkedinSpan);
+        
+        // 13. Actions
+        const actionsCell = row.insertCell(12);
+        actionsCell.className = 'action-buttons';
+        
+        const statsBtn = document.createElement('button');
+        statsBtn.className = 'btn btn-sm btn-outline-info';
+        statsBtn.title = 'Stats Dashboard';
+        statsBtn.onclick = (e) => { e.stopPropagation(); showStatsDashboard(encodedSlug); };
+        const statsIcon = document.createElement('i');
+        statsIcon.className = 'bi bi-graph-up';
+        statsBtn.appendChild(statsIcon);
+        actionsCell.appendChild(statsBtn);
+        
+        const externalBtn = document.createElement('button');
+        externalBtn.className = 'btn btn-sm btn-outline-secondary ms-1';
+        externalBtn.title = 'Open on Medium';
+        const mediumUrl = medium.mediumUrl || story.medium_url;
+        if (mediumUrl) {
+            externalBtn.onclick = (e) => { e.stopPropagation(); window.open(mediumUrl, '_blank'); };
+        } else {
+            externalBtn.disabled = true;
+        }
+        const externalIcon = document.createElement('i');
+        externalIcon.className = 'bi bi-box-arrow-up-right';
+        externalBtn.appendChild(externalIcon);
+        actionsCell.appendChild(externalBtn);
+    });
+}
 
 // ============================================
 // SORTING
@@ -42,181 +328,12 @@ function updateSortIcons(column, direction) {
 }
 
 // ============================================
-// LOAD ALL SERIES NAMES
+// FILTERS
 // ============================================
 
-async function loadAllSeriesNames() {
-    try {
-        const response = await fetch(`${API_BASE}/stories/list`);
-        if (!response.ok) return;
-        const data = await response.json();
-        const allStoriesData = data.stories || [];
-        
-        const seriesSet = new Set();
-        allStoriesData.forEach(story => {
-            if (story.series && story.series !== 'null' && story.series !== 'undefined' && story.series !== '') {
-                seriesSet.add(story.series);
-            }
-        });
-        
-        allSeriesNames = Array.from(seriesSet).sort();
-        updateSeriesDropdown();
-    } catch (error) {
-        console.error('Error loading all series names:', error);
-    }
-}
-
-function updateSeriesDropdown() {
-    const seriesFilter = document.getElementById('seriesFilter');
-    if (!seriesFilter) return;
-    
-    const currentValue = seriesFilter.value;
-    seriesFilter.innerHTML = '<option value="">All Series</option>';
-    
-    allSeriesNames.forEach(series => {
-        const option = document.createElement('option');
-        option.value = series;
-        option.textContent = series;
-        seriesFilter.appendChild(option);
-    });
-    
-    if (currentValue && allSeriesNames.includes(currentValue)) {
-        seriesFilter.value = currentValue;
-    }
-}
-
-// ============================================
-// MONTH SELECTOR
-// ============================================
-
-async function loadMonths() {
-    try {
-        const response = await fetch(`${API_BASE}/stories/months`);
-        if (!response.ok) return;
-        const data = await response.json();
-        const selector = document.getElementById('monthSelector');
-        if (selector) {
-            selector.innerHTML = '<option value="all">All Time (Dashboard)</option>';
-            if (data.months && Array.isArray(data.months)) {
-                data.months.forEach(month => {
-                    const option = document.createElement('option');
-                    option.value = month;
-                    option.textContent = month;
-                    selector.appendChild(option);
-                });
-            }
-        }
-        const savedMonth = localStorage.getItem('selectedMonth');
-        if (savedMonth && savedMonth !== 'all' && isValidYearMonth(savedMonth)) {
-            if (selector) selector.value = savedMonth;
-            currentMonth = savedMonth;
-        } else {
-            currentMonth = 'all';
-        }
-        
-        await loadAllSeriesNames();
-        await loadStories();
-    } catch (error) {
-        console.error('Error loading months:', error);
-        currentMonth = 'all';
-        await loadStories();
-    }
-}
-
-async function onMonthChange() {
-    const selector = document.getElementById('monthSelector');
-    if (!selector) return;
-    
-    currentMonth = selector.value;
-    localStorage.setItem('selectedMonth', currentMonth);
-    await loadStories();
-}
-
-// ============================================
-// LOAD STORIES
-// ============================================
-
-async function loadStories() {
-    showLoading();
-    try {
-        const url = currentMonth === 'all' ? 
-            `${API_BASE}/stories/list` : 
-            `${API_BASE}/stories/list/${currentMonth}`;
-        
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const data = await response.json();
-        allStories = data.stories || [];
-        
-        restoreSeriesFilter();
-        
-        if (currentMonth === 'all') {
-            totalEarnings = allStories.reduce((sum, s) => sum + (s.medium_earnings || 0), 0);
-        } else {
-            monthlyEarnings = allStories.reduce((sum, s) => sum + (s.medium_earnings || 0), 0);
-            totalEarnings = await fetchTotalEarnings();
-        }
-        
-        renderStoryTable();
-        
-        if (currentMonth === 'all') {
-            updateDashboardStats();
-        }
-        
-        console.log(`Loaded ${allStories.length} stories`);
-    } catch (error) {
-        console.error('Error loading stories:', error);
-        showToast('Error loading stories: ' + error.message, 'error');
-        const tbody = document.getElementById('storiesTableBody');
-        if (tbody) {
-            tbody.innerHTML = '<tr><td colspan="16" class="text-center text-danger py-3">Error loading stories. Please try again. </td></tr>';
-        }
-    } finally {
-        hideLoading();
-    }
-}
-
-function restoreSeriesFilter() {
-    const savedSeries = sessionStorage.getItem('storiesFilterSeries');
-    const seriesFilter = document.getElementById('seriesFilter');
-    if (savedSeries && seriesFilter) {
-        let exists = false;
-        for (let i = 0; i < seriesFilter.options.length; i++) {
-            if (seriesFilter.options[i].value === savedSeries) {
-                exists = true;
-                break;
-            }
-        }
-        if (exists) {
-            seriesFilter.value = savedSeries;
-            renderStoryTable();
-        } else {
-            sessionStorage.removeItem('storiesFilterSeries');
-        }
-    }
-}
-
-async function fetchTotalEarnings() {
-    try {
-        const response = await fetch(`${API_BASE}/stories/earnings/total`);
-        if (!response.ok) return 0;
-        const data = await response.json();
-        return data.total_earnings || 0;
-    } catch (error) {
-        return 0;
-    }
-}
-
-// ============================================
-// RENDER STORY TABLE
-// ============================================
-
-function applyFilters() { 
-    const seriesFilter = document.getElementById('seriesFilter');
-    if (seriesFilter) {
-        sessionStorage.setItem('storiesFilterSeries', seriesFilter.value);
-    }
-    renderStoryTable(); 
+function applyFilters() {
+    renderStoryTable();
+    updateFilterCount();
 }
 
 function clearFilters() {
@@ -232,99 +349,33 @@ function clearFilters() {
     if (bookmarkFilter) bookmarkFilter.checked = false;
     if (leaderboardFilter) leaderboardFilter.checked = false;
     
-    sessionStorage.removeItem('storiesFilterSeries');
     renderStoryTable();
+    updateFilterCount();
 }
 
-function renderStoryTable() {
-    const tbody = document.getElementById('storiesTableBody');
-    if (!tbody) return;
-    
-    const statusFilter = document.getElementById('statusFilter');
+function filterBySeries(seriesName) {
+    if (!seriesName) return;
     const seriesFilter = document.getElementById('seriesFilter');
-    const searchFilter = document.getElementById('searchFilter');
-    const bookmarkedOnly = document.getElementById('bookmarkFilter');
-    const leaderboardOnly = document.getElementById('leaderboardFilter');
-    
-    let filtered = [...allStories];
-    if (statusFilter && statusFilter.value !== 'All') filtered = filtered.filter(s => s.status === statusFilter.value);
-    if (seriesFilter && seriesFilter.value) filtered = filtered.filter(s => s.series === seriesFilter.value);
-    if (searchFilter && searchFilter.value) {
-        filtered = filtered.filter(s => s.name.toLowerCase().includes(searchFilter.value.toLowerCase()));
+    if (seriesFilter) {
+        seriesFilter.value = seriesName;
+        renderStoryTable();
+        updateFilterCount();
     }
-    if (bookmarkedOnly && bookmarkedOnly.checked) filtered = filtered.filter(s => s.bookmarked === true);
-    if (leaderboardOnly && leaderboardOnly.checked) filtered = filtered.filter(s => s.leaderboard === true);
-    
-    filtered.sort((a, b) => {
-        let aVal = a[currentSort.column];
-        let bVal = b[currentSort.column];
-        if (typeof aVal === 'boolean') { aVal = aVal ? 1 : 0; bVal = bVal ? 1 : 0; }
-        if (typeof aVal === 'string') { aVal = (aVal || '').toLowerCase(); bVal = (bVal || '').toLowerCase(); }
-        if (typeof aVal === 'number') { aVal = aVal || 0; bVal = bVal || 0; }
-        return currentSort.direction === 'asc' ? (aVal > bVal ? 1 : -1) : (aVal < bVal ? 1 : -1);
-    });
-    
-    const filterCountDisplay = document.getElementById('filterCountDisplay');
-    if (filterCountDisplay) {
-        filterCountDisplay.textContent = `Showing ${filtered.length} of ${allStories.length} stories`;
-    }
-    
-    tbody.innerHTML = '';
-    
-    if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="16" class="text-center text-muted py-3">No stories found</td</tr>';
-        return;
-    }
-    
-    filtered.forEach(story => {
-        const row = tbody.insertRow();
-        row.className = 'table-row-clickable';
-        row.onclick = () => openEditModal(story.name);
-        
-        const encodedName = encodeURIComponent(story.name);
-        
-        row.insertCell(0).innerHTML = `<i class="bi bi-bookmark${story.bookmarked ? '-fill' : ''}" style="color:${story.bookmarked ? '#ffc107' : '#6c757d'}; cursor:pointer" onclick="event.stopPropagation();toggleBookmark('${encodedName}')"></i>`;
-        row.insertCell(1).innerHTML = `<i class="bi bi-trophy${story.leaderboard ? '-fill' : ''}" style="color:${story.leaderboard ? '#ffd700' : '#6c757d'}; cursor:pointer" onclick="event.stopPropagation();toggleLeaderboard('${encodedName}')"></i>`;
-        row.insertCell(2).innerHTML = `<span class="status-badge status-${(story.status || 'draft').toLowerCase()}">${story.status || 'Draft'}</span>`;
-        row.insertCell(3).innerHTML = escapeHtml(story.name);
-        row.insertCell(4).innerHTML = story.created_date ? story.created_date.split('T')[0] : '-';
-        row.insertCell(5).innerHTML = story.published_date ? story.published_date.split('T')[0] : '-';
-        row.insertCell(6).innerHTML = `${formatNumber(story.member_reads)}/${formatNumber(story.reads)}<br><small>${story.reads_percent || 0}%</small>`;
-        row.insertCell(7).innerHTML = `${formatNumber(story.member_views)}/${formatNumber(story.views)}<br><small>${story.views_percent || 0}%</small>`;
-        row.insertCell(8).innerHTML = `${formatNumber(story.lifetime_reads)}/${formatNumber(story.lifetime_views)}/${formatNumber(story.presentation_count)}`;
-        row.insertCell(9).innerHTML = `${formatNumber(story.claps)}<br><small>${formatNumber(story.lifetime_claps)}</small>`;
-        row.insertCell(10).innerHTML = formatCurrency(story.medium_earnings);
-        row.insertCell(11).innerHTML = `${formatNumber(story.medium_new_followers)}/${formatNumber(story.total_followers)}`;
-        row.insertCell(12).innerHTML = `${formatReadTime(story.medium_reading_time || story.read_time)} / ${formatNumber(story.word_count)}`;
-        row.insertCell(13).innerHTML = story.medium_publication || '—';
-        
-        let linkedinText = 'Not Posted';
-        if (story.linkedin_status === 'scheduled') linkedinText = '📅 Scheduled';
-        else if (story.linkedin_status === 'posted') linkedinText = '✅ Posted';
-        row.insertCell(14).innerHTML = `<span class="linkedin-badge linkedin-${story.linkedin_status || 'not-posted'}">${linkedinText}</span>`;
-        
-        row.insertCell(15).innerHTML = `
-            <button class="btn btn-sm btn-outline-info" onclick="event.stopPropagation();openStatsModal('${encodedName}')"><i class="bi bi-graph-up"></i></button>
-            <button class="btn btn-sm btn-outline-primary ms-1" onclick="event.stopPropagation();openEditModal('${encodedName}')"><i class="bi bi-pencil"></i></button>
-            <button class="btn btn-sm btn-danger ms-1" onclick="event.stopPropagation();deleteStory('${encodedName}')"><i class="bi bi-trash"></i></button>
-        `;
-    });
 }
 
 // ============================================
-// TOGGLE BOOKMARK
+// TOGGLE BOOKMARK & LEADERBOARD
 // ============================================
 
-async function toggleBookmark(encodedName) {
-    const storyName = decodeURIComponent(encodedName);
-    const story = allStories.find(s => s.name === storyName);
+async function toggleBookmark(encodedSlug) {
+    const uniqueSlug = decodeURIComponent(encodedSlug);
+    const story = allStories.find(s => (s.uniqueSlug || s.key?.split('/').pop()) === uniqueSlug);
     if (!story) return;
     
-    const identifier = story.medium_url || story.name;
     const newState = !story.bookmarked;
     
     try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(identifier)}`, {
+        const response = await fetch(`${API_BASE}/stories/story/${encodedSlug}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ bookmarked: newState })
@@ -337,24 +388,19 @@ async function toggleBookmark(encodedName) {
         }
     } catch (error) {
         console.error('Error toggling bookmark:', error);
+        showToast('Error updating bookmark', 'error');
     }
 }
 
-// ============================================
-// TOGGLE LEADERBOARD
-// ============================================
-
-async function toggleLeaderboard(encodedName) {
-    const storyName = decodeURIComponent(encodedName);
-    const story = allStories.find(s => s.name === storyName);
+async function toggleLeaderboard(encodedSlug) {
+    const uniqueSlug = decodeURIComponent(encodedSlug);
+    const story = allStories.find(s => (s.uniqueSlug || s.key?.split('/').pop()) === uniqueSlug);
     if (!story) return;
     
-    const yearmonth = currentMonth === 'all' ? getCurrentYearMonth() : currentMonth;
     const newState = !story.leaderboard;
-    const identifier = story.medium_url || story.name;
     
     try {
-        const response = await fetch(`${API_BASE}/stories/stats/${encodeURIComponent(identifier)}/${yearmonth}`, {
+        const response = await fetch(`${API_BASE}/stories/story/${encodedSlug}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ leaderboard: newState })
@@ -364,300 +410,88 @@ async function toggleLeaderboard(encodedName) {
             story.leaderboard = newState;
             renderStoryTable();
             if (window.updateLeaderboardTotal) window.updateLeaderboardTotal();
-            showToast(`Leaderboard updated for ${yearmonth}`, 'success');
+            showToast('Leaderboard updated', 'success');
         }
     } catch (error) {
         console.error('Error toggling leaderboard:', error);
+        showToast('Error updating leaderboard', 'error');
     }
 }
 
 // ============================================
-// DELETE STORY
+// MODAL FUNCTIONS
 // ============================================
 
-async function deleteStory(encodedName) {
-    const storyName = decodeURIComponent(encodedName);
-    if (!confirm(`Delete story "${storyName}"?`)) return;
-    
-    const story = allStories.find(s => s.name === storyName);
-    if (!story) return;
-    
-    const identifier = story.medium_url || story.name;
-    
+async function openEditStory(encodedSlug) {
     try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(identifier)}`, { method: 'DELETE' });
-        if (response.ok) {
-            showToast('Story deleted', 'success');
-            await loadAllSeriesNames();
-            await loadStories();
+        const response = await fetch(`${API_BASE}/stories/story/${encodedSlug}`);
+        const storyData = await response.json();
+        
+        const medium = storyData.medium || {};
+        
+        document.getElementById('editStoryUniqueSlug').value = storyData.uniqueSlug;
+        document.getElementById('editStoryTitle').value = storyData.title || '';
+        document.getElementById('editStoryStatus').value = storyData.status || 'Draft';
+        document.getElementById('editStorySeries').value = storyData.series || '';
+        document.getElementById('editStoryCreatedDate').value = storyData.createdDate?.split('T')[0] || '';
+        document.getElementById('editStoryPublishedDate').value = storyData.publishedDate?.split('T')[0] || '';
+        document.getElementById('editStoryNotes').value = storyData.notes || '';
+        document.getElementById('editStoryTags').value = (medium.tags || []).join(', ');
+        document.getElementById('editStoryMediumUrl').value = medium.mediumUrl || storyData.medium_url || '';
+        
+        const linkedin = storyData.linkedin || {};
+        document.getElementById('editStoryLinkedinStatus').value = linkedin.status || storyData.linkedin_status || '';
+        document.getElementById('editStoryLinkedinTimestamp').value = linkedin.timestamp || storyData.linkedin_timestamp || '';
+        document.getElementById('editStoryLinkedinImpressions').value = linkedin.impressions || storyData.linkedin_impressions || 0;
+        document.getElementById('editStoryLinkedinUrl').value = linkedin.url || storyData.linkedin_url || '';
+        
+        const modalEl = document.getElementById('editStoryModal');
+        if (modalEl) {
+            const modal = new bootstrap.Modal(modalEl);
+            modal.show();
         }
-    } catch (error) {
-        console.error('Error deleting story:', error);
-        alert('Error deleting story');
-    }
-}
-
-// ============================================
-// OPEN EDIT MODAL
-// ============================================
-
-async function openEditModal(encodedName) {
-    const storyName = decodeURIComponent(encodedName);
-    const story = allStories.find(s => s.name === storyName);
-    if (!story) return;
-    
-    currentEditStoryName = story.name;
-    const identifier = story.medium_url || story.name;
-    const now = new Date();
-    const targetYear = now.getFullYear();
-    const targetMonth = now.getMonth() + 1;
-    
-    await loadStoryIntoEditModal(identifier, targetYear, targetMonth, story);
-    const modalElement = document.getElementById('editStoryModal');
-    if (modalElement) new bootstrap.Modal(modalElement).show();
-}
-
-async function loadStoryIntoEditModal(identifier, year, month, story) {
-    try {
-        const encodedIdentifier = encodeURIComponent(identifier);
-        
-        // Get story metadata
-        const storyRes = await fetch(`${API_BASE}/stories/story/${encodedIdentifier}`);
-        if (!storyRes.ok) throw new Error('Story not found');
-        const storyData = await storyRes.json();
-        
-        // Get monthly stats
-        let monthlyStats = {};
-        try {
-            const monthlyRes = await fetch(`${API_BASE}/stories/stats/${encodedIdentifier}/${year}-${String(month).padStart(2, '0')}`);
-            if (monthlyRes.ok) monthlyStats = await monthlyRes.json();
-        } catch (error) {
-            console.log('No monthly stats found, using defaults');
-        }
-        
-        // Helper functions
-        const setValue = (id, value) => {
-            const el = document.getElementById(id);
-            if (el) el.value = (value !== null && value !== undefined) ? value : '';
-        };
-        const setText = (id, text) => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = (text !== null && text !== undefined) ? text : '0';
-        };
-        const setSelectValue = (id, value) => {
-            const el = document.getElementById(id);
-            if (el) el.value = value;
-        };
-        
-        // Set form values
-        setValue('editStoryKey', storyData.key);
-        setValue('editStoryName', storyData.name);
-        setSelectValue('editStatus', storyData.status || 'Draft');
-        setValue('editCreatedDate', storyData.created_date ? storyData.created_date.split('T')[0] : '');
-        setValue('editPublishedDate', storyData.published_date ? storyData.published_date.split('T')[0] : '');
-        setValue('editMediumUrl', storyData.medium_url || '');
-        setValue('editPublication', storyData.medium_publication || '');
-        setValue('editTags', (storyData.tags || []).join(', '));
-        setValue('editNotes', storyData.notes || '');
-        setSelectValue('editLinkedinStatus', storyData.linkedin_status || '');
-        setValue('editLinkedinTimestamp', storyData.linkedin_timestamp || '');
-        setValue('editLinkedinImpressions', storyData.linkedin_impressions || 0);
-        setValue('editLinkedinUrl', storyData.linkedin_url || '');
-        setSelectValue('editBookmarked', storyData.bookmarked ? 'true' : 'false');
-        
-        // Lifetime stats
-        setText('lifetimeReads', formatNumber(storyData.lifetime_reads || 0));
-        setText('lifetimeViews', formatNumber(storyData.lifetime_views || 0));
-        setText('lifetimeClaps', formatNumber(storyData.lifetime_claps || 0));
-        setText('presentationCount', formatNumber(storyData.presentation_count || 0));
-        setText('wordCount', formatNumber(storyData.word_count || 0));
-        setText('readingTime', storyData.medium_reading_time || storyData.read_time || 0);
-        setText('totalFollowers', formatNumber(storyData.total_followers || 0));
-        
-        // Monthly stats
-        setValue('editMemberReads', monthlyStats.member_reads || 0);
-        setValue('editNonMemberReads', monthlyStats.nonmember_reads || 0);
-        setValue('editMemberViews', monthlyStats.member_views || 0);
-        setValue('editNonMemberViews', monthlyStats.nonmember_views || 0);
-        setValue('editClaps', monthlyStats.claps || 0);
-        setValue('editResponses', monthlyStats.responses || 0);
-        setValue('editNewFollowers', monthlyStats.medium_new_followers || 0);
-        setValue('editHighlights', monthlyStats.medium_highlights || 0);
-        setSelectValue('editLeaderboard', monthlyStats.leaderboard ? 'true' : 'false');
-        setValue('editLeaderboardNanos', monthlyStats.leaderboard_nanos || 0);
-        setValue('editMediumEarnings', (monthlyStats.medium_earnings || 0) / 1000000000);
-        
-        // Series dropdown
-        const seriesSelect = document.getElementById('editSeries');
-        if (seriesSelect) {
-            const currentSeries = storyData.series || '';
-            seriesSelect.innerHTML = '<option value="">None</option>';
-            allSeriesNames.forEach(seriesName => {
-                const option = document.createElement('option');
-                option.value = seriesName;
-                option.textContent = seriesName;
-                if (seriesName === currentSeries) option.selected = true;
-                seriesSelect.appendChild(option);
-            });
-        }
-        
-        const monthLabel = document.getElementById('currentMonthLabel');
-        if (monthLabel) monthLabel.textContent = `${year}-${String(month).padStart(2, '0')}`;
-        
-        window.currentEditYear = year;
-        window.currentEditMonth = month;
-        
-        // Load monthly stats list
-        await loadAllMonthsStats(storyData.name);
-        
     } catch (error) {
         console.error('Error loading story for edit:', error);
         showToast('Error loading story: ' + error.message, 'error');
     }
 }
 
-async function loadAllMonthsStats(storyName) {
-    if (!storyName) return;
-    try {
-        const response = await fetch(`${API_BASE}/stories/story-months/${encodeURIComponent(storyName)}`);
-        const data = await response.json();
-        const container = document.getElementById('allMonthsStatsList');
-        if (!container) return;
-        
-        container.innerHTML = '';
-        
-        if (!data.months || data.months.length === 0) {
-            container.innerHTML = '<div class="text-center p-3 text-muted">No monthly data available</div>';
-            return;
-        }
-        
-        const listGroup = document.createElement('div');
-        listGroup.className = 'list-group list-group-flush';
-        
-        for (const month of data.months) {
-            const item = document.createElement('div');
-            item.className = 'list-group-item list-group-item-action';
-            item.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center">
-                    <strong>${month.yearmonth}</strong>
-                    <span class="badge ${month.leaderboard ? 'bg-warning' : 'bg-secondary'}">${month.leaderboard ? '🏆 Leaderboard' : 'Normal'}</span>
-                    <button class="btn btn-sm btn-outline-primary" onclick="refreshStoryStatsForMonth('${encodeURIComponent(storyName)}', '${month.yearmonth}')">
-                        <i class="bi bi-cloud-download"></i> Fetch
-                    </button>
-                </div>
-                <div class="row small mt-1">
-                    <div class="col-3">Reads: ${formatNumber(month.reads)}</div>
-                    <div class="col-3">Views: ${formatNumber(month.views)}</div>
-                    <div class="col-3">Claps: ${formatNumber(month.claps)}</div>
-                    <div class="col-3">Responses: ${formatNumber(month.responses)}</div>
-                </div>
-                <div class="row small">
-                    <div class="col-6">Member Reads: ${formatNumber(month.member_reads)}</div>
-                    <div class="col-6">Member Views: ${formatNumber(month.member_views)}</div>
-                </div>
-                <div class="row small">
-                    <div class="col-12">Earnings: ${formatCurrency(month.medium_earnings || 0)}</div>
-                </div>
-            `;
-            listGroup.appendChild(item);
-        }
-        container.appendChild(listGroup);
-    } catch (error) {
-        console.error('Error loading all months stats:', error);
-    }
-}
-
-// ============================================
-// SAVE STORY EDIT
-// ============================================
-
 async function saveStoryEdit() {
-    const storyKey = document.getElementById('editStoryKey')?.value;
-    if (!storyKey) return;
+    const uniqueSlug = document.getElementById('editStoryUniqueSlug')?.value;
+    if (!uniqueSlug) return;
     
-    const story = allStories.find(s => s.key === storyKey);
-    if (!story) return;
-    
-    const identifier = story.medium_url || story.name;
-    const selectedSeries = document.getElementById('editSeries')?.value || null;
-    
-    const storyData = {
-        status: document.getElementById('editStatus')?.value,
-        created_date: document.getElementById('editCreatedDate')?.value || null,
-        published_date: document.getElementById('editPublishedDate')?.value || null,
-        medium_url: document.getElementById('editMediumUrl')?.value || null,
-        medium_publication: document.getElementById('editPublication')?.value || null,
-        tags: document.getElementById('editTags')?.value.split(',').map(t => t.trim()).filter(t => t),
-        notes: document.getElementById('editNotes')?.value || '',
-        linkedin_status: document.getElementById('editLinkedinStatus')?.value || null,
-        linkedin_timestamp: document.getElementById('editLinkedinTimestamp')?.value || null,
-        linkedin_impressions: parseInt(document.getElementById('editLinkedinImpressions')?.value) || 0,
-        linkedin_url: document.getElementById('editLinkedinUrl')?.value || null,
-        bookmarked: document.getElementById('editBookmarked')?.value === 'true',
-        series: selectedSeries,
-        lifetime_reads: parseInt(document.getElementById('lifetimeReads')?.textContent) || 0,
-        lifetime_views: parseInt(document.getElementById('lifetimeViews')?.textContent) || 0,
-        lifetime_claps: parseInt(document.getElementById('lifetimeClaps')?.textContent) || 0,
-        presentation_count: parseInt(document.getElementById('presentationCount')?.textContent) || 0,
-        word_count: parseInt(document.getElementById('wordCount')?.textContent) || 0,
-        medium_reading_time: parseInt(document.getElementById('readingTime')?.textContent) || 0,
-        total_followers: parseInt(document.getElementById('totalFollowers')?.textContent) || 0
+    const updateData = {
+        title: document.getElementById('editStoryTitle')?.value,
+        status: document.getElementById('editStoryStatus')?.value,
+        series: document.getElementById('editStorySeries')?.value || null,
+        createdDate: document.getElementById('editStoryCreatedDate')?.value || null,
+        publishedDate: document.getElementById('editStoryPublishedDate')?.value || null,
+        notes: document.getElementById('editStoryNotes')?.value || '',
+        tags: document.getElementById('editStoryTags')?.value.split(',').map(t => t.trim()).filter(t => t),
+        medium_url: document.getElementById('editStoryMediumUrl')?.value || null,
+        linkedin_status: document.getElementById('editStoryLinkedinStatus')?.value || null,
+        linkedin_timestamp: document.getElementById('editStoryLinkedinTimestamp')?.value || null,
+        linkedin_impressions: parseInt(document.getElementById('editStoryLinkedinImpressions')?.value) || 0,
+        linkedin_url: document.getElementById('editStoryLinkedinUrl')?.value || null
     };
-    
-    const memberReads = parseInt(document.getElementById('editMemberReads')?.value) || 0;
-    const nonmemberReads = parseInt(document.getElementById('editNonMemberReads')?.value) || 0;
-    const memberViews = parseInt(document.getElementById('editMemberViews')?.value) || 0;
-    const nonmemberViews = parseInt(document.getElementById('editNonMemberViews')?.value) || 0;
-    
-    const monthlyData = {
-        member_reads: memberReads,
-        nonmember_reads: nonmemberReads,
-        member_views: memberViews,
-        nonmember_views: nonmemberViews,
-        claps: parseInt(document.getElementById('editClaps')?.value) || 0,
-        responses: parseInt(document.getElementById('editResponses')?.value) || 0,
-        medium_new_followers: parseInt(document.getElementById('editNewFollowers')?.value) || 0,
-        medium_highlights: parseInt(document.getElementById('editHighlights')?.value) || 0,
-        leaderboard: document.getElementById('editLeaderboard')?.value === 'true',
-        leaderboard_nanos: parseInt(document.getElementById('editLeaderboardNanos')?.value) || 0,
-        medium_earnings: parseFloat(document.getElementById('editMediumEarnings')?.value) || 0,
-        reads: memberReads + nonmemberReads,
-        view_count: memberViews + nonmemberViews
-    };
-    
-    const year = window.currentEditYear || new Date().getFullYear();
-    const month = window.currentEditMonth || new Date().getMonth() + 1;
     
     showLoading();
     try {
-        // Update stories.json
-        const permRes = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(identifier)}`, {
+        const response = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(uniqueSlug)}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(storyData)
+            body: JSON.stringify(updateData)
         });
         
-        if (!permRes.ok) throw new Error('Failed to update story');
-        
-        // Ensure story in month
-        await fetch(`${API_BASE}/stories/ensure-story-in-month?story_key=${encodeURIComponent(storyKey)}&year=${year}&month=${month}`, {
-            method: 'POST'
-        });
-        
-        // Update monthly stats
-        const monthlyRes = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(story.name)}/stats/${year}-${String(month).padStart(2, '0')}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(monthlyData)
-        });
-        
-        const modal = bootstrap.Modal.getInstance(document.getElementById('editStoryModal'));
-        if (modal) modal.hide();
-        
-        await loadAllSeriesNames();
-        await loadStories();
-        showToast('Story saved successfully', 'success');
-        
+        if (response.ok) {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editStoryModal'));
+            if (modal) modal.hide();
+            await loadStories();
+            showToast('Story saved successfully', 'success');
+        } else {
+            const error = await response.json();
+            showToast('Error saving story: ' + (error.detail || 'Unknown error'), 'error');
+        }
     } catch (error) {
         console.error('Error saving story:', error);
         showToast('Error saving story: ' + error.message, 'error');
@@ -666,48 +500,132 @@ async function saveStoryEdit() {
     }
 }
 
-// ============================================
-// STATS FUNCTIONS
-// ============================================
-
-async function openStatsModal(encodedName) {
-    const storyName = decodeURIComponent(encodedName);
-    const story = allStories.find(s => s.name === storyName);
-    if (!story) return;
+async function showStatsDashboard(encodedSlug) {
+    const modalEl = document.getElementById('statsDashboardModal');
+    const contentDiv = document.getElementById('statsDashboardContent');
+    if (!modalEl || !contentDiv) return;
     
-    document.getElementById('statsStoryName').textContent = story.name;
-    document.getElementById('statsReads').textContent = formatNumber(story.reads);
-    document.getElementById('statsViews').textContent = formatNumber(story.views);
-    document.getElementById('statsClaps').textContent = formatNumber(story.claps);
-    new bootstrap.Modal(document.getElementById('statsModal')).show();
+    while (contentDiv.firstChild) {
+        contentDiv.removeChild(contentDiv.firstChild);
+    }
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'text-center py-3';
+    loadingDiv.innerHTML = '<div class="spinner-border text-primary"></div><p>Loading stats...</p>';
+    contentDiv.appendChild(loadingDiv);
+    
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+    
+    try {
+        const response = await fetch(`${API_BASE}/stories/story/${encodedSlug}`);
+        const storyData = await response.json();
+        
+        while (contentDiv.firstChild) {
+            contentDiv.removeChild(contentDiv.firstChild);
+        }
+        
+        const medium = storyData.medium || {};
+        const totalStats = medium.totalStats || {};
+        const totalEarnings = medium.totalEarnings || {};
+        
+        const container = document.createElement('div');
+        container.className = 'compact-stats';
+        
+        const header = document.createElement('div');
+        header.className = 'd-flex justify-content-between align-items-center mb-3';
+        const titleStrong = document.createElement('strong');
+        titleStrong.textContent = storyData.title;
+        header.appendChild(titleStrong);
+        const viewLink = document.createElement('a');
+        viewLink.href = medium.mediumUrl || storyData.medium_url || '#';
+        viewLink.target = '_blank';
+        viewLink.className = 'btn btn-sm btn-outline-primary';
+        viewLink.innerHTML = '<i class="bi bi-box-arrow-up-right"></i> View on Medium';
+        header.appendChild(viewLink);
+        container.appendChild(header);
+        
+        const lifetimeSection = document.createElement('div');
+        lifetimeSection.className = 'row g-2 mb-3';
+        const lifetimeTitle = document.createElement('div');
+        lifetimeTitle.className = 'col-12';
+        lifetimeTitle.innerHTML = '<strong>📊 Lifetime Stats</strong>';
+        lifetimeSection.appendChild(lifetimeTitle);
+        
+        const readsCard = createStatCard('Reads', formatNumber(totalStats.reads || 0), 'bg-info');
+        const viewsCard = createStatCard('Views', formatNumber(totalStats.views || 0), 'bg-primary');
+        const clapsCard = createStatCard('Claps', formatNumber(medium.clapCount || 0), 'bg-success');
+        
+        lifetimeSection.appendChild(readsCard);
+        lifetimeSection.appendChild(viewsCard);
+        lifetimeSection.appendChild(clapsCard);
+        container.appendChild(lifetimeSection);
+        
+        const earningsSection = document.createElement('div');
+        earningsSection.className = 'row g-2';
+        const earningsTitle = document.createElement('div');
+        earningsTitle.className = 'col-12';
+        earningsTitle.innerHTML = '<strong>💰 Earnings</strong>';
+        earningsSection.appendChild(earningsTitle);
+        
+        const totalEarningsCard = createStatCard('Total Earnings', `$${(totalEarnings.nanos / 1000000000).toFixed(2)}`, 'bg-warning', 'text-dark');
+        const responsesCard = createStatCard('Responses', formatNumber(medium.responsesCount || 0), 'bg-secondary');
+        
+        earningsSection.appendChild(totalEarningsCard);
+        earningsSection.appendChild(responsesCard);
+        container.appendChild(earningsSection);
+        
+        contentDiv.appendChild(container);
+        
+    } catch (error) {
+        console.error('Error loading stats:', error);
+        while (contentDiv.firstChild) {
+            contentDiv.removeChild(contentDiv.firstChild);
+        }
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'alert alert-danger';
+        errorDiv.textContent = 'Error loading stats: ' + error.message;
+        contentDiv.appendChild(errorDiv);
+    }
 }
 
-async function refreshStoryStatsForMonth(encodedName, yearmonth) {
-    const storyName = decodeURIComponent(encodedName);
-    const story = allStories.find(s => s.name === storyName);
-    if (!story || !story.medium_url) {
-        showToast('Story has no Medium URL', 'error');
-        return;
-    }
+function createStatCard(label, value, bgClass, textClass = 'text-white') {
+    const col = document.createElement('div');
+    col.className = 'col-4';
     
-    const postId = extractPostIdFromUrl(story.medium_url);
-    if (!postId) {
-        showToast('Could not extract post ID', 'error');
-        return;
-    }
+    const card = document.createElement('div');
+    card.className = `card ${bgClass} ${textClass} p-2 text-center`;
+    
+    const small = document.createElement('small');
+    small.textContent = label;
+    
+    const h5 = document.createElement('h5');
+    h5.textContent = value;
+    
+    card.appendChild(small);
+    card.appendChild(h5);
+    col.appendChild(card);
+    
+    return col;
+}
+
+// ============================================
+// REFRESH STATS & SYNC
+// ============================================
+
+async function refreshStats() {
+    const period = getCurrentYearMonth();
+    if (!confirm(`Refresh stats from Medium for ${period}?`)) return;
     
     showLoading();
     try {
-        const response = await fetch(`${API_BASE}/stories/fetch-story-stats/${postId}/${yearmonth}`, { method: 'POST' });
+        const response = await fetch(`${API_BASE}/stories/refresh-stats/${period}`, { method: 'POST' });
         const data = await response.json();
+        
         if (response.ok && data.success) {
-            showToast(`Stats refreshed for ${yearmonth}`, 'success');
-            const [year, month] = yearmonth.split('-');
-            const identifier = story.medium_url || story.name;
-            await loadStoryIntoEditModal(identifier, parseInt(year), parseInt(month), story);
             await loadStories();
+            showToast(`Stats refreshed: ${data.new_stories} new, ${data.updated_stories} updated`, 'success');
         } else {
-            showToast('Error refreshing stats', 'error');
+            showToast('Error: ' + (data.message || 'Unknown error'), 'error');
         }
     } catch (error) {
         showToast('Error: ' + error.message, 'error');
@@ -716,53 +634,26 @@ async function refreshStoryStatsForMonth(encodedName, yearmonth) {
     }
 }
 
-async function refreshCurrentStoryStats() {
-    const mediumUrl = document.getElementById('editMediumUrl')?.value;
-    if (!mediumUrl) {
-        showToast('No Medium URL found', 'error');
-        return;
-    }
-    
-    const postId = extractPostIdFromUrl(mediumUrl);
-    if (!postId) {
-        showToast('Could not extract post ID', 'error');
-        return;
-    }
-    
-    const year = window.currentEditYear || new Date().getFullYear();
-    const month = window.currentEditMonth || new Date().getMonth() + 1;
-    const yearmonth = `${year}-${String(month).padStart(2, '0')}`;
-    
+async function syncStories() {
     showLoading();
     try {
-        const response = await fetch(`${API_BASE}/stories/fetch-story-stats/${postId}/${yearmonth}`, { method: 'POST' });
+        const response = await fetch(`${API_BASE}/stories/sync`, { method: 'POST' });
         const data = await response.json();
-        if (response.ok && data.success) {
-            const stats = data.stats.totals;
-            
-            document.getElementById('editMemberReads').value = stats.member_reads || 0;
-            document.getElementById('editNonMemberReads').value = stats.nonmember_reads || 0;
-            document.getElementById('editMemberViews').value = stats.member_views || 0;
-            document.getElementById('editNonMemberViews').value = stats.nonmember_views || 0;
-            document.getElementById('editClaps').value = stats.claps || 0;
-            document.getElementById('editResponses').value = stats.replies || 0;
-            document.getElementById('editNewFollowers').value = stats.new_followers || 0;
-            document.getElementById('editHighlights').value = stats.highlights || 0;
-            document.getElementById('editMediumEarnings').value = (stats.earnings || 0) / 1000000000;
-            
-            showToast(`Stats fetched for ${yearmonth}`, 'success');
+        if (response.ok) {
+            await loadStories();
+            showToast(`Sync completed: ${data.added || 0} added, ${data.updated || 0} updated`, 'success');
         } else {
-            showToast('Error refreshing stats', 'error');
+            showToast('Error syncing stories', 'error');
         }
     } catch (error) {
-        showToast('Error: ' + error.message, 'error');
+        showToast('Error syncing stories: ' + error.message, 'error');
     } finally {
         hideLoading();
     }
 }
 
 // ============================================
-// ADD STORY MODAL
+// ADD STORY
 // ============================================
 
 async function openAddStoryModal() {
@@ -773,40 +664,43 @@ async function openAddStoryModal() {
         if (seriesSelect && Array.isArray(seriesList)) {
             seriesSelect.innerHTML = '<option value="">None</option>';
             seriesList.forEach(s => {
-                seriesSelect.innerHTML += `<option value="${escapeHtml(s.name)}">${escapeHtml(s.name)}</option>`;
+                const option = document.createElement('option');
+                option.value = s.name;
+                option.textContent = s.name;
+                seriesSelect.appendChild(option);
             });
         }
     } catch (error) {
         console.error('Error loading series:', error);
     }
     
-    document.getElementById('addStoryName').value = '';
-    document.getElementById('addStoryTags').value = '';
+    document.getElementById('addStoryTitle').value = '';
     document.getElementById('addStoryCreatedDate').value = getTodayDate();
-    document.getElementById('addStoryReadTime').value = '';
-    document.getElementById('addStoryPublishedDate').value = '';
     document.getElementById('addStoryMediumUrl').value = '';
-    document.getElementById('addStoryPublication').value = '';
     
-    new bootstrap.Modal(document.getElementById('addStoryModal')).show();
+    const modalEl = document.getElementById('addStoryModal');
+    if (modalEl) {
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+    }
 }
 
 async function createStory() {
-    const name = document.getElementById('addStoryName')?.value.trim();
-    if (!name) {
-        showToast('Story name is required', 'error');
+    const title = document.getElementById('addStoryTitle')?.value.trim();
+    if (!title) {
+        showToast('Story title is required', 'error');
         return;
     }
     
+    const uniqueSlug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s]+/g, '-').replace(/-+/g, '-').substring(0, 100);
+    
     const data = {
-        name: name,
+        uniqueSlug: uniqueSlug,
+        title: title,
+        folder: document.getElementById('addStorySeries')?.value || null,
         series: document.getElementById('addStorySeries')?.value || null,
-        tags: document.getElementById('addStoryTags')?.value.split(',').map(t => t.trim()).filter(t => t),
-        read_time: parseInt(document.getElementById('addStoryReadTime')?.value) || null,
-        created_date: document.getElementById('addStoryCreatedDate')?.value || getTodayDate(),
-        published_date: document.getElementById('addStoryPublishedDate')?.value || null,
-        medium_url: document.getElementById('addStoryMediumUrl')?.value || null,
-        medium_publication: document.getElementById('addStoryPublication')?.value || null
+        createdDate: document.getElementById('addStoryCreatedDate')?.value || getTodayDate(),
+        medium_url: document.getElementById('addStoryMediumUrl')?.value || null
     };
     
     showLoading();
@@ -818,8 +712,8 @@ async function createStory() {
         });
         
         if (response.ok) {
-            bootstrap.Modal.getInstance(document.getElementById('addStoryModal'))?.hide();
-            await loadAllSeriesNames();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addStoryModal'));
+            if (modal) modal.hide();
             await loadStories();
             showToast('Story created', 'success');
         } else {
@@ -834,90 +728,30 @@ async function createStory() {
 }
 
 // ============================================
-// SYNC AND LEADERBOARD
-// ============================================
-
-async function syncStories() {
-    showLoading();
-    try {
-        const response = await fetch(`${API_BASE}/stories/sync`, { method: 'POST' });
-        const data = await response.json();
-        if (response.ok) {
-            showToast(`Sync completed: ${data.added || 0} added`, 'success');
-            await loadAllSeriesNames();
-            await loadStories();
-        }
-    } catch (error) {
-        showToast('Error syncing stories', 'error');
-    } finally {
-        hideLoading();
-    }
-}
-
-async function updateLeaderboardStats() {
-    const yearmonth = currentMonth === 'all' ? getCurrentYearMonth() : currentMonth;
-    if (!confirm(`Fetch leaderboard stats for ${yearmonth}?`)) return;
-    
-    showLoading();
-    try {
-        const response = await fetch(`${API_BASE}/stories/fetch-leaderboard-stats/${yearmonth}`, { method: 'POST' });
-        if (response.ok) {
-            showToast('Leaderboard stats updated', 'success');
-            await loadStories();
-        }
-    } catch (error) {
-        showToast('Error updating leaderboard', 'error');
-    } finally {
-        hideLoading();
-    }
-}
-
-// ============================================
-// DASHBOARD STATS
-// ============================================
-
-function updateDashboardStats() {
-    const elements = {
-        totalCount: allStories.length,
-        publishedCount: allStories.filter(s => s.status === 'Published').length,
-        readyCount: allStories.filter(s => s.status === 'Ready').length,
-        draftCount: allStories.filter(s => s.status === 'Draft').length,
-        doneCount: allStories.filter(s => s.status === 'Done').length,
-        bookmarkedCount: allStories.filter(s => s.bookmarked === true).length,
-        leaderboardStoryCount: allStories.filter(s => s.leaderboard === true).length
-    };
-    
-    for (const [id, value] of Object.entries(elements)) {
-        const el = document.getElementById(id);
-        if (el) el.textContent = value;
-    }
-}
-
-// ============================================
 // INITIALIZATION
 // ============================================
 
-document.addEventListener('DOMContentLoaded', async () => {
-    await loadMonths();
+document.addEventListener('DOMContentLoaded', () => {
+    loadStories();
+    
+    document.getElementById('statusFilter')?.addEventListener('change', applyFilters);
+    document.getElementById('seriesFilter')?.addEventListener('change', applyFilters);
+    document.getElementById('searchFilter')?.addEventListener('keyup', applyFilters);
+    document.getElementById('bookmarkFilter')?.addEventListener('change', applyFilters);
+    document.getElementById('leaderboardFilter')?.addEventListener('change', applyFilters);
     
     document.getElementById('addStoryCreateBtn')?.addEventListener('click', createStory);
     document.getElementById('saveStoryEditBtn')?.addEventListener('click', saveStoryEdit);
-    document.getElementById('syncStoriesBtn')?.addEventListener('click', syncStories);
 });
 
-// Make functions globally available
 window.sortStories = sortStories;
 window.applyFilters = applyFilters;
 window.clearFilters = clearFilters;
-window.openEditModal = openEditModal;
-window.openStatsModal = openStatsModal;
-window.onMonthChange = onMonthChange;
-window.openAddStoryModal = openAddStoryModal;
-window.updateLeaderboardStats = updateLeaderboardStats;
-window.saveStoryEdit = saveStoryEdit;
+window.filterBySeries = filterBySeries;
 window.toggleBookmark = toggleBookmark;
 window.toggleLeaderboard = toggleLeaderboard;
-window.deleteStory = deleteStory;
-window.refreshCurrentStoryStats = refreshCurrentStoryStats;
-window.refreshStoryStatsForMonth = refreshStoryStatsForMonth;
+window.openEditStory = openEditStory;
+window.showStatsDashboard = showStatsDashboard;
+window.refreshStats = refreshStats;
 window.syncStories = syncStories;
+window.openAddStoryModal = openAddStoryModal;

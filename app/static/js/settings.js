@@ -150,3 +150,34 @@ document.addEventListener('DOMContentLoaded', () => {
         saveSettings();
     });
 });
+
+// Add to settings.js
+
+async function refreshStats() {
+    const period = getCurrentYearMonth();
+    if (!confirm(`Refresh stats from Medium for ${period}?`)) return;
+    
+    const btn = event?.target?.closest('button');
+    const originalText = btn ? btn.innerHTML : 'Refreshing...';
+    if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>'; }
+    
+    showLoading();
+    try {
+        const response = await fetch(`${API_BASE}/stories/refresh-stats/${period}`, { method: 'POST' });
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+            showToast(`Stats refreshed: ${data.new_stories} new, ${data.updated_stories} updated`, 'success');
+        } else {
+            showToast('Error: ' + (data.message || 'Unknown error'), 'error');
+        }
+    } catch (error) {
+        showToast('Error: ' + error.message, 'error');
+    } finally {
+        hideLoading();
+        if (btn) { btn.disabled = false; btn.innerHTML = originalText; }
+    }
+}
+
+
+window.refreshStats = refreshStats;

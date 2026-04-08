@@ -93,18 +93,21 @@ curl -X GET "http://localhost:8000/api/series/SOLID%20Principles" | jq '.'
 async def get_series(series_name: str):
     """Get a single series"""
     try:
+        from urllib.parse import unquote
+        decoded_name = unquote(series_name)
+        
         data = await load_stories_data()
         series_data = data.get("series", {})
         
-        if series_name not in series_data:
+        if decoded_name not in series_data:
             raise HTTPException(status_code=404, detail="Series not found")
         
         settings = data.get("calendar_settings", {})
         default_spacing = settings.get("series_spacing_days", 7)
-        info = series_data[series_name]
+        info = series_data[decoded_name]
         
         return SeriesResponse(
-            name=series_name,
+            name=decoded_name,
             total_stories=info.get("total_stories", 0),
             published=info.get("published", 0),
             spacing_days=info.get("spacing_days", default_spacing),
@@ -173,16 +176,19 @@ curl -X PUT "http://localhost:8000/api/series/Python%20Tutorials" \
 async def update_series(series_name: str, update_data: SeriesUpdate):
     """Update a series (rename or change spacing)"""
     try:
+        from urllib.parse import unquote
+        decoded_name = unquote(series_name)
+        
         data = await load_stories_data()
         series = data.get("series", {})
         stories = data.get("stories", {})
         
-        if series_name not in series:
+        if decoded_name not in series:
             raise HTTPException(status_code=404, detail="Series not found")
         
         if update_data.name:
             new_name = update_data.name.strip()
-            old_name = series_name
+            old_name = decoded_name
             
             if new_name == old_name:
                 pass
@@ -192,14 +198,15 @@ async def update_series(series_name: str, update_data: SeriesUpdate):
                 series[new_name] = series.pop(old_name)
                 series[new_name]["name"] = new_name
                 
+                # Update series name in all stories
                 for story_key in series[new_name]["stories"]:
                     if story_key in stories:
                         stories[story_key]["series"] = new_name
                 
-                series_name = new_name
+                decoded_name = new_name
         
         if update_data.spacing_days:
-            series[series_name]["spacing_days"] = update_data.spacing_days
+            series[decoded_name]["spacing_days"] = update_data.spacing_days
         
         data["stories"] = stories
         data["series"] = series
@@ -208,10 +215,10 @@ async def update_series(series_name: str, update_data: SeriesUpdate):
         
         settings = data.get("calendar_settings", {})
         default_spacing = settings.get("series_spacing_days", 7)
-        info = series[series_name]
+        info = series[decoded_name]
         
         return SeriesResponse(
-            name=series_name,
+            name=decoded_name,
             total_stories=info.get("total_stories", 0),
             published=info.get("published", 0),
             spacing_days=info.get("spacing_days", default_spacing),
@@ -234,27 +241,179 @@ curl -X DELETE "http://localhost:8000/api/series/Python%20Tutorials" | jq '.'
 async def delete_series(series_name: str):
     """Delete a series"""
     try:
+        from urllib.parse import unquote
+        decoded_name = unquote(series_name)
+        
         data = await load_stories_data()
         series = data.get("series", {})
         
-        if series_name not in series:
+        if decoded_name not in series:
             raise HTTPException(status_code=404, detail="Series not found")
         
         stories = data.get("stories", {})
-        for story_key in series[series_name].get("stories", []):
+        
+        # Remove series association from all stories in this series
+        for story_key in series[decoded_name].get("stories", []):
             if story_key in stories:
                 stories[story_key]["series"] = None
         
-        del series[series_name]
+        # Delete the series
+        del series[decoded_name]
         
         data["stories"] = stories
         data["series"] = series
         
         await save_stories_data(data)
         
-        return {"message": f"Series '{series_name}' deleted successfully"}
+        return {"message": f"Series '{decoded_name}' deleted successfully", "success": True}
     except HTTPException:
         raise
     except Exception as e:
         logger.error(f"Delete series error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+GET /api/series/{series_name}/stories
+Description: Get all stories in a series
+
+curl -X GET "http://localhost:8000/api/series/Python%20Tutorials/stories" | jq '.'
+"""
+@router.get("/{series_name}/stories")
+async def get_series_stories(series_name: str):
+    """Get all stories in a series"""
+    try:
+        from urllib.parse import unquote
+        decoded_name = unquote(series_name)
+        
+        data = await load_stories_data()
+        series = data.get("series", {})
+        
+        if decoded_name not in series:
+            raise HTTPException(status_code=404, detail="Series not found")
+        
+        story_keys = series[decoded_name].get("stories", [])
+        all_stories = data.get("stories", {})
+        
+        stories = []
+        for key in story_keys:
+            if key in all_stories:
+                story = all_stories[key]
+                # Extract part number from title
+                part_number = parse_series_number(story.get("name", story.get("title", "")))
+                
+                stories.append({
+                    "key": key,
+                    "name": story.get("name", story.get("title", key)),
+                    "status": story.get("status", "Draft"),
+                    "published_date": story.get("publishedDate"),
+                    "created_date": story.get("createdDate"),
+                    "part": part_number,
+                    "read_time": story.get("read_time", story.get("medium_reading_time", 0)),
+                    "word_count": story.get("word_count", 0)
+                })
+        
+        # Sort by part number
+        stories.sort(key=lambda x: x.get("part", 999))
+        
+        return {
+            "series_name": decoded_name,
+            "total_stories": len(stories),
+            "published_count": sum(1 for s in stories if s["status"] == "Published"),
+            "stories": stories
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting series stories: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+POST /api/series/{series_name}/reorder
+Description: Reorder stories in a series
+
+curl -X POST "http://localhost:8000/api/series/Python%20Tutorials/reorder" \
+  -H "Content-Type: application/json" \
+  -d '{"story_order": ["key1", "key2", "key3"]}' | jq '.'
+"""
+@router.post("/{series_name}/reorder")
+async def reorder_series_stories(series_name: str, order_data: Dict[str, List[str]]):
+    """Reorder stories in a series"""
+    try:
+        from urllib.parse import unquote
+        decoded_name = unquote(series_name)
+        
+        data = await load_stories_data()
+        series = data.get("series", {})
+        
+        if decoded_name not in series:
+            raise HTTPException(status_code=404, detail="Series not found")
+        
+        new_order = order_data.get("story_order", [])
+        current_stories = series[decoded_name].get("stories", [])
+        
+        # Validate that all stories in new_order exist in current_stories
+        if set(new_order) != set(current_stories):
+            raise HTTPException(status_code=400, detail="Story order does not match existing stories")
+        
+        # Update the order
+        series[decoded_name]["stories"] = new_order
+        data["series"] = series
+        
+        await save_stories_data(data)
+        
+        return {
+            "message": f"Series '{decoded_name}' reordered successfully",
+            "story_order": new_order,
+            "total_stories": len(new_order)
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error reordering series: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+GET /api/series/stats
+Description: Get overall series statistics
+
+curl -X GET "http://localhost:8000/api/series/stats" | jq '.'
+"""
+@router.get("/stats")
+async def get_series_stats():
+    """Get overall series statistics"""
+    try:
+        data = await load_stories_data()
+        series_data = data.get("series", {})
+        
+        total_series = len(series_data)
+        total_stories_in_series = 0
+        total_published_in_series = 0
+        
+        for series_name, info in series_data.items():
+            total_stories_in_series += info.get("total_stories", 0)
+            total_published_in_series += info.get("published", 0)
+        
+        # Count standalone stories (not in any series)
+        stories = data.get("stories", {})
+        standalone_count = 0
+        for story_key, story in stories.items():
+            if not story.get("series"):
+                standalone_count += 1
+        
+        return {
+            "total_series": total_series,
+            "total_stories_in_series": total_stories_in_series,
+            "total_published_in_series": total_published_in_series,
+            "standalone_stories": standalone_count,
+            "average_series_size": round(total_stories_in_series / max(total_series, 1), 1),
+            "completion_rate": round((total_published_in_series / max(total_stories_in_series, 1)) * 100, 1)
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting series stats: {e}")
         raise HTTPException(status_code=500, detail=str(e))

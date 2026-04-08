@@ -37,31 +37,35 @@
         </div>
     </div>
     
-    <div class="col-md-6">
-        <div class="card mb-3">
-            <div class="card-header">
-                <h6>System</h6>
-            </div>
-            <div class="card-body">
-                <p><strong>Stories Root:</strong> <span id="storiesRoot"></span></p>
-                <p><strong>Data Directory:</strong> <span id="dataDir"></span></p>
-                <hr>
-                <button class="btn btn-sm btn-primary" onclick="syncStories()">
-                    <i class="bi bi-arrow-repeat"></i> Sync Files
-                </button>
-                <button class="btn btn-sm btn-secondary ms-2" onclick="generateCalendar()">
-                    <i class="bi bi-calendar"></i> Generate Calendar
-                </button>
-                <hr>
-                <div class="alert alert-warning small">
-                    <i class="bi bi-exclamation-triangle"></i> This will overwrite all monthly data with values from leaderboard JSON files.
-                </div>
-                <button class="btn btn-sm btn-danger w-100" onclick="importAllLeaderboard()">
-                    <i class="bi bi-cloud-upload"></i> Import All Leaderboard Data
-                </button>
-            </div>
-        </div>
+<!-- Update the System card -->
+<div class="card mb-3">
+    <div class="card-header">
+        <h6>System</h6>
     </div>
+    <div class="card-body">
+        <p><strong>Stories Root:</strong> <span id="storiesRoot"></span></p>
+        <p><strong>Data Directory:</strong> <span id="dataDir"></span></p>
+        <hr>
+        <div class="btn-group mb-2" role="group">
+            <button class="btn btn-sm btn-info" onclick="refreshStats()">
+                <i class="bi bi-cloud-download"></i> Refresh Stats from Medium
+            </button>        </div>
+        <br>
+        <button class="btn btn-sm btn-primary mt-2" onclick="syncStories()">
+            <i class="bi bi-arrow-repeat"></i> Sync Files
+        </button>
+        <button class="btn btn-sm btn-secondary mt-2" onclick="generateCalendar()">
+            <i class="bi bi-calendar"></i> Generate Calendar
+        </button>
+        <hr>
+        <div class="alert alert-warning small">
+            <i class="bi bi-exclamation-triangle"></i> This will overwrite all monthly data with values from leaderboard JSON files.
+        </div>
+        <button class="btn btn-sm btn-danger w-100" onclick="importAllLeaderboard()">
+            <i class="bi bi-cloud-upload"></i> Import All Leaderboard Data
+        </button>
+    </div>
+</div>
 </div>
 {% endblock %}
 

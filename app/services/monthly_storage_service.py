@@ -48,7 +48,7 @@ class MonthlyStorageService:
                             "file_path": str(file_path),
                             "exists": True
                         })
-                    except:
+                    except (ValueError, TypeError):
                         pass
         
         months.sort(key=lambda x: (x["year"], x["month"]), reverse=True)
@@ -80,7 +80,6 @@ class MonthlyStorageService:
         
         return default_data
     
-
     @staticmethod
     async def save_monthly_stats(year: int, month: int, data: Dict[str, Any]) -> bool:
         """Save monthly stats for a specific month"""
@@ -201,30 +200,134 @@ class MonthlyStorageService:
                 result.append({
                     "year": month_info["year"],
                     "month": month_info["month"],
+                    "yearmonth": f"{month_info['year']}-{month_info['month']:02d}",
                     "display": month_info["display"],
                     "has_data": True,
-                    "leaderboard": stats.get("leaderboard", False)
+                    "leaderboard": stats.get("leaderboard", False),
+                    "reads": stats.get("reads", 0),
+                    "views": stats.get("view_count", 0),
+                    "claps": stats.get("claps", 0),
+                    "responses": stats.get("responses", 0),
+                    "member_reads": stats.get("medium_member_reads", 0),
+                    "member_views": stats.get("medium_member_views", 0),
+                    "medium_earnings": stats.get("medium_earnings", 0)
                 })
             else:
                 result.append({
                     "year": month_info["year"],
                     "month": month_info["month"],
+                    "yearmonth": f"{month_info['year']}-{month_info['month']:02d}",
                     "display": month_info["display"],
                     "has_data": False,
-                    "leaderboard": False
+                    "leaderboard": False,
+                    "reads": 0,
+                    "views": 0,
+                    "claps": 0,
+                    "responses": 0,
+                    "member_reads": 0,
+                    "member_views": 0,
+                    "medium_earnings": 0
                 })
         
+        # Sort by year/month descending (most recent first)
+        result.sort(key=lambda x: (x["year"], x["month"]), reverse=True)
         return result
-
-@staticmethod
-async def delete_story_from_month(story_key: str, year: int, month: int) -> bool:
-    """Remove a story from a monthly file"""
-    try:
+    
+    @staticmethod
+    async def batch_update_monthly_stats(
+        updates: Dict[str, Dict[str, Any]],
+        year: int,
+        month: int
+    ) -> Dict[str, bool]:
+        """Update multiple stories' monthly stats in one operation"""
+        results = {}
+        try:
+            data = await MonthlyStorageService.load_monthly_stats(year, month)
+            
+            for story_key, stats_data in updates.items():
+                if story_key not in data["stories"]:
+                    data["stories"][story_key] = {}
+                
+                for key, value in stats_data.items():
+                    if value is not None:
+                        data["stories"][story_key][key] = value
+                
+                data["stories"][story_key]["last_stats_update"] = datetime.now().isoformat()
+                results[story_key] = True
+            
+            success = await MonthlyStorageService.save_monthly_stats(year, month, data)
+            if not success:
+                return {k: False for k in updates.keys()}
+            
+            return results
+        except Exception as e:
+            logger.error(f"Error batch updating monthly stats: {e}")
+            return {k: False for k in updates.keys()}
+    
+    @staticmethod
+    async def get_monthly_summary(year: int, month: int) -> Dict[str, Any]:
+        """Get summary statistics for a specific month"""
         data = await MonthlyStorageService.load_monthly_stats(year, month)
-        if story_key in data["stories"]:
-            del data["stories"][story_key]
-            return await MonthlyStorageService.save_monthly_stats(year, month, data)
-        return True
-    except Exception as e:
-        logger.error(f"Error deleting story from month: {e}")
-        return False
+        stories = data.get("stories", {})
+        
+        total_reads = 0
+        total_views = 0
+        total_claps = 0
+        total_earnings = 0
+        leaderboard_count = 0
+        
+        for story_key, story_stats in stories.items():
+            total_reads += story_stats.get("reads", 0)
+            total_views += story_stats.get("view_count", 0)
+            total_claps += story_stats.get("claps", 0)
+            total_earnings += story_stats.get("medium_earnings", 0)
+            if story_stats.get("leaderboard", False):
+                leaderboard_count += 1
+        
+        return {
+            "year": year,
+            "month": month,
+            "display": datetime(year, month, 1).strftime("%B %Y"),
+            "total_stories": len(stories),
+            "total_reads": total_reads,
+            "total_views": total_views,
+            "total_claps": total_claps,
+            "total_earnings": total_earnings,
+            "total_earnings_formatted": f"${total_earnings / 1000000000:.2f}",
+            "leaderboard_count": leaderboard_count,
+            "last_updated": data.get("last_updated")
+        }
+    
+    @staticmethod
+    async def delete_month(year: int, month: int) -> bool:
+        """Delete a monthly stats file entirely"""
+        try:
+            file_path = MonthlyStorageService.get_monthly_stats_path(year, month)
+            if file_path.exists():
+                file_path.unlink()
+                logger.info(f"Deleted monthly stats for {year}-{month:02d}")
+                return True
+            return False
+        except Exception as e:
+            logger.error(f"Error deleting monthly stats for {year}-{month:02d}: {e}")
+            return False
+    
+    @staticmethod
+    async def copy_monthly_stats(
+        source_year: int,
+        source_month: int,
+        target_year: int,
+        target_month: int
+    ) -> bool:
+        """Copy monthly stats from one month to another"""
+        try:
+            source_data = await MonthlyStorageService.load_monthly_stats(source_year, source_month)
+            
+            # Update month identifier
+            source_data["month"] = f"{target_year}-{target_month:02d}"
+            source_data["last_updated"] = datetime.now().isoformat()
+            
+            return await MonthlyStorageService.save_monthly_stats(target_year, target_month, source_data)
+        except Exception as e:
+            logger.error(f"Error copying monthly stats: {e}")
+            return False

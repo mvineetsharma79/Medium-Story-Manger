@@ -1,1 +1,3463 @@
-[{"data":{"userResult":{"id":"6a63927f9b83","username":"mvineetsharma","name":"Vineet Sharma","postsConnection":{"edges":[{"node":{"id":"6b9276cf73a1","__typename":"Post","title":"Distinguishing Infrastructure & Domain Exceptions in .NET - Part 1","uniqueSlug":"distinguishing-infrastructure-exceptions-from-domain-exceptions-in-net-6b9276cf73a1","mediumUrl":"https://blog.devgenius.io/distinguishing-infrastructure-exceptions-from-domain-exceptions-in-net-6b9276cf73a1","createdAt":1771856773824,"updatedAt":1775619399261,"firstPublishedAt":1771863180772,"totalStats":{"presentations":360,"views":89,"reads":36,"__typename":"SummaryPostStat"},"readingTime":10.169811320754716,"wordCount":2642,"clapCount":4,"responsesCount":2,"voterCount":2,"isLocked":true,"visibility":"LOCKED","isSeries":false,"isShortform":false,"firstBoostedAt":null,"license":"ALL_RIGHTS_RESERVED","tags":[{"id":"dotnet-10"},{"id":"clean-architecture"},{"id":"exception-handling"},{"id":"domain-driven-design"},{"id":"software-architecture"}],"earnings":{"total":{"currencyCode":"USD","units":7,"nanos":950000000},"monthlyEarnings":{"currencyCode":"USD","units":7,"nanos":630000000}},"creator":{"id":"6a63927f9b83","username":"mvineetsharma","name":"Vineet Sharma","bio":"","imageId":"1*u0kG3U0iiFtJZ4gYQPH4xQ.png","twitterScreenName":"VineetSharmaIoT","createdAt":1525616278734},"collection":{"id":"4e2c1156667e","name":"Dev Genius","slug":"dev-genius","domain":"blog.devgenius.io","subscriberCount":31450,"createdAt":0}},"cursor":"6b9276cf73a1"},{"node":{"id":"40793d1e9f2b","__typename":"Post","title":"Achieving 10x Faster Serialization in .NET Core","uniqueSlug":"achieving-10x-faster-serialization-in-net-core-40793d1e9f2b","mediumUrl":"https://mvineetsharma.medium.com/achieving-10x-faster-serialization-in-net-core-40793d1e9f2b","createdAt":1746023966663,"updatedAt":1774457499576,"firstPublishedAt":1746026444668,"totalStats":{"presentations":7945,"views":3808,"reads":2153,"__typename":"SummaryPostStat"},"readingTime":4.8437106918239,"wordCount":1182,"clapCount":51,"responsesCount":1,"voterCount":31,"isLocked":true,"visibility":"LOCKED","isSeries":false,"isShortform":false,"firstBoostedAt":null,"license":"ALL_RIGHTS_RESERVED","tags":[{"id":"serialization"},{"id":"fast"},{"id":"messagepack"},{"id":"benchmarkdotnet"},{"id":"net-core"}],"earnings":{"total":{"currencyCode":"USD","units":9,"nanos":460000000},"monthlyEarnings":{"currencyCode":"USD","units":5,"nanos":710000000}},"creator":{"id":"6a63927f9b83","username":"mvineetsharma","name":"Vineet Sharma","bio":"","imageId":"1*u0kG3U0iiFtJZ4gYQPH4xQ.png","twitterScreenName":"VineetSharmaIoT","createdAt":1525616278734},"collection":null},"cursor":"40793d1e9f2b"}],"pageInfo":{"endCursor":"2","hasNextPage":true}}}}}]
+[
+    {
+        "data": {
+            "userResult": {
+                "id": "6a63927f9b83",
+                "username": "mvineetsharma",
+                "name": "Vineet Sharma",
+                "postsConnection": {
+                    "edges": [
+                        {
+                            "node": {
+                                "id": "6b9276cf73a1",
+                                "__typename": "Post",
+                                "title": "Distinguishing Infrastructure & Domain Exceptions in .NET - Part 1",
+                                "uniqueSlug": "distinguishing-infrastructure-exceptions-from-domain-exceptions-in-net-6b9276cf73a1",
+                                "mediumUrl": "https://blog.devgenius.io/distinguishing-infrastructure-exceptions-from-domain-exceptions-in-net-6b9276cf73a1",
+                                "createdAt": 1771856773824,
+                                "updatedAt": 1775619399261,
+                                "firstPublishedAt": 1771863180772,
+                                "totalStats": {
+                                    "presentations": 361,
+                                    "views": 90,
+                                    "reads": 36,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 10.169811320754716,
+                                "wordCount": 2642,
+                                "clapCount": 4,
+                                "responsesCount": 2,
+                                "voterCount": 2,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "dotnet-10"
+                                    },
+                                    {
+                                        "id": "clean-architecture"
+                                    },
+                                    {
+                                        "id": "exception-handling"
+                                    },
+                                    {
+                                        "id": "domain-driven-design"
+                                    },
+                                    {
+                                        "id": "software-architecture"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 7,
+                                        "nanos": 950000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 7,
+                                        "nanos": 630000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "name": "Dev Genius",
+                                    "slug": "dev-genius",
+                                    "domain": "blog.devgenius.io",
+                                    "subscriberCount": 31451,
+                                    "createdAt": 0
+                                }
+                            },
+                            "cursor": "6b9276cf73a1"
+                        },
+                        {
+                            "node": {
+                                "id": "40793d1e9f2b",
+                                "__typename": "Post",
+                                "title": "Achieving 10x Faster Serialization in .NET Core",
+                                "uniqueSlug": "achieving-10x-faster-serialization-in-net-core-40793d1e9f2b",
+                                "mediumUrl": "https://mvineetsharma.medium.com/achieving-10x-faster-serialization-in-net-core-40793d1e9f2b",
+                                "createdAt": 1746023966663,
+                                "updatedAt": 1774457499576,
+                                "firstPublishedAt": 1746026444668,
+                                "totalStats": {
+                                    "presentations": 7945,
+                                    "views": 3816,
+                                    "reads": 2156,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 4.8437106918239,
+                                "wordCount": 1182,
+                                "clapCount": 51,
+                                "responsesCount": 1,
+                                "voterCount": 31,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "serialization"
+                                    },
+                                    {
+                                        "id": "fast"
+                                    },
+                                    {
+                                        "id": "messagepack"
+                                    },
+                                    {
+                                        "id": "benchmarkdotnet"
+                                    },
+                                    {
+                                        "id": "net-core"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 9,
+                                        "nanos": 460000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 5,
+                                        "nanos": 710000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "40793d1e9f2b"
+                        },
+                        {
+                            "node": {
+                                "id": "139f1dce67da",
+                                "__typename": "Post",
+                                "title": "Modernizing the Monolith: Migration Strategy & .NET 10 Architecture — Part 1",
+                                "uniqueSlug": "modernizing-the-monolith-migration-strategy-net-10-architecture-part-1-139f1dce67da",
+                                "mediumUrl": "https://blog.devgenius.io/modernizing-the-monolith-migration-strategy-net-10-architecture-part-1-139f1dce67da",
+                                "createdAt": 1772016908167,
+                                "updatedAt": 1774546848427,
+                                "firstPublishedAt": 1772020529781,
+                                "totalStats": {
+                                    "presentations": 804,
+                                    "views": 193,
+                                    "reads": 57,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 11.379559748427672,
+                                "wordCount": 2914,
+                                "clapCount": 3,
+                                "responsesCount": 1,
+                                "voterCount": 2,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "modernizing"
+                                    },
+                                    {
+                                        "id": "monolith"
+                                    },
+                                    {
+                                        "id": "cloud-migration-strategy"
+                                    },
+                                    {
+                                        "id": "net-10"
+                                    },
+                                    {
+                                        "id": "architecture"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 2,
+                                        "nanos": 630000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 2,
+                                        "nanos": 380000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "name": "Dev Genius",
+                                    "slug": "dev-genius",
+                                    "domain": "blog.devgenius.io",
+                                    "subscriberCount": 31451,
+                                    "createdAt": 0
+                                }
+                            },
+                            "cursor": "139f1dce67da"
+                        },
+                        {
+                            "node": {
+                                "id": "78cb972195da",
+                                "__typename": "Post",
+                                "title": "ASP.NET Core Filters Deep Dive: Building Maintainable Web APIs with .NET 10 and Reactive Extensions",
+                                "uniqueSlug": "asp-net-core-filters-deep-dive-building-maintainable-web-apis-with-net-10-and-reactive-extensions-78cb972195da",
+                                "mediumUrl": "https://mvineetsharma.medium.com/asp-net-core-filters-deep-dive-building-maintainable-web-apis-with-net-10-and-reactive-extensions-78cb972195da",
+                                "createdAt": 1774542876566,
+                                "updatedAt": 1774924887366,
+                                "firstPublishedAt": 1774594720011,
+                                "totalStats": {
+                                    "presentations": 2098,
+                                    "views": 285,
+                                    "reads": 125,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 21.256603773584903,
+                                "wordCount": 5262,
+                                "clapCount": 3,
+                                "responsesCount": 0,
+                                "voterCount": 3,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "resource-filters"
+                                    },
+                                    {
+                                        "id": "authorization-filers"
+                                    },
+                                    {
+                                        "id": "action-filters"
+                                    },
+                                    {
+                                        "id": "exception-filters"
+                                    },
+                                    {
+                                        "id": "aspnetcore"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 2,
+                                        "nanos": 20000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 1,
+                                        "nanos": 210000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "78cb972195da"
+                        },
+                        {
+                            "node": {
+                                "id": "44ba9ef608e4",
+                                "__typename": "Post",
+                                "title": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+                                "uniqueSlug": "tuning-connection-pools-for-a-10-000-rps-net-core-api-44ba9ef608e4",
+                                "mediumUrl": "https://blog.devgenius.io/tuning-connection-pools-for-a-10-000-rps-net-core-api-44ba9ef608e4",
+                                "createdAt": 1769104585716,
+                                "updatedAt": 1772012464271,
+                                "firstPublishedAt": 1769105832089,
+                                "totalStats": {
+                                    "presentations": 1755,
+                                    "views": 448,
+                                    "reads": 194,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 6.932075471698113,
+                                "wordCount": 1466,
+                                "clapCount": 6,
+                                "responsesCount": 3,
+                                "voterCount": 6,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "connection-pooling"
+                                    },
+                                    {
+                                        "id": "dot-net-core"
+                                    },
+                                    {
+                                        "id": "entity-framework-core"
+                                    },
+                                    {
+                                        "id": "high-performance"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 1,
+                                        "nanos": 210000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 740000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "name": "Dev Genius",
+                                    "slug": "dev-genius",
+                                    "domain": "blog.devgenius.io",
+                                    "subscriberCount": 31451,
+                                    "createdAt": 0
+                                }
+                            },
+                            "cursor": "44ba9ef608e4"
+                        },
+                        {
+                            "node": {
+                                "id": "3bc76ce78c56",
+                                "__typename": "Post",
+                                "title": "Why ASP.NET Core 10 Reactive Applications Fail in Production: Pitfalls & Solutions in Azure Cloud",
+                                "uniqueSlug": "why-asp-net-core-10-reactive-applications-fail-in-production-pitfalls-solutions-in-azure-cloud-3bc76ce78c56",
+                                "mediumUrl": "https://blog.devgenius.io/why-asp-net-core-10-reactive-applications-fail-in-production-pitfalls-solutions-in-azure-cloud-3bc76ce78c56",
+                                "createdAt": 1771095254432,
+                                "updatedAt": 1772044921535,
+                                "firstPublishedAt": 1771445268330,
+                                "totalStats": {
+                                    "presentations": 378,
+                                    "views": 79,
+                                    "reads": 21,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 23.73427672955975,
+                                "wordCount": 6188,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "aspnetcore"
+                                    },
+                                    {
+                                        "id": "dotnet"
+                                    },
+                                    {
+                                        "id": "azure"
+                                    },
+                                    {
+                                        "id": "devops"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 850000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 650000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "name": "Dev Genius",
+                                    "slug": "dev-genius",
+                                    "domain": "blog.devgenius.io",
+                                    "subscriberCount": 31451,
+                                    "createdAt": 0
+                                }
+                            },
+                            "cursor": "3bc76ce78c56"
+                        },
+                        {
+                            "node": {
+                                "id": "d5b09b962edc",
+                                "__typename": "Post",
+                                "title": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs — Part 1",
+                                "uniqueSlug": "architectural-remediation-framework-eliminating-the-12-silent-killers-in-net-10-web-apis-part-1-d5b09b962edc",
+                                "mediumUrl": "https://mvineetsharma.medium.com/architectural-remediation-framework-eliminating-the-12-silent-killers-in-net-10-web-apis-part-1-d5b09b962edc",
+                                "createdAt": 1774132688393,
+                                "updatedAt": 1774924883105,
+                                "firstPublishedAt": 1774204367126,
+                                "totalStats": {
+                                    "presentations": 1053,
+                                    "views": 135,
+                                    "reads": 74,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 28.254716981132077,
+                                "wordCount": 6931,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "observability"
+                                    },
+                                    {
+                                        "id": "asynchronous-programming"
+                                    },
+                                    {
+                                        "id": "exception-handling"
+                                    },
+                                    {
+                                        "id": "antipattern"
+                                    },
+                                    {
+                                        "id": "net10"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 1,
+                                        "nanos": 100000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 580000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "d5b09b962edc"
+                        },
+                        {
+                            "node": {
+                                "id": "6fa47bbb8e97",
+                                "__typename": "Post",
+                                "title": "Implementing Clean Architecture with Vertical Slice Architecture in .NET 8",
+                                "uniqueSlug": "implementing-clean-architecture-with-vertical-slice-architecture-in-net-8-6fa47bbb8e97",
+                                "mediumUrl": "https://mvineetsharma.medium.com/implementing-clean-architecture-with-vertical-slice-architecture-in-net-8-6fa47bbb8e97",
+                                "createdAt": 1770484111222,
+                                "updatedAt": 1771342844304,
+                                "firstPublishedAt": 1770630914549,
+                                "totalStats": {
+                                    "presentations": 1450,
+                                    "views": 362,
+                                    "reads": 115,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 14.877358490566039,
+                                "wordCount": 3545,
+                                "clapCount": 7,
+                                "responsesCount": 0,
+                                "voterCount": 4,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "clean-architecture"
+                                    },
+                                    {
+                                        "id": "vertical-scaling"
+                                    },
+                                    {
+                                        "id": "net8"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 1,
+                                        "nanos": 50000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 580000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "6fa47bbb8e97"
+                        },
+                        {
+                            "node": {
+                                "id": "13aae317b1c4",
+                                "__typename": "Post",
+                                "title": "10 Microservices Architecture Patterns: A Reference Architecture with .NET and Azure — Part 1",
+                                "uniqueSlug": "10-essential-microservices-architecture-patterns-a-professional-reference-architecture-with-net-13aae317b1c4",
+                                "mediumUrl": "https://mvineetsharma.medium.com/10-essential-microservices-architecture-patterns-a-professional-reference-architecture-with-net-13aae317b1c4",
+                                "createdAt": 1773700545643,
+                                "updatedAt": 1774924882980,
+                                "firstPublishedAt": 1773702853018,
+                                "totalStats": {
+                                    "presentations": 1004,
+                                    "views": 101,
+                                    "reads": 31,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 32.447169811320755,
+                                "wordCount": 8148,
+                                "clapCount": 2,
+                                "responsesCount": 0,
+                                "voterCount": 2,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "api-gateway"
+                                    },
+                                    {
+                                        "id": "service-discovery"
+                                    },
+                                    {
+                                        "id": "load-balancing"
+                                    },
+                                    {
+                                        "id": "circuit-breaker"
+                                    },
+                                    {
+                                        "id": "event-driven-architecture"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 520000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 400000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "13aae317b1c4"
+                        },
+                        {
+                            "node": {
+                                "id": "de5ed25bb135",
+                                "__typename": "Post",
+                                "title": "Zero to Production: .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
+                                "uniqueSlug": "zero-to-production-net-in-2026-35-lessons-on-how-to-master-the-stack-with-net-10-and-azure-de5ed25bb135",
+                                "mediumUrl": "https://mvineetsharma.medium.com/zero-to-production-net-in-2026-35-lessons-on-how-to-master-the-stack-with-net-10-and-azure-de5ed25bb135",
+                                "createdAt": 1772096187505,
+                                "updatedAt": 1772325691049,
+                                "firstPublishedAt": 1772107613162,
+                                "totalStats": {
+                                    "presentations": 905,
+                                    "views": 369,
+                                    "reads": 101,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 54.703773584905655,
+                                "wordCount": 13887,
+                                "clapCount": 3,
+                                "responsesCount": 0,
+                                "voterCount": 3,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "dotnet-10"
+                                    },
+                                    {
+                                        "id": "azure-devops"
+                                    },
+                                    {
+                                        "id": "docker"
+                                    },
+                                    {
+                                        "id": "opentelemetry"
+                                    },
+                                    {
+                                        "id": "design-patterns"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 1,
+                                        "nanos": 270000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 380000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "de5ed25bb135"
+                        },
+                        {
+                            "node": {
+                                "id": "2e8708034f9d",
+                                "__typename": "Post",
+                                "title": "ISO 8583 vs. REST APIs vs. UPI: Architecting Multi-Network Payment Systems in .NET 10",
+                                "uniqueSlug": "iso-8583-vs-rest-apis-vs-upi-architecting-multi-network-payment-systems-in-net-10-2e8708034f9d",
+                                "mediumUrl": "https://mvineetsharma.medium.com/iso-8583-vs-rest-apis-vs-upi-architecting-multi-network-payment-systems-in-net-10-2e8708034f9d",
+                                "createdAt": 1774362291420,
+                                "updatedAt": 1774924882265,
+                                "firstPublishedAt": 1774364464315,
+                                "totalStats": {
+                                    "presentations": 1022,
+                                    "views": 73,
+                                    "reads": 42,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 38.369811320754714,
+                                "wordCount": 9797,
+                                "clapCount": 2,
+                                "responsesCount": 1,
+                                "voterCount": 2,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "iso8583"
+                                    },
+                                    {
+                                        "id": "upi-payment"
+                                    },
+                                    {
+                                        "id": "rest-api"
+                                    },
+                                    {
+                                        "id": "payment-systems"
+                                    },
+                                    {
+                                        "id": "net10"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 580000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 330000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "2e8708034f9d"
+                        },
+                        {
+                            "node": {
+                                "id": "2262bed3cb6b",
+                                "__typename": "Post",
+                                "title": "Podman + Kubernetes in Production",
+                                "uniqueSlug": "podman-kubernetes-in-production-2262bed3cb6b",
+                                "mediumUrl": "https://mvineetsharma.medium.com/podman-kubernetes-in-production-2262bed3cb6b",
+                                "createdAt": 1768926257697,
+                                "updatedAt": 1771446973717,
+                                "firstPublishedAt": 1769006054626,
+                                "totalStats": {
+                                    "presentations": 1889,
+                                    "views": 382,
+                                    "reads": 127,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 4.465094339622642,
+                                "wordCount": 746,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "podman"
+                                    },
+                                    {
+                                        "id": "kubernetes-cluster"
+                                    },
+                                    {
+                                        "id": "container-orchestration"
+                                    },
+                                    {
+                                        "id": "docker"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 690000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 320000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "2262bed3cb6b"
+                        },
+                        {
+                            "node": {
+                                "id": "cb911daa7432",
+                                "__typename": "Post",
+                                "title": "Enterprise AI Architecture Part 1: The Foundation — User Access & Data Ingestion",
+                                "uniqueSlug": "enterprise-ai-architecture-part-1-the-foundation-user-access-data-ingestion-cb911daa7432",
+                                "mediumUrl": "https://mvineetsharma.medium.com/enterprise-ai-architecture-part-1-the-foundation-user-access-data-ingestion-cb911daa7432",
+                                "createdAt": 1773623274400,
+                                "updatedAt": 1774924882646,
+                                "firstPublishedAt": 1773648025537,
+                                "totalStats": {
+                                    "presentations": 673,
+                                    "views": 63,
+                                    "reads": 14,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 14.233962264150943,
+                                "wordCount": 3242,
+                                "clapCount": 1,
+                                "responsesCount": 0,
+                                "voterCount": 1,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "vector-database"
+                                    },
+                                    {
+                                        "id": "chunking"
+                                    },
+                                    {
+                                        "id": "artificial-intelligence"
+                                    },
+                                    {
+                                        "id": "oauth2"
+                                    },
+                                    {
+                                        "id": "rbac"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 290000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 290000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "cb911daa7432"
+                        },
+                        {
+                            "node": {
+                                "id": "6a2ab041d3d2",
+                                "__typename": "Post",
+                                "title": "Building Smarter AI: 16 RAG Approaches for Accuracy, Memory, and Reasoning",
+                                "uniqueSlug": "building-smarter-ai-16-rag-approaches-for-accuracy-memory-and-reasoning-6a2ab041d3d2",
+                                "mediumUrl": "https://mvineetsharma.medium.com/building-smarter-ai-16-rag-approaches-for-accuracy-memory-and-reasoning-6a2ab041d3d2",
+                                "createdAt": 1770658571899,
+                                "updatedAt": 1771321244255,
+                                "firstPublishedAt": 1770665707154,
+                                "totalStats": {
+                                    "presentations": 322,
+                                    "views": 126,
+                                    "reads": 29,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 18.124528301886794,
+                                "wordCount": 4379,
+                                "clapCount": 10,
+                                "responsesCount": 0,
+                                "voterCount": 3,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 340000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 260000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "6a2ab041d3d2"
+                        },
+                        {
+                            "node": {
+                                "id": "5f634ba7c57d",
+                                "__typename": "Post",
+                                "title": "Understanding appsettings.json in .NET Core — The Complete Guide — .Net 10 Update",
+                                "uniqueSlug": "understanding-appsettings-json-in-net-core-the-complete-guide-5f634ba7c57d",
+                                "mediumUrl": "https://mvineetsharma.medium.com/understanding-appsettings-json-in-net-core-the-complete-guide-5f634ba7c57d",
+                                "createdAt": 1746026768799,
+                                "updatedAt": 1772008861916,
+                                "firstPublishedAt": 1746028222887,
+                                "totalStats": {
+                                    "presentations": 4628,
+                                    "views": 4000,
+                                    "reads": 1898,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 7.730503144654088,
+                                "wordCount": 1947,
+                                "clapCount": 17,
+                                "responsesCount": 2,
+                                "voterCount": 4,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "net-core"
+                                    },
+                                    {
+                                        "id": "appsettings"
+                                    },
+                                    {
+                                        "id": "ioptionssnapshott"
+                                    },
+                                    {
+                                        "id": "ioptionsmonitort"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 450000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 240000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "5f634ba7c57d"
+                        },
+                        {
+                            "node": {
+                                "id": "4a95a66379bc",
+                                "__typename": "Post",
+                                "title": "Artificial Intelligence: From Basic Concepts to Agentic Systems — Hands-On Implementation Guide",
+                                "uniqueSlug": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide-4a95a66379bc",
+                                "mediumUrl": "https://mvineetsharma.medium.com/artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide-4a95a66379bc",
+                                "createdAt": 1772631079775,
+                                "updatedAt": 1774924883017,
+                                "firstPublishedAt": 1773391874627,
+                                "totalStats": {
+                                    "presentations": 420,
+                                    "views": 6,
+                                    "reads": 2,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 17.769182389937107,
+                                "wordCount": 4488,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "machine-learning"
+                                    },
+                                    {
+                                        "id": "deep-learning"
+                                    },
+                                    {
+                                        "id": "large-language-models"
+                                    },
+                                    {
+                                        "id": "agentic-system"
+                                    },
+                                    {
+                                        "id": "production-deployment"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 240000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 240000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "4a95a66379bc"
+                        },
+                        {
+                            "node": {
+                                "id": "edaddc513d44",
+                                "__typename": "Post",
+                                "title": ".NET Caching Playbook: 5 Powerful Strategies to Supercharge Your Apps",
+                                "uniqueSlug": "net-caching-playbook-5-powerful-strategies-to-supercharge-your-apps-edaddc513d44",
+                                "mediumUrl": "https://mvineetsharma.medium.com/net-caching-playbook-5-powerful-strategies-to-supercharge-your-apps-edaddc513d44",
+                                "createdAt": 1769799768031,
+                                "updatedAt": 1771404072065,
+                                "firstPublishedAt": 1769871760055,
+                                "totalStats": {
+                                    "presentations": 200,
+                                    "views": 69,
+                                    "reads": 24,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 6.960691823899372,
+                                "wordCount": 1743,
+                                "clapCount": 3,
+                                "responsesCount": 0,
+                                "voterCount": 2,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "output-caching"
+                                    },
+                                    {
+                                        "id": "response-caching"
+                                    },
+                                    {
+                                        "id": "caching"
+                                    },
+                                    {
+                                        "id": "distributed-cache"
+                                    },
+                                    {
+                                        "id": "in-memory-cache"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 230000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 230000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "edaddc513d44"
+                        },
+                        {
+                            "node": {
+                                "id": "86a423052120",
+                                "__typename": "Post",
+                                "title": "SQL Mechanic to Architect: CTEs, Window Functions, Query Optimization, and Scalable Patterns- Part…",
+                                "uniqueSlug": "sql-mechanic-to-architect-ctes-window-functions-query-optimization-and-scalable-patterns-part-1-86a423052120",
+                                "mediumUrl": "https://mvineetsharma.medium.com/sql-mechanic-to-architect-ctes-window-functions-query-optimization-and-scalable-patterns-part-1-86a423052120",
+                                "createdAt": 1774380923200,
+                                "updatedAt": 1774924885193,
+                                "firstPublishedAt": 1774522189526,
+                                "totalStats": {
+                                    "presentations": 1030,
+                                    "views": 15,
+                                    "reads": 6,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 26.983018867924528,
+                                "wordCount": 6753,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "cte"
+                                    },
+                                    {
+                                        "id": "window-functions"
+                                    },
+                                    {
+                                        "id": "reactive-programming"
+                                    },
+                                    {
+                                        "id": "debugging"
+                                    },
+                                    {
+                                        "id": "ms-sql-server"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 260000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 220000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "86a423052120"
+                        },
+                        {
+                            "node": {
+                                "id": "b333bde93940",
+                                "__typename": "Post",
+                                "title": "Distinguishing Infrastructure & Domain Exceptions in .NET 10: Result Pattern & Domain Exampl Part 2",
+                                "uniqueSlug": "distinguishing-infrastructure-domain-exceptions-in-net-b333bde93940",
+                                "mediumUrl": "https://blog.devgenius.io/distinguishing-infrastructure-domain-exceptions-in-net-b333bde93940",
+                                "createdAt": 1771857999364,
+                                "updatedAt": 1774453695397,
+                                "firstPublishedAt": 1771864882784,
+                                "totalStats": {
+                                    "presentations": 339,
+                                    "views": 67,
+                                    "reads": 30,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 41.841509433962266,
+                                "wordCount": 11035,
+                                "clapCount": 15,
+                                "responsesCount": 0,
+                                "voterCount": 2,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "dotnet-10"
+                                    },
+                                    {
+                                        "id": "clean-architecture"
+                                    },
+                                    {
+                                        "id": "software-architecture"
+                                    },
+                                    {
+                                        "id": "exception-handling"
+                                    },
+                                    {
+                                        "id": "domain-driven-design"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 430000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 190000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "name": "Dev Genius",
+                                    "slug": "dev-genius",
+                                    "domain": "blog.devgenius.io",
+                                    "subscriberCount": 31451,
+                                    "createdAt": 0
+                                }
+                            },
+                            "cursor": "b333bde93940"
+                        },
+                        {
+                            "node": {
+                                "id": "e77030c3517b",
+                                "__typename": "Post",
+                                "title": "AI From the Top Down: How Agentic Systems, Generative Models, and Symbolic Logic Build Intelligence",
+                                "uniqueSlug": "ai-from-the-top-down-how-agentic-systems-generative-models-and-symbolic-logic-build-intelligence-e77030c3517b",
+                                "mediumUrl": "https://mvineetsharma.medium.com/ai-from-the-top-down-how-agentic-systems-generative-models-and-symbolic-logic-build-intelligence-e77030c3517b",
+                                "createdAt": 1772555286256,
+                                "updatedAt": 1774924882943,
+                                "firstPublishedAt": 1772559776945,
+                                "totalStats": {
+                                    "presentations": 862,
+                                    "views": 41,
+                                    "reads": 4,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 24.526415094339622,
+                                "wordCount": 6155,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "artificial-intelligence"
+                                    },
+                                    {
+                                        "id": "machine-learning"
+                                    },
+                                    {
+                                        "id": "generative-ai-use-cases"
+                                    },
+                                    {
+                                        "id": "deep-learning"
+                                    },
+                                    {
+                                        "id": "software-architecure"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 180000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 180000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "e77030c3517b"
+                        },
+                        {
+                            "node": {
+                                "id": "1002bbb92d91",
+                                "__typename": "Post",
+                                "title": "ASP.NET Core Middleware: The Complete Guide to Building Robust Web Pipelines",
+                                "uniqueSlug": "asp-net-core-middleware-the-complete-guide-to-building-robust-web-pipelines-1002bbb92d91",
+                                "mediumUrl": "https://mvineetsharma.medium.com/asp-net-core-middleware-the-complete-guide-to-building-robust-web-pipelines-1002bbb92d91",
+                                "createdAt": 1770497481245,
+                                "updatedAt": 1771342846944,
+                                "firstPublishedAt": 1770566866274,
+                                "totalStats": {
+                                    "presentations": 4185,
+                                    "views": 393,
+                                    "reads": 76,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 31.52924528301887,
+                                "wordCount": 8077,
+                                "clapCount": 1,
+                                "responsesCount": 0,
+                                "voterCount": 1,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "aspnet-core-web-api"
+                                    },
+                                    {
+                                        "id": "middleware"
+                                    },
+                                    {
+                                        "id": "pipeline"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 280000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 180000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "1002bbb92d91"
+                        },
+                        {
+                            "node": {
+                                "id": "e387c8d21950",
+                                "__typename": "Post",
+                                "title": "SQL Mechanic to Data Architect: Advanced Queries, SPs & Scalable Systems — The Complete Journey",
+                                "uniqueSlug": "sql-mechanic-to-data-architect-advanced-queries-sps-scalable-systems-the-complete-journey-e387c8d21950",
+                                "mediumUrl": "https://mvineetsharma.medium.com/sql-mechanic-to-data-architect-advanced-queries-sps-scalable-systems-the-complete-journey-e387c8d21950",
+                                "createdAt": 1774380770401,
+                                "updatedAt": 1774924887330,
+                                "firstPublishedAt": 1774449334612,
+                                "totalStats": {
+                                    "presentations": 586,
+                                    "views": 14,
+                                    "reads": 7,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 4.039622641509434,
+                                "wordCount": 885,
+                                "clapCount": 1,
+                                "responsesCount": 1,
+                                "voterCount": 1,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "mssql"
+                                    },
+                                    {
+                                        "id": "advanced-querying"
+                                    },
+                                    {
+                                        "id": "views"
+                                    },
+                                    {
+                                        "id": "stored-procedure"
+                                    },
+                                    {
+                                        "id": "user-defined-functions"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 190000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 170000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "e387c8d21950"
+                        },
+                        {
+                            "node": {
+                                "id": "a5729bc7c74c",
+                                "__typename": "Post",
+                                "title": "Publishing .NET 10 Apps as Container Images: A Complete Guide to 9 Deployment Approaches — Azure",
+                                "uniqueSlug": "publishing-net-10-apps-as-container-images-a-complete-guide-to-9-deployment-approaches-azure-a5729bc7c74c",
+                                "mediumUrl": "https://mvineetsharma.medium.com/publishing-net-10-apps-as-container-images-a-complete-guide-to-9-deployment-approaches-azure-a5729bc7c74c",
+                                "createdAt": 1774912221541,
+                                "updatedAt": 1774920963577,
+                                "firstPublishedAt": 1774915867198,
+                                "totalStats": {
+                                    "presentations": 983,
+                                    "views": 143,
+                                    "reads": 52,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 20.566037735849054,
+                                "wordCount": 5132,
+                                "clapCount": 1,
+                                "responsesCount": 0,
+                                "voterCount": 1,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "azure-cloud"
+                                    },
+                                    {
+                                        "id": "net10"
+                                    },
+                                    {
+                                        "id": "deployment"
+                                    },
+                                    {
+                                        "id": "azure-devops"
+                                    },
+                                    {
+                                        "id": "containerization"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 780000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 170000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "a5729bc7c74c"
+                        },
+                        {
+                            "node": {
+                                "id": "1ff02f7934c8",
+                                "__typename": "Post",
+                                "title": "GitHub Copilot: The AI-Powered Development Ecosystem",
+                                "uniqueSlug": "github-copilot-the-ai-powered-development-ecosystem-1ff02f7934c8",
+                                "mediumUrl": "https://mvineetsharma.medium.com/github-copilot-the-ai-powered-development-ecosystem-1ff02f7934c8",
+                                "createdAt": 1774607400380,
+                                "updatedAt": 1775309791242,
+                                "firstPublishedAt": 1774609012584,
+                                "totalStats": {
+                                    "presentations": 1299,
+                                    "views": 123,
+                                    "reads": 43,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 13.586792452830188,
+                                "wordCount": 3415,
+                                "clapCount": 5,
+                                "responsesCount": 0,
+                                "voterCount": 3,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "github-copilot"
+                                    },
+                                    {
+                                        "id": "ai-pair-programming"
+                                    },
+                                    {
+                                        "id": "copilot-commands"
+                                    },
+                                    {
+                                        "id": "github-copilot-chat"
+                                    },
+                                    {
+                                        "id": "ai-code-generation"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 350000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 140000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "1ff02f7934c8"
+                        },
+                        {
+                            "node": {
+                                "id": "9fdfa3817e41",
+                                "__typename": "Post",
+                                "title": "12 Frameworks to Build MCP AI Agents",
+                                "uniqueSlug": "12-frameworks-to-build-mcp-ai-agents-9fdfa3817e41",
+                                "mediumUrl": "https://mvineetsharma.medium.com/12-frameworks-to-build-mcp-ai-agents-9fdfa3817e41",
+                                "createdAt": 1770892346114,
+                                "updatedAt": 1771321247843,
+                                "firstPublishedAt": 1771315974665,
+                                "totalStats": {
+                                    "presentations": 169,
+                                    "views": 20,
+                                    "reads": 11,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 6.378301886792452,
+                                "wordCount": 1147,
+                                "clapCount": 28,
+                                "responsesCount": 0,
+                                "voterCount": 1,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "artificial-intelligence"
+                                    },
+                                    {
+                                        "id": "openai"
+                                    },
+                                    {
+                                        "id": "devops"
+                                    },
+                                    {
+                                        "id": "cloud-architecture"
+                                    },
+                                    {
+                                        "id": "software-engineering"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 250000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 140000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "9fdfa3817e41"
+                        },
+                        {
+                            "node": {
+                                "id": "c1ce4f382b90",
+                                "__typename": "Post",
+                                "title": "Node.js API Frameworks: A Deep Dive into Express, Fastify, NestJS & Beyond",
+                                "uniqueSlug": "node-js-api-frameworks-a-deep-dive-into-express-fastify-nestjs-beyond-c1ce4f382b90",
+                                "mediumUrl": "https://mvineetsharma.medium.com/node-js-api-frameworks-a-deep-dive-into-express-fastify-nestjs-beyond-c1ce4f382b90",
+                                "createdAt": 1760784707413,
+                                "updatedAt": 1771446972768,
+                                "firstPublishedAt": 1760789028422,
+                                "totalStats": {
+                                    "presentations": 1735,
+                                    "views": 427,
+                                    "reads": 84,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 5.607547169811321,
+                                "wordCount": 1115,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "nodejs"
+                                    },
+                                    {
+                                        "id": "fastify"
+                                    },
+                                    {
+                                        "id": "nestjs"
+                                    },
+                                    {
+                                        "id": "expressjs"
+                                    },
+                                    {
+                                        "id": "api-development"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 130000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 130000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "c1ce4f382b90"
+                        },
+                        {
+                            "node": {
+                                "id": "e4f3080f4e6e",
+                                "__typename": "Post",
+                                "title": "SQL Performance Tips — Every Data Analyst Should Know",
+                                "uniqueSlug": "sql-performance-tips-every-data-analyst-should-know-e4f3080f4e6e",
+                                "mediumUrl": "https://mvineetsharma.medium.com/sql-performance-tips-every-data-analyst-should-know-e4f3080f4e6e",
+                                "createdAt": 1770771970937,
+                                "updatedAt": 1771720605087,
+                                "firstPublishedAt": 1771715410330,
+                                "totalStats": {
+                                    "presentations": 995,
+                                    "views": 147,
+                                    "reads": 25,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 5.550943396226415,
+                                "wordCount": 1418,
+                                "clapCount": 2,
+                                "responsesCount": 0,
+                                "voterCount": 2,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "sql-queries"
+                                    },
+                                    {
+                                        "id": "sql-analysis"
+                                    },
+                                    {
+                                        "id": "sql-performance"
+                                    },
+                                    {
+                                        "id": "sql-troubleshooting"
+                                    },
+                                    {
+                                        "id": "deadlock-prevention"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 270000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 130000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "e4f3080f4e6e"
+                        },
+                        {
+                            "node": {
+                                "id": "122c0607015c",
+                                "__typename": "Post",
+                                "title": "Handling Distributed Transactions for Payments in .NET Core Using Azure Service Bus Functions",
+                                "uniqueSlug": "handling-distributed-transactions-for-payments-in-net-core-using-azure-service-bus-functions-122c0607015c",
+                                "mediumUrl": "https://mvineetsharma.medium.com/handling-distributed-transactions-for-payments-in-net-core-using-azure-service-bus-functions-122c0607015c",
+                                "createdAt": 1734188256062,
+                                "updatedAt": 1774460435185,
+                                "firstPublishedAt": 1734246289223,
+                                "totalStats": {
+                                    "presentations": null,
+                                    "views": 454,
+                                    "reads": 267,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 4.10188679245283,
+                                "wordCount": 1087,
+                                "clapCount": 2,
+                                "responsesCount": 0,
+                                "voterCount": 1,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "net-core"
+                                    },
+                                    {
+                                        "id": "azure-service-bus"
+                                    },
+                                    {
+                                        "id": "distributed-tracing"
+                                    },
+                                    {
+                                        "id": "concurrency"
+                                    },
+                                    {
+                                        "id": "scalability"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 130000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 110000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "122c0607015c"
+                        },
+                        {
+                            "node": {
+                                "id": "16ed6be3b9ca",
+                                "__typename": "Post",
+                                "title": "Docker, Podman, and Kubernetes: From Containers to Cloud-Native Reality",
+                                "uniqueSlug": "docker-podman-and-kubernetes-from-containers-to-cloud-native-reality-16ed6be3b9ca",
+                                "mediumUrl": "https://mvineetsharma.medium.com/docker-podman-and-kubernetes-from-containers-to-cloud-native-reality-16ed6be3b9ca",
+                                "createdAt": 1768924917416,
+                                "updatedAt": 1771446971489,
+                                "firstPublishedAt": 1768926059386,
+                                "totalStats": {
+                                    "presentations": 506,
+                                    "views": 102,
+                                    "reads": 36,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 4.95566037735849,
+                                "wordCount": 929,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "docker"
+                                    },
+                                    {
+                                        "id": "kubernetes"
+                                    },
+                                    {
+                                        "id": "containerization"
+                                    },
+                                    {
+                                        "id": "podman-compose"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 160000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 100000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "16ed6be3b9ca"
+                        },
+                        {
+                            "node": {
+                                "id": "87c1f17914a3",
+                                "__typename": "Post",
+                                "title": "Enterprise AI Architecture: A Comprehensive Technical Blueprint — Introduction",
+                                "uniqueSlug": "enterprise-ai-architecture-a-comprehensive-technical-blueprint-introduction-87c1f17914a3",
+                                "mediumUrl": "https://blog.devgenius.io/enterprise-ai-architecture-a-comprehensive-technical-blueprint-introduction-87c1f17914a3",
+                                "createdAt": 1773589006480,
+                                "updatedAt": 1774269667449,
+                                "firstPublishedAt": 1773589652254,
+                                "totalStats": {
+                                    "presentations": 679,
+                                    "views": 112,
+                                    "reads": 37,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 6.195283018867924,
+                                "wordCount": 1496,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "ai-architecture"
+                                    },
+                                    {
+                                        "id": "rags"
+                                    },
+                                    {
+                                        "id": "embedding"
+                                    },
+                                    {
+                                        "id": "large-language-models"
+                                    },
+                                    {
+                                        "id": "ai-agent"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 120000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 90000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "name": "Dev Genius",
+                                    "slug": "dev-genius",
+                                    "domain": "blog.devgenius.io",
+                                    "subscriberCount": 31451,
+                                    "createdAt": 0
+                                }
+                            },
+                            "cursor": "87c1f17914a3"
+                        },
+                        {
+                            "node": {
+                                "id": "bcb892c4d2f1",
+                                "__typename": "Post",
+                                "title": "Progressive Data Loading in React: Building a High-Performance Trip Viewer",
+                                "uniqueSlug": "progressive-data-loading-in-react-building-a-high-performance-trip-viewer-bcb892c4d2f1",
+                                "mediumUrl": "https://mvineetsharma.medium.com/progressive-data-loading-in-react-building-a-high-performance-trip-viewer-bcb892c4d2f1",
+                                "createdAt": 1772144550382,
+                                "updatedAt": 1774924881097,
+                                "firstPublishedAt": 1772402092397,
+                                "totalStats": {
+                                    "presentations": 841,
+                                    "views": 17,
+                                    "reads": 3,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 9.105031446540881,
+                                "wordCount": 2192,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "dotnet-core"
+                                    },
+                                    {
+                                        "id": "reactjs"
+                                    },
+                                    {
+                                        "id": "progressive-web-app"
+                                    },
+                                    {
+                                        "id": "redux"
+                                    },
+                                    {
+                                        "id": "chartjs"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 80000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 80000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "bcb892c4d2f1"
+                        },
+                        {
+                            "node": {
+                                "id": "42b9798a855f",
+                                "__typename": "Post",
+                                "title": "Advancements in .NET 8, .NET 9, and .NET 10",
+                                "uniqueSlug": "advancements-in-net-8-net-9-and-net-10-42b9798a855f",
+                                "mediumUrl": "https://mvineetsharma.medium.com/advancements-in-net-8-net-9-and-net-10-42b9798a855f",
+                                "createdAt": 1767450392362,
+                                "updatedAt": 1771446972650,
+                                "firstPublishedAt": 1767637900715,
+                                "totalStats": {
+                                    "presentations": 294,
+                                    "views": 149,
+                                    "reads": 39,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 4.211320754716981,
+                                "wordCount": 1063,
+                                "clapCount": 2,
+                                "responsesCount": 0,
+                                "voterCount": 2,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "dot-net-core"
+                                    },
+                                    {
+                                        "id": "performance-reviews"
+                                    },
+                                    {
+                                        "id": "ai-first"
+                                    },
+                                    {
+                                        "id": "llm"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 80000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 80000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "42b9798a855f"
+                        },
+                        {
+                            "node": {
+                                "id": "2e1af1f7ecb0",
+                                "__typename": "Post",
+                                "title": ".NET 10 Is Here — A Complete Deep Dive into the Next Evolution of the Platform",
+                                "uniqueSlug": "net-10-is-here-a-complete-deep-dive-into-the-next-evolution-of-the-platform-2e1af1f7ecb0",
+                                "mediumUrl": "https://mvineetsharma.medium.com/net-10-is-here-a-complete-deep-dive-into-the-next-evolution-of-the-platform-2e1af1f7ecb0",
+                                "createdAt": 1771490393461,
+                                "updatedAt": 1771605604671,
+                                "firstPublishedAt": 1771600341848,
+                                "totalStats": {
+                                    "presentations": 314,
+                                    "views": 125,
+                                    "reads": 29,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 5.0625786163522015,
+                                "wordCount": 1240,
+                                "clapCount": 1,
+                                "responsesCount": 0,
+                                "voterCount": 1,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "azure"
+                                    },
+                                    {
+                                        "id": "net10"
+                                    },
+                                    {
+                                        "id": "cloud-migration"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 230000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 80000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "2e1af1f7ecb0"
+                        },
+                        {
+                            "node": {
+                                "id": "37c103009791",
+                                "__typename": "Post",
+                                "title": "Modernizing the Monolith: State, Async & Microservices Deep Dive — Part 2",
+                                "uniqueSlug": "modernizing-the-monolith-state-async-microservices-deep-dive-part-2-37c103009791",
+                                "mediumUrl": "https://blog.devgenius.io/modernizing-the-monolith-state-async-microservices-deep-dive-part-2-37c103009791",
+                                "createdAt": 1772020910724,
+                                "updatedAt": 1774924882412,
+                                "firstPublishedAt": 1773214173221,
+                                "totalStats": {
+                                    "presentations": 381,
+                                    "views": 33,
+                                    "reads": 7,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 37.22641509433963,
+                                "wordCount": 9812,
+                                "clapCount": 1,
+                                "responsesCount": 0,
+                                "voterCount": 1,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "monolithic-architecture"
+                                    },
+                                    {
+                                        "id": "microservice-architecture"
+                                    },
+                                    {
+                                        "id": "asynchronous"
+                                    },
+                                    {
+                                        "id": "react"
+                                    },
+                                    {
+                                        "id": "cloud-migration"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 70000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 70000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "name": "Dev Genius",
+                                    "slug": "dev-genius",
+                                    "domain": "blog.devgenius.io",
+                                    "subscriberCount": 31451,
+                                    "createdAt": 0
+                                }
+                            },
+                            "cursor": "37c103009791"
+                        },
+                        {
+                            "node": {
+                                "id": "bf2f4de8abda",
+                                "__typename": "Post",
+                                "title": "Modernizing the Monolith: Docker, CI/CD & Azure Cloud Deployment — Part 3",
+                                "uniqueSlug": "modernizing-the-monolith-docker-ci-cd-azure-cloud-deployment-part-3-bf2f4de8abda",
+                                "mediumUrl": "https://mvineetsharma.medium.com/modernizing-the-monolith-docker-ci-cd-azure-cloud-deployment-part-3-bf2f4de8abda",
+                                "createdAt": 1772024858954,
+                                "updatedAt": 1774924886228,
+                                "firstPublishedAt": 1773992926599,
+                                "totalStats": {
+                                    "presentations": 1170,
+                                    "views": 28,
+                                    "reads": 6,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 18.526415094339622,
+                                "wordCount": 4724,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "moderation"
+                                    },
+                                    {
+                                        "id": "azure-devops"
+                                    },
+                                    {
+                                        "id": "cicd"
+                                    },
+                                    {
+                                        "id": "docker"
+                                    },
+                                    {
+                                        "id": "kubernetes"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 70000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 70000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "bf2f4de8abda"
+                        },
+                        {
+                            "node": {
+                                "id": "d7b6d9f51f1c",
+                                "__typename": "Post",
+                                "title": "Building Fast and Well-Documented APIs Using FastEndpoints and Swagger in .NET",
+                                "uniqueSlug": "building-fast-and-well-documented-apis-using-fastendpoints-and-swagger-in-net-d7b6d9f51f1c",
+                                "mediumUrl": "https://mvineetsharma.medium.com/building-fast-and-well-documented-apis-using-fastendpoints-and-swagger-in-net-d7b6d9f51f1c",
+                                "createdAt": 1746960343387,
+                                "updatedAt": 1771724205198,
+                                "firstPublishedAt": 1746963798373,
+                                "totalStats": {
+                                    "presentations": 416,
+                                    "views": 914,
+                                    "reads": 352,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 6.2852201257861635,
+                                "wordCount": 1564,
+                                "clapCount": 8,
+                                "responsesCount": 0,
+                                "voterCount": 1,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "fastendpoints"
+                                    },
+                                    {
+                                        "id": "net-core"
+                                    },
+                                    {
+                                        "id": "fluent"
+                                    },
+                                    {
+                                        "id": "swagger"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 80000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 70000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "d7b6d9f51f1c"
+                        },
+                        {
+                            "node": {
+                                "id": "b8892fac6237",
+                                "__typename": "Post",
+                                "title": "Intelligent Routing for OpenAI, Anthropic, & Open-Source Models -Save 67%: Stop Hardcoding LLM",
+                                "uniqueSlug": "intelligent-routing-for-openai-anthropic-open-source-models-save-67-stop-hardcoding-llm-b8892fac6237",
+                                "mediumUrl": "https://mvineetsharma.medium.com/intelligent-routing-for-openai-anthropic-open-source-models-save-67-stop-hardcoding-llm-b8892fac6237",
+                                "createdAt": 1771917708949,
+                                "updatedAt": 1772062574212,
+                                "firstPublishedAt": 1772058146773,
+                                "totalStats": {
+                                    "presentations": 119,
+                                    "views": 40,
+                                    "reads": 6,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 23.904716981132076,
+                                "wordCount": 6083,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "anthropic-claude"
+                                    },
+                                    {
+                                        "id": "open-source-ai"
+                                    },
+                                    {
+                                        "id": "api-design"
+                                    },
+                                    {
+                                        "id": "scalable-systems"
+                                    },
+                                    {
+                                        "id": "llmops"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 70000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 70000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "b8892fac6237"
+                        },
+                        {
+                            "node": {
+                                "id": "004d3c1dfeb8",
+                                "__typename": "Post",
+                                "title": "Building a Modern Web App with Blazor and .NET Core API: A Step-by-Step Guide",
+                                "uniqueSlug": "building-a-modern-web-app-with-blazor-and-net-core-api-a-step-by-step-guide-004d3c1dfeb8",
+                                "mediumUrl": "https://blog.devgenius.io/building-a-modern-web-app-with-blazor-and-net-core-api-a-step-by-step-guide-004d3c1dfeb8",
+                                "createdAt": 1755797182690,
+                                "updatedAt": 1772192463018,
+                                "firstPublishedAt": 1755803354438,
+                                "totalStats": {
+                                    "presentations": 2738,
+                                    "views": 1627,
+                                    "reads": 684,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 3.871698113207547,
+                                "wordCount": 973,
+                                "clapCount": 2,
+                                "responsesCount": 0,
+                                "voterCount": 2,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "blazor-webassembly"
+                                    },
+                                    {
+                                        "id": "blazor"
+                                    },
+                                    {
+                                        "id": "dot-net-core"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 140000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 60000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "name": "Dev Genius",
+                                    "slug": "dev-genius",
+                                    "domain": "blog.devgenius.io",
+                                    "subscriberCount": 31451,
+                                    "createdAt": 0
+                                }
+                            },
+                            "cursor": "004d3c1dfeb8"
+                        },
+                        {
+                            "node": {
+                                "id": "25b40b0130e4",
+                                "__typename": "Post",
+                                "title": "From REST to gRPC: A Unified Architecture Across .NET 10, Node.js, and Python",
+                                "uniqueSlug": "from-rest-to-grpc-a-unified-architecture-across-net-10-node-js-and-python-25b40b0130e4",
+                                "mediumUrl": "https://mvineetsharma.medium.com/from-rest-to-grpc-a-unified-architecture-across-net-10-node-js-and-python-25b40b0130e4",
+                                "createdAt": 1774828374938,
+                                "updatedAt": 1775029300198,
+                                "firstPublishedAt": 1774829544629,
+                                "totalStats": {
+                                    "presentations": 464,
+                                    "views": 15,
+                                    "reads": 6,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 12.138679245283019,
+                                "wordCount": 2647,
+                                "clapCount": 34,
+                                "responsesCount": 0,
+                                "voterCount": 2,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "rest-api"
+                                    },
+                                    {
+                                        "id": "grpc"
+                                    },
+                                    {
+                                        "id": "net10"
+                                    },
+                                    {
+                                        "id": "nodejs"
+                                    },
+                                    {
+                                        "id": "python-programming"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 70000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 60000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "25b40b0130e4"
+                        },
+                        {
+                            "node": {
+                                "id": "205e76c6130d",
+                                "__typename": "Post",
+                                "title": "10x Your Architecture Game With AI: Prompt Engineer The Tech Stack Decisions",
+                                "uniqueSlug": "10x-your-architecture-game-with-ai-prompt-engineer-the-tech-stack-decisions-205e76c6130d",
+                                "mediumUrl": "https://mvineetsharma.medium.com/10x-your-architecture-game-with-ai-prompt-engineer-the-tech-stack-decisions-205e76c6130d",
+                                "createdAt": 1771927193093,
+                                "updatedAt": 1771965649018,
+                                "firstPublishedAt": 1771960002342,
+                                "totalStats": {
+                                    "presentations": 239,
+                                    "views": 80,
+                                    "reads": 24,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 18.495283018867923,
+                                "wordCount": 4570,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "artificial-intelligence"
+                                    },
+                                    {
+                                        "id": "software-architecture"
+                                    },
+                                    {
+                                        "id": "system-design-concepts"
+                                    },
+                                    {
+                                        "id": "prompt-engineering"
+                                    },
+                                    {
+                                        "id": "azure-devops"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 80000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 60000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "205e76c6130d"
+                        },
+                        {
+                            "node": {
+                                "id": "1f1c4ca741b6",
+                                "__typename": "Post",
+                                "title": "Dependency Injection — How DI Lifetimes Actually Work in .NET 10",
+                                "uniqueSlug": "dependency-injection-how-di-lifetimes-actually-work-in-net-10-1f1c4ca741b6",
+                                "mediumUrl": "https://mvineetsharma.medium.com/dependency-injection-how-di-lifetimes-actually-work-in-net-10-1f1c4ca741b6",
+                                "createdAt": 1772132409454,
+                                "updatedAt": 1774928238576,
+                                "firstPublishedAt": 1772180546951,
+                                "totalStats": {
+                                    "presentations": 226,
+                                    "views": 87,
+                                    "reads": 27,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 25.05943396226415,
+                                "wordCount": 6177,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "transient"
+                                    },
+                                    {
+                                        "id": "scoped"
+                                    },
+                                    {
+                                        "id": "singleton"
+                                    },
+                                    {
+                                        "id": "captive-dependency"
+                                    },
+                                    {
+                                        "id": "dependency-injection"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 170000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 50000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "1f1c4ca741b6"
+                        },
+                        {
+                            "node": {
+                                "id": "237ac66d0192",
+                                "__typename": "Post",
+                                "title": ".NET 10 Minimal APIs + Reactive Programming",
+                                "uniqueSlug": "net-10-minimal-apis-reactive-programming-237ac66d0192",
+                                "mediumUrl": "https://mvineetsharma.medium.com/net-10-minimal-apis-reactive-programming-237ac66d0192",
+                                "createdAt": 1769775050116,
+                                "updatedAt": 1771342844062,
+                                "firstPublishedAt": 1769776213935,
+                                "totalStats": {
+                                    "presentations": 597,
+                                    "views": 75,
+                                    "reads": 46,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 4.354088050314465,
+                                "wordCount": 933,
+                                "clapCount": 10,
+                                "responsesCount": 0,
+                                "voterCount": 5,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "net10"
+                                    },
+                                    {
+                                        "id": "minimal-api"
+                                    },
+                                    {
+                                        "id": "saga"
+                                    },
+                                    {
+                                        "id": "reactive-programming"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 140000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 50000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "237ac66d0192"
+                        },
+                        {
+                            "node": {
+                                "id": "e7173b349bd5",
+                                "__typename": "Post",
+                                "title": "Zero-Allocation Parsers in Node.js: A High-Performance String Processing",
+                                "uniqueSlug": "zero-allocation-parsers-in-node-js-a-high-performance-string-processing-e7173b349bd5",
+                                "mediumUrl": "https://mvineetsharma.medium.com/zero-allocation-parsers-in-node-js-a-high-performance-string-processing-e7173b349bd5",
+                                "createdAt": 1770490735075,
+                                "updatedAt": 1774924882136,
+                                "firstPublishedAt": 1774291476155,
+                                "totalStats": {
+                                    "presentations": 759,
+                                    "views": 15,
+                                    "reads": 4,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 19.934905660377357,
+                                "wordCount": 5031,
+                                "clapCount": 30,
+                                "responsesCount": 0,
+                                "voterCount": 1,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "nodejs"
+                                    },
+                                    {
+                                        "id": "string-manipulation"
+                                    },
+                                    {
+                                        "id": "pattern-matching"
+                                    },
+                                    {
+                                        "id": "heap-and-stack-memory"
+                                    },
+                                    {
+                                        "id": "parser"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 40000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 40000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "e7173b349bd5"
+                        },
+                        {
+                            "node": {
+                                "id": "9766fd4b744e",
+                                "__typename": "Post",
+                                "title": "Mastering Zero-Allocation Parsers: A Deep Dive into High-Performance C#",
+                                "uniqueSlug": "mastering-zero-allocation-parsers-a-deep-dive-into-high-performance-c-9766fd4b744e",
+                                "mediumUrl": "https://mvineetsharma.medium.com/mastering-zero-allocation-parsers-a-deep-dive-into-high-performance-c-9766fd4b744e",
+                                "createdAt": 1770478381807,
+                                "updatedAt": 1771404071531,
+                                "firstPublishedAt": 1770480383694,
+                                "totalStats": {
+                                    "presentations": 143,
+                                    "views": 54,
+                                    "reads": 15,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 8.765408805031447,
+                                "wordCount": 2102,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "c-sharp-programming"
+                                    },
+                                    {
+                                        "id": "heap"
+                                    },
+                                    {
+                                        "id": "stack"
+                                    },
+                                    {
+                                        "id": "garbage-collection"
+                                    },
+                                    {
+                                        "id": "parser"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 60000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 40000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "9766fd4b744e"
+                        },
+                        {
+                            "node": {
+                                "id": "3a966a8d6de3",
+                                "__typename": "Post",
+                                "title": "The Architecture of Learning: A Technical Analysis of the AI-Powered Video Tutorial Portal",
+                                "uniqueSlug": "the-architecture-of-learning-a-technical-analysis-of-the-ai-powered-video-tutorial-portal-3a966a8d6de3",
+                                "mediumUrl": "https://mvineetsharma.medium.com/the-architecture-of-learning-a-technical-analysis-of-the-ai-powered-video-tutorial-portal-3a966a8d6de3",
+                                "createdAt": 1772285370802,
+                                "updatedAt": 1774924884897,
+                                "firstPublishedAt": 1772287564772,
+                                "totalStats": {
+                                    "presentations": 792,
+                                    "views": 16,
+                                    "reads": 4,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 20.664150943396226,
+                                "wordCount": 5158,
+                                "clapCount": 4,
+                                "responsesCount": 1,
+                                "voterCount": 1,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "software-architecture"
+                                    },
+                                    {
+                                        "id": "openai"
+                                    },
+                                    {
+                                        "id": "python-programming"
+                                    },
+                                    {
+                                        "id": "microservice-architecture"
+                                    },
+                                    {
+                                        "id": "vector-embeddings"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 40000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 40000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "3a966a8d6de3"
+                        },
+                        {
+                            "node": {
+                                "id": "07dca77c5527",
+                                "__typename": "Post",
+                                "title": "ETag Based Atomic Updates with in .NET 9 Web API and React — .Net 10 Update",
+                                "uniqueSlug": "etag-based-atomic-updates-with-in-net-9-web-api-and-react-07dca77c5527",
+                                "mediumUrl": "https://blog.devgenius.io/etag-based-atomic-updates-with-in-net-9-web-api-and-react-07dca77c5527",
+                                "createdAt": 1748852396730,
+                                "updatedAt": 1772098849217,
+                                "firstPublishedAt": 1748854153405,
+                                "totalStats": {
+                                    "presentations": 1134,
+                                    "views": 356,
+                                    "reads": 206,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 9.864150943396226,
+                                "wordCount": 2561,
+                                "clapCount": 0,
+                                "responsesCount": 1,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "etag"
+                                    },
+                                    {
+                                        "id": "cache"
+                                    },
+                                    {
+                                        "id": "atomic-update"
+                                    },
+                                    {
+                                        "id": "react"
+                                    },
+                                    {
+                                        "id": "dotnet-core"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 40000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 40000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "name": "Dev Genius",
+                                    "slug": "dev-genius",
+                                    "domain": "blog.devgenius.io",
+                                    "subscriberCount": 31451,
+                                    "createdAt": 0
+                                }
+                            },
+                            "cursor": "07dca77c5527"
+                        },
+                        {
+                            "node": {
+                                "id": "a7cc3f782573",
+                                "__typename": "Post",
+                                "title": "Harnessing the Power of Reactive Extensions (Rx) in .NET 9",
+                                "uniqueSlug": "harnessing-the-power-of-reactive-extensions-rx-in-net-9-a7cc3f782573",
+                                "mediumUrl": "https://mvineetsharma.medium.com/harnessing-the-power-of-reactive-extensions-rx-in-net-9-a7cc3f782573",
+                                "createdAt": 1746537659290,
+                                "updatedAt": 1774571749767,
+                                "firstPublishedAt": 1746538127925,
+                                "totalStats": {
+                                    "presentations": 327,
+                                    "views": 381,
+                                    "reads": 199,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 3.821698113207547,
+                                "wordCount": 867,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "reactive-extension"
+                                    },
+                                    {
+                                        "id": "alternative"
+                                    },
+                                    {
+                                        "id": "net-9"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 60000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 40000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "a7cc3f782573"
+                        },
+                        {
+                            "node": {
+                                "id": "4bc49c9d0a5b",
+                                "__typename": "Post",
+                                "title": "Why ASP.NET Core 10 Reactive Applications Fail in Production: Pitfalls & Solutions in AWS Cloud",
+                                "uniqueSlug": "why-asp-net-core-10-reactive-applications-fail-in-production-pitfalls-solutions-in-aws-cloud-4bc49c9d0a5b",
+                                "mediumUrl": "https://blog.devgenius.io/why-asp-net-core-10-reactive-applications-fail-in-production-pitfalls-solutions-in-aws-cloud-4bc49c9d0a5b",
+                                "createdAt": 1771097749868,
+                                "updatedAt": 1772098849250,
+                                "firstPublishedAt": 1771443533196,
+                                "totalStats": {
+                                    "presentations": 222,
+                                    "views": 43,
+                                    "reads": 9,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 29.37264150943396,
+                                "wordCount": 7638,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "aspnetcore"
+                                    },
+                                    {
+                                        "id": "dotnet-core"
+                                    },
+                                    {
+                                        "id": "aws"
+                                    },
+                                    {
+                                        "id": "devops"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 160000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 30000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": {
+                                    "id": "4e2c1156667e",
+                                    "name": "Dev Genius",
+                                    "slug": "dev-genius",
+                                    "domain": "blog.devgenius.io",
+                                    "subscriberCount": 31451,
+                                    "createdAt": 0
+                                }
+                            },
+                            "cursor": "4bc49c9d0a5b"
+                        },
+                        {
+                            "node": {
+                                "id": "8ae3e8438bdd",
+                                "__typename": "Post",
+                                "title": "Artificial Intelligence: From Basic Concepts to Agentic Systems",
+                                "uniqueSlug": "artificial-intelligence-from-basic-concepts-to-agentic-systems-8ae3e8438bdd",
+                                "mediumUrl": "https://mvineetsharma.medium.com/artificial-intelligence-from-basic-concepts-to-agentic-systems-8ae3e8438bdd",
+                                "createdAt": 1760421835158,
+                                "updatedAt": 1772635005058,
+                                "firstPublishedAt": 1760502516272,
+                                "totalStats": {
+                                    "presentations": 153,
+                                    "views": 62,
+                                    "reads": 4,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 9.30754716981132,
+                                "wordCount": 2281,
+                                "clapCount": 0,
+                                "responsesCount": 0,
+                                "voterCount": 0,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "ai"
+                                    },
+                                    {
+                                        "id": "artificial-intelligence"
+                                    },
+                                    {
+                                        "id": "ai-agent"
+                                    },
+                                    {
+                                        "id": "data-science"
+                                    },
+                                    {
+                                        "id": "agentic-system"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 30000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 30000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "8ae3e8438bdd"
+                        },
+                        {
+                            "node": {
+                                "id": "991c2e511938",
+                                "__typename": "Post",
+                                "title": "Caching in .NET 10 — caching-first, architecture, and practical",
+                                "uniqueSlug": "caching-in-net-10-caching-first-architecture-and-practical-991c2e511938",
+                                "mediumUrl": "https://mvineetsharma.medium.com/caching-in-net-10-caching-first-architecture-and-practical-991c2e511938",
+                                "createdAt": 1769797967835,
+                                "updatedAt": 1771404071536,
+                                "firstPublishedAt": 1769799594221,
+                                "totalStats": {
+                                    "presentations": 136,
+                                    "views": 28,
+                                    "reads": 9,
+                                    "__typename": "SummaryPostStat"
+                                },
+                                "readingTime": 4.006603773584906,
+                                "wordCount": 916,
+                                "clapCount": 2,
+                                "responsesCount": 0,
+                                "voterCount": 1,
+                                "isLocked": true,
+                                "visibility": "LOCKED",
+                                "isSeries": false,
+                                "isShortform": false,
+                                "firstBoostedAt": null,
+                                "license": "ALL_RIGHTS_RESERVED",
+                                "tags": [
+                                    {
+                                        "id": "output-caching"
+                                    },
+                                    {
+                                        "id": "response-caching"
+                                    },
+                                    {
+                                        "id": "in-memory-cache"
+                                    },
+                                    {
+                                        "id": "distributed-caching"
+                                    }
+                                ],
+                                "earnings": {
+                                    "total": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 70000000
+                                    },
+                                    "monthlyEarnings": {
+                                        "currencyCode": "USD",
+                                        "units": 0,
+                                        "nanos": 30000000
+                                    }
+                                },
+                                "creator": {
+                                    "id": "6a63927f9b83",
+                                    "username": "mvineetsharma",
+                                    "name": "Vineet Sharma",
+                                    "bio": "",
+                                    "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+                                    "twitterScreenName": "VineetSharmaIoT",
+                                    "createdAt": 1525616278734
+                                },
+                                "collection": null
+                            },
+                            "cursor": "991c2e511938"
+                        }
+                    ],
+                    "pageInfo": {
+                        "endCursor": "50",
+                        "hasNextPage": true
+                    }
+                }
+            }
+        }
+    }
+]

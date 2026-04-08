@@ -1,11 +1,7 @@
-"""
-Story Manager - Data Models
-Complete mapping with Medium API field sources
-"""
-
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from enum import Enum
+from datetime import datetime
 
 
 class StoryStatus(str, Enum):
@@ -14,242 +10,237 @@ class StoryStatus(str, Enum):
     DONE = "Done"
     READY = "Ready"
     PUBLISHED = "Published"
-    PUBLISHED_Due = "Published Due"
+    PUBLISHED_DUE = "Published Due"
+
+
+class LinkedInPostType(str, Enum):
+    """LinkedIn post type"""
+    ARTICLE = "Article"
+    POST = "Post"
 
 
 # ============================================
-# STORY CREATE MODEL
+# MEDIUM POST MODELS (for nested "medium" object)
 # ============================================
+
+class Stats(BaseModel):
+    """Statistics for a specific period"""
+    period: str = "total"
+    presentations: int = 0
+    views: int = 0
+    reads: int = 0
+
+
+class Earning(BaseModel):
+    """Earnings for a specific period"""
+    period: str = "total"
+    currencyCode: str = "USD"
+    units: int = 0
+    nanos: int = 0
+
+
+class Creator(BaseModel):
+    """Creator/author information"""
+    id: str
+    username: str
+    name: str
+    bio: str = ""
+    imageId: Optional[str] = None
+    twitterScreenName: Optional[str] = None
+    createdAt: Optional[int] = None
+
+
+class Collection(BaseModel):
+    """Publication/collection information"""
+    id: str
+    name: str
+    slug: str
+    domain: str
+    subscriberCount: int = 0
+    createdAt: int = 0
+
+
+class Tag(BaseModel):
+    """Tag information - can be string or object with id"""
+    id: str
+    
+    @classmethod
+    def from_string(cls, tag_str: str) -> "Tag":
+        """Create Tag from string"""
+        return cls(id=tag_str)
+
+
+class MediumPost(BaseModel):
+    """Complete Medium post from API - stored under story["medium"]"""
+    id: str
+    __typename: str = "Post"
+    title: str
+    uniqueSlug: str
+    mediumUrl: str
+    createdAt: int
+    updatedAt: int
+    firstPublishedAt: Optional[int] = None
+    totalStats: Optional[Stats] = None
+    monthlyStats: List[Stats] = []
+    readingTime: float = 0
+    wordCount: int = 0
+    clapCount: int = 0
+    responsesCount: int = 0
+    voterCount: int = 0
+    isLocked: bool = False
+    visibility: str = "LOCKED"
+    isSeries: bool = False
+    isShortform: bool = False
+    firstBoostedAt: Optional[int] = None
+    license: str = "ALL_RIGHTS_RESERVED"
+    tags: List[str] = []  # List of tag strings
+    totalEarnings: Optional[Earning] = None
+    monthlyEarnings: List[Earning] = []
+    creator: Optional[Creator] = None
+    collection: Optional[Collection] = None
+
+
+# ============================================
+# LINKEDIN MODEL
+# ============================================
+
+class LinkedIn(BaseModel):
+    """LinkedIn marketing data - nested inside Story"""
+    type: LinkedInPostType = LinkedInPostType.ARTICLE
+    status: Optional[str] = None  # "scheduled", "posted", or None
+    timestamp: Optional[str] = None
+    impressions: int = 0
+    url: Optional[str] = None
+
+
+# ============================================
+# STORY MODEL - Primary storage (stories.json)
+# ============================================
+
+class Story(BaseModel):
+    """Complete story - main storage model"""
+    # Core identification
+    uniqueSlug: str
+    title: str
+    key: Optional[str] = None  # Derived from folder/title
+    
+    # Organization
+    folder: str = "Miscellaneous"
+    series: Optional[str] = None
+    
+    # Status and dates
+    status: str = "Draft"
+    createdDate: Optional[str] = None
+    publishedDate: Optional[str] = None
+    publishedDueDate: Optional[str] = None
+    lastUpdated: Optional[str] = None
+    
+    # Content metadata
+    notes: str = ""
+    tags: Optional[List[str]] = None
+    word_count: Optional[int] = None
+    read_time: Optional[int] = None
+    
+    # Flags
+    bookmarked: bool = False
+    leaderboard: bool = False
+    
+    # Medium API data (nested)
+    medium: Optional[MediumPost] = None
+    
+    # LinkedIn marketing data (nested)
+    linkedin: Optional[LinkedIn] = None
+    
+    # Legacy fields (for backward compatibility)
+    name: Optional[str] = None  # Alias for title
+    medium_url: Optional[str] = None
+    medium_publication: Optional[str] = None
+    medium_first_published: Optional[str] = None
+    medium_reading_time: Optional[int] = None
+    medium_new_followers: Optional[int] = 0
+    lifetime_reads: Optional[int] = 0
+    lifetime_views: Optional[int] = 0
+    lifetime_claps: Optional[int] = 0
+    presentation_count: Optional[int] = 0
+    feed_click_through_rate: Optional[float] = 0
+    
+    # Legacy LinkedIn fields (moved to nested object)
+    linkedin_status: Optional[str] = None
+    linkedin_timestamp: Optional[str] = None
+    linkedin_impressions: Optional[int] = 0
+    linkedin_url: Optional[str] = None
+    
+    # Computed fields (not stored)
+    reads: Optional[int] = 0
+    view_count: Optional[int] = 0
+    claps: Optional[int] = 0
+    responses: Optional[int] = 0
+    
+    def dict(self, *args, **kwargs):
+        """Override dict to handle nested objects properly"""
+        result = super().dict(*args, **kwargs)
+        # Remove None values for cleaner storage
+        return {k: v for k, v in result.items() if v is not None}
+
 
 class StoryCreate(BaseModel):
-    """
-    Create a new story - User input fields only
-    No Medium API fields here
-    """
-    name: str                                    # User input - Story title
-    folder: Optional[str] = None                 # User input / Auto from path
-    series: Optional[str] = None                 # User input - Series name
-    status: Optional[str] = "Draft"              # User input - Draft/Ready/Done/Published
-    tags: List[str] = []                         # User input - Comma separated tags
-    read_time: Optional[int] = None              # User input - Estimated reading time
-    reads: int = 0                               # User input - Fallback value
-    created_date: Optional[str] = None           # User input / Auto - Creation date
-    notes: Optional[str] = ""                    # User input - Internal notes
-    medium_url: Optional[str] = None             # User input - Full Medium URL
-    medium_first_published: Optional[str] = None # API: data.post.firstPublishedAt
-    medium_publication: Optional[str] = None     # User input - Publication name
-    medium_reading_time: Optional[int] = None    # API: data.post.readingTime
+    """Create a new story"""
+    uniqueSlug: str
+    title: str
+    folder: Optional[str] = "Miscellaneous"
+    series: Optional[str] = None
+    status: Optional[str] = "Draft"
+    createdDate: Optional[str] = None
+    publishedDate: Optional[str] = None
+    publishedDueDate: Optional[str] = None
+    notes: Optional[str] = ""
+    tags: Optional[List[str]] = None
+    bookmarked: bool = False
+    leaderboard: bool = False
+    medium_url: Optional[str] = None
+    medium_publication: Optional[str] = None
+    medium_first_published: Optional[str] = None
+    medium_reading_time: Optional[int] = None
+    read_time: Optional[int] = None
+    word_count: Optional[int] = None
+    linkedin_status: Optional[str] = None
+    linkedin_timestamp: Optional[str] = None
+    linkedin_impressions: Optional[int] = 0
+    linkedin_url: Optional[str] = None
 
-
-# ============================================
-# STORY UPDATE MODEL
-# ============================================
 
 class StoryUpdate(BaseModel):
-    """
-    Update story - User input + API fields
-    Each field includes source comment
-    """
-    
-    # ==========================================
-    # USER INPUT FIELDS
-    # ==========================================
-    name: Optional[str] = None                      # User input
-    folder: Optional[str] = None                    # User input / Auto
-    series: Optional[str] = None                    # User input
-    status: Optional[StoryStatus] = None            # User input
-    published_date: Optional[str] = None            # User input - YYYY-MM-DD
-    created_date: Optional[str] = None              # User input / Auto
-    tags: Optional[List[str]] = None                # User input
-    read_time: Optional[int] = None                 # User input
-    reads: Optional[int] = None                     # User input (fallback)
-    medium_url: Optional[str] = None                # User input
-    notes: Optional[str] = None                     # User input
-    medium_publication: Optional[str] = None        # User input
-    bookmarked: Optional[bool] = None               # User input (UI toggle)
-    
-    # LinkedIn Marketing (User input)
-    linkedin_status: Optional[str] = None           # User input - scheduled/posted/null
-    linkedin_timestamp: Optional[str] = None        # User input - ISO timestamp
-    linkedin_impressions: Optional[int] = None      # User input
-    linkedin_url: Optional[str] = None              # User input
-    
-    # Leaderboard (User input / UI toggle)
-    leaderboard: Optional[bool] = None              # User input (UI toggle)
-    leaderboard_nanos: Optional[int] = None         # User input - Earnings in nanos
-    leaderboard_lifetime_nanos: Optional[int] = None # User input
-    
-    # ==========================================
-    # FIELDS FROM MEDIUM API - POST METADATA
-    # Source: POST https://medium.com/_/graphql
-    # Operation: useStatsPostNewChartDataQuery
-    # Response path: data.post.*
-    # ==========================================
-    medium_first_published: Optional[str] = None    # API: data.post.firstPublishedAt
-    medium_reading_time: Optional[int] = None       # API: data.post.readingTime
-    word_count: Optional[int] = None                # API: data.post.wordCount
-    medium_title: Optional[str] = None              # API: data.post.title
-    medium_last_updated: Optional[str] = None       # API: data.post.updatedAt
-    medium_author: Optional[str] = None             # API: data.post.creator.name
-    medium_tags: Optional[List[str]] = None         # API: data.post.tags[].name
-    medium_topics: Optional[List[str]] = None       # API: data.post.topics[].name
-    medium_subtitle: Optional[str] = None           # API: data.post.subtitle
-    
-    # ==========================================
-    # FIELDS FROM MEDIUM API - MONTHLY STATS
-    # Source: POST https://medium.com/_/graphql
-    # Operation: useStatsPostNewChartDataQuery
-    # Response path: data.postStatsDailyBundle.buckets[]
-    # ==========================================
-    medium_member_reads: Optional[int] = None       # API: readersThatReadCount where membershipType="MEMBER"
-    medium_member_views: Optional[int] = None       # API: readersThatViewedCount where membershipType="MEMBER"
-    medium_nonmember_reads: Optional[int] = None    # API: readersThatReadCount where membershipType="NONMEMBER"
-    medium_nonmember_views: Optional[int] = None    # API: readersThatViewedCount where membershipType="NONMEMBER"
-    claps: Optional[int] = None                     # API: readersThatClappedCount (sum over all buckets)
-    responses: Optional[int] = None                 # API: readersThatRepliedCount (sum over all buckets)
-    medium_highlights: Optional[int] = None         # API: readersThatHighlightedCount (sum over all buckets)
-    medium_new_followers: Optional[int] = None      # API: readersThatInitiallyFollowedAuthorFromThisPostCount
-    view_count: Optional[int] = None                # Calculated: member_views + nonmember_views
-    read_ratio: Optional[float] = None              # Calculated: (total_reads / total_views) * 100
-    medium_member_read_percentage: Optional[float] = None  # Calculated: (member_reads / total_reads) * 100
-    
-    # Monthly earnings (sum of daily earnings)
-    medium_earnings: Optional[float] = None         # API: sum(data.post.earnings.dailyEarnings[].amount)
-    
-    # ==========================================
-    # FIELDS FROM MEDIUM API - LIFETIME STATS
-    # Source: POST https://medium.com/_/graphql
-    # Operation: StatsPostFunnelQuery
-    # Response path: data.postStatsTotalBundle.*
-    # ==========================================
-    lifetime_reads: Optional[int] = None            # API: data.postStatsTotalBundle.readersCount
-    lifetime_views: Optional[int] = None            # API: data.postStatsTotalBundle.viewersCount
-    presentation_count: Optional[int] = None        # API: data.postStatsTotalBundle.presentationCount
-    feed_click_through_rate: Optional[float] = None # API: data.postStatsTotalBundle.feedClickThroughRate
-    
-    # ==========================================
-    # OTHER FIELDS (Not from Medium API)
-    # ==========================================
-    bookmarks: Optional[int] = None                 # API: data.post.distribution.totalBookmarkCount
-    fan_count: Optional[int] = None                 # Calculated / Not used
-    medium_total_views: Optional[int] = None        # Deprecated, use view_count
-    medium_claps: Optional[int] = None              # Deprecated, use claps
-    medium_replies: Optional[int] = None            # Deprecated, use responses
-    last_stats_update: Optional[str] = None         # System: timestamp of last stats update
-    medium_stats_data: Optional[Dict] = None        # System: raw API response cache
-    medium_stats_updated: Optional[str] = None      # System: timestamp of raw data
-    lifetime_stats_data: Optional[Dict] = None      # System: raw lifetime API response cache
-    lifetime_stats_updated: Optional[str] = None    # System: timestamp of lifetime data
-    medium_read_ratio: Optional[float] = None       # Deprecated, use read_ratio
-    lifetime_claps: Optional[int] = None            # Not available from API, user input only
-    lifetime_tags: Optional[List[str]] = None       # User input / Not from API
-    lifetime_topics: Optional[List[str]] = None     # User input / Not from API
-
-
-# ============================================
-# STORY RESPONSE MODEL
-# ============================================
-
-class StoryResponse(BaseModel):
-    """
-    Complete story response - Combination of user input + API data
-    Used for GET /stories/list, GET /stories/list/{yearmonth}, GET /stories/story/{key}
-    """
-    key: str                                         # Auto: folder/name
-    name: str                                        # User input
-    folder: str                                      # Auto
-    series: Optional[str] = None                     # User input
-    raw_path: Optional[str] = None                   # Auto
-    rel_path: str                                    # Auto
-    status: str                                      # User input
-    published_date: Optional[str] = None             # User input
-    created_date: str                                # User input / Auto
-    last_updated: Optional[str] = None               # System
-    tags: Optional[List[str]] = None                 # User input
-    read_time: Optional[int] = None                  # User input
-    reads: Optional[int] = 0                         # API: monthly total from monthly db
-    medium_url: Optional[str] = None                 # User input
-    notes: Optional[str] = ""                        # User input
-    linkedin_status: Optional[str] = None            # User input
-    linkedin_timestamp: Optional[str] = None         # User input
-    linkedin_impressions: Optional[int] = 0          # User input
-    linkedin_url: Optional[str] = None               # User input
-    claps: Optional[int] = 0                         # API: readersThatClappedCount
-    responses: Optional[int] = 0                     # API: readersThatRepliedCount
-    bookmarks: Optional[int] = 0                     # API: data.post.distribution.totalBookmarkCount
-    view_count: Optional[int] = 0                    # Calculated: member_views + nonmember_views
-    read_ratio: Optional[float] = 0                  # Calculated: (reads / views) * 100
-    medium_reading_time: Optional[int] = 0           # API: data.post.readingTime
-    fan_count: Optional[int] = 0                     # Not used
-    medium_first_published: Optional[str] = None     # API: data.post.firstPublishedAt
-    medium_last_updated: Optional[str] = None        # API: data.post.updatedAt
-    medium_tags: Optional[List[str]] = None          # API: data.post.tags[].name
-    medium_topics: Optional[List[str]] = None        # API: data.post.topics[].name
-    word_count: Optional[int] = 0                    # API: data.post.wordCount
-    medium_title: Optional[str] = None               # API: data.post.title
-    medium_subtitle: Optional[str] = None            # API: data.post.subtitle
-    medium_author: Optional[str] = None              # API: data.post.creator.name
-    medium_publication: Optional[str] = None         # User input
-    last_stats_update: Optional[str] = None          # System
-    bookmarked: Optional[bool] = False               # User input
-    medium_member_reads: Optional[int] = 0           # API: readersThatReadCount (MEMBER)
-    medium_member_views: Optional[int] = 0           # API: readersThatViewedCount (MEMBER)
-    medium_nonmember_reads: Optional[int] = 0        # API: readersThatReadCount (NONMEMBER)
-    medium_nonmember_views: Optional[int] = 0        # API: readersThatViewedCount (NONMEMBER)
-    medium_total_views: Optional[int] = 0            # Deprecated
-    medium_claps: Optional[int] = 0                  # Deprecated
-    medium_replies: Optional[int] = 0                # Deprecated
-    medium_highlights: Optional[int] = 0             # API: readersThatHighlightedCount
-    medium_new_followers: Optional[int] = 0          # API: readersThatInitiallyFollowedAuthorFromThisPostCount
-    medium_read_ratio: Optional[float] = 0           # Deprecated
-    medium_member_read_percentage: Optional[float] = 0  # Calculated
-    medium_stats_data: Optional[Dict] = None         # System
-    medium_stats_updated: Optional[str] = None       # System
-    
-    # Lifetime stats from API
-    lifetime_reads: Optional[int] = 0                # API: data.postStatsTotalBundle.readersCount
-    lifetime_claps: Optional[int] = 0                # Not from API
-    lifetime_views: Optional[int] = 0                # API: data.postStatsTotalBundle.viewersCount
-    presentation_count: Optional[int] = 0            # API: data.postStatsTotalBundle.presentationCount
-    feed_click_through_rate: Optional[float] = 0     # API: data.postStatsTotalBundle.feedClickThroughRate
-    medium_earnings: Optional[float] = 0             # API: sum(data.post.earnings.dailyEarnings[].amount)
-    lifetime_tags: Optional[List[str]] = None        # User input
-    lifetime_topics: Optional[List[str]] = None      # User input
-    lifetime_stats_data: Optional[Dict] = None       # System
-    lifetime_stats_updated: Optional[str] = None     # System
-    
-    # Leaderboard
-    leaderboard: Optional[bool] = False              # User input
-    leaderboard_nanos: Optional[int] = 0             # User input
-    leaderboard_lifetime_nanos: Optional[int] = 0    # User input
-
-    class Config:
-        from_attributes = True
-
-
-# ============================================
-# SERIES MODELS
-# ============================================
-
-class SeriesCreate(BaseModel):
-    """Create a new series"""
-    name: str
-    spacing_days: Optional[int] = 7
-
-
-class SeriesUpdate(BaseModel):
-    """Update series"""
-    name: Optional[str] = None
-    spacing_days: Optional[int] = None
-
-
-class SeriesResponse(BaseModel):
-    """Series response"""
-    name: str
-    total_stories: int
-    published: int
-    spacing_days: int
-    stories: List[str] = []
+    """Update a story"""
+    uniqueSlug: Optional[str] = None
+    title: Optional[str] = None
+    folder: Optional[str] = None
+    series: Optional[str] = None
+    status: Optional[str] = None
+    publishedDate: Optional[str] = None
+    publishedDueDate: Optional[str] = None
+    createdDate: Optional[str] = None
+    notes: Optional[str] = None
+    tags: Optional[List[str]] = None
+    bookmarked: Optional[bool] = None
+    leaderboard: Optional[bool] = None
+    medium_url: Optional[str] = None
+    medium_publication: Optional[str] = None
+    medium_first_published: Optional[str] = None
+    medium_reading_time: Optional[int] = None
+    read_time: Optional[int] = None
+    word_count: Optional[int] = None
+    linkedin_status: Optional[str] = None
+    linkedin_timestamp: Optional[str] = None
+    linkedin_impressions: Optional[int] = None
+    linkedin_url: Optional[str] = None
+    lifetime_reads: Optional[int] = None
+    lifetime_views: Optional[int] = None
+    lifetime_claps: Optional[int] = None
+    presentation_count: Optional[int] = None
+    feed_click_through_rate: Optional[float] = None
+    leaderboard_nanos: Optional[int] = None
+    lastUpdated: Optional[str] = None
+    last_stats_update: Optional[str] = None
 
 
 # ============================================
@@ -280,3 +271,137 @@ class CalendarResponse(BaseModel):
     generated: str
     summary: Dict[str, Any]
     schedule: List[CalendarEntry] = []
+
+
+# ============================================
+# SERIES MODELS
+# ============================================
+
+class SeriesCreate(BaseModel):
+    """Create a new series"""
+    name: str
+    spacing_days: Optional[int] = 7
+
+
+class SeriesUpdate(BaseModel):
+    """Update series"""
+    name: Optional[str] = None
+    spacing_days: Optional[int] = None
+
+
+class SeriesResponse(BaseModel):
+    """Series response"""
+    name: str
+    total_stories: int
+    published: int
+    spacing_days: int
+    stories: List[str] = []
+
+
+# ============================================
+# RESPONSE MODELS
+# ============================================
+
+class StoryResponse(BaseModel):
+    """API response for a story"""
+    success: bool
+    story: Optional[Story] = None
+    message: Optional[str] = None
+
+
+class StoriesListResponse(BaseModel):
+    """API response for list of stories"""
+    success: bool
+    stories: List[Story] = []
+    total: int = 0
+    message: Optional[str] = None
+
+
+# ============================================
+# IMPORT LOG MODEL
+# ============================================
+
+class ImportLog(BaseModel):
+    """Import log for tracking Medium API imports"""
+    id: str
+    timestamp: str
+    username: str
+    period: str
+    total_posts: int
+    new_stories: int
+    updated_stories: int
+    status: str  # "success", "failed", "partial"
+    error_message: Optional[str] = None
+
+
+# ============================================
+# MONTHLY STORAGE MODELS (legacy - kept for compatibility)
+# ============================================
+
+class MonthlyStats(BaseModel):
+    """Monthly statistics for a story (stored in stories-YYYY-MM.json)"""
+    title: Optional[str] = None
+    medium_url: Optional[str] = None
+    reads: int = 0
+    view_count: int = 0
+    claps: int = 0
+    responses: int = 0
+    medium_member_reads: int = 0
+    medium_member_views: int = 0
+    medium_nonmember_reads: int = 0
+    medium_nonmember_views: int = 0
+    medium_read_ratio: float = 0
+    medium_member_read_percentage: float = 0
+    medium_new_followers: int = 0
+    medium_highlights: int = 0
+    leaderboard: bool = False
+    leaderboard_nanos: int = 0
+    medium_earnings: int = 0
+    published_date: Optional[str] = None
+    status: Optional[str] = None
+    medium_first_published: Optional[str] = None
+    medium_reading_time: Optional[int] = None
+    last_stats_update: Optional[str] = None
+
+
+class MonthlyStorageData(BaseModel):
+    """Structure for stories-YYYY-MM.json files"""
+    month: str
+    last_updated: str
+    stories: Dict[str, MonthlyStats] = {}
+
+
+# ============================================
+# APP STATUS MODELS
+# ============================================
+
+class AppStatus(BaseModel):
+    """Application status stored in appstatus.json"""
+    leaderboard_month: Optional[str] = None
+    current_mode: str = "dashboard"  # "dashboard" or "month"
+    current_month: Dict[str, int] = Field(default_factory=lambda: {"year": 2026, "month": 4})
+    medium_username: Optional[str] = None
+    last_stats_fetch: Optional[str] = None
+    is_importing: bool = False
+    import_progress: int = 0
+    import_total: int = 0
+    import_current: int = 0
+    import_started_at: Optional[str] = None
+    import_completed_at: Optional[str] = None
+    import_last_error: Optional[str] = None
+    last_updated: Optional[str] = None
+# This file includes:
+
+# 1. **`MediumPost`** - Complete model matching `output.json` structure with nested objects
+# 2. **`TotalStats`** - For total statistics (presentations, views, reads)
+# 3. **`Earnings`** and **`EarningsAmount`** - For earnings data
+# 4. **`Creator`** and **`Collection`** - For author and publication info
+# 5. **`Tag`** - For tag information
+# 6. **`MonthlyStats`** - For monthly statistics storage
+# 7. **`Story`** - Main story model with backward compatibility fields
+# 8. **`StoryCreate`** and **`StoryUpdate`** - For CRUD operations
+# 9. **`CalendarSettingsUpdate`**, **`CalendarEntry`**, **`CalendarResponse`** - Calendar models
+# 10. **`SeriesCreate`**, **`SeriesUpdate`**, **`SeriesResponse`** - Series models
+# 11. **`ImportLog`** - For tracking imports
+# 12. **`MonthlyStorageData`** - For monthly file structure
+# 13. **`AppStatus`** - For application status

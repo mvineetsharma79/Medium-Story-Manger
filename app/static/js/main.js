@@ -1406,7 +1406,7 @@ async function saveStoryEdit() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(monthlyData)
         });
-        
+                
         if (!monthlyRes.ok) {
             console.warn('Failed to save monthly stats');
         }
@@ -1622,18 +1622,49 @@ async function loadView(view) {
 // EVENT LISTENERS & INITIALIZATION
 // ============================================
 
+// ============================================
+// EVENT LISTENERS & INITIALIZATION
+// ============================================
+
 document.addEventListener('DOMContentLoaded', () => {
     loadLastFetchTime();
     loadView('dashboard');
     loadModeAndMonths();
     setInterval(() => loadModeAndMonths(), 30000);
     
-    document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+    // FIX: Sidebar navigation - use data-view attribute
+    const navLinks = document.querySelectorAll('.sidebar .nav-link, .sidebar .nav-item');
+    navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const view = link.dataset.view;
-            if (view) loadView(view);
-            document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
+            
+            // Get view from data-view attribute
+            let view = link.getAttribute('data-view');
+            
+            // If no data-view, check href or text content
+            if (!view) {
+                const href = link.getAttribute('href');
+                if (href && href !== '#') {
+                    view = href.replace('/', '');
+                }
+            }
+            
+            // Fallback: check link text
+            if (!view) {
+                const text = link.textContent.toLowerCase();
+                if (text.includes('dashboard')) view = 'dashboard';
+                else if (text.includes('stories')) view = 'stories';
+                else if (text.includes('series')) view = 'series';
+                else if (text.includes('calendar')) view = 'calendar';
+                else if (text.includes('settings')) view = 'settings';
+            }
+            
+            if (view) {
+                loadView(view);
+            }
+            
+            // Update active state
+            navLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
         });
     });
@@ -1691,6 +1722,69 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('refreshStatsBtn')?.addEventListener('click', refreshStatsForCurrentMonth);
 });
 
+// Make sure loadView is properly defined and handles 'stories' view
+async function loadView(view) {
+    currentView = view;
+    const loadingEl = document.getElementById('loading');
+    if (loadingEl) loadingEl.style.display = 'block';
+    
+    const contentEl = document.getElementById('content');
+    if (contentEl) contentEl.innerHTML = '';
+    
+    try {
+        await loadAllSeries();
+        
+        switch(view) {
+            case 'dashboard':
+                await loadDashboard();
+                break;
+            case 'stories':
+                await loadStories();
+                break;
+            case 'series':
+                await loadSeries();
+                break;
+            case 'calendar':
+                await loadCalendar();
+                break;
+            case 'settings':
+                await loadSettings();
+                break;
+            default:
+                await loadDashboard();
+        }
+        
+        // Update active state in sidebar
+        const navLinks = document.querySelectorAll('.sidebar .nav-link, .sidebar .nav-item');
+        navLinks.forEach(link => {
+            let linkView = link.getAttribute('data-view');
+            if (!linkView) {
+                const text = link.textContent.toLowerCase();
+                if (text.includes('dashboard')) linkView = 'dashboard';
+                else if (text.includes('stories')) linkView = 'stories';
+                else if (text.includes('series')) linkView = 'series';
+                else if (text.includes('calendar')) linkView = 'calendar';
+                else if (text.includes('settings')) linkView = 'settings';
+            }
+            
+            if (linkView === view) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+        
+    } catch (error) {
+        console.error(`Error loading ${view}:`, error);
+        const contentEl = document.getElementById('content');
+        if (contentEl) {
+            contentEl.innerHTML = `<div class="alert alert-danger">Error loading ${view}: ${error.message}</div>`;
+        }
+    } finally {
+        const loadingEl = document.getElementById('loading');
+        if (loadingEl) loadingEl.style.display = 'none';
+    }
+}
 document.addEventListener('show.bs.modal', function(event) {
     if (event.target.id === 'addStoryModal') {
         const seriesSelect = document.getElementById('addStorySeries');

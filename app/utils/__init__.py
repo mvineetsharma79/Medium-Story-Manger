@@ -3,25 +3,71 @@ Utils Package - Shared utility functions across the application
 """
 
 from app.utils.utils import (
-    normalize_title,
+    # URL and title normalization
     normalize_url,
-    find_story_by_identifier,
+    normalize_title,
+    
+    # Post ID extraction
     extract_post_id_from_url,
+    
+    # Story resolution
+    find_story_by_identifier,
+    
+    # Statistics helpers
     calculate_percentages,
-    parse_series_number,
-    get_current_year_month,
+    format_number,
     format_currency,
-    validate_year_month
+    
+    # Series parsing
+    parse_series_number,
+    
+    # Date utilities
+    get_current_year_month,
+    validate_year_month,
+    parse_date,
+    format_date,
+    get_month_range,
+    
+    # Dictionary utilities
+    merge_dicts,
+    safe_get,
+    
+    # List utilities
+    chunk_list,
+    remove_duplicates
 )
 
 __all__ = [
-    'normalize_title',
+    # URL and title normalization
     'normalize_url',
-    'find_story_by_identifier',
+    'normalize_title',
+    
+    # Post ID extraction
     'extract_post_id_from_url',
+    
+    # Story resolution
+    'find_story_by_identifier',
+    
+    # Statistics helpers
     'calculate_percentages',
-    'parse_series_number',
-    'get_current_year_month',
+    'format_number',
     'format_currency',
-    'validate_year_month'
+    
+    # Series parsing
+    'parse_series_number',
+    
+    # Date utilities
+    'get_current_year_month',
+    'validate_year_month',
+    'parse_date',
+    'format_date',
+    'get_month_range',
+    
+    # Dictionary utilities
+    'merge_dicts',
+    'safe_get',
+    
+    # List utilities
+    'chunk_list',
+    'remove_duplicates'
 ]
