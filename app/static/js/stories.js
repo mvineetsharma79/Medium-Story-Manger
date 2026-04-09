@@ -300,9 +300,10 @@ function getFilteredStories() {
 
 function sortStories(column) {
     const columnMap = {
+        'published_due_date': 'publishedDueDate',
+        'performance': 'performance',
         'engagement': 'engagement',
         'earnings': 'earnings', 
-        'impression': 'impression',
         'read_time': 'read_time',
         'bookmarked': 'bookmarked',
         'leaderboard': 'leaderboard',
@@ -316,7 +317,6 @@ function sortStories(column) {
         'reads': 'reads',
         'views': 'views',
         'reading_time': 'reading_time',
-        'medium_publication': 'medium_publication',
         'linkedin_status': 'linkedin_status'
     };
     
@@ -340,19 +340,33 @@ function getSortedStories() {
         let aVal, bVal;
         
         switch (currentSort.column) {
+            case 'performance':
+                // Sum of Presentations + Views + Reads for sorting
+                const aTotalStats = a.medium?.totalStats || {};
+                const bTotalStats = b.medium?.totalStats || {};
+                const aPresentations = aTotalStats.presentations || 0;
+                const aViews = aTotalStats.views || 0;
+                const aReads = aTotalStats.reads || 0;
+                const bPresentations = bTotalStats.presentations || 0;
+                const bViews = bTotalStats.views || 0;
+                const bReads = bTotalStats.reads || 0;
+                aVal = aPresentations + aViews + aReads;
+                bVal = bPresentations + bViews + bReads;
+                break;
+                
             case 'engagement':
-                aVal = a.claps || a.medium?.clapCount || 0;
-                bVal = b.claps || b.medium?.clapCount || 0;
+                aVal = (a.claps || a.medium?.clapCount || 0) + (a.responses || a.medium?.responsesCount || 0);
+                bVal = (b.claps || b.medium?.clapCount || 0) + (b.responses || b.medium?.responsesCount || 0);
                 break;
                 
             case 'earnings':
-                aVal = a.medium_earnings || a.medium?.monthlyEarnings?.[0]?.nanos || 0;
-                bVal = b.medium_earnings || b.medium?.monthlyEarnings?.[0]?.nanos || 0;
+                aVal = a.medium_earnings || 0;
+                bVal = b.medium_earnings || 0;
                 break;
                 
-            case 'impression':
-                aVal = a.views || a.view_count || a.medium?.totalStats?.views || a.lifetime_views || 0;
-                bVal = b.views || b.view_count || b.medium?.totalStats?.views || b.lifetime_views || 0;
+            case 'published_due_date':
+                aVal = a.publishedDueDate || a.published_due_date || '';
+                bVal = b.publishedDueDate || b.published_due_date || '';
                 break;
                 
             case 'read_time':
@@ -371,7 +385,7 @@ function getSortedStories() {
                 break;
                 
             case 'status':
-                const statusOrder = { 'Published': 1, 'Ready': 2, 'Draft': 3, 'Done': 4 };
+                const statusOrder = { 'Published': 1, 'Published Due': 2, 'Ready': 3, 'Draft': 4, 'Done': 5 };
                 aVal = statusOrder[a.status] || 99;
                 bVal = statusOrder[b.status] || 99;
                 break;
@@ -396,36 +410,6 @@ function getSortedStories() {
                 bVal = b.published_date || b.publishedDate || '';
                 break;
                 
-            case 'claps':
-                aVal = a.claps || a.medium?.clapCount || 0;
-                bVal = b.claps || b.medium?.clapCount || 0;
-                break;
-                
-            case 'medium_earnings':
-                aVal = a.medium_earnings || a.medium?.monthlyEarnings?.[0]?.nanos || 0;
-                bVal = b.medium_earnings || b.medium?.monthlyEarnings?.[0]?.nanos || 0;
-                break;
-                
-            case 'reads':
-                aVal = a.reads || a.medium?.totalStats?.reads || a.lifetime_reads || 0;
-                bVal = b.reads || b.medium?.totalStats?.reads || b.lifetime_reads || 0;
-                break;
-                
-            case 'views':
-                aVal = a.views || a.view_count || a.medium?.totalStats?.views || a.lifetime_views || 0;
-                bVal = b.views || b.view_count || b.medium?.totalStats?.views || b.lifetime_views || 0;
-                break;
-                
-            case 'reading_time':
-                aVal = a.medium?.readingTime || a.medium_reading_time || a.read_time || 0;
-                bVal = b.medium?.readingTime || b.medium_reading_time || b.read_time || 0;
-                break;
-                
-            case 'medium_publication':
-                aVal = (a.medium?.collection?.name || a.medium_publication || '').toLowerCase();
-                bVal = (b.medium?.collection?.name || b.medium_publication || '').toLowerCase();
-                break;
-                
             case 'linkedin_status':
                 const linkedinOrder = { 'posted': 1, 'scheduled': 2, '': 3, null: 3 };
                 aVal = linkedinOrder[a.linkedin_status] || 3;
@@ -448,7 +432,6 @@ function getSortedStories() {
     
     return filtered;
 }
-
 function updateSortIcons(column, direction) {
     const headers = document.querySelectorAll('#storiesTableHeader .sortable');
     headers.forEach(header => {
@@ -475,30 +458,34 @@ function applyFilters() {
 }
 
 function clearFilters() {
+    // Reset switches
+    const bookmarkFilter = document.getElementById('bookmarkFilter');
+    const leaderboardFilter = document.getElementById('leaderboardFilter');
     const statusFilter = document.getElementById('statusFilter');
     const seriesFilter = document.getElementById('seriesFilter');
     const searchFilter = document.getElementById('searchFilter');
-    const bookmarkFilter = document.getElementById('bookmarkFilter');
-    const leaderboardFilter = document.getElementById('leaderboardFilter');
     
+    if (bookmarkFilter) bookmarkFilter.checked = false;
+    if (leaderboardFilter) leaderboardFilter.checked = false;
     if (statusFilter) statusFilter.value = 'All';
     if (seriesFilter) seriesFilter.value = '';
     if (searchFilter) searchFilter.value = '';
-    if (bookmarkFilter) bookmarkFilter.checked = false;
-    if (leaderboardFilter) leaderboardFilter.checked = false;
     
-    renderStoryTable();
-    updateFilterCount();
+    applyFilters();
+    updateEarningsSummary();
 }
 
 function filterBySeries(seriesName) {
     if (!seriesName) return;
+    
+    // Set the series filter dropdown
     const seriesFilter = document.getElementById('seriesFilter');
     if (seriesFilter) {
         seriesFilter.value = seriesName;
-        renderStoryTable();
-        updateFilterCount();
     }
+    
+    // Apply filters
+    applyFilters();
 }
 
 // ============================================
@@ -515,7 +502,7 @@ function renderStoryTable() {
     if (sortedStories.length === 0) {
         const row = tbody.insertRow();
         const cell = row.insertCell(0);
-        cell.colSpan = 13;
+        cell.colSpan = 14;
         cell.className = 'text-center text-muted py-3';
         cell.textContent = 'No stories found';
         return;
@@ -529,8 +516,9 @@ function renderStoryTable() {
         const encodedSlug = encodeURIComponent(uniqueSlug);
         
         const medium = story.medium || {};
+        const totalStats = medium.totalStats || {};
         
-        // Column 0: Bookmark
+        // Column 0: Bookmark ⭐
         const bookmarkCell = row.insertCell(0);
         bookmarkCell.className = 'text-center';
         const bookmarkIcon = document.createElement('i');
@@ -539,27 +527,40 @@ function renderStoryTable() {
         bookmarkIcon.onclick = (e) => { e.stopPropagation(); toggleBookmark(encodedSlug, e); };
         bookmarkCell.appendChild(bookmarkIcon);
         
-        // Column 1: Leaderboard (based on earnings > 0 for selected month)
+        // Column 1: Leaderboard 🏆
         const leaderboardCell = row.insertCell(1);
         leaderboardCell.className = 'text-center';
         const leaderboardIcon = document.createElement('i');
-        // leaderboard is already set in applyMonthlyStats based on earnings > 0
         leaderboardIcon.className = `bi bi-trophy${story.leaderboard ? '-fill' : ''} leaderboard-icon ${story.leaderboard ? 'leaderboard' : ''}`;
         leaderboardIcon.style.cursor = 'pointer';
         leaderboardIcon.onclick = (e) => { e.stopPropagation(); toggleLeaderboard(encodedSlug, e); };
         leaderboardCell.appendChild(leaderboardIcon);
         
-        // Column 2: Status
+        // Column 2: Status 📋
         const statusCell = row.insertCell(2);
         const statusSpan = document.createElement('span');
-        const statusClass = story.status === 'Published' ? 'status-published' : 
-                           story.status === 'Ready' ? 'status-ready' : 
-                           story.status === 'Done' ? 'status-done' : 'status-draft';
+        let statusClass = 'status-draft';
+        switch(story.status) {
+            case 'Published':
+                statusClass = 'status-published';
+                break;
+            case 'Published Due':
+                statusClass = 'status-published-due';
+                break;
+            case 'Ready':
+                statusClass = 'status-ready';
+                break;
+            case 'Done':
+                statusClass = 'status-done';
+                break;
+            default:
+                statusClass = 'status-draft';
+        }
         statusSpan.className = `status-badge ${statusClass}`;
         statusSpan.textContent = story.status || 'Draft';
         statusCell.appendChild(statusSpan);
         
-        // Column 3: Title
+        // Column 3: Title 📄
         const titleCell = row.insertCell(3);
         const titleStrong = document.createElement('strong');
         titleStrong.style.cursor = 'pointer';
@@ -567,68 +568,94 @@ function renderStoryTable() {
         titleStrong.onclick = () => openEditStory(encodedSlug);
         titleCell.appendChild(titleStrong);
         
-        // Column 4: Series
+        // Column 4: Series 📁 - Clickable to filter by series
         const seriesCell = row.insertCell(4);
         if (story.series) {
-            const seriesSpan = document.createElement('span');
-            seriesSpan.className = 'series-badge';
-            seriesSpan.style.cursor = 'pointer';
-            seriesSpan.textContent = story.series;
-            seriesSpan.onclick = (e) => { e.stopPropagation(); filterBySeries(story.series); };
-            seriesCell.appendChild(seriesSpan);
+            const seriesLink = document.createElement('a');
+            seriesLink.href = '#';
+            seriesLink.textContent = story.series;
+            seriesLink.style.textDecoration = 'none';
+            seriesLink.style.cursor = 'pointer';
+            seriesLink.style.color = '#0d6efd';
+            seriesLink.style.fontWeight = '500';
+            seriesLink.onclick = (e) => {
+                e.stopPropagation();
+                filterBySeries(story.series);
+            };
+            seriesCell.appendChild(seriesLink);
         } else {
             seriesCell.textContent = '—';
             seriesCell.className = 'text-muted';
         }
         
-        // Column 5: Created Date
+        // Column 5: Created Date 🆕
         const createdCell = row.insertCell(5);
         createdCell.textContent = story.created_date || story.createdDate ? (story.created_date || story.createdDate).split('T')[0] : '-';
         
-        // Column 6: Published Date
+        // Column 6: Published Date 📅
         const publishedCell = row.insertCell(6);
         publishedCell.textContent = story.published_date || story.publishedDate ? (story.published_date || story.publishedDate).split('T')[0] : '-';
         
-        // Column 7: Engagement (Claps / Voters / Followers)
-        const engagementCell = row.insertCell(7);
-        const engagementSmall = document.createElement('small');
+        // Column 7: Due Date ⏰ (NEW)
+        const dueCell = row.insertCell(7);
+        const dueDate = story.publishedDueDate || story.published_due_date;
+        if (dueDate) {
+            dueCell.textContent = dueDate.split('T')[0];
+            dueCell.className = 'text-warning fw-bold';
+        } else {
+            dueCell.textContent = '—';
+            dueCell.className = 'text-muted';
+        }
+        
+        // Column 8: Performance 📊
+        const performanceCell = row.insertCell(8);
+        const performanceDiv = document.createElement('div');
+        performanceDiv.style.fontSize = '0.7rem';
+        performanceDiv.style.whiteSpace = 'nowrap';
+        const presentations = totalStats.presentations || 0;
+        const views = totalStats.views || 0;
+        const reads = totalStats.reads || 0;
+        performanceDiv.innerHTML = `📊 ${formatNumber(presentations)}<br>👁️ ${formatNumber(views)}<br>📖 ${formatNumber(reads)}`;
+        performanceCell.appendChild(performanceDiv);
+        
+        // Column 9: Engagement 💚
+        const engagementCell = row.insertCell(9);
+        const engagementDiv = document.createElement('div');
+        engagementDiv.style.fontSize = '0.7rem';
+        engagementDiv.style.whiteSpace = 'nowrap';
         const claps = story.claps || medium.clapCount || 0;
-        const voters = medium.voterCount || 0;
-        const followers = story.medium_new_followers || 0;
-        engagementSmall.innerHTML = `💚 ${formatNumber(claps)}<br>👥 ${formatNumber(voters)}<br>📢 ${formatNumber(followers)}`;
-        engagementCell.appendChild(engagementSmall);
+        const responses = story.responses || medium.responsesCount || 0;
+        engagementDiv.innerHTML = `💚 ${formatNumber(claps)}<br>💬 ${formatNumber(responses)}`;
+        engagementCell.appendChild(engagementDiv);
         
-        // Column 8: Earnings (Monthly Earnings for selected month)
-        const earningsCell = row.insertCell(8);
-        const earningsSmall = document.createElement('small');
+        // Column 10: Earnings 💰 (Show Monthly + Total)
+        const earningsCell = row.insertCell(10);
+        const earningsDiv = document.createElement('div');
+        earningsDiv.style.fontSize = '0.7rem';
         const monthlyEarnings = story.medium_earnings || 0;
-        const totalEarnings = medium.totalEarnings?.nanos || 0;
-        earningsSmall.innerHTML = `💰 ${formatCurrency(monthlyEarnings)}<br>🏦 ${formatCurrency(totalEarnings)}`;
-        earningsCell.appendChild(earningsSmall);
-        
-        // Column 9: Impression (Reads / Views / Responses)
-        const impressionCell = row.insertCell(9);
-        const impressionSmall = document.createElement('small');
-        const reads = story.reads || 0;
-        const views = story.views || story.view_count || 0;
-        const responses = story.responses || 0;
-        // const impression = story.medium || story.medium.totalStats || story.medium.totalStats.impression || 0;
-        impressionSmall.innerHTML = `📖 ${formatNumber(reads)}<br>👁️ ${formatNumber(views)}<br>💬 ${formatNumber(responses)}`;
-        impressionCell.appendChild(impressionSmall);
-        
-        // Column 10: Read Time / Word Count
-        const readTimeCell = row.insertCell(10);
-        const readTimeSmall = document.createElement('small');
-        const readingTime = medium.readingTime || story.medium_reading_time || story.read_time || 0;
+        const totalEarnings = story.medium?.totalEarnings?.nanos || story.lifetime_earnings || 0;
+        earningsDiv.innerHTML = `🏦${formatCurrency(monthlyEarnings)}/${formatCurrency(totalEarnings)}`;
+        earningsCell.appendChild(earningsDiv);
+
+        // Column 11: Read Time ⏱️ (hh:mm format)
+        const readTimeCell = row.insertCell(11);
+        const readTimeDiv = document.createElement('div');
+        readTimeDiv.style.fontSize = '0.7rem';
+        let readingTime = medium.readingTime || story.medium_reading_time || story.read_time || 0;
         const wordCount = medium.wordCount || story.word_count || 0;
+
+        // Convert minutes to hh:mm format
         const hours = Math.floor(readingTime / 60);
         const minutes = readingTime % 60;
-        const timeStr = hours > 0 ? `${hours}:${minutes.toString().padStart(2, '0')}` : `${minutes}:00`;
-        readTimeSmall.innerHTML = `⏱️ ${timeStr}<br>📝 ${formatNumber(wordCount)}`;
-        readTimeCell.appendChild(readTimeSmall);
-        
-        // Column 11: LinkedIn Status
-        const linkedinCell = row.insertCell(11);
+        let timeStr = '';
+        if (hours > 0) {
+            timeStr = `${hours}h ${minutes.toString().padStart(2, '0')}m`;
+        } else {
+            timeStr = `${minutes}m`;
+        }
+
+        // Column 12: LinkedIn 🔗
+        const linkedinCell = row.insertCell(12);
         const linkedinSpan = document.createElement('span');
         const linkedinStatus = story.linkedin?.status || story.linkedin_status;
         if (linkedinStatus === 'scheduled') {
@@ -643,8 +670,8 @@ function renderStoryTable() {
         }
         linkedinCell.appendChild(linkedinSpan);
         
-        // Column 12: Actions
-        const actionsCell = row.insertCell(12);
+        // Column 13: Actions ⚙️
+        const actionsCell = row.insertCell(13);
         actionsCell.className = 'action-buttons';
         
         const statsBtn = document.createElement('button');
@@ -657,8 +684,7 @@ function renderStoryTable() {
         const externalBtn = document.createElement('button');
         externalBtn.className = 'btn btn-sm btn-outline-secondary ms-1';
         externalBtn.title = 'Open on Medium';
-        // const mediumUrl = medium.mediumUrl || story.medium_url; //6a63927f9b83
-        const mediumUrl = 'https://medium.com/me/stats/post/' + medium.id || story.medium_id; //6a63927f9b83
+        const mediumUrl = 'https://medium.com/me/stats/post/' + medium.id ;
         if (mediumUrl) {
             externalBtn.onclick = (e) => { e.stopPropagation(); window.open(mediumUrl, '_blank'); };
         } else {
@@ -668,7 +694,6 @@ function renderStoryTable() {
         actionsCell.appendChild(externalBtn);
     });
     
-    // Update leaderboard total in sidebar
     updateLeaderboardTotal();
 }
 
@@ -1169,6 +1194,47 @@ function restoreSeriesFilter() {
         }, 500);
     }
 }
+
+// Update total earnings display based on filtered stories
+function updateEarningsSummary() {
+    const filtered = getFilteredStories();
+    
+    let totalMonthlyEarnings = 0;
+    let totalAllEarnings = 0;
+    
+    filtered.forEach(story => {
+        // Monthly earnings (from selected month)
+        totalMonthlyEarnings += story.medium_earnings || 0;
+        
+        // Total lifetime earnings
+        const totalEarnings = story.medium?.totalEarnings?.nanos || story.lifetime_earnings || 0;
+        totalAllEarnings += totalEarnings;
+    });
+    
+    const monthlyEl = document.getElementById('totalMonthlyEarnings');
+    const totalEl = document.getElementById('totalEarningsAll');
+    
+    if (monthlyEl) {
+        monthlyEl.textContent = formatCurrency(totalMonthlyEarnings);
+    }
+    if (totalEl) {
+        totalEl.textContent = formatCurrency(totalAllEarnings);
+    }
+}
+
+// Override applyFilters to update earnings summary
+const originalApplyFilters = applyFilters;
+applyFilters = function() {
+    originalApplyFilters();
+    updateEarningsSummary();
+};
+
+// Override renderStoryTable to update earnings summary
+const originalRenderStoryTable = renderStoryTable;
+renderStoryTable = function() {
+    originalRenderStoryTable();
+    updateEarningsSummary();
+};
 
 // ============================================
 // INITIALIZATION

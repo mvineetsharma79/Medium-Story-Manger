@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-04-09T23:49:27.393098",
+  "last_updated": "2026-04-10T02:02:53.760964",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl": {
       "uniqueSlug": "solid-principles-part-2---single-responsibility-principl",
@@ -36,9 +36,9 @@
       "rel_path": "SOLID%20Principles/SOLID%20Principles%3A%20Part%203%20-%20Open-Closed%20Principle.md",
       "status": "Draft",
       "createdDate": "2026-04-09",
-      "lastUpdated": "2026-04-09T10:38:42.565240",
+      "lastUpdated": "2026-04-10T02:02:53.760942",
       "notes": "",
-      "bookmarked": false,
+      "bookmarked": true,
       "leaderboard": false,
       "tags": [],
       "read_time": null,
@@ -4438,13 +4438,13 @@
             "period": "2026-02",
             "currencyCode": "USD",
             "units": 3,
-            "nanos": 750000000
+            "nanos": 3750000000
           },
           {
             "period": "2026-03",
             "currencyCode": "USD",
             "units": 5,
-            "nanos": 710000000
+            "nanos": 5710000000
           }
         ]
       }
@@ -6944,8 +6944,8 @@
     },
     "Medium Import/distinguishing-infrastructure-domain-exceptions-in-net-part-1": {
       "uniqueSlug": "distinguishing-infrastructure-exceptions-from-domain-exceptions-in-net-6b9276cf73a1",
-      "title": "Distinguishing Infrastructure & Domain Exceptions in .NET - Part 1",
-      "name": "Distinguishing Infrastructure & Domain Exceptions in .NET - Part 1",
+      "title": "Distinguishing Infrastructure & Domain Exceptions in .NET - Part 1",
+      "name": "Distinguishing Infrastructure & Domain Exceptions in .NET - Part 1",
       "folder": "Medium Import",
       "series": "Medium",
       "status": "Published",
@@ -7018,7 +7018,7 @@
           "period": "total",
           "currencyCode": "USD",
           "units": 10,
-          "nanos": 640000000
+          "nanos": 10640000000
         },
         "monthlyStats": [
           {
@@ -7045,7 +7045,7 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 2,
-            "nanos": 940000000
+            "nanos": 2940000000
           },
           {
             "period": "2026-02",
@@ -7057,7 +7057,7 @@
             "period": "2026-03",
             "currencyCode": "USD",
             "units": 7,
-            "nanos": 630000000
+            "nanos": 7630000000
           }
         ]
       }
