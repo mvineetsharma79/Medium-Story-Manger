@@ -18,15 +18,44 @@
     </div>
 </div>
 
-<!-- Filters Row 1: Month, Status, Series, Search -->
+<!-- Month/Year Selector Bar -->
 <div class="filter-bar d-flex gap-3 flex-wrap align-items-center mb-2">
     <div class="d-flex align-items-center gap-2">
-        <span class="small text-muted">View:</span>
-        <select id="monthSelector" class="form-select form-select-sm" style="width: 150px;" onchange="onMonthChange()">
-            <option value="all">All Time (Dashboard)</option>
+        <span class="small text-muted fw-bold"><i class="bi bi-calendar-month"></i> View Stats for:</span>
+        <select id="yearSelect" class="form-select form-select-sm" style="width: 100px;" onchange="loadMonthStats()">
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
         </select>
+        <select id="monthSelect" class="form-select form-select-sm" style="width: 120px;" onchange="loadMonthStats()">
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+        <button class="btn btn-sm btn-outline-primary" onclick="loadMonthStats()" title="Load selected month">
+            <i class="bi bi-arrow-repeat"></i> Load
+        </button>
+        <button class="btn btn-sm btn-outline-secondary" onclick="loadCurrentMonth()" title="Back to current month">
+            <i class="bi bi-calendar-week"></i> Current Month
+        </button>
     </div>
     <div class="vr"></div>
+    <div id="monthIndicator" class="small text-muted">
+        <i class="bi bi-info-circle"></i> Showing: <span id="currentDisplayMonth">Current Month</span>
+    </div>
+</div>
+
+<!-- Filters Row 1: Status, Series, Search -->
+<div class="filter-bar d-flex gap-3 flex-wrap align-items-center mb-2">
     <select id="statusFilter" class="form-select form-select-sm w-auto" onchange="applyFilters()">
         <option value="All">All Status</option>
         <option value="Published">Published</option>
@@ -34,14 +63,12 @@
         <option value="Draft">Draft</option>
         <option value="Done">Done</option>
     </select>
-    <div class="vr"></div>
     <div class="d-flex align-items-center gap-2">
         <span class="small text-muted">Series:</span>
         <select id="seriesFilter" class="form-select form-select-sm" style="min-width: 150px;" onchange="applyFilters()">
             <option value="">All Series</option>
         </select>
     </div>
-    <div class="vr"></div>
     <input type="text" id="searchFilter" class="form-control form-control-sm" style="width: 200px;" placeholder="Search stories..." onkeyup="applyFilters()">
 </div>
 
@@ -53,7 +80,7 @@
     </div>
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="leaderboardFilter" onchange="applyFilters()">
-        <label class="form-check-label small">Leaderboard</label>
+        <label class="form-check-label small">Leaderboard (any month)</label>
     </div>
     <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">Clear Filters</button>
 </div>
@@ -72,24 +99,21 @@
                     <i class="bi bi-trophy"></i>
                 </th>
                 <th style="width:75px" class="sortable" data-sort="status" onclick="sortStories('status')">Status</th>
-                <th style="width:250px" class="sortable" data-sort="name" onclick="sortStories('name')">Title</th>
+                <th class="sortable" data-sort="name" onclick="sortStories('name')">Title</th>
+                <th style="width:120px" class="sortable" data-sort="series" onclick="sortStories('series')">Series</th>
                 <th style="width:95px" class="sortable" data-sort="created_date" onclick="sortStories('created_date')">Created</th>
                 <th style="width:95px" class="sortable" data-sort="published_date" onclick="sortStories('published_date')">Published</th>
-                <th style="width:110px" class="sortable" data-sort="reads" onclick="sortStories('reads')">Reads</th>
-                <th style="width:110px" class="sortable" data-sort="views" onclick="sortStories('views')">Views</th>
-                <th style="width:120px" class="sortable" data-sort="presentation_count" onclick="sortStories('presentation_count')">Impression</th>
-                <th style="width:90px" class="sortable" data-sort="claps" onclick="sortStories('claps')">Claps</th>
-                <th style="width:100px" class="sortable" data-sort="medium_earnings" onclick="sortStories('medium_earnings')">Earnings</th>
-                <th style="width:100px" class="sortable" data-sort="medium_new_followers" onclick="sortStories('medium_new_followers')">Followers</th>
-                <th style="width:100px" class="sortable" data-sort="reading_time" onclick="sortStories('reading_time')">Read Time</th>
-                <th style="width:120px" class="sortable" data-sort="medium_publication" onclick="sortStories('medium_publication')">Publisher</th>
-                <th style="width:80px" class="sortable" data-sort="linkedin_status" onclick="sortStories('linkedin_status')">LinkedIn</th>
+                <th style="width:110px" class="sortable" data-sort="engagement" onclick="sortStories('engagement')">Engagement</th>
+                <th style="width:100px" class="sortable" data-sort="earnings" onclick="sortStories('earnings')">Earnings</th>
+                <th style="width:120px" class="sortable" data-sort="impression" onclick="sortStories('impression')">Impression</th>
+                <th style="width:100px" class="sortable" data-sort="read_time" onclick="sortStories('read_time')">Read Time</th>
+                <th style="width:100px" class="sortable" data-sort="linkedin_status" onclick="sortStories('linkedin_status')">LinkedIn</th>
                 <th style="width:85px">Actions</th>
             </tr>
         </thead>
         <tbody id="storiesTableBody">
             <tr>
-                <td colspan="16" class="text-center text-muted py-4">
+                <td colspan="13" class="text-center text-muted py-4">
                     <div class="spinner-border spinner-border-sm me-2" role="status"></div>
                     Loading stories...
                 </td

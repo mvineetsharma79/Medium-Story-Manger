@@ -177,6 +177,12 @@ function extractPostIdFromUrl(mediumUrl) {
     return null;
 }
 
+function formatCurrency(nanos) {
+    if (!nanos && nanos !== 0) return '$0.00';
+    const dollars = nanos / 1000000000;
+    return `$${dollars.toFixed(2)}`;
+}
+
 // Make functions globally available
 window.API_BASE = API_BASE;
 window.normalizeTitle = normalizeTitle;

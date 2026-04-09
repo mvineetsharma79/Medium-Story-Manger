@@ -346,7 +346,7 @@ class MediumAPIService:
         username = settings.medium_username
         start_at, end_at = self.get_month_timestamps(year, month)
         #start_at, end_at  = 1775001600000, 1777593599000 # Apr
-        start_at, end_at  = 1772323200000, 1774915200000 # Mar
+        #start_at, end_at  = 1772323200000, 1774915200000 # Mar
          
         logger.info(f"Fetching posts for {username} from {start_at} to {end_at}")
         

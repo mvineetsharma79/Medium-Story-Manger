@@ -1,5 +1,5 @@
 """
-Stories Router - Complete endpoints with Medium URL as primary key
+Stories Router - Complete endpoints with uniqueSlug as primary key
 """
 
 from fastapi import APIRouter, HTTPException, Query
@@ -39,42 +39,6 @@ router = APIRouter()
 # HELPER FUNCTIONS
 # ============================================
 
-async def resolve_story(identifier: str):
-    """
-    Resolve story by medium_url first, then by name
-    Returns story object or None
-    """
-    decoded_identifier = unquote(identifier)
-    all_stories = await StoryService.get_all_stories()
-    
-    # Step 1: Check if it's a URL and try to find by medium_url
-    is_url = decoded_identifier.startswith('http://') or decoded_identifier.startswith('https://')
-    
-    if is_url:
-        normalized_url = normalize_url(decoded_identifier)
-        for story in all_stories:
-            if story.medium_url and normalize_url(story.medium_url) == normalized_url:
-                return story
-    
-    # Step 2: Try exact name match
-    for story in all_stories:
-        if story.name == decoded_identifier:
-            return story
-    
-    # Step 3: Try normalized name match
-    normalized_name = normalize_title(decoded_identifier)
-    for story in all_stories:
-        if normalize_title(story.name) == normalized_name:
-            return story
-    
-    # Step 4: Try partial name match (last resort)
-    for story in all_stories:
-        if story.name and decoded_identifier.lower() in story.name.lower():
-            return story
-    
-    return None
-
-
 def build_story_response(story, monthly_stats: dict) -> dict:
     """Build unified story response object"""
     member_reads = monthly_stats.get("medium_member_reads", 0)
@@ -89,12 +53,15 @@ def build_story_response(story, monthly_stats: dict) -> dict:
     
     return {
         "key": story.key,
+        "uniqueSlug": story.uniqueSlug,
         "name": story.name,
+        "title": story.title,
         "series": story.series,
         "status": story.status or "Draft",
         "published_date": story.published_date,
         "created_date": story.created_date,
         "bookmarked": story.bookmarked or False,
+        "leaderboard": story.leaderboard or False,
         "linkedin_status": story.linkedin_status,
         "linkedin_impressions": story.linkedin_impressions or 0,
         "linkedin_url": story.linkedin_url,
@@ -108,7 +75,6 @@ def build_story_response(story, monthly_stats: dict) -> dict:
         "views_percent": views_percent,
         "claps": monthly_stats.get("claps", 0),
         "responses": monthly_stats.get("responses", 0),
-        "leaderboard": monthly_stats.get("leaderboard", False),
         "leaderboard_nanos": monthly_stats.get("leaderboard_nanos", 0),
         "tags": story.tags or [],
         "notes": story.notes or "",
@@ -125,7 +91,13 @@ def build_story_response(story, monthly_stats: dict) -> dict:
         "feed_click_through_rate": story.feed_click_through_rate or 0,
         "medium_earnings": monthly_stats.get("medium_earnings", 0),
         "medium_new_followers": monthly_stats.get("medium_new_followers", 0),
-        "total_followers": story.medium_new_followers or 0
+        "medium_highlights": monthly_stats.get("medium_highlights", 0),
+        "raw_path": story.raw_path,
+        "rel_path": story.rel_path,
+        "folder": story.folder,
+        "last_updated": story.last_updated,
+        "medium": story.medium.dict() if story.medium else None,
+        "linkedin": story.linkedin.dict() if story.linkedin else None
     }
 
 
@@ -143,17 +115,13 @@ curl -X GET "http://localhost:8000/api/stories/list" | jq '.'
 async def get_dashboard_stories():
     """Get all stories with nested medium and linkedin objects."""
     try:
-        # Get current year/month for monthly stats (if needed for leaderboard flag)
         year, month = get_current_year_month()
         
-        # Load monthly stats to check leaderboard flag for current month
         monthly_data = await MonthlyStorageService.load_monthly_stats(year, month)
         monthly_stats_map = monthly_data.get("stories", {})
         
-        # Get all stories as Story objects (with nested medium and linkedin)
         all_stories = await StoryService.get_all_stories()
         
-        # Get all stories that ever had leaderboard in ANY month (for dashboard mode)
         available_months = await MonthlyStorageService.get_available_months()
         leaderboard_stories_set = set()
         for month_info in available_months:
@@ -162,19 +130,12 @@ async def get_dashboard_stories():
                 if story_data.get("leaderboard", False):
                     leaderboard_stories_set.add(story_key)
         
-        # Build response with nested structure
         stories = []
         for story in all_stories:
-            # Get monthly stats for current month
             monthly_stats = monthly_stats_map.get(story.key, {})
-            
-            # Determine leaderboard flag (true if ever on leaderboard in any month)
             leaderboard = story.key in leaderboard_stories_set
             
-            # Convert story to dict with nested structure
             story_dict = story.dict()
-            
-            # Add monthly-specific fields (not stored in story object)
             story_dict["reads"] = monthly_stats.get("reads", 0)
             story_dict["views"] = monthly_stats.get("view_count", 0)
             story_dict["claps"] = monthly_stats.get("claps", 0)
@@ -198,6 +159,8 @@ async def get_dashboard_stories():
     except Exception as e:
         logger.error(f"Error getting dashboard stories: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
 """
 GET /api/stories/list/{yearmonth}
 Description: Month view - Stories from stories-{yearmonth}.json + lifetime stats
@@ -238,12 +201,15 @@ async def get_month_stories(yearmonth: str):
             if story:
                 stories.append({
                     "key": story.key,
+                    "uniqueSlug": story.uniqueSlug,
                     "name": story.name,
+                    "title": story.title,
                     "series": story.series,
                     "status": story.status or "Published",
                     "published_date": story.published_date,
                     "created_date": story.created_date,
                     "bookmarked": story.bookmarked or False,
+                    "leaderboard": monthly_stats.get("leaderboard", False),
                     "linkedin_status": story.linkedin_status,
                     "linkedin_impressions": story.linkedin_impressions or 0,
                     "linkedin_url": story.linkedin_url,
@@ -257,7 +223,6 @@ async def get_month_stories(yearmonth: str):
                     "views_percent": views_percent,
                     "claps": monthly_stats.get("claps", 0),
                     "responses": monthly_stats.get("responses", 0),
-                    "leaderboard": monthly_stats.get("leaderboard", False),
                     "leaderboard_nanos": monthly_stats.get("leaderboard_nanos", 0),
                     "tags": story.tags or [],
                     "notes": story.notes or "",
@@ -277,12 +242,15 @@ async def get_month_stories(yearmonth: str):
             else:
                 stories.append({
                     "key": story_key,
+                    "uniqueSlug": monthly_stats.get("unique_slug", story_key),
                     "name": monthly_stats.get("title", story_key),
+                    "title": monthly_stats.get("title", story_key),
                     "series": None,
                     "status": "Published",
                     "published_date": None,
                     "created_date": None,
                     "bookmarked": False,
+                    "leaderboard": monthly_stats.get("leaderboard", False),
                     "linkedin_status": None,
                     "linkedin_impressions": 0,
                     "linkedin_url": None,
@@ -296,7 +264,6 @@ async def get_month_stories(yearmonth: str):
                     "views_percent": views_percent,
                     "claps": monthly_stats.get("claps", 0),
                     "responses": monthly_stats.get("responses", 0),
-                    "leaderboard": monthly_stats.get("leaderboard", False),
                     "leaderboard_nanos": monthly_stats.get("leaderboard_nanos", 0),
                     "tags": [],
                     "notes": "",
@@ -336,19 +303,415 @@ async def get_all_stories_simple():
         return [
             {
                 "key": s.key,
+                "uniqueSlug": s.uniqueSlug,
                 "name": s.name,
+                "title": s.title,
                 "status": s.status,
                 "series": s.series,
                 "reads": s.reads,
                 "created_date": s.created_date,
                 "published_date": s.published_date,
                 "medium_url": s.medium_url,
-                "bookmarked": s.bookmarked
+                "bookmarked": s.bookmarked,
+                "leaderboard": s.leaderboard
             }
             for s in all_stories
         ]
     except Exception as e:
         logger.error(f"Error getting all stories: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================
+# STORY ENDPOINTS - Using uniqueSlug as primary key
+# ============================================
+
+"""
+GET /api/stories/story/{unique_slug}
+Description: Get story by uniqueSlug
+
+curl -X GET "http://localhost:8000/api/stories/story/asp-net-core-filters-deep-dive-building-maintainable-web-apis-with-net-10-and-reactive-extensions-78cb972195da" | jq '.'
+"""
+@router.get("/story/{unique_slug:path}")
+async def get_story_by_slug(unique_slug: str):
+    """Get story by uniqueSlug"""
+    try:
+        decoded_slug = unquote(unique_slug)
+        
+        story = await StoryService.get_story_by_unique_slug(decoded_slug)
+        
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
+        
+        now = datetime.now()
+        monthly_stats = await MonthlyStorageService.get_story_monthly_stats(story.key, now.year, now.month) or {}
+        
+        return build_story_response(story, monthly_stats)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting story by slug: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+PUT /api/stories/story/{unique_slug}
+Description: Update story by uniqueSlug
+
+curl -X PUT "http://localhost:8000/api/stories/story/asp-net-core-filters-deep-dive-building-maintainable-web-apis-with-net-10-and-reactive-extensions-78cb972195da" \
+  -H "Content-Type: application/json" \
+  -d '{"bookmarked": true}' | jq '.'
+"""
+@router.put("/story/{unique_slug:path}")
+async def update_story_by_slug(unique_slug: str, update_data: dict):
+    """Update story by uniqueSlug"""
+    try:
+        decoded_slug = unquote(unique_slug)
+        
+        story = await StoryService.get_story_by_unique_slug(decoded_slug)
+        
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
+        
+        update = StoryUpdate(**update_data)
+        updated_story = await StoryService.update_story(story.key, update)
+        
+        if not updated_story:
+            raise HTTPException(status_code=404, detail="Story not found")
+        
+        return {"success": True, "message": "Story updated", "story": updated_story.dict()}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating story by slug: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+DELETE /api/stories/story/{unique_slug}
+Description: Delete story by uniqueSlug
+
+curl -X DELETE "http://localhost:8000/api/stories/story/asp-net-core-filters-deep-dive-building-maintainable-web-apis-with-net-10-and-reactive-extensions-78cb972195da" | jq '.'
+"""
+@router.delete("/story/{unique_slug:path}")
+async def delete_story_by_slug(unique_slug: str):
+    """Delete story by uniqueSlug"""
+    try:
+        decoded_slug = unquote(unique_slug)
+        
+        story = await StoryService.get_story_by_unique_slug(decoded_slug)
+        
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
+        
+        deleted = await StoryService.delete_story(story.key)
+        if not deleted:
+            raise HTTPException(status_code=404, detail="Story not found")
+        
+        available_months = await MonthlyStorageService.get_available_months()
+        for month_info in available_months:
+            await MonthlyStorageService.delete_story_from_month(
+                story.key, month_info["year"], month_info["month"]
+            )
+        
+        return {"success": True, "message": "Story deleted"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting story by slug: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+POST /api/stories/story/{unique_slug}/publish
+Description: Mark a story as published by uniqueSlug
+
+curl -X POST "http://localhost:8000/api/stories/story/asp-net-core-filters-deep-dive-building-maintainable-web-apis-with-net-10-and-reactive-extensions-78cb972195da/publish" \
+  -H "Content-Type: application/json" \
+  -d '{"medium_url": "https://medium.com/@username/post-title-123"}' | jq '.'
+"""
+@router.post("/story/{unique_slug:path}/publish")
+async def publish_story_by_slug(unique_slug: str, publish_data: dict = None):
+    """Mark a story as published by uniqueSlug"""
+    try:
+        decoded_slug = unquote(unique_slug)
+        
+        story = await StoryService.get_story_by_unique_slug(decoded_slug)
+        
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
+        
+        medium_url = publish_data.get("medium_url") if publish_data else None
+        
+        updated_story = await StoryService.publish_story(story.key, medium_url)
+        if not updated_story:
+            raise HTTPException(status_code=404, detail="Story not found")
+        
+        return {"success": True, "message": "Story marked as published"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error publishing story by slug: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================
+# STATS ENDPOINTS - Using uniqueSlug
+# ============================================
+
+"""
+GET /api/stories/stats/{unique_slug}/{yearmonth}
+Description: Get monthly stats by uniqueSlug
+
+curl -X GET "http://localhost:8000/api/stories/stats/asp-net-core-filters-deep-dive/2026-03" | jq '.'
+"""
+@router.get("/stats/{unique_slug:path}/{yearmonth}")
+async def get_story_stats_by_slug(unique_slug: str, yearmonth: str):
+    """Get monthly stats by uniqueSlug"""
+    try:
+        parts = yearmonth.split('-')
+        if len(parts) != 2:
+            raise HTTPException(status_code=400, detail="Invalid yearmonth format")
+        year = int(parts[0])
+        month = int(parts[1])
+        
+        decoded_slug = unquote(unique_slug)
+        story = await StoryService.get_story_by_unique_slug(decoded_slug)
+        
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
+        
+        monthly_stats = await MonthlyStorageService.get_story_monthly_stats(story.key, year, month) or {}
+        
+        member_reads = monthly_stats.get("medium_member_reads", 0)
+        nonmember_reads = monthly_stats.get("medium_nonmember_reads", 0)
+        reads = member_reads + nonmember_reads
+        reads_percent = round((member_reads / reads) * 100, 1) if reads > 0 else 0
+        
+        member_views = monthly_stats.get("medium_member_views", 0)
+        nonmember_views = monthly_stats.get("medium_nonmember_views", 0)
+        views = member_views + nonmember_views
+        views_percent = round((member_views / views) * 100, 1) if views > 0 else 0
+        
+        return {
+            "story_key": story.key,
+            "unique_slug": story.uniqueSlug,
+            "story_name": story.name,
+            "yearmonth": yearmonth,
+            "member_reads": member_reads,
+            "nonmember_reads": nonmember_reads,
+            "reads": reads,
+            "reads_percent": reads_percent,
+            "member_views": member_views,
+            "nonmember_views": nonmember_views,
+            "views": views,
+            "views_percent": views_percent,
+            "claps": monthly_stats.get("claps", 0),
+            "responses": monthly_stats.get("responses", 0),
+            "leaderboard": monthly_stats.get("leaderboard", False),
+            "leaderboard_nanos": monthly_stats.get("leaderboard_nanos", 0),
+            "medium_earnings": monthly_stats.get("medium_earnings", 0),
+            "medium_new_followers": monthly_stats.get("medium_new_followers", 0),
+            "medium_highlights": monthly_stats.get("medium_highlights", 0)
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting story stats by slug: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+PUT /api/stories/stats/{unique_slug}/{yearmonth}
+Description: Update monthly stats by uniqueSlug
+
+curl -X PUT "http://localhost:8000/api/stories/stats/asp-net-core-filters-deep-dive/2026-03" \
+  -H "Content-Type: application/json" \
+  -d '{"leaderboard": true, "leaderboard_nanos": 30000000}' | jq '.'
+"""
+@router.put("/stats/{unique_slug:path}/{yearmonth}")
+async def update_story_stats_by_slug(unique_slug: str, yearmonth: str, stats_data: dict):
+    """Update monthly stats by uniqueSlug"""
+    try:
+        parts = yearmonth.split('-')
+        if len(parts) != 2:
+            raise HTTPException(status_code=400, detail="Invalid yearmonth format")
+        year = int(parts[0])
+        month = int(parts[1])
+        
+        decoded_slug = unquote(unique_slug)
+        story = await StoryService.get_story_by_unique_slug(decoded_slug)
+        
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
+        
+        storage_data = {
+            "medium_member_reads": stats_data.get("member_reads", 0),
+            "medium_nonmember_reads": stats_data.get("nonmember_reads", 0),
+            "medium_member_views": stats_data.get("member_views", 0),
+            "medium_nonmember_views": stats_data.get("nonmember_views", 0),
+            "claps": stats_data.get("claps", 0),
+            "responses": stats_data.get("responses", 0),
+            "leaderboard": stats_data.get("leaderboard", False),
+            "leaderboard_nanos": stats_data.get("leaderboard_nanos", 0),
+            "medium_earnings": stats_data.get("medium_earnings", 0),
+            "reads": stats_data.get("reads", 0),
+            "view_count": stats_data.get("view_count", stats_data.get("views", 0)),
+            "medium_new_followers": stats_data.get("medium_new_followers", 0),
+            "medium_highlights": stats_data.get("medium_highlights", 0)
+        }
+        
+        success = await MonthlyStorageService.update_story_monthly_stats(
+            story.key, year, month, storage_data, story.name
+        )
+        
+        if not success:
+            raise HTTPException(status_code=500, detail="Failed to update monthly stats")
+        
+        return {"success": True, "message": "Monthly stats updated", "story_key": story.key, "unique_slug": story.uniqueSlug, "story_name": story.name}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating story stats by slug: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================
+# STORY MONTHS ENDPOINTS - Using uniqueSlug
+# ============================================
+
+"""
+GET /api/stories/story-months/{unique_slug}
+Description: Get all months where a story has data by uniqueSlug
+
+curl -X GET "http://localhost:8000/api/stories/story-months/asp-net-core-filters-deep-dive-building-maintainable-web-apis-with-net-10-and-reactive-extensions-78cb972195da" | jq '.'
+"""
+@router.get("/story-months/{unique_slug:path}")
+async def get_story_months_by_slug(unique_slug: str):
+    """Get all months where a story has data by uniqueSlug"""
+    try:
+        decoded_slug = unquote(unique_slug)
+        story = await StoryService.get_story_by_unique_slug(decoded_slug)
+        
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
+        
+        months = await MonthlyStorageService.get_months_for_story(story.key)
+        
+        return {
+            "story_key": story.key,
+            "unique_slug": story.uniqueSlug,
+            "story_name": story.name,
+            "months": months,
+            "total": len(months)
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting story months by slug: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+POST /api/stories/ensure-story-in-month
+Description: Ensure a story exists in monthly data by uniqueSlug
+
+curl -X POST "http://localhost:8000/api/stories/ensure-story-in-month?unique_slug=asp-net-core-filters-deep-dive&year=2026&month=4" | jq '.'
+"""
+@router.post("/ensure-story-in-month")
+async def ensure_story_in_month_endpoint(
+    unique_slug: str,
+    year: int,
+    month: int
+):
+    """Ensure a story exists in monthly data by uniqueSlug"""
+    try:
+        decoded_slug = unquote(unique_slug)
+        story = await StoryService.get_story_by_unique_slug(decoded_slug)
+        
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
+        
+        success = await MonthlyStorageService.ensure_story_in_month(
+            story.key, year, month, story.name
+        )
+        
+        if not success:
+            raise HTTPException(status_code=500, detail="Failed to ensure story in month")
+        
+        return {"success": True, "message": "Story ensured in month", "story_key": story.key, "unique_slug": story.uniqueSlug, "story_name": story.name}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error ensuring story in month: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================
+# CREATE, SYNC, UTILITY ENDPOINTS
+# ============================================
+
+"""
+POST /api/stories/story
+Description: Create a new story
+
+curl -X POST "http://localhost:8000/api/stories/story" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "uniqueSlug": "my-new-story",
+    "title": "My New Story",
+    "folder": "Miscellaneous",
+    "series": "Python Tutorials",
+    "tags": ["python", "beginner"],
+    "read_time": 10,
+    "created_date": "2026-04-06",
+    "medium_url": "https://medium.com/@username/post-title-78cb972195da"
+  }' | jq '.'
+"""
+@router.post("/story")
+async def create_story(story_data: StoryCreate):
+    try:
+        story = await StoryService.create_story(story_data)
+        return {
+            "success": True,
+            "message": "Story created",
+            "story": {
+                "key": story.key,
+                "uniqueSlug": story.uniqueSlug,
+                "name": story.name,
+                "medium_url": story.medium_url
+            }
+        }
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error(f"Error creating story: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+POST /api/stories/sync
+Description: Sync filesystem with stories.json
+
+curl -X POST "http://localhost:8000/api/stories/sync" | jq '.'
+"""
+@router.post("/sync")
+async def sync_stories():
+    """Sync filesystem with stories.json - discovers new markdown files"""
+    try:
+        result = await StoryService.sync_with_filesystem()
+        return {
+            "success": True,
+            "message": "Sync completed",
+            "added": result.get("added", 0),
+            "updated": result.get("updated", 0),
+            "total_stories": result.get("total", 0)
+        }
+    except Exception as e:
+        logger.error(f"Sync error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -396,6 +759,7 @@ async def get_leaderboard_status():
         available_months = await MonthlyStorageService.get_available_months()
         
         leaderboard_stories = set()
+        story_details = {}
         total_nanos = 0
         
         for month_info in available_months:
@@ -406,16 +770,23 @@ async def get_leaderboard_status():
                 if story_data.get("leaderboard", False):
                     leaderboard_stories.add(story_key)
                     total_nanos += story_data.get("leaderboard_nanos", 0)
+                    if story_key not in story_details:
+                        story_details[story_key] = {
+                            "title": story_data.get("title", story_key),
+                            "months": []
+                        }
+                    story_details[story_key]["months"].append(f"{month_info['year']}-{month_info['month']:02d}")
         
         return {
             "leaderboard_stories": list(leaderboard_stories),
+            "story_details": story_details,
             "total": len(leaderboard_stories),
             "total_nanos": total_nanos,
             "formatted": f"${total_nanos / 1000000000:.2f}"
         }
     except Exception as e:
         logger.error(f"Error getting leaderboard status: {e}")
-        return {"leaderboard_stories": [], "total": 0, "total_nanos": 0, "formatted": "$0.00"}
+        return {"leaderboard_stories": [], "story_details": {}, "total": 0, "total_nanos": 0, "formatted": "$0.00"}
 
 
 """
@@ -466,389 +837,9 @@ async def get_current_mode():
         }
 
 
-# ============================================
-# STORY ENDPOINTS - Smart resolution (medium_url first, then name)
-# ============================================
-
-"""
-GET /api/stories/story/{identifier}
-Description: Get story by medium_url (preferred) or name (fallback)
-
-curl -X GET "http://localhost:8000/api/stories/story/https%3A%2F%2Fmedium.com%2F%40username%2Fpost-title-78cb972195da" | jq '.'
-curl -X GET "http://localhost:8000/api/stories/story/My%20Story%20Title" | jq '.'
-"""
-@router.get("/story/{identifier:path}")
-async def get_story(identifier: str):
-    """Get story by medium_url (preferred) or name (fallback)."""
-    try:
-        story = await resolve_story(identifier)
-        
-        if not story:
-            raise HTTPException(status_code=404, detail=f"Story not found: {unquote(identifier)}")
-        
-        year, month = get_current_year_month()
-        monthly_stats = await MonthlyStorageService.get_story_monthly_stats(story.key, year, month) or {}
-        
-        return build_story_response(story, monthly_stats)
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error getting story: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-"""
-PUT /api/stories/story/{identifier}
-Description: Update story by medium_url (preferred) or name (fallback)
-
-curl -X PUT "http://localhost:8000/api/stories/story/https%3A%2F%2Fmedium.com%2F%40username%2Fpost-title-78cb972195da" \
-  -H "Content-Type: application/json" \
-  -d '{"status":"Published"}' | jq '.'
-"""
-@router.put("/story/{identifier:path}")
-async def update_story(identifier: str, update_data: dict):
-    """Update story by medium_url (preferred) or name (fallback)."""
-    try:
-        story = await resolve_story(identifier)
-        
-        if not story:
-            raise HTTPException(status_code=404, detail=f"Story not found: {unquote(identifier)}")
-        
-        update = StoryUpdate(**update_data)
-        updated_story = await StoryService.update_story(story.key, update)
-        
-        if not updated_story:
-            raise HTTPException(status_code=404, detail="Story not found")
-        
-        return {"success": True, "message": "Story updated", "story": updated_story.dict()}
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error updating story: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-"""
-DELETE /api/stories/story/{identifier}
-Description: Delete story by medium_url (preferred) or name (fallback)
-
-curl -X DELETE "http://localhost:8000/api/stories/story/https%3A%2F%2Fmedium.com%2F%40username%2Fpost-title-78cb972195da" | jq '.'
-"""
-@router.delete("/story/{identifier:path}")
-async def delete_story(identifier: str):
-    """Delete story by medium_url (preferred) or name (fallback)."""
-    try:
-        story = await resolve_story(identifier)
-        
-        if not story:
-            raise HTTPException(status_code=404, detail=f"Story not found: {unquote(identifier)}")
-        
-        deleted = await StoryService.delete_story(story.key)
-        if not deleted:
-            raise HTTPException(status_code=404, detail="Story not found")
-        
-        # Remove from all monthly files
-        available_months = await MonthlyStorageService.get_available_months()
-        for month_info in available_months:
-            await MonthlyStorageService.delete_story_from_month(
-                story.key, month_info["year"], month_info["month"]
-            )
-        
-        return {"success": True, "message": "Story deleted"}
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error deleting story: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-"""
-POST /api/stories/story/{identifier}/publish
-Description: Mark a story as published
-
-curl -X POST "http://localhost:8000/api/stories/story/https%3A%2F%2Fmedium.com%2F%40username%2Fpost-title-78cb972195da/publish" \
-  -H "Content-Type: application/json" \
-  -d '{"medium_url": "https://medium.com/@username/post-title-123"}' | jq '.'
-"""
-@router.post("/story/{identifier:path}/publish")
-async def publish_story(identifier: str, publish_data: dict = None):
-    """Mark a story as published by medium_url (preferred) or name (fallback)."""
-    try:
-        story = await resolve_story(identifier)
-        
-        if not story:
-            raise HTTPException(status_code=404, detail=f"Story not found: {unquote(identifier)}")
-        
-        medium_url = publish_data.get("medium_url") if publish_data else None
-        
-        updated_story = await StoryService.publish_story(story.key, medium_url)
-        if not updated_story:
-            raise HTTPException(status_code=404, detail="Story not found")
-        
-        return {"success": True, "message": "Story marked as published"}
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error publishing story: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-# ============================================
-# STATS ENDPOINTS - Smart resolution
-# ============================================
-
-"""
-GET /api/stories/stats/{identifier}/{yearmonth}
-Description: Get monthly stats by medium_url (preferred) or name (fallback)
-
-curl -X GET "http://localhost:8000/api/stories/stats/https%3A%2F%2Fmedium.com%2F%40username%2Fpost-title-123/2026-03" | jq '.'
-"""
-@router.get("/stats/{identifier:path}/{yearmonth}")
-async def get_story_stats(identifier: str, yearmonth: str):
-    """Get monthly stats by medium_url (preferred) or name (fallback)."""
-    try:
-        parts = yearmonth.split('-')
-        if len(parts) != 2:
-            raise HTTPException(status_code=400, detail="Invalid yearmonth format")
-        year = int(parts[0])
-        month = int(parts[1])
-        
-        story = await resolve_story(identifier)
-        
-        if not story:
-            raise HTTPException(status_code=404, detail=f"Story not found: {unquote(identifier)}")
-        
-        monthly_stats = await MonthlyStorageService.get_story_monthly_stats(story.key, year, month) or {}
-        
-        member_reads = monthly_stats.get("medium_member_reads", 0)
-        nonmember_reads = monthly_stats.get("medium_nonmember_reads", 0)
-        reads = member_reads + nonmember_reads
-        reads_percent = round((member_reads / reads) * 100, 1) if reads > 0 else 0
-        
-        member_views = monthly_stats.get("medium_member_views", 0)
-        nonmember_views = monthly_stats.get("medium_nonmember_views", 0)
-        views = member_views + nonmember_views
-        views_percent = round((member_views / views) * 100, 1) if views > 0 else 0
-        
-        return {
-            "story_key": story.key,
-            "story_name": story.name,
-            "yearmonth": yearmonth,
-            "member_reads": member_reads,
-            "nonmember_reads": nonmember_reads,
-            "reads": reads,
-            "reads_percent": reads_percent,
-            "member_views": member_views,
-            "nonmember_views": nonmember_views,
-            "views": views,
-            "views_percent": views_percent,
-            "claps": monthly_stats.get("claps", 0),
-            "responses": monthly_stats.get("responses", 0),
-            "leaderboard": monthly_stats.get("leaderboard", False),
-            "leaderboard_nanos": monthly_stats.get("leaderboard_nanos", 0),
-            "medium_earnings": monthly_stats.get("medium_earnings", 0),
-            "medium_new_followers": monthly_stats.get("medium_new_followers", 0),
-            "medium_highlights": monthly_stats.get("medium_highlights", 0)
-        }
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error getting story stats: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-"""
-PUT /api/stories/stats/{identifier}/{yearmonth}
-Description: Update monthly stats by medium_url (preferred) or name (fallback)
-
-curl -X PUT "http://localhost:8000/api/stories/stats/https%3A%2F%2Fmedium.com%2F%40username%2Fpost-title-123/2026-03" \
-  -H "Content-Type: application/json" \
-  -d '{"leaderboard": true, "leaderboard_nanos": 30000000}' | jq '.'
-"""
-@router.put("/stats/{identifier:path}/{yearmonth}")
-async def update_story_stats(identifier: str, yearmonth: str, stats_data: dict):
-    """Update monthly stats by medium_url (preferred) or name (fallback)."""
-    try:
-        parts = yearmonth.split('-')
-        if len(parts) != 2:
-            raise HTTPException(status_code=400, detail="Invalid yearmonth format")
-        year = int(parts[0])
-        month = int(parts[1])
-        
-        story = await resolve_story(identifier)
-        
-        if not story:
-            raise HTTPException(status_code=404, detail=f"Story not found: {unquote(identifier)}")
-        
-        storage_data = {
-            "medium_member_reads": stats_data.get("member_reads", 0),
-            "medium_nonmember_reads": stats_data.get("nonmember_reads", 0),
-            "medium_member_views": stats_data.get("member_views", 0),
-            "medium_nonmember_views": stats_data.get("nonmember_views", 0),
-            "claps": stats_data.get("claps", 0),
-            "responses": stats_data.get("responses", 0),
-            "leaderboard": stats_data.get("leaderboard", False),
-            "leaderboard_nanos": stats_data.get("leaderboard_nanos", 0),
-            "medium_earnings": stats_data.get("medium_earnings", 0),
-            "reads": stats_data.get("reads", 0),
-            "view_count": stats_data.get("view_count", stats_data.get("views", 0)),
-            "medium_new_followers": stats_data.get("medium_new_followers", 0),
-            "medium_highlights": stats_data.get("medium_highlights", 0)
-        }
-        
-        success = await MonthlyStorageService.update_story_monthly_stats(
-            story.key, year, month, storage_data, story.name
-        )
-        
-        if not success:
-            raise HTTPException(status_code=500, detail="Failed to update monthly stats")
-        
-        return {"success": True, "message": "Monthly stats updated", "story_key": story.key, "story_name": story.name}
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error updating story stats: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-# ============================================
-# STORY MONTHS ENDPOINTS
-# ============================================
-
-"""
-GET /api/stories/story-months/{identifier}
-Description: Get all months where a story has data
-
-curl -X GET "http://localhost:8000/api/stories/story-months/https%3A%2F%2Fmedium.com%2F%40username%2Fpost-title-123" | jq '.'
-"""
-@router.get("/story-months/{identifier:path}")
-async def get_story_months(identifier: str):
-    """Get all months where a story has data by medium_url (preferred) or name (fallback)."""
-    try:
-        story = await resolve_story(identifier)
-        
-        if not story:
-            raise HTTPException(status_code=404, detail=f"Story not found: {unquote(identifier)}")
-        
-        months = await MonthlyStorageService.get_months_for_story(story.key)
-        
-        return {
-            "story_key": story.key,
-            "story_name": story.name,
-            "months": months,
-            "total": len(months)
-        }
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error getting story months: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-"""
-POST /api/stories/ensure-story-in-month
-Description: Ensure a story exists in monthly data
-
-curl -X POST "http://localhost:8000/api/stories/ensure-story-in-month?identifier=https%3A%2F%2Fmedium.com%2F%40username%2Fpost-title-123&year=2026&month=4" | jq '.'
-"""
-@router.post("/ensure-story-in-month")
-async def ensure_story_in_month_endpoint(
-    identifier: str,
-    year: int,
-    month: int
-):
-    """Ensure a story exists in monthly data by medium_url (preferred) or name (fallback)."""
-    try:
-        story = await resolve_story(identifier)
-        
-        if not story:
-            raise HTTPException(status_code=404, detail=f"Story not found: {unquote(identifier)}")
-        
-        success = await MonthlyStorageService.ensure_story_in_month(
-            story.key, year, month, story.name
-        )
-        
-        if not success:
-            raise HTTPException(status_code=500, detail="Failed to ensure story in month")
-        
-        return {"success": True, "message": "Story ensured in month", "story_key": story.key, "story_name": story.name}
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error ensuring story in month: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-# ============================================
-# CREATE, SYNC, UTILITY ENDPOINTS
-# ============================================
-
-"""
-POST /api/stories/story
-Description: Create a new story
-
-curl -X POST "http://localhost:8000/api/stories/story" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "My New Story",
-    "folder": "Miscellaneous",
-    "series": "Python Tutorials",
-    "tags": ["python", "beginner"],
-    "read_time": 10,
-    "created_date": "2026-04-06",
-    "medium_url": "https://medium.com/@username/post-title-78cb972195da"
-  }' | jq '.'
-"""
-@router.post("/story")
-async def create_story(story_data: StoryCreate):
-    try:
-        story = await StoryService.create_story(story_data)
-        return {
-            "success": True,
-            "message": "Story created",
-            "story": {
-                "key": story.key,
-                "name": story.name,
-                "medium_url": story.medium_url
-            }
-        }
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        logger.error(f"Error creating story: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-"""
-POST /api/stories/sync
-Description: Sync filesystem with stories.json
-
-curl -X POST "http://localhost:8000/api/stories/sync" | jq '.'
-"""
-@router.post("/sync")
-async def sync_stories():
-    """Sync filesystem with stories.json - discovers new markdown files"""
-    try:
-        result = await StoryService.sync_with_filesystem()
-        return {
-            "success": True,
-            "message": "Sync completed",
-            "added": result.get("added", 0),
-            "updated": result.get("updated", 0),
-            "total_stories": result.get("total", 0)
-        }
-    except Exception as e:
-        logger.error(f"Sync error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
 """
 GET /api/stories/stats-by-url
-Description: Get stats by Medium URL (legacy, use /stats/{identifier} instead)
+Description: Get stats by Medium URL (legacy, use /stats/{unique_slug} instead)
 
 curl -X GET "http://localhost:8000/api/stories/stats-by-url?medium_url=https://medium.com/@username/post-title-123" | jq '.'
 """
@@ -856,7 +847,7 @@ curl -X GET "http://localhost:8000/api/stories/stats-by-url?medium_url=https://m
 async def get_stats_by_url(medium_url: str):
     """Get stats by Medium URL (legacy)"""
     try:
-        story = await resolve_story(medium_url)
+        story = await StoryService.get_story_by_medium_url(medium_url)
         
         if not story:
             return {"success": False, "message": "Story not found"}
@@ -870,6 +861,7 @@ async def get_stats_by_url(medium_url: str):
             "success": True,
             "story": {
                 "key": story.key,
+                "uniqueSlug": story.uniqueSlug,
                 "name": story.name
             },
             "current_month": {
@@ -955,14 +947,14 @@ Description: Fetch and SAVE monthly stats for a specific story from Medium API
 curl -X POST "http://localhost:8000/api/stories/fetch-story-stats/93b5bfa4fd07/2026-04" | jq '.'
 """
 @router.post("/fetch-story-stats/{post_id}/{yearmonth}")
-async def fetch_and_save_story_stats(post_id: str, yearmonth: str, story_identifier: str = None):
+async def fetch_and_save_story_stats(post_id: str, yearmonth: str, unique_slug: str = None):
     """
     Fetch monthly stats for a specific story from Medium API and SAVE to monthly DB.
     
     Args:
         post_id: Medium post ID
         yearmonth: Year-month in YYYY-MM format
-        story_identifier: Optional story name or URL (if not provided, will try to find by post_id)
+        unique_slug: Optional uniqueSlug (if not provided, will try to find by post_id)
     """
     try:
         parts = yearmonth.split('-')
@@ -977,13 +969,11 @@ async def fetch_and_save_story_stats(post_id: str, yearmonth: str, story_identif
         if not api_service.is_authenticated():
             raise HTTPException(status_code=401, detail="Not authenticated")
         
-        # Find story by post_id or provided identifier
         story = None
-        if story_identifier:
-            story = await resolve_story(story_identifier)
+        if unique_slug:
+            story = await StoryService.get_story_by_unique_slug(unquote(unique_slug))
         
         if not story:
-            # Try to find story by post_id in medium_url
             all_stories = await StoryService.get_all_stories()
             for s in all_stories:
                 if s.medium_url and post_id in s.medium_url:
@@ -993,12 +983,11 @@ async def fetch_and_save_story_stats(post_id: str, yearmonth: str, story_identif
         if not story:
             return {
                 "success": False, 
-                "message": "Story not found. Please provide story_identifier parameter.",
+                "message": "Story not found. Please provide unique_slug parameter.",
                 "stats": None,
                 "saved": False
             }
         
-        # Fetch stats from API
         response = api_service.get_story_metadata_medium(post_id, year, month)
         
         if not response:
@@ -1007,7 +996,6 @@ async def fetch_and_save_story_stats(post_id: str, yearmonth: str, story_identif
         parsed_stats = api_service.parse_stats_response(response, post_id)
         totals = parsed_stats.get("totals", {})
         
-        # Prepare data for saving
         monthly_data = {
             "medium_member_reads": totals.get("member_reads", 0),
             "medium_nonmember_reads": totals.get("nonmember_reads", 0),
@@ -1023,12 +1011,10 @@ async def fetch_and_save_story_stats(post_id: str, yearmonth: str, story_identif
             "last_stats_update": datetime.now().isoformat()
         }
         
-        # Ensure story exists in monthly DB
         await MonthlyStorageService.ensure_story_in_month(
             story.key, year, month, story.name
         )
         
-        # Save to monthly DB
         save_success = await MonthlyStorageService.update_story_monthly_stats(
             story.key, year, month, monthly_data, story.name
         )
@@ -1039,6 +1025,7 @@ async def fetch_and_save_story_stats(post_id: str, yearmonth: str, story_identif
             "stats": totals,
             "saved": save_success,
             "story_name": story.name,
+            "unique_slug": story.uniqueSlug,
             "story_key": story.key,
             "yearmonth": yearmonth
         }
@@ -1050,21 +1037,22 @@ async def fetch_and_save_story_stats(post_id: str, yearmonth: str, story_identif
 
 
 """
-POST /api/stories/fetch-lifetime-stats/{identifier}
+POST /api/stories/fetch-lifetime-stats/{unique_slug}
 Description: Fetch and SAVE lifetime + monthly stats for a story
 
-curl -X POST "http://localhost:8000/api/stories/fetch-lifetime-stats/https%3A%2F%2Fmedium.com%2F%40username%2Fpost-title-123" | jq '.'
+curl -X POST "http://localhost:8000/api/stories/fetch-lifetime-stats/asp-net-core-filters-deep-dive-building-maintainable-web-apis-with-net-10-and-reactive-extensions-78cb972195da" | jq '.'
 """
-@router.post("/fetch-lifetime-stats/{identifier:path}")
-async def fetch_and_save_lifetime_stats(identifier: str, year: int = None, month: int = None):
+@router.post("/fetch-lifetime-stats/{unique_slug:path}")
+async def fetch_and_save_lifetime_stats(unique_slug: str, year: int = None, month: int = None):
     """
     Fetch lifetime stats for a story from Medium API and SAVE to both places.
     """
     try:
-        story = await resolve_story(identifier)
+        decoded_slug = unquote(unique_slug)
+        story = await StoryService.get_story_by_unique_slug(decoded_slug)
         
         if not story:
-            raise HTTPException(status_code=404, detail=f"Story not found: {unquote(identifier)}")
+            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
         
         if not story.medium_url:
             raise HTTPException(status_code=400, detail="Story has no Medium URL")
@@ -1085,7 +1073,6 @@ async def fetch_and_save_lifetime_stats(identifier: str, year: int = None, month
             "monthly_updated": False
         }
         
-        # Fetch lifetime stats
         lifetime_response = api_service.get_story_earnings_medium("mvineetsharma", 50)
         
         if lifetime_response:
@@ -1121,7 +1108,6 @@ async def fetch_and_save_lifetime_stats(identifier: str, year: int = None, month
             if updated_story:
                 results["story_updated"] = True
         
-        # Fetch monthly stats
         if year is None or month is None:
             year, month = get_current_year_month()
         
@@ -1161,6 +1147,7 @@ async def fetch_and_save_lifetime_stats(identifier: str, year: int = None, month
             "success": True,
             "message": "Stats fetched and saved",
             "story_name": story.name,
+            "unique_slug": story.uniqueSlug,
             "story_key": story.key,
             "year": year,
             "month": month,
@@ -1208,15 +1195,14 @@ curl -X POST "http://localhost:8000/api/stories/refresh-stats/2026-04" | jq '.'
 """
 @router.post("/refresh-stats/{period}")
 async def refresh_stats_with_period(period: str):
-    # ONLY validation
     try:
         datetime.strptime(period, "%Y-%m")
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid period format")
     
-    # DIRECTLY call StoryService - NO pre-check for existing stories
     result = await StoryService.fetch_medium_stories(period)
     return result
+
 
 """
 GET /api/stories/import-logs
@@ -1228,7 +1214,6 @@ curl -X GET "http://localhost:8000/api/stories/import-logs" | jq '.'
 async def get_import_logs(limit: int = 50):
     """Get import logs"""
     try:
-        # Simple implementation - read from a log file if exists
         log_file = Path(settings.data_dir) / "import_logs.json"
         if log_file.exists():
             with open(log_file, 'r', encoding='utf-8') as f:
@@ -1239,60 +1224,178 @@ async def get_import_logs(limit: int = 50):
         logger.error(f"Error getting import logs: {e}")
         return {"success": True, "logs": [], "total": 0}
 
-@router.get("/debug/raw-response")
-async def debug_raw_response(period: str = "2026-04"):
-    """Debug endpoint to see raw API response"""
-    from app.services.medium_api_service import get_medium_api_service
-    
-    api_service = get_medium_api_service()
-    
-    if not api_service.is_authenticated():
-        return {"error": "Not authenticated"}
-    
-    # Parse period
-    parts = period.split('-')
-    year = int(parts[0])
-    month = int(parts[1])
-    
-    start_at, end_at = api_service.get_month_timestamps(year, month)
-    
-    from config import settings
-    username = settings.medium_username
-    
-    # Make raw request
-    query = """query StoryEarningsQuery($username: ID!, $first: Int!, $after: String!, $startAt: Long!, $endAt: Long!) {
-    userResult(username: $username) {
-        ... on User {
-            postsConnection(first: $first, after: $after, timeRange: {startAt: $startAt, endAt: $endAt}) {
-                edges {
-                    node {
-                        title
-                        uniqueSlug
-                        mediumUrl
-                    }
-                }
-            }
+
+"""
+GET /api/stories/update-story-monthly-stats/{unique_slug}
+Description: Update a story's monthly stats for a specific month
+
+curl -X PUT "http://localhost:8000/api/stories/update-story-monthly-stats/asp-net-core-filters-deep-dive?year=2026&month=4" \
+  -H "Content-Type: application/json" \
+  -d '{"reads": 100, "claps": 50}' | jq '.'
+"""
+@router.put("/update-story-monthly-stats/{unique_slug:path}")
+async def update_story_monthly_stats_endpoint(
+    unique_slug: str,
+    year: int,
+    month: int,
+    stats_data: dict
+):
+    """Update a story's monthly stats for a specific month by uniqueSlug"""
+    try:
+        decoded_slug = unquote(unique_slug)
+        story = await StoryService.get_story_by_unique_slug(decoded_slug)
+        
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
+        
+        success = await MonthlyStorageService.update_story_monthly_stats(
+            story.key, year, month, stats_data, story.name
+        )
+        
+        if not success:
+            raise HTTPException(status_code=500, detail="Failed to update monthly stats")
+        
+        return {"success": True, "message": "Monthly stats updated", "story_key": story.key, "unique_slug": story.uniqueSlug}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating story monthly stats: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+GET /api/stories/debug/unique-slug/{unique_slug}
+Description: Debug endpoint to check story by uniqueSlug
+
+curl -X GET "http://localhost:8000/api/stories/debug/unique-slug/asp-net-core-filters-deep-dive" | jq '.'
+"""
+@router.get("/debug/unique-slug/{unique_slug:path}")
+async def debug_story_by_slug(unique_slug: str):
+    """Debug endpoint to check story by uniqueSlug"""
+    try:
+        decoded_slug = unquote(unique_slug)
+        story = await StoryService.get_story_by_unique_slug(decoded_slug)
+        
+        if not story:
+            return {"found": False, "unique_slug": decoded_slug}
+        
+        return {
+            "found": True,
+            "unique_slug": story.uniqueSlug,
+            "key": story.key,
+            "name": story.name,
+            "title": story.title,
+            "status": story.status,
+            "bookmarked": story.bookmarked,
+            "leaderboard": story.leaderboard
         }
-    }
-    }"""
-    
-    variables = {
-        "username": username,
-        "first": 10,
-        "after": "",
-        "startAt": start_at,
-        "endAt": end_at
-    }
-    
-    payload = api_service._build_graphql_request("StoryEarningsQuery", variables, query, username, "debug")
-    headers = api_service._get_common_headers(username, "StoryEarningsQuery")
-    
-    response = api_service._make_request(api_service.GRAPHQL_URL, headers, payload, "Debug")
-    
-    return {
-        "period": period,
-        "start_at": start_at,
-        "end_at": end_at,
-        "username": username,
-        "response": response
-    }
+    except Exception as e:
+        return {"error": str(e), "unique_slug": unique_slug}
+
+"""
+GET /api/stories/monthly-stats/{year}/{month}
+Description: Get monthly stats mapping for a specific month
+
+curl -X GET "http://localhost:8000/api/stories/monthly-stats/2026/3" | jq '.'
+"""
+
+@router.get("/monthly-stats/{year}/{month}")
+async def get_monthly_stats_map(year: int, month: int):
+    try:
+        if month < 1 or month > 12:
+            raise HTTPException(status_code=400, detail="Month must be between 1 and 12")
+        
+        all_stories = await StoryService.get_all_stories()
+        
+        stats_map = {}
+        target_month_str = f"{year}-{month:02d}"
+        
+        # DEBUG: Find the ASP.NET story specifically
+        print(f"\n{'='*60}")
+        print(f"DEBUG: Looking for {target_month_str} earnings")
+        print(f"{'='*60}")
+        
+        for story in all_stories:
+            if story.status != "Published":
+                continue
+            
+            # Check if this is the ASP.NET story
+            is_aspnet = 'asp-net-core-filters' in story.uniqueSlug.lower()
+            
+            if is_aspnet:
+                print(f"\n📖 Found ASP.NET Story:")
+                print(f"   uniqueSlug: {story.uniqueSlug}")
+                print(f"   status: {story.status}")
+                
+                if story.medium:
+                    print(f"   Has medium object: YES")
+                    print(f"   monthlyEarnings count: {len(story.medium.monthlyEarnings) if story.medium.monthlyEarnings else 0}")
+                    
+                    if story.medium.monthlyEarnings:
+                        for me in story.medium.monthlyEarnings:
+                            print(f"     - period: '{me.period}', nanos: {me.nanos}")
+                            if me.period == target_month_str:
+                                print(f"     ✅ MATCH FOUND for {target_month_str}!")
+                    else:
+                        print(f"   monthlyEarnings is None or empty")
+                else:
+                    print(f"   Has medium object: NO")
+        
+        # Now build the stats map
+        stories_with_earnings = 0
+        
+        for story in all_stories:
+            if story.status != "Published":
+                continue
+            
+            story_stats = {
+                "reads": 0,
+                "views": 0,
+                "claps": 0,
+                "responses": 0,
+                "earnings": 0,
+                "leaderboard": False
+            }
+            
+            if story.medium:
+                story_stats["claps"] = story.medium.clapCount or 0
+                story_stats["responses"] = story.medium.responsesCount or 0
+                
+                if story.medium.monthlyStats:
+                    for monthly_stat in story.medium.monthlyStats:
+                        if monthly_stat.period == target_month_str:
+                            story_stats["reads"] = monthly_stat.reads or 0
+                            story_stats["views"] = monthly_stat.views or 0
+                            break
+                
+                if story.medium.monthlyEarnings:
+                    for monthly_earning in story.medium.monthlyEarnings:
+                        if monthly_earning.period == target_month_str:
+                            story_stats["earnings"] = monthly_earning.nanos or 0
+                            story_stats["leaderboard"] = (monthly_earning.nanos or 0) > 0
+                            if story_stats["earnings"] > 0:
+                                stories_with_earnings += 1
+                                print(f"💰 {story.uniqueSlug}: earnings=${story_stats['earnings']/1000000000:.2f}")
+                            break
+            
+            stats_map[story.uniqueSlug] = story_stats
+        
+        print(f"\n📊 Total published stories: {len(stats_map)}")
+        print(f"💰 Stories with earnings > 0: {stories_with_earnings}")
+        print(f"{'='*60}\n")
+        
+        return {
+            "success": True,
+            "year": year,
+            "month": month,
+            "yearmonth": target_month_str,
+            "stats_map": stats_map,
+            "total_stories": len(stats_map),
+            "stories_with_earnings": stories_with_earnings
+        }
+        
+    except Exception as e:
+        logger.error(f"Error: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))

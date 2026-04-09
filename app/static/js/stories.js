@@ -1,8 +1,181 @@
-// app/static/js/stories.js
+// ============================================
+// STORIES.JS - Complete with Month/Year Selector & Caching
+// ============================================
 
 let allStories = [];
 let allSeriesNames = [];
-let currentSort = { column: 'title', direction: 'asc' };
+let currentSort = { column: 'name', direction: 'asc' };
+let currentSelectedYear = null;
+let currentSelectedMonth = null;
+let isLoadingMonthStats = false;
+let currentEditStoryKey = null;
+let currentEditStoryYear = null;
+let currentEditStoryMonth = null;
+
+// Cache for monthly stats (in-memory for page lifespan)
+let monthlyStatsCache = {};
+
+// ============================================
+// MONTH/YEAR SELECTOR - Load historical stats
+// ============================================
+
+async function loadMonthStats() {
+    const yearSelect = document.getElementById('yearSelect');
+    const monthSelect = document.getElementById('monthSelect');
+    
+    if (!yearSelect || !monthSelect) return;
+    
+    const year = parseInt(yearSelect.value);
+    const month = parseInt(monthSelect.value);
+    
+    if (isNaN(year) || isNaN(month)) return;
+    
+    currentSelectedYear = year;
+    currentSelectedMonth = month;
+    
+    isLoadingMonthStats = true;
+    showLoading();
+    
+    try {
+        const cacheKey = `${year}-${month}`;
+        
+        // Clear cache for this month to force fresh load
+        delete monthlyStatsCache[cacheKey];
+        
+        console.log(`Fetching stats for ${cacheKey}`);
+        const response = await fetch(`${API_BASE}/stories/monthly-stats/${year}/${month}`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log(`✅ Received ${data.total_stories} stories, ${data.stories_with_earnings} with earnings`);
+        
+        // Store in cache
+        monthlyStatsCache[cacheKey] = data.stats_map;
+        
+        // Apply stats to allStories
+        applyMonthlyStats(cacheKey, data.stats_map);
+        
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                           'July', 'August', 'September', 'October', 'November', 'December'];
+        const displaySpan = document.getElementById('currentDisplayMonth');
+        if (displaySpan) {
+            displaySpan.textContent = `${monthNames[month-1]} ${year}`;
+            displaySpan.style.fontWeight = 'bold';
+            displaySpan.style.color = '#0d6efd';
+        }
+        
+        // Count final leaderboard stories
+        const finalLeaderboardCount = allStories.filter(s => s.leaderboard === true).length;
+        showToast(`Loaded stats for ${monthNames[month-1]} ${year}: ${finalLeaderboardCount} stories on leaderboard`, 'success');
+        
+    } catch (error) {
+        console.error('Error loading month stats:', error);
+        showToast('Error loading month stats: ' + error.message, 'error');
+    } finally {
+        isLoadingMonthStats = false;
+        hideLoading();
+    }
+}
+
+function applyMonthlyStats(cacheKey, statsMap) {
+    console.log(`🔄 Applying stats for ${cacheKey}`);
+    console.log(`📊 Stats map has ${Object.keys(statsMap).length} entries`);
+    
+    // Count earnings in statsMap for debugging
+    let earningsCount = 0;
+    let totalEarnings = 0;
+    
+    const updatedStories = allStories.map(story => {
+        const stats = statsMap[story.uniqueSlug];
+        
+        if (stats) {
+            const earnings = stats.earnings || 0;
+            const isPublished = story.status === 'Published';
+            const shouldHaveLeaderboard = isPublished && earnings > 0;
+            
+            if (shouldHaveLeaderboard) {
+                earningsCount++;
+                totalEarnings += earnings;
+            }
+            
+            // Debug for ASP.NET story
+            if (story.uniqueSlug.includes('asp-net-core-filters')) {
+                console.log(`🎯 ASP.NET Story:`, {
+                    uniqueSlug: story.uniqueSlug,
+                    status: story.status,
+                    earnings: earnings,
+                    leaderboard: shouldHaveLeaderboard
+                });
+            }
+            
+            return {
+                ...story,
+                reads: stats.reads || 0,
+                view_count: stats.views || 0,
+                views: stats.views || 0,
+                claps: stats.claps || 0,
+                responses: stats.responses || 0,
+                medium_earnings: earnings,
+                leaderboard: shouldHaveLeaderboard,
+                monthly_stats: stats
+            };
+        }
+        
+        return {
+            ...story,
+            reads: 0,
+            view_count: 0,
+            views: 0,
+            claps: 0,
+            responses: 0,
+            medium_earnings: 0,
+            leaderboard: false,
+            monthly_stats: null
+        };
+    });
+    
+    // Replace the entire array
+    allStories = updatedStories;
+    
+    console.log(`💰 Updated ${earningsCount} stories with leaderboard=true, total earnings: $${(totalEarnings / 1000000000).toFixed(2)}`);
+    
+    // Re-render the table
+    renderStoryTable();
+    updateFilterCount();
+    updateLeaderboardTotal();
+}
+
+async function loadCurrentMonth() {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth() + 1;
+    
+    const yearSelect = document.getElementById('yearSelect');
+    const monthSelect = document.getElementById('monthSelect');
+    
+    if (yearSelect) yearSelect.value = currentYear;
+    if (monthSelect) monthSelect.value = currentMonth;
+    
+    // Clear selected month to indicate we're back to current month
+    currentSelectedYear = null;
+    currentSelectedMonth = null;
+    
+    const displaySpan = document.getElementById('currentDisplayMonth');
+    if (displaySpan) {
+        displaySpan.textContent = 'Current Month';
+        displaySpan.style.fontWeight = 'normal';
+        displaySpan.style.color = '';
+    }
+    
+    // Clear monthly stats cache for current month to force fresh load
+    const currentKey = `${currentYear}-${currentMonth}`;
+    delete monthlyStatsCache[currentKey];
+    
+    await loadStories();
+}
 
 // ============================================
 // LOAD STORIES
@@ -15,9 +188,20 @@ async function loadStories() {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         
-        allStories = data.stories || [];
+        // Process stories to ensure leaderboard is set based on earnings > 0
+        const processedStories = (data.stories || []).map(story => {
+            // Calculate leaderboard based on earnings > 0
+            const hasEarnings = (story.medium_earnings || 0) > 0;
+            return {
+                ...story,
+                leaderboard: hasEarnings,
+                leaderboard_nanos: story.medium_earnings || 0
+            };
+        });
         
-        // Extract unique series names
+        allStories = processedStories;
+        
+        // Build series dropdown
         const seriesSet = new Set();
         allStories.forEach(story => {
             if (story.series && story.series !== 'null' && story.series !== '') {
@@ -27,11 +211,50 @@ async function loadStories() {
         allSeriesNames = Array.from(seriesSet).sort();
         
         updateSeriesDropdown();
-        renderStoryTable();
-        updateFilterCount();
+        
+        // IMPORTANT: Apply current month stats on initial load
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth() + 1;
+        const currentKey = `${currentYear}-${currentMonth}`;
+        
+        // Check if we already have current month stats cached
+        if (!monthlyStatsCache[currentKey]) {
+            console.log(`Fetching current month stats for ${currentKey} on initial load...`);
+            const statsResponse = await fetch(`${API_BASE}/stories/monthly-stats/${currentYear}/${currentMonth}`);
+            if (statsResponse.ok) {
+                const statsData = await statsResponse.json();
+                monthlyStatsCache[currentKey] = statsData.stats_map;
+                applyMonthlyStats(currentKey, statsData.stats_map);
+            } else {
+                // Fallback: render without monthly stats
+                renderStoryTable();
+                updateFilterCount();
+            }
+        } else {
+            applyMonthlyStats(currentKey, monthlyStatsCache[currentKey]);
+        }
+        
+        const displaySpan = document.getElementById('currentDisplayMonth');
+        if (displaySpan && !currentSelectedYear) {
+            displaySpan.textContent = 'Current Month';
+            displaySpan.style.fontWeight = 'normal';
+            displaySpan.style.color = '';
+        }
+        
+        if (window.updateLeaderboardTotal) {
+            window.updateLeaderboardTotal();
+        }
+        
+        console.log(`Loaded ${allStories.length} stories`);
+        
     } catch (error) {
         console.error('Error loading stories:', error);
         showToast('Error loading stories: ' + error.message, 'error');
+        const tbody = document.getElementById('storiesTableBody');
+        if (tbody) {
+            tbody.innerHTML = '<tr><td colspan="13" class="text-center text-danger py-3">Error loading stories</td></tr>';
+        }
     } finally {
         hideLoading();
     }
@@ -96,220 +319,159 @@ function getFilteredStories() {
     return filtered;
 }
 
-function getSortedStories() {
-    const filtered = getFilteredStories();
-    
-    filtered.sort((a, b) => {
-        let aVal = a[currentSort.column];
-        let bVal = b[currentSort.column];
-        
-        if (typeof aVal === 'boolean') {
-            aVal = aVal ? 1 : 0;
-            bVal = bVal ? 1 : 0;
-        }
-        if (typeof aVal === 'string') {
-            aVal = (aVal || '').toLowerCase();
-            bVal = (bVal || '').toLowerCase();
-        }
-        if (typeof aVal === 'number') {
-            aVal = aVal || 0;
-            bVal = bVal || 0;
-        }
-        
-        return currentSort.direction === 'asc' ? (aVal > bVal ? 1 : -1) : (aVal < bVal ? 1 : -1);
-    });
-    
-    return filtered;
-}
-
-function renderStoryTable() {
-    const tbody = document.getElementById('storiesTableBody');
-    if (!tbody) return;
-    
-    const sortedStories = getSortedStories();
-    tbody.innerHTML = '';
-    
-    if (sortedStories.length === 0) {
-        const row = tbody.insertRow();
-        const cell = row.insertCell(0);
-        cell.colSpan = 13;
-        cell.className = 'text-center text-muted py-3';
-        cell.textContent = 'No stories found';
-        return;
-    }
-    
-    sortedStories.forEach(story => {
-        const row = tbody.insertRow();
-        row.className = 'table-row-clickable';
-        
-        const uniqueSlug = story.uniqueSlug || story.key?.split('/').pop();
-        const encodedSlug = encodeURIComponent(uniqueSlug);
-        
-        // Get medium data (nested object)
-        const medium = story.medium || {};
-        const totalStats = medium.totalStats || {};
-        const monthlyStats = medium.monthlyStats || [];
-        const currentMonthStats = monthlyStats.length > 0 ? monthlyStats[monthlyStats.length - 1] : {};
-        const totalEarnings = medium.totalEarnings || {};
-        const monthlyEarnings = medium.monthlyEarnings || [];
-        const currentMonthEarnings = monthlyEarnings.length > 0 ? monthlyEarnings[monthlyEarnings.length - 1] : {};
-        
-        // Get LinkedIn data
-        const linkedin = story.linkedin || {};
-        
-        // 1. Bookmark
-        const bookmarkCell = row.insertCell(0);
-        bookmarkCell.className = 'text-center';
-        const bookmarkIcon = document.createElement('i');
-        bookmarkIcon.className = `bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}`;
-        bookmarkIcon.style.cursor = 'pointer';
-        bookmarkIcon.onclick = (e) => { e.stopPropagation(); toggleBookmark(encodedSlug); };
-        bookmarkCell.appendChild(bookmarkIcon);
-        
-        // 2. Leaderboard
-        const leaderboardCell = row.insertCell(1);
-        leaderboardCell.className = 'text-center';
-        const leaderboardIcon = document.createElement('i');
-        leaderboardIcon.className = `bi bi-trophy${story.leaderboard ? '-fill' : ''} leaderboard-icon ${story.leaderboard ? 'leaderboard' : ''}`;
-        leaderboardIcon.style.cursor = 'pointer';
-        leaderboardIcon.onclick = (e) => { e.stopPropagation(); toggleLeaderboard(encodedSlug); };
-        leaderboardCell.appendChild(leaderboardIcon);
-        
-        // 3. Status
-        const statusCell = row.insertCell(2);
-        const statusSpan = document.createElement('span');
-        const statusClass = story.status === 'Published' ? 'status-published' : 
-                           story.status === 'Ready' ? 'status-ready' : 
-                           story.status === 'Done' ? 'status-done' : 'status-draft';
-        statusSpan.className = `status-badge ${statusClass}`;
-        statusSpan.textContent = story.status || 'Draft';
-        statusCell.appendChild(statusSpan);
-        
-        // 4. Title (click = edit modal)
-        const titleCell = row.insertCell(3);
-        const titleStrong = document.createElement('strong');
-        titleStrong.style.cursor = 'pointer';
-        titleStrong.textContent = story.title || story.name || 'Unknown';
-        titleStrong.onclick = () => openEditStory(encodedSlug);
-        titleCell.appendChild(titleStrong);
-        
-        // 5. Series
-        const seriesCell = row.insertCell(4);
-        if (story.series) {
-            const seriesSpan = document.createElement('span');
-            seriesSpan.className = 'series-badge';
-            seriesSpan.style.cursor = 'pointer';
-            seriesSpan.textContent = story.series;
-            seriesSpan.onclick = (e) => { e.stopPropagation(); filterBySeries(story.series); };
-            seriesCell.appendChild(seriesSpan);
-        } else {
-            seriesCell.textContent = '—';
-            seriesCell.className = 'text-muted';
-        }
-        
-        // 6. Created Date (from story root)
-        const createdCell = row.insertCell(5);
-        createdCell.textContent = story.createdDate ? story.createdDate.split('T')[0] : '-';
-        
-        // 7. Published Date (from story root)
-        const publishedCell = row.insertCell(6);
-        publishedCell.textContent = story.publishedDate ? story.publishedDate.split('T')[0] : '-';
-        
-        // 8. Engagement (claps / voters / followers from medium)
-        const engagementCell = row.insertCell(7);
-        const engagementSmall = document.createElement('small');
-        const claps = medium.clapCount || 0;
-        const voters = medium.voterCount || 0;
-        const followers = medium.followerCount || 0;
-        engagementSmall.innerHTML = `💚 ${formatNumber(claps)}<br>👥 ${formatNumber(voters)}<br>📢 ${formatNumber(followers)}`;
-        engagementCell.appendChild(engagementSmall);
-        
-        // 9. Earnings (Monthly / Total from medium)
-        const earningsCell = row.insertCell(8);
-        const earningsSmall = document.createElement('small');
-        const monthlyEarnNanos = currentMonthEarnings.nanos || 0;
-        const totalEarnNanos = totalEarnings.nanos || 0;
-        earningsSmall.innerHTML = `💰 $${(monthlyEarnNanos / 1000000000).toFixed(2)}<br>🏦 $${(totalEarnNanos / 1000000000).toFixed(2)}`;
-        earningsCell.appendChild(earningsSmall);
-        
-        // 10. Impression (reads / views / responses from medium totalStats)
-        const impressionCell = row.insertCell(9);
-        const impressionSmall = document.createElement('small');
-        const reads = totalStats.reads || 0;
-        const views = totalStats.views || 0;
-        const responses = medium.responsesCount || 0;
-        impressionSmall.innerHTML = `📖 ${formatNumber(reads)}<br>👁️ ${formatNumber(views)}<br>💬 ${formatNumber(responses)}`;
-        impressionCell.appendChild(impressionSmall);
-        
-        // 11. Read Time (from medium)
-        const readTimeCell = row.insertCell(10);
-        const readTimeSmall = document.createElement('small');
-        const readingTime = medium.readingTime || 0;
-        const hours = Math.floor(readingTime / 60);
-        const minutes = readingTime % 60;
-        const timeStr = hours > 0 ? `${hours}:${minutes.toString().padStart(2, '0')}` : `${minutes}:00`;
-        const wordCount = medium.wordCount || 0;
-        readTimeSmall.innerHTML = `⏱️ ${timeStr}<br>📝 ${formatNumber(wordCount)}`;
-        readTimeCell.appendChild(readTimeSmall);
-        
-        // 12. LinkedIn (from linkedin object)
-        const linkedinCell = row.insertCell(11);
-        const linkedinSpan = document.createElement('span');
-        const linkedinStatus = linkedin.status || story.linkedin_status;
-        if (linkedinStatus === 'scheduled') {
-            linkedinSpan.className = 'linkedin-badge linkedin-scheduled';
-            linkedinSpan.textContent = '📅 Scheduled';
-        } else if (linkedinStatus === 'posted') {
-            linkedinSpan.className = 'linkedin-badge linkedin-posted';
-            linkedinSpan.textContent = '✅ Posted';
-        } else {
-            linkedinSpan.className = 'linkedin-badge linkedin-not-posted';
-            linkedinSpan.textContent = 'Not Posted';
-        }
-        linkedinCell.appendChild(linkedinSpan);
-        
-        // 13. Actions
-        const actionsCell = row.insertCell(12);
-        actionsCell.className = 'action-buttons';
-        
-        const statsBtn = document.createElement('button');
-        statsBtn.className = 'btn btn-sm btn-outline-info';
-        statsBtn.title = 'Stats Dashboard';
-        statsBtn.onclick = (e) => { e.stopPropagation(); showStatsDashboard(encodedSlug); };
-        const statsIcon = document.createElement('i');
-        statsIcon.className = 'bi bi-graph-up';
-        statsBtn.appendChild(statsIcon);
-        actionsCell.appendChild(statsBtn);
-        
-        const externalBtn = document.createElement('button');
-        externalBtn.className = 'btn btn-sm btn-outline-secondary ms-1';
-        externalBtn.title = 'Open on Medium';
-        const mediumUrl = medium.mediumUrl || story.medium_url;
-        if (mediumUrl) {
-            externalBtn.onclick = (e) => { e.stopPropagation(); window.open(mediumUrl, '_blank'); };
-        } else {
-            externalBtn.disabled = true;
-        }
-        const externalIcon = document.createElement('i');
-        externalIcon.className = 'bi bi-box-arrow-up-right';
-        externalBtn.appendChild(externalIcon);
-        actionsCell.appendChild(externalBtn);
-    });
-}
-
 // ============================================
 // SORTING
 // ============================================
 
 function sortStories(column) {
-    if (currentSort.column === column) {
+    const columnMap = {
+        'engagement': 'engagement',
+        'earnings': 'earnings', 
+        'impression': 'impression',
+        'read_time': 'read_time',
+        'bookmarked': 'bookmarked',
+        'leaderboard': 'leaderboard',
+        'status': 'status',
+        'name': 'name',
+        'series': 'series',
+        'created_date': 'created_date',
+        'published_date': 'published_date',
+        'claps': 'claps',
+        'medium_earnings': 'medium_earnings',
+        'reads': 'reads',
+        'views': 'views',
+        'reading_time': 'reading_time',
+        'medium_publication': 'medium_publication',
+        'linkedin_status': 'linkedin_status'
+    };
+    
+    const sortColumn = columnMap[column] || column;
+    
+    if (currentSort.column === sortColumn) {
         currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
     } else {
-        currentSort.column = column;
+        currentSort.column = sortColumn;
         currentSort.direction = 'asc';
     }
+    
     renderStoryTable();
     updateSortIcons(column, currentSort.direction);
+}
+
+function getSortedStories() {
+    const filtered = getFilteredStories();
+    
+    filtered.sort((a, b) => {
+        let aVal, bVal;
+        
+        switch (currentSort.column) {
+            case 'engagement':
+                aVal = a.claps || a.medium?.clapCount || 0;
+                bVal = b.claps || b.medium?.clapCount || 0;
+                break;
+                
+            case 'earnings':
+                aVal = a.medium_earnings || a.medium?.monthlyEarnings?.[0]?.nanos || 0;
+                bVal = b.medium_earnings || b.medium?.monthlyEarnings?.[0]?.nanos || 0;
+                break;
+                
+            case 'impression':
+                aVal = a.views || a.view_count || a.medium?.totalStats?.views || a.lifetime_views || 0;
+                bVal = b.views || b.view_count || b.medium?.totalStats?.views || b.lifetime_views || 0;
+                break;
+                
+            case 'read_time':
+                aVal = a.medium?.readingTime || a.medium_reading_time || a.read_time || 0;
+                bVal = b.medium?.readingTime || b.medium_reading_time || b.read_time || 0;
+                break;
+                
+            case 'bookmarked':
+                aVal = a.bookmarked ? 1 : 0;
+                bVal = b.bookmarked ? 1 : 0;
+                break;
+                
+            case 'leaderboard':
+                aVal = a.leaderboard ? 1 : 0;
+                bVal = b.leaderboard ? 1 : 0;
+                break;
+                
+            case 'status':
+                const statusOrder = { 'Published': 1, 'Ready': 2, 'Draft': 3, 'Done': 4 };
+                aVal = statusOrder[a.status] || 99;
+                bVal = statusOrder[b.status] || 99;
+                break;
+                
+            case 'name':
+                aVal = (a.title || a.name || '').toLowerCase();
+                bVal = (b.title || b.name || '').toLowerCase();
+                break;
+                
+            case 'series':
+                aVal = (a.series || '').toLowerCase();
+                bVal = (b.series || '').toLowerCase();
+                break;
+                
+            case 'created_date':
+                aVal = a.created_date || a.createdDate || '';
+                bVal = b.created_date || b.createdDate || '';
+                break;
+                
+            case 'published_date':
+                aVal = a.published_date || a.publishedDate || '';
+                bVal = b.published_date || b.publishedDate || '';
+                break;
+                
+            case 'claps':
+                aVal = a.claps || a.medium?.clapCount || 0;
+                bVal = b.claps || b.medium?.clapCount || 0;
+                break;
+                
+            case 'medium_earnings':
+                aVal = a.medium_earnings || a.medium?.monthlyEarnings?.[0]?.nanos || 0;
+                bVal = b.medium_earnings || b.medium?.monthlyEarnings?.[0]?.nanos || 0;
+                break;
+                
+            case 'reads':
+                aVal = a.reads || a.medium?.totalStats?.reads || a.lifetime_reads || 0;
+                bVal = b.reads || b.medium?.totalStats?.reads || b.lifetime_reads || 0;
+                break;
+                
+            case 'views':
+                aVal = a.views || a.view_count || a.medium?.totalStats?.views || a.lifetime_views || 0;
+                bVal = b.views || b.view_count || b.medium?.totalStats?.views || b.lifetime_views || 0;
+                break;
+                
+            case 'reading_time':
+                aVal = a.medium?.readingTime || a.medium_reading_time || a.read_time || 0;
+                bVal = b.medium?.readingTime || b.medium_reading_time || b.read_time || 0;
+                break;
+                
+            case 'medium_publication':
+                aVal = (a.medium?.collection?.name || a.medium_publication || '').toLowerCase();
+                bVal = (b.medium?.collection?.name || b.medium_publication || '').toLowerCase();
+                break;
+                
+            case 'linkedin_status':
+                const linkedinOrder = { 'posted': 1, 'scheduled': 2, '': 3, null: 3 };
+                aVal = linkedinOrder[a.linkedin_status] || 3;
+                bVal = linkedinOrder[b.linkedin_status] || 3;
+                break;
+                
+            default:
+                aVal = a[currentSort.column] || '';
+                bVal = b[currentSort.column] || '';
+        }
+        
+        if (typeof aVal === 'number' && typeof bVal === 'number') {
+            return currentSort.direction === 'asc' ? aVal - bVal : bVal - aVal;
+        }
+        
+        aVal = String(aVal || '').toLowerCase();
+        bVal = String(bVal || '').toLowerCase();
+        return currentSort.direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    });
+    
+    return filtered;
 }
 
 function updateSortIcons(column, direction) {
@@ -319,6 +481,7 @@ function updateSortIcons(column, direction) {
         const icon = header.querySelector('i');
         if (icon) icon.className = 'bi bi-arrow-down-up';
     });
+    
     const activeHeader = document.querySelector(`#storiesTableHeader .sortable[data-sort="${column}"]`);
     if (activeHeader) {
         activeHeader.classList.add('active');
@@ -364,18 +527,197 @@ function filterBySeries(seriesName) {
 }
 
 // ============================================
+// RENDER TABLE
+// ============================================
+
+function renderStoryTable() {
+    const tbody = document.getElementById('storiesTableBody');
+    if (!tbody) return;
+    
+    const sortedStories = getSortedStories();
+    tbody.innerHTML = '';
+    
+    if (sortedStories.length === 0) {
+        const row = tbody.insertRow();
+        const cell = row.insertCell(0);
+        cell.colSpan = 13;
+        cell.className = 'text-center text-muted py-3';
+        cell.textContent = 'No stories found';
+        return;
+    }
+    
+    sortedStories.forEach(story => {
+        const row = tbody.insertRow();
+        row.className = 'table-row-clickable';
+        
+        const uniqueSlug = story.uniqueSlug;
+        const encodedSlug = encodeURIComponent(uniqueSlug);
+        
+        const medium = story.medium || {};
+        
+        // Column 0: Bookmark
+        const bookmarkCell = row.insertCell(0);
+        bookmarkCell.className = 'text-center';
+        const bookmarkIcon = document.createElement('i');
+        bookmarkIcon.className = `bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}`;
+        bookmarkIcon.style.cursor = 'pointer';
+        bookmarkIcon.onclick = (e) => { e.stopPropagation(); toggleBookmark(encodedSlug, e); };
+        bookmarkCell.appendChild(bookmarkIcon);
+        
+        // Column 1: Leaderboard (based on earnings > 0 for selected month)
+        const leaderboardCell = row.insertCell(1);
+        leaderboardCell.className = 'text-center';
+        const leaderboardIcon = document.createElement('i');
+        // leaderboard is already set in applyMonthlyStats based on earnings > 0
+        leaderboardIcon.className = `bi bi-trophy${story.leaderboard ? '-fill' : ''} leaderboard-icon ${story.leaderboard ? 'leaderboard' : ''}`;
+        leaderboardIcon.style.cursor = 'pointer';
+        leaderboardIcon.onclick = (e) => { e.stopPropagation(); toggleLeaderboard(encodedSlug, e); };
+        leaderboardCell.appendChild(leaderboardIcon);
+        
+        // Column 2: Status
+        const statusCell = row.insertCell(2);
+        const statusSpan = document.createElement('span');
+        const statusClass = story.status === 'Published' ? 'status-published' : 
+                           story.status === 'Ready' ? 'status-ready' : 
+                           story.status === 'Done' ? 'status-done' : 'status-draft';
+        statusSpan.className = `status-badge ${statusClass}`;
+        statusSpan.textContent = story.status || 'Draft';
+        statusCell.appendChild(statusSpan);
+        
+        // Column 3: Title
+        const titleCell = row.insertCell(3);
+        const titleStrong = document.createElement('strong');
+        titleStrong.style.cursor = 'pointer';
+        titleStrong.textContent = story.title || story.name || 'Unknown';
+        titleStrong.onclick = () => openEditStory(encodedSlug);
+        titleCell.appendChild(titleStrong);
+        
+        // Column 4: Series
+        const seriesCell = row.insertCell(4);
+        if (story.series) {
+            const seriesSpan = document.createElement('span');
+            seriesSpan.className = 'series-badge';
+            seriesSpan.style.cursor = 'pointer';
+            seriesSpan.textContent = story.series;
+            seriesSpan.onclick = (e) => { e.stopPropagation(); filterBySeries(story.series); };
+            seriesCell.appendChild(seriesSpan);
+        } else {
+            seriesCell.textContent = '—';
+            seriesCell.className = 'text-muted';
+        }
+        
+        // Column 5: Created Date
+        const createdCell = row.insertCell(5);
+        createdCell.textContent = story.created_date || story.createdDate ? (story.created_date || story.createdDate).split('T')[0] : '-';
+        
+        // Column 6: Published Date
+        const publishedCell = row.insertCell(6);
+        publishedCell.textContent = story.published_date || story.publishedDate ? (story.published_date || story.publishedDate).split('T')[0] : '-';
+        
+        // Column 7: Engagement (Claps / Voters / Followers)
+        const engagementCell = row.insertCell(7);
+        const engagementSmall = document.createElement('small');
+        const claps = story.claps || medium.clapCount || 0;
+        const voters = medium.voterCount || 0;
+        const followers = story.medium_new_followers || 0;
+        engagementSmall.innerHTML = `💚 ${formatNumber(claps)}<br>👥 ${formatNumber(voters)}<br>📢 ${formatNumber(followers)}`;
+        engagementCell.appendChild(engagementSmall);
+        
+        // Column 8: Earnings (Monthly Earnings for selected month)
+        const earningsCell = row.insertCell(8);
+        const earningsSmall = document.createElement('small');
+        const monthlyEarnings = story.medium_earnings || 0;
+        const totalEarnings = medium.totalEarnings?.nanos || 0;
+        earningsSmall.innerHTML = `💰 ${formatCurrency(monthlyEarnings)}<br>🏦 ${formatCurrency(totalEarnings)}`;
+        earningsCell.appendChild(earningsSmall);
+        
+        // Column 9: Impression (Reads / Views / Responses)
+        const impressionCell = row.insertCell(9);
+        const impressionSmall = document.createElement('small');
+        const reads = story.reads || 0;
+        const views = story.views || story.view_count || 0;
+        const responses = story.responses || 0;
+        // const impression = story.medium || story.medium.totalStats || story.medium.totalStats.impression || 0;
+        impressionSmall.innerHTML = `📖 ${formatNumber(reads)}<br>👁️ ${formatNumber(views)}<br>💬 ${formatNumber(responses)}`;
+        impressionCell.appendChild(impressionSmall);
+        
+        // Column 10: Read Time / Word Count
+        const readTimeCell = row.insertCell(10);
+        const readTimeSmall = document.createElement('small');
+        const readingTime = medium.readingTime || story.medium_reading_time || story.read_time || 0;
+        const wordCount = medium.wordCount || story.word_count || 0;
+        const hours = Math.floor(readingTime / 60);
+        const minutes = readingTime % 60;
+        const timeStr = hours > 0 ? `${hours}:${minutes.toString().padStart(2, '0')}` : `${minutes}:00`;
+        readTimeSmall.innerHTML = `⏱️ ${timeStr}<br>📝 ${formatNumber(wordCount)}`;
+        readTimeCell.appendChild(readTimeSmall);
+        
+        // Column 11: LinkedIn Status
+        const linkedinCell = row.insertCell(11);
+        const linkedinSpan = document.createElement('span');
+        const linkedinStatus = story.linkedin?.status || story.linkedin_status;
+        if (linkedinStatus === 'scheduled') {
+            linkedinSpan.className = 'linkedin-badge linkedin-scheduled';
+            linkedinSpan.textContent = '📅 Scheduled';
+        } else if (linkedinStatus === 'posted') {
+            linkedinSpan.className = 'linkedin-badge linkedin-posted';
+            linkedinSpan.textContent = '✅ Posted';
+        } else {
+            linkedinSpan.className = 'linkedin-badge linkedin-not-posted';
+            linkedinSpan.textContent = 'Not Posted';
+        }
+        linkedinCell.appendChild(linkedinSpan);
+        
+        // Column 12: Actions
+        const actionsCell = row.insertCell(12);
+        actionsCell.className = 'action-buttons';
+        
+        const statsBtn = document.createElement('button');
+        statsBtn.className = 'btn btn-sm btn-outline-info';
+        statsBtn.title = 'Stats Dashboard';
+        statsBtn.onclick = (e) => { e.stopPropagation(); showStatsDashboard(encodedSlug); };
+        statsBtn.innerHTML = '<i class="bi bi-graph-up"></i>';
+        actionsCell.appendChild(statsBtn);
+        
+        const externalBtn = document.createElement('button');
+        externalBtn.className = 'btn btn-sm btn-outline-secondary ms-1';
+        externalBtn.title = 'Open on Medium';
+        // const mediumUrl = medium.mediumUrl || story.medium_url; //6a63927f9b83
+        const mediumUrl = 'https://medium.com/me/stats/post/' + medium.id || story.medium_id; //6a63927f9b83
+        if (mediumUrl) {
+            externalBtn.onclick = (e) => { e.stopPropagation(); window.open(mediumUrl, '_blank'); };
+        } else {
+            externalBtn.disabled = true;
+        }
+        externalBtn.innerHTML = '<i class="bi bi-box-arrow-up-right"></i>';
+        actionsCell.appendChild(externalBtn);
+    });
+    
+    // Update leaderboard total in sidebar
+    updateLeaderboardTotal();
+}
+
+// ============================================
 // TOGGLE BOOKMARK & LEADERBOARD
 // ============================================
 
-async function toggleBookmark(encodedSlug) {
-    const uniqueSlug = decodeURIComponent(encodedSlug);
-    const story = allStories.find(s => (s.uniqueSlug || s.key?.split('/').pop()) === uniqueSlug);
-    if (!story) return;
+async function toggleBookmark(encodedUniqueSlug, event) {
+    if (event) event.stopPropagation();
+    
+    const uniqueSlug = decodeURIComponent(encodedUniqueSlug);
+    const story = allStories.find(s => s.uniqueSlug === uniqueSlug);
+    
+    if (!story) {
+        console.error('Story not found for uniqueSlug:', uniqueSlug);
+        showToast('Story not found', 'error');
+        return;
+    }
     
     const newState = !story.bookmarked;
     
+    showLoading();
     try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodedSlug}`, {
+        const response = await fetch(`${API_BASE}/stories/story/${encodedUniqueSlug}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ bookmarked: newState })
@@ -384,23 +726,50 @@ async function toggleBookmark(encodedSlug) {
         if (response.ok) {
             story.bookmarked = newState;
             renderStoryTable();
-            showToast('Bookmark updated', 'success');
+            showToast(newState ? 'Story bookmarked' : 'Bookmark removed', 'success');
+        } else {
+            const error = await response.json();
+            showToast('Error updating bookmark: ' + (error.detail || 'Unknown error'), 'error');
         }
     } catch (error) {
         console.error('Error toggling bookmark:', error);
-        showToast('Error updating bookmark', 'error');
+        showToast('Error updating bookmark: ' + error.message, 'error');
+    } finally {
+        hideLoading();
     }
 }
 
-async function toggleLeaderboard(encodedSlug) {
-    const uniqueSlug = decodeURIComponent(encodedSlug);
-    const story = allStories.find(s => (s.uniqueSlug || s.key?.split('/').pop()) === uniqueSlug);
-    if (!story) return;
+async function toggleLeaderboard(encodedUniqueSlug, event) {
+    if (event) event.stopPropagation();
+    
+    const uniqueSlug = decodeURIComponent(encodedUniqueSlug);
+    const story = allStories.find(s => s.uniqueSlug === uniqueSlug);
+    
+    if (!story) {
+        console.error('Story not found for uniqueSlug:', uniqueSlug);
+        showToast('Story not found', 'error');
+        return;
+    }
     
     const newState = !story.leaderboard;
     
+    // If we're in month selector mode, just update client-side (no API call)
+    if (currentSelectedYear && currentSelectedMonth) {
+        story.leaderboard = newState;
+        // If setting leaderboard true, set a default nanos value
+        if (newState && !story.leaderboard_nanos) {
+            story.leaderboard_nanos = story.medium_earnings || 10000000; // Default $0.01 if no earnings
+        }
+        renderStoryTable();
+        updateLeaderboardTotal();
+        showToast(newState ? 'Added to leaderboard (client-side)' : 'Removed from leaderboard (client-side)', 'success');
+        return;
+    }
+    
+    // In dashboard mode, persist to API
+    showLoading();
     try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodedSlug}`, {
+        const response = await fetch(`${API_BASE}/stories/story/${encodedUniqueSlug}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ leaderboard: newState })
@@ -408,13 +777,21 @@ async function toggleLeaderboard(encodedSlug) {
         
         if (response.ok) {
             story.leaderboard = newState;
+            if (newState && !story.leaderboard_nanos) {
+                story.leaderboard_nanos = story.medium_earnings || 10000000;
+            }
             renderStoryTable();
-            if (window.updateLeaderboardTotal) window.updateLeaderboardTotal();
-            showToast('Leaderboard updated', 'success');
+            updateLeaderboardTotal();
+            showToast(newState ? 'Added to leaderboard' : 'Removed from leaderboard', 'success');
+        } else {
+            const error = await response.json();
+            showToast('Error updating leaderboard: ' + (error.detail || 'Unknown error'), 'error');
         }
     } catch (error) {
         console.error('Error toggling leaderboard:', error);
-        showToast('Error updating leaderboard', 'error');
+        showToast('Error updating leaderboard: ' + error.message, 'error');
+    } finally {
+        hideLoading();
     }
 }
 
@@ -422,34 +799,55 @@ async function toggleLeaderboard(encodedSlug) {
 // MODAL FUNCTIONS
 // ============================================
 
-async function openEditStory(encodedSlug) {
+async function openEditStory(encodedUniqueSlug) {
+    const uniqueSlug = decodeURIComponent(encodedUniqueSlug);
+    const story = allStories.find(s => s.uniqueSlug === uniqueSlug);
+    
+    if (!story) {
+        showToast('Story not found', 'error');
+        return;
+    }
+    
+    currentEditStoryKey = story.uniqueSlug;
+    
+    const now = new Date();
+    currentEditStoryYear = now.getFullYear();
+    currentEditStoryMonth = now.getMonth() + 1;
+    
+    try { 
+        const modeData = await fetch(`${API_BASE}/stories/mode`).then(r => r.json()); 
+        if (modeData.current_month) { 
+            currentEditStoryYear = modeData.current_month.year; 
+            currentEditStoryMonth = modeData.current_month.month; 
+        } 
+    } catch(e) {}
+    
+    await loadStoryForEdit(story.uniqueSlug, currentEditStoryYear, currentEditStoryMonth);
+    const modalEl = document.getElementById('editStoryModal');
+    if (modalEl) new bootstrap.Modal(modalEl).show();
+}
+
+async function loadStoryForEdit(uniqueSlug, year, month) {
     try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodedSlug}`);
-        const storyData = await response.json();
+        const response = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(uniqueSlug)}`);
+        const story = await response.json();
         
-        const medium = storyData.medium || {};
+        document.getElementById('editStoryUniqueSlug').value = story.uniqueSlug;
+        document.getElementById('editStoryTitle').value = story.title || '';
+        document.getElementById('editStoryStatus').value = story.status || 'Draft';
+        document.getElementById('editStorySeries').value = story.series || '';
+        document.getElementById('editStoryCreatedDate').value = story.created_date?.split('T')[0] || '';
+        document.getElementById('editStoryPublishedDate').value = story.published_date?.split('T')[0] || '';
+        document.getElementById('editStoryNotes').value = story.notes || '';
+        document.getElementById('editStoryTags').value = (story.tags || []).join(', ');
+        document.getElementById('editStoryMediumUrl').value = story.medium_url || '';
         
-        document.getElementById('editStoryUniqueSlug').value = storyData.uniqueSlug;
-        document.getElementById('editStoryTitle').value = storyData.title || '';
-        document.getElementById('editStoryStatus').value = storyData.status || 'Draft';
-        document.getElementById('editStorySeries').value = storyData.series || '';
-        document.getElementById('editStoryCreatedDate').value = storyData.createdDate?.split('T')[0] || '';
-        document.getElementById('editStoryPublishedDate').value = storyData.publishedDate?.split('T')[0] || '';
-        document.getElementById('editStoryNotes').value = storyData.notes || '';
-        document.getElementById('editStoryTags').value = (medium.tags || []).join(', ');
-        document.getElementById('editStoryMediumUrl').value = medium.mediumUrl || storyData.medium_url || '';
+        const linkedin = story.linkedin || {};
+        document.getElementById('editStoryLinkedinStatus').value = linkedin.status || story.linkedin_status || '';
+        document.getElementById('editStoryLinkedinTimestamp').value = linkedin.timestamp || story.linkedin_timestamp || '';
+        document.getElementById('editStoryLinkedinImpressions').value = linkedin.impressions || story.linkedin_impressions || 0;
+        document.getElementById('editStoryLinkedinUrl').value = linkedin.url || story.linkedin_url || '';
         
-        const linkedin = storyData.linkedin || {};
-        document.getElementById('editStoryLinkedinStatus').value = linkedin.status || storyData.linkedin_status || '';
-        document.getElementById('editStoryLinkedinTimestamp').value = linkedin.timestamp || storyData.linkedin_timestamp || '';
-        document.getElementById('editStoryLinkedinImpressions').value = linkedin.impressions || storyData.linkedin_impressions || 0;
-        document.getElementById('editStoryLinkedinUrl').value = linkedin.url || storyData.linkedin_url || '';
-        
-        const modalEl = document.getElementById('editStoryModal');
-        if (modalEl) {
-            const modal = new bootstrap.Modal(modalEl);
-            modal.show();
-        }
     } catch (error) {
         console.error('Error loading story for edit:', error);
         showToast('Error loading story: ' + error.message, 'error');
@@ -500,112 +898,48 @@ async function saveStoryEdit() {
     }
 }
 
-async function showStatsDashboard(encodedSlug) {
+async function showStatsDashboard(encodedUniqueSlug) {
+    const uniqueSlug = decodeURIComponent(encodedUniqueSlug);
     const modalEl = document.getElementById('statsDashboardModal');
     const contentDiv = document.getElementById('statsDashboardContent');
     if (!modalEl || !contentDiv) return;
     
-    while (contentDiv.firstChild) {
-        contentDiv.removeChild(contentDiv.firstChild);
-    }
-    const loadingDiv = document.createElement('div');
-    loadingDiv.className = 'text-center py-3';
-    loadingDiv.innerHTML = '<div class="spinner-border text-primary"></div><p>Loading stats...</p>';
-    contentDiv.appendChild(loadingDiv);
-    
+    contentDiv.innerHTML = '<div class="text-center py-3"><div class="spinner-border text-primary"></div><p>Loading stats...</p></div>';
     const modal = new bootstrap.Modal(modalEl);
     modal.show();
     
     try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodedSlug}`);
+        const response = await fetch(`${API_BASE}/stories/story/${encodedUniqueSlug}`);
         const storyData = await response.json();
-        
-        while (contentDiv.firstChild) {
-            contentDiv.removeChild(contentDiv.firstChild);
-        }
         
         const medium = storyData.medium || {};
         const totalStats = medium.totalStats || {};
         const totalEarnings = medium.totalEarnings || {};
         
-        const container = document.createElement('div');
-        container.className = 'compact-stats';
-        
-        const header = document.createElement('div');
-        header.className = 'd-flex justify-content-between align-items-center mb-3';
-        const titleStrong = document.createElement('strong');
-        titleStrong.textContent = storyData.title;
-        header.appendChild(titleStrong);
-        const viewLink = document.createElement('a');
-        viewLink.href = medium.mediumUrl || storyData.medium_url || '#';
-        viewLink.target = '_blank';
-        viewLink.className = 'btn btn-sm btn-outline-primary';
-        viewLink.innerHTML = '<i class="bi bi-box-arrow-up-right"></i> View on Medium';
-        header.appendChild(viewLink);
-        container.appendChild(header);
-        
-        const lifetimeSection = document.createElement('div');
-        lifetimeSection.className = 'row g-2 mb-3';
-        const lifetimeTitle = document.createElement('div');
-        lifetimeTitle.className = 'col-12';
-        lifetimeTitle.innerHTML = '<strong>📊 Lifetime Stats</strong>';
-        lifetimeSection.appendChild(lifetimeTitle);
-        
-        const readsCard = createStatCard('Reads', formatNumber(totalStats.reads || 0), 'bg-info');
-        const viewsCard = createStatCard('Views', formatNumber(totalStats.views || 0), 'bg-primary');
-        const clapsCard = createStatCard('Claps', formatNumber(medium.clapCount || 0), 'bg-success');
-        
-        lifetimeSection.appendChild(readsCard);
-        lifetimeSection.appendChild(viewsCard);
-        lifetimeSection.appendChild(clapsCard);
-        container.appendChild(lifetimeSection);
-        
-        const earningsSection = document.createElement('div');
-        earningsSection.className = 'row g-2';
-        const earningsTitle = document.createElement('div');
-        earningsTitle.className = 'col-12';
-        earningsTitle.innerHTML = '<strong>💰 Earnings</strong>';
-        earningsSection.appendChild(earningsTitle);
-        
-        const totalEarningsCard = createStatCard('Total Earnings', `$${(totalEarnings.nanos / 1000000000).toFixed(2)}`, 'bg-warning', 'text-dark');
-        const responsesCard = createStatCard('Responses', formatNumber(medium.responsesCount || 0), 'bg-secondary');
-        
-        earningsSection.appendChild(totalEarningsCard);
-        earningsSection.appendChild(responsesCard);
-        container.appendChild(earningsSection);
-        
-        contentDiv.appendChild(container);
-        
+        contentDiv.innerHTML = `
+            <div class="compact-stats">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <strong>${escapeHtml(storyData.title || storyData.name)}</strong>
+                    <a href="${escapeHtml(medium.mediumUrl || storyData.medium_url || '#')}" target="_blank" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-box-arrow-up-right"></i> View on Medium
+                    </a>
+                </div>
+                <div class="row g-2 mb-3">
+                    <div class="col-12"><strong>📊 Lifetime Stats</strong></div>
+                    <div class="col-4"><div class="card bg-info text-white p-2 text-center"><small>Reads</small><h5>${formatNumber(totalStats.reads || 0)}</h5></div></div>
+                    <div class="col-4"><div class="card bg-primary text-white p-2 text-center"><small>Views</small><h5>${formatNumber(totalStats.views || 0)}</h5></div></div>
+                    <div class="col-4"><div class="card bg-success text-white p-2 text-center"><small>Claps</small><h5>${formatNumber(medium.clapCount || 0)}</h5></div></div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-12"><strong>💰 Earnings</strong></div>
+                    <div class="col-6"><div class="card bg-warning p-2 text-center"><small>Total Earnings</small><h5>${formatCurrency(totalEarnings.nanos || 0)}</h5></div></div>
+                    <div class="col-6"><div class="card bg-secondary text-white p-2 text-center"><small>Responses</small><h5>${formatNumber(medium.responsesCount || 0)}</h5></div></div>
+                </div>
+            </div>
+        `;
     } catch (error) {
-        console.error('Error loading stats:', error);
-        while (contentDiv.firstChild) {
-            contentDiv.removeChild(contentDiv.firstChild);
-        }
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'alert alert-danger';
-        errorDiv.textContent = 'Error loading stats: ' + error.message;
-        contentDiv.appendChild(errorDiv);
+        contentDiv.innerHTML = `<div class="alert alert-danger">Error loading stats: ${error.message}</div>`;
     }
-}
-
-function createStatCard(label, value, bgClass, textClass = 'text-white') {
-    const col = document.createElement('div');
-    col.className = 'col-4';
-    
-    const card = document.createElement('div');
-    card.className = `card ${bgClass} ${textClass} p-2 text-center`;
-    
-    const small = document.createElement('small');
-    small.textContent = label;
-    
-    const h5 = document.createElement('h5');
-    h5.textContent = value;
-    
-    card.appendChild(small);
-    card.appendChild(h5);
-    col.appendChild(card);
-    
-    return col;
 }
 
 // ============================================
@@ -728,10 +1062,145 @@ async function createStory() {
 }
 
 // ============================================
+// DELETE STORY
+// ============================================
+
+async function deleteStory(encodedUniqueSlug) {
+    if (!confirm('Delete this story?')) return;
+    
+    const uniqueSlug = decodeURIComponent(encodedUniqueSlug);
+    
+    showLoading();
+    try {
+        const response = await fetch(`${API_BASE}/stories/story/${encodedUniqueSlug}`, { method: 'DELETE' });
+        if (response.ok) {
+            await loadStories();
+            showToast('Story deleted', 'success');
+        } else {
+            showToast('Error deleting story', 'error');
+        }
+    } catch (error) {
+        showToast('Error deleting story: ' + error.message, 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
+// ============================================
+// HELPER FUNCTIONS
+// ============================================
+
+function formatNumber(num) {
+    if (!num && num !== 0) return '0';
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'k';
+    return num.toString();
+}
+
+function formatCurrency(nanos) {
+    if (!nanos && nanos !== 0) return '$0.00';
+    const dollars = nanos / 1000000000;
+    return `$${dollars.toFixed(2)}`;
+}
+
+function getTodayDate() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+}
+
+function getCurrentYearMonth() {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function showLoading() {
+    const el = document.getElementById('loading');
+    if (el) el.style.display = 'flex';
+}
+
+function hideLoading() {
+    const el = document.getElementById('loading');
+    if (el) el.style.display = 'none';
+}
+
+function showToast(message, type = 'info') {
+    console.log(`[${type.toUpperCase()}] ${message}`);
+    if (type === 'error') {
+        alert(message);
+    }
+}
+
+function updateLeaderboardTotal() {
+    if (!allStories || !Array.isArray(allStories)) {
+        const countEl = document.getElementById('leaderboardCount');
+        const amountEl = document.getElementById('leaderboardAmount');
+        if (countEl) countEl.textContent = '0';
+        if (amountEl) amountEl.textContent = '0.00';
+        return;
+    }
+    
+    const storiesWithLeaderboard = allStories.filter(s => s.leaderboard === true);
+    const totalEarnings = storiesWithLeaderboard.reduce((sum, s) => sum + (s.medium_earnings || 0), 0);
+    
+    const countEl = document.getElementById('leaderboardCount');
+    const amountEl = document.getElementById('leaderboardAmount');
+    if (countEl) countEl.textContent = storiesWithLeaderboard.length;
+    if (amountEl) amountEl.textContent = (totalEarnings / 1000000000).toFixed(2);
+}
+function debugStatsMapping() {
+    console.log('=== DEBUG STATS MAPPING ===');
+    console.log('Available cached months:', Object.keys(monthlyStatsCache));
+    
+    if (currentSelectedYear && currentSelectedMonth) {
+        const cacheKey = `${currentSelectedYear}-${currentSelectedMonth}`;
+        const statsMap = monthlyStatsCache[cacheKey];
+        if (statsMap) {
+            console.log(`Stats keys for ${cacheKey}:`, Object.keys(statsMap).slice(0, 10));
+            
+            // Check a sample story
+            const sampleStory = allStories[0];
+            if (sampleStory) {
+                console.log(`Sample story uniqueSlug: "${sampleStory.uniqueSlug}"`);
+                console.log(`Stats found:`, statsMap[sampleStory.uniqueSlug] || 'NOT FOUND');
+            }
+        }
+    }
+    console.log('========================');
+}
+
+// ============================================
 // INITIALIZATION
 // ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
+    const yearSelect = document.getElementById('yearSelect');
+    if (yearSelect) {
+        const currentYear = new Date().getFullYear();
+        for (let y = currentYear; y >= 2024; y--) {
+            const option = document.createElement('option');
+            option.value = y;
+            option.textContent = y;
+            if (y === currentYear) option.selected = true;
+            yearSelect.appendChild(option);
+        }
+    }
+    
+    const monthSelect = document.getElementById('monthSelect');
+    if (monthSelect) {
+        const currentMonth = new Date().getMonth() + 1;
+        monthSelect.value = currentMonth;
+    }
+    
     loadStories();
     
     document.getElementById('statusFilter')?.addEventListener('change', applyFilters);
@@ -744,6 +1213,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('saveStoryEditBtn')?.addEventListener('click', saveStoryEdit);
 });
 
+// Make functions globally available
 window.sortStories = sortStories;
 window.applyFilters = applyFilters;
 window.clearFilters = clearFilters;
@@ -755,3 +1225,7 @@ window.showStatsDashboard = showStatsDashboard;
 window.refreshStats = refreshStats;
 window.syncStories = syncStories;
 window.openAddStoryModal = openAddStoryModal;
+window.deleteStory = deleteStory;
+window.loadMonthStats = loadMonthStats;
+window.loadCurrentMonth = loadCurrentMonth;
+window.loadStories = loadStories;

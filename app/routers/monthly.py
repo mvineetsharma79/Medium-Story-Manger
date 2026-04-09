@@ -85,7 +85,8 @@ async def get_stories_for_month(
             story_dict["current_month"] = f"{year}-{month:02d}"
             story_dict["has_monthly_data"] = story.key in monthly_stories
             
-            result.append(StoryResponse(**story_dict))
+            # Return as dict, not StoryResponse
+            result.append(story_dict)
         
         return result
         
