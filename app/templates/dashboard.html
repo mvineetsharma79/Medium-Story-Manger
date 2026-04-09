@@ -7,7 +7,7 @@
     <h1 class="h3">Dashboard</h1>
 </div>
 
-<!-- Stats Cards -->
+<!-- Stats Cards Row 1 -->
 <div class="row g-3 mb-4" id="statsCards">
     <div class="col-md-2">
         <div class="card stat-card bg-primary text-white" onclick="filterStoriesByStatus('all')">
@@ -22,6 +22,14 @@
             <div class="card-body">
                 <h6>Published</h6>
                 <h2 id="publishedCount">-</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card stat-card" style="background:#fd7e14;color:white;" onclick="filterStoriesByStatus('Published Due')">
+            <div class="card-body">
+                <h6>Published Due</h6>
+                <h2 id="publishedDueCount">-</h2>
             </div>
         </div>
     </div>
@@ -42,25 +50,33 @@
         </div>
     </div>
     <div class="col-md-2">
-        <div class="card stat-card" style="background:#ffc107;color:#000;" onclick="filterStoriesByBookmarked()">
+        <div class="card stat-card bg-warning text-dark" onclick="filterStoriesByStatus('Draft')">
             <div class="card-body">
-                <h6>Bookmarked</h6>
-                <h2 id="bookmarkedCount">-</h2>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="card stat-card" style="background:#ffd700;color:#000;" onclick="filterStoriesByLeaderboard()">
-            <div class="card-body">
-                <h6>Leaderboard</h6>
-                <h2 id="leaderboardCount">-</h2>
+                <h6>Draft</h6>
+                <h2 id="draftCount">-</h2>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Stats Row -->
+<!-- Stats Row 2 -->
 <div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card stat-card" style="background:#ffc107;color:#000;" onclick="filterStoriesByBookmarked()">
+            <div class="card-body">
+                <h6>Bookmarked</h6>
+                <h3 id="bookmarkedCount">-</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card" style="background:#ffd700;color:#000;" onclick="filterStoriesByLeaderboard()">
+            <div class="card-body">
+                <h6>Leaderboard</h6>
+                <h3 id="leaderboardCount">-</h3>
+            </div>
+        </div>
+    </div>
     <div class="col-md-3">
         <div class="card">
             <div class="card-body">
@@ -79,6 +95,10 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Stats Row 3 -->
+<div class="row g-3 mb-4">
     <div class="col-md-3">
         <div class="card">
             <div class="card-body">
@@ -92,6 +112,22 @@
             <div class="card-body">
                 <h6>Total Claps</h6>
                 <h3 id="totalClaps">-</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6>Total Presentations</h6>
+                <h3 id="totalPresentations">-</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6>Total Earnings</h6>
+                <h3 id="totalEarnings">-</h3>
             </div>
         </div>
     </div>
@@ -126,6 +162,20 @@
                 </div>
             </div>
         </div>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <div class="bg-secondary text-white p-2 rounded text-center">
+                    <small>Member Reads %</small>
+                    <h4 id="leaderboardMemberPercent">-</h4>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="bg-dark text-white p-2 rounded text-center">
+                    <small>Total Earnings</small>
+                    <h4 id="leaderboardTotalEarnings">-</h4>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -157,6 +207,7 @@
 
 <div class="mt-3">
     <button class="btn btn-sm btn-primary" onclick="syncStories()"><i class="bi bi-arrow-repeat"></i> Sync Files</button>
+    <button class="btn btn-sm btn-success ms-2" onclick="generateCalendar()"><i class="bi bi-calendar"></i> Generate Calendar</button>
 </div>
 {% endblock %}
 

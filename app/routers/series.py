@@ -59,6 +59,7 @@ async def get_series_list():
     try:
         data = await load_stories_data()
         series_data = data.get("series", {})
+        stories = data.get("stories", {})
         settings = data.get("calendar_settings", {})
         default_spacing = settings.get("series_spacing_days", 7)
         
@@ -68,12 +69,68 @@ async def get_series_list():
             published = info.get("published", 0)
             progress_percent = round((published / max(total_stories, 1)) * 100, 1)
             
+            # Get the actual story count
+            story_keys = info.get("stories", [])
+            actual_story_count = len(story_keys)
+            
+            # Count stories by status
+            status_counts = {
+                "Published": 0,
+                "Published Due": 0,
+                "Ready": 0,
+                "Done": 0,
+                "Draft": 0
+            }
+            
+            # Calculate total performance metrics for this series (SUM of all stories)
+            total_presentations = 0
+            total_views = 0
+            total_reads = 0
+            total_claps = 0
+            total_responses = 0
+            
+            for story_key in story_keys:
+                if story_key in stories:
+                    story = stories[story_key]
+                    story_status = story.get("status", "Draft")
+                    
+                    # Count status
+                    if story_status in status_counts:
+                        status_counts[story_status] += 1
+                    else:
+                        status_counts["Draft"] += 1
+                    
+                    # Get from medium.totalStats
+                    medium_data = story.get("medium")
+                    if medium_data and isinstance(medium_data, dict):
+                        total_stats = medium_data.get("totalStats", {})
+                        total_presentations += total_stats.get("presentations", 0) or 0
+                        total_views += total_stats.get("views", 0) or 0
+                        total_reads += total_stats.get("reads", 0) or 0
+                        total_claps += medium_data.get("clapCount", 0) or 0
+                        total_responses += medium_data.get("responsesCount", 0) or 0
+                    else:
+                        # Legacy fields
+                        total_presentations += story.get("presentation_count", 0) or 0
+                        total_views += story.get("lifetime_views", 0) or 0
+                        total_reads += story.get("lifetime_reads", 0) or 0
+                        total_claps += story.get("lifetime_claps", 0) or 0
+                        total_responses += story.get("responses", 0) or 0
+            
             result.append({
                 "name": name,
                 "total_stories": total_stories,
                 "published": published,
                 "spacing_days": info.get("spacing_days", default_spacing),
-                "progress_percent": progress_percent
+                "progress_percent": progress_percent,
+                "story_count": actual_story_count,
+                "status_counts": status_counts,
+                # Performance metrics (SUM of all stories in series)
+                "total_presentations": total_presentations,
+                "total_views": total_views,
+                "total_reads": total_reads,
+                "total_claps": total_claps,
+                "total_responses": total_responses,
             })
         
         return {"series": result, "total": len(result)}
@@ -81,7 +138,6 @@ async def get_series_list():
     except Exception as e:
         logger.error(f"Error getting series list: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-
 
 """
 GET /api/series/{series_name}

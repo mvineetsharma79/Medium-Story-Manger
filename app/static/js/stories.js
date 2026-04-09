@@ -188,9 +188,8 @@ async function loadStories() {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         
-        // Process stories to ensure leaderboard is set based on earnings > 0
+        // Process stories
         const processedStories = (data.stories || []).map(story => {
-            // Calculate leaderboard based on earnings > 0
             const hasEarnings = (story.medium_earnings || 0) > 0;
             return {
                 ...story,
@@ -209,38 +208,17 @@ async function loadStories() {
             }
         });
         allSeriesNames = Array.from(seriesSet).sort();
-        
         updateSeriesDropdown();
         
-        // IMPORTANT: Apply current month stats on initial load
-        const now = new Date();
-        const currentYear = now.getFullYear();
-        const currentMonth = now.getMonth() + 1;
-        const currentKey = `${currentYear}-${currentMonth}`;
+        // Render table
+        renderStoryTable();
+        updateFilterCount();
         
-        // Check if we already have current month stats cached
-        if (!monthlyStatsCache[currentKey]) {
-            console.log(`Fetching current month stats for ${currentKey} on initial load...`);
-            const statsResponse = await fetch(`${API_BASE}/stories/monthly-stats/${currentYear}/${currentMonth}`);
-            if (statsResponse.ok) {
-                const statsData = await statsResponse.json();
-                monthlyStatsCache[currentKey] = statsData.stats_map;
-                applyMonthlyStats(currentKey, statsData.stats_map);
-            } else {
-                // Fallback: render without monthly stats
-                renderStoryTable();
-                updateFilterCount();
-            }
-        } else {
-            applyMonthlyStats(currentKey, monthlyStatsCache[currentKey]);
-        }
+        // Load monthly stats
+        await loadMonthStats();
         
-        const displaySpan = document.getElementById('currentDisplayMonth');
-        if (displaySpan && !currentSelectedYear) {
-            displaySpan.textContent = 'Current Month';
-            displaySpan.style.fontWeight = 'normal';
-            displaySpan.style.color = '';
-        }
+        // Restore series filter if coming from series page
+        restoreSeriesFilter();
         
         if (window.updateLeaderboardTotal) {
             window.updateLeaderboardTotal();
@@ -251,14 +229,11 @@ async function loadStories() {
     } catch (error) {
         console.error('Error loading stories:', error);
         showToast('Error loading stories: ' + error.message, 'error');
-        const tbody = document.getElementById('storiesTableBody');
-        if (tbody) {
-            tbody.innerHTML = '<tr><td colspan="13" class="text-center text-danger py-3">Error loading stories</td></tr>';
-        }
     } finally {
         hideLoading();
     }
 }
+
 
 function updateSeriesDropdown() {
     const seriesFilter = document.getElementById('seriesFilter');
@@ -1176,6 +1151,23 @@ function debugStatsMapping() {
         }
     }
     console.log('========================');
+}
+
+// Add this function to restore series filter from sessionStorage
+function restoreSeriesFilter() {
+    const seriesFilter = sessionStorage.getItem('storiesFilterSeries');
+    if (seriesFilter) {
+        // Wait for series dropdown to be populated
+        setTimeout(() => {
+            const seriesSelect = document.getElementById('seriesFilter');
+            if (seriesSelect) {
+                seriesSelect.value = seriesFilter;
+                applyFilters();
+            }
+            // Clear after applying
+            sessionStorage.removeItem('storiesFilterSeries');
+        }, 500);
+    }
 }
 
 // ============================================

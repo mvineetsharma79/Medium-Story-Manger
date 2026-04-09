@@ -539,3 +539,29 @@
         margin: 0;
     }
 }
+
+/* Status badge colors for series page */
+.status-published {
+    background-color: #27ae60;
+    color: white;
+}
+
+.status-published-due {
+    background-color: #fd7e14;
+    color: white;
+}
+
+.status-ready {
+    background-color: #3498db;
+    color: white;
+}
+
+.status-done {
+    background-color: #9b59b6;
+    color: white;
+}
+
+.status-draft {
+    background-color: #f39c12;
+    color: white;
+}

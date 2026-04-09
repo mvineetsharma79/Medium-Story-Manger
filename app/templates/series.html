@@ -15,10 +15,22 @@
     <table class="table table-sm table-hover">
         <thead id="seriesTableHeader" class="table-light">
             <tr>
-                <th class="sortable" data-sort="name" onclick="sortSeries('name')" style="cursor: pointer;">
+                <th class="sortable" data-sort="name" onclick="sortSeries('name')" style="cursor: pointer; min-width: 200px;">
                     Series Name <i class="bi bi-arrow-down-up"></i>
                 </th>
-                <th class="sortable" data-sort="total_stories" onclick="sortSeries('total_stories')" style="cursor: pointer; width: 200px;">
+                <th class="sortable" data-sort="draft_count" onclick="sortSeries('draft_count')" style="cursor: pointer; width: 280px;">
+                    ⏰ Status <br><small>(Published / Due / Ready / Done / Draft)</small>
+                    <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th class="sortable" data-sort="total_reads" onclick="sortSeries('total_reads')" style="cursor: pointer; width: 200px;">
+                    📊 Performance <br><small>(Presentations / Views / Reads)</small>
+                    <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th class="sortable" data-sort="total_claps" onclick="sortSeries('total_claps')" style="cursor: pointer; width: 150px;">
+                    💚 Engagement <br><small>(Claps / Responses)</small>
+                    <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th class="sortable" data-sort="progress_percent" onclick="sortSeries('progress_percent')" style="cursor: pointer; width: 200px;">
                     Progress <i class="bi bi-arrow-down-up"></i>
                 </th>
                 <th class="sortable" data-sort="spacing_days" onclick="sortSeries('spacing_days')" style="cursor: pointer; width: 120px;">
@@ -29,7 +41,7 @@
         </thead>
         <tbody id="seriesTableBody">
             <tr>
-                <td colspan="4" class="text-center text-muted py-4">
+                <td colspan="7" class="text-center text-muted py-4">
                     <div class="spinner-border spinner-border-sm me-2" role="status"></div>
                     Loading series...
                 </td

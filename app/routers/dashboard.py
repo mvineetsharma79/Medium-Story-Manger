@@ -51,14 +51,16 @@ async def get_dashboard_stats():
         stats = {
             "total": len(all_stories),
             "published": 0,
-            "draft": 0,
+            "published_due": 0,
             "ready": 0,
             "done": 0,
+            "draft": 0,
             "bookmarked": 0,
             "leaderboard_count": 0,
             "total_reads": 0,
             "total_views": 0,
             "total_claps": 0,
+            "total_presentations": 0,
             "member_reads": 0,
             "member_views": 0,
             "read_ratio": 0,
@@ -80,12 +82,14 @@ async def get_dashboard_stats():
             # Count by status
             if story.status == "Published":
                 stats["published"] += 1
-            elif story.status == "Draft":
-                stats["draft"] += 1
+            elif story.status == "Published Due":
+                stats["published_due"] += 1
             elif story.status == "Ready":
                 stats["ready"] += 1
             elif story.status == "Done":
                 stats["done"] += 1
+            elif story.status == "Draft":
+                stats["draft"] += 1
             
             if story.bookmarked:
                 stats["bookmarked"] += 1
@@ -98,9 +102,15 @@ async def get_dashboard_stats():
             member_reads = monthly_stats.get("medium_member_reads", 0)
             member_views = monthly_stats.get("medium_member_views", 0)
             
+            # Get presentations from totalStats if available
+            presentations = 0
+            if story.medium and story.medium.totalStats:
+                presentations = story.medium.totalStats.presentations or 0
+            
             stats["total_reads"] += reads
             stats["total_views"] += views
             stats["total_claps"] += claps
+            stats["total_presentations"] += presentations
             stats["member_reads"] += member_reads
             stats["member_views"] += member_views
             
