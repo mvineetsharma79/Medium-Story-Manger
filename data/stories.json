@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-04-10T02:02:53.760964",
+  "last_updated": "2026-04-10T05:33:27.685210",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl": {
       "uniqueSlug": "solid-principles-part-2---single-responsibility-principl",
@@ -4160,7 +4160,7 @@
       "uniqueSlug": ".net-10-is-here --- a-complete-deep-dive-into-the-next-evolution-of-the-platform",
       "title": ".NET 10 Is Here — A Complete Deep Dive into the Next Evolution of the Platform",
       "name": ".NET 10 Is Here — A Complete Deep Dive into the Next Evolution of the Platform",
-      "full_name": ".NET 10 Is Here  -  A Complete Deep Dive into the Next Evolution of the Platform.md",
+      "full_name": ".NET 10 Is Here - A Complete Deep Dive into the Next Evolution of the Platform.md",
       "folder": "Dotnet Python NodeJS",
       "series": "Dotnet Python NodeJS",
       "raw_path": "Dotnet Python NodeJS/.NET 10 Is Here  -  A Complete Deep Dive into the Next Evolution of the Platform.md",
@@ -4182,6 +4182,7 @@
       "medium": {
         "id": "2e1af1f7ecb0",
         "title": ".NET 10 Is Here — A Complete Deep Dive into the Next Evolution of the Platform",
+        "full_name": ".NET 10 Is Here - A Complete Deep Dive into the Next Evolution of the Platform.md",
         "uniqueSlug": "net-10-is-here-a-complete-deep-dive-into-the-next-evolution-of-the-platform-2e1af1f7ecb0",
         "mediumUrl": "https://mvineetsharma.medium.com/net-10-is-here-a-complete-deep-dive-into-the-next-evolution-of-the-platform-2e1af1f7ecb0",
         "createdAt": 1771490393461,
@@ -6563,7 +6564,7 @@
       "rel_path": "Kafka%20Design%20Patterns%20-%20AWS/11%20Kafka%20Design%20Patterns%20for%20Every%20Backend%20Engineer.md",
       "status": "Published",
       "createdDate": "2026-04-09",
-      "lastUpdated": "2026-04-09T23:49:27.388805",
+      "lastUpdated": "2026-04-10T05:33:27.685190",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,

@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
@@ -8,7 +8,9 @@ import logging
 from contextlib import asynccontextmanager
 
 from app.services.medium_api_service import get_medium_api_service
-from app.routers import dashboard, stories, series, calendar, settings, monthly
+from app.routers import dashboard, stories, series, calendar, settings as settings_router, monthly
+from config import settings
+from app.services.file_service import get_stories_root
 
 # Configure logging
 logging.basicConfig(
@@ -68,6 +70,10 @@ app = FastAPI(
 # Mount static files
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
+# Mount stories folder for image access
+stories_root = get_stories_root()
+app.mount("/static/stories", StaticFiles(directory=str(stories_root)), name="stories")
+
 # Configure templates with multiple directories
 templates = Jinja2Templates(directory="app/templates")
 templates.env.loader = jinja2.FileSystemLoader([
@@ -84,7 +90,7 @@ app.include_router(dashboard.router, prefix="/api/dashboard", tags=["dashboard"]
 app.include_router(stories.router, prefix="/api/stories", tags=["stories"])
 app.include_router(series.router, prefix="/api/series", tags=["series"])
 app.include_router(calendar.router, prefix="/api/calendar", tags=["calendar"])
-app.include_router(settings.router, prefix="/api/settings", tags=["settings"])
+app.include_router(settings_router.router, prefix="/api/settings", tags=["settings"])
 app.include_router(monthly.router, prefix="/api/monthly", tags=["monthly"])
 
 # ============================================
@@ -125,6 +131,60 @@ async def calendar_page(request: Request):
 async def settings_page(request: Request):
     """Settings page"""
     return templates.TemplateResponse("settings.html", {"request": request})
+
+
+# ============================================
+# SERVE IMAGES FOR PREVIEW - MUST BE BEFORE story-preview route
+# ============================================
+@app.get("/story-preview/images/{filename:path}")
+async def serve_preview_image(filename: str):
+    """Serve images from stories folder for preview page"""
+    from pathlib import Path
+    
+    stories_root = get_stories_root()
+    
+    # Try to find the image in different locations
+    possible_paths = [
+        stories_root / "images" / filename,
+        stories_root / filename,
+    ]
+    
+    for path in possible_paths:
+        if path.exists() and path.is_file():
+            logger.info(f"Serving image: {path}")
+            return FileResponse(path)
+    
+    # Search recursively in stories folder
+    for ext in ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.webp', '*.svg']:
+        for found_file in stories_root.rglob(ext):
+            if found_file.name == Path(filename).name:
+                logger.info(f"Serving image from recursive search: {found_file}")
+                return FileResponse(found_file)
+    
+    logger.warning(f"Image not found: {filename}")
+    raise HTTPException(status_code=404, detail=f"Image not found: {filename}")
+
+
+# ============================================
+# STORY PREVIEW PAGE ROUTE
+# ============================================
+@app.get("/story-preview/{story_key:path}", response_class=HTMLResponse)
+async def story_preview_page(request: Request, story_key: str):
+    """Story preview/edit page"""
+    from urllib.parse import unquote
+    from app.services.story_service import StoryService
+    
+    decoded_key = unquote(story_key)
+    story = await StoryService.get_story(decoded_key)
+    
+    if not story:
+        return templates.TemplateResponse("dashboard.html", {"request": request, "error": "Story not found"})
+    
+    return templates.TemplateResponse("story_preview.html", {
+        "request": request,
+        "story": story,
+        "story_key": decoded_key
+    })
 
 
 # ============================================

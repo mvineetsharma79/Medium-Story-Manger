@@ -1292,6 +1292,7 @@ async def debug_story_by_slug(unique_slug: str):
     except Exception as e:
         return {"error": str(e), "unique_slug": unique_slug}
 
+
 """
 GET /api/stories/monthly-stats/{year}/{month}
 Description: Get monthly stats mapping for a specific month
@@ -1398,4 +1399,189 @@ async def get_monthly_stats_map(year: int, month: int):
         logger.error(f"Error: {e}")
         import traceback
         traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@router.get("/content/{story_key:path}")
+async def get_story_content(story_key: str):
+    """Get the markdown content of a story file"""
+    try:
+        from urllib.parse import unquote
+        from pathlib import Path
+        from config import settings
+        
+        decoded_key = unquote(story_key)
+        
+        # Get the story
+        story = await StoryService.get_story(decoded_key)
+        if not story:
+            raise HTTPException(status_code=404, detail="Story not found")
+        
+        # Get the raw story data from stories.json to access full_name
+        from app.services.file_service import load_stories_data
+        raw_data = await load_stories_data()
+        stories_data = raw_data.get("stories", {})
+        
+        # Find the raw story data
+        raw_story = None
+        for key, story_data in stories_data.items():
+            if key == decoded_key or key.endswith(decoded_key):
+                raw_story = story_data
+                break
+        
+        # Build path using series and full_name from raw data
+        stories_root = Path(settings.stories_root)
+        
+        # Folder = series
+        folder = story.series if story.series else "Miscellaneous"
+        
+        # Filename = full_name from raw data, or construct from name
+        filename = None
+        if raw_story and raw_story.get('full_name'):
+            filename = raw_story.get('full_name')
+        else:
+            name = story.name or story.title or decoded_key
+            filename = f"{name}.md" if not name.endswith('.md') else name
+        
+        # Clean filename (remove path separators)
+        filename = filename.replace('/', '-').replace('\\', '-')
+        
+        # Final path: ./stories/{folder}/{filename}
+        file_path = stories_root / folder / filename
+        
+        print(f"Looking for file: {file_path}")
+        print(f"Folder: {folder}")
+        print(f"Filename: {filename}")
+        print(f"File exists: {file_path.exists()}")
+        
+        if not file_path.exists():
+            # Try to find the file by searching in the folder
+            folder_path = stories_root / folder
+            if folder_path.exists():
+                # Look for any .md file that matches the name
+                search_name = story.name or story.title
+                for md_file in folder_path.glob("*.md"):
+                    if search_name and (search_name in md_file.stem or md_file.stem in search_name):
+                        file_path = md_file
+                        filename = md_file.name
+                        print(f"Found alternative: {file_path}")
+                        break
+            
+            if not file_path.exists():
+                raise HTTPException(
+                    status_code=404, 
+                    detail=f"File not found: stories/{folder}/{filename}"
+                )
+        
+        # Read the markdown content
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        return {
+            "success": True,
+            "story_key": story.key,
+            "uniqueSlug": story.uniqueSlug,
+            "title": story.title,
+            "name": story.name,
+            "series": story.series,
+            "status": story.status,
+            "createdDate": story.createdDate,
+            "publishedDate": story.publishedDate,
+            "publishedDueDate": story.publishedDueDate,
+            "notes": story.notes,
+            "tags": story.tags,
+            "folder": folder,
+            "filename": filename,
+            "file_path": f"stories/{folder}/{filename}",
+            "content": content
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting story content: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.put("/content/{story_key:path}")
+async def save_story_content(story_key: str, data: Dict[str, str]):
+    """Save the markdown content of a story file"""
+    try:
+        from urllib.parse import unquote
+        from pathlib import Path
+        from config import settings
+        
+        decoded_key = unquote(story_key)
+        
+        # Get the story
+        story = await StoryService.get_story(decoded_key)
+        if not story:
+            raise HTTPException(status_code=404, detail="Story not found")
+        
+        # Get the raw story data to access full_name
+        from app.services.file_service import load_stories_data
+        raw_data = await load_stories_data()
+        stories_data = raw_data.get("stories", {})
+        
+        raw_story = None
+        for key, story_data in stories_data.items():
+            if key == decoded_key or key.endswith(decoded_key):
+                raw_story = story_data
+                break
+        
+        # Build path
+        stories_root = Path(settings.stories_root)
+        
+        # Folder = series
+        folder = story.series if story.series else "Miscellaneous"
+        
+        # Filename from raw data
+        filename = None
+        if raw_story and raw_story.get('full_name'):
+            filename = raw_story.get('full_name')
+        else:
+            name = story.name or story.title or decoded_key
+            filename = f"{name}.md" if not name.endswith('.md') else name
+        
+        filename = filename.replace('/', '-').replace('\\', '-')
+        file_path = stories_root / folder / filename
+        
+        # If file doesn't exist, try to find it
+        if not file_path.exists():
+            folder_path = stories_root / folder
+            if folder_path.exists():
+                search_name = story.name or story.title
+                for md_file in folder_path.glob("*.md"):
+                    if search_name and (search_name in md_file.stem or md_file.stem in search_name):
+                        file_path = md_file
+                        filename = md_file.name
+                        break
+        
+        if not file_path.exists():
+            raise HTTPException(
+                status_code=404, 
+                detail=f"File not found: stories/{folder}/{filename}"
+            )
+        
+        # Write the markdown content
+        new_content = data.get("content", "")
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        
+        # Update story last_updated timestamp
+        update_data = StoryUpdate(lastUpdated=datetime.now().isoformat())
+        await StoryService.update_story(story.key, update_data)
+        
+        return {
+            "success": True,
+            "message": "Story saved successfully",
+            "story_key": story.key,
+            "file_path": f"stories/{folder}/{filename}"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error saving story content: {e}")
         raise HTTPException(status_code=500, detail=str(e))

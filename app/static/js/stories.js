@@ -560,13 +560,34 @@ function renderStoryTable() {
         statusSpan.textContent = story.status || 'Draft';
         statusCell.appendChild(statusSpan);
         
-        // Column 3: Title 📄
+        // Column 3: Title 📄 with Preview Icon
         const titleCell = row.insertCell(3);
+        const titleWrapper = document.createElement('div');
+        titleWrapper.style.display = 'flex';
+        titleWrapper.style.alignItems = 'center';
+        titleWrapper.style.gap = '8px';
+
+        // Preview Icon (New)
+        const previewIcon = document.createElement('i');
+        previewIcon.className = 'bi bi-file-text-fill';
+        previewIcon.style.cursor = 'pointer';
+        previewIcon.style.color = '#0d6efd';
+        previewIcon.title = 'Preview Story';
+        previewIcon.onclick = (e) => {
+            e.stopPropagation();
+            const previewUrl = `/story-preview/${encodeURIComponent(story.key)}`;
+            window.open(previewUrl, '_blank', 'width=1200,height=800');
+        };
+        titleWrapper.appendChild(previewIcon);
+
+        // Title text
         const titleStrong = document.createElement('strong');
         titleStrong.style.cursor = 'pointer';
         titleStrong.textContent = story.title || story.name || 'Unknown';
         titleStrong.onclick = () => openEditStory(encodedSlug);
-        titleCell.appendChild(titleStrong);
+        titleWrapper.appendChild(titleStrong);
+
+        titleCell.appendChild(titleWrapper);
         
         // Column 4: Series 📁 - Clickable to filter by series
         const seriesCell = row.insertCell(4);
