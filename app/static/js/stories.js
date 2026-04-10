@@ -15,6 +15,12 @@ let currentEditStoryMonth = null;
 // Cache for monthly stats (in-memory for page lifespan)
 let monthlyStatsCache = {};
 
+// Ensure edit-story.js is loaded
+// if (typeof window.openEditStory !== 'function') {
+//     console.warn('Waiting for edit-story.js to load...');
+//     // The module will register itself
+// }
+
 // ============================================
 // MONTH/YEAR SELECTOR - Load historical stats
 // ============================================
@@ -495,6 +501,10 @@ function filterBySeries(seriesName) {
 function renderStoryTable() {
     const tbody = document.getElementById('storiesTableBody');
     if (!tbody) return;
+    // story.name is URL-safe and works with slashes (same as preview)
+    //const storyName = story.name;
+    //const encodedName = encodeURIComponent(storyName);
+    
     
     const sortedStories = getSortedStories();
     tbody.innerHTML = '';
@@ -511,9 +521,16 @@ function renderStoryTable() {
     sortedStories.forEach(story => {
         const row = tbody.insertRow();
         row.className = 'table-row-clickable';
+        const storyName = story.name;                    // Use story.name
+        const encodedName = encodeURIComponent(storyName);
         
-        const uniqueSlug = story.uniqueSlug;
-        const encodedSlug = encodeURIComponent(uniqueSlug);
+        //const uniqueSlug = story.uniqueSlug;
+        //const encodedSlug = encodeURIComponent(uniqueSlug);
+
+        //const uniqueSlug = story.uniqueSlug;  // Use uniqueSlug for API
+        //const storyKey = story.key;            // Use storyKey for preview (page route)
+        //const encodedSlug = encodeURIComponent(uniqueSlug);
+        //const encodedKey = encodeURIComponent(storyKey);
         
         const medium = story.medium || {};
         const totalStats = medium.totalStats || {};
@@ -576,6 +593,7 @@ function renderStoryTable() {
         previewIcon.onclick = (e) => {
             e.stopPropagation();
             const previewUrl = `/story-preview/${encodeURIComponent(story.key)}`;
+            console.log(previewUrl)
             window.open(previewUrl, '_blank', 'width=1200,height=800');
         };
         titleWrapper.appendChild(previewIcon);
@@ -584,7 +602,10 @@ function renderStoryTable() {
         const titleStrong = document.createElement('strong');
         titleStrong.style.cursor = 'pointer';
         titleStrong.textContent = story.title || story.name || 'Unknown';
-        titleStrong.onclick = () => openEditStory(encodedSlug);
+        
+        titleStrong.onclick = () => openEditStory(encodedName);
+
+
         titleWrapper.appendChild(titleStrong);
 
         titleCell.appendChild(titleWrapper);
@@ -698,7 +719,7 @@ function renderStoryTable() {
         const statsBtn = document.createElement('button');
         statsBtn.className = 'btn btn-sm btn-outline-info';
         statsBtn.title = 'Stats Dashboard';
-        statsBtn.onclick = (e) => { e.stopPropagation(); showStatsDashboard(encodedSlug); };
+        statsBtn.onclick = (e) => { e.stopPropagation(); showStatsDashboard(uniqueSlug); };
         statsBtn.innerHTML = '<i class="bi bi-graph-up"></i>';
         actionsCell.appendChild(statsBtn);
         
@@ -820,41 +841,29 @@ async function toggleLeaderboard(encodedUniqueSlug, event) {
 // MODAL FUNCTIONS
 // ============================================
 
-async function openEditStory(encodedUniqueSlug) {
-    const uniqueSlug = decodeURIComponent(encodedUniqueSlug);
-    const story = allStories.find(s => s.uniqueSlug === uniqueSlug);
-    
-    if (!story) {
-        showToast('Story not found', 'error');
-        return;
+// ============================================
+// EDIT STORY - Using new modal
+// ============================================
+
+function openEditStory(encodedStoryName) {
+    if (window.EditStoryModal && window.EditStoryModal.open) {
+        window.EditStoryModal.open(encodedStoryName);
+    } else {
+        console.error('EditStoryModal not available');
+        showToast('Edit functionality not available. Please refresh.', 'error');
     }
-    
-    currentEditStoryKey = story.uniqueSlug;
-    
-    const now = new Date();
-    currentEditStoryYear = now.getFullYear();
-    currentEditStoryMonth = now.getMonth() + 1;
-    
-    try { 
-        const modeData = await fetch(`${API_BASE}/stories/mode`).then(r => r.json()); 
-        if (modeData.current_month) { 
-            currentEditStoryYear = modeData.current_month.year; 
-            currentEditStoryMonth = modeData.current_month.month; 
-        } 
-    } catch(e) {}
-    
-    await loadStoryForEdit(story.uniqueSlug, currentEditStoryYear, currentEditStoryMonth);
-    const modalEl = document.getElementById('editStoryModal');
-    if (modalEl) new bootstrap.Modal(modalEl).show();
 }
+
+
 
 async function loadStoryForEdit(uniqueSlug, year, month) {
     try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(uniqueSlug)}`);
+        console.log(`${API_BASE}/story${(uniqueSlug)}`);
+        const response = await fetch(`${API_BASE}/story${(uniqueSlug)}`);
         const story = await response.json();
         
         document.getElementById('editStoryUniqueSlug').value = story.uniqueSlug;
-        document.getElementById('editStoryTitle').value = story.title || '';
+        //document.getElementById('editStoryTitle').value = story.title || '';
         document.getElementById('editStoryStatus').value = story.status || 'Draft';
         document.getElementById('editStorySeries').value = story.series || '';
         document.getElementById('editStoryCreatedDate').value = story.created_date?.split('T')[0] || '';
@@ -1257,6 +1266,17 @@ renderStoryTable = function() {
     updateEarningsSummary();
 };
 
+// Replace openEditStory function to use data attributes
+// function openEditStory(storyKey, uniqueSlug) {
+//     // Set data attributes on the button that triggers the modal
+//     const modalTrigger = document.createElement('button');
+//     modalTrigger.setAttribute('data-story-key', storyKey);
+//     modalTrigger.setAttribute('data-unique-slug', uniqueSlug);
+//     modalTrigger.setAttribute('data-bs-toggle', 'modal');
+//     modalTrigger.setAttribute('data-bs-target', '#editStoryModal');
+//     modalTrigger.click();
+// }
+
 // ============================================
 // INITIALIZATION
 // ============================================
@@ -1299,7 +1319,7 @@ window.clearFilters = clearFilters;
 window.filterBySeries = filterBySeries;
 window.toggleBookmark = toggleBookmark;
 window.toggleLeaderboard = toggleLeaderboard;
-window.openEditStory = openEditStory;
+//window.openEditStory = openEditStory;
 window.showStatsDashboard = showStatsDashboard;
 window.refreshStats = refreshStats;
 window.syncStories = syncStories;

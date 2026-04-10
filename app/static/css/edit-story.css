@@ -1,0 +1,52 @@
+/* Edit Story Modal - Custom Styles */
+.info-card {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 6px 10px;
+    height: 100%;
+}
+
+.info-label {
+    font-size: 0.6rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+}
+
+.info-value {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #2c3e50;
+    word-break: break-all;
+}
+
+#monthlyStatsTable {
+    font-size: 0.75rem;
+}
+
+#monthlyStatsTable th,
+#monthlyStatsTable td {
+    padding: 6px 8px;
+    vertical-align: middle;
+}
+
+#monthlyStatsTable .text-end {
+    text-align: right;
+}
+
+.alert-sm {
+    padding: 4px 8px;
+    margin-bottom: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .info-card {
+        margin-bottom: 8px;
+    }
+    
+    #monthlyStatsTable {
+        font-size: 0.65rem;
+    }
+}
