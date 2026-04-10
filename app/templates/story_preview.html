@@ -11,72 +11,306 @@
             background: #f5f7fa;
             padding: 20px;
         }
-        .story-container { max-width: 1400px; margin: 0 auto; }
-        .info-card { background: #f8f9fa; border-radius: 8px; padding: 10px 15px; height: 100%; }
-        .markdown-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.6; }
+        .story-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .info-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 8px 12px;
+        }
+        .markdown-body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+        }
         .markdown-body h1 { font-size: 2em; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
         .markdown-body h2 { font-size: 1.5em; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
         .markdown-body code { background: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; }
         .markdown-body pre { background: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
-        .status-badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 500; }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
         .status-published { background: #27ae60; color: white; }
         .status-published-due { background: #fd7e14; color: white; }
         .status-ready { background: #3498db; color: white; }
         .status-done { background: #9b59b6; color: white; }
         .status-draft { background: #f39c12; color: white; }
-        #loadingOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; }
+        
+        .due-badge {
+            background: #fd7e14;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .story-title {
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .story-title:hover {
+            opacity: 0.7;
+        }
+        
+        .toggle-btn {
+            cursor: pointer;
+            color: #0d6efd;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+        .toggle-btn:hover {
+            text-decoration: underline;
+        }
+        
+        #detailsSection {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .split-layout {
+            display: flex;
+            gap: 20px;
+        }
+        .notes-panel {
+            flex: 70%;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .tags-panel {
+            flex: 30%;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .tags-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .tags-list li {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 4px 10px;
+            margin: 3px;
+            border-radius: 16px;
+            font-size: 0.7rem;
+            color: #495057;
+        }
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6c757d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .date-caption {
+            font-size: 0.65rem;
+            color: #6c757d;
+            margin-right: 8px;
+        }
+        .date-value {
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        .date-group {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+        
+        /* Full height source textarea */
+        .tab-content, .tab-pane {
+            height: calc(100vh - 350px);
+            min-height: 400px;
+        }
+        #sourceContent {
+            height: 100%;
+            resize: none;
+        }
+        #previewContent {
+            height: 100%;
+            overflow-y: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .split-layout {
+                flex-direction: column;
+            }
+            .tab-content, .tab-pane {
+                height: calc(100vh - 450px);
+            }
+        }
+        
+        #loadingOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .toast-custom {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            animation: fadeOut 1.5s ease-in-out forwards;
+        }
+        
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+        
+        .toast-custom.error {
+            background: #dc3545;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 <div id="storyPreviewContainer" data-story-key="{{ story_key }}" class="story-container">
-    <div class="card mb-3">
-        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-            <h4 class="mb-0"><i class="bi bi-file-text"></i> <span id="storyTitle">Loading...</span></h4>
-            <div>
-                <button class="btn btn-sm btn-light me-2" onclick="toggleViewMode()"><i class="bi bi-code-slash"></i> Source</button>
-                <button class="btn btn-sm btn-success me-2" onclick="saveStory()"><i class="bi bi-save"></i> Save</button>
-                <button class="btn btn-sm btn-secondary" onclick="window.close()"><i class="bi bi-x-lg"></i> Close</button>
-            </div>
+    <!-- Title Row with Action Buttons -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+        <h3 class="mb-0 story-title" onclick="copyTitleToClipboard()" id="storyTitle">Loading...</h3>
+        <div class="action-buttons">
+            <button class="btn btn-sm btn-outline-secondary" onclick="toggleViewMode()">
+                <i class="bi bi-code-slash"></i> Source
+            </button>
+            <button class="btn btn-sm btn-success" onclick="saveStory()">
+                <i class="bi bi-save"></i> Save
+            </button>
+            <button class="btn btn-sm btn-danger" onclick="window.close()">
+                <i class="bi bi-x-lg"></i> Close
+            </button>
         </div>
-        <div class="card-body">
-            <div class="row g-3">
-                <div class="col-md-3"><div class="info-card"><small class="text-muted">📅 Created</small><div class="fw-bold" id="storyCreatedDate">-</div></div></div>
-                <div class="col-md-3"><div class="info-card"><small class="text-muted">📁 Series</small><div class="fw-bold" id="storySeries">-</div></div></div>
-                <div class="col-md-3"><div class="info-card"><small class="text-muted">📋 Status</small><div id="storyStatus">-</div></div></div>
-                <div class="col-md-3"><div class="info-card"><small class="text-muted">📅 Published</small><div class="fw-bold" id="storyPublishedDate">-</div></div></div>
+    </div>
+    
+    <!-- Series and Status Row -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+        <div class="d-flex align-items-center gap-2">
+            <span class="text-muted">📁 Series:</span>
+            <span id="storySeries" class="fw-bold">-</span>
+        </div>
+        <div class="d-flex gap-2">
+            <span id="storyStatusBadge" class="status-badge status-draft">-</span>
+            <span id="storyDueBadge" class="due-badge" style="display: none;">-</span>
+        </div>
+    </div>
+    
+    <!-- Dates Row - Left aligned inline with space -->
+    <div class="d-flex flex-wrap gap-4 mb-3">
+        <div class="date-group">
+            <span class="date-caption">📅 CREATED:</span>
+            <span class="date-value" id="storyCreatedDate">-</span>
+        </div>
+        <div class="date-group">
+            <span class="date-caption">📅 PUBLISHED:</span>
+            <span class="date-value" id="storyPublishedDate">-</span>
+        </div>
+        <div class="date-group">
+            <span class="date-caption">⏰ DUE:</span>
+            <span class="date-value" id="storyDueDate">-</span>
+        </div>
+    </div>
+    
+    <!-- Toggle Button -->
+    <div class="mb-2">
+        <a href="#" class="toggle-btn" id="toggleDetailsBtn" onclick="toggleDetails(); return false;">▼ Show Details</a>
+    </div>
+    
+    <!-- Collapsible Section: Notes (70%) + Tags (30%) -->
+    <div id="detailsSection" style="display: none;">
+        <div class="split-layout">
+            <!-- Notes Panel (70%) -->
+            <div class="notes-panel">
+                <div class="section-title">📝 NOTES</div>
+                <div id="storyNotes" class="small">-</div>
             </div>
-            <div class="row g-3 mt-2">
-                <div class="col-md-6"><div class="info-card"><small class="text-muted">⏰ Due Date</small><div id="storyDueDate">-</div></div></div>
-                <div class="col-md-6"><div class="info-card"><small class="text-muted">📄 File Path</small><div class="small" id="storyFilePath">-</div></div></div>
-            </div>
-            <div class="row g-3 mt-2">
-                <div class="col-md-6"><div class="info-card"><small class="text-muted">📝 Notes</small><div id="storyNotes">-</div></div></div>
-                <div class="col-md-6"><div class="info-card"><small class="text-muted">🏷️ Tags</small><div id="storyTags">-</div></div></div>
+            
+            <!-- Tags Panel (30%) -->
+            <div class="tags-panel">
+                <div class="section-title">🏷️ TAGS</div>
+                <ul class="tags-list" id="storyTagsList">
+                    <li>No tags</li>
+                </ul>
             </div>
         </div>
     </div>
     
-    <div class="card">
+    <!-- Preview/Source Tabs -->
+    <div class="card mt-3">
         <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item"><button class="nav-link active" id="preview-tab" data-bs-toggle="tab" data-bs-target="#preview">👁️ Preview</button></li>
-                <li class="nav-item"><button class="nav-link" id="source-tab" data-bs-toggle="tab" data-bs-target="#source">📝 Source</button></li>
+            <ul class="nav nav-tabs card-header-tabs" id="storyTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="preview-tab" data-bs-toggle="tab" data-bs-target="#preview" type="button" role="tab">
+                        <i class="bi bi-eye"></i> Preview
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="source-tab" data-bs-toggle="tab" data-bs-target="#source" type="button" role="tab">
+                        <i class="bi bi-code-slash"></i> Source
+                    </button>
+                </li>
             </ul>
         </div>
         <div class="card-body p-0">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="preview" role="tabpanel">
-                    <div id="previewContent" class="markdown-body p-3" style="min-height: 500px; max-height: 70vh; overflow-y: auto;"><div class="text-center py-5"><div class="spinner-border text-primary"></div><p>Loading...</p></div></div>
+                    <div id="previewContent" class="markdown-body p-3" style="min-height: 500px; max-height: 70vh; overflow-y: auto;">
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary"></div>
+                            <p class="mt-2">Loading...</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="source" role="tabpanel">
-                    <textarea id="sourceContent" class="form-control font-monospace" style="min-height: 500px; max-height: 70vh; font-family: monospace; font-size: 13px; resize: vertical; border: none; border-radius: 0;"></textarea>
+                    <textarea id="sourceContent" class="form-control font-monospace" style="height: 100%; min-height: 500px; font-family: monospace; font-size: 13px; resize: vertical; border: none; border-radius: 0;"></textarea>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div id="loadingOverlay"><div class="bg-white p-4 rounded shadow text-center"><div class="spinner-border text-primary"></div><p class="mt-2 mb-0">Loading...</p></div></div>
+
+<div id="loadingOverlay">
+    <div class="bg-white p-4 rounded shadow text-center">
+        <div class="spinner-border text-primary"></div>
+        <p class="mt-2 mb-0">Loading...</p>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/static/js/story-preview.js"></script>

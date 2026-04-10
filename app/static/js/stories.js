@@ -567,11 +567,11 @@ function renderStoryTable() {
         titleWrapper.style.alignItems = 'center';
         titleWrapper.style.gap = '8px';
 
-        // Preview Icon (New)
-        const previewIcon = document.createElement('i');
-        previewIcon.className = 'bi bi-file-text-fill';
+        // Preview Icon (Replaced with 🔗 emoji)
+        const previewIcon = document.createElement('span');
+        previewIcon.textContent = '🔗';
         previewIcon.style.cursor = 'pointer';
-        previewIcon.style.color = '#0d6efd';
+        previewIcon.style.fontSize = '1.2rem';
         previewIcon.title = 'Preview Story';
         previewIcon.onclick = (e) => {
             e.stopPropagation();

@@ -1,6 +1,6 @@
 # Publishing Calendar
 
-*Generated: 2026-04-09 23:55:22*
+*Generated: 2026-04-10 10:21:55*
 
 ## Summary
 
@@ -9,7 +9,7 @@
 | Stories Scheduled | 200 |
 | Stories Per Week | 3 |
 | Default Series Spacing | 7 days |
-| Remaining Unpublished | 72 |
+| Remaining Unpublished | 73 |
 | Start Date | 2026-04-09 |
 
 ## Series Breakdown

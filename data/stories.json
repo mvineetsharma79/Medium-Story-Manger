@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-04-10T05:33:27.685210",
+  "last_updated": "2026-04-10T10:12:30.400420",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl": {
       "uniqueSlug": "solid-principles-part-2---single-responsibility-principl",
@@ -345,7 +345,7 @@
       "rel_path": "Kafka%20Design%20Patterns%20-%20Azure%20+%20.NET%2010/11%20Kafka%20Design%20Patterns%20%20-%20Overview%20All%2011%20Patterns%20%20-%20Azure%20+%20.NET%2010%20Edition.md",
       "status": "Draft",
       "createdDate": "2026-04-09",
-      "lastUpdated": "2026-04-09T10:38:42.565596",
+      "lastUpdated": "2026-04-10T08:55:15.295541",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6952,7 +6952,7 @@
       "status": "Published",
       "createdDate": "2026-02-23",
       "publishedDate": "2026-02-23",
-      "lastUpdated": "2026-04-09T23:49:27.387967",
+      "lastUpdated": "2026-04-10T10:12:29.433412",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "dotnet-10",
@@ -6961,7 +6961,7 @@
         "domain-driven-design",
         "software-architecture"
       ],
-      "bookmarked": false,
+      "bookmarked": true,
       "leaderboard": false,
       "medium_url": "https://blog.devgenius.io/distinguishing-infrastructure-exceptions-from-domain-exceptions-in-net-6b9276cf73a1",
       "medium": {
@@ -9201,7 +9201,7 @@
       "status": "Published",
       "createdDate": "2026-02-23",
       "publishedDate": "2026-02-23",
-      "lastUpdated": "2026-04-09T23:49:27.392288",
+      "lastUpdated": "2026-04-10T10:12:30.400403",
       "notes": "Imported from refresh for 2026-02",
       "tags": [
         "dotnet-10",
@@ -9210,7 +9210,7 @@
         "exception-handling",
         "domain-driven-design"
       ],
-      "bookmarked": false,
+      "bookmarked": true,
       "leaderboard": false,
       "medium_url": "https://blog.devgenius.io/distinguishing-infrastructure-domain-exceptions-in-net-b333bde93940",
       "medium": {
@@ -11385,6 +11385,29 @@
           }
         ]
       }
+    },
+    "Experience/The Human Cost of Trusting AI: 7 Failures That Cost Days": {
+      "uniqueSlug": "the-human-cost-of-trusting-ai-7-failures-that-cost-days",
+      "title": "The Human Cost of Trusting AI: 7 Failures That Cost Days",
+      "name": "The Human Cost of Trusting AI: 7 Failures That Cost Days",
+      "full_name": "The Human Cost of Trusting AI: 7 Failures That Cost Days.md",
+      "folder": "Experience",
+      "series": "Experience",
+      "raw_path": "Experience/The Human Cost of Trusting AI: 7 Failures That Cost Days.md.md",
+      "rel_path": "Experience/The%20Human%20Cost%20of%20Trusting%20AI%3A%207%20Failures%20That%20Cost%20Days.md.md",
+      "status": "Draft",
+      "createdDate": "2026-04-10",
+      "lastUpdated": "2026-04-10T09:35:35.979632",
+      "notes": "",
+      "bookmarked": false,
+      "leaderboard": false,
+      "tags": [],
+      "read_time": null,
+      "medium_url": null,
+      "linkedin_status": null,
+      "linkedin_timestamp": null,
+      "linkedin_impressions": 0,
+      "linkedin_url": null
     }
   },
   "series": {
@@ -11406,7 +11429,7 @@
     "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs": {
       "name": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs",
       "total_stories": 4,
-      "published": 0,
+      "published": 1,
       "spacing_days": 7,
       "stories": [
         "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs/Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs",
@@ -11520,7 +11543,7 @@
     "Clean Code Practices": {
       "name": "Clean Code Practices",
       "total_stories": 9,
-      "published": 0,
+      "published": 1,
       "spacing_days": 7,
       "stories": [
         "Clean Code Practices/Code Smell — Practical Guide using .Net Core Part-III",
@@ -11537,7 +11560,7 @@
     "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution": {
       "name": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
       "total_stories": 1,
-      "published": 0,
+      "published": 1,
       "spacing_days": 7,
       "stories": [
         "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution/LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution"
@@ -11546,7 +11569,7 @@
     "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts": {
       "name": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
       "total_stories": 5,
-      "published": 0,
+      "published": 1,
       "spacing_days": 7,
       "stories": [
         "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 1: The Foundation - User Access & Data Ingestion",
@@ -11572,7 +11595,7 @@
     "Design Patterns": {
       "name": "Design Patterns",
       "total_stories": 6,
-      "published": 0,
+      "published": 1,
       "spacing_days": 7,
       "stories": [
         "Design Patterns/Design Patterns: Part 1 -  Redefining Design Patterns",
@@ -11586,7 +11609,7 @@
     "GitHub": {
       "name": "GitHub",
       "total_stories": 7,
-      "published": 0,
+      "published": 2,
       "spacing_days": 7,
       "stories": [
         "GitHub/GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
@@ -11601,7 +11624,7 @@
     "Publishing .NET 10 Apps as Container Images": {
       "name": "Publishing .NET 10 Apps as Container Images",
       "total_stories": 22,
-      "published": 0,
+      "published": 1,
       "spacing_days": 7,
       "stories": [
         "Publishing .NET 10 Apps as Container Images/Podman with .NET SDK Native Publishing: Hybrid Workflows - AWS",
@@ -11665,7 +11688,7 @@
     "AI Engineering": {
       "name": "AI Engineering",
       "total_stories": 10,
-      "published": 0,
+      "published": 3,
       "spacing_days": 7,
       "stories": [
         "AI Engineering/AI Agent Engineering - EPILOGUE: The Future of AI Agents",
@@ -11683,7 +11706,7 @@
     "Dotnet Python NodeJS": {
       "name": "Dotnet Python NodeJS",
       "total_stories": 7,
-      "published": 0,
+      "published": 4,
       "spacing_days": 7,
       "stories": [
         "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Node",
@@ -11728,7 +11751,7 @@
     "Miscellaneous": {
       "name": "Miscellaneous",
       "total_stories": 3,
-      "published": 0,
+      "published": 2,
       "spacing_days": 7,
       "stories": [
         "Miscellaneous/The Desktop Phoenix: An Architect's Guide to WPF in a Multi-Platform World",
@@ -11739,7 +11762,7 @@
     "Modernizing the Monolith": {
       "name": "Modernizing the Monolith",
       "total_stories": 5,
-      "published": 0,
+      "published": 3,
       "spacing_days": 7,
       "stories": [
         "Modernizing the Monolith/Modernizing the Monolith: Docker, CI CD & Azure Cloud Deployment — Part 3",
@@ -11782,7 +11805,7 @@
     "SQL Mechanic to Data Architect": {
       "name": "SQL Mechanic to Data Architect",
       "total_stories": 3,
-      "published": 0,
+      "published": 1,
       "spacing_days": 7,
       "stories": [
         "SQL Mechanic to Data Architect/SQL Mechanic to Architect: Database UDFs, Stored Procedures, & Production-Grade Patterns — Part 2",
@@ -11793,7 +11816,7 @@
     "Vehixcare": {
       "name": "Vehixcare",
       "total_stories": 4,
-      "published": 0,
+      "published": 1,
       "spacing_days": 7,
       "stories": [
         "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 1",
@@ -11805,7 +11828,7 @@
     "Payment System": {
       "name": "Payment System",
       "total_stories": 1,
-      "published": 0,
+      "published": 1,
       "spacing_days": 7,
       "stories": [
         "Payment System/ISO 8583 vs. REST APIs vs. UPI: Architecting Multi-Network Payment Systems in .NET 10"
@@ -11824,7 +11847,7 @@
     "Kafka Design Patterns - AWS": {
       "name": "Kafka Design Patterns - AWS",
       "total_stories": 4,
-      "published": 0,
+      "published": 1,
       "spacing_days": 7,
       "stories": [
         "Kafka Design Patterns - AWS/11 Kafka Design Patterns for Every Backend Engineer",
@@ -11890,6 +11913,15 @@
         "Medium Import/artificial-intelligence-from-basic-concepts-to-agentic-systems",
         "Medium Import/vs-code-with-deepseek-for-free-and-unlocked-full-context-local-dev-magic",
         "Medium Import/leveraging-redis-cache-with-write-thru-and-write-back-strategies-in-net-core"
+      ]
+    },
+    "Experience": {
+      "name": "Experience",
+      "total_stories": 1,
+      "published": 0,
+      "spacing_days": 7,
+      "stories": [
+        "Experience/The Human Cost of Trusting AI: 7 Failures That Cost Days"
       ]
     }
   },

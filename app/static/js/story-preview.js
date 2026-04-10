@@ -1,37 +1,28 @@
 // ============================================
-// STORY PREVIEW PAGE - Separate JavaScript
+// STORY PREVIEW PAGE - Complete Version
 // ============================================
 
 const API_BASE = '/api';
 let storyKey = null;
 let originalContent = '';
 
-// ============================================
-// INITIALIZATION
-// ============================================
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Get story key from data attribute
     const container = document.getElementById('storyPreviewContainer');
-    if (container) {
-        storyKey = container.dataset.storyKey;
-    }
-    
-    if (!storyKey) {
-        showError('No story specified');
-        return;
-    }
-    
+    if (container) storyKey = container.dataset.storyKey;
+    if (!storyKey) { showError('No story specified'); return; }
     loadStoryContent();
     
-    // Setup event listeners
-    const sourceTextarea = document.getElementById('sourceContent');
-    if (sourceTextarea) {
-        sourceTextarea.addEventListener('input', onSourceChange);
-    }
+    document.getElementById('sourceContent')?.addEventListener('input', () => {
+        clearTimeout(window.previewTimeout);
+        window.previewTimeout = setTimeout(() => {
+            renderMarkdown(document.getElementById('sourceContent').value);
+        }, 500);
+    });
     
-    // Setup keyboard shortcuts
-    setupKeyboardShortcuts();
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveStory(); }
+        if (e.key === 'Escape') window.close();
+    });
 });
 
 // ============================================
@@ -46,95 +37,64 @@ async function loadStoryContent() {
         
         if (data.success) {
             originalContent = data.content;
+            document.getElementById('sourceContent').value = data.content;
             
-            // Set source content
-            const sourceTextarea = document.getElementById('sourceContent');
-            if (sourceTextarea) {
-                sourceTextarea.value = data.content;
+            // Update header
+            document.getElementById('storyTitle').textContent = data.title || data.name || 'Untitled';
+            document.getElementById('storySeries').textContent = data.series || 'Standalone';
+            document.getElementById('storyCreatedDate').textContent = data.createdDate || '-';
+            document.getElementById('storyPublishedDate').textContent = data.publishedDate || '-';
+            document.getElementById('storyDueDate').textContent = data.publishedDueDate || '-';
+            document.getElementById('storyNotes').textContent = data.notes || 'No notes';
+            
+            // Status Badge
+            const statusEl = document.getElementById('storyStatusBadge');
+            let statusClass = 'status-draft';
+            let statusText = data.status || 'Draft';
+            if (data.status === 'Published') statusClass = 'status-published';
+            else if (data.status === 'Published Due') statusClass = 'status-published-due';
+            else if (data.status === 'Ready') statusClass = 'status-ready';
+            else if (data.status === 'Done') statusClass = 'status-done';
+            statusEl.className = `status-badge ${statusClass}`;
+            statusEl.textContent = statusText;
+            
+            // Due Badge
+            const dueBadge = document.getElementById('storyDueBadge');
+            if (data.publishedDueDate) {
+                dueBadge.textContent = `⏰ ${data.publishedDueDate}`;
+                dueBadge.style.display = 'inline-block';
+            } else {
+                dueBadge.style.display = 'none';
             }
             
-            // Update header info
-            updateHeaderInfo(data);
+            // Tags as bullet list
+            const tagsList = document.getElementById('storyTagsList');
+            if (data.tags && data.tags.length > 0) {
+                tagsList.innerHTML = data.tags.map(tag => `<li>${escapeHtml(tag)}</li>`).join('');
+            } else {
+                tagsList.innerHTML = '<li>No tags</li>';
+            }
             
-            // Render preview
             renderMarkdown(data.content);
             
-            // Update status
-            updateStatus('Loaded successfully', 'success');
+            // Ensure details section starts hidden
+            const detailsSection = document.getElementById('detailsSection');
+            if (detailsSection) {
+                detailsSection.style.display = 'none';
+            }
+            
+            // Ensure toggle button shows correct text
+            const toggleBtn = document.getElementById('toggleDetailsBtn');
+            if (toggleBtn) {
+                toggleBtn.innerHTML = '▼ Show Details';
+            }
         } else {
-            showError('Failed to load story content');
+            showError('Failed to load story');
         }
     } catch (error) {
-        console.error('Error loading story:', error);
-        showError('Error loading story: ' + error.message);
+        showError('Error: ' + error.message);
     } finally {
         hideLoading();
-    }
-}
-
-// ============================================
-// UPDATE HEADER INFO
-// ============================================
-
-function updateHeaderInfo(data) {
-    // Title
-    const titleEl = document.getElementById('storyTitle');
-    if (titleEl) titleEl.textContent = data.title || data.name || 'Untitled';
-    
-    // Created Date
-    const createdEl = document.getElementById('storyCreatedDate');
-    if (createdEl) createdEl.textContent = data.createdDate || '-';
-    
-    // Series
-    const seriesEl = document.getElementById('storySeries');
-    if (seriesEl) seriesEl.textContent = data.series || 'Standalone';
-    
-    // Published Date
-    const publishedEl = document.getElementById('storyPublishedDate');
-    if (publishedEl) publishedEl.textContent = data.publishedDate || '-';
-    
-    // Due Date
-    const dueEl = document.getElementById('storyDueDate');
-    if (dueEl) {
-        if (data.publishedDueDate) {
-            dueEl.textContent = data.publishedDueDate;
-            dueEl.className = 'fw-bold text-warning';
-        } else {
-            dueEl.textContent = '-';
-            dueEl.className = 'text-muted';
-        }
-    }
-    
-    // Status
-    const statusEl = document.getElementById('storyStatus');
-    if (statusEl) {
-        statusEl.textContent = data.status || 'Draft';
-        let statusClass = 'status-draft';
-        switch(data.status) {
-            case 'Published': statusClass = 'status-published'; break;
-            case 'Published Due': statusClass = 'status-published-due'; break;
-            case 'Ready': statusClass = 'status-ready'; break;
-            case 'Done': statusClass = 'status-done'; break;
-        }
-        statusEl.className = `status-badge ${statusClass}`;
-    }
-    
-    // File Path
-    const pathEl = document.getElementById('storyFilePath');
-    if (pathEl) pathEl.textContent = data.raw_path || '-';
-    
-    // Notes
-    const notesEl = document.getElementById('storyNotes');
-    if (notesEl) notesEl.textContent = data.notes || 'No notes';
-    
-    // Tags
-    const tagsEl = document.getElementById('storyTags');
-    if (tagsEl && data.tags && data.tags.length > 0) {
-        tagsEl.innerHTML = data.tags.map(tag => 
-            `<span class="badge bg-secondary me-1">${escapeHtml(tag)}</span>`
-        ).join('');
-    } else if (tagsEl) {
-        tagsEl.innerHTML = '<span class="text-muted">No tags</span>';
     }
 }
 
@@ -145,26 +105,14 @@ function updateHeaderInfo(data) {
 function renderMarkdown(content) {
     const previewDiv = document.getElementById('previewContent');
     if (!previewDiv) return;
-    
     try {
-        // Configure marked options
         if (typeof marked !== 'undefined') {
-            marked.setOptions({
-                highlight: function(code, lang) {
-                    return code;
-                },
-                breaks: true,
-                gfm: true
-            });
-            
-            const html = marked.parse(content);
-            previewDiv.innerHTML = html;
+            previewDiv.innerHTML = marked.parse(content);
         } else {
-            // Fallback if marked is not loaded
-            previewDiv.innerHTML = `<pre style="white-space: pre-wrap; font-family: monospace;">${escapeHtml(content)}</pre>`;
+            previewDiv.innerHTML = `<pre>${escapeHtml(content)}</pre>`;
         }
     } catch (error) {
-        previewDiv.innerHTML = `<div class="alert alert-danger">Error rendering markdown: ${error.message}</div>`;
+        previewDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
     }
 }
 
@@ -174,151 +122,128 @@ function renderMarkdown(content) {
 
 async function saveStory() {
     const sourceContent = document.getElementById('sourceContent').value;
-    
     if (sourceContent === originalContent) {
         showToast('No changes to save', 'info');
         return;
     }
-    
-    if (!confirm('Save changes to this story?')) {
-        return;
-    }
+    if (!confirm('Save changes?')) return;
     
     showLoading();
-    updateStatus('Saving...', 'info');
-    
     try {
         const response = await fetch(`${API_BASE}/stories/content/${encodeURIComponent(storyKey)}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content: sourceContent })
         });
-        
         const data = await response.json();
-        
         if (data.success) {
             originalContent = sourceContent;
             renderMarkdown(sourceContent);
-            updateStatus('Saved successfully', 'success');
-            showToast('Story saved successfully', 'success');
-            
-            // Dispatch event for parent window if needed
-            if (window.opener) {
-                window.opener.postMessage({ type: 'story-saved', key: storyKey }, '*');
-            }
+            showToast('Saved successfully', 'success');
         } else {
-            updateStatus('Save failed: ' + (data.detail || 'Unknown error'), 'error');
-            showToast('Error saving story', 'error');
+            showToast('Error: ' + (data.detail || 'Unknown'), 'error');
         }
     } catch (error) {
-        console.error('Error saving story:', error);
-        updateStatus('Save error: ' + error.message, 'error');
-        showToast('Error saving story: ' + error.message, 'error');
+        showToast('Error: ' + error.message, 'error');
     } finally {
         hideLoading();
     }
 }
 
 // ============================================
-// TAB MANAGEMENT
+// TAB SWITCHING
 // ============================================
-
-function switchToPreview() {
-    const previewTab = document.getElementById('preview-tab');
-    if (previewTab) {
-        const tab = new bootstrap.Tab(previewTab);
-        tab.show();
-    }
-}
-
-function switchToSource() {
-    const sourceTab = document.getElementById('source-tab');
-    if (sourceTab) {
-        const tab = new bootstrap.Tab(sourceTab);
-        tab.show();
-    }
-}
 
 function toggleViewMode() {
     const previewTab = document.getElementById('preview-tab');
+    const sourceTab = document.getElementById('source-tab');
     const isPreviewActive = previewTab && previewTab.classList.contains('active');
     
     if (isPreviewActive) {
-        switchToSource();
+        sourceTab.click();
     } else {
-        switchToPreview();
+        previewTab.click();
     }
 }
 
 // ============================================
-// AUTO-PREVIEW ON SOURCE CHANGE
+// COPY TITLE TO CLIPBOARD
 // ============================================
 
-let previewTimeout;
-
-function onSourceChange() {
-    if (previewTimeout) clearTimeout(previewTimeout);
-    previewTimeout = setTimeout(() => {
-        const sourceContent = document.getElementById('sourceContent').value;
-        renderMarkdown(sourceContent);
-        updateStatus('Auto-refreshed', 'info');
-    }, 500);
-}
-
-// ============================================
-// KEYBOARD SHORTCUTS
-// ============================================
-
-function setupKeyboardShortcuts() {
-    document.addEventListener('keydown', (e) => {
-        // Ctrl/Cmd + S = Save
-        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-            e.preventDefault();
-            saveStory();
-        }
-        
-        // Ctrl/Cmd + Shift + P = Preview
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'P') {
-            e.preventDefault();
-            switchToPreview();
-        }
-        
-        // Ctrl/Cmd + Shift + S = Source
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'S') {
-            e.preventDefault();
-            switchToSource();
-        }
-        
-        // Escape = Close
-        if (e.key === 'Escape') {
-            window.close();
-        }
+function copyTitleToClipboard() {
+    const titleElement = document.getElementById('storyTitle');
+    if (!titleElement) return;
+    
+    const title = titleElement.textContent;
+    
+    navigator.clipboard.writeText(title).then(() => {
+        const originalText = titleElement.innerHTML;
+        titleElement.innerHTML = '✅ Copied!';
+        setTimeout(() => {
+            titleElement.innerHTML = originalText;
+        }, 1500);
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+        showToast('Failed to copy title', 'error');
     });
 }
 
 // ============================================
-// UI HELPERS
+// TOGGLE EXPAND/COLLAPSE - COMPLETELY REWRITTEN
 // ============================================
 
-function updateStatus(message, type = 'info') {
-    const statusEl = document.getElementById('saveStatus');
-    if (!statusEl) return;
+function toggleDetails() {
+    console.log('toggleDetails called'); // Debug log
     
-    statusEl.textContent = message;
-    statusEl.className = 'ms-2';
+    const detailsSection = document.getElementById('detailsSection');
+    const toggleBtn = document.getElementById('toggleDetailsBtn');
     
-    if (type === 'success') {
-        statusEl.classList.add('text-success');
-        setTimeout(() => {
-            if (statusEl.textContent === message) {
-                statusEl.textContent = '';
-            }
-        }, 3000);
-    } else if (type === 'error') {
-        statusEl.classList.add('text-danger');
-    } else {
-        statusEl.classList.add('text-muted');
+    if (!detailsSection) {
+        console.error('detailsSection not found!');
+        return;
     }
+    
+    if (!toggleBtn) {
+        console.error('toggleBtn not found!');
+        return;
+    }
+    
+    // Get current computed style
+    const currentDisplay = window.getComputedStyle(detailsSection).display;
+    console.log('Current display:', currentDisplay);
+    
+    if (currentDisplay === 'none') {
+        detailsSection.style.display = 'block';
+        toggleBtn.innerHTML = '▲ Hide Details';
+        console.log('Expanded - display set to block');
+    } else {
+        detailsSection.style.display = 'none';
+        toggleBtn.innerHTML = '▼ Show Details';
+        console.log('Collapsed - display set to none');
+    }
+}
+
+// ============================================
+// UI HELPER FUNCTIONS
+// ============================================
+
+function showLoading() {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) overlay.style.display = 'flex';
+}
+
+function hideLoading() {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) overlay.style.display = 'none';
+}
+
+function showToast(message, type) {
+    const toast = document.createElement('div');
+    toast.className = 'toast-custom';
+    if (type === 'error') toast.classList.add('error');
+    toast.textContent = type === 'success' ? '✅ ' + message : (type === 'error' ? '❌ ' + message : 'ℹ️ ' + message);
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 1500);
 }
 
 function showError(message) {
@@ -326,90 +251,21 @@ function showError(message) {
     if (previewDiv) {
         previewDiv.innerHTML = `<div class="alert alert-danger m-3">${escapeHtml(message)}</div>`;
     }
-    updateStatus(message, 'error');
     showToast(message, 'error');
-}
-
-function showLoading() {
-    const loadingEl = document.getElementById('loadingOverlay');
-    if (loadingEl) loadingEl.style.display = 'flex';
-}
-
-function hideLoading() {
-    const loadingEl = document.getElementById('loadingOverlay');
-    if (loadingEl) loadingEl.style.display = 'none';
-}
-
-function showToast(message, type = 'info') {
-    // Create toast element if it doesn't exist
-    let toastContainer = document.getElementById('toastContainer');
-    if (!toastContainer) {
-        toastContainer = document.createElement('div');
-        toastContainer.id = 'toastContainer';
-        toastContainer.style.position = 'fixed';
-        toastContainer.style.bottom = '20px';
-        toastContainer.style.right = '20px';
-        toastContainer.style.zIndex = '9999';
-        document.body.appendChild(toastContainer);
-    }
-    
-    const toastId = 'toast-' + Date.now();
-    const bgClass = type === 'success' ? 'bg-success' : (type === 'error' ? 'bg-danger' : 'bg-info');
-    
-    const toastHtml = `
-        <div id="${toastId}" class="toast align-items-center text-white ${bgClass} border-0 mb-2" role="alert" data-bs-autohide="true" data-bs-delay="3000">
-            <div class="d-flex">
-                <div class="toast-body">
-                    ${type === 'success' ? '✅' : (type === 'error' ? '❌' : 'ℹ️')} ${escapeHtml(message)}
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-            </div>
-        </div>
-    `;
-    
-    toastContainer.insertAdjacentHTML('beforeend', toastHtml);
-    const toastElement = document.getElementById(toastId);
-    const toast = new bootstrap.Toast(toastElement, { autohide: true, delay: 3000 });
-    toast.show();
-    
-    toastElement.addEventListener('hidden.bs.toast', () => {
-        toastElement.remove();
-    });
 }
 
 function escapeHtml(text) {
     if (!text) return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    return text.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
 }
 
-function formatDate(dateStr) {
-    if (!dateStr) return '-';
-    return dateStr.split('T')[0];
-}
-
-// ============================================
-// WINDOW COMMUNICATION
-// ============================================
-
-// Listen for messages from parent window
-window.addEventListener('message', (event) => {
-    if (event.data.type === 'reload') {
-        loadStoryContent();
-    }
-});
-
-// Notify parent that we're ready
-if (window.opener) {
-    window.opener.postMessage({ type: 'preview-ready', key: storyKey }, '*');
-}
-
-// ============================================
-// EXPORT FUNCTIONS FOR GLOBAL ACCESS
-// ============================================
-
+// Make functions globally available
 window.saveStory = saveStory;
 window.toggleViewMode = toggleViewMode;
-window.switchToPreview = switchToPreview;
-window.switchToSource = switchToSource;
+window.copyTitleToClipboard = copyTitleToClipboard;
+window.toggleDetails = toggleDetails;
