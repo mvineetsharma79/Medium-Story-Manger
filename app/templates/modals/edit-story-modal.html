@@ -1,4 +1,4 @@
-<!-- Edit Story Modal - Complete Redesign -->
+<!-- Edit Story Modal - Complete -->
 <input type="hidden" id="editStoryKey" value="">
 <input type="hidden" id="editStoryUniqueSlug" value="">
 <div class="modal fade" id="editStoryModal" tabindex="-1" aria-labelledby="editStoryModalLabel" aria-hidden="true">
@@ -12,9 +12,15 @@
             </div>
             
             <div class="modal-body">
-                <!-- Hidden fields -->
-                <input type="hidden" id="editStoryKey" value="">
-                <input type="hidden" id="editStoryUniqueSlug" value="">
+                <!-- Story Name Display (non-editable reference) -->
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <div class="info-card bg-light">
+                            <div class="info-label"><i class="bi bi-file-text"></i> Story Key / Path</div>
+                            <div class="info-value" id="editStoryPath">—</div>
+                        </div>
+                    </div>
+                </div>
                 
                 <!-- SECTION 1: STORY METADATA -->
                 <div class="card mb-3">
@@ -69,7 +75,12 @@
                                 <label class="form-label small fw-bold">
                                     <i class="bi bi-calendar-plus"></i> Created Date
                                 </label>
-                                <input type="date" id="editStoryCreatedDate" class="form-control form-control-sm">
+                                <div class="input-group input-group-sm">
+                                    <input type="date" id="editStoryCreatedDate" class="form-control form-control-sm">
+                                    <button class="btn btn-outline-secondary btn-sm" type="button" id="editStorySetTodayBtn" title="Set to today">
+                                        <i class="bi bi-calendar-today"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label small fw-bold">
@@ -108,6 +119,15 @@
                                 <textarea id="editStoryNotes" class="form-control form-control-sm" rows="2" placeholder="Internal notes..."></textarea>
                             </div>
                         </div>
+                        
+                        <div class="row g-2 mt-1">
+                            <div class="col-12">
+                                <div class="info-card bg-light">
+                                    <div class="info-label"><i class="bi bi-clock-history"></i> Last Updated</div>
+                                    <div class="info-value" id="editStoryLastUpdated">—</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -115,6 +135,9 @@
                 <div class="card mb-3">
                     <div class="card-header bg-light">
                         <i class="bi bi-linkedin"></i> <strong>LinkedIn Marketing</strong>
+                        <button class="btn btn-sm btn-outline-danger float-end" type="button" id="editStoryClearAllLinkedinBtn" title="Clear all LinkedIn data">
+                            <i class="bi bi-trash"></i> Clear All
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="row g-2">
@@ -132,7 +155,15 @@
                                 <label class="form-label small fw-bold">
                                     <i class="bi bi-clock"></i> Timestamp
                                 </label>
-                                <input type="datetime-local" id="editStoryLinkedinTimestamp" class="form-control form-control-sm">
+                                <div class="input-group input-group-sm">
+                                    <input type="datetime-local" id="editStoryLinkedinTimestamp" class="form-control form-control-sm">
+                                    <button class="btn btn-outline-secondary btn-sm" type="button" id="editStorySetNowLinkedinBtn" title="Set to now">
+                                        <i class="bi bi-clock"></i>
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm" type="button" id="editStoryClearLinkedinTimestampBtn" title="Clear">
+                                        <i class="bi bi-x"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label small fw-bold">
@@ -240,6 +271,37 @@
                                     <div class="info-card">
                                         <div class="info-label"><i class="bi bi-heart"></i> Claps</div>
                                         <div class="info-value" id="mediumClaps">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Lifetime Stats Summary -->
+                        <div class="mb-3">
+                            <div class="small text-muted mb-2"><i class="bi bi-infinity"></i> Lifetime Stats</div>
+                            <div class="row g-2">
+                                <div class="col-md-3">
+                                    <div class="info-card bg-success text-white">
+                                        <div class="info-label"><i class="bi bi-book"></i> Lifetime Reads</div>
+                                        <div class="info-value" id="editStoryLifetimeReads">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="info-card bg-info text-white">
+                                        <div class="info-label"><i class="bi bi-eye"></i> Lifetime Views</div>
+                                        <div class="info-value" id="editStoryLifetimeViews">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="info-card bg-warning text-dark">
+                                        <div class="info-label"><i class="bi bi-heart"></i> Lifetime Claps</div>
+                                        <div class="info-value" id="editStoryLifetimeClaps">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="info-card bg-secondary text-white">
+                                        <div class="info-label"><i class="bi bi-presentation"></i> Presentations</div>
+                                        <div class="info-value" id="editStoryPresentationCount">0</div>
                                     </div>
                                 </div>
                             </div>

@@ -603,8 +603,15 @@ function renderStoryTable() {
         titleStrong.style.cursor = 'pointer';
         titleStrong.textContent = story.title || story.name || 'Unknown';
         
-        titleStrong.onclick = () => openEditStory(encodedName);
-
+        // ✅ FIX: Use encodedStoryKey instead of encodedName
+        const encodedStoryKey = encodeURIComponent(story.key);
+        titleStrong.onclick = () => {
+            if (window.EditStoryModal && window.EditStoryModal.open) {                
+                const editUrl = `/content/${encodeURIComponent(story.key)}`    
+                console.log('Opening edit story modal for:', editUrl);
+                window.EditStoryModal.open(story.key);
+            }
+        };
 
         titleWrapper.appendChild(titleStrong);
 
@@ -856,33 +863,33 @@ function openEditStory(encodedStoryName) {
 
 
 
-async function loadStoryForEdit(uniqueSlug, year, month) {
-    try {
-        console.log(`${API_BASE}/story${(uniqueSlug)}`);
-        const response = await fetch(`${API_BASE}/story${(uniqueSlug)}`);
-        const story = await response.json();
+// async function loadStoryForEdit(uniqueSlug, year, month) {
+//     try {
+//         console.log('Story path : '+ `${API_BASE}${(uniqueSlug)}`);
+//         const response = await fetch(`${API_BASE}${(uniqueSlug)}`);
+//         const story = await response.json();
         
-        document.getElementById('editStoryUniqueSlug').value = story.uniqueSlug;
-        //document.getElementById('editStoryTitle').value = story.title || '';
-        document.getElementById('editStoryStatus').value = story.status || 'Draft';
-        document.getElementById('editStorySeries').value = story.series || '';
-        document.getElementById('editStoryCreatedDate').value = story.created_date?.split('T')[0] || '';
-        document.getElementById('editStoryPublishedDate').value = story.published_date?.split('T')[0] || '';
-        document.getElementById('editStoryNotes').value = story.notes || '';
-        document.getElementById('editStoryTags').value = (story.tags || []).join(', ');
-        document.getElementById('editStoryMediumUrl').value = story.medium_url || '';
+//         document.getElementById('editStoryUniqueSlug').value = story.uniqueSlug;
+//         //document.getElementById('editStoryTitle').value = story.title || '';
+//         document.getElementById('editStoryStatus').value = story.status || 'Draft';
+//         document.getElementById('editStorySeries').value = story.series || '';
+//         document.getElementById('editStoryCreatedDate').value = story.created_date?.split('T')[0] || '';
+//         document.getElementById('editStoryPublishedDate').value = story.published_date?.split('T')[0] || '';
+//         document.getElementById('editStoryNotes').value = story.notes || '';
+//         document.getElementById('editStoryTags').value = (story.tags || []).join(', ');
+//         document.getElementById('editStoryMediumUrl').value = story.medium_url || '';
         
-        const linkedin = story.linkedin || {};
-        document.getElementById('editStoryLinkedinStatus').value = linkedin.status || story.linkedin_status || '';
-        document.getElementById('editStoryLinkedinTimestamp').value = linkedin.timestamp || story.linkedin_timestamp || '';
-        document.getElementById('editStoryLinkedinImpressions').value = linkedin.impressions || story.linkedin_impressions || 0;
-        document.getElementById('editStoryLinkedinUrl').value = linkedin.url || story.linkedin_url || '';
+//         const linkedin = story.linkedin || {};
+//         document.getElementById('editStoryLinkedinStatus').value = linkedin.status || story.linkedin_status || '';
+//         document.getElementById('editStoryLinkedinTimestamp').value = linkedin.timestamp || story.linkedin_timestamp || '';
+//         document.getElementById('editStoryLinkedinImpressions').value = linkedin.impressions || story.linkedin_impressions || 0;
+//         document.getElementById('editStoryLinkedinUrl').value = linkedin.url || story.linkedin_url || '';
         
-    } catch (error) {
-        console.error('Error loading story for edit:', error);
-        showToast('Error loading story: ' + error.message, 'error');
-    }
-}
+//     } catch (error) {
+//         console.error('Error loading story for edit:', error);
+//         showToast('Error loading story: ' + error.message, 'error');
+//     }
+// }
 
 async function saveStoryEdit() {
     const uniqueSlug = document.getElementById('editStoryUniqueSlug')?.value;

@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-04-11T00:22:01.041811",
+  "last_updated": "2026-04-11T04:30:24.283263",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl": {
       "uniqueSlug": "solid-principles-part-2---single-responsibility-principl",
@@ -197,13 +197,13 @@
       "rel_path": "Architectural%20Remediation%20Framework%3A%20Eliminating%20the%2012%20Silent%20Killers%20in%20.NET%2010%20Web%20APIs/Architectural%20Remediation%20Framework%3A%20Eliminating%20the%2012%20Silent%20Killers%20in%20.NET%2010%20Web%20APIs%20-%20Part%201.md",
       "status": "Published",
       "createdDate": "2026-04-09",
-      "lastUpdated": "2026-04-11T00:22:01.036781",
-      "notes": "",
+      "lastUpdated": "2026-04-11T04:24:19.414219",
+      "notes": "New notes",
       "bookmarked": false,
       "leaderboard": false,
       "tags": [],
       "read_time": null,
-      "medium_url": "https://mvineetsharma.medium.com/architectural-remediation-framework-eliminating-the-12-silent-killers-in-net-10-web-apis-part-1-d5b09b962edc",
+      "medium_url": null,
       "linkedin_status": null,
       "linkedin_timestamp": null,
       "linkedin_impressions": 0,
@@ -4156,7 +4156,7 @@
       "linkedin_impressions": 0,
       "linkedin_url": null
     },
-    "Dotnet Python NodeJS/.NET 10 Is Here  -  A Complete Deep Dive into the Next Evolution of the Platform": {
+    "Dotnet Python NodeJS/.NET 10 Is Here - A Complete Deep Dive into the Next Evolution of the Platform": {
       "uniqueSlug": ".net-10-is-here - a-complete-deep-dive-into-the-next-evolution-of-the-platform",
       "title": ".NET 10 Is Here -A Complete Deep Dive into the Next Evolution of the Platform",
       "name": ".NET 10 Is Here - A Complete Deep Dive into the Next Evolution of the Platform",
@@ -4376,17 +4376,17 @@
       "rel_path": "Dotnet%20Python%20NodeJS/Achieving%2010x%20Faster%20Serialization%20in%20.NET%20Core.md",
       "status": "Published",
       "createdDate": "2026-04-09",
-      "lastUpdated": "2026-04-11T00:22:01.035032",
-      "notes": "",
+      "lastUpdated": "2026-04-11T04:30:24.283246",
+      "notes": "notes",
       "bookmarked": false,
       "leaderboard": false,
       "tags": [],
       "read_time": null,
-      "medium_url": "https://mvineetsharma.medium.com/achieving-10x-faster-serialization-in-net-core-40793d1e9f2b",
-      "linkedin_status": null,
-      "linkedin_timestamp": null,
-      "linkedin_impressions": 0,
-      "linkedin_url": null,
+      "medium_url": "https://mermaid.ai/live/edit?utm_medium=main_menu&utm_source=ai_live_editor#pako:eNqNVNuO2jAU_BXLfWklQrkkJETVSly7LGGpCqrUJqvIxE5I19jIcdqmwL_XuWw2tEKqn-wzM_acsewTDDgm0Iaapnks4CyMI9tjAFCU8VTagNDnfCn35EBssEMJ8VjBDSn_GeyRkGA7zRkAJOkuEui4B3PBmSQMux58mQIHZUQADUy4ECSQHnwqRfkYuYnkIiZJ-3vyBDTtDoxdgmOp5eUsL75yxwU-cVccI1rV1f4e-8vDGAXPpYVqVjv4slg7o-1i_XjlYep-Vv2S4vgzjnOPIECUnsHMpRxhv7LoYyRRU9cUUM6PZzB3Qy5A4R3EDFTChmZeaHbZESXJGXx0fRwH0pe8OCNrEF9n9zftLf61B1CEYtbYZ3F14IObHhWNKLtRHOQWRbH37TA3RPyIA1IkqBKtlnWi46-fRpvNbHoV6NJ9u8nbqcjvGpDjRkSWzfq7zGfoQD7sxPu7x_UWTEaOM5s2yKvK7f_wG97VvbRVz8mepxRXUS1rSCEokKmqZqCMhahgZnXjMqNE8cKYUvtNGAYY95rI_U1kWSPhMNCbiHNTs7pCYAtGIsbQliIlLXgg4oDyJTzlGg8WL9GDtppiEqKUqrfksYuSHRH7xvnhRakuNdpDO0Q0UasyxGmM1I0e6qpQiREx4SmT0LZ6xR7QPsFf0O5aw7bRH-rDgWEafWugmy2YQbuvt7sd07D0ntE3jW7PuLTg7-LUTtsyjY4aXWvQG-i6abVg_oq5WJVfTPHTXP4Akkxnyw",
+      "linkedin_status": "scheduled",
+      "linkedin_timestamp": "2026-04-11T04:29",
+      "linkedin_impressions": 100,
+      "linkedin_url": "https://mermaid.ai/live/edit?utm_medium=main_menu&utm_source=ai_live_editor#pako:eNqNVNuO2jAU_BXLfWklQrkkJETVSly7LGGpCqrUJqvIxE5I19jIcdqmwL_XuWw2tEKqn-wzM_acsewTDDgm0Iaapnks4CyMI9tjAFCU8VTagNDnfCn35EBssEMJ8VjBDSn_GeyRkGA7zRkAJOkuEui4B3PBmSQMux58mQIHZUQADUy4ECSQHnwqRfkYuYnkIiZJ-3vyBDTtDoxdgmOp5eUsL75yxwU-cVccI1rV1f4e-8vDGAXPpYVqVjv4slg7o-1i_XjlYep-Vv2S4vgzjnOPIECUnsHMpRxhv7LoYyRRU9cUUM6PZzB3Qy5A4R3EDFTChmZeaHbZESXJGXx0fRwH0pe8OCNrEF9n9zftLf61B1CEYtbYZ3F14IObHhWNKLtRHOQWRbH37TA3RPyIA1IkqBKtlnWi46-fRpvNbHoV6NJ9u8nbqcjvGpDjRkSWzfq7zGfoQD7sxPu7x_UWTEaOM5s2yKvK7f_wG97VvbRVz8mepxRXUS1rSCEokKmqZqCMhahgZnXjMqNE8cKYUvtNGAYY95rI_U1kWSPhMNCbiHNTs7pCYAtGIsbQliIlLXgg4oDyJTzlGg8WL9GDtppiEqKUqrfksYuSHRH7xvnhRakuNdpDO0Q0UasyxGmM1I0e6qpQiREx4SmT0LZ6xR7QPsFf0O5aw7bRH-rDgWEafWugmy2YQbuvt7sd07D0ntE3jW7PuLTg7-LUTtsyjY4aXWvQG-i6abVg_oq5WJVfTPHTXP4Akkxnyw",
       "publishedDate": "2025-04-30",
       "medium": {
         "id": "40793d1e9f2b",
@@ -11499,19 +11499,20 @@
       "series": "Experience",
       "raw_path": "Experience/The Human Cost of Trusting AI: 7 Failures That Cost Days.md.md",
       "rel_path": "Experience/The%20Human%20Cost%20of%20Trusting%20AI%3A%207%20Failures%20That%20Cost%20Days.md.md",
-      "status": "Draft",
-      "createdDate": "2026-04-10",
-      "lastUpdated": "2026-04-10T09:35:35.979632",
-      "notes": "",
+      "status": "Done",
+      "createdDate": "2026-04-06",
+      "lastUpdated": "2026-04-11T04:27:23.238100",
+      "notes": "Notes",
       "bookmarked": false,
       "leaderboard": false,
       "tags": [],
       "read_time": null,
       "medium_url": null,
-      "linkedin_status": null,
-      "linkedin_timestamp": null,
-      "linkedin_impressions": 0,
-      "linkedin_url": null
+      "linkedin_status": "scheduled",
+      "linkedin_timestamp": "2026-04-11T04:27",
+      "linkedin_impressions": 100,
+      "linkedin_url": null,
+      "publishedDate": "2026-04-18"
     }
   },
   "series": {
@@ -11809,8 +11810,8 @@
     },
     "Dotnet Python NodeJS": {
       "name": "Dotnet Python NodeJS",
-      "total_stories": 7,
-      "published": 4,
+      "total_stories": 6,
+      "published": 3,
       "spacing_days": 7,
       "stories": [
         "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Node",
