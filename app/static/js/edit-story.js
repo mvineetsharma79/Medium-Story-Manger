@@ -282,7 +282,7 @@ function populateModalFromStory(story) {
     // Clear monthly stats table first
     clearMonthlyStatsTable();
     
-    currentStoryKey = story.key;
+    currentStoryKey = story.name;
     currentStoryData = story;
     
     // Modal title
@@ -447,8 +447,9 @@ async function saveStoryEdit() {
     if (updateData.tags && updateData.tags.length === 0) delete updateData.tags;
     
     try {
-        var encodedKey = encodeURIComponent(currentStoryKey);
-        var response = await fetch(API_BASE + '/stories/story/by-key/' + encodedKey, {
+        // Use the name from the story (currentStoryKey is the story name)
+        var encodedName = encodeURIComponent(currentStoryKey);
+        var response = await fetch(API_BASE + '/stories/story/' + encodedName, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateData)

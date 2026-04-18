@@ -1,15 +1,17 @@
 {
-  "generated": "2026-04-10T10:21:55.576754",
+  "generated": "2026-04-19T03:20:14.729175",
   "summary": {
     "total_scheduled": 200,
     "stories_per_week": 3,
     "series_spacing_default": 7,
-    "start_date": "2026-04-09",
+    "start_date": "2026-04-19",
     "series_counts": {
       "SOLID Principles": 7,
       "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs": 4,
       "Kafka Design Patterns - Azure + .NET 10": 4,
+      "Experience": 2,
       "10 Essential Microservices Architecture Patterns": 4,
+      "API Security Arsenal": 7,
       "The 2026 AI Metromap": 40,
       "Clean Architecture Anti-Pattern .Net": 8,
       "GitHub Copilot Mastery": 6,
@@ -17,29 +19,23 @@
       "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution": 1,
       "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts": 5,
       "Claude Code Mastery": 5,
+      "The 2026 Python Metromap": 41,
       "Design Patterns": 6,
       "GitHub": 7,
       "Publishing .NET 10 Apps as Container Images": 22,
       "Clean Architecture Anti-Pattern Python": 8,
       "DevOps": 1,
+      "BenchmarkDotNet With .NET 10 Perf Optimization": 4,
       "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide": 1,
-      "AI Engineering": 10,
-      "Dotnet Python NodeJS": 7,
-      " Publishing Python FastAPI Apps as Container Images": 16,
-      "Miscellaneous": 3,
-      "Modernizing the Monolith": 5,
-      "Publishing Node.js Express Apps as Container Images": 12,
-      "SQL Mechanic to Data Architect": 3,
-      "Vehixcare": 4,
-      "Payment System": 1,
-      "Code to Cluster": 1
+      "AI Engineering": 6,
+      "Dotnet Python NodeJS": 2
     },
-    "remaining_unpublished": 73
+    "remaining_unpublished": 161
   },
   "schedule": [
     {
-      "date": "2026-04-09",
-      "weekday": "Thursday",
+      "date": "2026-04-20",
+      "weekday": "Monday",
       "story_key": "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl",
       "name": "SOLID Principles: Part 2 - Single Responsibility Principl",
       "series": "SOLID Principles",
@@ -47,8 +43,8 @@
       "read_time": null
     },
     {
-      "date": "2026-04-13",
-      "weekday": "Monday",
+      "date": "2026-04-21",
+      "weekday": "Tuesday",
       "story_key": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs/Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs",
       "name": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs",
       "series": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs",
@@ -56,8 +52,8 @@
       "read_time": null
     },
     {
-      "date": "2026-04-14",
-      "weekday": "Tuesday",
+      "date": "2026-04-22",
+      "weekday": "Wednesday",
       "story_key": "Kafka Design Patterns - Azure + .NET 10/11 Kafka Design Patterns  - Overview All 11 Patterns  - Azure + .NET 10 Edition",
       "name": "11 Kafka Design Patterns  - Overview All 11 Patterns  - Azure + .NET 10 Edition",
       "series": "Kafka Design Patterns - Azure + .NET 10",
@@ -65,7 +61,7 @@
       "read_time": null
     },
     {
-      "date": "2026-04-20",
+      "date": "2026-04-27",
       "weekday": "Monday",
       "story_key": "SOLID Principles/SOLID Principles: Part 3 - Open-Closed Principle",
       "name": "SOLID Principles: Part 3 - Open-Closed Principle",
@@ -74,7 +70,7 @@
       "read_time": null
     },
     {
-      "date": "2026-04-21",
+      "date": "2026-04-28",
       "weekday": "Tuesday",
       "story_key": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs/Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs - Part 1",
       "name": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs — Part 1",
@@ -83,7 +79,7 @@
       "read_time": null
     },
     {
-      "date": "2026-04-22",
+      "date": "2026-04-29",
       "weekday": "Wednesday",
       "story_key": "Kafka Design Patterns - Azure + .NET 10/11 Kafka Design Patterns -Data & State Deep Dive Azure + .NET 10 Edition",
       "name": "11 Kafka Design Patterns -Data & State Deep Dive Azure + .NET 10 Edition",
@@ -92,7 +88,7 @@
       "read_time": null
     },
     {
-      "date": "2026-04-27",
+      "date": "2026-05-04",
       "weekday": "Monday",
       "story_key": "SOLID Principles/SOLID Principles: Part 4 - Liskov Substitution Principle",
       "name": "SOLID Principles: Part 4 - Liskov Substitution Principle",
@@ -101,7 +97,7 @@
       "read_time": null
     },
     {
-      "date": "2026-04-28",
+      "date": "2026-05-05",
       "weekday": "Tuesday",
       "story_key": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs/Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs - Part 2",
       "name": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs - Part 2",
@@ -110,7 +106,7 @@
       "read_time": null
     },
     {
-      "date": "2026-04-29",
+      "date": "2026-05-06",
       "weekday": "Wednesday",
       "story_key": "Kafka Design Patterns - Azure + .NET 10/11 Kafka Design Patterns -Reliability & Ordering Deep Dive Azure + .NET 10 Edition",
       "name": "11 Kafka Design Patterns -Reliability & Ordering Deep Dive Azure + .NET 10 Edition",
@@ -119,16 +115,16 @@
       "read_time": null
     },
     {
-      "date": "2026-05-04",
+      "date": "2026-05-11",
       "weekday": "Monday",
       "story_key": "SOLID Principles/SOLID Principles: Building Spotify's Unshakable Foundation",
-      "name": "SOLID Principles: Building Spotify's Unshakable Foundation",
+      "name": "SOLID Principles: Building Spotify’s Unshakable Foundation",
       "series": "SOLID Principles",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-05-05",
+      "date": "2026-05-12",
       "weekday": "Tuesday",
       "story_key": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs/Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs - Part 3",
       "name": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs - Part 3",
@@ -137,7 +133,7 @@
       "read_time": null
     },
     {
-      "date": "2026-05-06",
+      "date": "2026-05-13",
       "weekday": "Wednesday",
       "story_key": "Kafka Design Patterns - Azure + .NET 10/11 Kafka Design Patterns - Performance & Integration Deep Dive Azure + .NET 10 Edition",
       "name": "11 Kafka Design Patterns - Performance & Integration Deep Dive Azure + .NET 10 Edition",
@@ -146,7 +142,7 @@
       "read_time": null
     },
     {
-      "date": "2026-05-11",
+      "date": "2026-05-18",
       "weekday": "Monday",
       "story_key": "SOLID Principles/SOLID Principles: Part 5 - Interface Segregation Principl",
       "name": "SOLID Principles: Part 5 - Interface Segregation Principl",
@@ -155,8 +151,17 @@
       "read_time": null
     },
     {
-      "date": "2026-05-12",
+      "date": "2026-05-19",
       "weekday": "Tuesday",
+      "story_key": "Experience/The Human Cost of Trusting AI: 7 Failures That Cost Days",
+      "name": "The Human Cost of Trusting AI: 7 Failures That Cost Days",
+      "series": "Experience",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-20",
+      "weekday": "Wednesday",
       "story_key": "10 Essential Microservices Architecture Patterns/10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and Azure - Part 2",
       "name": "10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and Azure - Part 2",
       "series": "10 Essential Microservices Architecture Patterns",
@@ -164,16 +169,7 @@
       "read_time": null
     },
     {
-      "date": "2026-05-13",
-      "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Transformers & Attention – The Station That Changed Everything",
-      "name": "The 2026 AI Metromap: Transformers & Attention – The Station That Changed Everything",
-      "series": "The 2026 AI Metromap",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-05-18",
+      "date": "2026-05-25",
       "weekday": "Monday",
       "story_key": "SOLID Principles/SOLID Principles: Part 1 - Building Unbreakable",
       "name": "SOLID Principles: Part 1 - Building Unbreakable",
@@ -182,8 +178,17 @@
       "read_time": null
     },
     {
-      "date": "2026-05-19",
+      "date": "2026-05-26",
       "weekday": "Tuesday",
+      "story_key": "Experience/The Human Cost of Trusting AI: 8 Hours of Hell",
+      "name": "The Human Cost of Trusting AI: 8 Hours of Hell",
+      "series": "Experience",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-05-27",
+      "weekday": "Wednesday",
       "story_key": "10 Essential Microservices Architecture Patterns/10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and AWS - Part 1",
       "name": "10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and AWS - Part 1",
       "series": "10 Essential Microservices Architecture Patterns",
@@ -191,16 +196,7 @@
       "read_time": null
     },
     {
-      "date": "2026-05-20",
-      "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: PyTorch Mastery – The Locomotive of Modern AI",
-      "name": "The 2026 AI Metromap: PyTorch Mastery – The Locomotive of Modern AI",
-      "series": "The 2026 AI Metromap",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-05-25",
+      "date": "2026-06-01",
       "weekday": "Monday",
       "story_key": "SOLID Principles/SOLID Principles: Part 6 - Dependency Inversion Principle",
       "name": "SOLID Principles: Part 6 - Dependency Inversion Principle",
@@ -209,8 +205,17 @@
       "read_time": null
     },
     {
-      "date": "2026-05-26",
+      "date": "2026-06-02",
       "weekday": "Tuesday",
+      "story_key": "API Security Arsenal/API Security Arsenal: The Complete Cheatsheet",
+      "name": "API Security Arsenal: The Complete Cheatsheet",
+      "series": "API Security Arsenal",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-03",
+      "weekday": "Wednesday",
       "story_key": "10 Essential Microservices Architecture Patterns/10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and Azure - Part 1",
       "name": "10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and Azure - Part 1",
       "series": "10 Essential Microservices Architecture Patterns",
@@ -218,26 +223,26 @@
       "read_time": null
     },
     {
-      "date": "2026-05-27",
-      "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Multimodal Models – The Interchange Stations",
-      "name": "The 2026 AI Metromap: Multimodal Models – The Interchange Stations",
+      "date": "2026-06-08",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Transformers & Attention – The Station That Changed Everything",
+      "name": "The 2026 AI Metromap: Transformers & Attention – The Station That Changed Everything",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-06-01",
-      "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Defining the Boundary - Part 3",
-      "name": "Clean Architecture Anti-Pattern - Exception: Defining the Boundary - Part 3",
-      "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 3,
+      "date": "2026-06-09",
+      "weekday": "Tuesday",
+      "story_key": "API Security Arsenal/API Security Arsenal: 15 Essential Tools Every Engineer Should Know",
+      "name": "API Security Arsenal: 15 Essential Tools Every Engineer Should Know",
+      "series": "API Security Arsenal",
+      "part": null,
       "read_time": null
     },
     {
-      "date": "2026-06-02",
-      "weekday": "Tuesday",
+      "date": "2026-06-10",
+      "weekday": "Wednesday",
       "story_key": "10 Essential Microservices Architecture Patterns/10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and AWS - Part 2",
       "name": "10 Essential Microservices Architecture Patterns: A Professional Reference Architecture with .NET 10 and AWS - Part 2",
       "series": "10 Essential Microservices Architecture Patterns",
@@ -245,17 +250,53 @@
       "read_time": null
     },
     {
-      "date": "2026-06-03",
-      "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Batch Norm & Dropout – The Safety Systems of Deep Learning",
-      "name": "The 2026 AI Metromap: Batch Norm & Dropout – The Safety Systems of Deep Learning",
+      "date": "2026-06-15",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: PyTorch Mastery – The Locomotive of Modern AI",
+      "name": "The 2026 AI Metromap: PyTorch Mastery – The Locomotive of Modern AI",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-06-08",
+      "date": "2026-06-16",
+      "weekday": "Tuesday",
+      "story_key": "API Security Arsenal/API Security Arsenal: Breaking APIs Safely with OWASP ZAP, Burp Suite, and Postman",
+      "name": "API Security Arsenal: Breaking APIs Safely with OWASP ZAP, Burp Suite, and Postman",
+      "series": "API Security Arsenal",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-17",
+      "weekday": "Wednesday",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Defining the Boundary - Part 3",
+      "name": "Clean Architecture Anti-Pattern - Exception: Defining the Boundary - Part 3",
+      "series": "Clean Architecture Anti-Pattern .Net",
+      "part": 3,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-22",
       "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Multimodal Models – The Interchange Stations",
+      "name": "The 2026 AI Metromap: Multimodal Models – The Interchange Stations",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-23",
+      "weekday": "Tuesday",
+      "story_key": "API Security Arsenal/API Security Arsenal: How to Choose the Right Tools for Your Stack",
+      "name": "API Security Arsenal: How to Choose the Right Tools for Your Stack",
+      "series": "API Security Arsenal",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-24",
+      "weekday": "Wednesday",
       "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Infrastructure Resilience - Part 6",
       "name": "Clean Architecture Anti-Pattern - Exception: Infrastructure Resilience - Part 6",
       "series": "Clean Architecture Anti-Pattern .Net",
@@ -263,7 +304,97 @@
       "read_time": null
     },
     {
-      "date": "2026-06-09",
+      "date": "2026-06-29",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Batch Norm & Dropout – The Safety Systems of Deep Learning",
+      "name": "The 2026 AI Metromap: Batch Norm & Dropout – The Safety Systems of Deep Learning",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-06-30",
+      "weekday": "Tuesday",
+      "story_key": "API Security Arsenal/API Security Arsenal: Securing the Perimeter with Gateways & Ingress Controllers",
+      "name": "API Security Arsenal: Securing the Perimeter with Gateways & Ingress Controllers",
+      "series": "API Security Arsenal",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-01",
+      "weekday": "Wednesday",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Testing & Observability - Part 7",
+      "name": "Clean Architecture Anti-Pattern - Exception: Testing & Observability - Part 7",
+      "series": "Clean Architecture Anti-Pattern .Net",
+      "part": 7,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-06",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Gaming, VR-AR, and Entertainment",
+      "name": "The 2026 AI Metromap: AI in Gaming, VR-AR, and Entertainment",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-07",
+      "weekday": "Tuesday",
+      "story_key": "API Security Arsenal/API Security Arsenal: Mastering Authentication with Okta, Auth0, and Keycloak",
+      "name": "API Security Arsenal: Mastering Authentication with Okta, Auth0, and Keycloak",
+      "series": "API Security Arsenal",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-08",
+      "weekday": "Wednesday",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Building the Result Pattern - Part 4",
+      "name": "Clean Architecture Anti-Pattern - Exception: Building the Result Pattern - Part 4",
+      "series": "Clean Architecture Anti-Pattern .Net",
+      "part": 4,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-13",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Fine-Tuning vs. In-Context Learning – When to Train vs. When to Prompt",
+      "name": "The 2026 AI Metromap: Fine-Tuning vs. In-Context Learning – When to Train vs. When to Prompt",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-14",
+      "weekday": "Tuesday",
+      "story_key": "API Security Arsenal/API Security Arsenal: Real-Time Threat Detection with Apigee, Salt, and Cloudflare",
+      "name": "API Security Arsenal: Real-Time Threat Detection with Apigee, Salt, and Cloudflare",
+      "series": "API Security Arsenal",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-15",
+      "weekday": "Wednesday",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Domain Logic in Disguise - Part 2",
+      "name": "Clean Architecture Anti-Pattern - Exception: Domain Logic in Disguise - Part 2",
+      "series": "Clean Architecture Anti-Pattern .Net",
+      "part": 2,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-20",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Data Cleaning & Visualization – Turning Raw Data into Tracks",
+      "name": "The 2026 AI Metromap: Data Cleaning & Visualization – Turning Raw Data into Tracks",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-21",
       "weekday": "Tuesday",
       "story_key": "GitHub Copilot Mastery/GitHub Copilot Mastery - From Code to Production",
       "name": "GitHub Copilot Mastery - From Code to Production",
@@ -272,25 +403,25 @@
       "read_time": null
     },
     {
-      "date": "2026-06-10",
+      "date": "2026-07-22",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Gaming, VR-AR, and Entertainment",
-      "name": "The 2026 AI Metromap: AI in Gaming, VR-AR, and Entertainment",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Across Real-World Domains - Part 5",
+      "name": "Clean Architecture Anti-Pattern - Exception: Across Real-World Domains - Part 5",
+      "series": "Clean Architecture Anti-Pattern .Net",
+      "part": 5,
+      "read_time": null
+    },
+    {
+      "date": "2026-07-27",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Linear Algebra for ML – The Language of the Map",
+      "name": "The 2026 AI Metromap: Linear Algebra for ML – The Language of the Map",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-06-15",
-      "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Testing & Observability - Part 7",
-      "name": "Clean Architecture Anti-Pattern - Exception: Testing & Observability - Part 7",
-      "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 7,
-      "read_time": null
-    },
-    {
-      "date": "2026-06-16",
+      "date": "2026-07-28",
       "weekday": "Tuesday",
       "story_key": "GitHub Copilot Mastery/GitHub Copilot Mastery - The Complete AI-Powered Development Journey",
       "name": "GitHub Copilot Mastery - The Complete AI-Powered Development Journey",
@@ -299,25 +430,25 @@
       "read_time": null
     },
     {
-      "date": "2026-06-17",
+      "date": "2026-07-29",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Fine-Tuning vs. In-Context Learning – When to Train vs. When to Prompt",
-      "name": "The 2026 AI Metromap: Fine-Tuning vs. In-Context Learning – When to Train vs. When to Prompt",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: A .NET Developer's Guide - Part 1",
+      "name": "Clean Architecture Anti-Pattern - Exception: A .NET Developer's Guide - Part 1",
+      "series": "Clean Architecture Anti-Pattern .Net",
+      "part": 1,
+      "read_time": null
+    },
+    {
+      "date": "2026-08-03",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Avoiding Derailments",
+      "name": "The 2026 AI Metromap: Avoiding Derailments",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-06-22",
-      "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Building the Result Pattern - Part 4",
-      "name": "Clean Architecture Anti-Pattern - Exception: Building the Result Pattern - Part 4",
-      "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 4,
-      "read_time": null
-    },
-    {
-      "date": "2026-06-23",
+      "date": "2026-08-04",
       "weekday": "Tuesday",
       "story_key": "GitHub Copilot Mastery/GitHub Copilot Mastery - The Intelligence Layer",
       "name": "GitHub Copilot Mastery - The Intelligence Layer",
@@ -326,25 +457,25 @@
       "read_time": null
     },
     {
-      "date": "2026-06-24",
+      "date": "2026-08-05",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Data Cleaning & Visualization – Turning Raw Data into Tracks",
-      "name": "The 2026 AI Metromap: Data Cleaning & Visualization – Turning Raw Data into Tracks",
+      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: The Road Ahead - Part 8",
+      "name": "Clean Architecture Anti-Pattern - Exception: The Road Ahead - Part 8",
+      "series": "Clean Architecture Anti-Pattern .Net",
+      "part": 8,
+      "read_time": null
+    },
+    {
+      "date": "2026-08-10",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: RAG – Retrieval-Augmented Generation for Knowledge-Intensive Tasks",
+      "name": "The 2026 AI Metromap: RAG – Retrieval-Augmented Generation for Knowledge-Intensive Tasks",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-06-29",
-      "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Domain Logic in Disguise - Part 2",
-      "name": "Clean Architecture Anti-Pattern - Exception: Domain Logic in Disguise - Part 2",
-      "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 2,
-      "read_time": null
-    },
-    {
-      "date": "2026-06-30",
+      "date": "2026-08-11",
       "weekday": "Tuesday",
       "story_key": "GitHub Copilot Mastery/GitHub Copilot Mastery - The Advanced Workflow Engine",
       "name": "GitHub Copilot Mastery - The Advanced Workflow Engine",
@@ -353,25 +484,25 @@
       "read_time": null
     },
     {
-      "date": "2026-07-01",
+      "date": "2026-08-12",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Linear Algebra for ML – The Language of the Map",
-      "name": "The 2026 AI Metromap: Linear Algebra for ML – The Language of the Map",
+      "story_key": "Clean Code Practices/Code Smell — Practical Guide using .Net Core Part-III",
+      "name": "Code Smell — Practical Guide using .Net Core Part-III",
+      "series": "Clean Code Practices",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-08-17",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI Agents & Autonomous Workflows – The Self-Driving Trains",
+      "name": "The 2026 AI Metromap: AI Agents & Autonomous Workflows – The Self-Driving Trains",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-07-06",
-      "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: Across Real-World Domains - Part 5",
-      "name": "Clean Architecture Anti-Pattern - Exception: Across Real-World Domains - Part 5",
-      "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 5,
-      "read_time": null
-    },
-    {
-      "date": "2026-07-07",
+      "date": "2026-08-18",
       "weekday": "Tuesday",
       "story_key": "GitHub Copilot Mastery/GitHub Copilot Mastery: The Complete AI-Powered Development Journey",
       "name": "GitHub Copilot Mastery: The Complete AI-Powered Development Journey",
@@ -380,25 +511,25 @@
       "read_time": null
     },
     {
-      "date": "2026-07-08",
+      "date": "2026-08-19",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Avoiding Derailments",
-      "name": "The 2026 AI Metromap: Avoiding Derailments",
+      "story_key": "Clean Code Practices/Analyzing Software Code — Lines of Code",
+      "name": "Analyzing Software Code — Lines of Code",
+      "series": "Clean Code Practices",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-08-24",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Loss Functions & Optimization – Navigating to the Minimum",
+      "name": "The 2026 AI Metromap: Loss Functions & Optimization – Navigating to the Minimum",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-07-13",
-      "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: A .NET Developer's Guide - Part 1",
-      "name": "Clean Architecture Anti-Pattern - Exception: A .NET Developer's Guide - Part 1",
-      "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 1,
-      "read_time": null
-    },
-    {
-      "date": "2026-07-14",
+      "date": "2026-08-25",
       "weekday": "Tuesday",
       "story_key": "GitHub Copilot Mastery/GitHub Copilot Mastery - The Integration Ecosystem",
       "name": "GitHub Copilot Mastery - The Integration Ecosystem",
@@ -407,80 +538,8 @@
       "read_time": null
     },
     {
-      "date": "2026-07-15",
+      "date": "2026-08-26",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: RAG – Retrieval-Augmented Generation for Knowledge-Intensive Tasks",
-      "name": "The 2026 AI Metromap: RAG – Retrieval-Augmented Generation for Knowledge-Intensive Tasks",
-      "series": "The 2026 AI Metromap",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-07-20",
-      "weekday": "Monday",
-      "story_key": "Clean Architecture Anti-Pattern .Net/Clean Architecture Anti-Pattern - Exception: The Road Ahead - Part 8",
-      "name": "Clean Architecture Anti-Pattern - Exception: The Road Ahead - Part 8",
-      "series": "Clean Architecture Anti-Pattern .Net",
-      "part": 8,
-      "read_time": null
-    },
-    {
-      "date": "2026-07-21",
-      "weekday": "Tuesday",
-      "story_key": "Clean Code Practices/Code Smell — Practical Guide using .Net Core Part-III",
-      "name": "Code Smell — Practical Guide using .Net Core Part-III",
-      "series": "Clean Code Practices",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-07-22",
-      "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI Agents & Autonomous Workflows – The Self-Driving Trains",
-      "name": "The 2026 AI Metromap: AI Agents & Autonomous Workflows – The Self-Driving Trains",
-      "series": "The 2026 AI Metromap",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-07-27",
-      "weekday": "Monday",
-      "story_key": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution/LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
-      "name": "LINQ Reimagined: A Deep Dive into .NET 10’s Query Evolution",
-      "series": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-07-28",
-      "weekday": "Tuesday",
-      "story_key": "Clean Code Practices/Analyzing Software Code — Lines of Code",
-      "name": "Analyzing Software Code — Lines of Code",
-      "series": "Clean Code Practices",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-07-29",
-      "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Loss Functions & Optimization – Navigating to the Minimum",
-      "name": "The 2026 AI Metromap: Loss Functions & Optimization – Navigating to the Minimum",
-      "series": "The 2026 AI Metromap",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-08-03",
-      "weekday": "Monday",
-      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 1: The Foundation - User Access & Data Ingestion",
-      "name": "Enterprise AI Architecture Part 1: The Foundation — User Access & Data Ingestion",
-      "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
-      "part": 1,
-      "read_time": null
-    },
-    {
-      "date": "2026-08-04",
-      "weekday": "Tuesday",
       "story_key": "Clean Code Practices/Analyzing Software Code — Dependency Analysis",
       "name": "Analyzing Software Code — Dependency Analysis",
       "series": "Clean Code Practices",
@@ -488,8 +547,8 @@
       "read_time": null
     },
     {
-      "date": "2026-08-05",
-      "weekday": "Wednesday",
+      "date": "2026-08-31",
+      "weekday": "Monday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Open Source LLMs – LLaMA, Mistral, DeepSeek, and Beyond",
       "name": "The 2026 AI Metromap: Open Source LLMs – LLaMA, Mistral, DeepSeek, and Beyond",
       "series": "The 2026 AI Metromap",
@@ -497,17 +556,17 @@
       "read_time": null
     },
     {
-      "date": "2026-08-10",
-      "weekday": "Monday",
-      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 2: The Brain - Models, Routing & Intelligent Agents",
-      "name": "Enterprise AI Architecture Part 2: The Brain - Models, Routing & Intelligent Agents",
-      "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
-      "part": 2,
+      "date": "2026-09-01",
+      "weekday": "Tuesday",
+      "story_key": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution/LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
+      "name": "LINQ Reimagined: A Deep Dive into .NET 10’s Query Evolution",
+      "series": "LINQ Reimagined: A Deep Dive into .NET 10's Query Evolution",
+      "part": null,
       "read_time": null
     },
     {
-      "date": "2026-08-11",
-      "weekday": "Tuesday",
+      "date": "2026-09-02",
+      "weekday": "Wednesday",
       "story_key": "Clean Code Practices/Analyzing Software Code: A Comprehensive Exploration of Metrics and Indices",
       "name": "Analyzing Software Code: A Comprehensive Exploration of Metrics and Indices",
       "series": "Clean Code Practices",
@@ -515,8 +574,8 @@
       "read_time": null
     },
     {
-      "date": "2026-08-12",
-      "weekday": "Wednesday",
+      "date": "2026-09-07",
+      "weekday": "Monday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Robotics, Manufacturing, and Supply Chain",
       "name": "The 2026 AI Metromap: AI in Robotics, Manufacturing, and Supply Chain",
       "series": "The 2026 AI Metromap",
@@ -524,17 +583,17 @@
       "read_time": null
     },
     {
-      "date": "2026-08-17",
-      "weekday": "Monday",
-      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
-      "name": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "date": "2026-09-08",
+      "weekday": "Tuesday",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 1: The Foundation - User Access & Data Ingestion",
+      "name": "Enterprise AI Architecture Part 1: The Foundation — User Access & Data Ingestion",
       "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
-      "part": null,
+      "part": 1,
       "read_time": null
     },
     {
-      "date": "2026-08-18",
-      "weekday": "Tuesday",
+      "date": "2026-09-09",
+      "weekday": "Wednesday",
       "story_key": "Clean Code Practices/Code Smell — Practical Guide using .Net Core Part-I",
       "name": "Code Smell — Practical Guide using .Net Core Part-I",
       "series": "Clean Code Practices",
@@ -542,8 +601,8 @@
       "read_time": null
     },
     {
-      "date": "2026-08-19",
-      "weekday": "Wednesday",
+      "date": "2026-09-14",
+      "weekday": "Monday",
       "story_key": "The 2026 AI Metromap/The Complete 2026 AI Metromap: Story Catalog",
       "name": "The Complete 2026 AI Metromap: Story Catalog",
       "series": "The 2026 AI Metromap",
@@ -551,17 +610,17 @@
       "read_time": null
     },
     {
-      "date": "2026-08-24",
-      "weekday": "Monday",
-      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 4: The Control Room - Observability, Governance & Security",
-      "name": "Enterprise AI Architecture Part 4: The Control Room - Observability, Governance & Security",
+      "date": "2026-09-15",
+      "weekday": "Tuesday",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 2: The Brain - Models, Routing & Intelligent Agents",
+      "name": "Enterprise AI Architecture Part 2: The Brain - Models, Routing & Intelligent Agents",
       "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
-      "part": 4,
+      "part": 2,
       "read_time": null
     },
     {
-      "date": "2026-08-25",
-      "weekday": "Tuesday",
+      "date": "2026-09-16",
+      "weekday": "Wednesday",
       "story_key": "Clean Code Practices/Analyzing Software Code — Maintainability Index",
       "name": "Analyzing Software Code — Maintainability Index",
       "series": "Clean Code Practices",
@@ -569,8 +628,8 @@
       "read_time": null
     },
     {
-      "date": "2026-08-26",
-      "weekday": "Wednesday",
+      "date": "2026-09-21",
+      "weekday": "Monday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: TensorFlow & Keras – The Production-Ready Alternative",
       "name": "The 2026 AI Metromap: TensorFlow & Keras – The Production-Ready Alternative",
       "series": "The 2026 AI Metromap",
@@ -578,17 +637,17 @@
       "read_time": null
     },
     {
-      "date": "2026-08-31",
-      "weekday": "Monday",
-      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 3: The Hands - Agent Execution & Enterprise Integration",
-      "name": "Enterprise AI Architecture Part 3: The Hands - Agent Execution & Enterprise Integration",
+      "date": "2026-09-22",
+      "weekday": "Tuesday",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "name": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
       "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
-      "part": 3,
+      "part": null,
       "read_time": null
     },
     {
-      "date": "2026-09-01",
-      "weekday": "Tuesday",
+      "date": "2026-09-23",
+      "weekday": "Wednesday",
       "story_key": "Clean Code Practices/Analyzing Software Code — Code Duplication",
       "name": "Analyzing Software Code — Code Duplication",
       "series": "Clean Code Practices",
@@ -596,8 +655,8 @@
       "read_time": null
     },
     {
-      "date": "2026-09-02",
-      "weekday": "Wednesday",
+      "date": "2026-09-28",
+      "weekday": "Monday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Reading the Map",
       "name": "The 2026 AI Metromap: Reading the Map",
       "series": "The 2026 AI Metromap",
@@ -605,17 +664,17 @@
       "read_time": null
     },
     {
-      "date": "2026-09-07",
-      "weekday": "Monday",
-      "story_key": "Claude Code Mastery/Claude Code Mastery - The Extension & Integration Framework: Skills, Hooks, MCP, and Plugins",
-      "name": "Claude Code Mastery - The Extension & Integration Framework: Skills, Hooks, MCP, and Plugins",
-      "series": "Claude Code Mastery",
-      "part": null,
+      "date": "2026-09-29",
+      "weekday": "Tuesday",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 4: The Control Room - Observability, Governance & Security",
+      "name": "Enterprise AI Architecture Part 4: The Control Room - Observability, Governance & Security",
+      "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "part": 4,
       "read_time": null
     },
     {
-      "date": "2026-09-08",
-      "weekday": "Tuesday",
+      "date": "2026-09-30",
+      "weekday": "Wednesday",
       "story_key": "Clean Code Practices/Analyzing Software Code — Cyclomatic Complexity",
       "name": "Analyzing Software Code — Cyclomatic Complexity",
       "series": "Clean Code Practices",
@@ -623,8 +682,8 @@
       "read_time": null
     },
     {
-      "date": "2026-09-09",
-      "weekday": "Wednesday",
+      "date": "2026-10-05",
+      "weekday": "Monday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Recommendation Systems – From Collaborative Filtering to Two-Tower Networks",
       "name": "The 2026 AI Metromap: Recommendation Systems – From Collaborative Filtering to Two-Tower Networks",
       "series": "The 2026 AI Metromap",
@@ -632,17 +691,17 @@
       "read_time": null
     },
     {
-      "date": "2026-09-14",
-      "weekday": "Monday",
-      "story_key": "Claude Code Mastery/Claude Code Mastery - The Complete AI-Powered Development Platform",
-      "name": "Claude Code Mastery - The Complete AI-Powered Development Platform",
-      "series": "Claude Code Mastery",
-      "part": null,
+      "date": "2026-10-06",
+      "weekday": "Tuesday",
+      "story_key": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 3: The Hands - Agent Execution & Enterprise Integration",
+      "name": "Enterprise AI Architecture Part 3: The Hands - Agent Execution & Enterprise Integration",
+      "series": "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts",
+      "part": 3,
       "read_time": null
     },
     {
-      "date": "2026-09-15",
-      "weekday": "Tuesday",
+      "date": "2026-10-07",
+      "weekday": "Wednesday",
       "story_key": "Clean Code Practices/Code Smell — Practical Guide using .Net Core Part-II",
       "name": "Code Smell — Practical Guide using .Net Core Part-II",
       "series": "Clean Code Practices",
@@ -650,8 +709,8 @@
       "read_time": null
     },
     {
-      "date": "2026-09-16",
-      "weekday": "Wednesday",
+      "date": "2026-10-12",
+      "weekday": "Monday",
       "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: GPT & LLM Architecture – Understanding the Engine of the Express Train",
       "name": "The 2026 AI Metromap: GPT & LLM Architecture – Understanding the Engine of the Express Train",
       "series": "The 2026 AI Metromap",
@@ -659,8 +718,62 @@
       "read_time": null
     },
     {
-      "date": "2026-09-21",
+      "date": "2026-10-13",
+      "weekday": "Tuesday",
+      "story_key": "Claude Code Mastery/Claude Code Mastery - The Extension & Integration Framework: Skills, Hooks, MCP, and Plugins",
+      "name": "Claude Code Mastery - The Extension & Integration Framework: Skills, Hooks, MCP, and Plugins",
+      "series": "Claude Code Mastery",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-10-14",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: PyTorch – Research and Production",
+      "name": "The 2026 Python Metromap: PyTorch – Research and Production",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-10-19",
       "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: NLP Tasks – NER, Translation, Summarization, and Beyond",
+      "name": "The 2026 AI Metromap: NLP Tasks – NER, Translation, Summarization, and Beyond",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-10-20",
+      "weekday": "Tuesday",
+      "story_key": "Claude Code Mastery/Claude Code Mastery - The Complete AI-Powered Development Platform",
+      "name": "Claude Code Mastery - The Complete AI-Powered Development Platform",
+      "series": "Claude Code Mastery",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-10-21",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Avoiding Derailments",
+      "name": "The 2026 Python Metromap: Avoiding Derailments",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-10-26",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Training Strategies – Learning Rate Scheduling & Beyond",
+      "name": "The 2026 AI Metromap: Training Strategies – Learning Rate Scheduling & Beyond",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-10-27",
+      "weekday": "Tuesday",
       "story_key": "Claude Code Mastery/Claude Code Mastery - The Memory & Control Layer: CLAUDE, Permissions, Plan Mode, and Checkpoints",
       "name": "Claude Code Mastery - The Memory & Control Layer: CLAUDE, Permissions, Plan Mode, and Checkpoints",
       "series": "Claude Code Mastery",
@@ -668,7 +781,79 @@
       "read_time": null
     },
     {
-      "date": "2026-09-22",
+      "date": "2026-10-28",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Weather Dashboard",
+      "name": "The 2026 Python Metromap: Weather Dashboard",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-11-02",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Ethics & Responsible AI – The Safety Systems of the Metro",
+      "name": "The 2026 AI Metromap: Ethics & Responsible AI – The Safety Systems of the Metro",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-11-03",
+      "weekday": "Tuesday",
+      "story_key": "Claude Code Mastery/Claude Code Mastery - From Terminal to IDE: Complete VS Code Integration & Real-World Project Workflow",
+      "name": "Claude Code Mastery - From Terminal to IDE: Complete VS Code Integration & Real-World Project Workflow",
+      "series": "Claude Code Mastery",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-11-04",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Matplotlib – Basic Plotting",
+      "name": "The 2026 Python Metromap: Matplotlib – Basic Plotting",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-11-09",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Command Line & Version Control – Navigating the Terminal Like a Conductor",
+      "name": "The 2026 AI Metromap: Command Line & Version Control – Navigating the Terminal Like a Conductor",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-11-10",
+      "weekday": "Tuesday",
+      "story_key": "Claude Code Mastery/Claude Code Mastery - The Advanced Workflow Engine: Context Management, Slash Commands, Compaction, and Subagents",
+      "name": "Claude Code Mastery - The Advanced Workflow Engine: Context Management, Slash Commands, Compaction, and Subagents",
+      "series": "Claude Code Mastery",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-11-11",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Reading the Map",
+      "name": "The 2026 Python Metromap: Reading the Map",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-11-16",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Neural Network Architecture – From Perceptron to MLP",
+      "name": "The 2026 AI Metromap: Neural Network Architecture – From Perceptron to MLP",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-11-17",
       "weekday": "Tuesday",
       "story_key": "Design Patterns/Design Patterns: Part 1 -  Redefining Design Patterns",
       "name": "Design Patterns: Part 1 -  Redefining Design Patterns",
@@ -677,52 +862,52 @@
       "read_time": null
     },
     {
-      "date": "2026-09-23",
+      "date": "2026-11-18",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: NLP Tasks – NER, Translation, Summarization, and Beyond",
-      "name": "The 2026 AI Metromap: NLP Tasks – NER, Translation, Summarization, and Beyond",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Automation with os and sys",
+      "name": "The 2026 Python Metromap: Automation with os and sys",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-11-23",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Computer Vision Projects – From OCR to Face Recognition",
+      "name": "The 2026 AI Metromap: Computer Vision Projects – From OCR to Face Recognition",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-09-28",
-      "weekday": "Monday",
-      "story_key": "Claude Code Mastery/Claude Code Mastery - From Terminal to IDE: Complete VS Code Integration & Real-World Project Workflow",
-      "name": "Claude Code Mastery - From Terminal to IDE: Complete VS Code Integration & Real-World Project Workflow",
-      "series": "Claude Code Mastery",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-09-29",
+      "date": "2026-11-24",
       "weekday": "Tuesday",
-      "story_key": "Design Patterns/Redefining OOPs: Beyond the Car and Animal Analogy",
-      "name": "Redefining OOPs: Beyond the Car and Animal Analogy",
+      "story_key": "Design Patterns/Redefining OOPs: Beyond the Car and Animal Analogy .Net 10",
+      "name": "Redefining OOPs: Beyond the Car and Animal Analogy .Net 10",
       "series": "Design Patterns",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-09-30",
+      "date": "2026-11-25",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Training Strategies – Learning Rate Scheduling & Beyond",
-      "name": "The 2026 AI Metromap: Training Strategies – Learning Rate Scheduling & Beyond",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Encapsulation – Protecting Data",
+      "name": "The 2026 Python Metromap: Encapsulation – Protecting Data",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-11-30",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: From Passenger to Driver",
+      "name": "The 2026 AI Metromap: From Passenger to Driver",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-10-05",
-      "weekday": "Monday",
-      "story_key": "Claude Code Mastery/Claude Code Mastery - The Advanced Workflow Engine: Context Management, Slash Commands, Compaction, and Subagents",
-      "name": "Claude Code Mastery - The Advanced Workflow Engine: Context Management, Slash Commands, Compaction, and Subagents",
-      "series": "Claude Code Mastery",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-10-06",
+      "date": "2026-12-01",
       "weekday": "Tuesday",
       "story_key": "Design Patterns/Design Patterns: Part 4 - Behavioral Patterns Deep Dive",
       "name": "Design Patterns: Part 4 - Behavioral Patterns Deep Dive",
@@ -731,25 +916,25 @@
       "read_time": null
     },
     {
-      "date": "2026-10-07",
+      "date": "2026-12-02",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Ethics & Responsible AI – The Safety Systems of the Metro",
-      "name": "The 2026 AI Metromap: Ethics & Responsible AI – The Safety Systems of the Metro",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Operators – Arithmetic, Comparison, Logical, and More",
+      "name": "The 2026 Python Metromap: Operators – Arithmetic, Comparison, Logical, and More",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-12-07",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Healthcare – Medical Research, Diagnostics, and Wellness",
+      "name": "The 2026 AI Metromap: AI in Healthcare – Medical Research, Diagnostics, and Wellness",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-10-12",
-      "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
-      "name": "GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
-      "series": "GitHub",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-10-13",
+      "date": "2026-12-08",
       "weekday": "Tuesday",
       "story_key": "Design Patterns/Design Patterns: Part 3 - Structural Patterns Deep Dive",
       "name": "Design Patterns: Part 3 - Structural Patterns Deep Dive",
@@ -758,52 +943,25 @@
       "read_time": null
     },
     {
-      "date": "2026-10-14",
+      "date": "2026-12-09",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Command Line & Version Control – Navigating the Terminal Like a Conductor",
-      "name": "The 2026 AI Metromap: Command Line & Version Control – Navigating the Terminal Like a Conductor",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Abstraction – Hiding Complexity",
+      "name": "The 2026 Python Metromap: Abstraction – Hiding Complexity",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-12-14",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Finance – Banking, Insurance, and Trading",
+      "name": "The 2026 AI Metromap: AI in Finance – Banking, Insurance, and Trading",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-10-19",
-      "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in CI CD: AI-Powered Automation at Scale",
-      "name": "GitHub Copilot in CI CD: AI-Powered Automation at Scale",
-      "series": "GitHub",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-10-20",
-      "weekday": "Tuesday",
-      "story_key": "Design Patterns/The Architect's Journey: Mastering Object-Oriented Excellence",
-      "name": "The Architect's Journey: Mastering Object-Oriented Excellence",
-      "series": "Design Patterns",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-10-21",
-      "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Neural Network Architecture – From Perceptron to MLP",
-      "name": "The 2026 AI Metromap: Neural Network Architecture – From Perceptron to MLP",
-      "series": "The 2026 AI Metromap",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-10-26",
-      "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
-      "name": "GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
-      "series": "GitHub",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-10-27",
+      "date": "2026-12-15",
       "weekday": "Tuesday",
       "story_key": "Design Patterns/Design Patterns: Part 2 - Creational Patterns Deep Dive",
       "name": "Design Patterns: Part 2 - Creational Patterns Deep Dive",
@@ -812,17 +970,134 @@
       "read_time": null
     },
     {
-      "date": "2026-10-28",
+      "date": "2026-12-16",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Computer Vision Projects – From OCR to Face Recognition",
-      "name": "The 2026 AI Metromap: Computer Vision Projects – From OCR to Face Recognition",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Return Values – Getting Results Back",
+      "name": "The 2026 Python Metromap: Return Values – Getting Results Back",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-12-21",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Why the Old Learning Routes Are Obsolete",
+      "name": "The 2026 AI Metromap: Why the Old Learning Routes Are Obsolete",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-11-02",
+      "date": "2026-12-22",
+      "weekday": "Tuesday",
+      "story_key": "Design Patterns/The Architect's Journey: Mastering Object-Oriented Excellence with .NET 10",
+      "name": "The Architect's Journey: Mastering Object-Oriented Excellence with .NET 10",
+      "series": "Design Patterns",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-12-23",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: End-to-End ML Pipeline Project",
+      "name": "The 2026 Python Metromap: End-to-End ML Pipeline Project",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-12-28",
       "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Foundations Station – Why Data Cleaning and Git Are Your Board Games, Not Just Chores",
+      "name": "The 2026 AI Metromap: Foundations Station – Why Data Cleaning and Git Are Your Board Games, Not Just Chores",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-12-29",
+      "weekday": "Tuesday",
+      "story_key": "GitHub/GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
+      "name": "GitHub Copilot in the IDE: Your AI Pair Programmer, Always by Your Side",
+      "series": "GitHub",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2026-12-30",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Inheritance – Reusing Parent Classes",
+      "name": "The 2026 Python Metromap: Inheritance – Reusing Parent Classes",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-01-04",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Image Generation & Editing – Diffusion Models in Practice",
+      "name": "The 2026 AI Metromap: Image Generation & Editing – Diffusion Models in Practice",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-01-05",
+      "weekday": "Tuesday",
+      "story_key": "GitHub/GitHub Copilot in CI CD: AI-Powered Automation at Scale",
+      "name": "GitHub Copilot in CI CD: AI-Powered Automation at Scale",
+      "series": "GitHub",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-01-06",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Type Hints & MyPy – Static Type Checking",
+      "name": "The 2026 Python Metromap: Type Hints & MyPy – Static Type Checking",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-01-11",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Activation Functions & Backpropagation – The Electrical Grid of the Network",
+      "name": "The 2026 AI Metromap: Activation Functions & Backpropagation – The Electrical Grid of the Network",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-01-12",
+      "weekday": "Tuesday",
+      "story_key": "GitHub/GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
+      "name": "GitHub Copilot in VS Code: The Ultimate AI-Powered Development Experience",
+      "series": "GitHub",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-01-13",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Defining Functions – The Workhorses of Python",
+      "name": "The 2026 Python Metromap: Defining Functions – The Workhorses of Python",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-01-18",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Time Series Forecasting – ARIMA, LSTM, and Transformers",
+      "name": "The 2026 AI Metromap: Time Series Forecasting – ARIMA, LSTM, and Transformers",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-01-19",
+      "weekday": "Tuesday",
       "story_key": "GitHub/GitHub Copilot on GitHub.com: AI-Powered Collaboration at Scale",
       "name": "GitHub Copilot on GitHub.com: AI-Powered Collaboration at Scale",
       "series": "GitHub",
@@ -830,7 +1105,106 @@
       "read_time": null
     },
     {
-      "date": "2026-11-03",
+      "date": "2027-01-20",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Lists – Ordered & Mutable",
+      "name": "The 2026 Python Metromap: Lists – Ordered & Mutable",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-01-25",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Model Optimization – Keeping the Train on Time",
+      "name": "The 2026 AI Metromap: Model Optimization – Keeping the Train on Time",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-01-26",
+      "weekday": "Tuesday",
+      "story_key": "GitHub/GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
+      "name": "GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
+      "series": "GitHub",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-01-27",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Django – Full-Stack Web Apps",
+      "name": "The 2026 Python Metromap: Django – Full-Stack Web Apps",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-02-01",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Voice Assistants & Speech Models – Making AI Talk",
+      "name": "The 2026 AI Metromap: Voice Assistants & Speech Models – Making AI Talk",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-02-02",
+      "weekday": "Tuesday",
+      "story_key": "GitHub/GitHub Copilot: The AI-Powered Development Ecosystem",
+      "name": "GitHub Copilot: The AI-Powered Development Ecosystem",
+      "series": "GitHub",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-02-03",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: From Passenger to Driver",
+      "name": "The 2026 Python Metromap: From Passenger to Driver",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-02-08",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI for Social Good – Climate Action, Agriculture, and Sustainability",
+      "name": "The 2026 AI Metromap: AI for Social Good – Climate Action, Agriculture, and Sustainability",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-02-09",
+      "weekday": "Tuesday",
+      "story_key": "GitHub/GitHub Copilot in the Terminal: Your Command Line AI Assistant",
+      "name": "GitHub Copilot in the Terminal: Your Command Line AI Assistant",
+      "series": "GitHub",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-02-10",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: ML-Powered Recommendation Engine",
+      "name": "The 2026 Python Metromap: ML-Powered Recommendation Engine",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-02-15",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Education – Personalized Learning and Training",
+      "name": "The 2026 AI Metromap: AI in Education – Personalized Learning and Training",
+      "series": "The 2026 AI Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-02-16",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Podman with .NET SDK Native Publishing: Hybrid Workflows - AWS",
       "name": "Podman with .NET SDK Native Publishing: Hybrid Workflows - AWS",
@@ -839,25 +1213,25 @@
       "read_time": null
     },
     {
-      "date": "2026-11-04",
+      "date": "2027-02-17",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: From Passenger to Driver",
-      "name": "The 2026 AI Metromap: From Passenger to Driver",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Arguments – Positional, Keyword, and Default",
+      "name": "The 2026 Python Metromap: Arguments – Positional, Keyword, and Default",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-02-22",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Regression & Classification – The Grand Central Station of AI",
+      "name": "The 2026 AI Metromap: Regression & Classification – The Grand Central Station of AI",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-11-09",
-      "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
-      "name": "GitHub Copilot in Visual Studio: Enterprise-Grade AI for .NET Developers",
-      "series": "GitHub",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-11-10",
+      "date": "2027-02-23",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/konet: Multi-Platform Container Builds Without Docker",
       "name": "konet: Multi-Platform Container Builds Without Docker",
@@ -866,25 +1240,25 @@
       "read_time": null
     },
     {
-      "date": "2026-11-11",
+      "date": "2027-02-24",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Healthcare – Medical Research, Diagnostics, and Wellness",
-      "name": "The 2026 AI Metromap: AI in Healthcare – Medical Research, Diagnostics, and Wellness",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Lambda Functions – Anonymous & Powerful",
+      "name": "The 2026 Python Metromap: Lambda Functions – Anonymous & Powerful",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-03-01",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Prompt Engineering 101 – The Art of Talking to AI",
+      "name": "The 2026 AI Metromap: Prompt Engineering 101 – The Art of Talking to AI",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-11-16",
-      "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot: The AI-Powered Development Ecosystem",
-      "name": "GitHub Copilot: The AI-Powered Development Ecosystem",
-      "series": "GitHub",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-11-17",
+      "date": "2027-03-02",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Azure Developer CLI (azd) with .NET Aspire: The Turnkey Solution",
       "name": "Azure Developer CLI (azd) with .NET Aspire: The Turnkey Solution",
@@ -893,25 +1267,25 @@
       "read_time": null
     },
     {
-      "date": "2026-11-18",
+      "date": "2027-03-03",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Finance – Banking, Insurance, and Trading",
-      "name": "The 2026 AI Metromap: AI in Finance – Banking, Insurance, and Trading",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Dictionaries – Key-Value Power",
+      "name": "The 2026 Python Metromap: Dictionaries – Key-Value Power",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-03-08",
+      "weekday": "Monday",
+      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Diffusion Models – The Scenic Route to Generative AI",
+      "name": "The 2026 AI Metromap: Diffusion Models – The Scenic Route to Generative AI",
       "series": "The 2026 AI Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-11-23",
-      "weekday": "Monday",
-      "story_key": "GitHub/GitHub Copilot in the Terminal: Your Command Line AI Assistant",
-      "name": "GitHub Copilot in the Terminal: Your Command Line AI Assistant",
-      "series": "GitHub",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2026-11-24",
+      "date": "2027-03-09",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/.NET SDK Native Container Publishing: Building OCI Images Without Docker",
       "name": ".NET SDK Native Container Publishing: Building OCI Images Without Docker",
@@ -920,16 +1294,16 @@
       "read_time": null
     },
     {
-      "date": "2026-11-25",
+      "date": "2027-03-10",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Why the Old Learning Routes Are Obsolete",
-      "name": "The 2026 AI Metromap: Why the Old Learning Routes Are Obsolete",
-      "series": "The 2026 AI Metromap",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Iterators – Custom Looping",
+      "name": "The 2026 Python Metromap: Iterators – Custom Looping",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-11-30",
+      "date": "2027-03-15",
       "weekday": "Monday",
       "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Testing & Observability - Part 7",
       "name": "Clean Architecture Anti-Pattern in Python - Testing & Observability - Part 7",
@@ -938,7 +1312,7 @@
       "read_time": null
     },
     {
-      "date": "2026-12-01",
+      "date": "2027-03-16",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows",
       "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows",
@@ -947,16 +1321,16 @@
       "read_time": null
     },
     {
-      "date": "2026-12-02",
+      "date": "2027-03-17",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Foundations Station – Why Data Cleaning and Git Are Your Board Games, Not Just Chores",
-      "name": "The 2026 AI Metromap: Foundations Station – Why Data Cleaning and Git Are Your Board Games, Not Just Chores",
-      "series": "The 2026 AI Metromap",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Control Flow – if, elif, else",
+      "name": "The 2026 Python Metromap: Control Flow – if, elif, else",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-12-07",
+      "date": "2027-03-22",
       "weekday": "Monday",
       "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Across Real-World Domains - Part 5",
       "name": "Clean Architecture Anti-Pattern in Python - Across Real-World Domains - Part 5",
@@ -965,7 +1339,7 @@
       "read_time": null
     },
     {
-      "date": "2026-12-08",
+      "date": "2027-03-23",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Publishing .NET 10 Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
       "name": "Publishing .NET 10 Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
@@ -974,16 +1348,16 @@
       "read_time": null
     },
     {
-      "date": "2026-12-09",
+      "date": "2027-03-24",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Image Generation & Editing – Diffusion Models in Practice",
-      "name": "The 2026 AI Metromap: Image Generation & Editing – Diffusion Models in Practice",
-      "series": "The 2026 AI Metromap",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Generators – Memory-Efficient Loops",
+      "name": "The 2026 Python Metromap: Generators – Memory-Efficient Loops",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-12-14",
+      "date": "2027-03-29",
       "weekday": "Monday",
       "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - A Developer's Guide to Resilience - Part 1",
       "name": "Clean Architecture Anti-Pattern in Python - A Developer's Guide to Resilience - Part 1",
@@ -992,7 +1366,7 @@
       "read_time": null
     },
     {
-      "date": "2026-12-15",
+      "date": "2027-03-30",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Traditional Dockerfile with Podman: The Daemonless Alternative",
       "name": "Traditional Dockerfile with Podman: The Daemonless Alternative",
@@ -1001,16 +1375,16 @@
       "read_time": null
     },
     {
-      "date": "2026-12-16",
+      "date": "2027-03-31",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Activation Functions & Backpropagation – The Electrical Grid of the Network",
-      "name": "The 2026 AI Metromap: Activation Functions & Backpropagation – The Electrical Grid of the Network",
-      "series": "The 2026 AI Metromap",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Pandas – Data Wrangling",
+      "name": "The 2026 Python Metromap: Pandas – Data Wrangling",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-12-21",
+      "date": "2027-04-05",
       "weekday": "Monday",
       "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Building the Result Pattern - Part 4",
       "name": "Clean Architecture Anti-Pattern in Python - Building the Result Pattern - Part 4",
@@ -1019,7 +1393,7 @@
       "read_time": null
     },
     {
-      "date": "2026-12-22",
+      "date": "2027-04-06",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/AWS CDK & Copilot: Infrastructure as Code for Containers - AWS",
       "name": "AWS CDK & Copilot: Infrastructure as Code for Containers - AWS",
@@ -1028,16 +1402,16 @@
       "read_time": null
     },
     {
-      "date": "2026-12-23",
+      "date": "2027-04-07",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Time Series Forecasting – ARIMA, LSTM, and Transformers",
-      "name": "The 2026 AI Metromap: Time Series Forecasting – ARIMA, LSTM, and Transformers",
-      "series": "The 2026 AI Metromap",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Recursion – Functions Calling Themselves",
+      "name": "The 2026 Python Metromap: Recursion – Functions Calling Themselves",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2026-12-28",
+      "date": "2027-04-12",
       "weekday": "Monday",
       "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Domain Logic in Disguise - Part 2",
       "name": "Clean Architecture Anti-Pattern in Python - Domain Logic in Disguise - Part 2",
@@ -1046,7 +1420,7 @@
       "read_time": null
     },
     {
-      "date": "2026-12-29",
+      "date": "2027-04-13",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/.NET SDK Native Container Publishing Deep Dive: The Complete Reference",
       "name": ".NET SDK Native Container Publishing Deep Dive: The Complete Reference",
@@ -1055,16 +1429,16 @@
       "read_time": null
     },
     {
-      "date": "2026-12-30",
+      "date": "2027-04-14",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Model Optimization – Keeping the Train on Time",
-      "name": "The 2026 AI Metromap: Model Optimization – Keeping the Train on Time",
-      "series": "The 2026 AI Metromap",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Sets – Unique & Fast",
+      "name": "The 2026 Python Metromap: Sets – Unique & Fast",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-01-04",
+      "date": "2027-04-19",
       "weekday": "Monday",
       "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Defining the Boundary - Part 3",
       "name": "Clean Architecture Anti-Pattern in Python - Defining the Boundary - Part 3",
@@ -1073,7 +1447,7 @@
       "read_time": null
     },
     {
-      "date": "2027-01-05",
+      "date": "2027-04-20",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Publishing .NET 10 Apps as Container Images: A Complete Guide to 9 Deployment Approaches - Azure",
       "name": "Publishing .NET 10 Apps as Container Images: A Complete Guide to 9 Deployment Approaches — Azure",
@@ -1082,16 +1456,16 @@
       "read_time": null
     },
     {
-      "date": "2027-01-06",
+      "date": "2027-04-21",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Voice Assistants & Speech Models – Making AI Talk",
-      "name": "The 2026 AI Metromap: Voice Assistants & Speech Models – Making AI Talk",
-      "series": "The 2026 AI Metromap",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Exception Handling – Graceful Failures",
+      "name": "The 2026 Python Metromap: Exception Handling – Graceful Failures",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-01-11",
+      "date": "2027-04-26",
       "weekday": "Monday",
       "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - The Road Ahead - Part 8",
       "name": "Clean Architecture Anti-Pattern in Python - The Road Ahead - Part 8",
@@ -1100,7 +1474,7 @@
       "read_time": null
     },
     {
-      "date": "2027-01-12",
+      "date": "2027-04-27",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Podman with .NET SDK Native Publishing: Hybrid Workflows",
       "name": "Podman with .NET SDK Native Publishing: Hybrid Workflows",
@@ -1109,16 +1483,16 @@
       "read_time": null
     },
     {
-      "date": "2027-01-13",
+      "date": "2027-04-28",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI for Social Good – Climate Action, Agriculture, and Sustainability",
-      "name": "The 2026 AI Metromap: AI for Social Good – Climate Action, Agriculture, and Sustainability",
-      "series": "The 2026 AI Metromap",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Scikit-learn – Traditional Machine Learning",
+      "name": "The 2026 Python Metromap: Scikit-learn – Traditional Machine Learning",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-01-18",
+      "date": "2027-05-03",
       "weekday": "Monday",
       "story_key": "Clean Architecture Anti-Pattern Python/Clean Architecture Anti-Pattern in Python - Infrastructure Resilience - Part 6",
       "name": "Clean Architecture Anti-Pattern in Python - Infrastructure Resilience - Part 6",
@@ -1127,7 +1501,7 @@
       "read_time": null
     },
     {
-      "date": "2027-01-19",
+      "date": "2027-05-04",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Traditional Dockerfile with Docker: The Classic Approach - AWS",
       "name": "Traditional Dockerfile with Docker: The Classic Approach - AWS",
@@ -1136,16 +1510,16 @@
       "read_time": null
     },
     {
-      "date": "2027-01-20",
+      "date": "2027-05-05",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: AI in Education – Personalized Learning and Training",
-      "name": "The 2026 AI Metromap: AI in Education – Personalized Learning and Training",
-      "series": "The 2026 AI Metromap",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Memory Management & Garbage Collection",
+      "name": "The 2026 Python Metromap: Memory Management & Garbage Collection",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-01-25",
+      "date": "2027-05-10",
       "weekday": "Monday",
       "story_key": "DevOps/The Complete Multi-Language Containerization Library: .NET, Python, and Node.js on Azure and AWS",
       "name": "The Complete Multi-Language Containerization Library: .NET, Python, and Node.js on Azure and AWS",
@@ -1154,7 +1528,7 @@
       "read_time": null
     },
     {
-      "date": "2027-01-26",
+      "date": "2027-05-11",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/.NET SDK Native Container Publishing Deep Dive: The Complete Reference - AWS",
       "name": ".NET SDK Native Container Publishing Deep Dive: The Complete Reference - AWS",
@@ -1163,25 +1537,25 @@
       "read_time": null
     },
     {
-      "date": "2027-01-27",
+      "date": "2027-05-12",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Regression & Classification – The Grand Central Station of AI",
-      "name": "The 2026 AI Metromap: Regression & Classification – The Grand Central Station of AI",
-      "series": "The 2026 AI Metromap",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Constructor – Building Objects",
+      "name": "The 2026 Python Metromap: Constructor – Building Objects",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-02-01",
+      "date": "2027-05-17",
       "weekday": "Monday",
-      "story_key": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide/artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
-      "name": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
-      "series": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
-      "part": null,
+      "story_key": "BenchmarkDotNet With .NET 10 Perf Optimization/BenchmarkDotNet With .NET 10 Perf Optimization – The Future of Performance Tuning - Part 4",
+      "name": "BenchmarkDotNet With .NET 10 Perf Optimization – The Future of Performance Tuning - Part 4",
+      "series": "BenchmarkDotNet With .NET 10 Perf Optimization",
+      "part": 4,
       "read_time": null
     },
     {
-      "date": "2027-02-02",
+      "date": "2027-05-18",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/konet: Multi-Platform Container Builds Without Docker - AWS",
       "name": "konet: Multi-Platform Container Builds Without Docker - AWS",
@@ -1190,25 +1564,25 @@
       "read_time": null
     },
     {
-      "date": "2027-02-03",
+      "date": "2027-05-19",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Prompt Engineering 101 – The Art of Talking to AI",
-      "name": "The 2026 AI Metromap: Prompt Engineering 101 – The Art of Talking to AI",
-      "series": "The 2026 AI Metromap",
+      "story_key": "The 2026 Python Metromap/The Complete 2026 Python Metromap Story Catalog",
+      "name": "The Complete 2026 Python Metromap Story Catalog",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-02-08",
+      "date": "2027-05-24",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering - EPILOGUE: The Future of AI Agents",
-      "name": "AI Agent Engineering - EPILOGUE: The Future of AI Agents",
-      "series": "AI Engineering",
-      "part": null,
+      "story_key": "BenchmarkDotNet With .NET 10 Perf Optimization/BenchmarkDotNet With .NET 10 Perf Optimization – Foundations & Methodology for C# Devs - Part 1",
+      "name": "BenchmarkDotNet With .NET 10 Perf Optimization - Foundations & Methodology for C# Devs - Part 1",
+      "series": "BenchmarkDotNet With .NET 10 Perf Optimization",
+      "part": 1,
       "read_time": null
     },
     {
-      "date": "2027-02-09",
+      "date": "2027-05-25",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Visual Studio 2026 GUI Publishing: Drag-and-Drop AWS Deployments - AWS",
       "name": "Visual Studio 2026 GUI Publishing: Drag-and-Drop AWS Deployments - AWS",
@@ -1217,25 +1591,25 @@
       "read_time": null
     },
     {
-      "date": "2027-02-10",
+      "date": "2027-05-26",
       "weekday": "Wednesday",
-      "story_key": "The 2026 AI Metromap/The 2026 AI Metromap: Diffusion Models – The Scenic Route to Generative AI",
-      "name": "The 2026 AI Metromap: Diffusion Models – The Scenic Route to Generative AI",
-      "series": "The 2026 AI Metromap",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Seaborn – Statistical Visualization",
+      "name": "The 2026 Python Metromap: Seaborn – Statistical Visualization",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-02-15",
+      "date": "2027-05-31",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
-      "name": "AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
-      "series": "AI Engineering",
-      "part": null,
+      "story_key": "BenchmarkDotNet With .NET 10 Perf Optimization/BenchmarkDotNet With .NET 10 Perf Optimization – Advanced Performance Engineering Guide - Part 2",
+      "name": "BenchmarkDotNet With .NET 10 Perf Optimization – Advanced Performance Engineering Guide - Part 2",
+      "series": "BenchmarkDotNet With .NET 10 Perf Optimization",
+      "part": 2,
       "read_time": null
     },
     {
-      "date": "2027-02-16",
+      "date": "2027-06-01",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/.NET SDK Native Container Publishing: Building OCI Images Without Docker - AWS",
       "name": ".NET SDK Native Container Publishing: Building OCI Images Without Docker - AWS",
@@ -1244,25 +1618,25 @@
       "read_time": null
     },
     {
-      "date": "2027-02-17",
+      "date": "2027-06-02",
       "weekday": "Wednesday",
-      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Node",
-      "name": "From REST to gRPC: Architecting High-Performance APIs in Node",
-      "series": "Dotnet Python NodeJS",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Input Output & Type Casting – Talking to Users",
+      "name": "The 2026 Python Metromap: Input Output & Type Casting – Talking to Users",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-02-22",
+      "date": "2027-06-07",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
-      "name": "AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
-      "series": "AI Engineering",
-      "part": null,
+      "story_key": "BenchmarkDotNet With .NET 10 Perf Optimization/BenchmarkDotNet With .NET 10 Perf Optimization – AI-Powered Performance Engineering - Part 3 ",
+      "name": "BenchmarkDotNet With .NET 10 Perf Optimization – AI-Powered Performance Engineering - Part 3 ",
+      "series": "BenchmarkDotNet With .NET 10 Perf Optimization",
+      "part": 3,
       "read_time": null
     },
     {
-      "date": "2027-02-23",
+      "date": "2027-06-08",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Traditional Dockerfile with Podman: The Daemonless Alternative - AWS",
       "name": "Traditional Dockerfile with Podman: The Daemonless Alternative - AWS",
@@ -1271,25 +1645,25 @@
       "read_time": null
     },
     {
-      "date": "2027-02-24",
+      "date": "2027-06-09",
       "weekday": "Wednesday",
-      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Python",
-      "name": "From REST to gRPC: Architecting High-Performance APIs in Python",
-      "series": "Dotnet Python NodeJS",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: CSV & JSON Processing – Structured Data",
+      "name": "The 2026 Python Metromap: CSV & JSON Processing – Structured Data",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-03-01",
+      "date": "2027-06-14",
       "weekday": "Monday",
-      "story_key": "AI Engineering/Artificial Intelligence: From Basic Concepts to Agentic Systems — Hands-On Implementation Guide",
-      "name": "Artificial Intelligence: From Basic Concepts to Agentic Systems — Hands-On Implementation Guide",
-      "series": "AI Engineering",
+      "story_key": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide/artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
+      "name": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
+      "series": "artificial-intelligence-from-basic-concepts-to-agentic-systems-hands-on-implementation-guide",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-03-02",
+      "date": "2027-06-15",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Visual Studio 2026 GUI Publishing: Drag-and-Drop Azure Deployments",
       "name": "Visual Studio 2026 GUI Publishing: Drag-and-Drop Azure Deployments",
@@ -1298,25 +1672,25 @@
       "read_time": null
     },
     {
-      "date": "2027-03-03",
+      "date": "2027-06-16",
       "weekday": "Wednesday",
-      "story_key": "Dotnet Python NodeJS/.NET 10 Is Here  -  A Complete Deep Dive into the Next Evolution of the Platform",
-      "name": ".NET 10 Is Here — A Complete Deep Dive into the Next Evolution of the Platform",
-      "series": "Dotnet Python NodeJS",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Classes & Objects – Blueprints & Instances",
+      "name": "The 2026 Python Metromap: Classes & Objects – Blueprints & Instances",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-03-08",
+      "date": "2027-06-21",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
-      "name": "AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
+      "story_key": "AI Engineering/AI Agent Engineering - EPILOGUE: The Future of AI Agents",
+      "name": "AI Agent Engineering - EPILOGUE: The Future of AI Agents",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-03-09",
+      "date": "2027-06-22",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Kubernetes Native Deployments: Orchestrating .NET 10 Containers on Amazon EKS - AWS",
       "name": "Kubernetes Native Deployments: Orchestrating .NET 10 Containers on Amazon EKS - AWS",
@@ -1325,25 +1699,25 @@
       "read_time": null
     },
     {
-      "date": "2027-03-10",
+      "date": "2027-06-23",
       "weekday": "Wednesday",
-      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in .NET 10",
-      "name": "From REST to gRPC: Architecting High-Performance APIs in .NET 10",
-      "series": "Dotnet Python NodeJS",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Context Managers – The with Statement",
+      "name": "The 2026 Python Metromap: Context Managers – The with Statement",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-03-15",
+      "date": "2027-06-28",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 1 - Foundation & LLM Fundamentals",
-      "name": "AI Agent Engineering 1 - Foundation & LLM Fundamentals",
+      "story_key": "AI Engineering/AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
+      "name": "AI Agent Engineering 3 - Going Pro — RAG Systems and Multi-Agent Collaboration",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-03-16",
+      "date": "2027-06-29",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Kubernetes Native Deployments: Orchestrating .NET 10 Containers at Scale",
       "name": "Kubernetes Native Deployments: Orchestrating .NET 10 Containers at Scale",
@@ -1352,25 +1726,25 @@
       "read_time": null
     },
     {
-      "date": "2027-03-17",
+      "date": "2027-06-30",
       "weekday": "Wednesday",
-      "story_key": "Dotnet Python NodeJS/From REST to gRPC: A Unified Architecture Across NET 10, NodeJS, and Python",
-      "name": "From REST to gRPC: A Unified Architecture Across .NET 10, Node.js, and Python",
-      "series": "Dotnet Python NodeJS",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Nested Logic – Conditions Inside Loops",
+      "name": "The 2026 Python Metromap: Nested Logic – Conditions Inside Loops",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-03-22",
+      "date": "2027-07-05",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI From the Top Down: How Agentic Systems, Generative Models, and Symbolic Logic Build Intelligence",
-      "name": "AI From the Top Down: How Agentic Systems, Generative Models, and Symbolic Logic Build Intelligence",
+      "story_key": "AI Engineering/AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
+      "name": "AI Agent Engineering 4 - Keeping Agents Safe — Evaluation, Guardrails, and Observability ",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-03-23",
+      "date": "2027-07-06",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
       "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows - AWS",
@@ -1379,25 +1753,25 @@
       "read_time": null
     },
     {
-      "date": "2027-03-24",
+      "date": "2027-07-07",
       "weekday": "Wednesday",
-      "story_key": "Dotnet Python NodeJS/Achieving 10x Faster Serialization in .NET Core",
-      "name": "Achieving 10x Faster Serialization in .NET Core",
-      "series": "Dotnet Python NodeJS",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Testing & Debugging – pytest and unittest",
+      "name": "The 2026 Python Metromap: Testing & Debugging – pytest and unittest",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-03-29",
+      "date": "2027-07-12",
       "weekday": "Monday",
-      "story_key": "AI Engineering/AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
-      "name": "AI Agent Engineering 5 - Taking Agents to Production — Deployment, Scaling, and Security",
+      "story_key": "AI Engineering/Artificial Intelligence: From Basic Concepts to Agentic Systems — Hands-On Implementation Guide",
+      "name": "Artificial Intelligence: From Basic Concepts to Agentic Systems — Hands-On Implementation Guide",
       "series": "AI Engineering",
       "part": null,
       "read_time": null
     },
     {
-      "date": "2027-03-30",
+      "date": "2027-07-13",
       "weekday": "Tuesday",
       "story_key": "Publishing .NET 10 Apps as Container Images/Traditional Dockerfile with Docker: The Classic Approach",
       "name": "Traditional Dockerfile with Docker: The Classic Approach",
@@ -1406,434 +1780,56 @@
       "read_time": null
     },
     {
-      "date": "2027-03-31",
-      "weekday": "Wednesday",
-      "story_key": "Dotnet Python NodeJS/.NET 10 Minimal APIs + Reactive Programming",
-      "name": ".NET 10 Minimal APIs + Reactive Programming",
-      "series": "Dotnet Python NodeJS",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-05",
-      "weekday": "Monday",
-      "story_key": "AI Engineering/AI Engineering: The 5-Step Blueprint to Building and Deploying AI Agents That Scale to Millions",
-      "name": "AI Engineering: The 5-Step Blueprint to Building and Deploying AI Agents That Scale to Millions",
-      "series": "AI Engineering",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-06",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production - AWS",
-      "name": "Visual Studio Code Dev Containers: Local Development to Production - AWS",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-07",
-      "weekday": "Wednesday",
-      "story_key": "Miscellaneous/The Desktop Phoenix: An Architect's Guide to WPF in a Multi-Platform World",
-      "name": "The Desktop Phoenix: An Architect’s Guide to WPF in a Multi-Platform World",
-      "series": "Miscellaneous",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-12",
-      "weekday": "Monday",
-      "story_key": "AI Engineering/Prompt Engineering vs Content Engineering vs RAG",
-      "name": "Prompt Engineering vs Content Engineering vs RAG",
-      "series": "AI Engineering",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-13",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/GitHub Actions + Amazon ECR: CI CD for Python - AWS",
-      "name": "GitHub Actions + Amazon ECR: CI CD for Python - AWS",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-14",
-      "weekday": "Wednesday",
-      "story_key": "Miscellaneous/Re-Learning .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
-      "name": "Re-Learning .NET in 2026: 35 Lessons on How to Master the Stack with .NET 10 and Azure",
-      "series": "Miscellaneous",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-19",
-      "weekday": "Monday",
-      "story_key": "Modernizing the Monolith/Modernizing the Monolith: Docker, CI CD & Azure Cloud Deployment — Part 3",
-      "name": "Modernizing the Monolith: Docker, CI CD & Azure Cloud Deployment — Part 3",
-      "series": "Modernizing the Monolith",
-      "part": 3,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-20",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Pip + Docker: The Classic Python Containerization - AWS",
-      "name": "Pip + Docker: The Classic Python Containerization - AWS",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-21",
-      "weekday": "Wednesday",
-      "story_key": "Miscellaneous/ASP.NET Core Filters Deep Dive: Building Maintainable Web APIs with .NET 10 and Reactive Extensions",
-      "name": "ASP.NET Core Filters Deep Dive: Building Maintainable Web APIs with .NET 10 and Reactive Extensions",
-      "series": "Miscellaneous",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-26",
-      "weekday": "Monday",
-      "story_key": "Modernizing the Monolith/Modernizing the Monolith: Migration Strategy & .NET 10 Architecture — Part 1",
-      "name": "Modernizing the Monolith: Migration Strategy & .NET 10 Architecture — Part 1",
-      "series": "Modernizing the Monolith",
-      "part": 1,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-27",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/AWS App Runner: Fully Managed Python Container Service - AWS",
-      "name": "AWS App Runner: Fully Managed Python Container Service - AWS",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-04-28",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows - Azure",
-      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows - Azure",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-03",
-      "weekday": "Monday",
-      "story_key": "Modernizing the Monolith/Modernizing the Monolith: State, Async & Microservices Deep Dive — Part 2",
-      "name": "Modernizing the Monolith: State, Async & Microservices Deep Dive — Part 2",
-      "series": "Modernizing the Monolith",
-      "part": 2,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-04",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Pip + Docker: The Classic Python Containerization",
-      "name": "Pip + Docker: The Classic Python Containerization",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-05",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production - AWS",
-      "name": "Visual Studio Code Dev Containers: Local Development to Production - AWS",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-10",
-      "weekday": "Monday",
-      "story_key": "Modernizing the Monolith/Modernizing the Monolith: Kubernetes on AKS Production Guide — Part 4",
-      "name": "Modernizing the Monolith: Kubernetes on AKS Production Guide — Part 4",
-      "series": "Modernizing the Monolith",
-      "part": 4,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-11",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
-      "name": "Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-12",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/pnpm + Docker: Disk-Efficient Node.js Containers - Azure",
-      "name": "pnpm + Docker: Disk-Efficient Node.js Containers - Azure",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-17",
-      "weekday": "Monday",
-      "story_key": "Modernizing the Monolith/Modernizing the Monolith: React 19 Security, Performance & Best Practices — Part 5",
-      "name": "Modernizing the Monolith: React 19 Security, Performance & Best Practices — Part 5",
-      "series": "Modernizing the Monolith",
-      "part": 5,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-18",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/UV + Docker: Blazing Fast Python Package Management",
-      "name": "UV + Docker: Blazing Fast Python Package Management",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-19",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/GitHub Actions + Container Registry: CI CD for Node",
-      "name": "GitHub Actions + Container Registry: CI CD for Node",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-24",
-      "weekday": "Monday",
-      "story_key": "SQL Mechanic to Data Architect/SQL Mechanic to Architect: Database UDFs, Stored Procedures, & Production-Grade Patterns — Part 2",
-      "name": "SQL Mechanic to Architect: Database UDFs, Stored Procedures, & Production-Grade Patterns — Part 2",
-      "series": "SQL Mechanic to Data Architect",
-      "part": 2,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-25",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/AWS Copilot: The Turnkey Container Solution - AWS",
-      "name": "AWS Copilot: The Turnkey Container Solution - AWS",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-26",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/AWS App Runner: Fully Managed Node.js Container Service - AWS",
-      "name": "AWS App Runner: Fully Managed Node.js Container Service - AWS",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-05-31",
-      "weekday": "Monday",
-      "story_key": "SQL Mechanic to Data Architect/SQL Mechanic to Architect: CTEs, Window Functions, Query Optimization, and Scalable Patterns- Part 1",
-      "name": "SQL Mechanic to Architect: CTEs, Window Functions, Query Optimization, and Scalable Patterns- Part 1",
-      "series": "SQL Mechanic to Data Architect",
-      "part": 1,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-01",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Tarball Export + Runtime Load: Security-First CI CD Workflows",
-      "name": "Tarball Export + Runtime Load: Security-First CI CD Workflows",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-02",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Azure Container Apps: Serverless Node.js Deployment",
-      "name": "Azure Container Apps: Serverless Node.js Deployment",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-07",
-      "weekday": "Monday",
-      "story_key": "SQL Mechanic to Data Architect/SQL Mechanic to Architect: Advanced Queries, SPs & Scalable Systems - The Complete Journey",
-      "name": "SQL Mechanic to Architect: Advanced Queries, SPs & Scalable Systems - The Complete Journey",
-      "series": "SQL Mechanic to Data Architect",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-08",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Amazon EKS: Python Microservices at Scale - AWS",
-      "name": "Amazon EKS: Python Microservices at Scale - AWS",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-09",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/AWS Copilot: The Turnkey Container Solution - AWS",
-      "name": "AWS Copilot: The Turnkey Container Solution - AWS",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-14",
-      "weekday": "Monday",
-      "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 1",
-      "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens — Part 1",
-      "series": "Vehixcare",
-      "part": 1,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-15",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/GitHub Actions + Container Registry: CI CD for Python",
-      "name": "GitHub Actions + Container Registry: CI CD for Python",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-16",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Amazon EKS: Node.js Microservices at Scale - AWS",
-      "name": "Amazon EKS: Node.js Microservices at Scale - AWS",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-21",
-      "weekday": "Monday",
-      "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 3",
-      "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 3",
-      "series": "Vehixcare",
-      "part": 3,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-22",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Azure Container Apps: Serverless Python Deployment",
-      "name": "Azure Container Apps: Serverless Python Deployment",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-23",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Publishing Node.js Express Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
-      "name": "Publishing Node.js Express Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-28",
-      "weekday": "Monday",
-      "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 4",
-      "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 4",
-      "series": "Vehixcare",
-      "part": 4,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-29",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production",
-      "name": "Visual Studio Code Dev Containers: Local Development to Production",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-06-30",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Publishing Node.js Express Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
-      "name": "Publishing Node.js Express Apps as Container Images: A Complete Guide to 10 Deployment Approaches",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-07-05",
-      "weekday": "Monday",
-      "story_key": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 2",
-      "name": "Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 2",
-      "series": "Vehixcare",
-      "part": 2,
-      "read_time": null
-    },
-    {
-      "date": "2027-07-06",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Poetry + Docker Multi-Stage: The Modern Python Approach - AWS",
-      "name": "Poetry + Docker Multi-Stage: The Modern Python Approach - AWS",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-07-07",
-      "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production - Azure",
-      "name": "Visual Studio Code Dev Containers: Local Development to Production - Azure",
-      "series": "Publishing Node.js Express Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-07-12",
-      "weekday": "Monday",
-      "story_key": "Payment System/ISO 8583 vs. REST APIs vs. UPI: Architecting Multi-Network Payment Systems in .NET 10",
-      "name": "ISO 8583 vs. REST APIs vs. UPI: Architecting Multi-Network Payment Systems in .NET 10",
-      "series": "Payment System",
-      "part": null,
-      "read_time": null
-    },
-    {
-      "date": "2027-07-13",
-      "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
-      "name": "Publishing Python FastAPI Apps as Container Images: A Complete Guide to 10 Deployment Approaches - AWS",
-      "series": " Publishing Python FastAPI Apps as Container Images",
-      "part": null,
-      "read_time": null
-    },
-    {
       "date": "2027-07-14",
       "weekday": "Wednesday",
-      "story_key": "Publishing Node.js Express Apps as Container Images/Yarn + Docker: Deterministic Dependency Management - AWS",
-      "name": "Yarn + Docker: Deterministic Dependency Management - AWS",
-      "series": "Publishing Node.js Express Apps as Container Images",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Collections – Lists, Tuples, Dicts, and Sets",
+      "name": "The 2026 Python Metromap: Collections – Lists, Tuples, Dicts, and Sets",
+      "series": "The 2026 Python Metromap",
       "part": null,
       "read_time": null
     },
     {
       "date": "2027-07-19",
       "weekday": "Monday",
-      "story_key": "Code to Cluster/Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
-      "name": "Code to Cluster: Building a Bulletproof Kubernetes Deployment Pipeline on AWS",
-      "series": "Code to Cluster",
+      "story_key": "AI Engineering/AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
+      "name": "AI Agent Engineering 2 -  Building Your First Agent — Architecture, Tools, and Memory",
+      "series": "AI Engineering",
       "part": null,
       "read_time": null
     },
     {
       "date": "2027-07-20",
       "weekday": "Tuesday",
-      "story_key": " Publishing Python FastAPI Apps as Container Images/UV + Docker: Blazing Fast Python Package Management - AWS",
-      "name": "UV + Docker: Blazing Fast Python Package Management - AWS",
-      "series": " Publishing Python FastAPI Apps as Container Images",
+      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Node",
+      "name": "From REST to gRPC: Architecting High-Performance APIs in Node",
+      "series": "Dotnet Python NodeJS",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-07-21",
+      "weekday": "Wednesday",
+      "story_key": "The 2026 Python Metromap/The 2026 Python Metromap: Comprehensions – One-Line Power",
+      "name": "The 2026 Python Metromap: Comprehensions – One-Line Power",
+      "series": "The 2026 Python Metromap",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-07-26",
+      "weekday": "Monday",
+      "story_key": "AI Engineering/AI Agent Engineering 1 - Foundation & LLM Fundamentals",
+      "name": "AI Agent Engineering 1 — Foundation & LLM Fundamentals",
+      "series": "AI Engineering",
+      "part": null,
+      "read_time": null
+    },
+    {
+      "date": "2027-07-27",
+      "weekday": "Tuesday",
+      "story_key": "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in Python",
+      "name": "From REST to gRPC: Architecting High-Performance APIs in Python",
+      "series": "Dotnet Python NodeJS",
       "part": null,
       "read_time": null
     }

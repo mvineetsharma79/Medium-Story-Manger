@@ -361,7 +361,37 @@ async def get_story_by_slug(name: str):
         logger.error(f"Error getting story by slug: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+"""
+PUT /api/stories/story/name/{name:path}
+Description: Update story by name (used by edit-story.js)
 
+curl -X PUT "http://localhost:8000/api/stories/story/name/Architectural%20Remediation%20Framework%3A%20Eliminating%20the%2012%20Silent%20Killers%20in%20.NET%2010%20Web%20APIs%20-%20Part%201" \
+  -H "Content-Type: application/json" \
+  -d '{"status":"Published","bookmarked":true}' | jq '.'
+"""
+@router.put("/story/{name:path}")
+async def update_story_by_name(name: str, update_data: dict):
+    """Update story by name"""
+    try:
+        decoded_name = unquote(name)
+        
+        story = await StoryService.get_story_by_name(decoded_name)
+        
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found for name: {decoded_name}")
+        
+        update = StoryUpdate(**update_data)
+        updated_story = await StoryService.update_story(story.key, update)
+        
+        if not updated_story:
+            raise HTTPException(status_code=404, detail="Story not found")
+        
+        return {"success": True, "message": "Story updated", "story": updated_story.dict()}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating story by name: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 """
 GET /api/stories/story/{unique_slug}
 Description: Get story by uniqueSlug
