@@ -234,7 +234,6 @@ async function loadStories() {
     }
 }
 
-
 function updateSeriesDropdown() {
     const seriesFilter = document.getElementById('seriesFilter');
     if (!seriesFilter) return;
@@ -432,6 +431,7 @@ function getSortedStories() {
     
     return filtered;
 }
+
 function updateSortIcons(column, direction) {
     const headers = document.querySelectorAll('#storiesTableHeader .sortable');
     headers.forEach(header => {
@@ -512,9 +512,6 @@ function renderStoryTable() {
         const row = tbody.insertRow();
         row.className = 'table-row-clickable';
         
-        const uniqueSlug = story.uniqueSlug;
-        const encodedSlug = encodeURIComponent(uniqueSlug);
-        
         const medium = story.medium || {};
         const totalStats = medium.totalStats || {};
         
@@ -524,7 +521,7 @@ function renderStoryTable() {
         const bookmarkIcon = document.createElement('i');
         bookmarkIcon.className = `bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}`;
         bookmarkIcon.style.cursor = 'pointer';
-        bookmarkIcon.onclick = (e) => { e.stopPropagation(); toggleBookmark(encodedSlug, e); };
+        bookmarkIcon.onclick = (e) => { e.stopPropagation(); toggleBookmark(story.uniqueSlug, e); };
         bookmarkCell.appendChild(bookmarkIcon);
         
         // Column 1: Leaderboard 🏆
@@ -533,7 +530,7 @@ function renderStoryTable() {
         const leaderboardIcon = document.createElement('i');
         leaderboardIcon.className = `bi bi-trophy${story.leaderboard ? '-fill' : ''} leaderboard-icon ${story.leaderboard ? 'leaderboard' : ''}`;
         leaderboardIcon.style.cursor = 'pointer';
-        leaderboardIcon.onclick = (e) => { e.stopPropagation(); toggleLeaderboard(encodedSlug, e); };
+        leaderboardIcon.onclick = (e) => { e.stopPropagation(); toggleLeaderboard(story.uniqueSlug, e); };
         leaderboardCell.appendChild(leaderboardIcon);
         
         // Column 2: Status 📋
@@ -567,7 +564,7 @@ function renderStoryTable() {
         titleWrapper.style.alignItems = 'center';
         titleWrapper.style.gap = '8px';
 
-        // Preview Icon (Replaced with 🔗 emoji)
+        // Preview Icon
         const previewIcon = document.createElement('span');
         previewIcon.textContent = '🔗';
         previewIcon.style.cursor = 'pointer';
@@ -580,13 +577,18 @@ function renderStoryTable() {
         };
         titleWrapper.appendChild(previewIcon);
 
-        // Title text
+        // Title text - Click to open edit modal
         const titleStrong = document.createElement('strong');
         titleStrong.style.cursor = 'pointer';
         titleStrong.textContent = story.title || story.name || 'Unknown';
-        titleStrong.onclick = () => openEditStory(encodedSlug);
-        titleWrapper.appendChild(titleStrong);
+        
+        const encodedStoryKey = encodeURIComponent(story.name);
+        titleStrong.onclick = function(e) {
+            e.stopPropagation();
+            openEditStory(encodedStoryKey);
+        };
 
+        titleWrapper.appendChild(titleStrong);
         titleCell.appendChild(titleWrapper);
         
         // Column 4: Series 📁 - Clickable to filter by series
@@ -617,7 +619,7 @@ function renderStoryTable() {
         const publishedCell = row.insertCell(6);
         publishedCell.textContent = story.published_date || story.publishedDate ? (story.published_date || story.publishedDate).split('T')[0] : '-';
         
-        // Column 7: Due Date ⏰ (NEW)
+        // Column 7: Due Date ⏰
         const dueCell = row.insertCell(7);
         const dueDate = story.publishedDueDate || story.published_due_date;
         if (dueDate) {
@@ -649,7 +651,7 @@ function renderStoryTable() {
         engagementDiv.innerHTML = `💚 ${formatNumber(claps)}<br>💬 ${formatNumber(responses)}`;
         engagementCell.appendChild(engagementDiv);
         
-        // Column 10: Earnings 💰 (Show Monthly + Total)
+        // Column 10: Earnings 💰
         const earningsCell = row.insertCell(10);
         const earningsDiv = document.createElement('div');
         earningsDiv.style.fontSize = '0.7rem';
@@ -658,14 +660,11 @@ function renderStoryTable() {
         earningsDiv.innerHTML = `🏦${formatCurrency(monthlyEarnings)}/${formatCurrency(totalEarnings)}`;
         earningsCell.appendChild(earningsDiv);
 
-        // Column 11: Read Time ⏱️ (hh:mm format)
+        // Column 11: Read Time ⏱️
         const readTimeCell = row.insertCell(11);
         const readTimeDiv = document.createElement('div');
         readTimeDiv.style.fontSize = '0.7rem';
         let readingTime = medium.readingTime || story.medium_reading_time || story.read_time || 0;
-        const wordCount = medium.wordCount || story.word_count || 0;
-
-        // Convert minutes to hh:mm format
         const hours = Math.floor(readingTime / 60);
         const minutes = readingTime % 60;
         let timeStr = '';
@@ -674,6 +673,8 @@ function renderStoryTable() {
         } else {
             timeStr = `${minutes}m`;
         }
+        readTimeDiv.innerHTML = `⏱️ ${timeStr}`;
+        readTimeCell.appendChild(readTimeDiv);
 
         // Column 12: LinkedIn 🔗
         const linkedinCell = row.insertCell(12);
@@ -698,15 +699,15 @@ function renderStoryTable() {
         const statsBtn = document.createElement('button');
         statsBtn.className = 'btn btn-sm btn-outline-info';
         statsBtn.title = 'Stats Dashboard';
-        statsBtn.onclick = (e) => { e.stopPropagation(); showStatsDashboard(encodedSlug); };
+        statsBtn.onclick = (e) => { e.stopPropagation(); showStatsDashboard(story.uniqueSlug); };
         statsBtn.innerHTML = '<i class="bi bi-graph-up"></i>';
         actionsCell.appendChild(statsBtn);
         
         const externalBtn = document.createElement('button');
         externalBtn.className = 'btn btn-sm btn-outline-secondary ms-1';
         externalBtn.title = 'Open on Medium';
-        const mediumUrl = 'https://medium.com/me/stats/post/' + medium.id ;
-        if (mediumUrl) {
+        const mediumUrl = 'https://medium.com/me/stats/post/' + medium.id;
+        if (mediumUrl && medium.id) {
             externalBtn.onclick = (e) => { e.stopPropagation(); window.open(mediumUrl, '_blank'); };
         } else {
             externalBtn.disabled = true;
@@ -722,10 +723,9 @@ function renderStoryTable() {
 // TOGGLE BOOKMARK & LEADERBOARD
 // ============================================
 
-async function toggleBookmark(encodedUniqueSlug, event) {
+async function toggleBookmark(uniqueSlug, event) {
     if (event) event.stopPropagation();
     
-    const uniqueSlug = decodeURIComponent(encodedUniqueSlug);
     const story = allStories.find(s => s.uniqueSlug === uniqueSlug);
     
     if (!story) {
@@ -738,7 +738,7 @@ async function toggleBookmark(encodedUniqueSlug, event) {
     
     showLoading();
     try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodedUniqueSlug}`, {
+        const response = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(uniqueSlug)}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ bookmarked: newState })
@@ -760,10 +760,9 @@ async function toggleBookmark(encodedUniqueSlug, event) {
     }
 }
 
-async function toggleLeaderboard(encodedUniqueSlug, event) {
+async function toggleLeaderboard(uniqueSlug, event) {
     if (event) event.stopPropagation();
     
-    const uniqueSlug = decodeURIComponent(encodedUniqueSlug);
     const story = allStories.find(s => s.uniqueSlug === uniqueSlug);
     
     if (!story) {
@@ -777,9 +776,8 @@ async function toggleLeaderboard(encodedUniqueSlug, event) {
     // If we're in month selector mode, just update client-side (no API call)
     if (currentSelectedYear && currentSelectedMonth) {
         story.leaderboard = newState;
-        // If setting leaderboard true, set a default nanos value
         if (newState && !story.leaderboard_nanos) {
-            story.leaderboard_nanos = story.medium_earnings || 10000000; // Default $0.01 if no earnings
+            story.leaderboard_nanos = story.medium_earnings || 10000000;
         }
         renderStoryTable();
         updateLeaderboardTotal();
@@ -790,7 +788,7 @@ async function toggleLeaderboard(encodedUniqueSlug, event) {
     // In dashboard mode, persist to API
     showLoading();
     try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodedUniqueSlug}`, {
+        const response = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(uniqueSlug)}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ leaderboard: newState })
@@ -817,110 +815,19 @@ async function toggleLeaderboard(encodedUniqueSlug, event) {
 }
 
 // ============================================
-// MODAL FUNCTIONS
+// EDIT STORY - Using modal
 // ============================================
 
-async function openEditStory(encodedUniqueSlug) {
-    const uniqueSlug = decodeURIComponent(encodedUniqueSlug);
-    const story = allStories.find(s => s.uniqueSlug === uniqueSlug);
-    
-    if (!story) {
-        showToast('Story not found', 'error');
-        return;
-    }
-    
-    currentEditStoryKey = story.uniqueSlug;
-    
-    const now = new Date();
-    currentEditStoryYear = now.getFullYear();
-    currentEditStoryMonth = now.getMonth() + 1;
-    
-    try { 
-        const modeData = await fetch(`${API_BASE}/stories/mode`).then(r => r.json()); 
-        if (modeData.current_month) { 
-            currentEditStoryYear = modeData.current_month.year; 
-            currentEditStoryMonth = modeData.current_month.month; 
-        } 
-    } catch(e) {}
-    
-    await loadStoryForEdit(story.uniqueSlug, currentEditStoryYear, currentEditStoryMonth);
-    const modalEl = document.getElementById('editStoryModal');
-    if (modalEl) new bootstrap.Modal(modalEl).show();
-}
-
-async function loadStoryForEdit(uniqueSlug, year, month) {
-    try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(uniqueSlug)}`);
-        const story = await response.json();
-        
-        document.getElementById('editStoryUniqueSlug').value = story.uniqueSlug;
-        document.getElementById('editStoryTitle').value = story.title || '';
-        document.getElementById('editStoryStatus').value = story.status || 'Draft';
-        document.getElementById('editStorySeries').value = story.series || '';
-        document.getElementById('editStoryCreatedDate').value = story.created_date?.split('T')[0] || '';
-        document.getElementById('editStoryPublishedDate').value = story.published_date?.split('T')[0] || '';
-        document.getElementById('editStoryNotes').value = story.notes || '';
-        document.getElementById('editStoryTags').value = (story.tags || []).join(', ');
-        document.getElementById('editStoryMediumUrl').value = story.medium_url || '';
-        
-        const linkedin = story.linkedin || {};
-        document.getElementById('editStoryLinkedinStatus').value = linkedin.status || story.linkedin_status || '';
-        document.getElementById('editStoryLinkedinTimestamp').value = linkedin.timestamp || story.linkedin_timestamp || '';
-        document.getElementById('editStoryLinkedinImpressions').value = linkedin.impressions || story.linkedin_impressions || 0;
-        document.getElementById('editStoryLinkedinUrl').value = linkedin.url || story.linkedin_url || '';
-        
-    } catch (error) {
-        console.error('Error loading story for edit:', error);
-        showToast('Error loading story: ' + error.message, 'error');
+function openEditStory(encodedStoryKey) {
+    if (window.EditStoryModal && window.EditStoryModal.open) {
+        window.EditStoryModal.open(encodedStoryKey);
+    } else {
+        console.error('EditStoryModal not available');
+        showToast('Edit functionality not available. Please refresh.', 'error');
     }
 }
 
-async function saveStoryEdit() {
-    const uniqueSlug = document.getElementById('editStoryUniqueSlug')?.value;
-    if (!uniqueSlug) return;
-    
-    const updateData = {
-        title: document.getElementById('editStoryTitle')?.value,
-        status: document.getElementById('editStoryStatus')?.value,
-        series: document.getElementById('editStorySeries')?.value || null,
-        createdDate: document.getElementById('editStoryCreatedDate')?.value || null,
-        publishedDate: document.getElementById('editStoryPublishedDate')?.value || null,
-        notes: document.getElementById('editStoryNotes')?.value || '',
-        tags: document.getElementById('editStoryTags')?.value.split(',').map(t => t.trim()).filter(t => t),
-        medium_url: document.getElementById('editStoryMediumUrl')?.value || null,
-        linkedin_status: document.getElementById('editStoryLinkedinStatus')?.value || null,
-        linkedin_timestamp: document.getElementById('editStoryLinkedinTimestamp')?.value || null,
-        linkedin_impressions: parseInt(document.getElementById('editStoryLinkedinImpressions')?.value) || 0,
-        linkedin_url: document.getElementById('editStoryLinkedinUrl')?.value || null
-    };
-    
-    showLoading();
-    try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(uniqueSlug)}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updateData)
-        });
-        
-        if (response.ok) {
-            const modal = bootstrap.Modal.getInstance(document.getElementById('editStoryModal'));
-            if (modal) modal.hide();
-            await loadStories();
-            showToast('Story saved successfully', 'success');
-        } else {
-            const error = await response.json();
-            showToast('Error saving story: ' + (error.detail || 'Unknown error'), 'error');
-        }
-    } catch (error) {
-        console.error('Error saving story:', error);
-        showToast('Error saving story: ' + error.message, 'error');
-    } finally {
-        hideLoading();
-    }
-}
-
-async function showStatsDashboard(encodedUniqueSlug) {
-    const uniqueSlug = decodeURIComponent(encodedUniqueSlug);
+async function showStatsDashboard(uniqueSlug) {
     const modalEl = document.getElementById('statsDashboardModal');
     const contentDiv = document.getElementById('statsDashboardContent');
     if (!modalEl || !contentDiv) return;
@@ -930,7 +837,7 @@ async function showStatsDashboard(encodedUniqueSlug) {
     modal.show();
     
     try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodedUniqueSlug}`);
+        const response = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(uniqueSlug)}`);
         const storyData = await response.json();
         
         const medium = storyData.medium || {};
@@ -1086,14 +993,12 @@ async function createStory() {
 // DELETE STORY
 // ============================================
 
-async function deleteStory(encodedUniqueSlug) {
+async function deleteStory(uniqueSlug) {
     if (!confirm('Delete this story?')) return;
-    
-    const uniqueSlug = decodeURIComponent(encodedUniqueSlug);
     
     showLoading();
     try {
-        const response = await fetch(`${API_BASE}/stories/story/${encodedUniqueSlug}`, { method: 'DELETE' });
+        const response = await fetch(`${API_BASE}/stories/story/${encodeURIComponent(uniqueSlug)}`, { method: 'DELETE' });
         if (response.ok) {
             await loadStories();
             showToast('Story deleted', 'success');
@@ -1178,6 +1083,7 @@ function updateLeaderboardTotal() {
     if (countEl) countEl.textContent = storiesWithLeaderboard.length;
     if (amountEl) amountEl.textContent = (totalEarnings / 1000000000).toFixed(2);
 }
+
 function debugStatsMapping() {
     console.log('=== DEBUG STATS MAPPING ===');
     console.log('Available cached months:', Object.keys(monthlyStatsCache));
@@ -1187,8 +1093,6 @@ function debugStatsMapping() {
         const statsMap = monthlyStatsCache[cacheKey];
         if (statsMap) {
             console.log(`Stats keys for ${cacheKey}:`, Object.keys(statsMap).slice(0, 10));
-            
-            // Check a sample story
             const sampleStory = allStories[0];
             if (sampleStory) {
                 console.log(`Sample story uniqueSlug: "${sampleStory.uniqueSlug}"`);
@@ -1199,24 +1103,20 @@ function debugStatsMapping() {
     console.log('========================');
 }
 
-// Add this function to restore series filter from sessionStorage
 function restoreSeriesFilter() {
     const seriesFilter = sessionStorage.getItem('storiesFilterSeries');
     if (seriesFilter) {
-        // Wait for series dropdown to be populated
         setTimeout(() => {
             const seriesSelect = document.getElementById('seriesFilter');
             if (seriesSelect) {
                 seriesSelect.value = seriesFilter;
                 applyFilters();
             }
-            // Clear after applying
             sessionStorage.removeItem('storiesFilterSeries');
         }, 500);
     }
 }
 
-// Update total earnings display based on filtered stories
 function updateEarningsSummary() {
     const filtered = getFilteredStories();
     
@@ -1224,10 +1124,7 @@ function updateEarningsSummary() {
     let totalAllEarnings = 0;
     
     filtered.forEach(story => {
-        // Monthly earnings (from selected month)
         totalMonthlyEarnings += story.medium_earnings || 0;
-        
-        // Total lifetime earnings
         const totalEarnings = story.medium?.totalEarnings?.nanos || story.lifetime_earnings || 0;
         totalAllEarnings += totalEarnings;
     });
@@ -1289,7 +1186,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('leaderboardFilter')?.addEventListener('change', applyFilters);
     
     document.getElementById('addStoryCreateBtn')?.addEventListener('click', createStory);
-    document.getElementById('saveStoryEditBtn')?.addEventListener('click', saveStoryEdit);
 });
 
 // Make functions globally available

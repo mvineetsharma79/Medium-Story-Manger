@@ -11,6 +11,7 @@ import re
 import json
 from pathlib import Path
 
+
 from app.services.story_service import StoryService
 from app.services.monthly_storage_service import MonthlyStorageService
 from app.services.medium_api_service import get_medium_api_service
@@ -330,29 +331,69 @@ async def get_all_stories_simple():
 GET /api/stories/story/{unique_slug}
 Description: Get story by uniqueSlug
 
-curl -X GET "http://localhost:8000/api/stories/story/asp-net-core-filters-deep-dive-building-maintainable-web-apis-with-net-10-and-reactive-extensions-78cb972195da" | jq '.'
+curl -X GET "http://localhost:8000/api/stories/story/Architectural%20Remediation%20Framework%3A%20Eliminating%20the%2012%20Silent%20Killers%20in%20.NET%2010%20Web%20APIs%20-%20Part%201" | jq '.'
 """
-@router.get("/story/{unique_slug:path}")
-async def get_story_by_slug(unique_slug: str):
+@router.get("/story/{name:path}")
+async def get_story_by_slug(name: str):
     """Get story by uniqueSlug"""
+    logger.error(name)
     try:
-        decoded_slug = unquote(unique_slug)
+        #decoded_slug = unquote(name)
         
-        story = await StoryService.get_story_by_unique_slug(decoded_slug)
-        
+        #story = await StoryService.get_story_by_unique_slug(decoded_slug)
+        story = await StoryService.get_story_by_name(name)
+        #logger.error(json.dumps(story, default=str, indent=2))
+        #logger.error(json.dumps(dict(story), default=str))
+
         if not story:
             raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
         
         now = datetime.now()
         monthly_stats = await MonthlyStorageService.get_story_monthly_stats(story.key, now.year, now.month) or {}
         
-        return build_story_response(story, monthly_stats)
+        return story  
+        #return build_story_response(story, monthly_stats)
+        
+
     except HTTPException:
         raise
     except Exception as e:
         logger.error(f"Error getting story by slug: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+
+"""
+GET /api/stories/story/{unique_slug}
+Description: Get story by uniqueSlug
+
+curl -X GET "http://localhost:8000/api/stories/story/name/Architectural%20Remediation%20Framework%3A%20Eliminating%20the%2012%20Silent%20Killers%20in%20.NET%2010%20Web%20APIs%20-%20Part%201" | jq '.'
+"""
+@router.get("/story/name/{name}:path")
+async def get_story_by_name(name: str):
+    """Get story by Name"""
+    logger.error("name")
+    try:
+        decoded_slug = unquote(name)
+        
+        story = await StoryService.get_story_by_unique_slug(decoded_slug)
+        #logger.error(json.dumps(story, default=str, indent=2))
+        logger.error(json.dumps(dict(story), default=str))
+
+        if not story:
+            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
+        
+        now = datetime.now()
+        monthly_stats = await MonthlyStorageService.get_story_monthly_stats(story.key, now.year, now.month) or {}
+        
+        return story  
+        #return build_story_response(story, monthly_stats)
+        
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting story by slug: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 """
 PUT /api/stories/story/{unique_slug}

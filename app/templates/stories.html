@@ -96,7 +96,6 @@
 
 <!-- Stats Row - Monthly & Total Earnings -->
 <div class="filter-bar d-flex gap-4 flex-wrap align-items-center justify-content-between mb-2">
-
     <div class="d-flex gap-4">
         <input type="text" id="searchFilter" class="form-control form-control-sm" style="width: 250px;" placeholder="🔍 Search stories..." onkeyup="applyFilters()">
         <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">🗑️ Clear Filters</button>
@@ -179,4 +178,6 @@
 
 {% block scripts %}
 <script src="/static/js/stories.js"></script>
+<script src="/static/js/edit-story.js"></script>
+<link rel="stylesheet" href="/static/css/edit-story.css">
 {% endblock %}

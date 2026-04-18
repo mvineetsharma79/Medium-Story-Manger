@@ -162,6 +162,17 @@ class StoryService:
         
         return None
     
+    @staticmethod
+    async def get_story_by_name(name: str) -> Optional[Story]:
+        """Get story by uniqueSlug"""
+        data = await load_stories_data()
+        stories = data.get("stories", {})
+        
+        for story_key, story_data in stories.items():
+            if story_data.get("name") == name:
+                return await StoryService._dict_to_story(story_key, story_data)
+        
+        return None
     
     
     @staticmethod
@@ -865,7 +876,7 @@ class StoryService:
                 series=story_dict.get('series'),
                 status=story_dict.get('status', 'Draft'),
                 createdDate=story_dict.get('createdDate', story_dict.get('created_date', '')),
-                publishedDate=story_dict.get('publishedDate', story_dict.get('published_date')),
+                publishedDate=story_dict.get('publishedDate', story_dict.get('publishedDate')),
                 publishedDueDate=story_dict.get('publishedDueDate', story_dict.get('published_due_date')),
                 lastUpdated=story_dict.get('lastUpdated', story_dict.get('last_updated')),
                 notes=story_dict.get('notes') or '',
