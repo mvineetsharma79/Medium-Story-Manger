@@ -25,10 +25,13 @@ class LinkedInPostType(str, Enum):
 
 class Stats(BaseModel):
     """Statistics for a specific period"""
-    period: str = "total"
+    period: str = "2026-04"
     presentations: int = 0
     views: int = 0
-    reads: int = 0
+    view_member: int =0
+    reads: int = 0    
+    read_member: int =0
+    fctr: int =0
 
 
 class Earning(BaseModel):
@@ -120,10 +123,10 @@ class LinkedIn(BaseModel):
 class Story(BaseModel):
     """Complete story - main storage model"""
     # Core identification
+    key: Optional[str] = None  # Derived from folder/title
     uniqueSlug: str
     title: str
-    key: Optional[str] = None  # Derived from folder/title
-    
+    name: Optional[str] = None  # Alias for title
     # Organization
     folder: str = "Miscellaneous"
     series: Optional[str] = None
@@ -134,6 +137,8 @@ class Story(BaseModel):
     publishedDate: Optional[str] = None
     publishedDueDate: Optional[str] = None
     lastUpdated: Optional[str] = None
+    systemUpdate:Optional[str] = None
+    systemUpdateBy:Optional[str] = None
     
     # Content metadata
     notes: str = ""
@@ -149,32 +154,7 @@ class Story(BaseModel):
     medium: Optional[MediumPost] = None
     
     # LinkedIn marketing data (nested)
-    linkedin: Optional[LinkedIn] = None
-    
-    # Legacy fields (for backward compatibility)
-    name: Optional[str] = None  # Alias for title
-    medium_url: Optional[str] = None
-    medium_publication: Optional[str] = None
-    medium_first_published: Optional[str] = None
-    medium_reading_time: Optional[int] = None
-    medium_new_followers: Optional[int] = 0
-    lifetime_reads: Optional[int] = 0
-    lifetime_views: Optional[int] = 0
-    lifetime_claps: Optional[int] = 0
-    presentation_count: Optional[int] = 0
-    feed_click_through_rate: Optional[float] = 0
-    
-    # Legacy LinkedIn fields (moved to nested object)
-    linkedin_status: Optional[str] = None
-    linkedin_timestamp: Optional[str] = None
-    linkedin_impressions: Optional[int] = 0
-    linkedin_url: Optional[str] = None
-    
-    # Computed fields (not stored)
-    reads: Optional[int] = 0
-    view_count: Optional[int] = 0
-    claps: Optional[int] = 0
-    responses: Optional[int] = 0
+    linkedin: Optional[LinkedIn] = None            
     
     def dict(self, *args, **kwargs):
         """Override dict to handle nested objects properly"""

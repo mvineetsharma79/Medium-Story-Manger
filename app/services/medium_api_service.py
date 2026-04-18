@@ -144,6 +144,41 @@ class MediumAPIService:
     # UTILITY METHODS
     # ============================================
     
+    def _normalize_text(self, text: str) -> str:
+        """
+        Normalize text using unidecode only - no case changes.
+        
+        This method converts Unicode text to ASCII approximations using unidecode,
+        then replaces forward slashes with spaces. It preserves original case.
+        
+        Args:
+            text: Input string with possible Unicode characters
+        
+        Returns:
+            Normalized ASCII string with '/' replaced by space (original case preserved)
+        """
+        from unidecode import unidecode
+        
+        if not text or not isinstance(text, str):
+            return text
+        
+        # Replace non-breaking space and other special spaces with regular space
+        text = text.replace('\u00A0', ' ')  # non-breaking space
+        text = text.replace('\u2007', ' ')  # figure space
+        text = text.replace('\u202F', ' ')  # narrow no-break space
+        text = text.replace('\u200B', '')   # zero-width space (remove)
+        
+        # Convert to ASCII using unidecode (preserves original case)
+        ascii_text = unidecode(text)
+        
+        # Replace forward slashes with spaces
+        ascii_text = ascii_text.replace('/', ' ')
+        
+        # Clean up multiple spaces
+        ascii_text = ' '.join(ascii_text.split())
+        
+        return ascii_text
+
     def get_month_timestamps(self, year: int, month: int) -> tuple:
         """
         Convert year/month to start and end timestamps (milliseconds).
@@ -318,15 +353,6 @@ class MediumAPIService:
             - earnings: {total, monthlyEarnings}
             - creator: Author info
             - collection: Publication info
-        
-        Example:
-            service = MediumAPIService()
-            posts = service.fetch_medium_stories("2026-04")
-            for post in posts:
-                print(f"{post['title']}: {post['totalStats']['reads']} reads")
-        
-        curl equivalent:
-            curl -X POST "http://localhost:8000/api/stories/refresh-stats/2026-04" | jq '.'
         """
         from config import settings
         
@@ -345,9 +371,7 @@ class MediumAPIService:
         
         username = settings.medium_username
         start_at, end_at = self.get_month_timestamps(year, month)
-        #start_at, end_at  = 1775001600000, 1777593599000 # Apr
-        #start_at, end_at  = 1772323200000, 1774915200000 # Mar
-         
+        
         logger.info(f"Fetching posts for {username} from {start_at} to {end_at}")
         
         # GraphQL query
@@ -435,8 +459,7 @@ class MediumAPIService:
             }
         }
         }
-        """
-        
+        """        
         variables = {
             "username": username,
             "first": 100,
@@ -451,39 +474,27 @@ class MediumAPIService:
         time.sleep(0.5)
         response = self._make_request(self.GRAPHQL_URL, headers, payload, f"Fetch Medium Stories {period}")
         
-        # DEBUG: Print the response structure to console
-        print("\n" + "=" * 80)
-        print("RAW API RESPONSE:")
-        print("=" * 80)
-        print(json.dumps(response, indent=2)[:2000])  # Print first 2000 chars
-        print("=" * 80 + "\n")
-        
         if not response:
             logger.warning(f"No response from Medium API for {period}")
             return None
         
-        # Parse posts from response - FIXED PARSING
+        # Parse posts from response - KEEP ORIGINAL WORKING PARSING
         posts = []
         
-        # Case 1: response is a list
+        # Case 1: response is a list (YOUR ORIGINAL WORKING PARSING)
         if isinstance(response, list) and len(response) > 0:
             response_item = response[0]
             
-            # Check for data field
             if 'data' in response_item:
                 data_obj = response_item['data']
                 
-                # Check for userResult
                 if 'userResult' in data_obj:
                     user_result = data_obj['userResult']
                     
-                    # userResult could be a dict or None
                     if user_result and isinstance(user_result, dict):
-                        # Check for postsConnection
                         if 'postsConnection' in user_result:
                             posts_connection = user_result['postsConnection']
                             
-                            # Check for edges
                             if 'edges' in posts_connection:
                                 edges = posts_connection['edges']
                                 
@@ -491,10 +502,35 @@ class MediumAPIService:
                                     if 'node' in edge:
                                         node = edge['node']
                                         if node:
+                                            # ONLY ADD THIS: Convert earnings to dollars WITHOUT changing structure
+                                            if 'earnings' in node and node['earnings']:
+                                                earnings = node['earnings']
+                                                
+                                                # Add dollar amounts to total earnings
+                                                if 'total' in earnings and earnings['total']:
+                                                    total = earnings['total']
+                                                    units = total.get('units', 0)
+                                                    nanos = total.get('nanos', 0)
+                                                    # Add new fields without removing existing ones
+                                                    total['dollars'] = units + (nanos / 1000000000.0)
+                                                    total['formatted'] = f"${total['dollars']:.2f}"
+                                                
+                                                # Add dollar amounts to monthly earnings
+                                                if 'monthlyEarnings' in earnings and earnings['monthlyEarnings']:
+                                                    monthly = earnings['monthlyEarnings']
+                                                    units = monthly.get('units', 0)
+                                                    nanos = monthly.get('nanos', 0)
+                                                    monthly['dollars'] = units + (nanos / 1000000000.0)
+                                                    monthly['formatted'] = f"${monthly['dollars']:.2f}"
+                                            
+                                            # Apply title normalization if you want (optional)
+                                            if 'title' in node and node['title']:
+                                                node['title'] = self._normalize_text(node['title'])
+                                            
                                             posts.append(node)
                                             logger.info(f"Found post: {node.get('title', 'Unknown')}")
         
-        # Case 2: direct data structure (fallback)
+        # Case 2: direct data structure (YOUR ORIGINAL FALLBACK)
         if not posts and isinstance(response, dict):
             if 'data' in response:
                 user_result = response['data'].get('userResult')
@@ -504,23 +540,39 @@ class MediumAPIService:
                     for edge in edges:
                         node = edge.get('node')
                         if node:
+                            # ONLY ADD THIS: Convert earnings to dollars without changing structure
+                            if 'earnings' in node and node['earnings']:
+                                earnings = node['earnings']
+                                
+                                if 'total' in earnings and earnings['total']:
+                                    total = earnings['total']
+                                    units = total.get('units', 0)
+                                    nanos = total.get('nanos', 0)
+                                    total['dollars'] = units + (nanos / 1000000000.0)
+                                    total['formatted'] = f"${total['dollars']:.2f}"
+                                
+                                if 'monthlyEarnings' in earnings and earnings['monthlyEarnings']:
+                                    monthly = earnings['monthlyEarnings']
+                                    units = monthly.get('units', 0)
+                                    nanos = monthly.get('nanos', 0)
+                                    monthly['dollars'] = units + (nanos / 1000000000.0)
+                                    monthly['formatted'] = f"${monthly['dollars']:.2f}"
+                            
+                            if 'title' in node and node['title']:
+                                node['title'] = self._normalize_text(node['title'])
+                            
                             posts.append(node)
         
         logger.info(f"Parsed {len(posts)} posts from Medium API response")
         
-        # Debug: Print first post title if any
-        if posts:
-            logger.info(f"First post title: {posts[0].get('title', 'Unknown')}")
-        else:
-            logger.warning("No posts parsed from response. Check response structure above.")
-        
         return posts if posts else None
-        
+
+
     # ============================================
-    # METHOD: Fetch stats for a SINGLE story
+    # METHOD: Fetch stats for a SINGLE story - Final Method from postman query
     # ============================================
     
-    def fetch_story_stats(self, post_id: str, year: int, month: int) -> Optional[Dict[str, Any]]:
+    def fetch_story_stats(self, post_id: str, period: str) -> Optional[List[Dict[str, Any]]]:
         """
         Fetch detailed monthly stats for a single story.
         
@@ -529,8 +581,7 @@ class MediumAPIService:
         
         Args:
             post_id: Medium post ID (e.g., "78cb972195da")
-            year: Year (e.g., 2026)
-            month: Month (1-12)
+            period: 2026-04
         
         Returns:
             Dict with aggregated totals for the month
@@ -538,43 +589,106 @@ class MediumAPIService:
         if not self.is_authenticated():
             logger.warning("Not authenticated. Cannot fetch story stats.")
             return None
+                # Parse period to year and month
+        try:
+            parts = period.split('-')
+            year = int(parts[0])
+            month = int(parts[1])
+        except (ValueError, IndexError):
+            logger.error(f"Invalid period format: {period}. Use YYYY-MM")
+            return None
         
         start_at, end_at = self.get_month_timestamps(year, month)
         
+        # query = """query MergedPostStatsQuery($postStatsTotalBundleInput: PostStatsTotalBundleInput!, $postStatsDailyBundleInput: PostStatsDailyBundleInput!) {
+        #     postStatsTotalBundle(postStatsTotalBundleInput: $postStatsTotalBundleInput) {
+        #         readersCount
+        #         viewersCount
+        #         feedClickThroughRate
+        #         presentationCount
+        #     }
+        #     postStatsDailyBundle(postStatsDailyBundleInput: $postStatsDailyBundleInput) {
+        #         buckets {
+        #         dayStartsAt
+        #         membershipType
+        #         readersThatReadCount
+        #         readersThatViewedCount
+        #         readersThatClappedCount
+        #         readersThatRepliedCount
+        #         readersThatHighlightedCount
+        #         readersThatInitiallyFollowedAuthorFromThisPostCount
+        #         }
+        #     }
+        #     }
+        # """
+
         query = """query useStatsPostNewChartDataQuery(
-        $postId: ID!
-        $startAt: Long!
-        $endAt: Long!
-        $postStatsDailyBundleInput: PostStatsDailyBundleInput!
-        ) {
-        post(id: $postId) {
-            id
-            earnings {
-                dailyEarnings(startAt: $startAt, endAt: $endAt) {
-                    periodStartedAt
-                    amount
-                }
-            }
+  $postId: ID!, 
+  $startAt: Long!, 
+  $endAt: Long!, 
+  $postStatsDailyBundleInput: PostStatsDailyBundleInput!
+) {
+  post(id: $postId) {
+    id
+    earnings {
+      dailyEarnings(startAt: $startAt, endAt: $endAt) {
+        ...newBucketTimestamps_dailyPostEarning
+        __typename
+      }
+      __typename
+    }
+    publicationFeaturingEventsConnection(first: 25, after: "") {
+      ... on PublicationFeaturingEventsConnection {
+        edges {
+          node {
+            eventType
+            occurredAt
+            __typename
+          }
+          __typename
         }
-        
-        postStatsDailyBundle(postStatsDailyBundleInput: $postStatsDailyBundleInput) {
-            buckets {
-                dayStartsAt
-                membershipType
-                readersThatReadCount
-                readersThatViewedCount
-                readersThatClappedCount
-                readersThatRepliedCount
-                readersThatHighlightedCount
-                readersThatInitiallyFollowedAuthorFromThisPostCount
-            }
-        }
-        }
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  
+  postStatsDailyBundle(postStatsDailyBundleInput: $postStatsDailyBundleInput) {
+    buckets {
+      ...newBucketTimestamps_postStatsDailyBundleBucket
+      __typename
+    }
+    __typename
+  }
+}
+
+# ============================================
+# FRAGMENTS
+# ============================================
+
+fragment newBucketTimestamps_dailyPostEarning on DailyPostEarning {
+  periodStartedAt
+  amount
+  __typename
+}
+
+fragment newBucketTimestamps_postStatsDailyBundleBucket on PostStatsDailyBundleBucket {
+  dayStartsAt
+  membershipType
+  readersThatReadCount
+  readersThatViewedCount
+  readersThatClappedCount
+  readersThatRepliedCount
+  readersThatHighlightedCount
+  readersThatInitiallyFollowedAuthorFromThisPostCount
+  __typename
+}
         """
         
         variables = {
             "postId": post_id,
-            "startAt": start_at,
+            #"startAt": start_at,
             "endAt": end_at,
             "postStatsDailyBundleInput": {
                 "postId": post_id,
@@ -671,6 +785,7 @@ class MediumAPIService:
         return result
 
 
+        
 # ============================================
 # SINGLETON INSTANCE
 # ============================================
@@ -690,3 +805,5 @@ def set_debug_mode(enabled: bool = True):
     global DEBUG
     DEBUG = enabled
     print(f"🔍 Medium API Debug mode: {'ON' if DEBUG else 'OFF'}")
+
+

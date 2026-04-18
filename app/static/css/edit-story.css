@@ -1,52 +1,196 @@
-/* Edit Story Modal - Custom Styles */
-.info-card {
+/* Edit Story Modal - Complete CSS */
+
+/* Force ALL labels in edit modal to be bold */
+#editStoryModal .form-label,
+#editStoryModal .info-label,
+#editStoryModal .card-header strong,
+#editStoryModal .col-form-label,
+#editStoryModal .small.text-muted,
+#editStoryModal .modal-body label,
+#editStoryModal .form-check-label {
+    font-weight: 700 !important;
+}
+
+/* Make ALL date inputs look exactly like "Published Date" - including the calendar icon */
+#editStoryModal input[type="date"],
+#editStoryModal input[type="datetime-local"] {
+    font-family: monospace !important;
+    font-size: 0.8rem !important;
+    padding: 0.25rem 0.5rem !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 0.2rem !important;
+    background-color: #fff !important;
+    height: auto !important;
+    line-height: 1.5 !important;
+    /* Ensure calendar icon appears same as Published Date */
+    appearance: auto !important;
+    -webkit-appearance: auto !important;
+}
+
+/* Remove scrollbar from monthly stats table - set fixed width */
+#editStoryModal .table-responsive {
+    overflow-x: visible !important;
+}
+
+#editStoryModal #monthlyStatsTable {
+    width: 50%;
+    /* table-layout: fixed; */
+}
+
+#editStoryModal #monthlyStatsTable th,
+#editStoryModal #monthlyStatsTable td {
+    padding: 6px 8px;
+    vertical-align: middle;
+}
+
+/* Set column widths - no scrollbar needed */
+#editStoryModal #monthlyStatsTable th:first-child,
+#editStoryModal #monthlyStatsTable td:first-child {
+    width: 140px;
+}
+
+#editStoryModal #monthlyStatsTable th:nth-child(2),
+#editStoryModal #monthlyStatsTable td:nth-child(2),
+#editStoryModal #monthlyStatsTable th:nth-child(3),
+#editStoryModal #monthlyStatsTable td:nth-child(3) {
+    width: 100px;
+}
+
+#editStoryModal #monthlyStatsTable th:last-child,
+#editStoryModal #monthlyStatsTable td:last-child {
+    width: 110px;
+}
+
+#editStoryModal #monthlyStatsTable .text-end {
+    text-align: right;
+}
+
+/* Status badge */
+#editStoryModal .status-badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    font-weight: 600;
+}
+#editStoryModal .status-published { background: #27ae60; color: white; }
+#editStoryModal .status-published-due { background: #fd7e14; color: white; }
+#editStoryModal .status-ready { background: #3498db; color: white; }
+#editStoryModal .status-done { background: #9b59b6; color: white; }
+#editStoryModal .status-draft { background: #f39c12; color: white; }
+
+/* LinkedIn badge */
+#editStoryModal .linkedin-badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+}
+#editStoryModal .linkedin-scheduled { background: #f39c12; color: white; }
+#editStoryModal .linkedin-posted { background: #0a66c2; color: white; }
+#editStoryModal .linkedin-not-posted { background: #6c757d; color: white; }
+
+/* Info card */
+#editStoryModal .info-card {
     background: #f8f9fa;
     border-radius: 6px;
     padding: 6px 10px;
     height: 100%;
 }
 
-.info-label {
+#editStoryModal .info-label {
     font-size: 0.6rem;
     color: #6c757d;
     text-transform: uppercase;
     letter-spacing: 0.3px;
     margin-bottom: 2px;
+    font-weight: 700 !important;
 }
 
-.info-value {
+#editStoryModal .info-value {
     font-size: 0.8rem;
     font-weight: 500;
     color: #2c3e50;
     word-break: break-all;
 }
 
-#monthlyStatsTable {
-    font-size: 0.75rem;
-}
-
-#monthlyStatsTable th,
-#monthlyStatsTable td {
-    padding: 6px 8px;
-    vertical-align: middle;
-}
-
-#monthlyStatsTable .text-end {
-    text-align: right;
-}
-
-.alert-sm {
+/* Alert warning */
+#editStoryModal .alert-sm {
     padding: 4px 8px;
     margin-bottom: 8px;
+    font-size: 0.7rem;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .info-card {
-        margin-bottom: 8px;
-    }
-    
-    #monthlyStatsTable {
-        font-size: 0.65rem;
-    }
+/* Modal header */
+#editStoryModal .modal-header .modal-title {
+    font-weight: 600;
+}
+
+/* Card header */
+#editStoryModal .card-header {
+    font-weight: 600;
+}
+
+/* Make form-check label bold like Bookmarked */
+#editStoryModal .form-check-label {
+    font-weight: 700 !important;
+}
+
+/* Make section titles bold */
+#editStoryModal .small.text-muted.mb-2 {
+    font-weight: 700 !important;
+    font-size: 0.7rem !important;
+}
+
+/* Fix for Created Date and Timestamp - make them identical to Published Date */
+#editStoryModal .input-group-sm {
+    flex-wrap: nowrap !important;
+}
+
+#editStoryModal .input-group-sm input[type="date"],
+#editStoryModal .input-group-sm input[type="datetime-local"] {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Make ALL labels bold like TIMESTAMP */
+#editStoryModal .form-label,
+#editStoryModal .col-form-label,
+#editStoryModal .modal-body label,
+#editStoryModal .card-body label,
+#editStoryModal label {
+    font-weight: 700 !important;
+    font-size: 0.75rem !important;
+}
+
+/* Make ALL date/time inputs look exactly the same as PUBLISHED DATE */
+#editStoryModal input[type="date"],
+#editStoryModal input[type="datetime-local"],
+#editStoryModal .input-group-sm input[type="date"],
+#editStoryModal .input-group-sm input[type="datetime-local"] {
+    font-family: monospace !important;
+    font-size: 0.8rem !important;
+    padding: 0.35rem 0.5rem !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 0.25rem !important;
+    background-color: #fff !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+}
+
+/* Ensure the calendar icon looks the same across all inputs */
+#editStoryModal input[type="date"]::-webkit-calendar-picker-indicator,
+#editStoryModal input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    padding: 2px;
+    margin-left: 2px;
+}
+
+/* Make the input group buttons consistent */
+#editStoryModal .input-group-sm .btn {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.7rem;
 }

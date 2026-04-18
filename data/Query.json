@@ -91,6 +91,14 @@ query StoryEarningsQuery(
                     
                     __typename
                     }
+
+                    # Stats (lifetime)
+                    totalStats {
+                    views
+                    reads
+                    
+                    __typename
+                    }
                     
                     # Monthly Earnings
                     monthlyEarnings: earnings {

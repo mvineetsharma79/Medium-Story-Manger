@@ -355,18 +355,20 @@ class StoryService:
         return True
 
     # ============================================
-    # NEW METHOD: Fetch Medium Stories for a Period
+    # NEW METHOD: Fetch Medium Stats for a Period
     # ============================================
     
     @staticmethod
-    async def fetch_medium_stories(period: str) -> Dict[str, Any]:
+    async def fetch_medium_stats(period: str) -> Dict[str, Any]:
         """
         Fetch ALL published posts from Medium API for a specific period.
         
         MATCHES BY EXACT FULL TITLE after normalization.
         """
         from datetime import datetime as dt_module
-        
+        if '-' in period and len(period.split('-')[1]) == 1:
+            period = f"{period.split('-')[0]}-0{period.split('-')[1]}"
+            
         current_period = dt_module.now().strftime("%Y-%m")
         is_current_period = (period == current_period)
         
@@ -414,42 +416,15 @@ class StoryService:
         new_count = 0
         updated_count = 0
         processed_posts = []
-        
-        def normalize_title(title: str) -> str:
-            """
-            Normalize title for exact matching.
-            - Preserves FULL title length
-            - Only normalizes case, spaces, punctuation, unicode
-            - Does NOT remove words or truncate
-            """
-            if not title:
-                return ""
-            import unicodedata
-            import re
-            # Normalize unicode characters (e.g., â€” becomes --)
-            title = unicodedata.normalize('NFKD', title)
-            # Encode to ASCII, ignore non-ASCII chars (removes diacritics)
-            title = title.encode('ASCII', 'ignore').decode('ASCII')
-            # Convert to lowercase
-            title = title.lower()
-            # Replace all whitespace, hyphens, underscores with single space
-            title = re.sub(r'[\s\-_]+', ' ', title)
-            # Remove all punctuation and special characters (keep alphanumeric and space)
-            title = re.sub(r'[^\w\s]', '', title)
-            # Collapse multiple spaces to single space
-            title = re.sub(r'\s+', ' ', title)
-            # Strip leading/trailing spaces
-            title = title.strip()
-            return title
-                
+                        
         # Build normalized title mapping from existing stories
         title_to_story_key = {}
         for story_key, story_data in stories.items():
             story_title = story_data.get('title') or story_data.get('name')
             if story_title:
-                normalized = normalize_title(story_title)
-                title_to_story_key[normalized] = story_key
-                logger.debug(f"Mapping: '{normalized}' -> {story_key}")
+                #normalized = normalize_title(story_title)
+                title_to_story_key[story_title] = story_key
+                logger.warning(f"Mapping: '{story_title}' -> {story_key}")
         
         for post in posts:
             title = post.get('title', '')
@@ -457,7 +432,7 @@ class StoryService:
                 continue
             
             medium_url = post.get('mediumUrl', '')
-            unique_slug = post.get('uniqueSlug', '')
+            unique_slug = post.get('title', '')
             first_published_at = post.get('firstPublishedAt')
             
             # Parse published date from firstPublishedAt
@@ -480,10 +455,10 @@ class StoryService:
             # Extract earnings
             earnings = post.get('earnings', {})
             total_earnings = earnings.get('total', {})
-            total_earnings_nanos = total_earnings.get('nanos', 0)
+            total_earnings_nanos = convert_earnings_to_dollars(total_earnings.get('nanos', 0))
             
             monthly_earnings = earnings.get('monthlyEarnings', {})
-            monthly_earnings_nanos = monthly_earnings.get('nanos', 0)
+            monthly_earnings_nanos = convert_earnings_to_dollars( monthly_earnings.get('nanos', 0))
             
             # Extract creator
             creator_data = post.get('creator', {})
@@ -572,11 +547,11 @@ class StoryService:
             }
             
             # EXACT FULL TITLE MATCH after normalization
-            normalized_title = normalize_title(title)
-            existing_story_key = title_to_story_key.get(normalized_title)
+            #normalized_title = normalize_title(title)
+            existing_story_key = title_to_story_key.get(title)
             
             logger.info(f"Post title: '{title}'")
-            logger.info(f"Normalized: '{normalized_title}'")
+            logger.info(f"Normalized: '{title}'")
             logger.info(f"Match found: {existing_story_key is not None}")
             
             if existing_story_key:
@@ -649,15 +624,15 @@ class StoryService:
                 
                 updated_count += 1
                 processed_posts.append({"title": title, "action": "updated"})
-                logger.info(f"✅ Updated: {title}")
+                # logger.info(f"✅ Updated: {title}")
                 
             else:
                 # CREATE new story
                 import re
                 # Create a safe story key from normalized title
-                safe_key = re.sub(r'[^a-z0-9]+', '-', normalized_title)
-                safe_key = safe_key.strip('-')
-                story_key = f"Medium Import/{safe_key}"
+                # safe_key = re.sub(r'[^a-z0-9]+', '-', title)
+                #safe_key = safe_key.strip('-')
+                story_key = f"Medium Import/{title}"
                 
                 new_story = {
                     "uniqueSlug": unique_slug,
@@ -689,7 +664,371 @@ class StoryService:
                     series_data["Medium"]["stories"].append(story_key)
                 
                 # Add to mapping for future posts in this batch
-                title_to_story_key[normalized_title] = story_key
+                title_to_story_key[title] = story_key
+                
+                new_count += 1
+                processed_posts.append({"title": title, "action": "created"})
+                #logger.info(f"✨ Created: {title}")
+        
+        # Update series counts
+        series_data["Medium"]["total_stories"] = len(series_data["Medium"]["stories"])
+        series_data["Medium"]["published"] = len(series_data["Medium"]["stories"])
+        
+        data["stories"] = stories
+        data["series"] = series_data
+        await save_stories_data(data)
+        
+        logger.info(f"Refresh completed: {new_count} new, {updated_count} updated")
+        return posts
+        return {
+            "stories" : data["stories"] ,
+            "series" : data["series"] ,
+            "processed_posts": processed_posts[:20],
+            "success": True,
+            "message": f"Successfully fetched {len(posts)} posts from Medium",
+            "period": period,
+            "is_current_period": is_current_period,
+            "total_posts": len(posts),
+            "new_stories": new_count,
+            "updated_stories": updated_count
+            
+        }
+
+    @staticmethod
+    async def fetch_medium_story(story: str, period: str) -> Dict[str, Any]:
+        """
+        Fetch ALL published posts stats from Medium API for a specific period.
+        
+        MATCHES BY EXACT FULL TITLE after normalization.
+        """
+        from datetime import datetime as dt_module
+        if '-' in period and len(period.split('-')[1]) == 1:
+            period = f"{period.split('-')[0]}-0{period.split('-')[1]}"
+        
+        current_period = dt_module.now().strftime("%Y-%m")
+        is_current_period = (period == current_period)
+        current_datetime = dt_module.now().isoformat()
+        
+        logger.info(f"Fetching Medium Stories for period: {period}")
+        
+        api_service = get_medium_api_service()
+        
+        if not api_service.is_authenticated():
+            return {
+                "success": False,
+                "message": "Not authenticated. Please login to Medium.",
+                "period": period,
+                "new_stories": 0,
+                "updated_stories": 0,
+                "total_posts": 0
+            }
+        
+        posts = api_service.fetch_story_stats(story,period)
+        
+        if not posts:
+            return {
+                "success": False,
+                "message": f"No posts found from Medium API for {story}",
+                "period": period,
+                "new_stories": 0,
+                "updated_stories": 0,
+                "total_posts": 0
+            }
+        
+        logger.info(f"Processing {len(posts)} posts from Medium API")
+        
+        data = await load_stories_data()
+        stories = data.get("stories", {})
+        series_data = data.get("series", {})
+        
+        if "Medium" not in series_data:
+            series_data["Medium"] = {
+                "name": "Medium",
+                "total_stories": 0,
+                "published": 0,
+                "spacing_days": 7,
+                "stories": []
+            }
+        
+        new_count = 0
+        updated_count = 0
+        processed_posts = []
+                        
+        # Build normalized title mapping from existing stories
+        title_to_story_key = {}
+        for story_key, story_data in stories.items():
+            story_title = story_data.get('title') or story_data.get('name')
+            if story_title:
+                title_to_story_key[story_title] = story_key
+        
+        for post in posts:
+            title = post.get('title', '')
+            if not title:
+                continue
+            
+            # ============================================
+            # 1. EXTRACT DATA FROM API RESPONSE
+            # ============================================
+            
+            # Basic post info (from response)
+            medium_url = post.get('mediumUrl', '')
+            unique_slug = post.get('title', '')
+            first_published_at = post.get('firstPublishedAt')
+            post_id = post.get('id', '')
+            created_at = post.get('createdAt', 0)
+            updated_at = post.get('updatedAt', 0)
+            voter_count = post.get('voterCount', 0)
+            is_locked = post.get('isLocked', False)
+            visibility = post.get('visibility', 'LOCKED')
+            is_series = post.get('isSeries', False)
+            is_shortform = post.get('isShortform', False)
+            first_boosted_at = post.get('firstBoostedAt')
+            license_type = post.get('license', 'ALL_RIGHTS_RESERVED')
+            
+            # Parse published date from firstPublishedAt
+            published_date = None
+            if first_published_at:
+                if isinstance(first_published_at, (int, float)):
+                    published_date = dt_module.fromtimestamp(first_published_at / 1000).strftime("%Y-%m-%d")
+            
+            # Extract bundle stats (postStatsTotalBundle) - FROM RESPONSE
+            post_stats_total_bundle = post.get('postStatsTotalBundle', {})
+            presentations = post_stats_total_bundle.get('presentationCount', 0)
+            views = post_stats_total_bundle.get('viewersCount', 0)
+            reads = post_stats_total_bundle.get('readersCount', 0)
+            fctr = int(post_stats_total_bundle.get('feedClickThroughRate', 0.0) * 100)
+            
+            # Extract daily bundle buckets (postStatsDailyBundle) - FROM RESPONSE
+            post_stats_daily_bundle = post.get('postStatsDailyBundle', {})
+            daily_buckets = post_stats_daily_bundle.get('buckets', [])
+            
+            # Calculate member-only totals from daily buckets
+            view_member = 0
+            read_member = 0
+            view_nonmember = 0
+            read_nonmember = 0
+            
+            for bucket in daily_buckets:
+                membership_type = bucket.get('membershipType', '')
+                if membership_type == 'MEMBER':
+                    view_member += bucket.get('readersThatViewedCount', 0)
+                    read_member += bucket.get('readersThatReadCount', 0)
+                elif membership_type == 'NONMEMBER':
+                    view_nonmember += bucket.get('readersThatViewedCount', 0)
+                    read_nonmember += bucket.get('readersThatReadCount', 0)
+            
+            # Extract earnings (from post.earnings - FROM RESPONSE if available)
+            earnings = post.get('earnings', {})
+            total_earnings_data = earnings.get('total', {})
+            
+            # Extract creator (FROM RESPONSE)
+            creator_data = post.get('creator', {})
+            creator = None
+            if creator_data:
+                creator = {
+                    "id": creator_data.get('id', ''),
+                    "username": creator_data.get('username', ''),
+                    "name": creator_data.get('name', ''),
+                    "bio": creator_data.get('bio', ''),
+                    "imageId": creator_data.get('imageId'),
+                    "twitterScreenName": creator_data.get('twitterScreenName'),
+                    "createdAt": creator_data.get('createdAt')
+                }
+            
+            # Extract collection (FROM RESPONSE)
+            collection_data = post.get('collection', {})
+            collection = None
+            if collection_data:
+                collection = {
+                    "id": collection_data.get('id', ''),
+                    "name": collection_data.get('name', ''),
+                    "slug": collection_data.get('slug', ''),
+                    "domain": collection_data.get('domain', ''),
+                    "subscriberCount": collection_data.get('subscriberCount', 0),
+                    "createdAt": collection_data.get('createdAt', 0)
+                }
+            
+            # Extract tags (FROM RESPONSE)
+            tags_data = post.get('tags', [])
+            tags = [t.get('id', '') if isinstance(t, dict) else t for t in tags_data]
+            
+            # Reading time and word count (FROM RESPONSE)
+            reading_time = post.get('readingTime', 0)
+            word_count = post.get('wordCount', 0)
+            clap_count = post.get('clapCount', 0)
+            responses_count = post.get('responsesCount', 0)
+            
+            # ============================================
+            # 2. BUILD STATS OBJECT (from response data)
+            # ============================================
+            stats_object = {
+                "period": period,
+                "presentations": presentations,
+                "views": views,
+                "view_member": view_member,
+                "reads": reads,
+                "read_member": read_member,
+                "fctr": fctr
+            }
+            
+            # ============================================
+            # 3. BUILD EARNING OBJECT (only if response has it)
+            # ============================================
+            total_earnings_object = None
+            if total_earnings_data:
+                total_earnings_object = {
+                    "period": "total",
+                    "currencyCode": total_earnings_data.get('currencyCode', 'USD'),
+                    "units": total_earnings_data.get('units', 0),
+                    "nanos": total_earnings_data.get('nanos', 0)
+                }
+            
+            # ============================================
+            # 4. FIND OR CREATE STORY
+            # ============================================
+            
+            existing_story_key = title_to_story_key.get(title)
+            
+            logger.info(f"Post title: '{title}'")
+            logger.info(f"Match found: {existing_story_key is not None}")
+            
+            if existing_story_key:
+                # ============================================
+                # UPDATE EXISTING STORY - ONLY UPDATE FIELDS FROM RESPONSE
+                # ============================================
+                story_data = stories[existing_story_key]
+                
+                # Update ONLY the fields that the response provides
+                story_data['title'] = title
+                story_data['name'] = title
+                story_data['status'] = "Published"
+                story_data['publishedDate'] = published_date
+                story_data['lastUpdated'] = current_datetime
+                story_data['systemUpdate'] = current_datetime
+                story_data['systemUpdateBy'] = "Story Update service"
+                story_data['medium_url'] = medium_url
+                
+                # Update or create medium object
+                if 'medium' not in story_data:
+                    story_data['medium'] = {}
+                
+                # Update ONLY medium fields that the response provides
+                story_data['medium']['id'] = post_id
+                story_data['medium']['title'] = title
+                story_data['medium']['uniqueSlug'] = unique_slug
+                story_data['medium']['mediumUrl'] = medium_url
+                story_data['medium']['createdAt'] = created_at
+                story_data['medium']['updatedAt'] = updated_at
+                story_data['medium']['firstPublishedAt'] = first_published_at
+                story_data['medium']['totalStats'] = stats_object  # FROM RESPONSE
+                story_data['medium']['voterCount'] = voter_count
+                story_data['medium']['isLocked'] = is_locked
+                story_data['medium']['visibility'] = visibility
+                story_data['medium']['isSeries'] = is_series
+                story_data['medium']['isShortform'] = is_shortform
+                story_data['medium']['firstBoostedAt'] = first_boosted_at
+                story_data['medium']['license'] = license_type
+                story_data['medium']['tags'] = tags
+                story_data['medium']['creator'] = creator
+                story_data['medium']['collection'] = collection
+                
+                # ONLY update totalEarnings if response has it (don't touch if not in response)
+                if total_earnings_object is not None:
+                    story_data['medium']['totalEarnings'] = total_earnings_object
+                # else: preserve existing totalEarnings (don't remove)
+                
+                if is_current_period:
+                    story_data['medium']['readingTime'] = reading_time
+                    story_data['medium']['wordCount'] = word_count
+                    story_data['medium']['clapCount'] = clap_count
+                    story_data['medium']['responsesCount'] = responses_count
+                
+                # Update monthlyStats - ADD or REPLACE for this period only
+                if 'monthlyStats' not in story_data['medium']:
+                    story_data['medium']['monthlyStats'] = []
+                
+                # Find and replace existing entry for this period, or append new
+                found = False
+                for i, stat in enumerate(story_data['medium']['monthlyStats']):
+                    if stat.get('period') == period:
+                        story_data['medium']['monthlyStats'][i] = stats_object
+                        found = True
+                        break
+                if not found:
+                    story_data['medium']['monthlyStats'].append(stats_object)
+                
+                # IMPORTANT: Do NOT touch monthlyEarnings if response doesn't have it
+                # monthlyEarnings array is PRESERVED as is (no modification)
+                # Only if response had monthlyEarnings data would we update it
+                # Since this response doesn't have monthlyEarnings, we leave it untouched
+                
+                updated_count += 1
+                processed_posts.append({"title": title, "action": "updated"})
+                logger.info(f"✅ Updated: {title}")
+                
+            else:
+                # ============================================
+                # CREATE NEW STORY - ONLY ADD FIELDS FROM RESPONSE
+                # ============================================
+                story_key = f"Medium Import/{title}"
+                
+                # Build new story with ONLY fields from response
+                new_story = {
+                    "uniqueSlug": unique_slug,
+                    "title": title,
+                    "name": title,
+                    "folder": "Medium Import",
+                    "series": "Medium",
+                    "status": "Published",
+                    "createdDate": published_date or dt_module.now().strftime("%Y-%m-%d"),
+                    "publishedDate": published_date,
+                    "lastUpdated": current_datetime,
+                    "systemUpdate": current_datetime,
+                    "systemUpdateBy": "Story Update service",
+                    "notes": f"Imported from refresh for {period}",
+                    "tags": tags,
+                    "word_count": word_count,
+                    "read_time": int(reading_time),
+                    "bookmarked": False,
+                    "leaderboard": False,
+                    "medium_url": medium_url,
+                    "medium": {
+                        "id": post_id,
+                        "__typename": "Post",
+                        "title": title,
+                        "uniqueSlug": unique_slug,
+                        "mediumUrl": medium_url,
+                        "createdAt": created_at,
+                        "updatedAt": updated_at,
+                        "firstPublishedAt": first_published_at,
+                        "totalStats": stats_object,
+                        "monthlyStats": [stats_object],  # Initialize with current period
+                        "readingTime": reading_time if is_current_period else 0,
+                        "wordCount": word_count if is_current_period else 0,
+                        "clapCount": clap_count if is_current_period else 0,
+                        "responsesCount": responses_count if is_current_period else 0,
+                        "voterCount": voter_count,
+                        "isLocked": is_locked,
+                        "visibility": visibility,
+                        "isSeries": is_series,
+                        "isShortform": is_shortform,
+                        "firstBoostedAt": first_boosted_at,
+                        "license": license_type,
+                        "tags": tags,
+                        "totalEarnings": total_earnings_object,  # Only if response had it
+                        "monthlyEarnings": [],  # Initialize as empty list (response has no monthly earnings)
+                        "creator": creator,
+                        "collection": collection
+                    }
+                }
+                
+                stories[story_key] = new_story
+                
+                if story_key not in series_data["Medium"]["stories"]:
+                    series_data["Medium"]["stories"].append(story_key)
+                
+                # Add to mapping for future posts in this batch
+                title_to_story_key[title] = story_key
                 
                 new_count += 1
                 processed_posts.append({"title": title, "action": "created"})
@@ -706,16 +1045,18 @@ class StoryService:
         logger.info(f"Refresh completed: {new_count} new, {updated_count} updated")
         
         return {
+            "stories": story,
+            "series": data["series"],
+            "processed_posts": processed_posts[:20],
             "success": True,
             "message": f"Successfully fetched {len(posts)} posts from Medium",
             "period": period,
             "is_current_period": is_current_period,
             "total_posts": len(posts),
             "new_stories": new_count,
-            "updated_stories": updated_count,
-            "processed_posts": processed_posts[:20]
-        }
-    
+            "updated_stories": updated_count
+        }  
+                  
     @staticmethod
     async def _dict_to_story(key: str, story_dict: dict) -> Optional[Story]:
         """Convert dictionary to Story object"""
@@ -736,9 +1077,9 @@ class StoryService:
                 if total_stats_data:
                     total_stats = Stats(
                         period=total_stats_data.get('period', 'total'),
-                        presentations=total_stats_data.get('presentations') or 0,  # Handle None
-                        views=total_stats_data.get('views') or 0,  # Handle None
-                        reads=total_stats_data.get('reads') or 0   # Handle None
+                        presentations=total_stats_data.get('presentations') or 0,
+                        views=total_stats_data.get('views') or 0,
+                        reads=total_stats_data.get('reads') or 0
                     )
                 
                 # Parse monthlyStats
@@ -751,26 +1092,40 @@ class StoryService:
                         reads=stat.get('reads') or 0
                     ))
                 
-                # Parse totalEarnings - handle None values
-                total_earnings_data = medium_data.get('totalEarnings', {})
+                # FIXED: Parse earnings from the nested 'earnings' structure
+                earnings_data = medium_data.get('earnings', {})
+                
+                # Parse totalEarnings from earnings.total
                 total_earnings = None
-                if total_earnings_data:
+                if earnings_data and 'total' in earnings_data and earnings_data['total']:
+                    total = earnings_data['total']
                     total_earnings = Earning(
-                        period=total_earnings_data.get('period', 'total'),
-                        currencyCode=total_earnings_data.get('currencyCode', 'USD'),
-                        units=total_earnings_data.get('units') or 0,
-                        nanos=total_earnings_data.get('nanos') or 0
+                        period='total',
+                        currencyCode=total.get('currencyCode', 'USD'),
+                        units=total.get('units') or 0,
+                        nanos=total.get('nanos') or 0
                     )
                 
-                # Parse monthlyEarnings
+                # Parse monthlyEarnings from earnings.monthlyEarnings
                 monthly_earnings_list = []
-                for earn in medium_data.get('monthlyEarnings', []):
-                    monthly_earnings_list.append(Earning(
-                        period=earn.get('period', ''),
-                        currencyCode=earn.get('currencyCode', 'USD'),
-                        units=earn.get('units') or 0,
-                        nanos=earn.get('nanos') or 0
-                    ))
+                if earnings_data and 'monthlyEarnings' in earnings_data and earnings_data['monthlyEarnings']:
+                    monthly = earnings_data['monthlyEarnings']
+                    # monthlyEarnings can be either a dict or a list
+                    if isinstance(monthly, dict):
+                        monthly_earnings_list.append(Earning(
+                            period=period,  # Use the period passed to fetch_medium_stories
+                            currencyCode=monthly.get('currencyCode', 'USD'),
+                            units=monthly.get('units') or 0,
+                            nanos=monthly.get('nanos') or 0
+                        ))
+                    elif isinstance(monthly, list):
+                        for earn in monthly:
+                            monthly_earnings_list.append(Earning(
+                                period=earn.get('period', ''),
+                                currencyCode=earn.get('currencyCode', 'USD'),
+                                units=earn.get('units') or 0,
+                                nanos=earn.get('nanos') or 0
+                            ))
                 
                 # Parse tags (list of strings)
                 tags = medium_data.get('tags', [])
@@ -900,3 +1255,27 @@ class StoryService:
             import traceback
             traceback.print_exc()
             return None
+                
+def convert_earnings_to_dollars(nanos: int) -> float:
+    """
+    Convert Medium earnings format to dollar amount.
+    
+    Args:
+        units: Dollar amount (integer part)
+        nanos: Cents in billionths (1,000,000,000 = $1.00)
+        currency_code: Currency code (default: "USD")
+    
+    Returns:
+        Float value of the earnings in dollars
+    
+    Examples:
+        >>> convert_earnings_to_dollars(12, 500000000)
+        12.5
+        
+        >>> convert_earnings_to_dollars(0, 50000000)
+        0.05
+        
+        >>> convert_earnings_to_dollars(3, 990000000)
+        3.99
+    """
+    return  (nanos / 1_000_000_000)

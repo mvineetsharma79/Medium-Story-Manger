@@ -1,4 +1,4 @@
-<!-- Edit Story Modal - Complete -->
+<!-- Edit Story Modal - Complete Working Version -->
 <input type="hidden" id="editStoryKey" value="">
 <input type="hidden" id="editStoryUniqueSlug" value="">
 <div class="modal fade" id="editStoryModal" tabindex="-1" aria-labelledby="editStoryModalLabel" aria-hidden="true">
@@ -6,39 +6,41 @@
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="editStoryModalLabel">
-                    <i class="bi bi-pencil-square"></i> Edit Story
+                    <i class="bi bi-pencil-square"></i> Edit - <span id="editStoryModalTitle">Loading...</span>
                 </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
-            
+
             <div class="modal-body">
-                <!-- Story Name Display (non-editable reference) -->
+                <!-- Story Path Display -->
                 <div class="row mb-2">
                     <div class="col-12">
                         <div class="info-card bg-light">
-                            <div class="info-label"><i class="bi bi-file-text"></i> Story Key / Path</div>
+                            <div class="info-label"><i class="bi bi-file-text"></i> STORY KEY / PATH
+                            </div>
                             <div class="info-value" id="editStoryPath">—</div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- SECTION 1: STORY METADATA -->
                 <div class="card mb-3">
-                    <div class="card-header bg-light">
-                        <i class="bi bi-info-circle"></i> <strong>Story Metadata</strong>
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <div><i class="bi bi-info-circle"></i> <strong>STORY METADATA</strong></div>
+                        <div><span id="storyStatusBadge" class="status-badge status-draft">Draft</span></div>
                     </div>
                     <div class="card-body">
                         <div class="row g-2">
                             <div class="col-md-5">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-pencil"></i> Name
-                                </label>
-                                <input type="text" id="editStoryName" class="form-control form-control-sm" placeholder="Story name">
+                                <label class="form-label small"><i class="bi bi-pencil"></i>
+                                    <strong>NAME</strong></label>
+                                <input type="text" id="editStoryName" class="form-control form-control-sm"
+                                    placeholder="Story name">
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-tag"></i> Status
-                                </label>
+                                <label class="form-label small"><i class="bi bi-tag"></i>
+                                    <strong>STATUS</strong></label>
                                 <select id="editStoryStatus" class="form-select form-select-sm">
                                     <option value="Draft">Draft</option>
                                     <option value="Ready">Ready</option>
@@ -47,104 +49,133 @@
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-collection"></i> Series
-                                </label>
+                                <label class="form-label small"><i class="bi bi-collection"></i>
+                                    <strong>SERIES</strong></label>
                                 <div class="input-group input-group-sm">
                                     <select id="editStorySeries" class="form-select form-select-sm">
                                         <option value="">— No Series —</option>
                                     </select>
-                                    <button class="btn btn-outline-secondary btn-sm" type="button" data-action="refresh-series" title="Refresh series list">
+                                    <button class="btn btn-outline-secondary btn-sm" type="button"
+                                        data-action="refresh-series" title="Refresh series list">
                                         <i class="bi bi-arrow-repeat"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-star"></i> Bookmarked
-                                </label>
+                                <label class="form-label small"><i class="bi bi-star"></i>
+                                    <strong>BOOKMARKED</strong></label>
                                 <div class="form-check form-switch mt-1">
-                                    <input type="checkbox" id="editStoryBookmarked" class="form-check-input" role="switch">
+                                    <input type="checkbox" id="editStoryBookmarked" class="form-check-input"
+                                        role="switch">
                                     <label class="form-check-label small" for="editStoryBookmarked">⭐ Bookmarked</label>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row g-2 mt-1">
                             <div class="col-md-3">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-calendar-plus"></i> Created Date
-                                </label>
+                                <label class="form-label small"><i class="bi bi-calendar-plus"></i> <strong>CREATED
+                                        DATE</strong></label>
                                 <div class="input-group input-group-sm">
                                     <input type="date" id="editStoryCreatedDate" class="form-control form-control-sm">
-                                    <button class="btn btn-outline-secondary btn-sm" type="button" id="editStorySetTodayBtn" title="Set to today">
+
+                                    <!-- <input type="date" id="editStoryCreatedDate" class="form-control form-control-sm"> -->
+                                    <!-- <button class="btn btn-outline-secondary btn-sm" type="button" id="editStorySetTodayBtn" title="Set to today">
                                         <i class="bi bi-calendar-today"></i>
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-calendar-check"></i> Published Date
-                                </label>
+                                <label class="form-label small"><i class="bi bi-calendar-check"></i> <strong>PUBLISHED
+                                        DATE</strong></label>
                                 <input type="date" id="editStoryPublishedDate" class="form-control form-control-sm">
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-calendar-exclamation"></i> Due Date
-                                </label>
+                                <label class="form-label small"><i class="bi bi-calendar-exclamation"></i> <strong>DUE
+                                        DATE</strong></label>
                                 <input type="date" id="editStoryDueDate" class="form-control form-control-sm">
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-hash"></i> Tags
-                                </label>
-                                <input type="text" id="editStoryTags" class="form-control form-control-sm" placeholder="tag1, tag2, tag3">
+                                <label class="form-label small"><i class="bi bi-hash"></i> <strong>TAGS</strong></label>
+                                <input type="text" id="editStoryTags" class="form-control form-control-sm"
+                                    placeholder="tag1, tag2, tag3">
                             </div>
                         </div>
-                        
+
                         <div class="row g-2 mt-1">
                             <div class="col-12">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-link-45deg"></i> Medium URL
-                                </label>
-                                <input type="url" id="editStoryMediumUrl" class="form-control form-control-sm" placeholder="https://medium.com/...">
+                                <label class="form-label small"><i class="bi bi-link-45deg"></i> <strong>MEDIUM
+                                        URL</strong></label>
+                                <div class="input-group input-group-sm">
+                                    <input type="url" id="editStoryMediumUrl" class="form-control form-control-sm"
+                                        placeholder="https://medium.com/...">
+                                    <a href="#" id="editStoryMediumUrlLink" class="btn btn-outline-secondary btn-sm"
+                                        target="_blank" style="display: none;">
+                                        <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        
+
                         <div class="row g-2 mt-1">
                             <div class="col-12">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-file-text"></i> Notes
-                                </label>
-                                <textarea id="editStoryNotes" class="form-control form-control-sm" rows="2" placeholder="Internal notes..."></textarea>
+                                <label class="form-label small"><i class="bi bi-file-text"></i>
+                                    <strong>NOTES</strong></label>
+                                <textarea id="editStoryNotes" class="form-control form-control-sm" rows="2"
+                                    placeholder="Internal notes..."></textarea>
                             </div>
                         </div>
-                        
+
                         <div class="row g-2 mt-1">
-                            <div class="col-12">
+                            <!-- <div class="col-2">
                                 <div class="info-card bg-light">
-                                    <div class="info-label"><i class="bi bi-clock-history"></i> Last Updated</div>
+                                    <div class="form-label"><i class="bi bi-clock-history"></i> LAST UPDATED</div>
                                     <div class="info-value" id="editStoryLastUpdated">—</div>
+                                </div>
+                            </div> -->
+                            <div class="col-md-2">
+                                <div class="info-card">
+                                    <div class="form-label"><i class="bi bi-arrow-repeat"></i> PUBLICATION</div>
+                            <div class="info-valuform-labele" id="mediumPublication">—</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="info-card">
+                                    <div class="form-label"><i class="bi bi-arrow-repeat"></i> LAST UPDATE</div>
+                                    <div class="info-value" id="mediumLastUpdate">—</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="info-card text-muted">
+                                    <div class="form-label"><i class="bi bi-upc-scan"></i> <strong>MEDIUM
+                                            ID</strong></div>
+                                    <div class="info-value" id="mediumId">—</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-card">
+                                    <div class="form-label"><i class="bi bi-link-45deg"></i> UNIQUE SLUG</div>
+                                    <div class="info-value" id="mediumUniqueSlug">—</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- SECTION 2: LINKEDIN MARKETING -->
                 <div class="card mb-3">
-                    <div class="card-header bg-light">
-                        <i class="bi bi-linkedin"></i> <strong>LinkedIn Marketing</strong>
-                        <button class="btn btn-sm btn-outline-danger float-end" type="button" id="editStoryClearAllLinkedinBtn" title="Clear all LinkedIn data">
-                            <i class="bi bi-trash"></i> Clear All
-                        </button>
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <div><i class="bi bi-linkedin"></i> <strong>LINKEDIN MARKETING</strong></div>
+                        <div><span id="linkedinStatusBadge" class="linkedin-badge linkedin-not-posted">Not Posted</span>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="row g-2">
                             <div class="col-md-3">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-flag"></i> Status
-                                </label>
+                                <label class="form-label small"><i class="bi bi-flag"></i>
+                                    <strong>STATUS</strong></label>
                                 <select id="editStoryLinkedinStatus" class="form-select form-select-sm">
                                     <option value="">Not Posted</option>
                                     <option value="scheduled">Scheduled</option>
@@ -152,29 +183,30 @@
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-clock"></i> Timestamp
-                                </label>
+                                <label class="form-label small"><i class="bi bi-clock"></i>
+                                    <strong>TIMESTAMP</strong></label>
                                 <div class="input-group input-group-sm">
-                                    <input type="datetime-local" id="editStoryLinkedinTimestamp" class="form-control form-control-sm">
+                                    <input type="date" id="editStoryLinkedinTimestamp"
+                                        class="form-control form-control-sm">
+
+                                    <!-- <input type="datetime-local" id="editStoryLinkedinTimestamp" class="form-control form-control-sm">
                                     <button class="btn btn-outline-secondary btn-sm" type="button" id="editStorySetNowLinkedinBtn" title="Set to now">
                                         <i class="bi bi-clock"></i>
                                     </button>
                                     <button class="btn btn-outline-secondary btn-sm" type="button" id="editStoryClearLinkedinTimestampBtn" title="Clear">
                                         <i class="bi bi-x"></i>
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-eye"></i> Impressions
-                                </label>
-                                <input type="number" id="editStoryLinkedinImpressions" class="form-control form-control-sm" value="0">
+                                <label class="form-label small"><i class="bi bi-eye"></i>
+                                    <strong>IMPRESSIONS</strong></label>
+                                <input type="number" id="editStoryLinkedinImpressions"
+                                    class="form-control form-control-sm" value="0">
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-file-post"></i> Post Type
-                                </label>
+                                <label class="form-label small"><i class="bi bi-file-post"></i> <strong>POST
+                                        TYPE</strong></label>
                                 <select id="editStoryLinkedinType" class="form-select form-select-sm">
                                     <option value="Article">Article</option>
                                     <option value="Post">Post</option>
@@ -183,184 +215,173 @@
                         </div>
                         <div class="row g-2 mt-1">
                             <div class="col-12">
-                                <label class="form-label small fw-bold">
-                                    <i class="bi bi-link-45deg"></i> LinkedIn URL
-                                </label>
-                                <input type="url" id="editStoryLinkedinUrl" class="form-control form-control-sm" placeholder="https://linkedin.com/...">
-                            </div>
-                        </div>
-                        <div class="row g-2 mt-2">
-                            <div class="col-12">
-                                <div id="editStoryLinkedinDisplay" class="small text-muted">
-                                    <i class="bi bi-linkedin"></i> <strong>LinkedIn:</strong> Not posted
+                                <label class="form-label small"><i class="bi bi-link-45deg"></i> <strong>LINKEDIN
+                                        URL</strong></label>
+                                <div class="input-group input-group-sm">
+                                    <input type="url" id="editStoryLinkedinUrl" class="form-control form-control-sm"
+                                        placeholder="https://linkedin.com/...">
+                                    <a href="#" id="editStoryLinkedinUrlLink" class="btn btn-outline-secondary btn-sm"
+                                        target="_blank" style="display: none;">
+                                        <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- SECTION 3: MEDIUM STATISTICS (Non-Editable) -->
+
+                <!-- SECTION 3: MEDIUM STATISTICS -->
                 <div class="card mb-3">
                     <div class="card-header bg-light">
-                        <i class="bi bi-graph-up"></i> <strong>Medium Statistics</strong>
+                        <i class="bi bi-graph-up"></i> <strong>MEDIUM STATISTICS</strong>
                         <span class="badge bg-secondary ms-2">Read-Only</span>
                     </div>
                     <div class="card-body">
-                        
-                        <!-- Subsection A: Top-Level Metadata -->
+
+                        <!-- Top-Level Metadata -->
                         <div class="mb-3">
-                            <div class="small text-muted mb-2"><i class="bi bi-info-square"></i> Top-Level Metadata</div>
+                            <div class="small text-muted mb-2"><i class="bi bi-info-square"></i> <strong>TOP-LEVEL
+                                    METADATA</strong></div>
                             <div class="row g-2">
-                                <div class="col-md-3">
-                                    <div class="info-card">
-                                        <div class="info-label"><i class="bi bi-upc-scan"></i> Medium ID</div>
-                                        <div class="info-value" id="mediumId">—</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="info-card">
-                                        <div class="info-label"><i class="bi bi-link-45deg"></i> Unique Slug</div>
-                                        <div class="info-value" id="mediumUniqueSlug">—</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="info-card">
-                                        <div class="info-label"><i class="bi bi-calendar"></i> First Published</div>
-                                        <div class="info-value" id="mediumFirstPublished">—</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="info-card">
-                                        <div class="info-label"><i class="bi bi-newspaper"></i> Publication</div>
-                                        <div class="info-value" id="mediumPublication">—</div>
-                                    </div>
-                                </div>
+
+
                             </div>
-                            <div class="row g-2 mt-1">
+                            <div class="row g-2">
+
+                                <div class="col-md-1">
+                                    <div class="info-card">
+                                        <div class="form-label"><i class="bi bi-book"></i> WORDS</div>
+                                        <div class="info-value" id="mediumWordCount">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="info-card">
+                                        <div class="form-label"><i class="bi bi-hourglass-split"></i> TIME</div>
+                                        <div class="info-value" id="mediumReadTime">0:00</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="info-card">
+                                        <div class="form-label"><i class="bi bi-book"></i> READS</div>
+                                        <div class="info-value" id="editStoryLifetimeReads">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="info-card">
+                                        <div class="form-label"><i class="bi bi-eye"></i> VIEWS</div>
+                                        <div class="info-value" id="editStoryLifetimeViews">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="info-card">
+                                        <div class="form-label"><i class="bi bi-hand-thumbs-up"></i> VOTES</div>
+                                        <div class="info-value" id="mediumVotes">0</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <div class="info-card">
+                                        <div class="form-label"><i class="bi bi-heart"></i> CLAPS</div>
+                                        <div class="info-value" id="mediumClaps">0</div>
+                                    </div>
+                                </div>
                                 <div class="col-md-2">
                                     <div class="info-card">
-                                        <div class="info-label"><i class="bi bi-chat"></i> Responses</div>
+                                        <div class="form-label"><i class="bi bi-heart"></i> LIFETIME</div>
+                                        <div class="info-value" id="editStoryLifetimeClaps">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="info-card">
+                                        <div class="form-label"><i class="bi bi-chat"></i> RESPONSES</div>
                                         <div class="info-value" id="mediumResponses">0</div>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="info-card">
-                                        <div class="info-label"><i class="bi bi-hourglass-split"></i> Read Time</div>
-                                        <div class="info-value" id="mediumReadTime">0:00</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="info-card">
-                                        <div class="info-label"><i class="bi bi-book"></i> Word Count</div>
-                                        <div class="info-value" id="mediumWordCount">0</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="info-card">
-                                        <div class="info-label"><i class="bi bi-arrow-repeat"></i> Last Update</div>
-                                        <div class="info-value" id="mediumLastUpdate">—</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="info-card">
-                                        <div class="info-label"><i class="bi bi-hand-thumbs-up"></i> Votes</div>
-                                        <div class="info-value" id="mediumVotes">0</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="info-card">
-                                        <div class="info-label"><i class="bi bi-heart"></i> Claps</div>
-                                        <div class="info-value" id="mediumClaps">0</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Lifetime Stats Summary -->
-                        <div class="mb-3">
-                            <div class="small text-muted mb-2"><i class="bi bi-infinity"></i> Lifetime Stats</div>
-                            <div class="row g-2">
-                                <div class="col-md-3">
-                                    <div class="info-card bg-success text-white">
-                                        <div class="info-label"><i class="bi bi-book"></i> Lifetime Reads</div>
-                                        <div class="info-value" id="editStoryLifetimeReads">0</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="info-card bg-info text-white">
-                                        <div class="info-label"><i class="bi bi-eye"></i> Lifetime Views</div>
-                                        <div class="info-value" id="editStoryLifetimeViews">0</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="info-card bg-warning text-dark">
-                                        <div class="info-label"><i class="bi bi-heart"></i> Lifetime Claps</div>
-                                        <div class="info-value" id="editStoryLifetimeClaps">0</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="info-card bg-secondary text-white">
-                                        <div class="info-label"><i class="bi bi-presentation"></i> Presentations</div>
+                                        <div class="form-label"><i class="bi bi-presentation"></i> PRESENTATIONS</div>
                                         <div class="info-value" id="editStoryPresentationCount">0</div>
                                     </div>
                                 </div>
+
+                                <!-- <div class="col-md-2">
+                                    <div class="info-card">
+                                        <div class="form-label"><i class="bi bi-presentation"></i> PRESENTATIONS</div>
+                                        <div class="info-value" id="editStoryPresentationCount">0</div>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
-                        
-                        <!-- Subsection B: Monthly Stats Table -->
+
+                        <!-- Lifetime Stats -->
+                        <div class="mb-3">
+                            <div class="small text-muted mb-2"><i class="bi bi-infinity"></i> <strong>LIFETIME
+                                    STATS</strong></div>
+                            <div class="row g-2">
+
+
+
+
+
+
+                            </div>
+                        </div>
+
+                        <!-- Monthly Stats Table - NO SCROLLBAR, FIXED COLUMN WIDTHS -->
                         <div>
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <div class="small text-muted"><i class="bi bi-table"></i> Monthly Statistics</div>
-                                <div class="d-flex gap-2">
-                                    <select id="monthStatsSelector" class="form-select form-select-sm" style="width: 150px;">
-                                        <option value="">Select month...</option>
-                                    </select>
+                                <div class="col-md-11">
+                                    <div class="small text-muted"><i class="bi bi-table"></i> <strong>MONTHLY
+                                            STATISTICS</strong> </div>
+                                </div>
+                                <div class="col-md-1">
                                     <button class="btn btn-sm btn-primary" data-action="sync-monthly-stats">
-                                        <i class="bi bi-cloud-download"></i> Sync with Medium
+                                        <i class="bi bi-cloud-download"></i> SYNC
                                     </button>
                                 </div>
                             </div>
-                            
-                            <!-- Warning alert for sync -->
+
                             <div class="alert alert-warning alert-sm py-1 px-2 mb-2 small" style="font-size: 0.7rem;">
-                                <i class="bi bi-exclamation-triangle"></i> 
-                                <strong>Warning:</strong> Syncing will refresh the entire page and discard any unsaved changes in this modal.
+                                <i class="bi bi-exclamation-triangle"></i>
+                                <strong>WARNING:</strong> Syncing will refresh the entire page and discard unsaved
+                                changes.
                             </div>
-                            
-                            <!-- Monthly Stats Table -->
-                            <div class="table-responsive">
-                                <table class="table table-sm table-hover" id="monthlyStatsTable">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th><i class="bi bi-calendar-month"></i> Period</th>
-                                            <th class="text-end"><i class="bi bi-eye"></i> Views</th>
-                                            <th class="text-end"><i class="bi bi-book"></i> Reads</th>
-                                            <th class="text-end"><i class="bi bi-currency-dollar"></i> Earnings</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="monthlyStatsTableBody">
-                                        <tr>
-                                            <td colspan="4" class="text-center text-muted py-3">
-                                                <i class="bi bi-cloud-slash"></i> No monthly data available
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+
+                            <!-- NO table-responsive wrapper - prevents scrollbar -->
+                            <table class="table table-sm table-hover" id="monthlyStatsTable" style="width:200px; ">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style=""><i class="bi bi-calendar-month"></i> <strong>PERIOD</strong></th>
+                                        <th class="text-end" style=""><i class="bi bi-eye"></i> <strong>VIEWS</strong>
+                                        </th>
+                                        <th class="text-end" style=""><i class="bi bi-book"></i> <strong>READS</strong>
+                                        </th>
+                                        <th class="text-end" style=""><i class="bi bi-currency-dollar"></i>
+                                            <strong>EARNINGS</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="monthlyStatsTableBody">
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted py-3">No monthly data available
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"></i> Cancel
+                    <i class="bi bi-x-lg"></i> CANCEL
                 </button>
                 <button type="button" class="btn btn-outline-info" data-action="add-to-month">
-                    <i class="bi bi-calendar-plus"></i> Add to Current Month
+                    <i class="bi bi-calendar-plus"></i> ADD TO CURRENT MONTH
                 </button>
                 <button type="button" class="btn btn-primary" data-action="save-story">
-                    <i class="bi bi-check-lg"></i> Save Changes
+                    <i class="bi bi-check-lg"></i> SAVE CHANGES
                 </button>
             </div>
         </div>

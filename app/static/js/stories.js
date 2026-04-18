@@ -604,12 +604,19 @@ function renderStoryTable() {
         titleStrong.textContent = story.title || story.name || 'Unknown';
         
         // ✅ FIX: Use encodedStoryKey instead of encodedName
+        // const encodedStoryKey = encodeURIComponent(story.key);
+        // titleStrong.onclick = () => {
+        //     if (window.EditStoryModal && window.EditStoryModal.open) {                
+        //         const editUrl = `/content/${encodeURIComponent(story.key)}`    
+        //         console.log('Opening edit story modal for:', editUrl);
+        //         window.EditStoryModal.open(story.key);
+        //     }
+        // };
+
         const encodedStoryKey = encodeURIComponent(story.key);
-        titleStrong.onclick = () => {
-            if (window.EditStoryModal && window.EditStoryModal.open) {                
-                const editUrl = `/content/${encodeURIComponent(story.key)}`    
-                console.log('Opening edit story modal for:', editUrl);
-                window.EditStoryModal.open(story.key);
+        titleStrong.onclick = function() {
+            if (window.EditStoryModal && window.EditStoryModal.open) {
+                window.EditStoryModal.open(encodedStoryKey);
             }
         };
 

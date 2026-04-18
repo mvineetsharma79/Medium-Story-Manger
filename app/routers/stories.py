@@ -322,6 +322,484 @@ async def get_all_stories_simple():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+
+# ============================================
+# STORY CRUD OPERATIONS - Using story_key (with slashes)
+# ============================================
+
+"""
+GET /api/stories/story/by-key/{story_key}
+Description: Get FULL story object by story_key - returns whatever is available, no validation errors
+"""
+@router.get("/story/by-key/{story_key:path}")
+async def get_story_by_key(story_key: str):
+    """Get story object - returns whatever fields are available, ignores missing attributes"""
+    try:
+        decoded_key = unquote(story_key)
+        if decoded_key.endswith('.md'):
+            decoded_key = decoded_key[:-3]
+        
+        story = await StoryService.get_story(decoded_key)
+        if not story:
+            # Return basic info if story not found
+            return {
+                "success": False,
+                "message": f"Story not found: {decoded_key}",
+                "key": decoded_key
+            }
+        
+        # Convert story to dict safely - ignore attribute errors
+        result = {}
+        
+        # Safely get attributes with fallbacks
+        safe_attrs = [
+            'key', 'uniqueSlug', 'title', 'name', 'folder', 'series', 'status',
+            'createdDate', 'publishedDate', 'publishedDueDate', 'lastUpdated',
+            'notes', 'bookmarked', 'leaderboard', 'medium_url', 'read_time',
+            'word_count', 'lifetime_reads', 'lifetime_views', 'lifetime_claps',
+            'presentation_count', 'linkedin_status', 'linkedin_timestamp',
+            'linkedin_impressions', 'linkedin_url', 'raw_path', 'rel_path'
+        ]
+        
+        for attr in safe_attrs:
+            try:
+                value = getattr(story, attr, None)
+                if value is not None:
+                    result[attr] = value
+            except Exception:
+                pass  # Ignore attribute errors
+        
+        # Handle tags specially
+        try:
+            if hasattr(story, 'tags') and story.tags:
+                result['tags'] = story.tags
+            else:
+                result['tags'] = []
+        except Exception:
+            result['tags'] = []
+        
+        # Handle medium object
+        try:
+            if hasattr(story, 'medium') and story.medium:
+                medium_obj = story.medium
+                medium_dict = {}
+                
+                # Safe medium attributes
+                medium_attrs = ['id', 'uniqueSlug', 'mediumUrl', 'title', 'readingTime', 
+                               'wordCount', 'clapCount', 'responsesCount', 'voterCount',
+                               'createdAt', 'updatedAt', 'firstPublishedAt']
+                for attr in medium_attrs:
+                    try:
+                        value = getattr(medium_obj, attr, None)
+                        if value is not None:
+                            medium_dict[attr] = value
+                    except Exception:
+                        pass
+                
+                # Handle collection (can be null)
+                try:
+                    if hasattr(medium_obj, 'collection') and medium_obj.collection:
+                        collection_obj = medium_obj.collection
+                        medium_dict['collection'] = {
+                            'name': getattr(collection_obj, 'name', None)
+                        }
+                except Exception:
+                    medium_dict['collection'] = None
+                
+                # Handle monthlyStats
+                try:
+                    if hasattr(medium_obj, 'monthlyStats') and medium_obj.monthlyStats:
+                        medium_dict['monthlyStats'] = []
+                        for stat in medium_obj.monthlyStats:
+                            medium_dict['monthlyStats'].append({
+                                'period': getattr(stat, 'period', ''),
+                                'views': getattr(stat, 'views', 0),
+                                'reads': getattr(stat, 'reads', 0),
+                                'presentations': getattr(stat, 'presentations', 0)
+                            })
+                except Exception:
+                    medium_dict['monthlyStats'] = []
+                
+                # Handle monthlyEarnings
+                try:
+                    if hasattr(medium_obj, 'monthlyEarnings') and medium_obj.monthlyEarnings:
+                        medium_dict['monthlyEarnings'] = []
+                        for earn in medium_obj.monthlyEarnings:
+                            medium_dict['monthlyEarnings'].append({
+                                'period': getattr(earn, 'period', ''),
+                                'nanos': getattr(earn, 'nanos', 0),
+                                'units': getattr(earn, 'units', 0),
+                                'currencyCode': getattr(earn, 'currencyCode', 'USD')
+                            })
+                except Exception:
+                    medium_dict['monthlyEarnings'] = []
+                
+                # Handle totalStats
+                try:
+                    if hasattr(medium_obj, 'totalStats') and medium_obj.totalStats:
+                        total = medium_obj.totalStats
+                        medium_dict['totalStats'] = {
+                            'presentations': getattr(total, 'presentations', 0),
+                            'views': getattr(total, 'views', 0),
+                            'reads': getattr(total, 'reads', 0)
+                        }
+                except Exception:
+                    pass
+                
+                result['medium'] = medium_dict
+        except Exception:
+            result['medium'] = None
+        
+        # Get current month stats if available
+        try:
+            now = datetime.now()
+            monthly_stats = await MonthlyStorageService.get_story_monthly_stats(decoded_key, now.year, now.month)
+            if monthly_stats:
+                result['monthly_reads'] = monthly_stats.get('reads', 0)
+                result['monthly_views'] = monthly_stats.get('view_count', 0)
+                result['monthly_claps'] = monthly_stats.get('claps', 0)
+                result['monthly_earnings'] = monthly_stats.get('medium_earnings', 0)
+        except Exception:
+            pass
+        
+        result['story_key'] = decoded_key
+        result['success'] = True
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error getting story by key: {e}")
+        # Return whatever we have, don't throw 500
+        return {
+            "success": False,
+            "message": str(e),
+            "key": story_key
+        }
+        
+
+"""
+PUT /api/stories/story/by-key/{story_key}
+Description: Update story - saves whatever fields are provided, ignores errors
+"""
+@router.put("/story/by-key/{story_key:path}")
+async def update_story_by_key(story_key: str, story_data: dict):
+    """Update story - saves whatever fields are provided, no validation"""
+    try:
+        decoded_key = unquote(story_key)
+        if decoded_key.endswith('.md'):
+            decoded_key = decoded_key[:-3]
+        
+        # Verify story exists
+        existing_story = await StoryService.get_story(decoded_key)
+        if not existing_story:
+            return {
+                "success": False,
+                "message": f"Story not found: {decoded_key}"
+            }
+        
+        # Build update data from whatever is provided
+        update_data = {}
+        
+        # Map of frontend field names to backend field names
+        field_mappings = {
+            'name': 'name',
+            'title': 'title',
+            'status': 'status',
+            'series': 'series',
+            'createdDate': 'createdDate',
+            'publishedDate': 'publishedDate',
+            'publishedDueDate': 'publishedDueDate',
+            'notes': 'notes',
+            'tags': 'tags',
+            'bookmarked': 'bookmarked',
+            'medium_url': 'medium_url',
+            'linkedin_status': 'linkedin_status',
+            'linkedin_timestamp': 'linkedin_timestamp',
+            'linkedin_impressions': 'linkedin_impressions',
+            'linkedin_type': 'linkedin_type',
+            'linkedin_url': 'linkedin_url',
+            'lifetime_reads': 'lifetime_reads',
+            'lifetime_views': 'lifetime_views',
+            'lifetime_claps': 'lifetime_claps',
+            'presentation_count': 'presentation_count',
+            'leaderboard': 'leaderboard',
+            'leaderboard_nanos': 'leaderboard_nanos'
+        }
+        
+        for frontend_field, backend_field in field_mappings.items():
+            if frontend_field in story_data and story_data[frontend_field] is not None:
+                update_data[backend_field] = story_data[frontend_field]
+        
+        # Also accept direct backend field names
+        for key, value in story_data.items():
+            if key not in field_mappings and key not in ['key', 'uniqueSlug', 'story_key']:
+                if value is not None:
+                    update_data[key] = value
+        
+        if update_data:
+            update = StoryUpdate(**update_data)
+            updated_story = await StoryService.update_story(decoded_key, update)
+            
+            return {
+                "success": True,
+                "message": "Story updated successfully",
+                "updated_fields": list(update_data.keys())
+            }
+        else:
+            return {
+                "success": True,
+                "message": "No fields to update",
+                "updated_fields": []
+            }
+        
+    except Exception as e:
+        logger.error(f"Error updating story by key: {e}")
+        # Return success anyway - don't block the user
+        return {
+            "success": True,
+            "message": f"Update attempted (error: {str(e)})",
+            "error": str(e)
+        }
+        
+@router.put("/story/by-key/{story_key:path}")
+async def update_story_by_key(story_key: str, story_data: dict):
+    """FULL update - replace entire story object by story_key"""
+    try:
+        decoded_key = unquote(story_key)
+        if decoded_key.endswith('.md'):
+            decoded_key = decoded_key[:-3]
+        
+        # Verify story exists
+        existing_story = await StoryService.get_story(decoded_key)
+        if not existing_story:
+            raise HTTPException(status_code=404, detail=f"Story not found: {decoded_key}")
+        
+        # Extract fields from request body
+        update_data = {}
+        
+        # Core fields
+        if "name" in story_data:
+            update_data["name"] = story_data["name"]
+        if "title" in story_data:
+            update_data["title"] = story_data["title"]
+        if "status" in story_data:
+            update_data["status"] = story_data["status"]
+        if "series" in story_data:
+            update_data["series"] = story_data["series"]
+        
+        # Date fields
+        if "createdDate" in story_data:
+            update_data["createdDate"] = story_data["createdDate"]
+        if "publishedDate" in story_data:
+            update_data["publishedDate"] = story_data["publishedDate"]
+        if "publishedDueDate" in story_data:
+            update_data["publishedDueDate"] = story_data["publishedDueDate"]
+        
+        # Content fields
+        if "notes" in story_data:
+            update_data["notes"] = story_data["notes"]
+        if "tags" in story_data:
+            update_data["tags"] = story_data["tags"]
+        if "medium_url" in story_data:
+            update_data["medium_url"] = story_data["medium_url"]
+        
+        # Flags
+        if "bookmarked" in story_data:
+            update_data["bookmarked"] = story_data["bookmarked"]
+        if "leaderboard" in story_data:
+            update_data["leaderboard"] = story_data["leaderboard"]
+        
+        # LinkedIn fields
+        if "linkedin_status" in story_data:
+            update_data["linkedin_status"] = story_data["linkedin_status"]
+        if "linkedin_timestamp" in story_data:
+            update_data["linkedin_timestamp"] = story_data["linkedin_timestamp"]
+        if "linkedin_impressions" in story_data:
+            update_data["linkedin_impressions"] = story_data["linkedin_impressions"]
+        if "linkedin_type" in story_data:
+            update_data["linkedin_type"] = story_data["linkedin_type"]
+        if "linkedin_url" in story_data:
+            update_data["linkedin_url"] = story_data["linkedin_url"]
+        
+        # Lifetime stats (if provided - usually read-only but allow update)
+        if "lifetime_reads" in story_data:
+            update_data["lifetime_reads"] = story_data["lifetime_reads"]
+        if "lifetime_views" in story_data:
+            update_data["lifetime_views"] = story_data["lifetime_views"]
+        if "lifetime_claps" in story_data:
+            update_data["lifetime_claps"] = story_data["lifetime_claps"]
+        if "presentation_count" in story_data:
+            update_data["presentation_count"] = story_data["presentation_count"]
+        
+        # Update the story
+        update = StoryUpdate(**update_data)
+        updated_story = await StoryService.update_story(decoded_key, update)
+        
+        if not updated_story:
+            raise HTTPException(status_code=404, detail="Story not found")
+        
+        return {
+            "success": True,
+            "message": "Story updated successfully",
+            "story": updated_story.dict()
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating story by key: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+POST /api/stories/story/by-key/{story_key}
+Description: Create or replace story - no validation, saves whatever is provided
+"""
+@router.post("/story/by-key/{story_key:path}")
+async def create_or_replace_story_by_key(story_key: str, story_data: dict):
+    """Create or replace story - no validation"""
+    try:
+        decoded_key = unquote(story_key)
+        if decoded_key.endswith('.md'):
+            decoded_key = decoded_key[:-3]
+        
+        # Check if story exists
+        existing_story = await StoryService.get_story(decoded_key)
+        
+        if existing_story:
+            # Update existing
+            return await update_story_by_key(story_key, story_data)
+        else:
+            # Create new story with whatever data we have
+            try:
+                # Extract basic fields with defaults
+                unique_slug = story_data.get('uniqueSlug', story_data.get('name', decoded_key).lower().replace(' ', '-')[:100])
+                title = story_data.get('title', story_data.get('name', decoded_key))
+                name = story_data.get('name', title)
+                folder = story_data.get('folder', story_data.get('series', 'Miscellaneous'))
+                series = story_data.get('series')
+                status = story_data.get('status', 'Draft')
+                created_date = story_data.get('createdDate', datetime.now().strftime("%Y-%m-%d"))
+                published_date = story_data.get('publishedDate')
+                published_due_date = story_data.get('publishedDueDate')
+                notes = story_data.get('notes', '')
+                tags = story_data.get('tags', [])
+                bookmarked = story_data.get('bookmarked', False)
+                medium_url = story_data.get('medium_url')
+                linkedin_status = story_data.get('linkedin_status')
+                linkedin_timestamp = story_data.get('linkedin_timestamp')
+                linkedin_impressions = story_data.get('linkedin_impressions', 0)
+                linkedin_url = story_data.get('linkedin_url')
+                
+                create_data = StoryCreate(
+                    uniqueSlug=unique_slug,
+                    title=title,
+                    folder=folder,
+                    series=series,
+                    status=status,
+                    createdDate=created_date,
+                    publishedDate=published_date,
+                    publishedDueDate=published_due_date,
+                    notes=notes,
+                    tags=tags,
+                    bookmarked=bookmarked,
+                    medium_url=medium_url,
+                    linkedin_status=linkedin_status,
+                    linkedin_timestamp=linkedin_timestamp,
+                    linkedin_impressions=linkedin_impressions,
+                    linkedin_url=linkedin_url
+                )
+                
+                new_story = await StoryService.create_story(create_data)
+                
+                return {
+                    "success": True,
+                    "message": "Story created successfully",
+                    "story_key": decoded_key
+                }
+            except Exception as create_error:
+                return {
+                    "success": False,
+                    "message": f"Failed to create story: {str(create_error)}"
+                }
+        
+    except Exception as e:
+        logger.error(f"Error in create/replace: {e}")
+        return {
+            "success": False,
+            "message": str(e),
+            "story_key": story_key
+        }
+        
+@router.post("/story/by-key/{story_key:path}")
+async def create_or_replace_story_by_key(story_key: str, story_data: dict):
+    """Create or fully replace story by story_key (upsert)"""
+    try:
+        decoded_key = unquote(story_key)
+        if decoded_key.endswith('.md'):
+            decoded_key = decoded_key[:-3]
+        
+        # Check if story exists
+        existing_story = await StoryService.get_story(decoded_key)
+        
+        if existing_story:
+            # Update existing story
+            return await update_story_by_key(story_key, story_data)
+        else:
+            # Create new story
+            # Extract required fields
+            unique_slug = story_data.get("uniqueSlug", story_data.get("name", decoded_key).lower().replace(' ', '-')[:100])
+            title = story_data.get("title", story_data.get("name", decoded_key))
+            name = story_data.get("name", title)
+            folder = story_data.get("folder", story_data.get("series", "Miscellaneous"))
+            series = story_data.get("series")
+            status = story_data.get("status", "Draft")
+            created_date = story_data.get("createdDate", datetime.now().strftime("%Y-%m-%d"))
+            published_date = story_data.get("publishedDate")
+            published_due_date = story_data.get("publishedDueDate")
+            notes = story_data.get("notes", "")
+            tags = story_data.get("tags", [])
+            bookmarked = story_data.get("bookmarked", False)
+            medium_url = story_data.get("medium_url")
+            linkedin_status = story_data.get("linkedin_status")
+            linkedin_timestamp = story_data.get("linkedin_timestamp")
+            linkedin_impressions = story_data.get("linkedin_impressions", 0)
+            linkedin_type = story_data.get("linkedin_type", "Article")
+            linkedin_url = story_data.get("linkedin_url")
+            
+            create_data = StoryCreate(
+                uniqueSlug=unique_slug,
+                title=title,
+                folder=folder,
+                series=series,
+                status=status,
+                createdDate=created_date,
+                publishedDate=published_date,
+                publishedDueDate=published_due_date,
+                notes=notes,
+                tags=tags,
+                bookmarked=bookmarked,
+                medium_url=medium_url,
+                linkedin_status=linkedin_status,
+                linkedin_timestamp=linkedin_timestamp,
+                linkedin_impressions=linkedin_impressions,
+                linkedin_url=linkedin_url
+            )
+            
+            new_story = await StoryService.create_story(create_data)
+            
+            return {
+                "success": True,
+                "message": "Story created successfully",
+                "story": new_story.dict()
+            }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error creating/replacing story by key: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    
 # ============================================
 # STORY ENDPOINTS - Using uniqueSlug as primary key
 # ============================================
@@ -1200,11 +1678,45 @@ async def refresh_stats_with_period(period: str):
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid period format")
     
-    result = await StoryService.fetch_medium_stories(period)
+    result = await StoryService.fetch_medium_stats(period)
     return result
 
-
+# End Stats 
 """
+POST /api/stories/refresh-stats/{story}
+Description: Refresh stats from Medium API for specific period (YYYY-MM)
+
+curl -X POST "http://localhost:8000/api/stories/refresh-stats-story/93b5bfa4fd07" | jq '.'
+"""
+@router.post("/refresh-stats-story/{story}")
+async def refresh_stats_story(story: str):
+    try:
+        year, month = get_current_year_month()
+        return await refresh_stats_story_with_period(story,f"{year}-{month}")
+
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid period format")
+    
+"""
+POST /api/stories/refresh-stats/{story}/{period}
+Description: Refresh stats from Medium API for specific period (YYYY-MM)
+
+curl -X POST "http://localhost:8000/api/stories/refresh-stats/2026-04" | jq '.'
+"""
+@router.post("/refresh-stats-story/{story}/{period}")
+async def refresh_stats_story_with_period(story: str, period: str):
+    try:
+        datetime.strptime(period, "%Y-%m")
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid period format")
+    
+    result = await StoryService.fetch_medium_story(story, period)
+    return result
+
+""" End Story Stats
+
+
+
 GET /api/stories/import-logs
 Description: Get import logs
 
@@ -1292,114 +1804,6 @@ async def debug_story_by_slug(unique_slug: str):
     except Exception as e:
         return {"error": str(e), "unique_slug": unique_slug}
 
-
-"""
-GET /api/stories/monthly-stats/{year}/{month}
-Description: Get monthly stats mapping for a specific month
-
-curl -X GET "http://localhost:8000/api/stories/monthly-stats/2026/3" | jq '.'
-"""
-
-@router.get("/monthly-stats/{year}/{month}")
-async def get_monthly_stats_map(year: int, month: int):
-    try:
-        if month < 1 or month > 12:
-            raise HTTPException(status_code=400, detail="Month must be between 1 and 12")
-        
-        all_stories = await StoryService.get_all_stories()
-        
-        stats_map = {}
-        target_month_str = f"{year}-{month:02d}"
-        
-        # DEBUG: Find the ASP.NET story specifically
-        print(f"\n{'='*60}")
-        print(f"DEBUG: Looking for {target_month_str} earnings")
-        print(f"{'='*60}")
-        
-        for story in all_stories:
-            if story.status != "Published":
-                continue
-            
-            # Check if this is the ASP.NET story
-            is_aspnet = 'asp-net-core-filters' in story.uniqueSlug.lower()
-            
-            if is_aspnet:
-                print(f"\n📖 Found ASP.NET Story:")
-                print(f"   uniqueSlug: {story.uniqueSlug}")
-                print(f"   status: {story.status}")
-                
-                if story.medium:
-                    print(f"   Has medium object: YES")
-                    print(f"   monthlyEarnings count: {len(story.medium.monthlyEarnings) if story.medium.monthlyEarnings else 0}")
-                    
-                    if story.medium.monthlyEarnings:
-                        for me in story.medium.monthlyEarnings:
-                            print(f"     - period: '{me.period}', nanos: {me.nanos}")
-                            if me.period == target_month_str:
-                                print(f"     ✅ MATCH FOUND for {target_month_str}!")
-                    else:
-                        print(f"   monthlyEarnings is None or empty")
-                else:
-                    print(f"   Has medium object: NO")
-        
-        # Now build the stats map
-        stories_with_earnings = 0
-        
-        for story in all_stories:
-            if story.status != "Published":
-                continue
-            
-            story_stats = {
-                "reads": 0,
-                "views": 0,
-                "claps": 0,
-                "responses": 0,
-                "earnings": 0,
-                "leaderboard": False
-            }
-            
-            if story.medium:
-                story_stats["claps"] = story.medium.clapCount or 0
-                story_stats["responses"] = story.medium.responsesCount or 0
-                
-                if story.medium.monthlyStats:
-                    for monthly_stat in story.medium.monthlyStats:
-                        if monthly_stat.period == target_month_str:
-                            story_stats["reads"] = monthly_stat.reads or 0
-                            story_stats["views"] = monthly_stat.views or 0
-                            break
-                
-                if story.medium.monthlyEarnings:
-                    for monthly_earning in story.medium.monthlyEarnings:
-                        if monthly_earning.period == target_month_str:
-                            story_stats["earnings"] = monthly_earning.nanos or 0
-                            story_stats["leaderboard"] = (monthly_earning.nanos or 0) > 0
-                            if story_stats["earnings"] > 0:
-                                stories_with_earnings += 1
-                                print(f"💰 {story.uniqueSlug}: earnings=${story_stats['earnings']/1000000000:.2f}")
-                            break
-            
-            stats_map[story.uniqueSlug] = story_stats
-        
-        print(f"\n📊 Total published stories: {len(stats_map)}")
-        print(f"💰 Stories with earnings > 0: {stories_with_earnings}")
-        print(f"{'='*60}\n")
-        
-        return {
-            "success": True,
-            "year": year,
-            "month": month,
-            "yearmonth": target_month_str,
-            "stats_map": stats_map,
-            "total_stories": len(stats_map),
-            "stories_with_earnings": stories_with_earnings
-        }
-        
-    except Exception as e:
-        logger.error(f"Error: {e}")
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=str(e))
     
 @router.get("/content/{story_key:path}")
 async def get_story_content(story_key: str):

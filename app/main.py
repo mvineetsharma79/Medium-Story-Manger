@@ -8,7 +8,7 @@ import logging
 from contextlib import asynccontextmanager
 
 from app.services.medium_api_service import get_medium_api_service
-from app.routers import dashboard, stories, series, calendar, settings as settings_router, monthly
+from app.routers import debug, dashboard, stories, series, calendar, settings as settings_router, monthly
 from config import settings
 from app.services.file_service import get_stories_root
 
@@ -92,6 +92,7 @@ app.include_router(series.router, prefix="/api/series", tags=["series"])
 app.include_router(calendar.router, prefix="/api/calendar", tags=["calendar"])
 app.include_router(settings_router.router, prefix="/api/settings", tags=["settings"])
 app.include_router(monthly.router, prefix="/api/monthly", tags=["monthly"])
+app.include_router(debug.router, prefix="/api/debug", tags=["debug"])
 
 # ============================================
 # PAGE ROUTES
