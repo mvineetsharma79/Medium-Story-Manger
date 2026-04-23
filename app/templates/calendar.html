@@ -5,94 +5,137 @@
 {% block content %}
 <div class="page-header d-flex justify-content-between align-items-center mb-3">
     <h1 class="h3 mb-0">Publishing Calendar</h1>
-    <button class="btn btn-sm btn-primary" onclick="regenerateCalendar()">
-        <i class="bi bi-arrow-repeat"></i> Regenerate
-    </button>
+    <div>
+        <button class="btn btn-sm btn-primary" onclick="scheduleDrafts()">
+            <i class="bi bi-calendar-plus"></i> Schedule Drafts
+        </button>
+        <button class="btn btn-sm btn-secondary ms-2" onclick="toggleCalendarView()">
+            <i class="bi bi-grid-3x3-gap-fill"></i> <span id="viewToggleText">Switch to List</span>
+        </button>
+    </div>
 </div>
 
 <!-- Summary Cards -->
 <div class="row g-3 mb-4">
-    <div class="col-md-3">
-        <div class="card bg-info text-white">
+    <div class="col-md-2">
+        <div class="card stat-card bg-primary text-white">
             <div class="card-body">
-                <h6>Scheduled</h6>
-                <h3 id="scheduledCount">-</h3>
+                <strong>Scheduled</strong>
+                <h2 id="scheduledCount">-</h2>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card bg-warning text-white">
+        <div class="card stat-card bg-warning text-white">
             <div class="card-body">
-                <h6>Stories/Week</h6>
-                <h3 id="storiesPerWeek">-</h3>
+                <strong>Stories/Week</strong>>
+                <h2 id="storiesPerWeek">-</h2>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card bg-secondary text-white">
+        <div class="card stat-card bg-secondary text-white">
             <div class="card-body">
-                <h6>Series Spacing</h6>
-                <h3 id="seriesSpacing">-</h3>
+                <strong>Spacing</strong>
+                <h2 id="seriesSpacing">-</h2>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card bg-dark text-white">
+        <div class="card stat-card bg-dark text-white">
             <div class="card-body">
-                <h6>Remaining</h6>
-                <h3 id="remainingCount">-</h3>
+                <strong>Remaining</strong>
+                <h2 id="remainingCount">-</h2>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Series Breakdown - Clickable links -->
-<div class="card mb-3">
-    <div class="card-header py-1">
-        <small><i class="bi bi-collection"></i> Series Breakdown (click to filter)</small>
-    </div>
-    <div class="card-body p-2">
-        <div id="seriesBreakdown" class="d-flex flex-wrap gap-1">
-            <div class="text-muted small">Loading...</div>
+<!-- Calendar Grid View -->
+<div id="calendarGridView">
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button class="calendar-nav-btn" onclick="previousMonth()">
+                <i class="bi bi-chevron-left"></i> Previous
+            </button>
+            <h2 id="currentMonthYear">Loading...</h2>
+            <button class="calendar-nav-btn" onclick="nextMonth()">
+                Next <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+        
+        <div class="weekday-header" id="weekdayHeader"></div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+        
+        <div class="calendar-legend">
+            <div class="legend-item">
+                <div class="legend-color published"></div>
+                <span>✅ Published (<span id="legendPublishedCount">0</span>)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color scheduled"></div>
+                <span>⏰ Published Due (<span id="legendPublishedDueCount">0</span>)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color ready"></div>
+                <span>🚀 Ready (<span id="legendReadyCount">0</span>)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color done"></div>
+                <span>✓ Done (<span id="legendDoneCount">0</span>)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color draft"></div>
+                <span>📝 Draft (<span id="legendDraftCount">0</span>)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color total"></div>
+                <span>📊 Total (<span id="legendTotalCount">0</span>)</span>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Sortable Calendar Table -->
-<div class="table-responsive">
-    <table class="table table-sm table-hover">
-        <thead id="calendarTableHeader" class="table-light">
-            <tr>
-                <th class="sortable" data-sort="date" onclick="sortCalendar('date')" style="cursor: pointer; width: 120px;">
-                    Date <i class="bi bi-arrow-down-up"></i>
-                </th>
-                <th class="sortable" data-sort="name" onclick="sortCalendar('name')" style="cursor: pointer;">
-                    Story <i class="bi bi-arrow-down-up"></i>
-                </th>
-                <th class="sortable" data-sort="series" onclick="sortCalendar('series')" style="cursor: pointer; width: 150px;">
-                    Series <i class="bi bi-arrow-down-up"></i>
-                </th>
-                <th class="sortable" data-sort="part" onclick="sortCalendar('part')" style="cursor: pointer; width: 80px;">
-                    Part <i class="bi bi-arrow-down-up"></i>
-                </th>
-                <th class="sortable" data-sort="read_time" onclick="sortCalendar('read_time')" style="cursor: pointer; width: 100px;">
-                    Read Time <i class="bi bi-arrow-down-up"></i>
-                </th>
-                <th style="width: 100px;">Actions</th>
-            </tr>
-        </thead>
-        <tbody id="calendarTableBody">
-            <tr>
-                <td colspan="6" class="text-center text-muted py-4">
-                    <div class="spinner-border spinner-border-sm me-2" role="status"></div>
-                    Loading calendar...
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<!-- Calendar List View -->
+<div id="calendarListView" style="display: none;">
+    <div class="card mb-3">
+        <div class="card-header py-1">
+            <small><i class="bi bi-collection"></i> Series Breakdown (click to filter)</small>
+        </div>
+        <div class="card-body p-2">
+            <div id="seriesBreakdown" class="d-flex flex-wrap gap-1"></div>
+        </div>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-sm table-hover">
+            <thead id="calendarTableHeader" class="table-light">
+                <tr>
+                    <th class="sortable" data-sort="date" onclick="sortStoriesList('date')" style="cursor: pointer; width: 100px;">
+                        Due Date <i class="bi bi-arrow-down-up"></i>
+                    </th>
+                    <th class="sortable" data-sort="name" onclick="sortStoriesList('name')" style="cursor: pointer;">
+                        Story Name <i class="bi bi-arrow-down-up"></i>
+                    </th>
+                    <th class="sortable" data-sort="series" onclick="sortStoriesList('series')" style="cursor: pointer; width: 150px;">
+                        Series <i class="bi bi-arrow-down-up"></i>
+                    </th>
+                    <th class="sortable" data-sort="status" onclick="sortStoriesList('status')" style="cursor: pointer; width: 120px;">
+                        Status <i class="bi bi-arrow-down-up"></i>
+                    </th>
+                    <th style="width: 80px;">Reads</th>
+                    <th style="width: 100px;">Read Time</th>
+                    <th style="width: 180px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="calendarTableBody"></tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script src="/static/js/calendar.js"></script>
+<script src="/static/js/edit-story.js"></script>
+
 {% endblock %}
