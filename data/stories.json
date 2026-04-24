@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-04-24T12:00:57.633632",
+  "last_updated": "2026-04-24T17:14:03.596854",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl": {
       "uniqueSlug": "solid-principles-part-2---single-responsibility-principl",
@@ -82,7 +82,7 @@
       "rel_path": "SOLID%20Principles/SOLID%20Principles%3A%20Building%20Spotify's%20Unshakable%20Foundation.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.463877",
+      "lastUpdated": "2026-04-24T17:12:58.075149",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -132,7 +132,7 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 205,
+          "presentations": 207,
           "views": 19,
           "reads": 8,
           "__typename": "SummaryPostStat"
@@ -146,7 +146,13 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 205,
+            "presentations": 207,
+            "views": 19,
+            "reads": 8
+          },
+          {
+            "period": "2026-4",
+            "presentations": 206,
             "views": 19,
             "reads": 8
           }
@@ -154,6 +160,12 @@
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 210000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 210000000
@@ -264,7 +276,7 @@
       "rel_path": "Architectural%20Remediation%20Framework%3A%20Eliminating%20the%2012%20Silent%20Killers%20in%20.NET%2010%20Web%20APIs/Architectural%20Remediation%20Framework%3A%20Eliminating%20the%2012%20Silent%20Killers%20in%20.NET%2010%20Web%20APIs%20-%20Part%201.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.461656",
+      "lastUpdated": "2026-04-24T17:12:58.072639",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -314,8 +326,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 1279,
-          "views": 302,
+          "presentations": 1282,
+          "views": 306,
           "reads": 89,
           "__typename": "SummaryPostStat"
         },
@@ -328,15 +340,21 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1279,
-            "views": 302,
+            "presentations": 1282,
+            "views": 306,
             "reads": 89
           },
           {
             "period": "2026-03",
-            "presentations": 1247,
-            "views": 289,
-            "reads": 86
+            "presentations": 1282,
+            "views": 306,
+            "reads": 89
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1282,
+            "views": 306,
+            "reads": 89
           }
         ],
         "monthlyEarnings": [
@@ -351,6 +369,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 580000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 650000000
           }
         ]
       }
@@ -573,7 +597,7 @@
       "rel_path": "API%20Security%20Arsenal/API%20Security%20Arsenal%3A%2015%20Essential%20Tools%20Every%20Engineer%20Should%20Know.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.464004",
+      "lastUpdated": "2026-04-24T17:12:58.075019",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -640,11 +664,23 @@
             "presentations": 527,
             "views": 16,
             "reads": 5
+          },
+          {
+            "period": "2026-4",
+            "presentations": 527,
+            "views": 16,
+            "reads": 5
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 210000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 210000000
@@ -709,7 +745,7 @@
       "rel_path": "API%20Security%20Arsenal/API%20Security%20Arsenal%3A%20Securing%20the%20Perimeter%20with%20Gateways%20&%20Ingress%20Controllers.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.466297",
+      "lastUpdated": "2026-04-24T17:12:58.077399",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -753,7 +789,7 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 287,
+          "presentations": 290,
           "views": 14,
           "reads": 5,
           "__typename": "SummaryPostStat"
@@ -767,7 +803,13 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 287,
+            "presentations": 290,
+            "views": 14,
+            "reads": 5
+          },
+          {
+            "period": "2026-4",
+            "presentations": 288,
             "views": 14,
             "reads": 5
           }
@@ -775,6 +817,12 @@
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 80000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 80000000
@@ -2290,7 +2338,7 @@
       "rel_path": "Clean%20Code%20Practices/Analyzing%20Software%20Code%20—%20Maintainability%20Index.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-19T20:44:52.192012",
+      "lastUpdated": "2026-04-24T17:05:38.165093",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -2335,13 +2383,13 @@
           {
             "period": "2026-03",
             "presentations": null,
-            "views": 1580,
+            "views": 1585,
             "reads": 733
           },
           {
             "period": "2026-02",
             "presentations": null,
-            "views": 1580,
+            "views": 1585,
             "reads": 733
           }
         ],
@@ -2441,7 +2489,7 @@
       "rel_path": "LINQ%20Reimagined%3A%20A%20Deep%20Dive%20into%20.NET%2010's%20Query%20Evolution/LINQ%20Reimagined%3A%20A%20Deep%20Dive%20into%20.NET%2010's%20Query%20Evolution.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.461518",
+      "lastUpdated": "2026-04-24T17:12:58.072502",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -2491,8 +2539,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 3247,
-          "views": 256,
+          "presentations": 3248,
+          "views": 298,
           "reads": 50,
           "__typename": "SummaryPostStat"
         },
@@ -2500,13 +2548,19 @@
           "period": "total",
           "currencyCode": "USD",
           "units": 0,
-          "nanos": 740000000
+          "nanos": 760000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
+            "presentations": 3248,
+            "views": 298,
+            "reads": 50
+          },
+          {
+            "period": "2026-4",
             "presentations": 3247,
-            "views": 256,
+            "views": 274,
             "reads": 50
           }
         ],
@@ -2515,7 +2569,13 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 740000000
+            "nanos": 760000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 760000000
           }
         ]
       }
@@ -2531,7 +2591,7 @@
       "rel_path": "Enterprise%20AI%20Architecture%3A%20A%20Comprehensive%20Technical%20Blueprint%20-%204%20Parts/Enterprise%20AI%20Architecture%20Part%201%3A%20The%20Foundation%20-%20User%20Access%20&%20Data%20Ingestion.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.466818",
+      "lastUpdated": "2026-04-24T17:12:58.078191",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -2581,7 +2641,7 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 735,
+          "presentations": 738,
           "views": 88,
           "reads": 17,
           "__typename": "SummaryPostStat"
@@ -2595,15 +2655,21 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 735,
+            "presentations": 738,
             "views": 88,
             "reads": 17
           },
           {
             "period": "2026-03",
-            "presentations": 719,
-            "views": 81,
-            "reads": 16
+            "presentations": 738,
+            "views": 88,
+            "reads": 17
+          },
+          {
+            "period": "2026-4",
+            "presentations": 738,
+            "views": 88,
+            "reads": 17
           }
         ],
         "monthlyEarnings": [
@@ -2618,6 +2684,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 290000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 60000000
           }
         ]
       }
@@ -4128,7 +4200,7 @@
       "rel_path": "Design%20Patterns/Design%20Patterns%3A%20Part%201%20-%20%20Redefining%20Design%20Patterns.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.463621",
+      "lastUpdated": "2026-04-24T17:12:58.074755",
       "notes": "Pending Linkedin from previous story Update",
       "bookmarked": true,
       "leaderboard": false,
@@ -4179,7 +4251,7 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 174,
+          "presentations": 178,
           "views": 16,
           "reads": 5,
           "__typename": "SummaryPostStat"
@@ -4193,7 +4265,13 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 174,
+            "presentations": 178,
+            "views": 16,
+            "reads": 5
+          },
+          {
+            "period": "2026-4",
+            "presentations": 175,
             "views": 16,
             "reads": 5
           }
@@ -4201,6 +4279,12 @@
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 230000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 230000000
@@ -4334,7 +4418,7 @@
       "rel_path": "GitHub/GitHub%20Copilot%20in%20the%20IDE%3A%20Your%20AI%20Pair%20Programmer,%20Always%20by%20Your%20Side.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.462839",
+      "lastUpdated": "2026-04-24T17:12:58.073964",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -4401,11 +4485,23 @@
             "presentations": 825,
             "views": 62,
             "reads": 16
+          },
+          {
+            "period": "2026-4",
+            "presentations": 825,
+            "views": 62,
+            "reads": 16
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 300000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 300000000
@@ -4516,7 +4612,7 @@
       "rel_path": "GitHub/GitHub%20Copilot%3A%20The%20AI-Powered%20Development%20Ecosystem.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.462039",
+      "lastUpdated": "2026-04-24T17:12:58.073030",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -4567,7 +4663,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 1449,
-          "views": 225,
+          "views": 226,
           "reads": 55,
           "__typename": "SummaryPostStat"
         },
@@ -4581,14 +4677,20 @@
           {
             "period": "2026-04",
             "presentations": 1449,
-            "views": 225,
+            "views": 226,
             "reads": 55
           },
           {
             "period": "2026-03",
-            "presentations": 1429,
-            "views": 211,
-            "reads": 54
+            "presentations": 1449,
+            "views": 226,
+            "reads": 55
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1449,
+            "views": 225,
+            "reads": 55
           }
         ],
         "monthlyEarnings": [
@@ -4603,6 +4705,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 140000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 440000000
           }
         ]
       }
@@ -4849,7 +4957,7 @@
       "rel_path": "Publishing%20.NET%2010%20Apps%20as%20Container%20Images/Publishing%20.NET%2010%20Apps%20as%20Container%20Images%3A%20A%20Complete%20Guide%20to%209%20Deployment%20Approaches%20-%20Azure.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.461225",
+      "lastUpdated": "2026-04-24T17:12:58.072231",
       "notes": "",
       "bookmarked": true,
       "leaderboard": false,
@@ -4899,8 +5007,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 1486,
-          "views": 357,
+          "presentations": 1491,
+          "views": 382,
           "reads": 96,
           "__typename": "SummaryPostStat"
         },
@@ -4913,15 +5021,21 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1486,
-            "views": 357,
+            "presentations": 1491,
+            "views": 382,
             "reads": 96
           },
           {
             "period": "2026-03",
-            "presentations": 1341,
-            "views": 282,
-            "reads": 88
+            "presentations": 1491,
+            "views": 382,
+            "reads": 96
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1487,
+            "views": 373,
+            "reads": 96
           }
         ],
         "monthlyEarnings": [
@@ -4936,6 +5050,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 170000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 930000000
           }
         ]
       }
@@ -5411,7 +5531,7 @@
       "rel_path": "DevOps/The%20Complete%20Multi-Language%20Containerization%20Library%3A%20.NET,%20Python,%20and%20Node.js%20on%20Azure%20and%20AWS.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.466174",
+      "lastUpdated": "2026-04-24T17:12:58.077668",
       "notes": "Published 20 Apr 3:30 PM\n.Net 10 Azure started Publishing .NET 10 Apps as Container Images: A Complete Guide to 9 Deployment Approaches — Azure",
       "bookmarked": true,
       "leaderboard": false,
@@ -5462,7 +5582,7 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 211,
+          "presentations": 215,
           "views": 16,
           "reads": 7,
           "__typename": "SummaryPostStat"
@@ -5476,7 +5596,13 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 211,
+            "presentations": 215,
+            "views": 16,
+            "reads": 7
+          },
+          {
+            "period": "2026-4",
+            "presentations": 212,
             "views": 16,
             "reads": 7
           }
@@ -5484,6 +5610,12 @@
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 80000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 80000000
@@ -5525,7 +5657,7 @@
       "rel_path": "BenchmarkDotNet%20With%20.NET%2010%20Perf%20Optimization/BenchmarkDotNet%20With%20.NET%2010%20Perf%20Optimization%20–%20Foundations%20&%20Methodology%20for%20C#%20Devs%20-%20Part%201.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.462703",
+      "lastUpdated": "2026-04-24T17:12:58.073708",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -5575,8 +5707,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 181,
-          "views": 16,
+          "presentations": 183,
+          "views": 18,
           "reads": 6,
           "__typename": "SummaryPostStat"
         },
@@ -5589,14 +5721,26 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 181,
-            "views": 16,
+            "presentations": 183,
+            "views": 18,
+            "reads": 6
+          },
+          {
+            "period": "2026-4",
+            "presentations": 182,
+            "views": 17,
             "reads": 6
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 320000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 320000000
@@ -5753,7 +5897,7 @@
       "rel_path": "AI%20Engineering/Artificial%20Intelligence%3A%20From%20Basic%20Concepts%20to%20Agentic%20Systems%20—%20Hands-On%20Implementation%20Guide.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.470078",
+      "lastUpdated": "2026-04-24T17:12:58.081901",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -5823,7 +5967,13 @@
           },
           {
             "period": "2026-03",
-            "presentations": 429,
+            "presentations": 436,
+            "views": 9,
+            "reads": 3
+          },
+          {
+            "period": "2026-4",
+            "presentations": 436,
             "views": 9,
             "reads": 3
           }
@@ -5840,6 +5990,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 240000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
           }
         ]
       }
@@ -5878,7 +6034,7 @@
       "rel_path": "AI%20Engineering/AI%20Agent%20Engineering%201%20-%20Foundation%20&%20LLM%20Fundamentals.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.467191",
+      "lastUpdated": "2026-04-24T17:12:58.078450",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -5945,11 +6101,23 @@
             "presentations": 900,
             "views": 22,
             "reads": 8
+          },
+          {
+            "period": "2026-4",
+            "presentations": 900,
+            "views": 22,
+            "reads": 8
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 50000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 50000000
@@ -5968,7 +6136,7 @@
       "rel_path": "AI%20Engineering/AI%20From%20the%20Top%20Down%3A%20How%20Agentic%20Systems,%20Generative%20Models,%20and%20Symbolic%20Logic%20Build%20Intelligence.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.469154",
+      "lastUpdated": "2026-04-24T17:12:58.081245",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6015,14 +6183,20 @@
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 877,
-            "views": 56,
-            "reads": 4
+            "presentations": 883,
+            "views": 63,
+            "reads": 5
           },
           {
             "period": "2026-04",
             "presentations": 883,
-            "views": 62,
+            "views": 63,
+            "reads": 5
+          },
+          {
+            "period": "2026-4",
+            "presentations": 883,
+            "views": 63,
             "reads": 5
           }
         ],
@@ -6038,6 +6212,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 20000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
           }
         ],
         "readingTime": 24.526415094339622,
@@ -6047,7 +6227,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 883,
-          "views": 62,
+          "views": 63,
           "reads": 5,
           "__typename": "SummaryPostStat"
         },
@@ -6093,7 +6273,7 @@
       "rel_path": "AI%20Engineering/AI%20Engineering%3A%20The%205-Step%20Blueprint%20to%20Building%20and%20Deploying%20AI%20Agents%20That%20Scale%20to%20Millions.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.470537",
+      "lastUpdated": "2026-04-24T17:12:58.082033",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6143,7 +6323,7 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 703,
+          "presentations": 704,
           "views": 57,
           "reads": 5,
           "__typename": "SummaryPostStat"
@@ -6157,7 +6337,13 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 703,
+            "presentations": 704,
+            "views": 57,
+            "reads": 5
+          },
+          {
+            "period": "2026-4",
+            "presentations": 704,
             "views": 57,
             "reads": 5
           }
@@ -6165,6 +6351,12 @@
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 10000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 10000000
@@ -6254,7 +6446,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/.NET%2010%20Is%20Here %20-%20 A%20Complete%20Deep%20Dive%20into%20the%20Next%20Evolution%20of%20the%20Platform.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.467948",
+      "lastUpdated": "2026-04-24T17:12:58.079852",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6303,7 +6495,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 345,
-          "views": 145,
+          "views": 148,
           "reads": 33,
           "__typename": "SummaryPostStat"
         },
@@ -6317,20 +6509,26 @@
           {
             "period": "2026-04",
             "presentations": 345,
-            "views": 145,
+            "views": 148,
             "reads": 33
           },
           {
             "period": "2026-03",
-            "presentations": 339,
-            "views": 140,
-            "reads": 32
+            "presentations": 345,
+            "views": 148,
+            "reads": 33
           },
           {
             "period": "2026-02",
-            "presentations": 339,
-            "views": 140,
-            "reads": 32
+            "presentations": 345,
+            "views": 148,
+            "reads": 33
+          },
+          {
+            "period": "2026-4",
+            "presentations": 345,
+            "views": 148,
+            "reads": 33
           }
         ],
         "monthlyEarnings": [
@@ -6351,6 +6549,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 150000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 30000000
           }
         ]
       }
@@ -6390,7 +6594,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/From%20REST%20to%20gRPC%3A%20A%20Unified%20Architecture%20Across%20NET%2010,%20NodeJS,%20and%20Python.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.467068",
+      "lastUpdated": "2026-04-24T17:12:58.078583",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6460,8 +6664,14 @@
           },
           {
             "period": "2026-03",
-            "presentations": 497,
-            "views": 26,
+            "presentations": 514,
+            "views": 28,
+            "reads": 9
+          },
+          {
+            "period": "2026-4",
+            "presentations": 514,
+            "views": 28,
             "reads": 9
           }
         ],
@@ -6477,6 +6687,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 60000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 50000000
           }
         ]
       }
@@ -6515,7 +6731,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/Achieving%2010x%20Faster%20Serialization%20in%20.NET%20Core.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T12:00:57.633573",
+      "lastUpdated": "2026-04-24T17:12:58.071534",
       "notes": "Should Update with Mermaid",
       "bookmarked": true,
       "leaderboard": false,
@@ -6566,7 +6782,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 7949,
-          "views": 4047,
+          "views": 4048,
           "reads": 2171,
           "__typename": "SummaryPostStat"
         },
@@ -6580,25 +6796,19 @@
           {
             "period": "2026-04",
             "presentations": 7949,
-            "views": 4047,
+            "views": 4048,
             "reads": 2171
           },
           {
             "period": "2026-03",
-            "presentations": 7947,
-            "views": 4035,
-            "reads": 2168
+            "presentations": 7949,
+            "views": 4048,
+            "reads": 2171
           },
           {
             "period": "2026-02",
-            "presentations": 7947,
-            "views": 4035,
-            "reads": 2168
-          },
-          {
-            "period": "2026-4",
             "presentations": 7949,
-            "views": 4047,
+            "views": 4048,
             "reads": 2171
           }
         ],
@@ -6628,7 +6838,11 @@
             "nanos": 40000000
           }
         ]
-      }
+      },
+      "lifetime_reads": 2171,
+      "lifetime_views": 4048,
+      "presentation_count": 7949,
+      "feed_click_through_rate": 0.17045150948437082
     },
     "Dotnet Python NodeJS/.NET 10 Minimal APIs + Reactive Programming": {
       "uniqueSlug": ".net-10-minimal-apis-+-reactive-programming",
@@ -6641,7 +6855,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/.NET%2010%20Minimal%20APIs%20+%20Reactive%20Programming.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.469001",
+      "lastUpdated": "2026-04-24T17:12:58.078837",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6690,35 +6904,41 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 620,
-          "views": 88,
-          "reads": 47,
+          "presentations": 623,
+          "views": 90,
+          "reads": 49,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
           "period": "total",
           "currencyCode": "USD",
           "units": 0,
-          "nanos": 140000000
+          "nanos": 160000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 620,
-            "views": 88,
-            "reads": 47
+            "presentations": 623,
+            "views": 90,
+            "reads": 49
           },
           {
             "period": "2026-03",
-            "presentations": 612,
-            "views": 87,
-            "reads": 47
+            "presentations": 623,
+            "views": 90,
+            "reads": 49
           },
           {
             "period": "2026-02",
-            "presentations": 612,
-            "views": 87,
-            "reads": 47
+            "presentations": 623,
+            "views": 90,
+            "reads": 49
+          },
+          {
+            "period": "2026-4",
+            "presentations": 623,
+            "views": 90,
+            "reads": 49
           }
         ],
         "monthlyEarnings": [
@@ -6726,7 +6946,7 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 20000000
+            "nanos": 40000000
           },
           {
             "period": "2026-03",
@@ -6739,6 +6959,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 70000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 40000000
           }
         ]
       }
@@ -6869,7 +7095,7 @@
       "rel_path": "%20Publishing%20Python%20FastAPI%20Apps%20as%20Container%20Images/Publishing%20Python%20FastAPI%20Apps%20as%20Container%20Images%3A%20A%20Complete%20Guide%20to%2010%20Deployment%20Approaches.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.469654",
+      "lastUpdated": "2026-04-24T17:12:58.081510",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6919,7 +7145,7 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 449,
+          "presentations": 451,
           "views": 13,
           "reads": 2,
           "__typename": "SummaryPostStat"
@@ -6933,7 +7159,13 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 449,
+            "presentations": 451,
+            "views": 13,
+            "reads": 2
+          },
+          {
+            "period": "2026-4",
+            "presentations": 450,
             "views": 13,
             "reads": 2
           }
@@ -6941,6 +7173,12 @@
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 20000000
@@ -7327,7 +7565,7 @@
       "rel_path": "Miscellaneous/The%20Desktop%20Phoenix%3A%20An%20Architect's%20Guide%20to%20WPF%20in%20a%20Multi-Platform%20World.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-19T20:44:36.428101",
+      "lastUpdated": "2026-04-24T16:57:04.769630",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7374,8 +7612,8 @@
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 459,
-            "views": 51,
+            "presentations": 469,
+            "views": 58,
             "reads": 7
           }
         ],
@@ -7424,7 +7662,7 @@
       "rel_path": "Miscellaneous/ASP.NET%20Core%20Filters%20Deep%20Dive%3A%20Building%20Maintainable%20Web%20APIs%20with%20.NET%2010%20and%20Reactive%20Extensions.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.461358",
+      "lastUpdated": "2026-04-24T17:12:58.072362",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7474,8 +7712,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 2443,
-          "views": 846,
+          "presentations": 2459,
+          "views": 913,
           "reads": 138,
           "__typename": "SummaryPostStat"
         },
@@ -7483,20 +7721,20 @@
           "period": "total",
           "currencyCode": "USD",
           "units": 2,
-          "nanos": 100000000
+          "nanos": 110000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 2443,
-            "views": 846,
+            "presentations": 2459,
+            "views": 913,
             "reads": 138
           },
           {
             "period": "2026-03",
-            "presentations": 2359,
-            "views": 723,
-            "reads": 132
+            "presentations": 2459,
+            "views": 913,
+            "reads": 138
           }
         ],
         "monthlyEarnings": [
@@ -7504,16 +7742,26 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 890000000
+            "nanos": 900000000
           },
           {
             "period": "2026-03",
             "currencyCode": "USD",
             "units": 1,
             "nanos": 210000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 900000000
           }
         ]
-      }
+      },
+      "lifetime_reads": 138,
+      "lifetime_views": 913,
+      "presentation_count": 2459,
+      "feed_click_through_rate": 0.09752321981424149
     },
     "Modernizing the Monolith/Modernizing the Monolith: Docker, CI CD & Azure Cloud Deployment — Part 3": {
       "uniqueSlug": "modernizing-the-monolith-docker,-ci-cd-&-azure-cloud-deployment-—-part-3",
@@ -7549,7 +7797,7 @@
       "rel_path": "Modernizing%20the%20Monolith/Modernizing%20the%20Monolith%3A%20Migration%20Strategy%20&%20.NET%2010%20Architecture%20—%20Part%201.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.460963",
+      "lastUpdated": "2026-04-24T17:12:58.071968",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7597,7 +7845,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31749,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "readingTime": 11.530503144654087,
@@ -7606,8 +7854,8 @@
         "responsesCount": 1,
         "totalStats": {
           "period": "total",
-          "presentations": 877,
-          "views": 268,
+          "presentations": 878,
+          "views": 269,
           "reads": 72,
           "__typename": "SummaryPostStat"
         },
@@ -7620,21 +7868,27 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 877,
-            "views": 268,
+            "presentations": 878,
+            "views": 269,
             "reads": 72
           },
           {
             "period": "2026-03",
-            "presentations": 860,
-            "views": 261,
-            "reads": 69
+            "presentations": 878,
+            "views": 269,
+            "reads": 72
           },
           {
             "period": "2026-02",
-            "presentations": 860,
-            "views": 261,
-            "reads": 69
+            "presentations": 878,
+            "views": 269,
+            "reads": 72
+          },
+          {
+            "period": "2026-4",
+            "presentations": 878,
+            "views": 269,
+            "reads": 72
           }
         ],
         "monthlyEarnings": [
@@ -7655,6 +7909,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 70000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 1,
+            "nanos": 410000000
           }
         ]
       }
@@ -7670,7 +7930,7 @@
       "rel_path": "Modernizing%20the%20Monolith/Modernizing%20the%20Monolith%3A%20State,%20Async%20&%20Microservices%20Deep%20Dive%20—%20Part%202.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.465131",
+      "lastUpdated": "2026-04-24T17:12:58.076638",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7718,7 +7978,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31749,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "readingTime": 37.22641509433963,
@@ -7727,7 +7987,7 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 401,
+          "presentations": 402,
           "views": 52,
           "reads": 10,
           "__typename": "SummaryPostStat"
@@ -7741,15 +8001,21 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 401,
+            "presentations": 402,
             "views": 52,
             "reads": 10
           },
           {
             "period": "2026-03",
-            "presentations": 394,
-            "views": 48,
-            "reads": 9
+            "presentations": 402,
+            "views": 52,
+            "reads": 10
+          },
+          {
+            "period": "2026-4",
+            "presentations": 402,
+            "views": 52,
+            "reads": 10
           }
         ],
         "monthlyEarnings": [
@@ -7764,6 +8030,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 70000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 110000000
           }
         ]
       }
@@ -7779,7 +8051,7 @@
       "rel_path": "Modernizing%20the%20Monolith/Modernizing%20the%20Monolith%3A%20Kubernetes%20on%20AKS%20Production%20Guide%20—%20Part%204.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.466942",
+      "lastUpdated": "2026-04-24T17:12:58.078319",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7829,8 +8101,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 4937,
-          "views": 23,
+          "presentations": 4939,
+          "views": 24,
           "reads": 5,
           "__typename": "SummaryPostStat"
         },
@@ -7843,14 +8115,26 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 4937,
-            "views": 23,
+            "presentations": 4939,
+            "views": 24,
+            "reads": 5
+          },
+          {
+            "period": "2026-4",
+            "presentations": 4939,
+            "views": 24,
             "reads": 5
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 60000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 60000000
@@ -8398,7 +8682,7 @@
       "rel_path": "SQL%20Mechanic%20to%20Data%20Architect/SQL%20Mechanic%20to%20Architect%3A%20Database%20UDFs,%20Stored%20Procedures,%20&%20Production-Grade%20Patterns%20—%20Part%202.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.463752",
+      "lastUpdated": "2026-04-24T17:12:58.074889",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -8448,7 +8732,7 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 4980,
+          "presentations": 4981,
           "views": 31,
           "reads": 8,
           "__typename": "SummaryPostStat"
@@ -8462,7 +8746,13 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 4980,
+            "presentations": 4981,
+            "views": 31,
+            "reads": 8
+          },
+          {
+            "period": "2026-4",
+            "presentations": 4981,
             "views": 31,
             "reads": 8
           }
@@ -8470,6 +8760,12 @@
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 220000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 220000000
@@ -8534,7 +8830,7 @@
       "rel_path": "Vehixcare/Architecting%20Resilient%20Systems%3A%2020%20Essential%20Concepts%20Through%20a%20.NET%20Lens%20-%20Part%201.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.462168",
+      "lastUpdated": "2026-04-24T17:12:58.073159",
       "notes": "",
       "bookmarked": true,
       "leaderboard": false,
@@ -8601,11 +8897,23 @@
             "presentations": 887,
             "views": 49,
             "reads": 19
+          },
+          {
+            "period": "2026-4",
+            "presentations": 887,
+            "views": 49,
+            "reads": 19
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 420000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 420000000
@@ -8671,7 +8979,7 @@
       "rel_path": "Vehixcare/Architecting%20Resilient%20Systems%3A%2020%20Essential%20Concepts%20Through%20a%20.NET%20Lens%20-%20Part%202.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.461789",
+      "lastUpdated": "2026-04-24T17:12:58.072771",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -8721,8 +9029,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 1249,
-          "views": 41,
+          "presentations": 1250,
+          "views": 42,
           "reads": 15,
           "__typename": "SummaryPostStat"
         },
@@ -8735,14 +9043,26 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1249,
-            "views": 41,
+            "presentations": 1250,
+            "views": 42,
+            "reads": 15
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1250,
+            "views": 42,
             "reads": 15
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 490000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 490000000
@@ -8761,7 +9081,7 @@
       "rel_path": "Payment%20System/ISO%208583%20vs.%20REST%20APIs%20vs.%20UPI%3A%20Architecting%20Multi-Network%20Payment%20Systems%20in%20.NET%2010.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.462420",
+      "lastUpdated": "2026-04-24T17:12:58.073572",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -8811,7 +9131,7 @@
         "responsesCount": 1,
         "totalStats": {
           "period": "total",
-          "presentations": 1165,
+          "presentations": 1166,
           "views": 141,
           "reads": 55,
           "__typename": "SummaryPostStat"
@@ -8825,15 +9145,21 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1165,
+            "presentations": 1166,
             "views": 141,
             "reads": 55
           },
           {
             "period": "2026-03",
-            "presentations": 1144,
-            "views": 132,
-            "reads": 54
+            "presentations": 1166,
+            "views": 141,
+            "reads": 55
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1166,
+            "views": 141,
+            "reads": 55
           }
         ],
         "monthlyEarnings": [
@@ -8848,6 +9174,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 330000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 350000000
           }
         ]
       }
@@ -9232,7 +9564,7 @@
       "rel_path": "AI%20Tools/73%20New%20AI%20Tools%20in%202026%20—%20Sales,%20Productivity,%20Coding,%20Chatbots,%20Daily%20Life,%20Chrome%20Extensions.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.465394",
+      "lastUpdated": "2026-04-24T17:12:58.075314",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -9282,7 +9614,7 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 207,
+          "presentations": 210,
           "views": 34,
           "reads": 6,
           "__typename": "SummaryPostStat"
@@ -9291,12 +9623,18 @@
           "period": "total",
           "currencyCode": "USD",
           "units": 0,
-          "nanos": 110000000
+          "nanos": 160000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 207,
+            "presentations": 210,
+            "views": 34,
+            "reads": 6
+          },
+          {
+            "period": "2026-4",
+            "presentations": 209,
             "views": 34,
             "reads": 6
           }
@@ -9306,7 +9644,13 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 110000000
+            "nanos": 160000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 160000000
           }
         ]
       }
@@ -9322,7 +9666,7 @@
       "rel_path": "AI%20Tools/73%20New%20AI%20Tools%20in%202026%20—%20Images,%20YouTube,%20Content%20Creation,%20Writing,%20Twitter,%20Music.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.464380",
+      "lastUpdated": "2026-04-24T17:12:58.075857",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -9372,7 +9716,7 @@
         "responsesCount": 1,
         "totalStats": {
           "period": "total",
-          "presentations": 198,
+          "presentations": 199,
           "views": 49,
           "reads": 12,
           "__typename": "SummaryPostStat"
@@ -9386,6 +9730,12 @@
         "monthlyStats": [
           {
             "period": "2026-04",
+            "presentations": 199,
+            "views": 49,
+            "reads": 12
+          },
+          {
+            "period": "2026-4",
             "presentations": 198,
             "views": 49,
             "reads": 12
@@ -9394,6 +9744,12 @@
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 130000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 130000000
@@ -9412,7 +9768,7 @@
       "rel_path": "Kafka%20Design%20Patterns%20-%20AWS/11%20Kafka%20Design%20Patterns%20for%20Every%20Backend%20Engineer.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.461089",
+      "lastUpdated": "2026-04-24T17:12:58.072097",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -9462,8 +9818,8 @@
         "responsesCount": 1,
         "totalStats": {
           "period": "total",
-          "presentations": 4178,
-          "views": 946,
+          "presentations": 4185,
+          "views": 977,
           "reads": 170,
           "__typename": "SummaryPostStat"
         },
@@ -9471,13 +9827,19 @@
           "period": "total",
           "currencyCode": "USD",
           "units": 0,
-          "nanos": 960000000
+          "nanos": 990000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 4178,
-            "views": 946,
+            "presentations": 4185,
+            "views": 977,
+            "reads": 170
+          },
+          {
+            "period": "2026-4",
+            "presentations": 4179,
+            "views": 973,
             "reads": 170
           }
         ],
@@ -9486,7 +9848,13 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 960000000
+            "nanos": 990000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 990000000
           }
         ]
       }
@@ -9502,7 +9870,7 @@
       "rel_path": "Kafka%20Design%20Patterns%20-%20AWS/11%20Kafka%20Design%20Patterns%20-%20Reliability%20&%20Ordering%20Deep%20Dive.md",
       "status": "Published",
       "createdDate": "2026-04-19",
-      "lastUpdated": "2026-04-24T11:07:30.465260",
+      "lastUpdated": "2026-04-24T17:12:58.076501",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -9552,7 +9920,7 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 885,
+          "presentations": 887,
           "views": 39,
           "reads": 9,
           "__typename": "SummaryPostStat"
@@ -9566,7 +9934,13 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 885,
+            "presentations": 887,
+            "views": 39,
+            "reads": 9
+          },
+          {
+            "period": "2026-4",
+            "presentations": 886,
             "views": 39,
             "reads": 9
           }
@@ -9574,6 +9948,12 @@
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 110000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 110000000
@@ -9636,7 +10016,7 @@
       "status": "Published",
       "createdDate": "2026-02-26",
       "publishedDate": "2026-02-26",
-      "lastUpdated": "2026-04-24T11:07:30.460684",
+      "lastUpdated": "2026-04-24T17:12:58.071697",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "dotnet-10",
@@ -9687,35 +10067,41 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 3838,
-          "views": 1208,
-          "reads": 390,
+          "presentations": 3902,
+          "views": 1234,
+          "reads": 407,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
           "period": "total",
           "currencyCode": "USD",
           "units": 5,
-          "nanos": 670000000
+          "nanos": 870000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 3838,
-            "views": 1208,
-            "reads": 390
+            "presentations": 3902,
+            "views": 1234,
+            "reads": 407
           },
           {
             "period": "2026-03",
-            "presentations": 3098,
-            "views": 1001,
-            "reads": 327
+            "presentations": 3902,
+            "views": 1234,
+            "reads": 407
           },
           {
             "period": "2026-02",
-            "presentations": 3098,
-            "views": 1001,
-            "reads": 327
+            "presentations": 3902,
+            "views": 1234,
+            "reads": 407
+          },
+          {
+            "period": "2026-4",
+            "presentations": 3902,
+            "views": 1234,
+            "reads": 407
           }
         ],
         "monthlyEarnings": [
@@ -9723,7 +10109,7 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 5,
-            "nanos": 150000000
+            "nanos": 350000000
           },
           {
             "period": "2026-03",
@@ -9736,6 +10122,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 140000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 5,
+            "nanos": 350000000
           }
         ]
       }
@@ -9749,7 +10141,7 @@
       "status": "Published",
       "createdDate": "2026-02-23",
       "publishedDate": "2026-02-23",
-      "lastUpdated": "2026-04-24T11:07:30.460831",
+      "lastUpdated": "2026-04-24T17:12:58.071836",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "dotnet-10",
@@ -9802,14 +10194,14 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31749,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "totalStats": {
           "period": "total",
-          "presentations": 414,
-          "views": 117,
-          "reads": 42,
+          "presentations": 415,
+          "views": 118,
+          "reads": 43,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -9821,21 +10213,27 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 414,
-            "views": 117,
-            "reads": 42
+            "presentations": 415,
+            "views": 118,
+            "reads": 43
           },
           {
             "period": "2026-03",
-            "presentations": 402,
-            "views": 110,
-            "reads": 42
+            "presentations": 415,
+            "views": 118,
+            "reads": 43
           },
           {
             "period": "2026-02",
-            "presentations": 402,
-            "views": 110,
-            "reads": 42
+            "presentations": 415,
+            "views": 118,
+            "reads": 43
+          },
+          {
+            "period": "2026-4",
+            "presentations": 415,
+            "views": 118,
+            "reads": 43
           }
         ],
         "monthlyEarnings": [
@@ -9856,6 +10254,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 70000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 3,
+            "nanos": 710000000
           }
         ]
       }
@@ -9869,7 +10273,7 @@
       "status": "Published",
       "createdDate": "2026-01-22",
       "publishedDate": "2026-01-22",
-      "lastUpdated": "2026-04-24T11:07:30.461917",
+      "lastUpdated": "2026-04-24T17:12:58.072905",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "connection-pooling",
@@ -9920,40 +10324,46 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31749,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "totalStats": {
           "period": "total",
-          "presentations": 2034,
-          "views": 752,
-          "reads": 230,
+          "presentations": 2040,
+          "views": 757,
+          "reads": 234,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
           "period": "total",
           "currencyCode": "USD",
           "units": 1,
-          "nanos": 320000000
+          "nanos": 370000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 2034,
-            "views": 752,
-            "reads": 230
+            "presentations": 2040,
+            "views": 757,
+            "reads": 234
           },
           {
             "period": "2026-03",
-            "presentations": 2001,
-            "views": 718,
-            "reads": 216
+            "presentations": 2040,
+            "views": 757,
+            "reads": 234
           },
           {
             "period": "2026-02",
-            "presentations": 2001,
-            "views": 718,
-            "reads": 216
+            "presentations": 2040,
+            "views": 757,
+            "reads": 234
+          },
+          {
+            "period": "2026-4",
+            "presentations": 2040,
+            "views": 757,
+            "reads": 234
           }
         ],
         "monthlyEarnings": [
@@ -9961,7 +10371,7 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 440000000
+            "nanos": 490000000
           },
           {
             "period": "2026-03",
@@ -9974,6 +10384,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 140000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 490000000
           }
         ]
       }
@@ -9987,7 +10403,7 @@
       "status": "Published",
       "createdDate": "2026-02-09",
       "publishedDate": "2026-02-09",
-      "lastUpdated": "2026-04-24T11:07:30.462292",
+      "lastUpdated": "2026-04-24T17:12:58.073287",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "clean-architecture",
@@ -10034,9 +10450,9 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 1533,
-          "views": 469,
-          "reads": 126,
+          "presentations": 1536,
+          "views": 472,
+          "reads": 127,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -10048,21 +10464,27 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1533,
-            "views": 469,
-            "reads": 126
+            "presentations": 1536,
+            "views": 472,
+            "reads": 127
           },
           {
             "period": "2026-03",
-            "presentations": 1508,
-            "views": 458,
-            "reads": 124
+            "presentations": 1536,
+            "views": 472,
+            "reads": 127
           },
           {
             "period": "2026-02",
-            "presentations": 1508,
-            "views": 458,
-            "reads": 124
+            "presentations": 1536,
+            "views": 472,
+            "reads": 127
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1536,
+            "views": 472,
+            "reads": 127
           }
         ],
         "monthlyEarnings": [
@@ -10083,6 +10505,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 350000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 350000000
           }
         ]
       }
@@ -10096,7 +10524,7 @@
       "status": "Published",
       "createdDate": "2026-03-17",
       "publishedDate": "2026-03-17",
-      "lastUpdated": "2026-04-24T11:07:30.462974",
+      "lastUpdated": "2026-04-24T17:12:58.074099",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "api-gateway",
@@ -10147,29 +10575,35 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 1202,
-          "views": 171,
-          "reads": 43,
+          "presentations": 1206,
+          "views": 178,
+          "reads": 46,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
           "period": "total",
           "currencyCode": "USD",
           "units": 0,
-          "nanos": 670000000
+          "nanos": 700000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1202,
-            "views": 171,
-            "reads": 43
+            "presentations": 1206,
+            "views": 178,
+            "reads": 46
           },
           {
             "period": "2026-03",
-            "presentations": 1155,
-            "views": 151,
-            "reads": 39
+            "presentations": 1206,
+            "views": 178,
+            "reads": 46
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1206,
+            "views": 178,
+            "reads": 46
           }
         ],
         "monthlyEarnings": [
@@ -10177,13 +10611,19 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 270000000
+            "nanos": 300000000
           },
           {
             "period": "2026-03",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 400000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 300000000
           }
         ]
       },
@@ -10198,7 +10638,7 @@
       "status": "Published",
       "createdDate": "2026-02-22",
       "publishedDate": "2026-02-22",
-      "lastUpdated": "2026-04-24T11:07:30.463099",
+      "lastUpdated": "2026-04-24T17:12:58.074494",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "sql-queries",
@@ -10249,9 +10689,9 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 1071,
-          "views": 261,
-          "reads": 42,
+          "presentations": 1073,
+          "views": 262,
+          "reads": 43,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -10263,21 +10703,27 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1071,
-            "views": 261,
-            "reads": 42
+            "presentations": 1073,
+            "views": 262,
+            "reads": 43
           },
           {
             "period": "2026-03",
-            "presentations": 1048,
-            "views": 250,
-            "reads": 36
+            "presentations": 1073,
+            "views": 262,
+            "reads": 43
           },
           {
             "period": "2026-02",
-            "presentations": 1048,
-            "views": 250,
-            "reads": 36
+            "presentations": 1073,
+            "views": 262,
+            "reads": 43
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1073,
+            "views": 262,
+            "reads": 43
           }
         ],
         "monthlyEarnings": [
@@ -10298,6 +10744,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 100000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 250000000
           }
         ]
       }
@@ -10311,7 +10763,7 @@
       "status": "Published",
       "createdDate": "2026-01-06",
       "publishedDate": "2026-01-06",
-      "lastUpdated": "2026-04-24T11:07:30.462566",
+      "lastUpdated": "2026-04-24T17:12:58.073413",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "dot-net-core",
@@ -10360,29 +10812,35 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 496,
-          "views": 208,
-          "reads": 65,
+          "presentations": 510,
+          "views": 217,
+          "reads": 69,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
           "period": "total",
           "currencyCode": "USD",
           "units": 0,
-          "nanos": 410000000
+          "nanos": 430000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 496,
-            "views": 208,
-            "reads": 65
+            "presentations": 510,
+            "views": 217,
+            "reads": 69
           },
           {
             "period": "2026-03",
-            "presentations": 401,
-            "views": 185,
-            "reads": 55
+            "presentations": 510,
+            "views": 217,
+            "reads": 69
+          },
+          {
+            "period": "2026-4",
+            "presentations": 510,
+            "views": 217,
+            "reads": 69
           }
         ],
         "monthlyEarnings": [
@@ -10390,13 +10848,19 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 330000000
+            "nanos": 350000000
           },
           {
             "period": "2026-03",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 80000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 350000000
           }
         ]
       }
@@ -10410,7 +10874,7 @@
       "status": "Published",
       "createdDate": "2025-05-11",
       "publishedDate": "2025-05-11",
-      "lastUpdated": "2026-04-24T11:07:30.464254",
+      "lastUpdated": "2026-04-24T17:12:58.075683",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "channeling",
@@ -10474,11 +10938,23 @@
             "presentations": 317,
             "views": 227,
             "reads": 111
+          },
+          {
+            "period": "2026-4",
+            "presentations": 317,
+            "views": 227,
+            "reads": 111
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 140000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 140000000
@@ -10495,7 +10971,7 @@
       "status": "Published",
       "createdDate": "2025-02-18",
       "publishedDate": "2025-02-18",
-      "lastUpdated": "2026-04-24T11:07:30.464658",
+      "lastUpdated": "2026-04-24T17:12:58.076336",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "icrosschain-service",
@@ -10543,7 +11019,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 705,
-          "views": 234,
+          "views": 235,
           "reads": 102,
           "__typename": "SummaryPostStat"
         },
@@ -10557,13 +11033,25 @@
           {
             "period": "2026-04",
             "presentations": 705,
-            "views": 234,
+            "views": 235,
+            "reads": 102
+          },
+          {
+            "period": "2026-4",
+            "presentations": 705,
+            "views": 235,
             "reads": 102
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 120000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 120000000
@@ -10580,7 +11068,7 @@
       "status": "Published",
       "createdDate": "2026-01-21",
       "publishedDate": "2026-01-21",
-      "lastUpdated": "2026-04-24T11:07:30.464125",
+      "lastUpdated": "2026-04-24T17:12:58.075488",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "podman",
@@ -10629,9 +11117,9 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 1966,
-          "views": 489,
-          "reads": 149,
+          "presentations": 1969,
+          "views": 490,
+          "reads": 150,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -10643,21 +11131,27 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1966,
-            "views": 489,
-            "reads": 149
+            "presentations": 1969,
+            "views": 490,
+            "reads": 150
           },
           {
             "period": "2026-03",
-            "presentations": 1945,
-            "views": 468,
-            "reads": 142
+            "presentations": 1969,
+            "views": 490,
+            "reads": 150
           },
           {
             "period": "2026-02",
-            "presentations": 1945,
-            "views": 468,
-            "reads": 142
+            "presentations": 1969,
+            "views": 490,
+            "reads": 150
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1969,
+            "views": 490,
+            "reads": 150
           }
         ],
         "monthlyEarnings": [
@@ -10678,6 +11172,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 370000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 160000000
           }
         ]
       }
@@ -10691,7 +11191,7 @@
       "status": "Published",
       "createdDate": "2026-04-13",
       "publishedDate": "2026-04-13",
-      "lastUpdated": "2026-04-24T11:07:30.464804",
+      "lastUpdated": "2026-04-24T17:12:58.076206",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "calude-code",
@@ -10742,9 +11242,9 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 1164,
-          "views": 26,
-          "reads": 7,
+          "presentations": 1167,
+          "views": 27,
+          "reads": 8,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -10756,7 +11256,13 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1164,
+            "presentations": 1167,
+            "views": 27,
+            "reads": 8
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1165,
             "views": 26,
             "reads": 7
           }
@@ -10764,6 +11270,12 @@
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 120000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 120000000
@@ -10780,7 +11292,7 @@
       "status": "Published",
       "createdDate": "2026-03-26",
       "publishedDate": "2026-03-26",
-      "lastUpdated": "2026-04-24T11:07:30.464972",
+      "lastUpdated": "2026-04-24T17:12:58.076768",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "cte",
@@ -10851,8 +11363,14 @@
           },
           {
             "period": "2026-03",
-            "presentations": 1069,
-            "views": 36,
+            "presentations": 1083,
+            "views": 39,
+            "reads": 11
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1083,
+            "views": 39,
             "reads": 11
           }
         ],
@@ -10868,6 +11386,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 220000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 110000000
           }
         ]
       },
@@ -10882,7 +11406,7 @@
       "status": "Published",
       "createdDate": "2025-01-30",
       "publishedDate": "2025-01-30",
-      "lastUpdated": "2026-04-24T11:07:30.465664",
+      "lastUpdated": "2026-04-24T17:12:58.076889",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "vs-code-editor",
@@ -10934,7 +11458,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 560,
-          "views": 1306,
+          "views": 1309,
           "reads": 589,
           "__typename": "SummaryPostStat"
         },
@@ -10948,13 +11472,25 @@
           {
             "period": "2026-04",
             "presentations": 560,
-            "views": 1306,
+            "views": 1309,
+            "reads": 589
+          },
+          {
+            "period": "2026-4",
+            "presentations": 560,
+            "views": 1309,
             "reads": 589
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 100000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 100000000
@@ -10971,7 +11507,7 @@
       "status": "Published",
       "createdDate": "2025-04-30",
       "publishedDate": "2025-04-30",
-      "lastUpdated": "2026-04-24T11:07:30.465538",
+      "lastUpdated": "2026-04-24T17:12:58.077145",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "net-core",
@@ -11020,9 +11556,9 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 4635,
-          "views": 4288,
-          "reads": 1930,
+          "presentations": 4636,
+          "views": 4298,
+          "reads": 1933,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -11034,21 +11570,27 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 4635,
-            "views": 4288,
-            "reads": 1930
+            "presentations": 4636,
+            "views": 4298,
+            "reads": 1933
           },
           {
             "period": "2026-03",
-            "presentations": 4632,
-            "views": 4257,
-            "reads": 1923
+            "presentations": 4636,
+            "views": 4298,
+            "reads": 1933
           },
           {
             "period": "2026-02",
-            "presentations": 4632,
-            "views": 4257,
-            "reads": 1923
+            "presentations": 4636,
+            "views": 4298,
+            "reads": 1933
+          },
+          {
+            "period": "2026-4",
+            "presentations": 4636,
+            "views": 4298,
+            "reads": 1933
           }
         ],
         "monthlyEarnings": [
@@ -11069,6 +11611,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 180000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 100000000
           }
         ]
       }
@@ -11082,7 +11630,7 @@
       "status": "Published",
       "createdDate": "2026-01-20",
       "publishedDate": "2026-01-20",
-      "lastUpdated": "2026-04-24T11:07:30.463224",
+      "lastUpdated": "2026-04-24T17:12:58.073837",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "docker",
@@ -11131,29 +11679,35 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 913,
-          "views": 545,
-          "reads": 64,
+          "presentations": 956,
+          "views": 558,
+          "reads": 70,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
           "period": "total",
           "currencyCode": "USD",
           "units": 0,
-          "nanos": 340000000
+          "nanos": 420000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 913,
-            "views": 545,
-            "reads": 64
+            "presentations": 956,
+            "views": 558,
+            "reads": 70
           },
           {
             "period": "2026-03",
-            "presentations": 690,
-            "views": 425,
-            "reads": 47
+            "presentations": 956,
+            "views": 558,
+            "reads": 70
+          },
+          {
+            "period": "2026-4",
+            "presentations": 956,
+            "views": 558,
+            "reads": 70
           }
         ],
         "monthlyEarnings": [
@@ -11161,13 +11715,19 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 240000000
+            "nanos": 320000000
           },
           {
             "period": "2026-03",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 100000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 320000000
           }
         ]
       }
@@ -11181,7 +11741,7 @@
       "status": "Published",
       "createdDate": "2026-02-23",
       "publishedDate": "2026-02-23",
-      "lastUpdated": "2026-04-24T11:07:30.464532",
+      "lastUpdated": "2026-04-24T17:12:58.076036",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "dotnet-10",
@@ -11234,12 +11794,12 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31749,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "totalStats": {
           "period": "total",
-          "presentations": 373,
+          "presentations": 374,
           "views": 96,
           "reads": 38,
           "__typename": "SummaryPostStat"
@@ -11253,21 +11813,27 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 373,
+            "presentations": 374,
             "views": 96,
             "reads": 38
           },
           {
             "period": "2026-03",
-            "presentations": 364,
-            "views": 88,
-            "reads": 36
+            "presentations": 374,
+            "views": 96,
+            "reads": 38
           },
           {
             "period": "2026-02",
-            "presentations": 364,
-            "views": 88,
-            "reads": 36
+            "presentations": 374,
+            "views": 96,
+            "reads": 38
+          },
+          {
+            "period": "2026-4",
+            "presentations": 374,
+            "views": 96,
+            "reads": 38
           }
         ],
         "monthlyEarnings": [
@@ -11288,6 +11854,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 240000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 120000000
           }
         ]
       }
@@ -11301,7 +11873,7 @@
       "status": "Published",
       "createdDate": "2026-01-25",
       "publishedDate": "2026-01-25",
-      "lastUpdated": "2026-04-24T11:07:30.465797",
+      "lastUpdated": "2026-04-24T17:12:58.077271",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "google-ai-tools",
@@ -11352,29 +11924,35 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 215,
-          "views": 317,
-          "reads": 49,
+          "presentations": 216,
+          "views": 321,
+          "reads": 51,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
           "period": "total",
           "currencyCode": "USD",
           "units": 0,
-          "nanos": 110000000
+          "nanos": 130000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 215,
-            "views": 317,
-            "reads": 49
+            "presentations": 216,
+            "views": 321,
+            "reads": 51
           },
           {
             "period": "2026-02",
-            "presentations": 213,
-            "views": 308,
-            "reads": 47
+            "presentations": 216,
+            "views": 321,
+            "reads": 51
+          },
+          {
+            "period": "2026-4",
+            "presentations": 216,
+            "views": 321,
+            "reads": 51
           }
         ],
         "monthlyEarnings": [
@@ -11382,13 +11960,19 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 80000000
+            "nanos": 100000000
           },
           {
             "period": "2026-02",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 30000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 100000000
           }
         ]
       }
@@ -11402,7 +11986,7 @@
       "status": "Published",
       "createdDate": "2026-03-25",
       "publishedDate": "2026-03-25",
-      "lastUpdated": "2026-04-24T11:07:30.466693",
+      "lastUpdated": "2026-04-24T17:12:58.078063",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "mssql",
@@ -11453,7 +12037,7 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 635,
+          "presentations": 636,
           "views": 30,
           "reads": 11,
           "__typename": "SummaryPostStat"
@@ -11467,14 +12051,20 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 635,
+            "presentations": 636,
             "views": 30,
             "reads": 11
           },
           {
             "period": "2026-03",
-            "presentations": 625,
-            "views": 29,
+            "presentations": 636,
+            "views": 30,
+            "reads": 11
+          },
+          {
+            "period": "2026-4",
+            "presentations": 636,
+            "views": 30,
             "reads": 11
           }
         ],
@@ -11490,6 +12080,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 170000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 60000000
           }
         ]
       },
@@ -11504,7 +12100,7 @@
       "status": "Published",
       "createdDate": "2025-08-22",
       "publishedDate": "2025-08-22",
-      "lastUpdated": "2026-04-24T11:07:30.466564",
+      "lastUpdated": "2026-04-24T17:12:58.077803",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "blazor-webassembly",
@@ -11553,14 +12149,14 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31749,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "totalStats": {
           "period": "total",
-          "presentations": 2743,
-          "views": 1831,
-          "reads": 709,
+          "presentations": 2744,
+          "views": 1839,
+          "reads": 710,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -11572,21 +12168,27 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 2743,
-            "views": 1831,
-            "reads": 709
+            "presentations": 2744,
+            "views": 1839,
+            "reads": 710
           },
           {
             "period": "2026-03",
-            "presentations": 2741,
-            "views": 1815,
-            "reads": 704
+            "presentations": 2744,
+            "views": 1839,
+            "reads": 710
           },
           {
             "period": "2026-02",
-            "presentations": 2741,
-            "views": 1815,
-            "reads": 704
+            "presentations": 2744,
+            "views": 1839,
+            "reads": 710
+          },
+          {
+            "period": "2026-4",
+            "presentations": 2744,
+            "views": 1839,
+            "reads": 710
           }
         ],
         "monthlyEarnings": [
@@ -11607,6 +12209,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 60000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 60000000
           }
         ]
       }
@@ -11620,7 +12228,7 @@
       "status": "Published",
       "createdDate": "2026-03-20",
       "publishedDate": "2026-03-20",
-      "lastUpdated": "2026-04-24T11:07:30.466427",
+      "lastUpdated": "2026-04-24T17:12:58.077932",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "moderation",
@@ -11671,7 +12279,7 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 1207,
+          "presentations": 1209,
           "views": 39,
           "reads": 7,
           "__typename": "SummaryPostStat"
@@ -11685,14 +12293,20 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1207,
+            "presentations": 1209,
             "views": 39,
             "reads": 7
           },
           {
             "period": "2026-03",
-            "presentations": 1194,
-            "views": 36,
+            "presentations": 1209,
+            "views": 39,
+            "reads": 7
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1209,
+            "views": 39,
             "reads": 7
           }
         ],
@@ -11708,6 +12322,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 70000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 60000000
           }
         ]
       }
@@ -11721,7 +12341,7 @@
       "status": "Published",
       "createdDate": "2026-02-08",
       "publishedDate": "2026-02-08",
-      "lastUpdated": "2026-04-24T11:07:30.467696",
+      "lastUpdated": "2026-04-24T17:12:58.079215",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "aspnet-core-web-api",
@@ -11768,8 +12388,8 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 4231,
-          "views": 498,
+          "presentations": 4236,
+          "views": 499,
           "reads": 80,
           "__typename": "SummaryPostStat"
         },
@@ -11782,21 +12402,27 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 4231,
-            "views": 498,
+            "presentations": 4236,
+            "views": 499,
             "reads": 80
           },
           {
             "period": "2026-03",
-            "presentations": 4218,
-            "views": 481,
-            "reads": 79
+            "presentations": 4236,
+            "views": 499,
+            "reads": 80
           },
           {
             "period": "2026-02",
-            "presentations": 4218,
-            "views": 481,
-            "reads": 79
+            "presentations": 4236,
+            "views": 499,
+            "reads": 80
+          },
+          {
+            "period": "2026-4",
+            "presentations": 4236,
+            "views": 499,
+            "reads": 80
           }
         ],
         "monthlyEarnings": [
@@ -11817,6 +12443,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 80000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 40000000
           }
         ]
       }
@@ -11830,7 +12462,7 @@
       "status": "Published",
       "createdDate": "2025-02-05",
       "publishedDate": "2025-02-05",
-      "lastUpdated": "2026-04-24T11:07:30.467315",
+      "lastUpdated": "2026-04-24T17:12:58.078963",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "oop-concepts",
@@ -11881,13 +12513,13 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31749,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "totalStats": {
           "period": "total",
           "presentations": 299,
-          "views": 356,
+          "views": 357,
           "reads": 142,
           "__typename": "SummaryPostStat"
         },
@@ -11901,13 +12533,25 @@
           {
             "period": "2026-04",
             "presentations": 299,
-            "views": 356,
+            "views": 357,
+            "reads": 142
+          },
+          {
+            "period": "2026-4",
+            "presentations": 299,
+            "views": 357,
             "reads": 142
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 40000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 40000000
@@ -11924,7 +12568,7 @@
       "status": "Published",
       "createdDate": "2025-05-16",
       "publishedDate": "2025-05-16",
-      "lastUpdated": "2026-04-24T11:07:30.465922",
+      "lastUpdated": "2026-04-24T17:12:58.077536",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "nextjs",
@@ -11976,14 +12620,14 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31749,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "totalStats": {
           "period": "total",
           "presentations": 1738,
-          "views": 2270,
-          "reads": 795,
+          "views": 2272,
+          "reads": 796,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -11996,20 +12640,26 @@
           {
             "period": "2026-04",
             "presentations": 1738,
-            "views": 2270,
-            "reads": 795
+            "views": 2272,
+            "reads": 796
           },
           {
             "period": "2026-03",
-            "presentations": 1737,
-            "views": 2265,
-            "reads": 793
+            "presentations": 1738,
+            "views": 2272,
+            "reads": 796
           },
           {
             "period": "2026-02",
-            "presentations": 1737,
-            "views": 2265,
-            "reads": 793
+            "presentations": 1738,
+            "views": 2272,
+            "reads": 796
+          },
+          {
+            "period": "2026-4",
+            "presentations": 1738,
+            "views": 2272,
+            "reads": 796
           }
         ],
         "monthlyEarnings": [
@@ -12030,6 +12680,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 40000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 80000000
           }
         ]
       }
@@ -12043,7 +12699,7 @@
       "status": "Published",
       "createdDate": "2026-03-15",
       "publishedDate": "2026-03-15",
-      "lastUpdated": "2026-04-24T11:07:30.468319",
+      "lastUpdated": "2026-04-24T17:12:58.079596",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "ai-architecture",
@@ -12096,14 +12752,14 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31749,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "totalStats": {
           "period": "total",
           "presentations": 707,
-          "views": 154,
-          "reads": 42,
+          "views": 159,
+          "reads": 44,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -12116,14 +12772,20 @@
           {
             "period": "2026-04",
             "presentations": 707,
-            "views": 154,
-            "reads": 42
+            "views": 159,
+            "reads": 44
           },
           {
             "period": "2026-03",
-            "presentations": 698,
-            "views": 140,
-            "reads": 39
+            "presentations": 707,
+            "views": 159,
+            "reads": 44
+          },
+          {
+            "period": "2026-4",
+            "presentations": 707,
+            "views": 159,
+            "reads": 44
           }
         ],
         "monthlyEarnings": [
@@ -12138,6 +12800,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 90000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 30000000
           }
         ]
       }
@@ -12151,7 +12819,7 @@
       "status": "Published",
       "createdDate": "2025-10-18",
       "publishedDate": "2025-10-18",
-      "lastUpdated": "2026-04-24T11:07:30.466048",
+      "lastUpdated": "2026-04-24T17:12:58.077016",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "nodejs",
@@ -12202,29 +12870,35 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 2568,
-          "views": 1936,
-          "reads": 103,
+          "presentations": 2570,
+          "views": 1939,
+          "reads": 104,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
           "period": "total",
           "currencyCode": "USD",
           "units": 0,
-          "nanos": 210000000
+          "nanos": 230000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 2568,
-            "views": 1936,
-            "reads": 103
+            "presentations": 2570,
+            "views": 1939,
+            "reads": 104
           },
           {
             "period": "2026-03",
-            "presentations": 2450,
-            "views": 1734,
-            "reads": 98
+            "presentations": 2570,
+            "views": 1939,
+            "reads": 104
+          },
+          {
+            "period": "2026-4",
+            "presentations": 2570,
+            "views": 1939,
+            "reads": 104
           }
         ],
         "monthlyEarnings": [
@@ -12232,13 +12906,19 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 80000000
+            "nanos": 100000000
           },
           {
             "period": "2026-03",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 130000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 100000000
           }
         ]
       }
@@ -12252,7 +12932,7 @@
       "status": "Published",
       "createdDate": "2025-06-03",
       "publishedDate": "2025-06-03",
-      "lastUpdated": "2026-04-24T11:07:30.467821",
+      "lastUpdated": "2026-04-24T17:12:58.079724",
       "notes": "2026 Update: Evolving the Lifecycle with AI, Platform Engineering, and Cloud-Native Security",
       "tags": [
         "kubernetes",
@@ -12305,13 +12985,13 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31749,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "totalStats": {
           "period": "total",
           "presentations": 350,
-          "views": 70,
+          "views": 71,
           "reads": 12,
           "__typename": "SummaryPostStat"
         },
@@ -12325,13 +13005,25 @@
           {
             "period": "2026-04",
             "presentations": 350,
-            "views": 70,
+            "views": 71,
+            "reads": 12
+          },
+          {
+            "period": "2026-4",
+            "presentations": 350,
+            "views": 71,
             "reads": 12
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 30000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 30000000
@@ -12349,7 +13041,7 @@
       "status": "Published",
       "createdDate": "2025-10-10",
       "publishedDate": "2025-10-10",
-      "lastUpdated": "2026-04-24T11:07:30.468194",
+      "lastUpdated": "2026-04-24T17:12:58.079469",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "chatgpt",
@@ -12399,7 +13091,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 240,
-          "views": 379,
+          "views": 382,
           "reads": 48,
           "__typename": "SummaryPostStat"
         },
@@ -12413,13 +13105,25 @@
           {
             "period": "2026-04",
             "presentations": 240,
-            "views": 379,
+            "views": 382,
+            "reads": 48
+          },
+          {
+            "period": "2026-4",
+            "presentations": 240,
+            "views": 382,
             "reads": 48
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 30000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 30000000
@@ -12436,7 +13140,7 @@
       "status": "Published",
       "createdDate": "2026-01-31",
       "publishedDate": "2026-01-31",
-      "lastUpdated": "2026-04-24T11:07:30.467440",
+      "lastUpdated": "2026-04-24T17:12:58.078713",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "output-caching",
@@ -12485,8 +13189,8 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 143,
-          "views": 43,
+          "presentations": 144,
+          "views": 44,
           "reads": 13,
           "__typename": "SummaryPostStat"
         },
@@ -12499,21 +13203,27 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 143,
-            "views": 43,
+            "presentations": 144,
+            "views": 44,
             "reads": 13
           },
           {
             "period": "2026-03",
-            "presentations": 139,
-            "views": 38,
-            "reads": 10
+            "presentations": 144,
+            "views": 44,
+            "reads": 13
           },
           {
             "period": "2026-02",
-            "presentations": 139,
-            "views": 38,
-            "reads": 10
+            "presentations": 144,
+            "views": 44,
+            "reads": 13
+          },
+          {
+            "period": "2026-4",
+            "presentations": 144,
+            "views": 44,
+            "reads": 13
           }
         ],
         "monthlyEarnings": [
@@ -12534,6 +13244,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 20000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 40000000
           }
         ]
       }
@@ -12547,7 +13263,7 @@
       "status": "Published",
       "createdDate": "2026-02-27",
       "publishedDate": "2026-02-27",
-      "lastUpdated": "2026-04-24T11:07:30.468697",
+      "lastUpdated": "2026-04-24T17:12:58.080229",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "transient",
@@ -12598,9 +13314,9 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 243,
-          "views": 140,
-          "reads": 46,
+          "presentations": 244,
+          "views": 147,
+          "reads": 47,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -12612,21 +13328,27 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 243,
-            "views": 140,
-            "reads": 46
+            "presentations": 244,
+            "views": 147,
+            "reads": 47
           },
           {
             "period": "2026-03",
-            "presentations": 237,
-            "views": 112,
-            "reads": 33
+            "presentations": 244,
+            "views": 147,
+            "reads": 47
           },
           {
             "period": "2026-02",
-            "presentations": 237,
-            "views": 112,
-            "reads": 33
+            "presentations": 244,
+            "views": 147,
+            "reads": 47
+          },
+          {
+            "period": "2026-4",
+            "presentations": 244,
+            "views": 147,
+            "reads": 47
           }
         ],
         "monthlyEarnings": [
@@ -12647,6 +13369,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 100000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
           }
         ]
       }
@@ -12660,7 +13388,7 @@
       "status": "Published",
       "createdDate": "2026-02-17",
       "publishedDate": "2026-02-17",
-      "lastUpdated": "2026-04-24T11:07:30.469807",
+      "lastUpdated": "2026-04-24T17:12:58.080869",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "artificial-intelligence",
@@ -12711,7 +13439,7 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 186,
+          "presentations": 187,
           "views": 22,
           "reads": 12,
           "__typename": "SummaryPostStat"
@@ -12725,19 +13453,25 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 186,
+            "presentations": 187,
             "views": 22,
             "reads": 12
           },
           {
             "period": "2026-03",
-            "presentations": 180,
+            "presentations": 187,
             "views": 22,
             "reads": 12
           },
           {
             "period": "2026-02",
-            "presentations": 180,
+            "presentations": 187,
+            "views": 22,
+            "reads": 12
+          },
+          {
+            "period": "2026-4",
+            "presentations": 187,
             "views": 22,
             "reads": 12
           }
@@ -12760,6 +13494,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 110000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
           }
         ]
       }
@@ -12773,7 +13513,7 @@
       "status": "Published",
       "createdDate": "2025-01-09",
       "publishedDate": "2025-01-09",
-      "lastUpdated": "2026-04-24T11:07:30.469494",
+      "lastUpdated": "2026-04-24T17:12:58.081771",
       "notes": "Imported from refresh for 2026-04",
       "tags": [],
       "bookmarked": false,
@@ -12829,11 +13569,23 @@
             "presentations": 2051,
             "views": 886,
             "reads": 570
+          },
+          {
+            "period": "2026-4",
+            "presentations": 2051,
+            "views": 886,
+            "reads": 570
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 20000000
@@ -12850,7 +13602,7 @@
       "status": "Published",
       "createdDate": "2026-02-10",
       "publishedDate": "2026-02-10",
-      "lastUpdated": "2026-04-24T11:07:30.469315",
+      "lastUpdated": "2026-04-24T17:14:03.596818",
       "notes": "Imported from refresh for 2026-04",
       "tags": [],
       "bookmarked": false,
@@ -12867,9 +13619,9 @@
         "firstPublishedAt": 1770665707154,
         "readingTime": 18.124528301886794,
         "wordCount": 4379,
-        "clapCount": 10,
+        "clapCount": 11,
         "responsesCount": 0,
-        "voterCount": 3,
+        "voterCount": 4,
         "isLocked": true,
         "visibility": "LOCKED",
         "isSeries": false,
@@ -12889,8 +13641,8 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 340,
-          "views": 151,
+          "presentations": 341,
+          "views": 152,
           "reads": 32,
           "__typename": "SummaryPostStat"
         },
@@ -12903,21 +13655,51 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 340,
-            "views": 151,
-            "reads": 32
+            "presentations": 341,
+            "views": 37,
+            "reads": 5,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 2,
+            "medium_member_views": 4,
+            "medium_nonmember_reads": 3,
+            "medium_nonmember_views": 33,
+            "medium_read_ratio": 13.5,
+            "medium_member_read_percentage": 40.0,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
           },
           {
             "period": "2026-03",
-            "presentations": 334,
-            "views": 146,
-            "reads": 30
+            "presentations": 341,
+            "views": 52,
+            "reads": 8,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 7,
+            "medium_member_views": 12,
+            "medium_nonmember_reads": 1,
+            "medium_nonmember_views": 40,
+            "medium_read_ratio": 15.4,
+            "medium_member_read_percentage": 87.5,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
           },
           {
             "period": "2026-02",
-            "presentations": 334,
-            "views": 146,
-            "reads": 30
+            "presentations": 341,
+            "views": 63,
+            "reads": 19,
+            "claps": 3,
+            "responses": 0,
+            "medium_member_reads": 9,
+            "medium_member_views": 15,
+            "medium_nonmember_reads": 10,
+            "medium_nonmember_views": 48,
+            "medium_read_ratio": 30.2,
+            "medium_member_read_percentage": 47.4,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
           }
         ],
         "monthlyEarnings": [
@@ -12940,7 +13722,11 @@
             "nanos": 80000000
           }
         ]
-      }
+      },
+      "lifetime_reads": 32,
+      "lifetime_views": 152,
+      "presentation_count": 341,
+      "feed_click_through_rate": 0.19047619047619047
     },
     "Medium Import/replacing-ifelse-statements-in-net-core": {
       "uniqueSlug": "replacing-if-else-statements-in-net-core-14988ca26cc2",
@@ -12951,7 +13737,7 @@
       "status": "Published",
       "createdDate": "2025-01-22",
       "publishedDate": "2025-01-22",
-      "lastUpdated": "2026-04-24T11:07:30.470417",
+      "lastUpdated": "2026-04-24T17:12:58.079339",
       "notes": "Imported from refresh for 2026-04",
       "tags": [],
       "bookmarked": false,
@@ -12992,34 +13778,40 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31749,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "totalStats": {
           "period": "total",
-          "presentations": 4387,
-          "views": 2815,
-          "reads": 1881,
+          "presentations": 4388,
+          "views": 2816,
+          "reads": 1882,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
           "period": "total",
           "currencyCode": "USD",
           "units": 0,
-          "nanos": 40000000
+          "nanos": 60000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 4387,
-            "views": 2815,
-            "reads": 1881
+            "presentations": 4388,
+            "views": 2816,
+            "reads": 1882
           },
           {
             "period": "2026-03",
-            "presentations": 4385,
-            "views": 2814,
-            "reads": 1881
+            "presentations": 4388,
+            "views": 2816,
+            "reads": 1882
+          },
+          {
+            "period": "2026-4",
+            "presentations": 4388,
+            "views": 2816,
+            "reads": 1882
           }
         ],
         "monthlyEarnings": [
@@ -13027,13 +13819,19 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 20000000
+            "nanos": 40000000
           },
           {
             "period": "2026-03",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 20000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 40000000
           }
         ]
       }
@@ -13047,7 +13845,7 @@
       "status": "Published",
       "createdDate": "2026-03-24",
       "publishedDate": "2026-03-24",
-      "lastUpdated": "2026-04-24T11:07:30.470306",
+      "lastUpdated": "2026-04-24T17:12:58.080747",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "nodejs",
@@ -13099,7 +13897,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 784,
-          "views": 23,
+          "views": 24,
           "reads": 5,
           "__typename": "SummaryPostStat"
         },
@@ -13113,13 +13911,19 @@
           {
             "period": "2026-04",
             "presentations": 784,
-            "views": 23,
+            "views": 24,
             "reads": 5
           },
           {
             "period": "2026-03",
-            "presentations": 773,
-            "views": 22,
+            "presentations": 784,
+            "views": 24,
+            "reads": 5
+          },
+          {
+            "period": "2026-4",
+            "presentations": 784,
+            "views": 24,
             "reads": 5
           }
         ],
@@ -13135,6 +13939,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 40000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
           }
         ]
       }
@@ -13148,7 +13958,7 @@
       "status": "Published",
       "createdDate": "2026-02-25",
       "publishedDate": "2026-02-25",
-      "lastUpdated": "2026-04-24T11:07:30.469946",
+      "lastUpdated": "2026-04-24T17:12:58.081373",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "artificial-intelligence",
@@ -13199,7 +14009,7 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 292,
+          "presentations": 294,
           "views": 100,
           "reads": 28,
           "__typename": "SummaryPostStat"
@@ -13213,21 +14023,27 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 292,
+            "presentations": 294,
             "views": 100,
             "reads": 28
           },
           {
             "period": "2026-03",
-            "presentations": 272,
-            "views": 91,
-            "reads": 25
+            "presentations": 294,
+            "views": 100,
+            "reads": 28
           },
           {
             "period": "2026-02",
-            "presentations": 272,
-            "views": 91,
-            "reads": 25
+            "presentations": 294,
+            "views": 100,
+            "reads": 28
+          },
+          {
+            "period": "2026-4",
+            "presentations": 294,
+            "views": 100,
+            "reads": 28
           }
         ],
         "monthlyEarnings": [
@@ -13248,6 +14064,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 20000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
           }
         ]
       }
@@ -13261,7 +14083,7 @@
       "status": "Published",
       "createdDate": "2024-12-15",
       "publishedDate": "2024-12-15",
-      "lastUpdated": "2026-04-24T11:07:30.468839",
+      "lastUpdated": "2026-04-24T17:12:58.080359",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "net-core",
@@ -13314,14 +14136,14 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31749,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "totalStats": {
           "period": "total",
           "presentations": null,
-          "views": 457,
-          "reads": 267,
+          "views": 458,
+          "reads": 268,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -13334,14 +14156,20 @@
           {
             "period": "2026-04",
             "presentations": null,
-            "views": 457,
-            "reads": 267
+            "views": 458,
+            "reads": 268
           },
           {
             "period": "2026-03",
             "presentations": null,
-            "views": 457,
-            "reads": 267
+            "views": 458,
+            "reads": 268
+          },
+          {
+            "period": "2026-4",
+            "presentations": null,
+            "views": 458,
+            "reads": 268
           }
         ],
         "monthlyEarnings": [
@@ -13356,6 +14184,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 110000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
           }
         ]
       },
@@ -13370,7 +14204,7 @@
       "status": "Published",
       "createdDate": "2025-01-21",
       "publishedDate": "2025-01-21",
-      "lastUpdated": "2026-04-24T11:07:30.468572",
+      "lastUpdated": "2026-04-24T17:12:58.080620",
       "notes": "Imported from refresh for 2026-04",
       "tags": [],
       "bookmarked": false,
@@ -13410,7 +14244,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 507,
-          "views": 411,
+          "views": 412,
           "reads": 199,
           "__typename": "SummaryPostStat"
         },
@@ -13424,13 +14258,19 @@
           {
             "period": "2026-04",
             "presentations": 507,
-            "views": 411,
+            "views": 412,
             "reads": 199
           },
           {
             "period": "2026-02",
-            "presentations": 506,
-            "views": 409,
+            "presentations": 507,
+            "views": 412,
+            "reads": 199
+          },
+          {
+            "period": "2026-4",
+            "presentations": 507,
+            "views": 412,
             "reads": 199
           }
         ],
@@ -13443,6 +14283,12 @@
           },
           {
             "period": "2026-02",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 20000000
@@ -13459,7 +14305,7 @@
       "status": "Published",
       "createdDate": "2026-01-31",
       "publishedDate": "2026-01-31",
-      "lastUpdated": "2026-04-24T11:07:30.468073",
+      "lastUpdated": "2026-04-24T17:12:58.079976",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "output-caching",
@@ -13510,8 +14356,8 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 210,
-          "views": 86,
+          "presentations": 212,
+          "views": 87,
           "reads": 26,
           "__typename": "SummaryPostStat"
         },
@@ -13524,15 +14370,21 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 210,
-            "views": 86,
+            "presentations": 212,
+            "views": 87,
             "reads": 26
           },
           {
             "period": "2026-03",
-            "presentations": 205,
-            "views": 84,
-            "reads": 25
+            "presentations": 212,
+            "views": 87,
+            "reads": 26
+          },
+          {
+            "period": "2026-4",
+            "presentations": 212,
+            "views": 87,
+            "reads": 26
           }
         ],
         "monthlyEarnings": [
@@ -13547,6 +14399,12 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 230000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 30000000
           }
         ]
       }
@@ -13560,7 +14418,7 @@
       "status": "Published",
       "createdDate": "2026-02-19",
       "publishedDate": "2026-02-19",
-      "lastUpdated": "2026-04-19T20:44:52.189905",
+      "lastUpdated": "2026-04-24T17:05:38.163213",
       "notes": "Imported from refresh for 2026-03",
       "tags": [
         "aspnetcore",
@@ -13611,21 +14469,21 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31639,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 412,
-            "views": 94,
-            "reads": 22
+            "presentations": 422,
+            "views": 99,
+            "reads": 23
           },
           {
             "period": "2026-02",
-            "presentations": 412,
-            "views": 94,
-            "reads": 22
+            "presentations": 422,
+            "views": 99,
+            "reads": 23
           }
         ],
         "monthlyEarnings": [
@@ -13653,7 +14511,7 @@
       "status": "Published",
       "createdDate": "2026-03-02",
       "publishedDate": "2026-03-02",
-      "lastUpdated": "2026-04-19T20:44:36.424546",
+      "lastUpdated": "2026-04-24T16:57:04.766199",
       "notes": "Imported from refresh for 2026-03",
       "tags": [
         "dotnet-core",
@@ -13705,8 +14563,8 @@
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 852,
-            "views": 20,
+            "presentations": 860,
+            "views": 21,
             "reads": 3
           }
         ],
@@ -13729,7 +14587,7 @@
       "status": "Published",
       "createdDate": "2025-05-11",
       "publishedDate": "2025-05-11",
-      "lastUpdated": "2026-04-19T20:44:52.193007",
+      "lastUpdated": "2026-04-24T17:05:38.166129",
       "notes": "Imported from refresh for 2026-03",
       "tags": [
         "fastendpoints",
@@ -13779,14 +14637,14 @@
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 418,
-            "views": 1030,
+            "presentations": 420,
+            "views": 1036,
             "reads": 356
           },
           {
             "period": "2026-02",
-            "presentations": 418,
-            "views": 1030,
+            "presentations": 420,
+            "views": 1036,
             "reads": 356
           }
         ],
@@ -13815,7 +14673,7 @@
       "status": "Published",
       "createdDate": "2026-02-26",
       "publishedDate": "2026-02-26",
-      "lastUpdated": "2026-04-19T20:44:36.425527",
+      "lastUpdated": "2026-04-24T16:57:04.767152",
       "notes": "Imported from refresh for 2026-03",
       "tags": [
         "anthropic-claude",
@@ -13867,8 +14725,8 @@
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 127,
-            "views": 55,
+            "presentations": 133,
+            "views": 65,
             "reads": 6
           }
         ],
@@ -13891,7 +14749,7 @@
       "status": "Published",
       "createdDate": "2026-02-07",
       "publishedDate": "2026-02-07",
-      "lastUpdated": "2026-04-19T20:44:52.192766",
+      "lastUpdated": "2026-04-24T17:05:38.165878",
       "notes": "Imported from refresh for 2026-03",
       "tags": [
         "c-sharp-programming",
@@ -13943,14 +14801,14 @@
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 152,
-            "views": 63,
+            "presentations": 157,
+            "views": 66,
             "reads": 16
           },
           {
             "period": "2026-02",
-            "presentations": 152,
-            "views": 63,
+            "presentations": 157,
+            "views": 66,
             "reads": 16
           }
         ],
@@ -13979,7 +14837,7 @@
       "status": "Published",
       "createdDate": "2026-02-28",
       "publishedDate": "2026-02-28",
-      "lastUpdated": "2026-04-19T20:44:36.426808",
+      "lastUpdated": "2026-04-24T16:57:04.768415",
       "notes": "Imported from refresh for 2026-03",
       "tags": [
         "software-architecture",
@@ -14031,8 +14889,8 @@
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 808,
-            "views": 19,
+            "presentations": 820,
+            "views": 23,
             "reads": 4
           }
         ],
@@ -14055,7 +14913,7 @@
       "status": "Published",
       "createdDate": "2025-06-02",
       "publishedDate": "2025-06-02",
-      "lastUpdated": "2026-04-19T20:44:36.426975",
+      "lastUpdated": "2026-04-24T16:57:04.768582",
       "notes": "Imported from refresh for 2026-03",
       "tags": [
         "etag",
@@ -14108,13 +14966,13 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31639,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 1135,
+            "presentations": 1138,
             "views": 367,
             "reads": 208
           }
@@ -14138,7 +14996,7 @@
       "status": "Published",
       "createdDate": "2025-05-06",
       "publishedDate": "2025-05-06",
-      "lastUpdated": "2026-04-19T20:44:52.192643",
+      "lastUpdated": "2026-04-24T17:05:38.165752",
       "notes": "Imported from refresh for 2026-03",
       "tags": [
         "reactive-extension",
@@ -14186,14 +15044,14 @@
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 332,
-            "views": 395,
+            "presentations": 336,
+            "views": 401,
             "reads": 199
           },
           {
             "period": "2026-02",
-            "presentations": 332,
-            "views": 395,
+            "presentations": 336,
+            "views": 401,
             "reads": 199
           }
         ],
@@ -14222,7 +15080,7 @@
       "status": "Published",
       "createdDate": "2026-02-19",
       "publishedDate": "2026-02-19",
-      "lastUpdated": "2026-04-19T20:44:52.190630",
+      "lastUpdated": "2026-04-24T17:05:38.163817",
       "notes": "Imported from refresh for 2026-03",
       "tags": [
         "aspnetcore",
@@ -14273,20 +15131,20 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31639,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 229,
-            "views": 50,
+            "presentations": 232,
+            "views": 53,
             "reads": 9
           },
           {
             "period": "2026-02",
-            "presentations": 229,
-            "views": 50,
+            "presentations": 232,
+            "views": 53,
             "reads": 9
           }
         ],
@@ -14315,7 +15173,7 @@
       "status": "Published",
       "createdDate": "2025-10-15",
       "publishedDate": "2025-10-15",
-      "lastUpdated": "2026-04-19T20:44:36.427464",
+      "lastUpdated": "2026-04-24T16:57:04.769043",
       "notes": "Imported from refresh for 2026-03",
       "tags": [
         "ai",
@@ -14367,7 +15225,7 @@
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 154,
+            "presentations": 155,
             "views": 69,
             "reads": 4
           }
@@ -14391,7 +15249,7 @@
       "status": "Published",
       "createdDate": "2025-11-21",
       "publishedDate": "2025-11-21",
-      "lastUpdated": "2026-04-19T20:44:36.427788",
+      "lastUpdated": "2026-04-24T16:57:04.769358",
       "notes": "Imported from refresh for 2026-03",
       "tags": [
         "vscode",
@@ -14443,9 +15301,9 @@
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 455,
-            "views": 697,
-            "reads": 168
+            "presentations": 463,
+            "views": 718,
+            "reads": 173
           }
         ],
         "monthlyEarnings": [
@@ -14467,7 +15325,7 @@
       "status": "Published",
       "createdDate": "2024-02-28",
       "publishedDate": "2024-02-28",
-      "lastUpdated": "2026-04-24T02:25:18.370342",
+      "lastUpdated": "2026-04-24T16:57:04.769744",
       "notes": "Imported from refresh for 2026-03\nCreate series",
       "tags": [
         "redis"
@@ -14512,7 +15370,7 @@
           {
             "period": "2026-03",
             "presentations": null,
-            "views": 2536,
+            "views": 2540,
             "reads": 1311
           }
         ],
@@ -14536,7 +15394,7 @@
       "status": "Published",
       "createdDate": "2026-02-12",
       "publishedDate": "2026-02-12",
-      "lastUpdated": "2026-04-19T20:44:52.192884",
+      "lastUpdated": "2026-04-24T17:12:58.080992",
       "notes": "Imported from refresh for 2026-03",
       "tags": [
         "load-balancing",
@@ -14557,8 +15415,8 @@
         "createdAt": 1770776776461,
         "updatedAt": 1771339259073,
         "firstPublishedAt": 1770869655502,
-        "readingTime": 0,
-        "wordCount": 0,
+        "readingTime": 11.903773584905661,
+        "wordCount": 2810,
         "clapCount": 0,
         "responsesCount": 0,
         "voterCount": 0,
@@ -14588,15 +15446,27 @@
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 208,
-            "views": 77,
-            "reads": 11
+            "presentations": 215,
+            "views": 83,
+            "reads": 12
           },
           {
             "period": "2026-02",
-            "presentations": 208,
-            "views": 77,
-            "reads": 11
+            "presentations": 215,
+            "views": 83,
+            "reads": 12
+          },
+          {
+            "period": "2026-04",
+            "presentations": 215,
+            "views": 83,
+            "reads": 12
+          },
+          {
+            "period": "2026-4",
+            "presentations": 215,
+            "views": 83,
+            "reads": 12
           }
         ],
         "monthlyEarnings": [
@@ -14611,8 +15481,33 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 10000000
+          },
+          {
+            "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
           }
-        ]
+        ],
+        "totalStats": {
+          "period": "total",
+          "presentations": 215,
+          "views": 83,
+          "reads": 12,
+          "__typename": "SummaryPostStat"
+        },
+        "totalEarnings": {
+          "period": "total",
+          "currencyCode": "USD",
+          "units": 0,
+          "nanos": 50000000
+        }
       }
     },
     "Medium Import/redefining-oops-beyond-the-car-and-animal-analogy": {
@@ -14624,7 +15519,7 @@
       "status": "Published",
       "createdDate": "2026-03-05",
       "publishedDate": "2026-03-05",
-      "lastUpdated": "2026-04-23T10:31:40.278342",
+      "lastUpdated": "2026-04-24T17:12:58.080100",
       "notes": "Imported from refresh for 2026-03 Dupe",
       "tags": [
         "oop-concepts",
@@ -14645,8 +15540,8 @@
         "createdAt": 1772652315716,
         "updatedAt": 1774924885437,
         "firstPublishedAt": 1772688746390,
-        "readingTime": 0,
-        "wordCount": 0,
+        "readingTime": 11.635849056603773,
+        "wordCount": 2898,
         "clapCount": 0,
         "responsesCount": 0,
         "voterCount": 0,
@@ -14677,15 +15572,27 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31639,
+          "subscriberCount": 31756,
           "createdAt": 0
         },
         "monthlyStats": [
           {
             "period": "2026-03",
-            "presentations": 978,
-            "views": 24,
-            "reads": 3
+            "presentations": 985,
+            "views": 34,
+            "reads": 10
+          },
+          {
+            "period": "2026-04",
+            "presentations": 985,
+            "views": 34,
+            "reads": 10
+          },
+          {
+            "period": "2026-4",
+            "presentations": 985,
+            "views": 34,
+            "reads": 10
           }
         ],
         "monthlyEarnings": [
@@ -14694,8 +15601,33 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 10000000
+          },
+          {
+            "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
           }
-        ]
+        ],
+        "totalStats": {
+          "period": "total",
+          "presentations": 985,
+          "views": 34,
+          "reads": 10,
+          "__typename": "SummaryPostStat"
+        },
+        "totalEarnings": {
+          "period": "total",
+          "currencyCode": "USD",
+          "units": 0,
+          "nanos": 30000000
+        }
       },
       "linkedin_impressions": 0
     },
@@ -14708,7 +15640,7 @@
       "status": "Published",
       "createdDate": "2026-02-15",
       "publishedDate": "2026-02-15",
-      "lastUpdated": "2026-04-24T11:07:30.470195",
+      "lastUpdated": "2026-04-24T17:12:58.080494",
       "notes": "Imported from refresh for 2026-02",
       "tags": [
         "ai-gps",
@@ -14756,14 +15688,20 @@
         "monthlyStats": [
           {
             "period": "2026-02",
-            "presentations": 139,
-            "views": 66,
-            "reads": 14
+            "presentations": 144,
+            "views": 69,
+            "reads": 15
           },
           {
             "period": "2026-04",
             "presentations": 144,
-            "views": 68,
+            "views": 69,
+            "reads": 15
+          },
+          {
+            "period": "2026-4",
+            "presentations": 144,
+            "views": 69,
             "reads": 15
           }
         ],
@@ -14779,12 +15717,18 @@
             "currencyCode": "USD",
             "units": 0,
             "nanos": 20000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
           }
         ],
         "totalStats": {
           "period": "total",
           "presentations": 144,
-          "views": 68,
+          "views": 69,
           "reads": 15,
           "__typename": "SummaryPostStat"
         },
@@ -14805,7 +15749,7 @@
       "status": "Published",
       "createdDate": "2026-02-07",
       "publishedDate": "2026-02-07",
-      "lastUpdated": "2026-04-19T20:44:52.193280",
+      "lastUpdated": "2026-04-24T17:05:38.166383",
       "notes": "Imported from refresh for 2026-02",
       "tags": [
         "python",
@@ -14857,9 +15801,9 @@
         "monthlyStats": [
           {
             "period": "2026-02",
-            "presentations": 495,
-            "views": 69,
-            "reads": 18
+            "presentations": 498,
+            "views": 77,
+            "reads": 19
           }
         ],
         "monthlyEarnings": [
@@ -14976,7 +15920,7 @@
       "rel_path": "Zero%20Cost%20AI/Zero-Cost%20AI%3A%20The%20$0%20Stack%20That%20Actually%20Works%20-%20Part%201.md",
       "status": "Published",
       "createdDate": "2026-04-20",
-      "lastUpdated": "2026-04-24T11:07:30.467572",
+      "lastUpdated": "2026-04-24T17:12:58.079089",
       "notes": "",
       "bookmarked": true,
       "leaderboard": false,
@@ -15026,8 +15970,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 168,
-          "views": 11,
+          "presentations": 169,
+          "views": 12,
           "reads": 3,
           "__typename": "SummaryPostStat"
         },
@@ -15040,6 +15984,12 @@
         "monthlyStats": [
           {
             "period": "2026-04",
+            "presentations": 169,
+            "views": 12,
+            "reads": 3
+          },
+          {
+            "period": "2026-4",
             "presentations": 168,
             "views": 11,
             "reads": 3
@@ -15048,6 +15998,12 @@
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 40000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 40000000
@@ -15066,7 +16022,7 @@
       "rel_path": "LINQ%20DotNet/Grouping,%20Joining%20&%20Aggregation%20-%2050%20Advanced%20LINQ%20Queries%20for%20.NET%2010.md",
       "status": "Published",
       "createdDate": "2026-04-21",
-      "lastUpdated": "2026-04-24T11:07:30.463496",
+      "lastUpdated": "2026-04-24T17:12:58.074358",
       "notes": "",
       "bookmarked": true,
       "leaderboard": false,
@@ -15117,23 +16073,29 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 220,
-          "views": 25,
-          "reads": 9,
+          "presentations": 231,
+          "views": 32,
+          "reads": 10,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
           "period": "total",
           "currencyCode": "USD",
           "units": 0,
-          "nanos": 240000000
+          "nanos": 270000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 220,
-            "views": 25,
-            "reads": 9
+            "presentations": 231,
+            "views": 32,
+            "reads": 10
+          },
+          {
+            "period": "2026-4",
+            "presentations": 225,
+            "views": 30,
+            "reads": 10
           }
         ],
         "monthlyEarnings": [
@@ -15141,7 +16103,13 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 240000000
+            "nanos": 270000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 270000000
           }
         ]
       }
@@ -15248,7 +16216,7 @@
       "status": "Published",
       "createdDate": "2026-01-28",
       "publishedDate": "2026-01-28",
-      "lastUpdated": "2026-04-24T11:07:30.468447",
+      "lastUpdated": "2026-04-24T17:12:58.081638",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "net10",
@@ -15295,8 +16263,8 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 233,
-          "views": 33,
+          "presentations": 272,
+          "views": 35,
           "reads": 10,
           "__typename": "SummaryPostStat"
         },
@@ -15309,14 +16277,26 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 233,
-            "views": 33,
+            "presentations": 272,
+            "views": 35,
+            "reads": 10
+          },
+          {
+            "period": "2026-4",
+            "presentations": 272,
+            "views": 35,
             "reads": 10
           }
         ],
         "monthlyEarnings": [
           {
             "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 20000000
+          },
+          {
+            "period": "2026-4",
             "currencyCode": "USD",
             "units": 0,
             "nanos": 20000000
@@ -15335,7 +16315,7 @@
       "rel_path": "Vehixcare/Terraform%20with%20Kubernetes%20on%20Azure%3A%20A%20Complete%20Architectural%20Guide%20With%20Vehixcare.md",
       "status": "Published",
       "createdDate": "2026-04-22",
-      "lastUpdated": "2026-04-24T11:07:30.463352",
+      "lastUpdated": "2026-04-24T17:12:58.074227",
       "notes": "",
       "bookmarked": true,
       "leaderboard": false,
@@ -15386,23 +16366,29 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 217,
-          "views": 28,
-          "reads": 7,
+          "presentations": 238,
+          "views": 31,
+          "reads": 8,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
           "period": "total",
           "currencyCode": "USD",
           "units": 0,
-          "nanos": 240000000
+          "nanos": 270000000
         },
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 217,
-            "views": 28,
-            "reads": 7
+            "presentations": 238,
+            "views": 31,
+            "reads": 8
+          },
+          {
+            "period": "2026-4",
+            "presentations": 229,
+            "views": 29,
+            "reads": 8
           }
         ],
         "monthlyEarnings": [
@@ -15410,7 +16396,13 @@
             "period": "2026-04",
             "currencyCode": "USD",
             "units": 0,
-            "nanos": 240000000
+            "nanos": 270000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 270000000
           }
         ]
       }
@@ -15554,6 +16546,107 @@
       "linkedin_impressions": 0,
       "linkedin_url": null,
       "publishedDueDate": "2024-01-24"
+    },
+    "Medium Import/10-microservices-architecture-patterns-a-reference-architecture-with-net-10-and-azure-part-2": {
+      "uniqueSlug": "10-microservices-architecture-patterns-a-reference-architecture-with-net-10-and-azure-part-2-bcb67bcbc9a2",
+      "title": "10 Microservices Architecture Patterns: A Reference Architecture with .NET 10 and Azure — Part 2",
+      "name": "10 Microservices Architecture Patterns: A Reference Architecture with .NET 10 and Azure — Part 2",
+      "folder": "Medium Import",
+      "series": "Medium",
+      "status": "Published",
+      "createdDate": "2026-04-23",
+      "publishedDate": "2026-04-23",
+      "lastUpdated": "2026-04-24T17:12:58.074628",
+      "notes": "Imported from refresh for 2026-04",
+      "tags": [
+        "saga-pattern",
+        "cors",
+        "containerization",
+        "load-balancer",
+        "application-insights"
+      ],
+      "bookmarked": false,
+      "leaderboard": false,
+      "medium_url": "https://mvineetsharma.medium.com/10-microservices-architecture-patterns-a-reference-architecture-with-net-10-and-azure-part-2-bcb67bcbc9a2",
+      "medium": {
+        "id": "bcb67bcbc9a2",
+        "__typename": "Post",
+        "title": "10 Microservices Architecture Patterns: A Reference Architecture with .NET 10 and Azure — Part 2",
+        "uniqueSlug": "10-microservices-architecture-patterns-a-reference-architecture-with-net-10-and-azure-part-2-bcb67bcbc9a2",
+        "mediumUrl": "https://mvineetsharma.medium.com/10-microservices-architecture-patterns-a-reference-architecture-with-net-10-and-azure-part-2-bcb67bcbc9a2",
+        "createdAt": 1774383846631,
+        "updatedAt": 1776940608099,
+        "firstPublishedAt": 1776926687474,
+        "readingTime": 47.68207547169811,
+        "wordCount": 12172,
+        "clapCount": 0,
+        "responsesCount": 0,
+        "voterCount": 0,
+        "isLocked": true,
+        "visibility": "LOCKED",
+        "isSeries": false,
+        "isShortform": false,
+        "firstBoostedAt": null,
+        "license": "ALL_RIGHTS_RESERVED",
+        "tags": [
+          "saga-pattern",
+          "cors",
+          "containerization",
+          "load-balancer",
+          "application-insights"
+        ],
+        "creator": {
+          "id": "6a63927f9b83",
+          "username": "mvineetsharma",
+          "name": "Vineet Sharma",
+          "bio": "",
+          "imageId": "1*u0kG3U0iiFtJZ4gYQPH4xQ.png",
+          "twitterScreenName": "VineetSharmaIoT",
+          "createdAt": 1525616278734
+        },
+        "collection": null,
+        "totalStats": {
+          "period": "total",
+          "presentations": 139,
+          "views": 13,
+          "reads": 7,
+          "__typename": "SummaryPostStat"
+        },
+        "totalEarnings": {
+          "period": "total",
+          "currencyCode": "USD",
+          "units": 0,
+          "nanos": 250000000
+        },
+        "monthlyStats": [
+          {
+            "period": "2026-04",
+            "presentations": 139,
+            "views": 13,
+            "reads": 7
+          },
+          {
+            "period": "2026-4",
+            "presentations": 134,
+            "views": 12,
+            "reads": 6
+          }
+        ],
+        "monthlyEarnings": [
+          {
+            "period": "2026-04",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 250000000
+          },
+          {
+            "period": "2026-4",
+            "currencyCode": "USD",
+            "units": 0,
+            "nanos": 250000000
+          }
+        ]
+      }
     }
   },
   "series": {
@@ -16145,8 +17238,8 @@
     },
     "Medium": {
       "name": "Medium",
-      "total_stories": 55,
-      "published": 55,
+      "total_stories": 56,
+      "published": 56,
       "spacing_days": 7,
       "stories": [
         "Medium Import/zero-to-production-net-in-2026-35-lessons-on-how-to-master-the-stack-with-net-10-and-azure",
@@ -16203,7 +17296,8 @@
         "Medium Import/redefining-oops-beyond-the-car-and-animal-analogy",
         "Medium Import/building-an-ai-powered-automotive-intelligence-platform-android-cloud-obd-monetization",
         "Medium Import/zero-allocation-parsing-in-python-a-guide-to-high-performance-string-processing",
-        "Medium Import/the-linq-renaissance-how-net-10-redefined-data-transformation"
+        "Medium Import/the-linq-renaissance-how-net-10-redefined-data-transformation",
+        "Medium Import/10-microservices-architecture-patterns-a-reference-architecture-with-net-10-and-azure-part-2"
       ]
     },
     "10 Essential Microservices Architecture Patterns": {

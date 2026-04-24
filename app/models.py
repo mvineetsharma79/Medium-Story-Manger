@@ -29,6 +29,17 @@ class Stats(BaseModel):
     presentations: int = 0
     views: int = 0
     reads: int = 0
+    claps: int = 0
+    responses: int = 0
+    medium_member_reads: int = 0
+    medium_member_views: int = 0
+    medium_nonmember_reads: int = 0
+    medium_nonmember_views: int = 0
+    medium_read_ratio: float = 0
+    medium_member_read_percentage: float = 0
+    medium_new_followers: int = 0
+    medium_highlights: int = 0
+    feedClickThroughRate: int = 0
 
 
 class Earning(BaseModel):

@@ -369,6 +369,133 @@ class StoryService:
     # NEW METHOD: Fetch Medium Stories for a Period
     # ============================================
     
+    # ============New Method
+    @staticmethod
+    async def fetch_medium_story_stats(post_id: str, period: str) -> Dict[str, Any]:
+        """Fetch stats for a single story and update stories.json."""
+        from datetime import datetime as dt_module
+        
+        logger.info(f"Fetching story stats for post_id: {post_id}, period: {period}")
+        
+        api_service = get_medium_api_service()
+        
+        if not api_service.is_authenticated():
+            return {
+                "success": False,
+                "message": "Not authenticated",
+                "post_id": post_id,
+                "period": period
+            }
+        
+        response = api_service.fetch_medium_story_stats(post_id, period)
+        
+        if not response:
+            return {
+                "success": False,
+                "message": f"No stats found",
+                "post_id": post_id,
+                "period": period
+            }
+        
+        # Direct extraction - NO "lifetime" object
+        presentation_count = response.get('presentation_count', 0)
+        reads = response.get('reads', 0)
+        views = response.get('views', 0)
+        feed_ctr = response.get('feed_click_through_rate', 0)
+        monthly_data = response.get('monthly', {})
+        
+        # Find story in stories.json
+        data = await load_stories_data()
+        stories = data.get("stories", {})
+        
+        story_key = None
+        story_data = None
+        
+        for key, story in stories.items():
+            medium_id = story.get("medium", {}).get("id", "") if story.get("medium") else ""
+            if post_id == medium_id:
+                story_key = key
+                story_data = story
+                break
+        
+        if not story_key:
+            return {
+                "success": False,
+                "message": f"Story not found",
+                "post_id": post_id,
+                "period": period
+            }
+        
+        # Update top-level fields
+        story_data['lifetime_reads'] = reads
+        story_data['lifetime_views'] = views
+        story_data['presentation_count'] = presentation_count
+        story_data['feed_click_through_rate'] = feed_ctr
+        story_data['lastUpdated'] = dt_module.now().isoformat()
+        
+        # Update medium.totalStats
+        if 'medium' not in story_data:
+            story_data['medium'] = {}
+        
+        if 'totalStats' in story_data['medium']:
+            story_data['medium']['totalStats']['presentations'] = presentation_count
+            story_data['medium']['totalStats']['views'] = views
+            story_data['medium']['totalStats']['reads'] = reads
+        
+        # Build monthly entry
+        total_reads = monthly_data.get('total_reads', 0)
+        total_views = monthly_data.get('total_views', 0)
+        member_reads = monthly_data.get('member_reads', 0)
+        
+        read_ratio = round((total_reads / total_views) * 100, 1) if total_views > 0 else 0
+        member_percent = round((member_reads / total_reads) * 100, 1) if total_reads > 0 else 0
+        
+        monthly_entry = {
+            "period": period,
+            "presentations": presentation_count,
+            "views": total_views,
+            "reads": total_reads,
+            "claps": monthly_data.get('claps', 0),
+            "responses": monthly_data.get('replies', 0),
+            "medium_member_reads": monthly_data.get('member_reads', 0),
+            "medium_member_views": monthly_data.get('member_views', 0),
+            "medium_nonmember_reads": monthly_data.get('nonmember_reads', 0),
+            "medium_nonmember_views": monthly_data.get('nonmember_views', 0),
+            "medium_read_ratio": read_ratio,
+            "medium_member_read_percentage": member_percent,
+            "medium_new_followers": monthly_data.get('new_followers', 0),
+            "medium_highlights": monthly_data.get('highlights', 0)
+        }
+        
+        # Update medium.monthlyStats
+        if 'monthlyStats' not in story_data['medium']:
+            story_data['medium']['monthlyStats'] = []
+        
+        found = False
+        for i, stat in enumerate(story_data['medium']['monthlyStats']):
+            if stat and stat.get('period') == period:
+                story_data['medium']['monthlyStats'][i] = monthly_entry
+                found = True
+                break
+        
+        if not found:
+            story_data['medium']['monthlyStats'].append(monthly_entry)
+        
+        story_data['medium']['monthlyStats'].sort(key=lambda x: x.get('period', ''), reverse=True)
+        
+        await save_stories_data(data)
+        
+        return {
+            "success": True,
+            "message": f"Stats saved for {period}",
+            "post_id": post_id,
+            "period": period,
+            "story_key": story_key,
+            "story_name": story_data.get('name', story_data.get('title')),
+            "updated": True
+        }
+    # ============New Method END
+    
     @staticmethod
     async def fetch_medium_stats(period: str) -> Dict[str, Any]:
         """

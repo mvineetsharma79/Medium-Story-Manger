@@ -398,7 +398,7 @@ Description: Get story by uniqueSlug
 
 curl -X GET "http://localhost:8000/api/stories/story/name/Architectural%20Remediation%20Framework%3A%20Eliminating%20the%2012%20Silent%20Killers%20in%20.NET%2010%20Web%20APIs%20-%20Part%201" | jq '.'
 """
-@router.get("/story/name/{name}:path")
+@router.get("/story/name/{postId}:path")
 async def get_story_by_name(name: str):
     """Get story by Name"""
     logger.error("name")
@@ -1274,40 +1274,56 @@ async def refresh_stats_with_period(period: str):
     result = await StoryService.fetch_medium_stats(period)
     return result
 
-"""
-POST /api/stories/refresh-story/{name}
-Description: Refresh stats from Medium API for current month
+# ============================================
+# SINGLE STORY STATS FETCHING ENDPOINTS
+# ============================================
 
-curl -X POST "http://localhost:8000/api/stories/refresh-story/StoryName" | jq '.'
 """
-@router.post("/refresh-story/{name}")
-async def refresh_story_current_month(name: str):
-    #logger.info(f": POST {name}")
-    """Refresh story stats from Medium API for current month"""
+POST /api/stories/refresh-story/{postId}
+Description: Fetch and save stats for a single story for current month
+
+curl -X POST "http://localhost:8000/api/stories/refresh-story/40793d1e9f2b" | jq '.'
+"""
+@router.post("/refresh-story/{postId}")
+async def refresh_story_current_month(postId: str):
+    """Fetch stats for a single story for the current month."""
     try:
         year, month = get_current_year_month()
-        return await refresh_story_with_period(name , f"{year}-{month}")
+        period = f"{year}-{month:02d}"
+        return await refresh_story_with_period(postId, period)
     except Exception as e:
-        logger.error(f"Error refreshing stats: {e}")
+        logger.error(f"Error refreshing story: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
 """
-POST /api/stories/refresh-story/{name}/{period}
-Description: Refresh stats from Medium API for specific period (YYYY-MM)
+POST /api/stories/refresh-story/{postId}/{period}
+Description: Fetch and save stats for a single story for specific period
 
-curl -X POST "http://localhost:8000/api/stories/refresh-story/StoryName/2026-04" | jq '.'
+curl -X POST "http://localhost:8000/api/stories/refresh-story/40793d1e9f2b/2026-04" | jq '.'
 """
-@router.post("/refresh-story/{name}/{period}")
-async def refresh_story_with_period(name: str, period: str):
+@router.post("/refresh-story/{postId}/{period}")
+async def refresh_story_with_period(postId: str, period: str):
+    """Fetch stats for a single story for a specific period."""
     try:
-        datetime.strptime(period, "%Y-%m")
-    except ValueError:
-        raise HTTPException(status_code=400, detail="Invalid period format")
-    
-    result = await StoryService.fetch_medium_stats(period)
-    return result
-
+        from datetime import datetime
+        try:
+            datetime.strptime(period, "%Y-%m")
+        except ValueError:
+            raise HTTPException(status_code=400, detail="Invalid period format. Use YYYY-MM")
+        
+        result = await StoryService.fetch_medium_story_stats(postId, period)
+        
+        if not result.get("success"):
+            raise HTTPException(status_code=404, detail=result.get("message"))
+        
+        return result
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error refreshing story stats: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 """
 GET /api/stories/import-logs
@@ -1690,3 +1706,72 @@ async def save_story_content(story_key: str, data: Dict[str, str]):
     except Exception as e:
         logger.error(f"Error saving story content: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+#=================
+@router.get("/api/debug/test-story-api/{post_id}/{period}")
+async def test_story_api(post_id: str, period: str):
+    """Test the Medium API call directly."""
+    try:
+        api_service = get_medium_api_service()
+        
+        if not api_service.is_authenticated():
+            return {"error": "Not authenticated"}
+        
+        # Parse period
+        parts = period.split('-')
+        year = int(parts[0])
+        month = int(parts[1])
+        
+        # Get timestamps
+        start_at, end_at = api_service.get_month_timestamps(year, month)
+        
+        # GraphQL query
+        query = """query MergedPostStatsQuery($postStatsTotalBundleInput: PostStatsTotalBundleInput!, $postStatsDailyBundleInput: PostStatsDailyBundleInput!) {
+          postStatsTotalBundle(postStatsTotalBundleInput: $postStatsTotalBundleInput) {
+            readersCount
+            viewersCount
+            feedClickThroughRate
+            presentationCount
+          }
+          postStatsDailyBundle(postStatsDailyBundleInput: $postStatsDailyBundleInput) {
+            buckets {
+              dayStartsAt
+              membershipType
+              readersThatReadCount
+              readersThatViewedCount
+              readersThatClappedCount
+              readersThatRepliedCount
+              readersThatHighlightedCount
+              readersThatInitiallyFollowedAuthorFromThisPostCount
+            }
+          }
+        }"""
+        
+        variables = {
+            "postStatsTotalBundleInput": {"postId": post_id},
+            "postStatsDailyBundleInput": {
+                "postId": post_id,
+                "fromDayStartsAt": start_at,
+                "toDayStartsAt": end_at
+            }
+        }
+        
+        # Call the internal method directly
+        payload = api_service._build_graphql_request("MergedPostStatsQuery", variables, query, post_id, "stats-post")
+        headers = api_service._get_common_headers(post_id, "MergedPostStatsQuery")
+        
+        # This is the critical call - see what it returns
+        response = api_service._make_request(api_service.GRAPHQL_URL, headers, payload, f"Test {post_id} {period}")
+        
+        return {
+            "response_is_none": response is None,
+            "response_type": str(type(response)),
+            "response": response if response else "No response"
+        }
+        
+    except Exception as e:
+        import traceback
+        return {
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }

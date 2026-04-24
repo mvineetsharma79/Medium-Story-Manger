@@ -439,7 +439,7 @@ class MediumAPIService:
         
         variables = {
             "username": username,
-            "first": 1,
+            "first": 100,
             "after": "",
             "startAt": start_at,
             "endAt": end_at
@@ -520,7 +520,153 @@ class MediumAPIService:
     # METHOD: Fetch stats for a SINGLE story
     # ============================================
     
-    def fetch_story_stats(self, post_id: str, year: int, month: int) -> Optional[Dict[str, Any]]:
+    # === New Method
+    def fetch_medium_story_stats(self, post_id: str, period: str) -> Optional[Dict[str, Any]]:
+        """Fetch lifetime and monthly stats for a single story from Medium API."""
+        if not self.is_authenticated():
+            logger.warning("Not authenticated. Cannot fetch story stats.")
+            return None
+        
+        # Parse period
+        try:
+            parts = period.split('-')
+            year = int(parts[0])
+            month = int(parts[1])
+        except (ValueError, IndexError):
+            logger.error(f"Invalid period format: {period}")
+            return None
+        
+        # Get timestamps
+        start_at, end_at = self.get_month_timestamps(year, month)
+        
+        # GraphQL query
+        query = """query MergedPostStatsQuery($postStatsTotalBundleInput: PostStatsTotalBundleInput!, $postStatsDailyBundleInput: PostStatsDailyBundleInput!) {
+    postStatsTotalBundle(postStatsTotalBundleInput: $postStatsTotalBundleInput) {
+        readersCount
+        viewersCount
+        feedClickThroughRate
+        presentationCount
+    }
+    postStatsDailyBundle(postStatsDailyBundleInput: $postStatsDailyBundleInput) {
+        buckets {
+        dayStartsAt
+        membershipType
+        readersThatReadCount
+        readersThatViewedCount
+        readersThatClappedCount
+        readersThatRepliedCount
+        readersThatHighlightedCount
+        readersThatInitiallyFollowedAuthorFromThisPostCount
+        }
+    }
+    }"""
+        
+        variables = {
+            "postStatsTotalBundleInput": {"postId": post_id},
+            "postStatsDailyBundleInput": {
+                "postId": post_id,
+                "fromDayStartsAt": start_at,
+                "toDayStartsAt": end_at
+            }
+        }
+        
+        payload = self._build_graphql_request("MergedPostStatsQuery", variables, query, post_id, "stats-post")
+        headers = self._get_common_headers(post_id, "MergedPostStatsQuery")
+        
+        time.sleep(0.5)
+        response = self._make_request(self.GRAPHQL_URL, headers, payload, f"Story Stats {post_id} {period}")
+        
+        # CRITICAL FIX: Check if response is None
+        if response is None:
+            logger.error(f"Response is None for post {post_id}")
+            return None
+        
+        # Parse the response directly from the list structure
+        #return response
+        return self._parse_direct_from_response(response, post_id, period)
+
+
+    def _parse_direct_from_response(self, response: Any, post_id: str, period: str) -> Optional[Dict[str, Any]]:
+        """Parse response directly from the list structure."""
+        
+        # Guard against None
+        if response is None:
+            return None
+        
+        # Handle response as list (your _make_request returns list)
+        if not isinstance(response, list) or len(response) == 0:
+            logger.error(f"Response is not a list or empty: {type(response)}")
+            return None
+        
+        # Get first item
+        first_item = response[0]
+        if not isinstance(first_item, dict):
+            logger.error(f"First item is not a dict: {type(first_item)}")
+            return None
+        
+        # Get data object
+        data_obj = first_item.get('data')
+        if not data_obj:
+            logger.error(f"No 'data' key in response")
+            return None
+        
+        # Initialize result
+        result = {
+            'presentation_count': 0,
+            'reads': 0,
+            'views': 0,
+            'feed_click_through_rate': 0,
+            'monthly': {
+                'member_reads': 0,
+                'member_views': 0,
+                'nonmember_reads': 0,
+                'nonmember_views': 0,
+                'total_reads': 0,
+                'total_views': 0,
+                'claps': 0,
+                'replies': 0,
+                'highlights': 0,
+                'new_followers': 0
+            }
+        }
+        
+        # Extract total stats
+        total_bundle = data_obj.get('postStatsTotalBundle', {})
+        if total_bundle:
+            result['presentation_count'] = total_bundle.get('presentationCount', 0)
+            result['reads'] = total_bundle.get('readersCount', 0)
+            result['views'] = total_bundle.get('viewersCount', 0)
+            result['feed_click_through_rate'] = total_bundle.get('feedClickThroughRate', 0)
+        
+        # Extract daily buckets
+        daily_bundle = data_obj.get('postStatsDailyBundle', {})
+        buckets = daily_bundle.get('buckets', [])
+        
+        for bucket in buckets:
+            membership = bucket.get('membershipType')
+            reads = bucket.get('readersThatReadCount', 0)
+            views = bucket.get('readersThatViewedCount', 0)
+            
+            if membership == 'MEMBER':
+                result['monthly']['member_reads'] += reads
+                result['monthly']['member_views'] += views
+            elif membership == 'NONMEMBER':
+                result['monthly']['nonmember_reads'] += reads
+                result['monthly']['nonmember_views'] += views
+            
+            result['monthly']['total_reads'] += reads
+            result['monthly']['total_views'] += views
+            result['monthly']['claps'] += bucket.get('readersThatClappedCount', 0)
+            result['monthly']['replies'] += bucket.get('readersThatRepliedCount', 0)
+            result['monthly']['highlights'] += bucket.get('readersThatHighlightedCount', 0)
+            result['monthly']['new_followers'] += bucket.get('readersThatInitiallyFollowedAuthorFromThisPostCount', 0)
+        
+        return result    
+    # ==============
+    
+    
+    
+    def fetch_story_stats(self, post_id: str, period: str) -> Optional[Dict[str, Any]]:
         """
         Fetch detailed monthly stats for a single story.
         
@@ -535,6 +681,14 @@ class MediumAPIService:
         Returns:
             Dict with aggregated totals for the month
         """
+        # Parse period to year and month
+        try:
+            parts = period.split('-')
+            year = int(parts[0])
+            month = int(parts[1])
+        except (ValueError, IndexError):
+            logger.error(f"Invalid period format: {period}. Use YYYY-MM")
+            return None
         if not self.is_authenticated():
             logger.warning("Not authenticated. Cannot fetch story stats.")
             return None
