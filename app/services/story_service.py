@@ -370,7 +370,7 @@ class StoryService:
     # ============================================
     
     @staticmethod
-    async def fetch_medium_stories(period: str) -> Dict[str, Any]:
+    async def fetch_medium_stats(period: str) -> Dict[str, Any]:
         """
         Fetch ALL published posts from Medium API for a specific period.
         
@@ -395,7 +395,7 @@ class StoryService:
                 "total_posts": 0
             }
         
-        posts = api_service.fetch_medium_stories(period)
+        posts = api_service.fetch_medium_stat(period)
         
         if not posts:
             return {

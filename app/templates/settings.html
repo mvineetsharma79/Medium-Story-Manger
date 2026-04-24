@@ -11,13 +11,48 @@
     <div class="col-md-6">
         <div class="card mb-3">
             <div class="card-header">
+                <h6>App Settings</h6>
+            </div>
+            <div class="card-body">
+                <form id="calendarSettingsForm">
+                    <div class="mb-2">
+                        <label>Debug Mode</label>
+                        <pre>export MEDIUM_API_DEBUG=True</pre>
+                    </div>
+                    <div class="mb-2">
+                        <label>Cookie</label>
+                        <pre>export MEDIUM_COOKIE=""</pre>
+                    </div>
+                    <div class="mb-2">
+                        <label>Dashboard refresh</label>
+                        <pre>
+                            curl -X POST "http://localhost:8000/api/stories/refresh-stats/2026-04" | jq '.'
+                            curl -X GET "http://localhost:8000/api/stories/import-logs" | jq '.' -- Need fixes
+                        </pre>
+                    </div>
+                    <div class="mb-2">
+                        <div class="mb-2">
+                            <label>Story refresh</label>
+                            <pre>curl -X POST "http://localhost:8000/api/stories/refresh-stats/2026-04" | jq '.'</pre>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary">Save Settings</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header">
                 <h6>Calendar Settings</h6>
             </div>
             <div class="card-body">
                 <form id="calendarSettingsForm">
                     <div class="mb-2">
                         <label>Series Spacing (days)</label>
-                        <input type="number" class="form-control form-control-sm" id="seriesSpacingDays" min="5" max="14">
+                        <input type="number" class="form-control form-control-sm" id="seriesSpacingDays" min="5"
+                            max="14">
                     </div>
                     <div class="mb-2">
                         <label>Stories Per Week</label>
@@ -36,36 +71,38 @@
             </div>
         </div>
     </div>
-    
-<!-- Update the System card -->
-<div class="card mb-3">
-    <div class="card-header">
-        <h6>System</h6>
-    </div>
-    <div class="card-body">
-        <p><strong>Stories Root:</strong> <span id="storiesRoot"></span></p>
-        <p><strong>Data Directory:</strong> <span id="dataDir"></span></p>
-        <hr>
-        <div class="btn-group mb-2" role="group">
-            <button class="btn btn-sm btn-info" onclick="refreshStats()">
-                <i class="bi bi-cloud-download"></i> Refresh Stats from Medium
-            </button>        </div>
-        <br>
-        <button class="btn btn-sm btn-primary mt-2" onclick="syncStories()">
-            <i class="bi bi-arrow-repeat"></i> Sync Files
-        </button>
-        <button class="btn btn-sm btn-secondary mt-2" onclick="generateCalendar()">
-            <i class="bi bi-calendar"></i> Generate Calendar
-        </button>
-        <hr>
-        <div class="alert alert-warning small">
-            <i class="bi bi-exclamation-triangle"></i> This will overwrite all monthly data with values from leaderboard JSON files.
+
+    <!-- Update the System card -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <h6>System</h6>
         </div>
-        <button class="btn btn-sm btn-danger w-100" onclick="importAllLeaderboard()">
-            <i class="bi bi-cloud-upload"></i> Import All Leaderboard Data
-        </button>
+        <div class="card-body">
+            <p><strong>Stories Root:</strong> <span id="storiesRoot"></span></p>
+            <p><strong>Data Directory:</strong> <span id="dataDir"></span></p>
+            <hr>
+            <div class="btn-group mb-2" role="group">
+                <button class="btn btn-sm btn-info" onclick="refreshStats()">
+                    <i class="bi bi-cloud-download"></i> Refresh Stats from Medium
+                </button>
+            </div>
+            <br>
+            <button class="btn btn-sm btn-primary mt-2" onclick="syncStories()">
+                <i class="bi bi-arrow-repeat"></i> Sync Files
+            </button>
+            <button class="btn btn-sm btn-secondary mt-2" onclick="generateCalendar()">
+                <i class="bi bi-calendar"></i> Generate Calendar
+            </button>
+            <hr>
+            <div class="alert alert-warning small">
+                <i class="bi bi-exclamation-triangle"></i> This will overwrite all monthly data with values from
+                leaderboard JSON files.
+            </div>
+            <button class="btn btn-sm btn-danger w-100" onclick="importAllLeaderboard()">
+                <i class="bi bi-cloud-upload"></i> Import All Leaderboard Data
+            </button>
+        </div>
     </div>
-</div>
 </div>
 {% endblock %}
 

@@ -346,7 +346,7 @@ async def get_story_by_slug(name: str):
         #logger.error(json.dumps(dict(story), default=str))
 
         if not story:
-            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {decoded_slug}")
+            raise HTTPException(status_code=404, detail=f"Story not found for uniqueSlug: {name}")
         
         now = datetime.now()
         monthly_stats = await MonthlyStorageService.get_story_monthly_stats(story.key, now.year, now.month) or {}
@@ -1271,7 +1271,41 @@ async def refresh_stats_with_period(period: str):
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid period format")
     
-    result = await StoryService.fetch_medium_stories(period)
+    result = await StoryService.fetch_medium_stats(period)
+    return result
+
+"""
+POST /api/stories/refresh-story/{name}
+Description: Refresh stats from Medium API for current month
+
+curl -X POST "http://localhost:8000/api/stories/refresh-story/StoryName" | jq '.'
+"""
+@router.post("/refresh-story/{name}")
+async def refresh_story_current_month(name: str):
+    #logger.info(f": POST {name}")
+    """Refresh story stats from Medium API for current month"""
+    try:
+        year, month = get_current_year_month()
+        return await refresh_story_with_period(name , f"{year}-{month}")
+    except Exception as e:
+        logger.error(f"Error refreshing stats: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+POST /api/stories/refresh-story/{name}/{period}
+Description: Refresh stats from Medium API for specific period (YYYY-MM)
+
+curl -X POST "http://localhost:8000/api/stories/refresh-story/StoryName/2026-04" | jq '.'
+"""
+@router.post("/refresh-story/{name}/{period}")
+async def refresh_story_with_period(name: str, period: str):
+    try:
+        datetime.strptime(period, "%Y-%m")
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid period format")
+    
+    result = await StoryService.fetch_medium_stats(period)
     return result
 
 

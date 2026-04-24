@@ -293,7 +293,7 @@ class MediumAPIService:
     # MAIN METHOD: Fetch ALL posts for a period
     # ============================================
     
-    def fetch_medium_stories(self, period: str) -> Optional[List[Dict[str, Any]]]:
+    def fetch_medium_stat(self, period: str) -> Optional[List[Dict[str, Any]]]:
         """
         Fetch ALL published posts for a specific period (month).
         
@@ -439,7 +439,7 @@ class MediumAPIService:
         
         variables = {
             "username": username,
-            "first": 100,
+            "first": 1,
             "after": "",
             "startAt": start_at,
             "endAt": end_at
