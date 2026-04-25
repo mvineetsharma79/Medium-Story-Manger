@@ -48,6 +48,7 @@ class Earning(BaseModel):
     currencyCode: str = "USD"
     units: int = 0
     nanos: int = 0
+    amount: float =0.0;
 
 
 class Creator(BaseModel):

@@ -29,13 +29,14 @@ function formatNumberShort(num) {
 }
 
 function minutesToHoursMinutes(minutes) {
-    if (!minutes && minutes !== 0) return '0:00';
-    var hours = Math.floor(minutes / 60);
-    var mins = minutes % 60;
-    if (hours > 0) {
-        return hours + ':' + mins.toString().padStart(2, '0');
-    }
-    return mins + ':00';
+    if (!minutes && minutes !== 0) return '00:00';
+    
+    // Round UP to nearest second (ceil)
+    var totalSeconds = Math.ceil(minutes * 60);
+    var mins = Math.floor(totalSeconds / 60);
+    var secs = totalSeconds % 60;
+    
+    return mins.toString().padStart(2, '0') + ':' + secs.toString().padStart(2, '0');
 }
 
 function formatDateFromTimestamp(timestamp) {
@@ -158,7 +159,7 @@ function buildMonthlyStatsTable(medium) {
         for (var j = 0; j < medium.monthlyEarnings.length; j++) {
             var earn = medium.monthlyEarnings[j];
             if (earn && earn.period) {
-                earningsMap[earn.period] = earn.nanos || 0;
+                earningsMap[earn.period] = earn.amount || 0;
             }
         }
     }
@@ -170,8 +171,8 @@ function buildMonthlyStatsTable(medium) {
         if (stat && stat.period) {
             tableData.push({
                 period: stat.period,
-                views: stat.views || 0,
-                reads: stat.reads || 0,
+                views: stat.medium_member_views + ' / '  + stat.views || 0,
+                reads: stat.medium_member_reads + ' / '  +stat.reads || 0,
                 earnings: earningsMap[stat.period] || 0
             });
         }
@@ -195,7 +196,7 @@ function buildMonthlyStatsTable(medium) {
         row.innerHTML = '<td><strong>' + periodDisplay + '</strong></td>' +
             '<td class="text-end">' + formatNumberShort(data.views) + '</td>' +
             '<td class="text-end">' + formatNumberShort(data.reads) + '</td>' +
-            '<td class="text-end">' + formatCurrencyFromNanos(data.earnings) + '</td>';
+            '<td class="text-end">' + (data.earnings) + '</td>';
     }
 }
 
@@ -396,18 +397,19 @@ function populateModalFromStory(story) {
         buildMonthlyStatsTable(medium);
     }
     
-    // Lifetime stats
-    var lifetimeReads = document.getElementById('editStoryLifetimeReads');
-    if (lifetimeReads) lifetimeReads.textContent = formatNumberShort(story.lifetime_reads || 0);
-    
-    var lifetimeViews = document.getElementById('editStoryLifetimeViews');
-    if (lifetimeViews) lifetimeViews.textContent = formatNumberShort(story.lifetime_views || 0);
-    
-    var lifetimeClaps = document.getElementById('editStoryLifetimeClaps');
-    if (lifetimeClaps) lifetimeClaps.textContent = formatNumberShort(story.lifetime_claps || 0);
-    
-    var presentationCount = document.getElementById('editStoryPresentationCount');
-    if (presentationCount) presentationCount.textContent = formatNumberShort(story.presentation_count || 0);
+    // Lifetime stats    
+    if (medium.totalStats)
+    {
+        var lifetimeReads = document.getElementById('editStoryLifetimeReads');
+        var lifetimeViews = document.getElementById('editStoryLifetimeViews');
+        var lifetimeClaps = document.getElementById('editStoryLifetimeClaps');
+        var presentationCount = document.getElementById('editStoryPresentationCount');
+
+        lifetimeReads.textContent = formatNumberShort(medium.totalStats.reads || 0);
+        lifetimeViews.textContent = formatNumberShort(medium.totalStats.views || 0);
+        lifetimeClaps.textContent = formatNumberShort(medium.totalStats.claps || 0);
+        presentationCount.textContent = formatNumberShort(medium.totalStats.presentations || 0);
+    }    
 }
 
 // ============================================
@@ -493,29 +495,50 @@ async function syncWithMedium() {
     var year = now.getFullYear();
     var month = now.getMonth() + 1;
     
-    var confirmMsg = '⚠️ WARNING: This will refresh the entire page and discard unsaved changes.\n\nSync stats from Medium for ' + year + '-' + String(month).padStart(2, '0') + '?';
-    if (!confirm(confirmMsg)) return;
+    // var confirmMsg = '⚠️ WARNING: This will refresh the entire page and discard unsaved changes.\n\nSync stats from Medium for ' + year + '-' + String(month).padStart(2, '0') + '?';
+    // if (!confirm(confirmMsg)) return;
     
-    var btn = document.querySelector('[data-action="sync-monthly-stats"]');
-    var originalText = btn ? btn.innerHTML : 'Syncing...';
-    if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Syncing...';
-    }
     
     try {
-        var encodedSlug = encodeURIComponent(uniqueSlug);
-        var response = await fetch(API_BASE + '/stories/fetch-lifetime-stats/' + encodedSlug + '?year=' + year + '&month=' + month, {
-            method: 'POST'
-        });
-        
-        if (!response.ok) throw new Error('Failed to sync stats');
-        
-        window.location.reload();
+//        var postId = document.getElementById('mediumId').innerHTML;
+        //var response = await fetch(API_BASE + '/stories/fetch-lifetime-stats/' + encodedSlug + '?year=' + year + '&month=' + month, {
+
+
+        if (currentStoryData.medium.monthlyEarnings) {
+            var postId = currentStoryData.medium.id;
+            var btn = document.querySelector('[data-action="sync-monthly-stats"]');
+            var originalText = btn ? btn.innerHTML : 'Syncing...';
+
+            for(const element of currentStoryData.medium.monthlyEarnings){
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Sync...' + element.period;
+                }
+                var response = await fetch(API_BASE + '/stories/refresh-story/' + postId + '/' + element.period
+                    , {
+                        method: 'POST'
+                    });
+
+                if (!response.ok)
+                    throw new Error('Failed to sync stats');
+                else {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="bi bi-cloud-download"></i> SYNC';
+                    loadStoryForEdit(encodeURIComponent(currentStoryKey))
+                }
+
+
+                //Rate limit protection - 1 request per second
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+            }
+
+        }
+
+        //window.location.reload();
         
     } catch (error) {
         console.error('Error syncing stats:', error);
-        alert('Error syncing stats: ' + error.message);
         if (btn) {
             btn.disabled = false;
             btn.innerHTML = originalText;

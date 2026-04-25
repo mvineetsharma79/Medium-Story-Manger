@@ -692,21 +692,31 @@ class StoryService:
                     "period": "total",
                     "currencyCode": total_earnings.get('currencyCode', 'USD'),
                     "units": total_earnings.get('units', 0),
-                    "nanos": total_earnings_nanos
+                    "nanos": total_earnings_nanos,
+                    "amount": round(total_earnings.get('units', 0) + total_earnings_nanos / 1000000000, 2)
                 }
             
+            # monthly_stats_entry = {
+            #     "period": period,
+            #     "presentations": presentations,
+            #     "views": views,
+            #     "reads": reads
+            # }
+            
+            # Make monthly_stats_entry as zero to appeare earnings
             monthly_stats_entry = {
                 "period": period,
-                "presentations": presentations,
-                "views": views,
-                "reads": reads
+                "presentations": 1,
+                "views": 1,
+                "reads": 1
             }
-            
             monthly_earnings_entry = {
                 "period": period,
                 "currencyCode": monthly_earnings.get('currencyCode', 'USD'),
                 "units": monthly_earnings.get('units', 0),
-                "nanos": monthly_earnings_nanos
+                "nanos": monthly_earnings_nanos,
+                "amount": round(monthly_earnings.get('units', 0) + monthly_earnings_nanos / 1000000000, 2)
+
             }
             
             # EXACT FULL TITLE MATCH after normalization
@@ -842,7 +852,7 @@ class StoryService:
         await save_stories_data(data)
         
         logger.info(f"Refresh completed: {new_count} new, {updated_count} updated")
-        
+        #return posts
         return {
             "success": True,
             "message": f"Successfully fetched {len(posts)} posts from Medium",
@@ -886,10 +896,19 @@ class StoryService:
                         period=stat.get('period', ''),
                         presentations=stat.get('presentations') or 0,
                         views=stat.get('views') or 0,
-                        reads=stat.get('reads') or 0
+                        reads=stat.get('reads') or 0,
+                        claps=stat.get('claps') or 0,
+                        responses=stat.get('responses') or 0,
+                        medium_member_reads=stat.get('medium_member_reads') or 0,
+                        medium_member_views=stat.get('medium_member_views') or 0,
+                        medium_nonmember_reads=stat.get('medium_nonmember_reads') or 0,
+                        medium_nonmember_views=stat.get('medium_nonmember_views') or 0,
+                        medium_read_ratio=stat.get('medium_read_ratio') or 0,
+                        medium_member_read_percentage=stat.get('medium_member_read_percentage') or 0,
+                        medium_new_followers=stat.get('medium_new_followers') or 0,
+                        medium_highlights=stat.get('medium_highlights') or 0,                        
                     ))
                 
-                # Parse totalEarnings - handle None values
                 total_earnings_data = medium_data.get('totalEarnings', {})
                 total_earnings = None
                 if total_earnings_data:
@@ -897,7 +916,8 @@ class StoryService:
                         period=total_earnings_data.get('period', 'total'),
                         currencyCode=total_earnings_data.get('currencyCode', 'USD'),
                         units=total_earnings_data.get('units') or 0,
-                        nanos=total_earnings_data.get('nanos') or 0
+                        nanos=total_earnings_data.get('nanos') or 0,
+                        amount= total_earnings_data.get('amount') or 0
                     )
                 
                 # Parse monthlyEarnings
@@ -907,7 +927,9 @@ class StoryService:
                         period=earn.get('period', ''),
                         currencyCode=earn.get('currencyCode', 'USD'),
                         units=earn.get('units') or 0,
-                        nanos=earn.get('nanos') or 0
+                        nanos=earn.get('nanos') or 0,
+                        amount= earn.get('amount') or 0,
+
                     ))
                 
                 # Parse tags (list of strings)

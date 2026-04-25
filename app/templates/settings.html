@@ -16,24 +16,28 @@
             <div class="card-body">
                 <form id="calendarSettingsForm">
                     <div class="mb-2">
-                        <label>Debug Mode</label>
+                        <label><strong>Debug Mode</strong></label>
                         <pre>export MEDIUM_API_DEBUG=True</pre>
                     </div>
                     <div class="mb-2">
-                        <label>Cookie</label>
+                        <label><strong>Cookie</strong></label>
                         <pre>export MEDIUM_COOKIE=""</pre>
                     </div>
                     <div class="mb-2">
-                        <label>Dashboard refresh</label>
-                        <pre>
-                            curl -X POST "http://localhost:8000/api/stories/refresh-stats/2026-04" | jq '.'
-                            curl -X GET "http://localhost:8000/api/stories/import-logs" | jq '.' -- Need fixes
-                        </pre>
+                        <label><strong>Dashboard Refresh</strong></label><br />
+                        curl -X POST "http://localhost:8000/api/stories/refresh-stats/2026-04" | jq '.' <br />
+                            curl -X GET "http://localhost:8000/api/stories/import-logs" | jq '.' -- Need fixes <br />
+                        
                     </div>
                     <div class="mb-2">
                         <div class="mb-2">
-                            <label>Story refresh</label>
-                            <pre>curl -X POST "http://localhost:8000/api/stories/refresh-stats/2026-04" | jq '.'</pre>
+                            <label><strong>Story Refresh</strong></label>
+                            <br />
+
+                            curl -X POST "http://localhost:8000/api/stories/refresh-story/40793d1e9f2b" | jq '.' <br />
+                            curl -X POST "http://localhost:8000/api/stories/refresh-story/40793d1e9f2b/2026-04" | jq '.'
+                            <br />
+
                         </div>
                     </div>
                     <button type="submit" class="btn btn-sm btn-primary">Save Settings</button>
