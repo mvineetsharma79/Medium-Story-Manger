@@ -88,6 +88,7 @@ async def get_series_list():
             total_reads = 0
             total_claps = 0
             total_responses = 0
+            total_earnings = 0
             
             for story_key in story_keys:
                 if story_key in stories:
@@ -109,9 +110,14 @@ async def get_series_list():
                         total_reads += total_stats.get("reads", 0) or 0
                         total_claps += medium_data.get("clapCount", 0) or 0
                         total_responses += medium_data.get("responsesCount", 0) or 0
+                        total_earnings_data = medium_data.get("totalEarnings", {})
+                        total_earnings += total_earnings_data.get("amount", 0) or 0
+
+                        totalEarniings=0
                     else:
                         # Legacy fields
                         total_presentations += story.get("presentation_count", 0) or 0
+                        #total_views += story.get("lifetime_views", 0) or 0
                         total_views += story.get("lifetime_views", 0) or 0
                         total_reads += story.get("lifetime_reads", 0) or 0
                         total_claps += story.get("lifetime_claps", 0) or 0
@@ -131,8 +137,9 @@ async def get_series_list():
                 "total_reads": total_reads,
                 "total_claps": total_claps,
                 "total_responses": total_responses,
+                "total_earnings" : total_earnings
             })
-        
+        #return medium_data    
         return {"series": result, "total": len(result)}
         
     except Exception as e:

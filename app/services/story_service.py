@@ -770,12 +770,21 @@ class StoryService:
                     story_data['medium']['totalEarnings'] = medium_object.get('totalEarnings')
                 
                 # Update monthlyStats
+                
+                monthly_stats_entry = {
+                    "period": period,
+                    "presentations": 1,
+                    "views": 1,
+                    "reads": 1
+                }                
                 if 'monthlyStats' not in story_data['medium']:
                     story_data['medium']['monthlyStats'] = []
-                
+    
+
                 found = False
                 for i, stat in enumerate(story_data['medium']['monthlyStats']):
                     if stat.get('period') == period:
+                        monthly_stats_entry = story_data['medium']['monthlyStats'][i]
                         story_data['medium']['monthlyStats'][i] = monthly_stats_entry
                         found = True
                         break

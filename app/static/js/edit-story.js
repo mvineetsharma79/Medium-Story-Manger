@@ -155,14 +155,19 @@ function buildMonthlyStatsTable(medium) {
     
     // Build earnings map
     var earningsMap = {};
+    var totalEarnings = 0;
+    var totalEarning = document.getElementById('totalEarning');
+
     if (medium.monthlyEarnings && medium.monthlyEarnings.length > 0) {
         for (var j = 0; j < medium.monthlyEarnings.length; j++) {
             var earn = medium.monthlyEarnings[j];
             if (earn && earn.period) {
+                totalEarnings = totalEarnings + (earn.amount || 0);
                 earningsMap[earn.period] = earn.amount || 0;
             }
         }
     }
+    totalEarning.textContent = '$' + totalEarnings || 0
     
     // Build table data
     var tableData = [];
@@ -172,8 +177,10 @@ function buildMonthlyStatsTable(medium) {
             tableData.push({
                 period: stat.period,
                 views: stat.medium_member_views + ' / '  + stat.views || 0,
-                reads: stat.medium_member_reads + ' / '  +stat.reads || 0,
-                earnings: earningsMap[stat.period] || 0
+                reads: stat.medium_member_reads + ' / '  + stat.reads || 0,
+                earnings: earningsMap[stat.period] || 0,
+                readRatio: stat.medium_read_ratio + ', ' + stat.medium_member_read_percentage + ' %',
+                claps: stat.claps || 0
             });
         }
     }
@@ -196,8 +203,13 @@ function buildMonthlyStatsTable(medium) {
         row.innerHTML = '<td><strong>' + periodDisplay + '</strong></td>' +
             '<td class="text-end">' + formatNumberShort(data.views) + '</td>' +
             '<td class="text-end">' + formatNumberShort(data.reads) + '</td>' +
+            '<td class="text-end">' + formatNumberShort(data.readRatio) + '</td>' +
+            '<td class="text-end">' + formatNumberShort(data.claps) + '</td>' +
+
             '<td class="text-end">' + (data.earnings) + '</td>';
     }
+
+
 }
 
 // ============================================

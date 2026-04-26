@@ -203,8 +203,19 @@ function renderSeriesTable(series) {
         engagementDiv.innerHTML = `💚 ${formatNumber(claps)} / 💬 ${formatNumber(responses)}`;
         engagementCell.appendChild(engagementDiv);
         
+        // Column 3: Engagement - Single line
+        const earningCell = row.insertCell(4);
+        const earningDiv = document.createElement('div');
+        earningDiv.style.fontSize = '0.75rem';
+        earningDiv.style.whiteSpace = 'nowrap';
+        
+        const earnings = s.total_earnings || 0;
+        //earnings = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(earnings);
+        earningDiv.innerHTML = `<strong>$ ${Number(earnings).toFixed(2)}`;
+        earningCell.appendChild(earningDiv);
+
         // Column 4: Progress (Published/Total with progress bar)
-        const progressCell = row.insertCell(4);
+        const progressCell = row.insertCell(5);
         const progressDiv = document.createElement('div');
         progressDiv.className = 'd-flex align-items-center gap-2';
         
@@ -227,7 +238,7 @@ function renderSeriesTable(series) {
         progressCell.appendChild(progressDiv);
         
         // Column 5: Spacing (editable)
-        const spacingCell = row.insertCell(5);
+        const spacingCell = row.insertCell(6);
         const spacingInput = document.createElement('input');
         spacingInput.type = 'number';
         spacingInput.className = 'form-control form-control-sm';
@@ -239,7 +250,7 @@ function renderSeriesTable(series) {
         spacingCell.appendChild(spacingInput);
         
         // Column 6: Actions (Delete button)
-        const actionsCell = row.insertCell(6);
+        const actionsCell = row.insertCell(7);
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'btn btn-sm btn-danger';
         deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';

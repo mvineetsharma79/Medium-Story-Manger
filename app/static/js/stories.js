@@ -359,8 +359,15 @@ function getSortedStories() {
                 break;
                 
             case 'earnings':
-                aVal = a.medium_earnings || 0;
-                bVal = b.medium_earnings || 0;
+                const year = currentSelectedYear || new Date().getFullYear();
+                const month = String(currentSelectedMonth || new Date().getMonth() + 1).padStart(2, '0');
+                //const monthlyEarnings = story.medium?.monthlyEarnings?.find(entry => entry.period === `${year}-${month}`)?.amount || 0;
+
+                const aTotalEarning = a.medium?.monthlyEarnings?.find(entry => entry.period === `${year}-${month}`)?.amount || {};
+                const bTotalEarning = b.medium?.monthlyEarnings?.find(entry => entry.period === `${year}-${month}`)?.amount || {};
+
+                aVal = aTotalEarning || 0;
+                bVal = bTotalEarning || 0;
                 break;
                 
             case 'published_due_date':
@@ -655,9 +662,14 @@ function renderStoryTable() {
         const earningsCell = row.insertCell(10);
         const earningsDiv = document.createElement('div');
         earningsDiv.style.fontSize = '0.7rem';
-        const monthlyEarnings = story.medium_earnings || 0;
-        const totalEarnings = story.medium?.totalEarnings?.nanos || story.lifetime_earnings || 0;
-        earningsDiv.innerHTML = `🏦${formatCurrency(monthlyEarnings)}/${formatCurrency(totalEarnings)}`;
+        // const monthlyEarnings = story.medium?.monthlyEarnings[0].amount || 0 //story.medium_earnings || 0;
+
+        const year = currentSelectedYear || new Date().getFullYear();
+        const month = String(currentSelectedMonth || new Date().getMonth() + 1).padStart(2, '0');
+        const monthlyEarnings = story.medium?.monthlyEarnings?.find(entry => entry.period === `${year}-${month}`)?.amount || 0;
+        
+        const totalEarnings = story.medium?.totalEarnings?.amount || story.lifetime_earnings || 0;
+        earningsDiv.innerHTML = `🏦${monthlyEarnings} / ${totalEarnings}`;
         earningsCell.appendChild(earningsDiv);
 
         // Column 11: Read Time ⏱️
@@ -665,15 +677,8 @@ function renderStoryTable() {
         const readTimeDiv = document.createElement('div');
         readTimeDiv.style.fontSize = '0.7rem';
         let readingTime = medium.readingTime || story.medium_reading_time || story.read_time || 0;
-        const hours = Math.floor(readingTime / 60);
-        const minutes = readingTime % 60;
-        let timeStr = '';
-        if (hours > 0) {
-            timeStr = `${hours}h ${minutes.toString().padStart(2, '0')}m`;
-        } else {
-            timeStr = `${minutes}m`;
-        }
-        readTimeDiv.innerHTML = `⏱️ ${timeStr}`;
+        
+        readTimeDiv.innerHTML = `⏱️ ${minutesToHoursMinutes(readingTime)}`;
         readTimeCell.appendChild(readTimeDiv);
 
         // Column 12: LinkedIn 🔗
@@ -1016,6 +1021,17 @@ async function deleteStory(uniqueSlug) {
 // HELPER FUNCTIONS
 // ============================================
 
+function minutesToHoursMinutes(minutes) {
+    if (!minutes && minutes !== 0) return '00:00';
+    
+    // Round UP to nearest second (ceil)
+    var totalSeconds = Math.ceil(minutes * 60);
+    var mins = Math.floor(totalSeconds / 60);
+    var secs = totalSeconds % 60;
+    
+    return mins.toString().padStart(2, '0') + ':' + secs.toString().padStart(2, '0');
+}
+
 function formatNumber(num) {
     if (!num && num !== 0) return '0';
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
@@ -1123,20 +1139,32 @@ function updateEarningsSummary() {
     let totalMonthlyEarnings = 0;
     let totalAllEarnings = 0;
     
+        const year = currentSelectedYear || new Date().getFullYear();
+        const month = String(currentSelectedMonth || new Date().getMonth() + 1).padStart(2, '0');
+        //const monthlyEarnings = story.medium?.monthlyEarnings?.find(entry => entry.period === `${year}-${month}`)?.amount || 0;
+
     filtered.forEach(story => {
-        totalMonthlyEarnings += story.medium_earnings || 0;
-        const totalEarnings = story.medium?.totalEarnings?.nanos || story.lifetime_earnings || 0;
+        //totalMonthlyEarnings += story.medium_earnings || 0;
+        totalMonthlyEarnings += story.medium?.monthlyEarnings?.find(entry => entry.period === `${year}-${month}`)?.amount || 0;
+        const totalEarnings = story.medium?.totalEarnings?.amount || story.lifetime_earnings || 0;
         totalAllEarnings += totalEarnings;
     });
     
     const monthlyEl = document.getElementById('totalMonthlyEarnings');
     const totalEl = document.getElementById('totalEarningsAll');
     
+    // if (monthlyEl) {
+    //     monthlyEl.textContent = (totalMonthlyEarnings);
+    // }
+    // if (totalEl) {
+    //     totalEl.textContent = (totalAllEarnings);
+    // }
+
     if (monthlyEl) {
-        monthlyEl.textContent = formatCurrency(totalMonthlyEarnings);
+        monthlyEl.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalMonthlyEarnings);
     }
     if (totalEl) {
-        totalEl.textContent = formatCurrency(totalAllEarnings);
+        totalEl.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalAllEarnings);
     }
 }
 
