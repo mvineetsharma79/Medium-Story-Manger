@@ -901,6 +901,55 @@ async function refreshStats() {
     }
 }
 
+async function updateCurrentStories() {
+    
+    const sortedStories = getSortedStories().filter(story => story.status === 'Published');
+    const year = currentSelectedYear || new Date().getFullYear();
+    const month = String(currentSelectedMonth || new Date().getMonth() + 1).padStart(2, '0');
+    //const monthlyEarnings = story.medium?.monthlyEarnings?.find(entry => entry.period === `${year}-${month}`)?.amount || 0;
+
+    if (!confirm('Update current stories with latest data from Medium? This will update performance, engagement, earnings, and other stats for existing stories.')) return;
+    var postId = '';
+    var btn = document.querySelector('[data-action="sync-current-stats"]');
+    var originalText = btn ? btn.innerHTML : 'Syncing...';
+    var storyCount = sortedStories.length || 0;
+    var currentStoryIndex = 1;
+    // showLoading();
+    try {
+        for (const story of sortedStories) {
+            if (!story.medium || !story.medium.id) continue;
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Sync (' + currentStoryIndex + ' of ' + storyCount + ')';
+            }
+            var response = await fetch(API_BASE + '/stories/refresh-story/' + story.medium.id + '/' + year + '-' + month  
+                , {
+                    method: 'POST'
+                });
+
+            if (!response.ok)
+                throw new Error('Failed to sync stats');
+            else {
+                currentStoryIndex++;
+                // btn.disabled = false;
+                // btn.innerHTML = '<i class="bi bi-trophy"></i> SYNC';
+                //loadStoryForEdit(encodeURIComponent(currentStoryKey))
+            }
+
+
+            //Rate limit protection - 1 request per second
+            await new Promise(resolve => setTimeout(resolve, 5));
+        }
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-trophy"></i> SYNC';
+
+    } catch (error) {
+        showToast('Error updating stories: ' + error.message, 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
 async function syncStories() {
     showLoading();
     try {
@@ -1139,9 +1188,9 @@ function updateEarningsSummary() {
     let totalMonthlyEarnings = 0;
     let totalAllEarnings = 0;
     
-        const year = currentSelectedYear || new Date().getFullYear();
-        const month = String(currentSelectedMonth || new Date().getMonth() + 1).padStart(2, '0');
-        //const monthlyEarnings = story.medium?.monthlyEarnings?.find(entry => entry.period === `${year}-${month}`)?.amount || 0;
+    const year = currentSelectedYear || new Date().getFullYear();
+    const month = String(currentSelectedMonth || new Date().getMonth() + 1).padStart(2, '0');
+    //const monthlyEarnings = story.medium?.monthlyEarnings?.find(entry => entry.period === `${year}-${month}`)?.amount || 0;
 
     filtered.forEach(story => {
         //totalMonthlyEarnings += story.medium_earnings || 0;

@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-04-26T23:44:20.675595",
+  "last_updated": "2026-04-27T00:37:06.262530",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl": {
       "uniqueSlug": "solid-principles-part-2---single-responsibility-principl",
@@ -708,7 +708,7 @@
       "rel_path": "API%20Security%20Arsenal/API%20Security%20Arsenal%3A%2015%20Essential%20Tools%20Every%20Engineer%20Should%20Know.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:43:34.292923",
+      "lastUpdated": "2026-04-26T23:59:47.200273",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -773,7 +773,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 537,
+            "presentations": 538,
             "views": 16,
             "reads": 5,
             "claps": 1,
@@ -800,7 +800,7 @@
       },
       "lifetime_reads": 5,
       "lifetime_views": 16,
-      "presentation_count": 537,
+      "presentation_count": 538,
       "feed_click_through_rate": null
     },
     "API Security Arsenal/API Security Arsenal: Breaking APIs Safely with OWASP ZAP, Burp Suite, and Postman": {
@@ -860,7 +860,7 @@
       "rel_path": "API%20Security%20Arsenal/API%20Security%20Arsenal%3A%20Securing%20the%20Perimeter%20with%20Gateways%20&%20Ingress%20Controllers.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:43:34.295646",
+      "lastUpdated": "2026-04-26T23:59:56.013121",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -2678,7 +2678,7 @@
       "rel_path": "LINQ%20Reimagined%3A%20A%20Deep%20Dive%20into%20.NET%2010's%20Query%20Evolution/LINQ%20Reimagined%3A%20A%20Deep%20Dive%20into%20.NET%2010's%20Query%20Evolution.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:43:34.290207",
+      "lastUpdated": "2026-04-27T00:32:03.242032",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6735,7 +6735,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/.NET%2010%20Is%20Here %20-%20 A%20Complete%20Deep%20Dive%20into%20the%20Next%20Evolution%20of%20the%20Platform.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:43:34.298041",
+      "lastUpdated": "2026-04-27T00:22:41.769501",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6885,7 +6885,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/.NET%2010%3A%20CLR,%20CTS,%20CLS,%20JIT,%20and%20GC%20-%20The%20Silent%20Guardians%20Architectural%20Deep%20Dive.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:43:34.293604",
+      "lastUpdated": "2026-04-27T00:22:43.815684",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6936,7 +6936,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 191,
-          "views": 13,
+          "views": 14,
           "reads": 6,
           "__typename": "SummaryPostStat"
         },
@@ -6950,17 +6950,33 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 188,
-            "views": 12,
+            "presentations": 191,
+            "views": 13,
             "reads": 6,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 5,
-            "medium_member_views": 10,
+            "medium_member_views": 11,
             "medium_nonmember_reads": 1,
             "medium_nonmember_views": 2,
-            "medium_read_ratio": 50.0,
+            "medium_read_ratio": 46.2,
             "medium_member_read_percentage": 83.3,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
+          },
+          {
+            "period": "2026-02",
+            "presentations": 191,
+            "views": 0,
+            "reads": 0,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 0,
+            "medium_member_views": 0,
+            "medium_nonmember_reads": 0,
+            "medium_nonmember_views": 0,
+            "medium_read_ratio": 0,
+            "medium_member_read_percentage": 0,
             "medium_new_followers": 0,
             "medium_highlights": 0
           }
@@ -6976,8 +6992,8 @@
         ]
       },
       "lifetime_reads": 6,
-      "lifetime_views": 12,
-      "presentation_count": 188,
+      "lifetime_views": 14,
+      "presentation_count": 191,
       "feed_click_through_rate": null
     },
     "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in .NET 10": {
@@ -7014,7 +7030,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/From%20REST%20to%20gRPC%3A%20A%20Unified%20Architecture%20Across%20NET%2010,%20NodeJS,%20and%20Python.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:43:34.296852",
+      "lastUpdated": "2026-04-27T00:18:10.595336",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7189,7 +7205,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/Achieving%2010x%20Faster%20Serialization%20in%20.NET%20Core.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:43:34.289068",
+      "lastUpdated": "2026-04-27T00:18:09.578870",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7366,7 +7382,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/.NET%2010%20Minimal%20APIs%20+%20Reactive%20Programming.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:43:34.294024",
+      "lastUpdated": "2026-04-27T00:22:42.892447",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7632,7 +7648,7 @@
       "rel_path": "%20Publishing%20Python%20FastAPI%20Apps%20as%20Container%20Images/Publishing%20Python%20FastAPI%20Apps%20as%20Container%20Images%3A%20A%20Complete%20Guide%20to%2010%20Deployment%20Approaches.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:44:07.453070",
+      "lastUpdated": "2026-04-27T00:25:26.124211",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -9299,7 +9315,7 @@
       "rel_path": "SQL%20Mechanic%20to%20Data%20Architect/SQL%20Mechanic%20to%20Architect%3A%20Database%20UDFs,%20Stored%20Procedures,%20&%20Production-Grade%20Patterns%20—%20Part%202.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:43:34.292758",
+      "lastUpdated": "2026-04-27T00:31:17.571742",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -10713,7 +10729,7 @@
       "rel_path": "Kafka%20Design%20Patterns%20-%20AWS/11%20Kafka%20Design%20Patterns%20for%20Every%20Backend%20Engineer.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:43:34.289609",
+      "lastUpdated": "2026-04-27T00:12:38.497449",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -10778,15 +10794,15 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 4229,
-            "views": 1006,
+            "presentations": 4235,
+            "views": 1008,
             "reads": 172,
             "claps": 4,
             "responses": 0,
             "medium_member_reads": 60,
             "medium_member_views": 109,
             "medium_nonmember_reads": 112,
-            "medium_nonmember_views": 897,
+            "medium_nonmember_views": 899,
             "medium_read_ratio": 17.1,
             "medium_member_read_percentage": 34.9,
             "medium_new_followers": 3,
@@ -10804,9 +10820,9 @@
         ]
       },
       "lifetime_reads": 172,
-      "lifetime_views": 1006,
-      "presentation_count": 4229,
-      "feed_click_through_rate": 0.09046454767726161
+      "lifetime_views": 1008,
+      "presentation_count": 4235,
+      "feed_click_through_rate": 0.09024390243902439
     },
     "Kafka Design Patterns - AWS/11 Kafka Design Patterns - Reliability & Ordering Deep Dive": {
       "uniqueSlug": "11-kafka-design-patterns---reliability-&-ordering-deep-dive",
@@ -10819,7 +10835,7 @@
       "rel_path": "Kafka%20Design%20Patterns%20-%20AWS/11%20Kafka%20Design%20Patterns%20-%20Reliability%20&%20Ordering%20Deep%20Dive.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:43:34.294324",
+      "lastUpdated": "2026-04-27T00:12:37.580025",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -10971,7 +10987,7 @@
       "rel_path": "LINQ%20DotNet/Grouping,%20Joining%20&%20Aggregation%20-%2050%20Advanced%20LINQ%20Queries%20for%20.NET%2010.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-26T23:43:34.291158",
+      "lastUpdated": "2026-04-26T23:58:11.255499",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -11036,17 +11052,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 313,
-            "views": 72,
-            "reads": 33,
+            "presentations": 317,
+            "views": 73,
+            "reads": 34,
             "claps": 0,
             "responses": 0,
-            "medium_member_reads": 26,
-            "medium_member_views": 45,
+            "medium_member_reads": 27,
+            "medium_member_views": 46,
             "medium_nonmember_reads": 7,
             "medium_nonmember_views": 27,
-            "medium_read_ratio": 45.8,
-            "medium_member_read_percentage": 78.8,
+            "medium_read_ratio": 46.6,
+            "medium_member_read_percentage": 79.4,
             "medium_new_followers": 0,
             "medium_highlights": 0
           }
@@ -11061,10 +11077,10 @@
           }
         ]
       },
-      "lifetime_reads": 33,
-      "lifetime_views": 72,
-      "presentation_count": 313,
-      "feed_click_through_rate": 0.13333333333333333
+      "lifetime_reads": 34,
+      "lifetime_views": 73,
+      "presentation_count": 317,
+      "feed_click_through_rate": 0.13157894736842105
     },
     "LINQ DotNet/50 Advanced LINQ Queries for .NET 10 - Complete 4-Part Series - LinkedIn": {
       "uniqueSlug": "50-advanced-linq-queries-for-.net-10---complete-4-part-series---linkedin",
@@ -11976,7 +11992,7 @@
       "status": "Published",
       "createdDate": "2026-03-17",
       "publishedDate": "2026-03-17",
-      "lastUpdated": "2026-04-26T23:43:34.292452",
+      "lastUpdated": "2026-04-27T00:30:51.359265",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "api-gateway",
@@ -12042,11 +12058,23 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1
+            "presentations": 1210,
+            "views": 108,
+            "reads": 27,
+            "claps": 1,
+            "responses": 0,
+            "medium_member_reads": 17,
+            "medium_member_views": 33,
+            "medium_nonmember_reads": 10,
+            "medium_nonmember_views": 75,
+            "medium_read_ratio": 25.0,
+            "medium_member_read_percentage": 63.0,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
           },
           {
             "period": "2026-03",
-            "presentations": 1208,
+            "presentations": 1210,
             "views": 76,
             "reads": 20,
             "claps": 1,
@@ -12057,6 +12085,22 @@
             "medium_nonmember_views": 57,
             "medium_read_ratio": 26.3,
             "medium_member_read_percentage": 65.0,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
+          },
+          {
+            "period": "2026-02",
+            "presentations": 1210,
+            "views": 0,
+            "reads": 0,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 0,
+            "medium_member_views": 0,
+            "medium_nonmember_reads": 0,
+            "medium_nonmember_views": 0,
+            "medium_read_ratio": 0,
+            "medium_member_read_percentage": 0,
             "medium_new_followers": 0,
             "medium_highlights": 0
           }
@@ -12079,8 +12123,8 @@
         ]
       },
       "lifetime_reads": 47,
-      "lifetime_views": 183,
-      "presentation_count": 1208,
+      "lifetime_views": 184,
+      "presentation_count": 1210,
       "feed_click_through_rate": 0.07142857142857142
     },
     "Medium Import/sql-performance-tips-every-data-analyst-should-know": {
@@ -12092,7 +12136,7 @@
       "status": "Published",
       "createdDate": "2026-02-22",
       "publishedDate": "2026-02-22",
-      "lastUpdated": "2026-04-26T23:43:34.292222",
+      "lastUpdated": "2026-04-27T00:37:06.262496",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "sql-queries",
@@ -12159,15 +12203,15 @@
           {
             "period": "2026-04",
             "presentations": 1092,
-            "views": 168,
+            "views": 169,
             "reads": 24,
             "claps": 2,
             "responses": 0,
             "medium_member_reads": 10,
-            "medium_member_views": 13,
+            "medium_member_views": 14,
             "medium_nonmember_reads": 14,
             "medium_nonmember_views": 155,
-            "medium_read_ratio": 14.3,
+            "medium_read_ratio": 14.2,
             "medium_member_read_percentage": 41.7,
             "medium_new_followers": 1,
             "medium_highlights": 0
@@ -12202,6 +12246,22 @@
             "medium_read_ratio": 50.0,
             "medium_member_read_percentage": 71.4,
             "medium_new_followers": 2,
+            "medium_highlights": 0
+          },
+          {
+            "period": "2026-01",
+            "presentations": 1092,
+            "views": 0,
+            "reads": 0,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 0,
+            "medium_member_views": 0,
+            "medium_nonmember_reads": 0,
+            "medium_nonmember_views": 0,
+            "medium_read_ratio": 0,
+            "medium_member_read_percentage": 0,
+            "medium_new_followers": 0,
             "medium_highlights": 0
           }
         ],
@@ -12243,7 +12303,7 @@
       "status": "Published",
       "createdDate": "2026-04-23",
       "publishedDate": "2026-04-23",
-      "lastUpdated": "2026-04-26T23:43:34.292105",
+      "lastUpdated": "2026-04-27T00:30:40.399900",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "saga-pattern",
@@ -12309,7 +12369,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 181,
+            "presentations": 183,
             "views": 18,
             "reads": 10,
             "claps": 0,
@@ -12320,6 +12380,38 @@
             "medium_nonmember_views": 11,
             "medium_read_ratio": 55.6,
             "medium_member_read_percentage": 60.0,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
+          },
+          {
+            "period": "2026-03",
+            "presentations": 183,
+            "views": 0,
+            "reads": 0,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 0,
+            "medium_member_views": 0,
+            "medium_nonmember_reads": 0,
+            "medium_nonmember_views": 0,
+            "medium_read_ratio": 0,
+            "medium_member_read_percentage": 0,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
+          },
+          {
+            "period": "2026-02",
+            "presentations": 183,
+            "views": 0,
+            "reads": 0,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 0,
+            "medium_member_views": 0,
+            "medium_nonmember_reads": 0,
+            "medium_nonmember_views": 0,
+            "medium_read_ratio": 0,
+            "medium_member_read_percentage": 0,
             "medium_new_followers": 0,
             "medium_highlights": 0
           }
@@ -12336,7 +12428,7 @@
       },
       "lifetime_reads": 10,
       "lifetime_views": 18,
-      "presentation_count": 181,
+      "presentation_count": 183,
       "feed_click_through_rate": null,
       "linkedin_impressions": 0
     },
@@ -12713,7 +12805,7 @@
       "status": "Published",
       "createdDate": "2026-04-13",
       "publishedDate": "2026-04-13",
-      "lastUpdated": "2026-04-26T23:43:34.294595",
+      "lastUpdated": "2026-04-27T00:30:46.229397",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "calude-code",
@@ -12780,6 +12872,22 @@
           {
             "period": "2026-04",
             "presentations": 1
+          },
+          {
+            "period": "2026-03",
+            "presentations": 1181,
+            "views": 0,
+            "reads": 0,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 0,
+            "medium_member_views": 0,
+            "medium_nonmember_reads": 0,
+            "medium_nonmember_views": 0,
+            "medium_read_ratio": 0,
+            "medium_member_read_percentage": 0,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
           }
         ],
         "monthlyEarnings": [
@@ -12793,8 +12901,8 @@
         ]
       },
       "lifetime_reads": 8,
-      "lifetime_views": 27,
-      "presentation_count": 1173,
+      "lifetime_views": 30,
+      "presentation_count": 1181,
       "feed_click_through_rate": null
     },
     "Medium Import/microservice-design-patterns-a-comprehensive-guide": {
@@ -12908,7 +13016,7 @@
       "status": "Published",
       "createdDate": "2026-03-26",
       "publishedDate": "2026-03-26",
-      "lastUpdated": "2026-04-26T23:43:34.294864",
+      "lastUpdated": "2026-04-27T00:37:03.992288",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "cte",
@@ -12974,7 +13082,19 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1
+            "presentations": 1084,
+            "views": 33,
+            "reads": 6,
+            "claps": 1,
+            "responses": 0,
+            "medium_member_reads": 5,
+            "medium_member_views": 17,
+            "medium_nonmember_reads": 1,
+            "medium_nonmember_views": 16,
+            "medium_read_ratio": 18.2,
+            "medium_member_read_percentage": 83.3,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
           },
           {
             "period": "2026-03",
@@ -12989,6 +13109,22 @@
             "medium_nonmember_views": 5,
             "medium_read_ratio": 55.6,
             "medium_member_read_percentage": 60.0,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
+          },
+          {
+            "period": "2026-01",
+            "presentations": 1084,
+            "views": 0,
+            "reads": 0,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 0,
+            "medium_member_views": 0,
+            "medium_nonmember_reads": 0,
+            "medium_nonmember_views": 0,
+            "medium_read_ratio": 0,
+            "medium_member_read_percentage": 0,
             "medium_new_followers": 0,
             "medium_highlights": 0
           }
@@ -13011,7 +13147,7 @@
         ]
       },
       "lifetime_reads": 11,
-      "lifetime_views": 41,
+      "lifetime_views": 42,
       "presentation_count": 1084,
       "feed_click_through_rate": 0.0784313725490196
     },
@@ -13813,7 +13949,7 @@
       "status": "Published",
       "createdDate": "2026-03-20",
       "publishedDate": "2026-03-20",
-      "lastUpdated": "2026-04-26T23:43:34.296585",
+      "lastUpdated": "2026-04-27T00:30:50.330898",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "moderation",
@@ -13929,7 +14065,7 @@
       "status": "Published",
       "createdDate": "2026-03-25",
       "publishedDate": "2026-03-25",
-      "lastUpdated": "2026-04-26T23:43:34.296050",
+      "lastUpdated": "2026-04-27T00:37:04.988283",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "mssql",
@@ -13995,7 +14131,19 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1
+            "presentations": 637,
+            "views": 20,
+            "reads": 6,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 4,
+            "medium_member_views": 9,
+            "medium_nonmember_reads": 2,
+            "medium_nonmember_views": 11,
+            "medium_read_ratio": 30.0,
+            "medium_member_read_percentage": 66.7,
+            "medium_new_followers": 1,
+            "medium_highlights": 0
           },
           {
             "period": "2026-03",
@@ -14010,6 +14158,22 @@
             "medium_nonmember_views": 5,
             "medium_read_ratio": 50.0,
             "medium_member_read_percentage": 40.0,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
+          },
+          {
+            "period": "2026-01",
+            "presentations": 637,
+            "views": 0,
+            "reads": 0,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 0,
+            "medium_member_views": 0,
+            "medium_nonmember_reads": 0,
+            "medium_nonmember_views": 0,
+            "medium_read_ratio": 0,
+            "medium_member_read_percentage": 0,
             "medium_new_followers": 0,
             "medium_highlights": 0
           }
@@ -14869,7 +15033,7 @@
       "status": "Published",
       "createdDate": "2026-01-31",
       "publishedDate": "2026-01-31",
-      "lastUpdated": "2026-04-26T23:43:34.297774",
+      "lastUpdated": "2026-04-27T00:22:44.733648",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "output-caching",
@@ -14935,7 +15099,19 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1
+            "presentations": 212,
+            "views": 33,
+            "reads": 3,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 2,
+            "medium_member_views": 3,
+            "medium_nonmember_reads": 1,
+            "medium_nonmember_views": 30,
+            "medium_read_ratio": 9.1,
+            "medium_member_read_percentage": 66.7,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
           },
           {
             "period": "2026-03",
@@ -14951,6 +15127,22 @@
             "medium_read_ratio": 40.7,
             "medium_member_read_percentage": 54.5,
             "medium_new_followers": 0,
+            "medium_highlights": 0
+          },
+          {
+            "period": "2026-02",
+            "presentations": 212,
+            "views": 27,
+            "reads": 11,
+            "claps": 1,
+            "responses": 0,
+            "medium_member_reads": 2,
+            "medium_member_views": 3,
+            "medium_nonmember_reads": 9,
+            "medium_nonmember_views": 24,
+            "medium_read_ratio": 40.7,
+            "medium_member_read_percentage": 18.2,
+            "medium_new_followers": 1,
             "medium_highlights": 0
           }
         ],
@@ -15591,7 +15783,7 @@
       "status": "Published",
       "createdDate": "2026-03-24",
       "publishedDate": "2026-03-24",
-      "lastUpdated": "2026-04-26T23:43:34.299489",
+      "lastUpdated": "2026-04-27T00:30:49.403899",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "nodejs",
@@ -16082,7 +16274,7 @@
       "status": "Published",
       "createdDate": "2026-02-25",
       "publishedDate": "2026-02-25",
-      "lastUpdated": "2026-04-26T23:43:34.299652",
+      "lastUpdated": "2026-04-27T00:22:47.602706",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "artificial-intelligence",
@@ -16148,7 +16340,19 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1
+            "presentations": 294,
+            "views": 29,
+            "reads": 7,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 1,
+            "medium_member_views": 2,
+            "medium_nonmember_reads": 6,
+            "medium_nonmember_views": 27,
+            "medium_read_ratio": 24.1,
+            "medium_member_read_percentage": 14.3,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
           },
           {
             "period": "2026-03",
@@ -16168,9 +16372,19 @@
           },
           {
             "period": "2026-02",
-            "presentations": 1,
-            "views": 1,
-            "reads": 1
+            "presentations": 294,
+            "views": 24,
+            "reads": 11,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 2,
+            "medium_member_views": 4,
+            "medium_nonmember_reads": 9,
+            "medium_nonmember_views": 20,
+            "medium_read_ratio": 45.8,
+            "medium_member_read_percentage": 18.2,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
           }
         ],
         "monthlyEarnings": [
@@ -16198,7 +16412,7 @@
         ]
       },
       "lifetime_reads": 28,
-      "lifetime_views": 102,
+      "lifetime_views": 104,
       "presentation_count": 294,
       "feed_click_through_rate": 0.06923076923076923
     },
@@ -16211,7 +16425,7 @@
       "status": "Published",
       "createdDate": "2026-01-28",
       "publishedDate": "2026-01-28",
-      "lastUpdated": "2026-04-26T23:44:20.675556",
+      "lastUpdated": "2026-04-26T23:50:12.928910",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "net10",
