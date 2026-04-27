@@ -938,7 +938,7 @@ async function updateCurrentStories() {
 
 
             //Rate limit protection - 1 request per second
-            await new Promise(resolve => setTimeout(resolve, 5));
+            await new Promise(resolve => setTimeout(resolve, 5000));
         }
         btn.disabled = false;
         btn.innerHTML = '<i class="bi bi-trophy"></i> SYNC';
