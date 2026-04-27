@@ -3,8 +3,8 @@
 // ============================================
 
 // ========== CONFIGURATION CONSTANTS ==========
-const AUTO_SAVE_ENABLED = false;  // Set to false to disable auto-save
-const AUTO_SAVE_DELAY = 1000;    // Delay in milliseconds (1 second)
+const AUTO_SAVE_ENABLED = false;
+const AUTO_SAVE_DELAY = 1000;
 // ============================================
 
 const API_BASE = '/api';
@@ -13,13 +13,19 @@ let originalContent = '';
 let vditor = null;
 let saveTimeout = null;
 let currentMode = 0;
+let storyData = null;
 
+// Initialize Mermaid
 mermaid.initialize({
     startOnLoad: false,
     theme: 'default',
     securityLevel: 'loose',
     flowchart: { useMaxWidth: true, htmlLabels: true }
 });
+
+// ============================================
+// DOM EVENT LISTENERS
+// ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('storyPreviewContainer');
@@ -32,6 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// ============================================
+// LOAD STORY CONTENT
+// ============================================
+
 async function loadStoryContent() {
     showLoading();
     try {
@@ -39,6 +49,7 @@ async function loadStoryContent() {
         const data = await response.json();
         if (data.success) {
             originalContent = data.content || '';
+            storyData = data;
             
             document.getElementById('storyTitle').textContent = data.title || data.name || 'Untitled';
             document.getElementById('storySeries').textContent = data.series || 'Standalone';
@@ -68,6 +79,9 @@ async function loadStoryContent() {
             
             initVditor(originalContent);
             document.getElementById('detailsSection').style.display = 'none';
+            
+            const buildBtn = document.getElementById('buildStoryBtn');
+            if (buildBtn) buildBtn.style.display = 'inline-block';
         }
     } catch (error) {
         showError('Error: ' + error.message);
@@ -76,6 +90,10 @@ async function loadStoryContent() {
         hideLoading();
     }
 }
+
+// ============================================
+// VDITOR INITIALIZATION
+// ============================================
 
 function initVditor(content) {
     if (typeof Vditor === 'undefined') { createFallbackEditor(content); return; }
@@ -94,417 +112,22 @@ function initVditor(content) {
                 console.log('Vditor initialized');
                 addExportDiagramsButton();
                 
-                // Show auto-save status in console
                 if (AUTO_SAVE_ENABLED) {
-                    console.log(`✅ Auto-save enabled (${AUTO_SAVE_DELAY}ms delay)`);
-                } else {
-                    console.log('❌ Auto-save disabled');
+                    console.log(`✅ Auto-save enabled`);
                 }
             },
             input: () => {
-                // Only set up auto-save if enabled
                 if (AUTO_SAVE_ENABLED) {
                     if (saveTimeout) clearTimeout(saveTimeout);
                     saveTimeout = setTimeout(() => autoSave(), AUTO_SAVE_DELAY);
                 }
-                setTimeout(() => updateButtonCount(), 1000);
+                setTimeout(() => updateButtonCount(), 2000);
             }
         });
     } catch (error) {
         createFallbackEditor(content);
     }
 }
-
-function addExportDiagramsButton() {
-    const existing = document.getElementById('export-diagrams-panel');
-    if (existing) existing.remove();
-    
-    const panel = document.createElement('div');
-    panel.id = 'export-diagrams-panel';
-    panel.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 9998;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 40px;
-        box-shadow: 0 2px 15px rgba(0,0,0,0.2);
-        overflow: hidden;
-    `;
-    panel.innerHTML = `<button id="export-diagrams-btn" style="background: transparent; border: none; color: white; padding: 10px 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px;">📸 Scanning for diagrams...</button>`;
-    document.body.appendChild(panel);
-    
-    document.getElementById('export-diagrams-btn').onclick = () => showExportMenu();
-    updateButtonCount();
-    setInterval(() => updateButtonCount(), 3000);
-}
-
-function updateButtonCount() {
-    const diagrams = findRenderedDiagrams();
-    const btn = document.getElementById('export-diagrams-btn');
-    if (btn) {
-        const count = diagrams.length;
-        if (count === 0) {
-            btn.innerHTML = `📸 No diagrams found`;
-        } else {
-            btn.innerHTML = `📸 Save Diagrams (${count})`;
-        }
-    }
-    return diagrams.length;
-}
-
-function findRenderedDiagrams() {
-    const previewArea = document.querySelector('.vditor-preview');
-    if (!previewArea) return [];
-    
-    const canvases = previewArea.querySelectorAll('canvas');
-    const svgs = previewArea.querySelectorAll('svg');
-    const mermaidDivs = previewArea.querySelectorAll('.mermaid');
-    
-    const diagrams = [];
-    
-    canvases.forEach(canvas => {
-        diagrams.push({ type: 'canvas', element: canvas });
-    });
-    
-    svgs.forEach(svg => {
-        diagrams.push({ type: 'svg', element: svg });
-    });
-    
-    mermaidDivs.forEach(div => {
-        const canvas = div.querySelector('canvas');
-        const svg = div.querySelector('svg');
-        if (canvas && !diagrams.find(d => d.element === canvas)) {
-            diagrams.push({ type: 'canvas', element: canvas });
-        }
-        if (svg && !diagrams.find(d => d.element === svg)) {
-            diagrams.push({ type: 'svg', element: svg });
-        }
-    });
-    
-    return diagrams;
-}
-
-function showExportMenu() {
-    const diagrams = findRenderedDiagrams();
-    if (diagrams.length === 0) {
-        showToast('No diagrams found in preview. Make sure diagrams are rendered.', 'error');
-        return;
-    }
-    
-    const existingMenu = document.getElementById('export-menu');
-    if (existingMenu) existingMenu.remove();
-    
-    const menu = document.createElement('div');
-    menu.id = 'export-menu';
-    menu.style.cssText = `
-        position: fixed; bottom: 80px; right: 20px; background: white; border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.25); z-index: 10000; min-width: 280px;
-        max-height: 400px; overflow-y: auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    `;
-    
-    const header = document.createElement('div');
-    header.style.cssText = 'padding: 12px 16px; background: #f8f9fa; border-bottom: 1px solid #eee; font-weight: bold; position: sticky; top: 0;';
-    header.innerHTML = `📸 Save Diagrams (${diagrams.length} found)`;
-    menu.appendChild(header);
-    
-    // Export All button
-    const allOption = document.createElement('div');
-    allOption.style.cssText = 'padding: 12px 16px; cursor: pointer; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; background: #e8f5e9;';
-    allOption.innerHTML = '<span style="font-size: 18px;">📦</span> <div><strong>Save All Diagrams</strong><br><span style="font-size: 11px;">Save all as PNG files</span></div>';
-    allOption.onclick = async () => {
-        menu.remove();
-        await saveAllDiagrams();
-    };
-    menu.appendChild(allOption);
-    
-    // Individual diagrams
-    diagrams.forEach((diagram, idx) => {
-        const item = document.createElement('div');
-        item.style.cssText = 'padding: 10px 16px; cursor: pointer; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;';
-        item.onmouseenter = () => item.style.background = '#f0f0f0';
-        item.onmouseleave = () => item.style.background = 'white';
-        
-        const label = document.createElement('span');
-        label.textContent = `Diagram ${idx + 1} (${diagram.type.toUpperCase()})`;
-        label.style.fontSize = '12px';
-        
-        const pngBtn = document.createElement('button');
-        pngBtn.textContent = '📸 Save PNG';
-        pngBtn.style.cssText = 'background: #28a745; color: white; border: none; border-radius: 4px; padding: 4px 12px; cursor: pointer; font-size: 11px; font-weight: bold;';
-        pngBtn.onclick = async (e) => {
-            e.stopPropagation();
-            menu.remove();
-            await saveDiagramAsPNG(diagram.element, idx);
-        };
-        
-        item.appendChild(label);
-        item.appendChild(pngBtn);
-        menu.appendChild(item);
-    });
-    
-    const closeBtn = document.createElement('div');
-    closeBtn.style.cssText = 'padding: 10px 16px; text-align: center; background: #f8f9fa; cursor: pointer; color: #6c757d; font-size: 13px; border-top: 1px solid #eee;';
-    closeBtn.textContent = 'Close';
-    closeBtn.onclick = () => menu.remove();
-    menu.appendChild(closeBtn);
-    
-    document.body.appendChild(menu);
-    
-    setTimeout(() => {
-        const handler = (e) => {
-            if (!menu.contains(e.target) && e.target.id !== 'export-diagrams-btn') {
-                menu.remove();
-                document.removeEventListener('click', handler);
-            }
-        };
-        document.addEventListener('click', handler);
-    }, 100);
-}
-
-async function saveDiagramAsPNG(element, index) {
-    showLoading();
-    try {
-        console.log(`Saving diagram ${index + 1} as PNG`);
-        
-        if (element.tagName === 'svg' || element.tagName === 'SVG') {
-            const clonedSvg = element.cloneNode(true);
-            clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-            
-            let width = element.clientWidth || parseInt(element.getAttribute('width')) || 800;
-            let height = element.clientHeight || parseInt(element.getAttribute('height')) || 600;
-            if (width <= 0) width = 800;
-            if (height <= 0) height = 600;
-            clonedSvg.setAttribute('width', width);
-            clonedSvg.setAttribute('height', height);
-            
-            const tempContainer = document.createElement('div');
-            tempContainer.style.position = 'absolute';
-            tempContainer.style.left = '-9999px';
-            tempContainer.style.top = '-9999px';
-            tempContainer.appendChild(clonedSvg);
-            document.body.appendChild(tempContainer);
-            
-            const canvas = document.createElement('canvas');
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, width, height);
-            
-            const svgString = new XMLSerializer().serializeToString(clonedSvg);
-            const img = new Image();
-            const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            
-            await new Promise((resolve, reject) => {
-                img.onload = () => {
-                    ctx.drawImage(img, 0, 0, width, height);
-                    URL.revokeObjectURL(url);
-                    resolve();
-                };
-                img.onerror = reject;
-                img.src = url;
-            });
-            
-            canvas.toBlob((blobData) => {
-                if (blobData) {
-                    const downloadUrl = URL.createObjectURL(blobData);
-                    const link = document.createElement('a');
-                    link.href = downloadUrl;
-                    link.download = `diagram-${index + 1}.png`;
-                    document.body.appendChild(link);
-                    link.click();
-                    
-                    setTimeout(() => {
-                        document.body.removeChild(link);
-                        URL.revokeObjectURL(downloadUrl);
-                    }, 100);
-                    
-                    showToast(`✅ Diagram ${index + 1} saved!`, 'success');
-                }
-            }, 'image/png');
-            
-            document.body.removeChild(tempContainer);
-        } 
-        else if (element.tagName === 'canvas' || element.tagName === 'CANVAS') {
-            element.toBlob((blobData) => {
-                if (blobData) {
-                    const downloadUrl = URL.createObjectURL(blobData);
-                    const link = document.createElement('a');
-                    link.href = downloadUrl;
-                    link.download = `diagram-${index + 1}.png`;
-                    document.body.appendChild(link);
-                    link.click();
-                    
-                    setTimeout(() => {
-                        document.body.removeChild(link);
-                        URL.revokeObjectURL(downloadUrl);
-                    }, 100);
-                    
-                    showToast(`✅ Diagram ${index + 1} saved!`, 'success');
-                }
-            }, 'image/png');
-        }
-        
-    } catch (error) {
-        console.error('Save error:', error);
-        showToast('Failed to save diagram: ' + error.message, 'error');
-    } finally {
-        hideLoading();
-    }
-}
-
-async function saveAllDiagrams() {
-    const diagrams = findRenderedDiagrams();
-    if (diagrams.length === 0) {
-        showToast('No diagrams found', 'error');
-        return;
-    }
-    
-    showLoading();
-    let successCount = 0;
-    
-    for (let i = 0; i < diagrams.length; i++) {
-        try {
-            await new Promise((resolve) => {
-                const element = diagrams[i].element;
-                
-                if (element.tagName === 'svg' || element.tagName === 'SVG') {
-                    const clonedSvg = element.cloneNode(true);
-                    clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-                    
-                    let width = element.clientWidth || 800;
-                    let height = element.clientHeight || 600;
-                    if (width <= 0) width = 800;
-                    if (height <= 0) height = 600;
-                    clonedSvg.setAttribute('width', width);
-                    clonedSvg.setAttribute('height', height);
-                    
-                    const tempContainer = document.createElement('div');
-                    tempContainer.style.position = 'absolute';
-                    tempContainer.style.left = '-9999px';
-                    tempContainer.style.top = '-9999px';
-                    tempContainer.appendChild(clonedSvg);
-                    document.body.appendChild(tempContainer);
-                    
-                    const canvas = document.createElement('canvas');
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillRect(0, 0, width, height);
-                    
-                    const svgString = new XMLSerializer().serializeToString(clonedSvg);
-                    const img = new Image();
-                    const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-                    const url = URL.createObjectURL(blob);
-                    
-                    img.onload = () => {
-                        ctx.drawImage(img, 0, 0, width, height);
-                        URL.revokeObjectURL(url);
-                        
-                        canvas.toBlob((blobData) => {
-                            if (blobData) {
-                                const downloadUrl = URL.createObjectURL(blobData);
-                                const link = document.createElement('a');
-                                link.href = downloadUrl;
-                                link.download = `diagram-${i + 1}.png`;
-                                document.body.appendChild(link);
-                                link.click();
-                                
-                                setTimeout(() => {
-                                    document.body.removeChild(link);
-                                    URL.revokeObjectURL(downloadUrl);
-                                }, 100);
-                                
-                                successCount++;
-                            }
-                            document.body.removeChild(tempContainer);
-                            resolve();
-                        }, 'image/png');
-                    };
-                    img.onerror = () => {
-                        URL.revokeObjectURL(url);
-                        document.body.removeChild(tempContainer);
-                        resolve();
-                    };
-                    img.src = url;
-                }
-                else if (element.tagName === 'canvas' || element.tagName === 'CANVAS') {
-                    element.toBlob((blobData) => {
-                        if (blobData) {
-                            const downloadUrl = URL.createObjectURL(blobData);
-                            const link = document.createElement('a');
-                            link.href = downloadUrl;
-                            link.download = `diagram-${i + 1}.png`;
-                            document.body.appendChild(link);
-                            link.click();
-                            
-                            setTimeout(() => {
-                                document.body.removeChild(link);
-                                URL.revokeObjectURL(downloadUrl);
-                            }, 100);
-                            
-                            successCount++;
-                        }
-                        resolve();
-                    }, 'image/png');
-                } else {
-                    resolve();
-                }
-            });
-            
-            await new Promise(r => setTimeout(r, 500));
-        } catch (error) {
-            console.error(`Error saving diagram ${i + 1}:`, error);
-        }
-    }
-    
-    hideLoading();
-    showToast(`✅ Saved ${successCount} of ${diagrams.length} diagrams`, 'success');
-    closeMenus();
-}
-
-function closeMenus() {
-    const menus = document.querySelectorAll('#export-menu');
-    menus.forEach(m => m.remove());
-}
-
-// ============================================
-// AUTO-SAVE FUNCTION (controlled by constant)
-// ============================================
-
-async function autoSave() {
-    if (!AUTO_SAVE_ENABLED) {
-        console.log('Auto-save is disabled');
-        return;
-    }
-    
-    if (!vditor) return;
-    const current = await vditor.getValue();
-    if (current !== originalContent) {
-        console.log('Auto-saving...');
-        await saveContent(current);
-    }
-}
-
-async function saveContent(content) {
-    try {
-        const res = await fetch(`${API_BASE}/stories/content/${encodeURIComponent(storyKey)}`, {
-            method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content })
-        });
-        const data = await res.json();
-        if (data.success) { 
-            originalContent = content; 
-            showToast('Auto-saved', 'success'); 
-        }
-    } catch(e) { console.error(e); }
-}
-
-// ============================================
-// FALLBACK EDITOR & SAVE FUNCTIONS
-// ============================================
 
 function createFallbackEditor(content) {
     const container = document.getElementById('vditor-editor');
@@ -523,6 +146,454 @@ function createFallbackEditor(content) {
     }
 }
 
+// ============================================
+// EXPORT DIAGRAMS BUTTON (Individual Save)
+// ============================================
+
+function addExportDiagramsButton() {
+    const existing = document.getElementById('export-diagrams-panel');
+    if (existing) existing.remove();
+    
+    const panel = document.createElement('div');
+    panel.id = 'export-diagrams-panel';
+    panel.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9998;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 40px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        overflow: hidden;
+    `;
+    panel.innerHTML = `<button id="export-diagrams-btn" style="background: transparent; border: none; color: white; padding: 10px 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px;">📸 Scanning...</button>`;
+    document.body.appendChild(panel);
+    
+    document.getElementById('export-diagrams-btn').onclick = () => showExportMenu();
+    updateButtonCount();
+    setInterval(() => updateButtonCount(), 5000);
+}
+
+function updateButtonCount() {
+    const content = vditor ? vditor.getValue() : originalContent;
+    if (!content) return 0;
+    
+    const mermaidCount = countMermaidBlocks(content);
+    const tableCount = countMarkdownTables(content);
+    const total = mermaidCount + tableCount;
+    
+    const btn = document.getElementById('export-diagrams-btn');
+    if (btn) {
+        if (total === 0) {
+            btn.innerHTML = `📸 No diagrams/tables found`;
+        } else {
+            btn.innerHTML = `📸 Export (${total})`;
+        }
+    }
+    return total;
+}
+
+function countMermaidBlocks(content) {
+    const regex = /```mermaid\n[\s\S]*?```/g;
+    const matches = content.match(regex);
+    return matches ? matches.length : 0;
+}
+
+function countMarkdownTables(content) {
+    let count = 0;
+    const lines = content.split('\n');
+    let inTable = false;
+    let hasSeparator = false;
+    
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (line.includes('|') && !line.trim().startsWith('```')) {
+            if (!inTable) {
+                inTable = true;
+                hasSeparator = false;
+            }
+            if (line.includes('|-') || line.includes('-|')) {
+                hasSeparator = true;
+            }
+        } else {
+            if (inTable && hasSeparator) {
+                count++;
+            }
+            inTable = false;
+            hasSeparator = false;
+        }
+    }
+    return count;
+}
+
+function showExportMenu() {
+    const content = vditor ? vditor.getValue() : originalContent;
+    const mermaidCount = countMermaidBlocks(content);
+    const tableCount = countMarkdownTables(content);
+    
+    if (mermaidCount === 0 && tableCount === 0) {
+        showToast('No diagrams or tables found in the content', 'error');
+        return;
+    }
+    
+    const existingMenu = document.getElementById('export-menu');
+    if (existingMenu) existingMenu.remove();
+    
+    const menu = document.createElement('div');
+    menu.id = 'export-menu';
+    menu.style.cssText = `
+        position: fixed; bottom: 80px; right: 20px; background: white; border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25); z-index: 10000; min-width: 280px;
+        max-height: auto;
+        overflow-y: auto;
+    `;
+    
+    const header = document.createElement('div');
+    header.style.cssText = 'padding: 12px 16px; background: #f8f9fa; border-bottom: 1px solid #eee; font-weight: bold;';
+    header.innerHTML = `📸 Export Options`;
+    menu.appendChild(header);
+    
+    // Individual Save Options
+    const individualHeader = document.createElement('div');
+    individualHeader.style.cssText = 'padding: 8px 16px; background: #e3f2fd; font-weight: bold; font-size: 12px;';
+    individualHeader.innerHTML = '💾 Individual Save (Downloads locally)';
+    menu.appendChild(individualHeader);
+    
+    if (mermaidCount > 0) {
+        const mermaidItem = document.createElement('div');
+        mermaidItem.style.cssText = 'padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;';
+        mermaidItem.innerHTML = `<span>📊 Diagrams (${mermaidCount})</span>
+            <button id="save-diagrams-btn" class="btn btn-sm btn-success" style="padding: 2px 12px;">Save All Diagrams</button>`;
+        menu.appendChild(mermaidItem);
+        
+        document.getElementById('save-diagrams-btn').onclick = async () => {
+            menu.remove();
+            await saveAllDiagrams();
+        };
+    }
+    
+    if (tableCount > 0) {
+        const tableItem = document.createElement('div');
+        tableItem.style.cssText = 'padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;';
+        tableItem.innerHTML = `<span>📋 Tables (${tableCount})</span>
+            <button id="save-tables-btn" class="btn btn-sm btn-success" style="padding: 2px 12px;">Save All Tables</button>`;
+        menu.appendChild(tableItem);
+        
+        document.getElementById('save-tables-btn').onclick = async () => {
+            menu.remove();
+            await saveAllTables();
+        };
+    }
+    
+    // Separator
+    const separator = document.createElement('div');
+    separator.style.cssText = 'height: 1px; background: #dee2e6; margin: 8px 0;';
+    menu.appendChild(separator);
+    
+    // Build Option (Server-side rendering)
+    const buildHeader = document.createElement('div');
+    buildHeader.style.cssText = 'padding: 8px 16px; background: #fff3e0; font-weight: bold; font-size: 12px;';
+    buildHeader.innerHTML = '🚀 Server-Side Build (Creates folders & files)';
+    menu.appendChild(buildHeader);
+    
+    const buildItem = document.createElement('div');
+    buildItem.style.cssText = 'padding: 12px 16px; background: #e8f5e9; cursor: pointer; border-radius: 8px; margin: 8px;';
+    buildItem.innerHTML = '<strong>📦 Build Story</strong><br><small style="color: #666;">Creates folder, renders diagrams/tables as PNG via Python backend, saves new .md file</small>';
+    buildItem.onclick = async () => {
+        menu.remove();
+        await buildStory();
+    };
+    menu.appendChild(buildItem);
+    
+    const closeBtn = document.createElement('div');
+    closeBtn.style.cssText = 'padding: 8px 16px; text-align: center; background: #f8f9fa; cursor: pointer; color: #6c757d; font-size: 12px; margin-top: 8px; border-radius: 8px;';
+    closeBtn.textContent = 'Close';
+    closeBtn.onclick = () => menu.remove();
+    menu.appendChild(closeBtn);
+    
+    document.body.appendChild(menu);
+    
+    setTimeout(() => {
+        const handler = (e) => {
+            if (!menu.contains(e.target) && e.target.id !== 'export-diagrams-btn') {
+                menu.remove();
+                document.removeEventListener('click', handler);
+            }
+        };
+        document.addEventListener('click', handler);
+    }, 100);
+}
+
+// ============================================
+// INDIVIDUAL SAVE FUNCTIONS (Client-side)
+// ============================================
+
+async function saveAllDiagrams() {
+    const previewArea = document.querySelector('.vditor-preview');
+    if (!previewArea) {
+        showToast('Preview area not found', 'error');
+        return;
+    }
+    
+    const svgs = previewArea.querySelectorAll('svg');
+    if (svgs.length === 0) {
+        showToast('No diagrams found in preview', 'error');
+        return;
+    }
+    
+    showLoading();
+    let successCount = 0;
+    
+    for (let i = 0; i < svgs.length; i++) {
+        const blob = await captureSvgAsPNG(svgs[i]);
+        if (blob && blob.size > 100) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `diagram-${String(i + 1).padStart(2, '0')}.png`;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+            successCount++;
+        }
+        await new Promise(r => setTimeout(r, 300));
+    }
+    
+    hideLoading();
+    showToast(`✅ Saved ${successCount} of ${svgs.length} diagrams`, 'success');
+}
+
+async function saveAllTables() {
+    const previewArea = document.querySelector('.vditor-preview');
+    if (!previewArea) {
+        showToast('Preview area not found', 'error');
+        return;
+    }
+    
+    const tables = previewArea.querySelectorAll('table');
+    if (tables.length === 0) {
+        showToast('No tables found in preview', 'error');
+        return;
+    }
+    
+    showLoading();
+    let successCount = 0;
+    
+    for (let i = 0; i < tables.length; i++) {
+        const blob = await captureTableAsPNG(tables[i]);
+        if (blob && blob.size > 100) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `table-${String(i + 1).padStart(2, '0')}.png`;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+            successCount++;
+        }
+        await new Promise(r => setTimeout(r, 300));
+    }
+    
+    hideLoading();
+    showToast(`✅ Saved ${successCount} of ${tables.length} tables`, 'success');
+}
+
+async function captureSvgAsPNG(svgElement) {
+    return new Promise((resolve) => {
+        try {
+            let width = svgElement.clientWidth || 800;
+            let height = svgElement.clientHeight || 600;
+            if (width <= 0) width = 800;
+            if (height <= 0) height = 600;
+            
+            const clonedSvg = svgElement.cloneNode(true);
+            clonedSvg.setAttribute('width', width);
+            clonedSvg.setAttribute('height', height);
+            
+            const serializer = new XMLSerializer();
+            const svgString = serializer.serializeToString(clonedSvg);
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, width, height);
+            
+            const img = new Image();
+            const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            
+            img.onload = () => {
+                ctx.drawImage(img, 0, 0, width, height);
+                URL.revokeObjectURL(url);
+                canvas.toBlob(resolve, 'image/png');
+            };
+            img.onerror = () => {
+                URL.revokeObjectURL(url);
+                resolve(null);
+            };
+            img.src = url;
+        } catch (error) {
+            console.error('SVG capture error:', error);
+            resolve(null);
+        }
+    });
+}
+
+async function captureTableAsPNG(tableElement) {
+    return new Promise((resolve) => {
+        try {
+            if (typeof html2canvas !== 'undefined') {
+                const originalBg = tableElement.style.backgroundColor;
+                tableElement.style.backgroundColor = '#ffffff';
+                
+                html2canvas(tableElement, {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    logging: false
+                }).then(canvas => {
+                    tableElement.style.backgroundColor = originalBg;
+                    canvas.toBlob(resolve, 'image/png');
+                }).catch(() => {
+                    tableElement.style.backgroundColor = originalBg;
+                    resolve(null);
+                });
+            } else {
+                resolve(null);
+            }
+        } catch (error) {
+            console.error('Table capture error:', error);
+            resolve(null);
+        }
+    });
+}
+
+// ============================================
+// BUILD STORY FUNCTION - Calls Python Backend
+// ============================================
+
+async function buildStory() {
+    if (!storyData) {
+        showToast('Story data not loaded', 'error');
+        return;
+    }
+    
+    const storyName = storyData.title || storyData.name || 'untitled';
+    const safeStoryName = sanitizeFileName(storyName);
+    const content = vditor ? await vditor.getValue() : originalContent;
+    
+    const mermaidCount = countMermaidBlocks(content);
+    const tableCount = countMarkdownTables(content);
+    
+    if (mermaidCount === 0 && tableCount === 0) {
+        showToast('No diagrams or tables found in the content', 'error');
+        return;
+    }
+    
+    if (!confirm(`Build story "${storyName}"?\n\nFound:\n- ${mermaidCount} Mermaid diagrams\n- ${tableCount} Tables\n\nThis will:\n1. Send content to Python backend\n2. Render diagrams and tables as PNG\n3. Create folder at same level as original story\n4. Save images in "images" subfolder\n5. Create new .md file with image references\n\nContinue?`)) {
+        return;
+    }
+    
+    showLoading();
+    
+    try {
+        const formData = new FormData();
+        formData.append('storyKey', storyKey);
+        formData.append('storyName', safeStoryName);
+        formData.append('content', content);
+        
+        console.log('Calling Python backend to build story...');
+        
+        const response = await fetch(`${API_BASE}/stories/build-export-python`, {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        console.log('Backend response:', result);
+        
+        if (result.success) {
+            showToast(
+                `✅ Build complete!\n\nDiagrams: ${result.diagrams || 0}\nTables: ${result.tables || 0}\nImages saved: ${result.imagesSaved}\n\nFolder: ${result.folderPath}`, 
+                'success'
+            );
+            
+            if (result.mdContent) {
+                downloadMarkdownFile(result.mdContent, `${safeStoryName}.md`);
+            }
+        } else {
+            showToast('Build failed: ' + (result.error || 'Unknown error'), 'error');
+        }
+        
+    } catch (error) {
+        console.error('Build error:', error);
+        showToast('Build failed: ' + error.message, 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
+// ============================================
+// HELPER FUNCTIONS
+// ============================================
+
+function sanitizeFileName(name) {
+    return name
+        .replace(/[<>:"\/\\|?*]/g, '')
+        .replace(/[\s]+/g, '-')
+        .replace(/-+/g, '-')
+        .substring(0, 100);
+}
+
+function downloadMarkdownFile(content, filename) {
+    const blob = new Blob([content], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }, 100);
+}
+
+// ============================================
+// AUTO-SAVE & SAVE FUNCTIONS
+// ============================================
+
+async function autoSave() {
+    if (!AUTO_SAVE_ENABLED) return;
+    if (!vditor) return;
+    const current = await vditor.getValue();
+    if (current !== originalContent) {
+        console.log('Auto-saving...');
+        await saveContent(current);
+    }
+}
+
+async function saveContent(content) {
+    try {
+        const res = await fetch(`${API_BASE}/stories/content/${encodeURIComponent(storyKey)}`, {
+            method: 'PUT', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({ content })
+        });
+        const data = await res.json();
+        if (data.success) { 
+            originalContent = content; 
+        }
+    } catch(e) { console.error(e); }
+}
+
 async function saveStory() {
     let current = vditor ? await vditor.getValue() : document.getElementById('fallback-editor')?.value;
     if (!current) return;
@@ -530,16 +601,28 @@ async function saveStory() {
     showLoading();
     try {
         const res = await fetch(`${API_BASE}/stories/content/${encodeURIComponent(storyKey)}`, {
-            method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: current })
+            method: 'PUT', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({ content: current })
         });
         const data = await res.json();
         if (data.success) { 
             originalContent = current; 
             showToast('Saved!', 'success'); 
+        } else {
+            showToast('Error: ' + (data.error || 'Unknown error'), 'error');
         }
-    } catch(e) { showToast('Error: ' + e.message, 'error'); }
-    finally { hideLoading(); }
+    } catch(e) { 
+        console.error('Save error:', e);
+        showToast('Error: ' + e.message, 'error'); 
+    } finally { 
+        hideLoading(); 
+    }
 }
+
+// ============================================
+// EXPORT FUNCTIONS
+// ============================================
 
 async function exportAsHTML() {
     let content = vditor ? await vditor.getHTML() : '';
@@ -554,8 +637,10 @@ async function exportAsHTML() {
     a.download = `${document.getElementById('storyTitle').textContent.replace(/[^a-z0-9]/gi, '_')}.html`;
     document.body.appendChild(a);
     a.click();
-    setTimeout(() => document.body.removeChild(a), 100);
-    URL.revokeObjectURL(url);
+    setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }, 100);
     showToast('HTML exported', 'success');
 }
 
@@ -591,16 +676,55 @@ function copyTitleToClipboard() {
     });
 }
 
-function showLoading() { const el = document.getElementById('loadingOverlay'); if (el) el.style.display = 'flex'; }
-function hideLoading() { const el = document.getElementById('loadingOverlay'); if (el) el.style.display = 'none'; }
+// ============================================
+// UI HELPER FUNCTIONS
+// ============================================
+
+function showLoading() { 
+    const el = document.getElementById('loadingOverlay'); 
+    if (el) el.style.display = 'flex'; 
+}
+
+function hideLoading() { 
+    const el = document.getElementById('loadingOverlay'); 
+    if (el) el.style.display = 'none'; 
+}
+
 function showToast(msg, type) {
-    const toast = document.createElement('div'); toast.className = 'toast-custom';
+    // Create toast element
+    const toast = document.createElement('div'); 
+    toast.className = 'toast-custom';
     if (type === 'error') toast.classList.add('error');
-    toast.textContent = msg; document.body.appendChild(toast);
+    toast.textContent = msg; 
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: ${type === 'error' ? '#dc3545' : '#28a745'};
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        z-index: 10001;
+        animation: fadeOut 3s ease-in-out forwards;
+    `;
+    document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 3000);
 }
-function showError(msg) { showToast('❌ ' + msg, 'error'); }
-function escapeHtml(t) { if (!t) return ''; return t.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+
+function showError(msg) { 
+    showToast('❌ ' + msg, 'error'); 
+}
+
+function escapeHtml(t) { 
+    if (!t) return ''; 
+    return t.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); 
+}
+
+// ============================================
+// GLOBAL EXPORTS
+// ============================================
 
 window.saveStory = saveStory;
 window.copyTitleToClipboard = copyTitleToClipboard;
@@ -608,3 +732,6 @@ window.toggleDetails = toggleDetails;
 window.exportAsHTML = exportAsHTML;
 window.copyMarkdown = copyMarkdown;
 window.toggleVditorMode = toggleVditorMode;
+window.buildStory = buildStory;
+window.saveAllDiagrams = saveAllDiagrams;
+window.saveAllTables = saveAllTables;
