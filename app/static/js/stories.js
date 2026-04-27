@@ -509,21 +509,29 @@ function renderStoryTable() {
     if (sortedStories.length === 0) {
         const row = tbody.insertRow();
         const cell = row.insertCell(0);
-        cell.colSpan = 14;
+        cell.colSpan = 15;
         cell.className = 'text-center text-muted py-3';
         cell.textContent = 'No stories found';
         return;
     }
     
-    sortedStories.forEach(story => {
+    sortedStories.forEach((story, index) => {
         const row = tbody.insertRow();
         row.className = 'table-row-clickable';
         
         const medium = story.medium || {};
         const totalStats = medium.totalStats || {};
         
+        const serialCell = row.insertCell(0);
+        serialCell.className = 'text-center';
+        serialCell.textContent = index + 1;
+        serialCell.style.fontSize = '1.2rem';
+        serialCell.style.fontWeight = 'bold';
+        serialCell.style.color = '#6c757d';
+        serialCell.style.backgroundColor = '#f8f9fa';
+
         // Column 0: Bookmark ⭐
-        const bookmarkCell = row.insertCell(0);
+        const bookmarkCell = row.insertCell(1);
         bookmarkCell.className = 'text-center';
         const bookmarkIcon = document.createElement('i');
         bookmarkIcon.className = `bi bi-bookmark${story.bookmarked ? '-fill' : ''} bookmark-icon ${story.bookmarked ? 'bookmarked' : ''}`;
@@ -532,7 +540,7 @@ function renderStoryTable() {
         bookmarkCell.appendChild(bookmarkIcon);
         
         // Column 1: Leaderboard 🏆
-        const leaderboardCell = row.insertCell(1);
+        const leaderboardCell = row.insertCell(2);
         leaderboardCell.className = 'text-center';
         const leaderboardIcon = document.createElement('i');
         leaderboardIcon.className = `bi bi-trophy${story.leaderboard ? '-fill' : ''} leaderboard-icon ${story.leaderboard ? 'leaderboard' : ''}`;
@@ -541,7 +549,7 @@ function renderStoryTable() {
         leaderboardCell.appendChild(leaderboardIcon);
         
         // Column 2: Status 📋
-        const statusCell = row.insertCell(2);
+        const statusCell = row.insertCell(3);
         const statusSpan = document.createElement('span');
         let statusClass = 'status-draft';
         switch(story.status) {
@@ -565,7 +573,7 @@ function renderStoryTable() {
         statusCell.appendChild(statusSpan);
         
         // Column 3: Title 📄 with Preview Icon
-        const titleCell = row.insertCell(3);
+        const titleCell = row.insertCell(4);
         const titleWrapper = document.createElement('div');
         titleWrapper.style.display = 'flex';
         titleWrapper.style.alignItems = 'center';
@@ -599,7 +607,7 @@ function renderStoryTable() {
         titleCell.appendChild(titleWrapper);
         
         // Column 4: Series 📁 - Clickable to filter by series
-        const seriesCell = row.insertCell(4);
+        const seriesCell = row.insertCell(5);
         if (story.series) {
             const seriesLink = document.createElement('a');
             seriesLink.href = '#';
@@ -619,15 +627,15 @@ function renderStoryTable() {
         }
         
         // Column 5: Created Date 🆕
-        const createdCell = row.insertCell(5);
+        const createdCell = row.insertCell(6);
         createdCell.textContent = story.created_date || story.createdDate ? (story.created_date || story.createdDate).split('T')[0] : '-';
         
         // Column 6: Published Date 📅
-        const publishedCell = row.insertCell(6);
+        const publishedCell = row.insertCell(7);
         publishedCell.textContent = story.published_date || story.publishedDate ? (story.published_date || story.publishedDate).split('T')[0] : '-';
         
         // Column 7: Due Date ⏰
-        const dueCell = row.insertCell(7);
+        const dueCell = row.insertCell(8);
         const dueDate = story.publishedDueDate || story.published_due_date;
         if (dueDate) {
             dueCell.textContent = dueDate.split('T')[0];
@@ -638,7 +646,7 @@ function renderStoryTable() {
         }
         
         // Column 8: Performance 📊
-        const performanceCell = row.insertCell(8);
+        const performanceCell = row.insertCell(9);
         const performanceDiv = document.createElement('div');
         performanceDiv.style.fontSize = '0.7rem';
         performanceDiv.style.whiteSpace = 'nowrap';
@@ -649,7 +657,7 @@ function renderStoryTable() {
         performanceCell.appendChild(performanceDiv);
         
         // Column 9: Engagement 💚
-        const engagementCell = row.insertCell(9);
+        const engagementCell = row.insertCell(10);
         const engagementDiv = document.createElement('div');
         engagementDiv.style.fontSize = '0.7rem';
         engagementDiv.style.whiteSpace = 'nowrap';
@@ -659,7 +667,7 @@ function renderStoryTable() {
         engagementCell.appendChild(engagementDiv);
         
         // Column 10: Earnings 💰
-        const earningsCell = row.insertCell(10);
+        const earningsCell = row.insertCell(11);
         const earningsDiv = document.createElement('div');
         earningsDiv.style.fontSize = '0.7rem';
         // const monthlyEarnings = story.medium?.monthlyEarnings[0].amount || 0 //story.medium_earnings || 0;
@@ -673,7 +681,7 @@ function renderStoryTable() {
         earningsCell.appendChild(earningsDiv);
 
         // Column 11: Read Time ⏱️
-        const readTimeCell = row.insertCell(11);
+        const readTimeCell = row.insertCell(12);
         const readTimeDiv = document.createElement('div');
         readTimeDiv.style.fontSize = '0.7rem';
         let readingTime = medium.readingTime || story.medium_reading_time || story.read_time || 0;
@@ -682,7 +690,7 @@ function renderStoryTable() {
         readTimeCell.appendChild(readTimeDiv);
 
         // Column 12: LinkedIn 🔗
-        const linkedinCell = row.insertCell(12);
+        const linkedinCell = row.insertCell(13);
         const linkedinSpan = document.createElement('span');
         const linkedinStatus = story.linkedin?.status || story.linkedin_status;
         if (linkedinStatus === 'scheduled') {
@@ -698,7 +706,7 @@ function renderStoryTable() {
         linkedinCell.appendChild(linkedinSpan);
         
         // Column 13: Actions ⚙️
-        const actionsCell = row.insertCell(13);
+        const actionsCell = row.insertCell(14);
         actionsCell.className = 'action-buttons';
         
         const statsBtn = document.createElement('button');
