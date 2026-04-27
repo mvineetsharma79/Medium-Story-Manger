@@ -1823,10 +1823,6 @@ This endpoint:
 4. Returns updated markdown content with image references
 """
 
-# ============================================
-# BUILD EXPORT ENDPOINT - Using Playwright for reliable rendering
-# ============================================
-
 
 # ============================================
 # BUILD EXPORT ENDPOINT - COMPLETE WORKING VERSION
@@ -1841,6 +1837,397 @@ except ImportError:
     logger.warning("Playwright not installed. Install with: pip install playwright && playwright install chromium")
 
 
+def wrap_image_paths_with_brackets(content: str) -> str:
+    """Wrap ALL image paths with <> brackets to handle spaces and special characters"""
+    # Match ![alt](path) and wrap path in <>
+    pattern = r'(!\[.*?\]\()([^)]+?)(\))'
+    
+    def replacer(match):
+        prefix = match.group(1)  # ![alt](
+        path = match.group(2)     # images/filename.png
+        suffix = match.group(3)   # )
+        
+        # Remove existing brackets if any
+        clean_path = path.strip('<>')
+        
+        # Always wrap with brackets
+        return f"{prefix}<{clean_path}>{suffix}"
+    
+    return re.sub(pattern, replacer, content)
+
+
+def extract_mermaid_blocks(content: str) -> list:
+    """Extract mermaid code blocks preserving original formatting"""
+    blocks = []
+    lines = content.split('\n')
+    i = 0
+    
+    while i < len(lines):
+        line = lines[i].strip()
+        if line.startswith('```mermaid'):
+            start_idx = i
+            block_lines = []
+            i += 1
+            while i < len(lines):
+                if lines[i].strip() == '```':
+                    block_lines.append(lines[i])
+                    break
+                block_lines.append(lines[i])
+                i += 1
+            
+            original_text = '\n'.join(lines[start_idx:i+1])
+            code_lines = block_lines[:-1] if block_lines else []
+            code = '\n'.join(code_lines).strip()
+            
+            blocks.append({
+                'code': code,
+                'original_text': original_text
+            })
+        i += 1
+    
+    logger.info(f"Extracted {len(blocks)} mermaid blocks")
+    return blocks
+
+
+def extract_markdown_tables(content: str) -> list:
+    """Extract markdown tables preserving original formatting"""
+    tables = []
+    lines = content.split('\n')
+    i = 0
+    
+    while i < len(lines):
+        line = lines[i].strip()
+        if '|' in line and not line.startswith('```'):
+            table_lines = []
+            
+            while i < len(lines):
+                current = lines[i].strip()
+                if '|' in current and not current.startswith('```'):
+                    table_lines.append(lines[i])
+                    i += 1
+                else:
+                    break
+            
+            if len(table_lines) >= 2:
+                second_line = table_lines[1].strip()
+                is_separator = '---' in second_line or re.search(r'\|[\s\-:|]+\|', second_line)
+                
+                if is_separator:
+                    original_text = '\n'.join(table_lines)
+                    tables.append({
+                        'markdown': original_text,
+                        'original_text': original_text
+                    })
+            continue
+        i += 1
+    
+    logger.info(f"Extracted {len(tables)} markdown tables")
+    return tables
+
+
+async def render_mermaid_diagram(mermaid_code: str, output_folder: Path, index: int) -> Path:
+    """Render mermaid diagram using Playwright"""
+    png_file = output_folder / f"diagram-raw-{str(index+1).zfill(2)}.png"
+    html_file = output_folder / f"temp-{index}.html"
+    
+    try:
+        html_content = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body {{
+            margin: 0;
+            padding: 25px;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }}
+        .mermaid {{
+            text-align: center;
+            width: 100%;
+            max-width: 1400px;
+        }}
+        .mermaid svg {{
+            width: 100% !important;
+            height: auto !important;
+            max-width: 1400px;
+        }}
+    </style>
+</head>
+<body>
+    <pre class="mermaid">
+{mermaid_code}
+    </pre>
+    <script>
+        mermaid.initialize({{
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {{ 
+                useMaxWidth: true, 
+                htmlLabels: true,
+                curve: 'basis'
+            }}
+        }});
+    </script>
+</body>
+</html>"""
+        
+        with open(html_file, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(headless=True)
+            page = await browser.new_page(viewport={'width': 1600, 'height': 1200})
+            
+            await page.goto(f'file://{html_file}', wait_until='networkidle')
+            await page.wait_for_selector('.mermaid svg', timeout=30000)
+            
+            element = await page.query_selector('.mermaid')
+            if element:
+                await element.screenshot(path=str(png_file))
+            
+            await browser.close()
+        
+        if html_file.exists():
+            html_file.unlink()
+        
+        return png_file if png_file.exists() and png_file.stat().st_size > 100 else None
+        
+    except Exception as e:
+        logger.error(f"Render error for diagram {index + 1}: {e}")
+        if html_file.exists():
+            html_file.unlink()
+        return None
+
+
+async def render_markdown_table(table_markdown: str, output_folder: Path, index: int) -> Path:
+    """Render markdown table to PNG"""
+    png_file = output_folder / f"table-raw-{str(index+1).zfill(2)}.png"
+    
+    try:
+        html_content = convert_table_to_html(table_markdown)
+        
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.html', delete=False, encoding='utf-8') as f:
+            f.write(html_content)
+            temp_html = f.name
+        
+        cmd = ['wkhtmltoimage', '--quality', '100', '--width', '1200', '--height', '0', temp_html, str(png_file)]
+        result = subprocess.run(cmd, capture_output=True, timeout=30)
+        os.unlink(temp_html)
+        
+        return png_file if result.returncode == 0 and png_file.exists() and png_file.stat().st_size > 100 else None
+        
+    except Exception as e:
+        logger.error(f"Table render error: {e}")
+        return None
+
+
+def convert_table_to_html(table_markdown: str) -> str:
+    """Convert markdown table to HTML with inline formatting support"""
+    import re
+    
+    lines = [line.rstrip('\n') for line in table_markdown.strip().split('\n')]
+    
+    if len(lines) < 2:
+        return '<html><body><p>Invalid table</p></body></html>'
+    
+    def format_inline(text: str) -> str:
+        """Convert markdown inline formatting to HTML"""
+        if not text:
+            return ''
+        text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+        text = re.sub(r'__(.+?)__', r'strong>\1</strong>', text)
+        text = re.sub(r'\*(.+?)\*', r'<em>\1</em>', text)
+        text = re.sub(r'_(.+?)_', r'<em>\1</em>', text)
+        text = re.sub(r'`(.+?)`', r'<code>\1</code>', text)
+        return text
+    
+    # Parse header
+    header_line = lines[0].strip()
+    if header_line.startswith('|'):
+        header_line = header_line[1:]
+    if header_line.endswith('|'):
+        header_line = header_line[:-1]
+    headers = [cell.strip() for cell in header_line.split('|')]
+    
+    # Parse alignment
+    alignments = []
+    if len(lines) > 1 and '---' in lines[1]:
+        align_line = lines[1].strip()
+        if align_line.startswith('|'):
+            align_line = align_line[1:]
+        if align_line.endswith('|'):
+            align_line = align_line[:-1]
+        align_cells = [cell.strip() for cell in align_line.split('|')]
+        
+        for cell in align_cells:
+            if cell.startswith(':') and cell.endswith(':'):
+                alignments.append('center')
+            elif cell.endswith(':'):
+                alignments.append('right')
+            else:
+                alignments.append('left')
+    
+    while len(alignments) < len(headers):
+        alignments.append('left')
+    
+    # Parse body rows
+    body_rows = []
+    for i in range(2, len(lines)):
+        line = lines[i].strip()
+        if not line:
+            continue
+        if line.startswith('|'):
+            line = line[1:]
+        if line.endswith('|'):
+            line = line[:-1]
+        cells = [cell.strip() for cell in line.split('|')]
+        while len(cells) < len(headers):
+            cells.append('')
+        body_rows.append(cells)
+    
+    # Build HTML
+    html = '''<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 20px; background: white; margin: 0; }
+        table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.5; }
+        th, td { border: 1px solid #ddd; padding: 10px 12px; vertical-align: top; }
+        th { background-color: #f5f5f5; font-weight: 600; }
+        tr:nth-child(even) { background-color: #fafafa; }
+        code { background-color: #f4f4f4; padding: 2px 5px; border-radius: 3px; font-family: monospace; }
+        strong { font-weight: 600; color: #2c5a9e; }
+        em { font-style: italic; }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+'''
+    
+    for idx, header in enumerate(headers):
+        align = alignments[idx]
+        html += f'                <th style="text-align: {align}">{format_inline(header)}</th>\n'
+    
+    html += '''              </tr>
+        </thead>
+        <tbody>
+'''
+    
+    for row in body_rows:
+        html += '              <tr>\n'
+        for idx, cell in enumerate(row):
+            align = alignments[idx]
+            html += f'                <td style="text-align: {align}">{format_inline(cell)}</td>\n'
+        html += '              </tr>\n'
+    
+    html += '''        </tbody>
+    </table>
+</body>
+</html>'''
+    
+    return html
+
+
+async def add_footer_to_image(image_path: Path, output_folder: Path, index: int, image_type: str) -> Path:
+    """Add attribution footer to image"""
+    from PIL import Image, ImageDraw, ImageFont
+    
+    output_file = output_folder / f"{image_type}-{str(index+1).zfill(2)}.png"
+    
+    try:
+        img = Image.open(image_path)
+        
+        footer_text = "Vineet Sharma • Medium: mvineetsharma.medium.com • LinkedIn: linkedin.com/in/vineet-sharma-architect"
+        footer_height = 35
+        padding = 8
+        
+        new_img = Image.new('RGB', (img.width, img.height + footer_height), color='white')
+        new_img.paste(img, (0, 0))
+        
+        draw = ImageDraw.Draw(new_img)
+        font = ImageFont.load_default()
+        
+        try:
+            bbox = draw.textbbox((0, 0), footer_text, font=font)
+            text_width = bbox[2] - bbox[0]
+            x = (new_img.width - text_width) // 2
+            x = max(x, 10)
+        except:
+            x = 50
+        
+        draw.text((x, img.height + padding), footer_text, fill='#666666', font=font)
+        new_img.save(output_file, 'PNG')
+        
+        if image_path != output_file and image_path.exists():
+            image_path.unlink()
+        
+        return output_file
+        
+    except Exception as e:
+        logger.error(f"Error adding footer: {e}")
+        if image_path != output_file:
+            import shutil
+            shutil.copy(image_path, output_file)
+            if image_path != output_file and image_path.exists():
+                image_path.unlink()
+        return output_file
+
+
+async def copy_source_images(content: str, source_images_dir: Path, dest_images_folder: Path) -> list:
+    """Copy images referenced in markdown to destination"""
+    import shutil
+    
+    copied_images = []
+    
+    if not source_images_dir or not source_images_dir.exists():
+        logger.info(f"Source images directory not found: {source_images_dir}")
+        return copied_images
+    
+    pattern = r'!\[.*?\]\((<?.*?>?)\)'
+    matches = re.findall(pattern, content)
+    
+    logger.info(f"Found {len(matches)} image references in markdown")
+    
+    for img_ref in matches:
+        clean_ref = img_ref.strip('<>')
+        
+        if 'diagram-' in clean_ref or 'table-' in clean_ref:
+            continue
+        
+        if clean_ref.startswith('http://') or clean_ref.startswith('https://'):
+            continue
+        
+        img_filename = Path(clean_ref).name
+        source_path = source_images_dir / img_filename
+        
+        if source_path.exists():
+            dest_path = dest_images_folder / img_filename
+            
+            # Handle duplicates
+            counter = 1
+            original_stem = source_path.stem
+            original_ext = source_path.suffix
+            while dest_path.exists():
+                dest_path = dest_images_folder / f"{original_stem}_{counter}{original_ext}"
+                counter += 1
+            
+            shutil.copy2(source_path, dest_path)
+            copied_images.append(dest_path.name)
+            logger.info(f"✅ Copied: {img_filename}")
+        else:
+            logger.warning(f"❌ Image not found: {img_filename}")
+    
+    return copied_images
+
 
 @router.post("/build-export-python")
 async def build_story_export_python(
@@ -1848,130 +2235,118 @@ async def build_story_export_python(
     storyName: str = Form(...),
     content: str = Form(...)
 ):
-    """
-    Build story export using Playwright for reliable mermaid rendering
-    """
+    """Build story export with rendered diagrams and tables as PNG images"""
     try:
         from config import settings
         from app.services.story_service import StoryService
         
-        logger.info(f"=== PYTHON BUILD EXPORT START ===")
+        logger.info(f"=== BUILD EXPORT START ===")
         logger.info(f"Story Key: {storyKey}")
-        logger.info(f"Story Name: {storyName}")
         
         # Get the story
         story = await StoryService.get_story(storyKey)
         if not story:
             raise HTTPException(status_code=404, detail="Story not found")
         
-        # Determine the original story's folder
+        # Determine paths
         original_folder = story.series if story.series else "Miscellaneous"
-        
-        # Get stories root directory
         stories_root = Path(settings.stories_root)
         
-        # Create folder at the same level as the original story
-        story_parent_folder = stories_root / original_folder
-        story_parent_folder.mkdir(parents=True, exist_ok=True)
+        # Source paths
+        story_name = story.name or story.title or storyKey
+        story_filename = f"{story_name}.md" if not story_name.endswith('.md') else story_name
+        story_filename = story_filename.replace('/', '-').replace('\\', '-')
+        source_md_path = stories_root / original_folder / story_filename
+        source_images_dir = source_md_path.parent / "images"
         
-        # Sanitize folder name
+        logger.info(f"Source markdown: {source_md_path}")
+        logger.info(f"Source images: {source_images_dir}")
+        
+        # Destination paths
         safe_name = re.sub(r'[<>:"/\\|?*]', '', storyName)
-        safe_name = re.sub(r'[\s]+', '-', safe_name)
-        safe_name = safe_name.strip('-')[:100]
+        safe_name = re.sub(r'[\s]+', '-', safe_name).strip('-')[:100]
         
-        # Create build folder
-        build_folder = story_parent_folder / safe_name
+        build_folder = stories_root / original_folder / safe_name
         images_folder = build_folder / "images"
         
-        logger.info(f"Build folder: {build_folder}")
-        
-        # Create directories
         build_folder.mkdir(parents=True, exist_ok=True)
         images_folder.mkdir(parents=True, exist_ok=True)
         
-        # Extract mermaid diagrams and tables
-        mermaid_blocks = extract_mermaid_blocks_fixed(content)
-        tables = extract_markdown_tables_fixed(content)
+        logger.info(f"Build folder: {build_folder}")
         
-        logger.info(f"Found {len(mermaid_blocks)} mermaid diagrams, {len(tables)} tables")
+        # Extract and render diagrams and tables
+        mermaid_blocks = extract_mermaid_blocks(content)
+        tables = extract_markdown_tables(content)
+        
+        logger.info(f"Found {len(mermaid_blocks)} diagrams, {len(tables)} tables")
         
         saved_images = []
         
-        # Render mermaid diagrams using Playwright
+        # Render mermaid diagrams
         if PLAYWRIGHT_AVAILABLE:
             for idx, block in enumerate(mermaid_blocks):
-                logger.info(f"Rendering mermaid diagram {idx + 1}...")
-                png_path = await render_mermaid_with_playwright(block['code'], images_folder, idx)
-                if png_path and png_path.exists() and png_path.stat().st_size > 100:
-                    # Add attribution footer
-                    png_with_footer = await add_attribution_footer_single_line(png_path, images_folder, idx, 'diagram')
-                    if png_with_footer:
+                logger.info(f"Rendering diagram {idx + 1}...")
+                png_path = await render_mermaid_diagram(block['code'], images_folder, idx)
+                if png_path:
+                    img_with_footer = await add_footer_to_image(png_path, images_folder, idx, 'diagram')
+                    if img_with_footer:
                         saved_images.append({
                             'type': 'diagram',
-                            'filename': png_with_footer.name,
+                            'filename': img_with_footer.name,
                             'original_text': block['original_text']
                         })
-                        logger.info(f"✅ Rendered diagram {idx + 1}")
+                        logger.info(f"✅ Diagram {idx + 1} rendered")
                     else:
                         logger.warning(f"❌ Failed to add footer to diagram {idx + 1}")
                 else:
                     logger.warning(f"❌ Failed to render diagram {idx + 1}")
-        else:
-            logger.error("Playwright not available. Install with: pip install playwright && playwright install chromium")
         
-        # Render tables using wkhtmltoimage
+        # Render tables
         for idx, table in enumerate(tables):
             logger.info(f"Rendering table {idx + 1}...")
-            png_path = await render_table_working(table['markdown'], images_folder, idx)
-            if png_path and png_path.exists() and png_path.stat().st_size > 100:
-                # Add attribution footer
-                png_with_footer = await add_attribution_footer_single_line(png_path, images_folder, idx, 'table')
-                if png_with_footer:
+            png_path = await render_markdown_table(table['markdown'], images_folder, idx)
+            if png_path:
+                img_with_footer = await add_footer_to_image(png_path, images_folder, idx, 'table')
+                if img_with_footer:
                     saved_images.append({
                         'type': 'table',
-                        'filename': png_with_footer.name,
+                        'filename': img_with_footer.name,
                         'original_text': table['original_text']
                     })
-                    logger.info(f"✅ Rendered table {idx + 1}")
+                    logger.info(f"✅ Table {idx + 1} rendered")
                 else:
                     logger.warning(f"❌ Failed to add footer to table {idx + 1}")
             else:
                 logger.warning(f"❌ Failed to render table {idx + 1}")
         
-        # Create modified content with image references - FIXED REPLACEMENT
+        # Build modified content
         modified_content = content
         
-        # Replace mermaid blocks with image references
+        # Replace diagrams and tables with image references
         for img in saved_images:
             if img['type'] == 'diagram':
-                # Replace the exact mermaid block with image reference
-                original = img['original_text']
-                replacement = f"\n\n![Mermaid Diagram](images/{img['filename']})\n\n"
-                modified_content = modified_content.replace(original, replacement)
-                logger.info(f"Replaced mermaid block with image: {img['filename']}")
+                modified_content = modified_content.replace(
+                    img['original_text'],
+                    f"\n\n![Mermaid Diagram](images/{img['filename']})\n\n"
+                )
+            else:
+                modified_content = modified_content.replace(
+                    img['original_text'],
+                    f"\n\n![Markdown Table](images/{img['filename']})\n\n"
+                )
         
-        # Replace table blocks with image references
-        for img in saved_images:
-            if img['type'] == 'table':
-                original = img['original_text']
-                replacement = f"\n\n![Markdown Table](images/{img['filename']})\n\n"
-                modified_content = modified_content.replace(original, replacement)
-                logger.info(f"Replaced table block with image: {img['filename']}")
+        # Wrap ALL image paths with <> brackets
+        modified_content = wrap_image_paths_with_brackets(modified_content)
         
-        # Additional cleanup: Remove any remaining mermaid code blocks
-        if '```mermaid' in modified_content:
-            logger.warning("Found remaining mermaid blocks! Forcing removal...")
-            modified_content = re.sub(r'```mermaid\s*\n.*?```', '\n\n![Mermaid Diagram](images/generated.png)\n\n', modified_content, flags=re.DOTALL)
+        # Copy source images
+        copied_images = await copy_source_images(content, source_images_dir, images_folder)
         
-        # Save the markdown file
+        # Save markdown file
         md_filename = f"{safe_name}.md"
         md_path = build_folder / md_filename
         
         with open(md_path, "w", encoding="utf-8") as f:
             f.write(modified_content)
-        
-        # Copy source images from markdown to images folder
-        copied_images = await copy_source_images(content, images_folder)
         
         # Save metadata
         metadata = {
@@ -1979,19 +2354,17 @@ async def build_story_export_python(
             "original_series": original_folder,
             "exported_at": datetime.now().isoformat(),
             "story_title": storyName,
-            "image_count": len(saved_images) + len(copied_images),
-            "generated_diagrams": len([i for i in saved_images if i['type'] == 'diagram']),
-            "generated_tables": len([i for i in saved_images if i['type'] == 'table']),
-            "copied_images": len(copied_images),
-            "images": [img['filename'] for img in saved_images] + copied_images,
+            "diagrams": len([i for i in saved_images if i['type'] == 'diagram']),
+            "tables": len([i for i in saved_images if i['type'] == 'table']),
+            "source_images": len(copied_images),
+            "total_images": len(saved_images) + len(copied_images),
             "build_folder": str(build_folder)
         }
         
-        metadata_path = build_folder / "metadata.json"
-        with open(metadata_path, "w", encoding="utf-8") as f:
+        with open(build_folder / "metadata.json", "w", encoding="utf-8") as f:
             json.dump(metadata, f, indent=2)
         
-        logger.info(f"=== BUILD EXPORT COMPLETE ===")
+        logger.info(f"=== BUILD COMPLETE ===")
         
         return {
             "success": True,
@@ -2009,498 +2382,3 @@ async def build_story_export_python(
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
-
-
-# ============================================
-# MERMAID RENDERING WITH PLAYWRIGHT - FIXED (Size & Direction)
-# ============================================
-
-async def render_mermaid_with_playwright(mermaid_code, output_folder, index):
-    """Render mermaid diagram using Playwright headless browser - FIXED SIZE & DIRECTION"""
-    png_file = output_folder / f"diagram-raw-{str(index+1).zfill(2)}.png"
-    html_file = output_folder / f"temp-{index}.html"
-    
-    try:
-        # FIX 1: Add direction detection and fix (TD/LR support)
-        fixed_code = mermaid_code
-        lines = mermaid_code.split('\n')
-        first_line = lines[0].strip() if lines else ''
-        
-        # Check if direction is specified, if not add LR (Left to Right)
-        if 'graph' in first_line:
-            if 'TD' not in first_line and 'LR' not in first_line and 'TB' not in first_line and 'RL' not in first_line:
-                fixed_code = mermaid_code.replace('graph', 'graph LR', 1)
-                logger.info(f"Added LR direction to diagram {index + 1}")
-        elif 'flowchart' in first_line:
-            if 'TD' not in first_line and 'LR' not in first_line and 'TB' not in first_line and 'RL' not in first_line:
-                fixed_code = mermaid_code.replace('flowchart', 'flowchart LR', 1)
-                logger.info(f"Added LR direction to flowchart {index + 1}")
-        
-        # Create HTML with mermaid - FIX 2: Larger size
-        html_content = f"""<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    <style>
-        body {{
-            margin: 0;
-            padding: 20px;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }}
-        .mermaid {{
-            text-align: center;
-            width: 100%;
-            max-width: 1400px;
-        }}
-        /* Make SVG larger */
-        .mermaid svg {{
-            width: 100% !important;
-            height: auto !important;
-            max-width: 1400px;
-        }}
-    </style>
-</head>
-<body>
-    <pre class="mermaid">
-{fixed_code}
-    </pre>
-    <script>
-        mermaid.initialize({{
-            startOnLoad: true,
-            theme: 'default',
-            securityLevel: 'loose',
-            flowchart: {{ 
-                useMaxWidth: true, 
-                htmlLabels: true,
-                curve: 'basis'
-            }},
-            themeVariables: {{
-                fontSize: '16px'
-            }}
-        }});
-    </script>
-</body>
-</html>"""
-        
-        # Write HTML file
-        with open(html_file, 'w', encoding='utf-8') as f:
-            f.write(html_content)
-        
-        # Use Playwright to render and screenshot
-        async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=True)
-            # FIX 2: Larger viewport for better quality
-            page = await browser.new_page(viewport={'width': 1600, 'height': 1200})
-            
-            # Navigate to HTML file
-            await page.goto(f'file://{html_file}', wait_until='networkidle')
-            
-            # Wait for mermaid to render
-            await page.wait_for_selector('.mermaid svg', timeout=30000)
-            
-            # Find the mermaid element and take screenshot
-            element = await page.query_selector('.mermaid')
-            if element:
-                # Get bounding box
-                box = await element.bounding_box()
-                if box:
-                    # Screenshot with larger dimensions
-                    await element.screenshot(path=str(png_file))
-                    logger.info(f"Playwright rendered diagram {index + 1} (size: {box['width']:.0f}x{box['height']:.0f})")
-            else:
-                logger.error(f"Could not find mermaid element for diagram {index + 1}")
-            
-            await browser.close()
-        
-        # Cleanup
-        if html_file.exists():
-            html_file.unlink()
-        
-        if png_file.exists() and png_file.stat().st_size > 100:
-            return png_file
-        
-        return None
-        
-    except Exception as e:
-        logger.error(f"Playwright render error for diagram {index + 1}: {e}")
-        if html_file.exists():
-            html_file.unlink()
-        return None
-
-
-async def render_table_working(table_markdown, output_folder, index):
-    """Render markdown table to PNG using wkhtmltoimage"""
-    png_file = output_folder / f"table-raw-{str(index+1).zfill(2)}.png"
-    
-    try:
-        # Convert markdown table to HTML
-        html_content = render_table_to_html_clean(table_markdown)
-        
-        # Create temporary HTML file
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.html', delete=False, encoding='utf-8') as f:
-            f.write(html_content)
-            temp_html = f.name
-        
-        # Use wkhtmltoimage
-        cmd = [
-            'wkhtmltoimage',
-            '--quality', '100',
-            '--width', '1200',
-            '--height', '0',
-            temp_html,
-            str(png_file)
-        ]
-        
-        result = subprocess.run(cmd, capture_output=True, timeout=30)
-        
-        # Cleanup
-        os.unlink(temp_html)
-        
-        if result.returncode == 0 and png_file.exists() and png_file.stat().st_size > 100:
-            logger.info(f"Rendered table {index + 1} via wkhtmltoimage")
-            return png_file
-        
-        return None
-        
-    except Exception as e:
-        logger.error(f"Table render error: {e}")
-        return None
-
-
-async def add_attribution_footer_single_line(image_path, output_folder, index, image_type):
-    """Add single-line attribution footer to image"""
-    from PIL import Image, ImageDraw, ImageFont
-    
-    output_file = output_folder / f"{image_type}-{str(index+1).zfill(2)}.png"
-    
-    try:
-        # Open the original image
-        img = Image.open(image_path)
-        
-        # Attribution text (single line)
-        text_part1 = "Vineet Sharma"
-        text_part2 = " • Medium: mvineetsharma.medium.com • LinkedIn: linkedin.com/in/vineet-sharma-architect"
-        
-        # Footer settings
-        footer_height = 35
-        footer_padding = 8
-        
-        # Create a new image with extra height for footer
-        new_img = Image.new('RGB', (img.width, img.height + footer_height), color='white')
-        
-        # Paste the original image
-        new_img.paste(img, (0, 0))
-        
-        # Draw
-        draw = ImageDraw.Draw(new_img)
-        
-        # Load fonts
-        font_bold = None
-        font_regular = None
-        
-        try:
-            # Try to find system fonts
-            font_paths = [
-                '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',
-                '/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf',
-                '/System/Library/Fonts/Helvetica-Bold.ttc',
-                '/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf',
-                'C:\\Windows\\Fonts\\Arialbd.ttf'
-            ]
-            
-            for font_path in font_paths:
-                if Path(font_path).exists():
-                    if 'Bold' in font_path or '-B' in font_path or 'bd' in font_path.lower():
-                        font_bold = ImageFont.truetype(font_path, 11)
-                    else:
-                        font_regular = ImageFont.truetype(font_path, 11)
-                    break
-            
-            if font_bold is None:
-                font_bold = ImageFont.load_default()
-            if font_regular is None:
-                font_regular = font_bold
-                
-        except Exception as e:
-            logger.warning(f"Font loading error: {e}")
-            font_bold = ImageFont.load_default()
-            font_regular = font_bold
-        
-        # Calculate text position
-        try:
-            bbox1 = draw.textbbox((0, 0), text_part1, font=font_bold)
-            width1 = bbox1[2] - bbox1[0]
-            start_x = (new_img.width - width1 - 400) // 2
-        except:
-            start_x = 50
-        
-        start_y = img.height + footer_padding
-        
-        # Draw first part in bold
-        draw.text((start_x, start_y), text_part1, fill='#666666', font=font_bold)
-        
-        # Draw second part in regular font
-        draw.text((start_x + width1, start_y), text_part2, fill='#666666', font=font_regular)
-        
-        # Save the new image
-        new_img.save(output_file, 'PNG', dpi=(96, 96))
-        
-        # Remove raw image
-        if image_path != output_file and image_path.exists():
-            image_path.unlink()
-        
-        logger.info(f"Added footer to {output_file}")
-        return output_file
-        
-    except Exception as e:
-        logger.error(f"Error adding footer: {e}")
-        if image_path != output_file:
-            import shutil
-            shutil.copy(image_path, output_file)
-            if image_path != output_file and image_path.exists():
-                image_path.unlink()
-        return output_file
-
-
-async def copy_source_images(content, images_folder):
-    """Copy images referenced in markdown to the images folder"""
-    import shutil
-    from config import settings
-    
-    copied_images = []
-    
-    # Find image references: ![alt](path)
-    pattern = r'!\[.*?\]\((.*?)\)'
-    matches = re.findall(pattern, content)
-    
-    stories_root = Path(settings.stories_root)
-    
-    for img_path in matches:
-        # Skip already processed images
-        if img_path.startswith('images/'):
-            continue
-        
-        try:
-            # Try to find the image file
-            source_path = None
-            
-            # Check if it's an absolute path or relative
-            if Path(img_path).exists():
-                source_path = Path(img_path)
-            else:
-                # Search in stories root
-                for ext in ['png', 'jpg', 'jpeg', 'gif', 'webp']:
-                    search_path = stories_root / img_path
-                    if search_path.exists():
-                        source_path = search_path
-                        break
-                    # Try with extension
-                    if not Path(img_path).suffix:
-                        search_path_ext = stories_root / f"{img_path}.{ext}"
-                        if search_path_ext.exists():
-                            source_path = search_path_ext
-                            break
-            
-            if source_path and source_path.exists():
-                dest_filename = f"source_{Path(source_path).name}"
-                dest_path = images_folder / dest_filename
-                shutil.copy2(source_path, dest_path)
-                copied_images.append(dest_filename)
-                logger.info(f"Copied source image: {dest_filename}")
-        except Exception as e:
-            logger.warning(f"Failed to copy image {img_path}: {e}")
-    
-    return copied_images
-
-
-def extract_mermaid_blocks_fixed(content):
-    """Extract mermaid code blocks from markdown content"""
-    pattern = r'```mermaid\s*\n(.*?)```'
-    matches = re.findall(pattern, content, re.DOTALL)
-    
-    blocks = []
-    for match in matches:
-        code = match.strip()
-        original_text = f'```mermaid\n{match}```'
-        blocks.append({
-            'code': code,
-            'original_text': original_text
-        })
-    
-    logger.info(f"Extracted {len(blocks)} mermaid blocks")
-    return blocks
-
-
-def extract_markdown_tables_fixed(content):
-    """Extract markdown tables from content"""
-    tables = []
-    lines = content.split('\n')
-    i = 0
-    
-    while i < len(lines):
-        line = lines[i].strip()
-        if '|' in line and not line.startswith('```'):
-            table_lines = [lines[i]]
-            j = i + 1
-            while j < len(lines):
-                next_line = lines[j].strip()
-                if '|' in next_line and not next_line.startswith('```'):
-                    table_lines.append(lines[j])
-                    j += 1
-                else:
-                    break
-            
-            if len(table_lines) >= 2:
-                # Check if this is a valid markdown table
-                second_line = table_lines[1] if len(table_lines) > 1 else ''
-                has_separator = '---' in second_line or re.search(r'\|[\s\-:|]+\|', second_line)
-                
-                if has_separator:
-                    original_text = '\n'.join(table_lines)
-                    tables.append({
-                        'markdown': original_text,
-                        'original_text': original_text
-                    })
-            
-            i = j
-        else:
-            i += 1
-    
-    logger.info(f"Extracted {len(tables)} markdown tables")
-    return tables
-
-
-def render_table_to_html_clean(table_markdown):
-    """Convert markdown table to clean HTML"""
-    lines = table_markdown.strip().split('\n')
-    
-    if len(lines) < 2:
-        return '<html><body><p>Invalid table</p></body></html>'
-    
-    # Parse header
-    header_cells = parse_table_row_md(lines[0])
-    
-    # Parse alignment
-    alignments = []
-    if len(lines) > 1:
-        alignments = parse_alignment_row_md(lines[1])
-    
-    # Parse body rows
-    body_rows = []
-    for i in range(2, len(lines)):
-        cells = parse_table_row_md(lines[i])
-        if cells and len(cells) > 0:
-            body_rows.append(cells)
-    
-    # Build HTML
-    html = """<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            padding: 15px;
-            background: white;
-            margin: 0;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px 12px;
-            text-align: left;
-            vertical-align: top;
-        }
-        th {
-            background-color: #f5f5f5;
-            font-weight: 600;
-        }
-        tr:nth-child(even) {
-            background-color: #fafafa;
-        }
-    </style>
-</head>
-<body>
-    <table>
-        <thead>
-            <tr>
-"""
-    
-    for idx, cell in enumerate(header_cells):
-        align = alignments[idx] if idx < len(alignments) else 'left'
-        html += f'                <th style="text-align: {align}">{escape_html_table(cell)}</th>\n'
-    
-    html += """            </tr>
-        </thead>
-        <tbody>
-"""
-    
-    for row in body_rows:
-        html += "            <tr>\n"
-        for idx, cell in enumerate(row):
-            align = alignments[idx] if idx < len(alignments) else 'left'
-            html += f'                <td style="text-align: {align}">{escape_html_table(cell)}</td>\n'
-        html += "            </tr>\n"
-    
-    html += """        </tbody>
-    </table>
-</body>
-</html>"""
-    
-    return html
-
-
-def parse_table_row_md(line):
-    """Parse a markdown table row"""
-    if not line or not line.strip():
-        return []
-    
-    trimmed = line.strip()
-    if trimmed.startswith('|'):
-        trimmed = trimmed[1:]
-    if trimmed.endswith('|'):
-        trimmed = trimmed[:-1]
-    
-    cells = [cell.strip() for cell in trimmed.split('|')]
-    return cells
-
-
-def parse_alignment_row_md(line):
-    """Parse alignment row from markdown table"""
-    if not line:
-        return []
-    
-    cells = parse_table_row_md(line)
-    alignments = []
-    for cell in cells:
-        if cell.startswith(':') and cell.endswith(':'):
-            alignments.append('center')
-        elif cell.endswith(':'):
-            alignments.append('right')
-        elif cell.startswith(':'):
-            alignments.append('left')
-        else:
-            alignments.append('left')
-    return alignments
-
-
-def escape_html_table(text):
-    """Escape HTML special characters"""
-    if not text:
-        return ''
-    return (text
-            .replace('&', '&amp;')
-            .replace('<', '&lt;')
-            .replace('>', '&gt;')
-            .replace('"', '&quot;')
-            .replace("'", '&#39;'))
