@@ -1928,9 +1928,9 @@ def extract_markdown_tables(content: str) -> list:
     return tables
 
 
-async def render_mermaid_diagram(mermaid_code: str, output_folder: Path, index: int) -> Path:
-    """Render mermaid diagram using Playwright"""
-    png_file = output_folder / f"diagram-raw-{str(index+1).zfill(2)}.png"
+async def render_mermaid_diagram(mermaid_code: str, output_folder: Path, index: int, metadata: dict = None) -> Path:
+    """Render mermaid diagram and save directly as JPEG with footer"""
+    jpeg_file = output_folder / f"diagram-{str(index+1).zfill(2)}.jpg"
     html_file = output_folder / f"temp-{index}.html"
     
     try:
@@ -1992,25 +1992,52 @@ async def render_mermaid_diagram(mermaid_code: str, output_folder: Path, index: 
             
             element = await page.query_selector('.mermaid')
             if element:
-                await element.screenshot(path=str(png_file))
+                # Take screenshot as PNG bytes
+                screenshot_bytes = await element.screenshot(type='png')
+                
+                # Convert to JPEG and add footer
+                from PIL import Image
+                import io
+                
+                img = Image.open(io.BytesIO(screenshot_bytes))
+                
+                # Convert to RGB
+                if img.mode in ('RGBA', 'LA', 'P'):
+                    background = Image.new('RGB', img.size, (255, 255, 255))
+                    if img.mode == 'P':
+                        img = img.convert('RGBA')
+                    background.paste(img, mask=img.split()[-1] if img.mode == 'RGBA' else None)
+                    img = background
+                elif img.mode != 'RGB':
+                    img = img.convert('RGB')
+                
+                # Add footer directly
+                img_with_footer = add_footer_to_pil_image(img, index, 'diagram')
+                
+                # Save as JPEG
+                img_with_footer.save(str(jpeg_file), 'JPEG', quality=95, optimize=True)
+                
+                # Add IPTC metadata if provided
+                if metadata:
+                    add_iptc_metadata_to_image(jpeg_file, metadata)
             
             await browser.close()
         
         if html_file.exists():
             html_file.unlink()
         
-        return png_file if png_file.exists() and png_file.stat().st_size > 100 else None
+        return jpeg_file if jpeg_file.exists() and jpeg_file.stat().st_size > 100 else None
         
     except Exception as e:
         logger.error(f"Render error for diagram {index + 1}: {e}")
         if html_file.exists():
             html_file.unlink()
-        return None
-
-
-async def render_markdown_table(table_markdown: str, output_folder: Path, index: int) -> Path:
-    """Render markdown table to PNG"""
-    png_file = output_folder / f"table-raw-{str(index+1).zfill(2)}.png"
+        return None    
+    
+    
+async def render_markdown_table(table_markdown: str, output_folder: Path, index: int, metadata: dict = None) -> Path:
+    """Render markdown table and save directly as JPEG with footer"""
+    jpeg_file = output_folder / f"table-{str(index+1).zfill(2)}.jpg"
     
     try:
         html_content = convert_table_to_html(table_markdown)
@@ -2019,17 +2046,49 @@ async def render_markdown_table(table_markdown: str, output_folder: Path, index:
             f.write(html_content)
             temp_html = f.name
         
-        cmd = ['wkhtmltoimage', '--quality', '100', '--width', '1200', '--height', '0', temp_html, str(png_file)]
+        # Generate image using wkhtmltoimage
+        temp_png = output_folder / f"temp-table-{index}.png"
+        cmd = ['wkhtmltoimage', '--quality', '100', '--width', '1200', '--height', '0', temp_html, str(temp_png)]
         result = subprocess.run(cmd, capture_output=True, timeout=30)
         os.unlink(temp_html)
         
-        return png_file if result.returncode == 0 and png_file.exists() and png_file.stat().st_size > 100 else None
+        if result.returncode == 0 and temp_png.exists() and temp_png.stat().st_size > 100:
+            from PIL import Image
+            
+            img = Image.open(temp_png)
+            
+            # Convert to RGB
+            if img.mode in ('RGBA', 'LA', 'P'):
+                background = Image.new('RGB', img.size, (255, 255, 255))
+                if img.mode == 'P':
+                    img = img.convert('RGBA')
+                background.paste(img, mask=img.split()[-1] if img.mode == 'RGBA' else None)
+                img = background
+            elif img.mode != 'RGB':
+                img = img.convert('RGB')
+            
+            # Add footer directly
+            img_with_footer = add_footer_to_pil_image(img, index, 'table')
+            
+            # Save as JPEG
+            img_with_footer.save(str(jpeg_file), 'JPEG', quality=95, optimize=True)
+            
+            # Add IPTC metadata if provided
+            if metadata:
+                add_iptc_metadata_to_image(jpeg_file, metadata)
+            
+            # Clean up temp PNG
+            temp_png.unlink()
+            
+            return jpeg_file
+        
+        return None
         
     except Exception as e:
         logger.error(f"Table render error: {e}")
-        return None
-
-
+        return None    
+    
+    
 def convert_table_to_html(table_markdown: str) -> str:
     """Convert markdown table to HTML with inline formatting support"""
     import re
@@ -2184,9 +2243,47 @@ async def add_footer_to_image(image_path: Path, output_folder: Path, index: int,
                 image_path.unlink()
         return output_file
 
+async def add_footer_to_image_direct(img: Image.Image, index: int, image_type: str) -> Image.Image:
+    """Add attribution footer directly to PIL Image object and return new image"""
+    from PIL import ImageDraw, ImageFont
+    
+    footer_text = "Vineet Sharma • Medium: mvineetsharma.medium.com • LinkedIn: linkedin.com/in/vineet-sharma-architect"
+    footer_height = 35
+    padding = 8
+    
+    # Create new image with space for footer
+    new_img = Image.new('RGB', (img.width, img.height + footer_height), color='white')
+    new_img.paste(img, (0, 0))
+    
+    draw = ImageDraw.Draw(new_img)
+    
+    # Try to load a better font, fall back to default
+    try:
+        # Try to load a system font
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 11)
+    except:
+        try:
+            # macOS fallback
+            font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 11)
+        except:
+            # Default fallback
+            font = ImageFont.load_default()
+    
+    # Center the text
+    try:
+        bbox = draw.textbbox((0, 0), footer_text, font=font)
+        text_width = bbox[2] - bbox[0]
+        x = (new_img.width - text_width) // 2
+        x = max(x, 10)
+    except:
+        x = 50
+    
+    draw.text((x, img.height + padding), footer_text, fill='#666666', font=font)
+    
+    return new_img
 
 async def copy_source_images(content: str, source_images_dir: Path, dest_images_folder: Path) -> list:
-    """Copy images referenced in markdown to destination"""
+    """Copy and convert source images to JPEG format"""
     import shutil
     
     copied_images = []
@@ -2203,9 +2300,11 @@ async def copy_source_images(content: str, source_images_dir: Path, dest_images_
     for img_ref in matches:
         clean_ref = img_ref.strip('<>')
         
+        # Skip diagrams and tables (they're handled separately)
         if 'diagram-' in clean_ref or 'table-' in clean_ref:
             continue
         
+        # Skip external URLs
         if clean_ref.startswith('http://') or clean_ref.startswith('https://'):
             continue
         
@@ -2213,19 +2312,36 @@ async def copy_source_images(content: str, source_images_dir: Path, dest_images_
         source_path = source_images_dir / img_filename
         
         if source_path.exists():
-            dest_path = dest_images_folder / img_filename
+            # Convert to JPEG
+            jpeg_filename = Path(img_filename).stem + '.jpg'
+            dest_path = dest_images_folder / jpeg_filename
             
             # Handle duplicates
             counter = 1
-            original_stem = source_path.stem
-            original_ext = source_path.suffix
+            original_stem = Path(jpeg_filename).stem
             while dest_path.exists():
-                dest_path = dest_images_folder / f"{original_stem}_{counter}{original_ext}"
+                dest_path = dest_images_folder / f"{original_stem}_{counter}.jpg"
                 counter += 1
             
-            shutil.copy2(source_path, dest_path)
-            copied_images.append(dest_path.name)
-            logger.info(f"✅ Copied: {img_filename}")
+            # Create metadata for source image
+            metadata = {
+                'title': f"Source image: {img_filename}",
+                'description': f"Original source image from story",
+                'copyright': '© Vineet Sharma. All rights reserved.',
+                'creator': 'Vineet Sharma',
+                'date_created': datetime.now().strftime("%Y-%m-%d"),
+                'keywords': ['source', 'image', 'technical', 'illustration']
+            }
+            
+            # Convert and add metadata
+            if convert_source_image_to_jpeg(source_path, dest_path, metadata):
+                copied_images.append(dest_path.name)
+                logger.info(f"✅ Converted source image: {img_filename} -> {jpeg_filename}")
+            else:
+                # Fallback: just copy original
+                shutil.copy2(source_path, dest_path)
+                copied_images.append(dest_path.name)
+                logger.warning(f"⚠️ Copied original (no conversion): {img_filename}")
         else:
             logger.warning(f"❌ Image not found: {img_filename}")
     
@@ -2238,7 +2354,7 @@ async def build_story_export_python(
     storyName: str = Form(...),
     content: str = Form(...)
 ):
-    """Build story export with rendered diagrams and tables as PNG images"""
+    """Build story export with rendered diagrams and tables as JPEG images"""
     try:
         from config import settings
         from app.services.story_service import StoryService
@@ -2285,44 +2401,60 @@ async def build_story_export_python(
         
         saved_images = []
         
+        # Generate IPTC metadata for images
+        story_dict = story.dict() if hasattr(story, 'dict') else story.__dict__
+        
+        base_metadata = {
+            'title': story_name,
+            'description': f"Diagram from story: {story_name}",
+            'copyright': '© Vineet Sharma. All rights reserved.',
+            'creator': 'Vineet Sharma',
+            'date_created': datetime.now().strftime("%Y-%m-%d"),
+            'keywords': [story_name, story.series, 'technical', 'architecture'] if story.series else [story_name, 'technical']
+        }
+        
         # Render mermaid diagrams
         if PLAYWRIGHT_AVAILABLE:
             for idx, block in enumerate(mermaid_blocks):
                 logger.info(f"Rendering diagram {idx + 1}...")
-                png_path = await render_mermaid_diagram(block['code'], images_folder, idx)
-                if png_path:
-                    img_with_footer = await add_footer_to_image(png_path, images_folder, idx, 'diagram')
-                    if img_with_footer:
-                        saved_images.append({
-                            'type': 'diagram',
-                            'filename': img_with_footer.name,
-                            'original_text': block['original_text']
-                        })
-                        logger.info(f"✅ Diagram {idx + 1} rendered")
-                    else:
-                        logger.warning(f"❌ Failed to add footer to diagram {idx + 1}")
+                diagram_metadata = base_metadata.copy()
+                diagram_metadata['title'] = f"{story_name} - Diagram {idx + 1} - Vineet Sharma"
+                diagram_metadata['description'] = f"{story_name} - Diagram {idx + 1} - VIneet Sharma"
+                
+                jpeg_path = await render_mermaid_diagram(block['code'], images_folder, idx, diagram_metadata)
+                if jpeg_path:
+                    saved_images.append({
+                        'type': 'diagram',
+                        'filename': jpeg_path.name,
+                        'original_text': block['original_text']
+                    })
+                    logger.info(f"✅ Diagram {idx + 1} rendered as JPEG with metadata")
                 else:
                     logger.warning(f"❌ Failed to render diagram {idx + 1}")
         
         # Render tables
         for idx, table in enumerate(tables):
             logger.info(f"Rendering table {idx + 1}...")
-            png_path = await render_markdown_table(table['markdown'], images_folder, idx)
-            if png_path:
-                img_with_footer = await add_footer_to_image(png_path, images_folder, idx, 'table')
-                if img_with_footer:
-                    saved_images.append({
-                        'type': 'table',
-                        'filename': img_with_footer.name,
-                        'original_text': table['original_text']
-                    })
-                    logger.info(f"✅ Table {idx + 1} rendered")
-                else:
-                    logger.warning(f"❌ Failed to add footer to table {idx + 1}")
+            table_metadata = base_metadata.copy()
+            table_metadata['title'] = f"{story_name} - Table {idx + 1} - Vineet Sharma"
+            table_metadata['description'] = f"{story_name} - Table {idx + 1} - Vineet Sharma"
+            table_metadata['keywords'] = base_metadata['keywords'] + ['table', 'data']
+            
+            jpeg_path = await render_markdown_table(table['markdown'], images_folder, idx, table_metadata)
+            if jpeg_path:
+                saved_images.append({
+                    'type': 'table',
+                    'filename': jpeg_path.name,
+                    'original_text': table['original_text']
+                })
+                logger.info(f"✅ Table {idx + 1} rendered as JPEG with metadata")
             else:
                 logger.warning(f"❌ Failed to render table {idx + 1}")
         
-        # Build modified content
+        # Copy source images and convert to JPEG
+        copied_images = await copy_source_images_to_jpeg(content, source_images_dir, images_folder, base_metadata)
+        
+        # Build modified content with JPEG references
         modified_content = content
         
         # Replace diagrams and tables with image references
@@ -2338,11 +2470,8 @@ async def build_story_export_python(
                     f"\n\n![Markdown Table](images/{img['filename']})\n\n"
                 )
         
-        # Wrap ALL image paths with <> brackets
+        # Wrap image paths with brackets
         modified_content = wrap_image_paths_with_brackets(modified_content)
-        
-        # Copy source images
-        copied_images = await copy_source_images(content, source_images_dir, images_folder)
         
         # Save markdown file
         md_filename = f"{safe_name}.md"
@@ -2361,13 +2490,18 @@ async def build_story_export_python(
             "tables": len([i for i in saved_images if i['type'] == 'table']),
             "source_images": len(copied_images),
             "total_images": len(saved_images) + len(copied_images),
-            "build_folder": str(build_folder)
+            "build_folder": str(build_folder),
+            "format": "JPEG with IPTC metadata",
+            "copyright": "© Vineet Sharma",
+            "creator": "Vineet Sharma",
+            "medium_url": "https://mvineetsharma.medium.com/",
+            "linkedin_url": "https://www.linkedin.com/in/vineet-sharma-architect"
         }
         
         with open(build_folder / "metadata.json", "w", encoding="utf-8") as f:
             json.dump(metadata, f, indent=2)
         
-        logger.info(f"=== BUILD COMPLETE ===")
+        logger.info(f"=== BUILD COMPLETE with JPEG images and IPTC metadata ===")
         
         return {
             "success": True,
@@ -2377,7 +2511,8 @@ async def build_story_export_python(
             "mdContent": modified_content,
             "diagrams": len([i for i in saved_images if i['type'] == 'diagram']),
             "tables": len([i for i in saved_images if i['type'] == 'table']),
-            "copiedImages": len(copied_images)
+            "copiedImages": len(copied_images),
+            "format": "JPEG with IPTC"
         }
         
     except Exception as e:
@@ -2385,3 +2520,273 @@ async def build_story_export_python(
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
+    
+            
+#============================================  
+# Image IPTC meta data
+#============================================
+def add_iptc_metadata_to_image(image_path: Path, metadata: dict) -> bool:
+    """
+    Add IPTC metadata to an image with Medium and LinkedIn attribution.
+    """
+    try:
+        from PIL import Image
+        import piexif
+        
+        # Open image
+        img = Image.open(image_path)
+        
+        # Ensure RGB mode for JPEG
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        
+        # Social media URLs
+        medium_url = "https://mvineetsharma.medium.com/"
+        linkedin_url = "https://www.linkedin.com/in/vineet-sharma-architect/"
+        
+        # Build enhanced description
+        base_description = metadata.get('description', '')
+        enhanced_description = f"{base_description}\n\n📝 Read more at: {medium_url}\n🔗 Connect on LinkedIn: {linkedin_url}"
+        
+        creator_name = metadata.get('creator', 'Vineet Sharma')
+        title_text = metadata.get('title', '')
+        copyright_text = metadata.get('copyright', '© Vineet Sharma. All rights reserved.')
+        
+        # Load existing EXIF data or create new
+        try:
+            exif_dict = piexif.load(str(image_path))
+        except:
+            # Create new EXIF dict structure
+            exif_dict = {
+                "0th": {},  # ImageIFD
+                "Exif": {}, # ExifIFD
+                "GPS": {},  # GPSIFD
+                "Interop": {}, # InteroperabilityIFD
+                "1st": {},  # ThumbnailIFD
+                "thumbnail": None
+            }
+        
+        # Add EXIF fields (these work for JPEG)
+        exif_dict['0th'][piexif.ImageIFD.ImageDescription] = enhanced_description.encode('utf-8')
+        exif_dict['0th'][piexif.ImageIFD.Artist] = creator_name.encode('utf-8')
+        exif_dict['0th'][piexif.ImageIFD.Copyright] = copyright_text.encode('utf-8')
+        exif_dict['0th'][piexif.ImageIFD.Software] = "Story Manager Export Tool".encode('utf-8')
+        
+        # Add Windows XP metadata (works well for file properties)
+        exif_dict['0th'][piexif.ImageIFD.XPAuthor] = creator_name.encode('utf-16le')
+        if title_text:
+            exif_dict['0th'][piexif.ImageIFD.XPTitle] = title_text.encode('utf-16le')
+        
+        xp_comment = f"{enhanced_description}\n\n{copyright_text}"
+        exif_dict['0th'][piexif.ImageIFD.XPComment] = xp_comment.encode('utf-16le')
+        
+        # Add keywords
+        keywords = metadata.get('keywords', [])
+        if isinstance(keywords, list):
+            keywords_str = ', '.join(keywords)
+        else:
+            keywords_str = str(keywords)
+        exif_dict['0th'][piexif.ImageIFD.XPKeywords] = f"{keywords_str}, Medium, LinkedIn, Technical Writing".encode('utf-16le')
+        
+        # Save with EXIF metadata (IPTC is not directly supported in piexif, but EXIF works)
+        exif_bytes = piexif.dump(exif_dict)
+        
+        # Save image with high quality and metadata
+        img.save(str(image_path), 'JPEG', exif=exif_bytes, quality=95, optimize=True)
+        
+        logger.info(f"✅ Added metadata to {image_path.name}")
+        logger.info(f"   🔗 Medium: {medium_url}")
+        logger.info(f"   🔗 LinkedIn: {linkedin_url}")
+        return True
+        
+    except Exception as e:
+        logger.error(f"Error adding metadata to {image_path.name}: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+        
+#============================================
+# Method not in use
+#============================================
+def get_story_metadata_for_image(story_data: dict, story: dict, image_type: str, story_name: str) -> dict:
+    """
+    Generate IPTC metadata for an image based on story data.
+    
+    Args:
+        story_data: Story data from database
+        story: Story object
+        image_type: 'diagram' or 'table'
+        story_name: Name of the story
+    
+    Returns:
+        Dictionary with IPTC metadata fields
+    """
+    from urllib.parse import urlparse
+    
+    metadata = {
+        'title': f"{story_name} - {image_type.capitalize()}",
+        'description': f"Generated diagram/table from '{story_name}' - {image_type.capitalize()} illustration",
+        'copyright': "© Vineet Sharma. All rights reserved.",
+        'creator': "Vineet Sharma",
+        'date_created': datetime.now().strftime("%Y-%m-%d"),
+        'keywords': [story_name, image_type, "azure", "azure", "aws", ".Net", "python", "nodejs", "react", "technical writing", "software architecture", "programming"]
+    }
+    
+    # Add series as keyword if available
+    if story.get('series'):
+        metadata['keywords'].append(story['series'])
+    
+    # Add tags as keywords
+    tags = story.get('tags', [])
+    if tags:
+        metadata['keywords'].extend(tags)
+    
+    # Add Medium profile URL
+    medium_url = story.get('medium_url')
+    if medium_url and 'medium.com' in medium_url:
+        metadata['description'] += f" Read the full article at: {medium_url}"
+    
+    # Add website URL
+    metadata['description'] += " More content at: https://mvineetsharma.medium.com/"
+    
+    # Limit keywords to 10 unique items
+    metadata['keywords'] = list(set(metadata['keywords']))[:10]
+    
+    return metadata
+
+def convert_source_image_to_jpeg(source_path: Path, dest_path: Path, metadata: dict = None) -> bool:
+    """
+    Convert source image to JPEG format. Only used for user-uploaded source images.
+    """
+    try:
+        from PIL import Image
+        
+        # Open image
+        img = Image.open(source_path)
+        
+        # Convert to RGB (JPEG doesn't support alpha)
+        if img.mode in ('RGBA', 'LA', 'P'):
+            # Create white background for transparent areas
+            background = Image.new('RGB', img.size, (255, 255, 255))
+            if img.mode == 'P':
+                img = img.convert('RGBA')
+            background.paste(img, mask=img.split()[-1] if img.mode == 'RGBA' else None)
+            img = background
+        elif img.mode != 'RGB':
+            img = img.convert('RGB')
+        
+        # Save as JPEG
+        img.save(str(dest_path), 'JPEG', quality=90, optimize=True)
+        
+        # Add IPTC metadata if provided
+        if metadata:
+            add_iptc_metadata_to_image(dest_path, metadata)
+        
+        return True
+        
+    except Exception as e:
+        logger.error(f"Error converting source image {source_path}: {e}")
+        return False
+
+def add_footer_to_pil_image(img: Image.Image, index: int, image_type: str) -> Image.Image:
+    """Add attribution footer directly to PIL Image object"""
+    from PIL import ImageDraw, ImageFont
+    
+    footer_text = "Vineet Sharma • Medium: mvineetsharma.medium.com • LinkedIn: linkedin.com/in/vineet-sharma-architect"
+    footer_height = 40
+    padding = 8
+    
+    # Create new image with space for footer
+    new_img = Image.new('RGB', (img.width, img.height + footer_height), color='white')
+    new_img.paste(img, (0, 0))
+    
+    draw = ImageDraw.Draw(new_img)
+    
+    # Try to load a better font
+    font = None
+    try:
+        # Linux
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 11)
+    except:
+        try:
+            # macOS
+            font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 11)
+        except:
+            try:
+                # Windows
+                font = ImageFont.truetype("arial.ttf", 11)
+            except:
+                font = ImageFont.load_default()
+    
+    # Center the text
+    try:
+        bbox = draw.textbbox((0, 0), footer_text, font=font)
+        text_width = bbox[2] - bbox[0]
+        x = (new_img.width - text_width) // 2
+        x = max(x, 10)
+    except:
+        x = 50
+    
+    draw.text((x, img.height + padding), footer_text, fill='#666666', font=font)
+    
+    return new_img
+
+async def copy_source_images_to_jpeg(content: str, source_images_dir: Path, dest_images_folder: Path, base_metadata: dict) -> list:
+    """Copy source images and convert to JPEG format"""
+    import shutil
+    
+    copied_images = []
+    
+    if not source_images_dir or not source_images_dir.exists():
+        logger.info(f"Source images directory not found: {source_images_dir}")
+        return copied_images
+    
+    pattern = r'!\[.*?\]\((<?.*?>?)\)'
+    matches = re.findall(pattern, content)
+    
+    logger.info(f"Found {len(matches)} image references in markdown")
+    
+    for img_ref in matches:
+        clean_ref = img_ref.strip('<>')
+        
+        # Skip diagrams and tables
+        if 'diagram-' in clean_ref or 'table-' in clean_ref:
+            continue
+        
+        # Skip external URLs
+        if clean_ref.startswith('http://') or clean_ref.startswith('https://'):
+            continue
+        
+        img_filename = Path(clean_ref).name
+        source_path = source_images_dir / img_filename
+        
+        if source_path.exists():
+            # Convert to JPEG
+            jpeg_filename = Path(img_filename).stem + '.jpg'
+            dest_path = dest_images_folder / jpeg_filename
+            
+            # Handle duplicates
+            counter = 1
+            original_stem = Path(jpeg_filename).stem
+            while dest_path.exists():
+                dest_path = dest_images_folder / f"{original_stem}_{counter}.jpg"
+                counter += 1
+            
+            # Create metadata for source image
+            metadata = base_metadata.copy()
+            metadata['title'] = f"Source image: {img_filename}"
+            metadata['description'] = f"Original source image from story"
+            
+            # Convert to JPEG with metadata
+            if convert_source_image_to_jpeg(source_path, dest_path, metadata):
+                copied_images.append(dest_path.name)
+                logger.info(f"✅ Converted source image: {img_filename} -> {jpeg_filename}")
+            else:
+                # Fallback: just copy original
+                shutil.copy2(source_path, dest_path)
+                copied_images.append(dest_path.name)
+                logger.warning(f"⚠️ Copied original (no conversion): {img_filename}")
+        else:
+            logger.warning(f"❌ Image not found: {img_filename}")
+    
+    return copied_images
