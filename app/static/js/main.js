@@ -1795,6 +1795,41 @@ document.addEventListener('show.bs.modal', function(event) {
     }
 });
 
+// Fix sidebar navigation - use data-view attribute
+document.querySelectorAll('.sidebar .nav-item').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Get view from data-view attribute
+        let view = link.getAttribute('data-view');
+        
+        // Fallback: check href
+        if (!view) {
+            const href = link.getAttribute('href');
+            if (href && href !== '#') {
+                view = href.replace('/', '');
+            }
+        }
+        
+        // Fallback: check link text
+        if (!view) {
+            const text = link.textContent.toLowerCase();
+            if (text.includes('dashboard')) view = 'dashboard';
+            else if (text.includes('stories')) view = 'stories';
+            else if (text.includes('series')) view = 'series';
+            else if (text.includes('calendar')) view = 'calendar';
+            else if (text.includes('settings')) view = 'settings';
+        }
+        
+        if (view && typeof loadView === 'function') {
+            loadView(view);
+        }
+        
+        // Update active state
+        document.querySelectorAll('.sidebar .nav-item').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+    });
+});
 
 
 // Make functions globally available

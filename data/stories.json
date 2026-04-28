@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-04-28T16:39:22.648255",
+  "last_updated": "2026-04-28T21:04:17.159412",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl": {
       "uniqueSlug": "solid-principles-part-2---single-responsibility-principl",
@@ -82,7 +82,7 @@
       "rel_path": "SOLID%20Principles/SOLID%20Principles%3A%20Building%20Spotify's%20Unshakable%20Foundation.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.639651",
+      "lastUpdated": "2026-04-28T20:46:55.135041",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -147,16 +147,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 227,
-            "views": 26,
+            "presentations": 228,
+            "views": 27,
             "reads": 8,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 5,
-            "medium_member_views": 12,
+            "medium_member_views": 13,
             "medium_nonmember_reads": 3,
             "medium_nonmember_views": 14,
-            "medium_read_ratio": 30.8,
+            "medium_read_ratio": 29.6,
             "medium_member_read_percentage": 62.5,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -189,8 +189,8 @@
         ]
       },
       "lifetime_reads": 8,
-      "lifetime_views": 26,
-      "presentation_count": 227,
+      "lifetime_views": 27,
+      "presentation_count": 228,
       "feed_click_through_rate": null
     },
     "SOLID Principles/SOLID Principles: Part 5 - Interface Segregation Principl": {
@@ -296,7 +296,7 @@
       "rel_path": "Architectural%20Remediation%20Framework%3A%20Eliminating%20the%2012%20Silent%20Killers%20in%20.NET%2010%20Web%20APIs/Architectural%20Remediation%20Framework%3A%20Eliminating%20the%2012%20Silent%20Killers%20in%20.NET%2010%20Web%20APIs%20-%20Part%201.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.636909",
+      "lastUpdated": "2026-04-28T20:46:55.131154",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -361,17 +361,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1295,
-            "views": 298,
-            "reads": 69,
+            "presentations": 1313,
+            "views": 299,
+            "reads": 70,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 47,
             "medium_member_views": 105,
-            "medium_nonmember_reads": 22,
-            "medium_nonmember_views": 193,
-            "medium_read_ratio": 23.2,
-            "medium_member_read_percentage": 68.1,
+            "medium_nonmember_reads": 23,
+            "medium_nonmember_views": 194,
+            "medium_read_ratio": 23.4,
+            "medium_member_read_percentage": 67.1,
             "medium_new_followers": 2,
             "medium_highlights": 0
           },
@@ -409,10 +409,10 @@
           }
         ]
       },
-      "lifetime_reads": 93,
-      "lifetime_views": 333,
-      "presentation_count": 1295,
-      "feed_click_through_rate": 0.10328638497652583
+      "lifetime_reads": 96,
+      "lifetime_views": 343,
+      "presentation_count": 1313,
+      "feed_click_through_rate": 0.10250569476082004
     },
     "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs/Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs - Part 2": {
       "uniqueSlug": "architectural-remediation-framework-eliminating-the-12-silent-killers-in-.net-10-web-apis---part-2",
@@ -724,7 +724,7 @@
       "rel_path": "API%20Security%20Arsenal/API%20Security%20Arsenal%3A%2015%20Essential%20Tools%20Every%20Engineer%20Should%20Know.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.639484",
+      "lastUpdated": "2026-04-28T20:46:55.134907",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -775,7 +775,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 547,
-          "views": 16,
+          "views": 19,
           "reads": 5,
           "__typename": "SummaryPostStat"
         },
@@ -789,16 +789,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 546,
-            "views": 16,
+            "presentations": 547,
+            "views": 17,
             "reads": 5,
             "claps": 1,
             "responses": 0,
             "medium_member_reads": 5,
             "medium_member_views": 7,
             "medium_nonmember_reads": 0,
-            "medium_nonmember_views": 9,
-            "medium_read_ratio": 31.2,
+            "medium_nonmember_views": 10,
+            "medium_read_ratio": 29.4,
             "medium_member_read_percentage": 100.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -831,8 +831,8 @@
         ]
       },
       "lifetime_reads": 5,
-      "lifetime_views": 16,
-      "presentation_count": 546,
+      "lifetime_views": 17,
+      "presentation_count": 547,
       "feed_click_through_rate": null
     },
     "API Security Arsenal/API Security Arsenal: Breaking APIs Safely with OWASP ZAP, Burp Suite, and Postman": {
@@ -893,7 +893,7 @@
       "rel_path": "API%20Security%20Arsenal/API%20Security%20Arsenal%3A%20Securing%20the%20Perimeter%20with%20Gateways%20&%20Ingress%20Controllers.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.642312",
+      "lastUpdated": "2026-04-28T20:46:55.137173",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -952,7 +952,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 306,
+            "presentations": 308,
             "views": 17,
             "reads": 6,
             "claps": 0,
@@ -995,7 +995,7 @@
       },
       "lifetime_reads": 6,
       "lifetime_views": 17,
-      "presentation_count": 306,
+      "presentation_count": 308,
       "feed_click_through_rate": null
     },
     "API Security Arsenal/API Security Arsenal: Mastering Authentication with Okta, Auth0, and Keycloak": {
@@ -1009,7 +1009,7 @@
       "rel_path": "API%20Security%20Arsenal/API%20Security%20Arsenal%3A%20Mastering%20Authentication%20with%20Okta,%20Auth0,%20and%20Keycloak.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.645019",
+      "lastUpdated": "2026-04-28T20:46:55.139871",
       "notes": "",
       "bookmarked": true,
       "leaderboard": false,
@@ -1060,8 +1060,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 115,
-          "views": 11,
+          "presentations": 133,
+          "views": 12,
           "reads": 5,
           "__typename": "SummaryPostStat"
         },
@@ -1075,17 +1075,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 109,
-            "views": 9,
-            "reads": 3,
+            "presentations": 122,
+            "views": 11,
+            "reads": 5,
             "claps": 0,
             "responses": 0,
-            "medium_member_reads": 1,
+            "medium_member_reads": 2,
             "medium_member_views": 4,
-            "medium_nonmember_reads": 2,
-            "medium_nonmember_views": 5,
-            "medium_read_ratio": 33.3,
-            "medium_member_read_percentage": 33.3,
+            "medium_nonmember_reads": 3,
+            "medium_nonmember_views": 7,
+            "medium_read_ratio": 45.5,
+            "medium_member_read_percentage": 40.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
           }
@@ -1100,9 +1100,9 @@
           }
         ]
       },
-      "lifetime_reads": 3,
-      "lifetime_views": 9,
-      "presentation_count": 109,
+      "lifetime_reads": 5,
+      "lifetime_views": 11,
+      "presentation_count": 122,
       "feed_click_through_rate": null
     },
     "API Security Arsenal/API Security Arsenal: Real-Time Threat Detection with Apigee, Salt, and Cloudflare": {
@@ -2827,7 +2827,7 @@
       "rel_path": "LINQ%20Reimagined%3A%20A%20Deep%20Dive%20into%20.NET%2010's%20Query%20Evolution/LINQ%20Reimagined%3A%20A%20Deep%20Dive%20into%20.NET%2010's%20Query%20Evolution.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.636787",
+      "lastUpdated": "2026-04-28T20:46:55.130950",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -2878,7 +2878,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 3261,
-          "views": 313,
+          "views": 318,
           "reads": 52,
           "__typename": "SummaryPostStat"
         },
@@ -2892,16 +2892,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 3258,
-            "views": 309,
+            "presentations": 3261,
+            "views": 313,
             "reads": 52,
             "claps": 1,
             "responses": 0,
             "medium_member_reads": 29,
-            "medium_member_views": 49,
+            "medium_member_views": 50,
             "medium_nonmember_reads": 23,
-            "medium_nonmember_views": 260,
-            "medium_read_ratio": 16.8,
+            "medium_nonmember_views": 263,
+            "medium_read_ratio": 16.6,
             "medium_member_read_percentage": 55.8,
             "medium_new_followers": 2,
             "medium_highlights": 0
@@ -2934,9 +2934,9 @@
         ]
       },
       "lifetime_reads": 52,
-      "lifetime_views": 309,
-      "presentation_count": 3258,
-      "feed_click_through_rate": 0.10215053763440861
+      "lifetime_views": 313,
+      "presentation_count": 3261,
+      "feed_click_through_rate": 0.10160427807486631
     },
     "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 1: The Foundation - User Access & Data Ingestion": {
       "uniqueSlug": "enterprise-ai-architecture-part-1-the-foundation---user-access-&-data-ingestion",
@@ -2949,7 +2949,7 @@
       "rel_path": "Enterprise%20AI%20Architecture%3A%20A%20Comprehensive%20Technical%20Blueprint%20-%204%20Parts/Enterprise%20AI%20Architecture%20Part%201%3A%20The%20Foundation%20-%20User%20Access%20&%20Data%20Ingestion.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.643746",
+      "lastUpdated": "2026-04-28T20:46:55.138701",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -3014,7 +3014,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 746,
+            "presentations": 753,
             "views": 40,
             "reads": 4,
             "claps": 0,
@@ -3064,7 +3064,7 @@
       },
       "lifetime_reads": 17,
       "lifetime_views": 92,
-      "presentation_count": 746,
+      "presentation_count": 753,
       "feed_click_through_rate": null
     },
     "Enterprise AI Architecture: A Comprehensive Technical Blueprint - 4 Parts/Enterprise AI Architecture Part 2: The Brain - Models, Routing & Intelligent Agents": {
@@ -3193,7 +3193,7 @@
       "rel_path": "Claude%20Code%20Mastery/Claude%20Code%20Mastery%20-%20The%20Complete%20AI-Powered%20Development%20Platform.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.639069",
+      "lastUpdated": "2026-04-28T20:46:55.134292",
       "notes": "",
       "bookmarked": true,
       "leaderboard": false,
@@ -3244,8 +3244,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 140,
-          "views": 17,
+          "presentations": 142,
+          "views": 18,
           "reads": 4,
           "__typename": "SummaryPostStat"
         },
@@ -3259,16 +3259,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 139,
-            "views": 15,
+            "presentations": 141,
+            "views": 17,
             "reads": 4,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 4,
             "medium_member_views": 7,
             "medium_nonmember_reads": 0,
-            "medium_nonmember_views": 8,
-            "medium_read_ratio": 26.7,
+            "medium_nonmember_views": 10,
+            "medium_read_ratio": 23.5,
             "medium_member_read_percentage": 100.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -3285,8 +3285,8 @@
         ]
       },
       "lifetime_reads": 4,
-      "lifetime_views": 15,
-      "presentation_count": 139,
+      "lifetime_views": 17,
+      "presentation_count": 141,
       "feed_click_through_rate": null
     },
     "Claude Code Mastery/Claude Code Mastery - The Memory & Control Layer: CLAUDE, Permissions, Plan Mode, and Checkpoints": {
@@ -4658,7 +4658,7 @@
       "rel_path": "Design%20Patterns/Design%20Patterns%3A%20Part%201%20-%20%20Redefining%20Design%20Patterns.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.638838",
+      "lastUpdated": "2026-04-28T20:46:55.134022",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -4708,8 +4708,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 246,
-          "views": 22,
+          "presentations": 247,
+          "views": 23,
           "reads": 8,
           "__typename": "SummaryPostStat"
         },
@@ -4723,7 +4723,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 241,
+            "presentations": 247,
             "views": 22,
             "reads": 8,
             "claps": 0,
@@ -4766,8 +4766,8 @@
       },
       "lifetime_reads": 8,
       "lifetime_views": 22,
-      "presentation_count": 241,
-      "feed_click_through_rate": 0.04285714285714286
+      "presentation_count": 247,
+      "feed_click_through_rate": 0.04054054054054054
     },
     "Design Patterns/Redefining OOPs: Beyond the Car and Animal Analogy .Net 10": {
       "uniqueSlug": "redefining-oops-beyond-the-car-and-animal-analogy-.net-10",
@@ -4895,7 +4895,7 @@
       "rel_path": "GitHub/GitHub%20Copilot%20in%20the%20IDE%3A%20Your%20AI%20Pair%20Programmer,%20Always%20by%20Your%20Side.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.638583",
+      "lastUpdated": "2026-04-28T20:46:55.133758",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -5109,7 +5109,7 @@
       "rel_path": "GitHub/GitHub%20Copilot%3A%20The%20AI-Powered%20Development%20Ecosystem.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.637620",
+      "lastUpdated": "2026-04-28T20:46:55.132533",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -5174,16 +5174,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1452,
-            "views": 153,
+            "presentations": 1457,
+            "views": 154,
             "reads": 31,
             "claps": 1,
             "responses": 0,
             "medium_member_reads": 19,
             "medium_member_views": 25,
             "medium_nonmember_reads": 12,
-            "medium_nonmember_views": 128,
-            "medium_read_ratio": 20.3,
+            "medium_nonmember_views": 129,
+            "medium_read_ratio": 20.1,
             "medium_member_read_percentage": 61.3,
             "medium_new_followers": 3,
             "medium_highlights": 0
@@ -5223,8 +5223,8 @@
         ]
       },
       "lifetime_reads": 56,
-      "lifetime_views": 229,
-      "presentation_count": 1452,
+      "lifetime_views": 231,
+      "presentation_count": 1457,
       "feed_click_through_rate": 0.1566265060240964
     },
     "GitHub/GitHub Copilot in the Terminal: Your Command Line AI Assistant": {
@@ -5468,7 +5468,7 @@
       "rel_path": "Publishing%20.NET%2010%20Apps%20as%20Container%20Images/Publishing%20.NET%2010%20Apps%20as%20Container%20Images%3A%20A%20Complete%20Guide%20to%209%20Deployment%20Approaches%20-%20Azure.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.636414",
+      "lastUpdated": "2026-04-28T20:46:55.130198",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -5518,8 +5518,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 1545,
-          "views": 400,
+          "presentations": 1549,
+          "views": 402,
           "reads": 101,
           "__typename": "SummaryPostStat"
         },
@@ -5533,17 +5533,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1537,
-            "views": 386,
-            "reads": 95,
+            "presentations": 1546,
+            "views": 391,
+            "reads": 96,
             "claps": 3,
             "responses": 0,
             "medium_member_reads": 48,
             "medium_member_views": 86,
-            "medium_nonmember_reads": 47,
-            "medium_nonmember_views": 300,
+            "medium_nonmember_reads": 48,
+            "medium_nonmember_views": 305,
             "medium_read_ratio": 24.6,
-            "medium_member_read_percentage": 50.5,
+            "medium_member_read_percentage": 50.0,
             "medium_new_followers": 4,
             "medium_highlights": 0
           },
@@ -5581,10 +5581,10 @@
           }
         ]
       },
-      "lifetime_reads": 100,
-      "lifetime_views": 396,
-      "presentation_count": 1537,
-      "feed_click_through_rate": 0.09059233449477352
+      "lifetime_reads": 101,
+      "lifetime_views": 401,
+      "presentation_count": 1546,
+      "feed_click_through_rate": 0.09027777777777778
     },
     "Publishing .NET 10 Apps as Container Images/Podman with .NET SDK Native Publishing: Hybrid Workflows": {
       "uniqueSlug": "podman-with-.net-sdk-native-publishing-hybrid-workflows",
@@ -6057,7 +6057,7 @@
       "rel_path": "DevOps/The%20Complete%20Multi-Language%20Containerization%20Library%3A%20.NET,%20Python,%20and%20Node.js%20on%20Azure%20and%20AWS.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.642633",
+      "lastUpdated": "2026-04-28T20:46:55.137438",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6107,8 +6107,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 287,
-          "views": 19,
+          "presentations": 294,
+          "views": 20,
           "reads": 8,
           "__typename": "SummaryPostStat"
         },
@@ -6122,17 +6122,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 269,
-            "views": 18,
-            "reads": 7,
+            "presentations": 288,
+            "views": 20,
+            "reads": 8,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 5,
             "medium_member_views": 9,
-            "medium_nonmember_reads": 2,
-            "medium_nonmember_views": 9,
-            "medium_read_ratio": 38.9,
-            "medium_member_read_percentage": 71.4,
+            "medium_nonmember_reads": 3,
+            "medium_nonmember_views": 11,
+            "medium_read_ratio": 40.0,
+            "medium_member_read_percentage": 62.5,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
@@ -6163,10 +6163,10 @@
           }
         ]
       },
-      "lifetime_reads": 7,
-      "lifetime_views": 18,
-      "presentation_count": 269,
-      "feed_click_through_rate": 0.057971014492753624
+      "lifetime_reads": 8,
+      "lifetime_views": 20,
+      "presentation_count": 288,
+      "feed_click_through_rate": 0.07042253521126761
     },
     "BenchmarkDotNet With .NET 10 Perf Optimization/BenchmarkDotNet With .NET 10 Perf Optimization – The Future of Performance Tuning - Part 4": {
       "uniqueSlug": "benchmarkdotnet-with-.net-10-perf-optimization-–-the-future-of-performance-tuning---part-4",
@@ -6202,7 +6202,7 @@
       "rel_path": "BenchmarkDotNet%20With%20.NET%2010%20Perf%20Optimization/BenchmarkDotNet%20With%20.NET%2010%20Perf%20Optimization%20–%20Foundations%20&%20Methodology%20for%20C#%20Devs%20-%20Part%201.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.638230",
+      "lastUpdated": "2026-04-28T20:46:55.133349",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6267,7 +6267,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 212,
+            "presentations": 215,
             "views": 27,
             "reads": 8,
             "claps": 1,
@@ -6310,8 +6310,8 @@
       },
       "lifetime_reads": 8,
       "lifetime_views": 27,
-      "presentation_count": 212,
-      "feed_click_through_rate": 0.07547169811320754
+      "presentation_count": 215,
+      "feed_click_through_rate": 0.07272727272727272
     },
     "BenchmarkDotNet With .NET 10 Perf Optimization/BenchmarkDotNet With .NET 10 Perf Optimization – Advanced Performance Engineering Guide - Part 2": {
       "uniqueSlug": "benchmarkdotnet-with-.net-10-perf-optimization-–-advanced-performance-engineering-guide---part-2",
@@ -6462,7 +6462,7 @@
       "rel_path": "AI%20Engineering/Artificial%20Intelligence%3A%20From%20Basic%20Concepts%20to%20Agentic%20Systems%20—%20Hands-On%20Implementation%20Guide.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.646445",
+      "lastUpdated": "2026-04-28T20:46:55.141810",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6614,7 +6614,7 @@
       "rel_path": "AI%20Engineering/AI%20Agent%20Engineering%201%20-%20Foundation%20&%20LLM%20Fundamentals.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.644428",
+      "lastUpdated": "2026-04-28T20:46:55.139412",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6679,7 +6679,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 914,
+            "presentations": 916,
             "views": 24,
             "reads": 8,
             "claps": 1,
@@ -6722,7 +6722,7 @@
       },
       "lifetime_reads": 8,
       "lifetime_views": 24,
-      "presentation_count": 914,
+      "presentation_count": 916,
       "feed_click_through_rate": 0.08955223880597014
     },
     "AI Engineering/AI From the Top Down: How Agentic Systems, Generative Models, and Symbolic Logic Build Intelligence": {
@@ -6736,7 +6736,7 @@
       "rel_path": "AI%20Engineering/AI%20From%20the%20Top%20Down%3A%20How%20Agentic%20Systems,%20Generative%20Models,%20and%20Symbolic%20Logic%20Build%20Intelligence.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.647654",
+      "lastUpdated": "2026-04-28T20:46:55.143221",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -6888,7 +6888,7 @@
       "rel_path": "AI%20Engineering/AI%20Engineering%3A%20The%205-Step%20Blueprint%20to%20Building%20and%20Deploying%20AI%20Agents%20That%20Scale%20to%20Millions.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.648208",
+      "lastUpdated": "2026-04-28T20:46:55.143751",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7079,7 +7079,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/.NET%2010%20Is%20Here %20-%20 A%20Complete%20Deep%20Dive%20into%20the%20Next%20Evolution%20of%20the%20Platform.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T07:54:16.660046",
+      "lastUpdated": "2026-04-28T18:08:03.675012",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7143,15 +7143,15 @@
           {
             "period": "2026-04",
             "presentations": 345,
-            "views": 33,
+            "views": 34,
             "reads": 5,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 1,
             "medium_member_views": 1,
             "medium_nonmember_reads": 4,
-            "medium_nonmember_views": 32,
-            "medium_read_ratio": 15.2,
+            "medium_nonmember_views": 33,
+            "medium_read_ratio": 14.7,
             "medium_member_read_percentage": 20.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -7229,7 +7229,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/.NET%2010%3A%20CLR,%20CTS,%20CLS,%20JIT,%20and%20GC%20-%20The%20Silent%20Guardians%20Architectural%20Deep%20Dive.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.639322",
+      "lastUpdated": "2026-04-28T20:46:55.134684",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7279,9 +7279,9 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 248,
-          "views": 25,
-          "reads": 12,
+          "presentations": 255,
+          "views": 27,
+          "reads": 13,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -7294,17 +7294,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 238,
-            "views": 24,
-            "reads": 11,
+            "presentations": 250,
+            "views": 26,
+            "reads": 12,
             "claps": 0,
             "responses": 0,
-            "medium_member_reads": 9,
-            "medium_member_views": 16,
+            "medium_member_reads": 10,
+            "medium_member_views": 18,
             "medium_nonmember_reads": 2,
             "medium_nonmember_views": 8,
-            "medium_read_ratio": 45.8,
-            "medium_member_read_percentage": 81.8,
+            "medium_read_ratio": 46.2,
+            "medium_member_read_percentage": 83.3,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
@@ -7351,10 +7351,10 @@
           }
         ]
       },
-      "lifetime_reads": 11,
-      "lifetime_views": 24,
-      "presentation_count": 238,
-      "feed_click_through_rate": 0.1095890410958904
+      "lifetime_reads": 12,
+      "lifetime_views": 26,
+      "presentation_count": 250,
+      "feed_click_through_rate": 0.12195121951219512
     },
     "Dotnet Python NodeJS/From REST to gRPC: Architecting High-Performance APIs in .NET 10": {
       "uniqueSlug": "from-rest-to-grpc-architecting-high-performance-apis-in-.net-10",
@@ -7390,7 +7390,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/From%20REST%20to%20gRPC%3A%20A%20Unified%20Architecture%20Across%20NET%2010,%20NodeJS,%20and%20Python.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.644246",
+      "lastUpdated": "2026-04-28T20:46:55.139165",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7565,7 +7565,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/Achieving%2010x%20Faster%20Serialization%20in%20.NET%20Core.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.635734",
+      "lastUpdated": "2026-04-28T20:46:55.128303",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7631,14 +7631,14 @@
           {
             "period": "2026-04",
             "presentations": 7949,
-            "views": 277,
+            "views": 278,
             "reads": 26,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 7,
             "medium_member_views": 8,
             "medium_nonmember_reads": 19,
-            "medium_nonmember_views": 269,
+            "medium_nonmember_views": 270,
             "medium_read_ratio": 9.4,
             "medium_member_read_percentage": 26.9,
             "medium_new_followers": 0,
@@ -7742,7 +7742,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/.NET%2010%20Minimal%20APIs%20+%20Reactive%20Programming.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.640931",
+      "lastUpdated": "2026-04-28T20:46:55.136127",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -7806,23 +7806,23 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 631,
-            "views": 28,
+            "presentations": 632,
+            "views": 29,
             "reads": 7,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 4,
-            "medium_member_views": 5,
+            "medium_member_views": 6,
             "medium_nonmember_reads": 3,
             "medium_nonmember_views": 23,
-            "medium_read_ratio": 25.0,
+            "medium_read_ratio": 24.1,
             "medium_member_read_percentage": 57.1,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
           {
             "period": "2026-03",
-            "presentations": 629,
+            "presentations": 632,
             "views": 10,
             "reads": 4,
             "claps": 0,
@@ -7838,7 +7838,7 @@
           },
           {
             "period": "2026-02",
-            "presentations": 629,
+            "presentations": 632,
             "views": 52,
             "reads": 33,
             "claps": 2,
@@ -7879,7 +7879,7 @@
       },
       "lifetime_reads": 51,
       "lifetime_views": 97,
-      "presentation_count": 631,
+      "presentation_count": 632,
       "feed_click_through_rate": 0.10743801652892562
     },
     " Publishing Python FastAPI Apps as Container Images/Visual Studio Code Dev Containers: Local Development to Production - AWS": {
@@ -8008,7 +8008,7 @@
       "rel_path": "%20Publishing%20Python%20FastAPI%20Apps%20as%20Container%20Images/Publishing%20Python%20FastAPI%20Apps%20as%20Container%20Images%3A%20A%20Complete%20Guide%20to%2010%20Deployment%20Approaches.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.647336",
+      "lastUpdated": "2026-04-28T20:46:55.142911",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -8059,7 +8059,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 469,
-          "views": 15,
+          "views": 16,
           "reads": 2,
           "__typename": "SummaryPostStat"
         },
@@ -8073,7 +8073,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 468,
+            "presentations": 469,
             "views": 15,
             "reads": 2,
             "claps": 1,
@@ -8116,7 +8116,7 @@
       },
       "lifetime_reads": 2,
       "lifetime_views": 15,
-      "presentation_count": 468,
+      "presentation_count": 469,
       "feed_click_through_rate": null
     },
     " Publishing Python FastAPI Apps as Container Images/UV + Docker: Blazing Fast Python Package Management": {
@@ -8625,7 +8625,7 @@
       "rel_path": "Miscellaneous/ASP.NET%20Core%20Filters%20Deep%20Dive%3A%20Building%20Maintainable%20Web%20APIs%20with%20.NET%2010%20and%20Reactive%20Extensions.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.636536",
+      "lastUpdated": "2026-04-28T20:46:55.130411",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -8690,7 +8690,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 2511,
+            "presentations": 2521,
             "views": 818,
             "reads": 82,
             "claps": 1,
@@ -8739,9 +8739,9 @@
         ]
       },
       "lifetime_reads": 140,
-      "lifetime_views": 939,
-      "presentation_count": 2511,
-      "feed_click_through_rate": 0.09647779479326186
+      "lifetime_views": 942,
+      "presentation_count": 2521,
+      "feed_click_through_rate": 0.09603658536585366
     },
     "Modernizing the Monolith/Modernizing the Monolith: Docker, CI CD & Azure Cloud Deployment — Part 3": {
       "uniqueSlug": "modernizing-the-monolith-docker,-ci-cd-&-azure-cloud-deployment-—-part-3",
@@ -8777,7 +8777,7 @@
       "rel_path": "Modernizing%20the%20Monolith/Modernizing%20the%20Monolith%3A%20Migration%20Strategy%20&%20.NET%2010%20Architecture%20—%20Part%201.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.636159",
+      "lastUpdated": "2026-04-28T20:46:55.129822",
       "notes": "",
       "bookmarked": true,
       "leaderboard": false,
@@ -8825,7 +8825,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "readingTime": 11.530503144654087,
@@ -8849,7 +8849,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 882,
+            "presentations": 886,
             "views": 95,
             "reads": 20,
             "claps": 2,
@@ -8920,10 +8920,10 @@
           }
         ]
       },
-      "lifetime_reads": 72,
-      "lifetime_views": 271,
-      "presentation_count": 882,
-      "feed_click_through_rate": 0.08786610878661087
+      "lifetime_reads": 73,
+      "lifetime_views": 274,
+      "presentation_count": 886,
+      "feed_click_through_rate": 0.09090909090909091
     },
     "Modernizing the Monolith/Modernizing the Monolith: State, Async & Microservices Deep Dive — Part 2": {
       "uniqueSlug": "modernizing-the-monolith-state,-async-&-microservices-deep-dive-—-part-2",
@@ -8936,7 +8936,7 @@
       "rel_path": "Modernizing%20the%20Monolith/Modernizing%20the%20Monolith%3A%20State,%20Async%20&%20Microservices%20Deep%20Dive%20—%20Part%202.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.641407",
+      "lastUpdated": "2026-04-28T20:46:55.136522",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -8984,7 +8984,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "readingTime": 37.22641509433963,
@@ -9057,7 +9057,7 @@
         ]
       },
       "lifetime_reads": 10,
-      "lifetime_views": 52,
+      "lifetime_views": 53,
       "presentation_count": 402,
       "feed_click_through_rate": null
     },
@@ -9072,7 +9072,7 @@
       "rel_path": "Modernizing%20the%20Monolith/Modernizing%20the%20Monolith%3A%20Kubernetes%20on%20AKS%20Production%20Guide%20—%20Part%204.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.643904",
+      "lastUpdated": "2026-04-28T20:46:55.138859",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -9138,15 +9138,15 @@
           {
             "period": "2026-04",
             "presentations": 4945,
-            "views": 27,
+            "views": 28,
             "reads": 5,
             "claps": 1,
             "responses": 0,
             "medium_member_reads": 4,
             "medium_member_views": 9,
             "medium_nonmember_reads": 1,
-            "medium_nonmember_views": 18,
-            "medium_read_ratio": 18.5,
+            "medium_nonmember_views": 19,
+            "medium_read_ratio": 17.9,
             "medium_member_read_percentage": 80.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -9179,7 +9179,7 @@
         ]
       },
       "lifetime_reads": 5,
-      "lifetime_views": 27,
+      "lifetime_views": 28,
       "presentation_count": 4945,
       "feed_click_through_rate": null
     },
@@ -9723,7 +9723,7 @@
       "rel_path": "SQL%20Mechanic%20to%20Data%20Architect/SQL%20Mechanic%20to%20Architect%3A%20Database%20UDFs,%20Stored%20Procedures,%20&%20Production-Grade%20Patterns%20—%20Part%202.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.639190",
+      "lastUpdated": "2026-04-28T20:46:55.134431",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -9789,15 +9789,15 @@
           {
             "period": "2026-04",
             "presentations": 4987,
-            "views": 36,
+            "views": 37,
             "reads": 8,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 7,
-            "medium_member_views": 20,
+            "medium_member_views": 21,
             "medium_nonmember_reads": 1,
             "medium_nonmember_views": 16,
-            "medium_read_ratio": 22.2,
+            "medium_read_ratio": 21.6,
             "medium_member_read_percentage": 87.5,
             "medium_new_followers": 2,
             "medium_highlights": 0
@@ -9830,7 +9830,7 @@
         ]
       },
       "lifetime_reads": 8,
-      "lifetime_views": 36,
+      "lifetime_views": 37,
       "presentation_count": 4987,
       "feed_click_through_rate": null
     },
@@ -9891,7 +9891,7 @@
       "rel_path": "Vehixcare/Architecting%20Resilient%20Systems%3A%2020%20Essential%20Concepts%20Through%20a%20.NET%20Lens%20-%20Part%201.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.637744",
+      "lastUpdated": "2026-04-28T20:46:55.132700",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -9956,7 +9956,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 903,
+            "presentations": 904,
             "views": 55,
             "reads": 22,
             "claps": 2,
@@ -9999,7 +9999,7 @@
       },
       "lifetime_reads": 22,
       "lifetime_views": 55,
-      "presentation_count": 903,
+      "presentation_count": 904,
       "feed_click_through_rate": 0.13953488372093023
     },
     "Vehixcare/Terraform with Kubernetes on AWS: A Complete Architectural Guide With Vehixcare": {
@@ -10013,7 +10013,7 @@
       "rel_path": "Vehixcare/Terraform%20with%20Kubernetes%20on%20AWS%3A%20A%20Complete%20Architectural%20Guide%20With%20Vehixcare.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.644062",
+      "lastUpdated": "2026-04-28T20:46:55.139009",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -10033,7 +10033,7 @@
         "createdAt": 1776870476785,
         "updatedAt": 1777099289368,
         "firstPublishedAt": 1777095512397,
-        "voterCount": 0,
+        "voterCount": 1,
         "isLocked": true,
         "visibility": "LOCKED",
         "isSeries": false,
@@ -10059,12 +10059,12 @@
         "collection": null,
         "readingTime": 26.223584905660378,
         "wordCount": 6459,
-        "clapCount": 0,
+        "clapCount": 1,
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 169,
-          "views": 21,
+          "presentations": 174,
+          "views": 23,
           "reads": 5,
           "__typename": "SummaryPostStat"
         },
@@ -10078,17 +10078,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 165,
-            "views": 21,
-            "reads": 4,
+            "presentations": 171,
+            "views": 22,
+            "reads": 5,
             "claps": 0,
             "responses": 0,
-            "medium_member_reads": 3,
-            "medium_member_views": 7,
+            "medium_member_reads": 4,
+            "medium_member_views": 8,
             "medium_nonmember_reads": 1,
             "medium_nonmember_views": 14,
-            "medium_read_ratio": 19.0,
-            "medium_member_read_percentage": 75.0,
+            "medium_read_ratio": 22.7,
+            "medium_member_read_percentage": 80.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
@@ -10119,9 +10119,9 @@
           }
         ]
       },
-      "lifetime_reads": 4,
-      "lifetime_views": 21,
-      "presentation_count": 165,
+      "lifetime_reads": 5,
+      "lifetime_views": 22,
+      "presentation_count": 171,
       "feed_click_through_rate": null
     },
     "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 3": {
@@ -10133,19 +10133,20 @@
       "series": "Vehixcare",
       "raw_path": "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 3.md",
       "rel_path": "Vehixcare/Architecting%20Resilient%20Systems%3A%2020%20Essential%20Concepts%20Through%20a%20.NET%20Lens%20-%20Part%203.md",
-      "status": "Draft",
+      "status": "Published Due",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-25T03:25:35.662769",
-      "notes": "",
+      "lastUpdated": "2026-04-28T20:45:44.839798",
+      "notes": "Linked In Article and part 2 updated",
       "bookmarked": false,
       "leaderboard": false,
       "tags": [],
       "read_time": null,
-      "medium_url": null,
-      "linkedin_status": null,
-      "linkedin_timestamp": null,
+      "medium_url": "https://medium.com/@mvineetsharma/architecting-resilient-systems-20-essential-concepts-through-a-net-lens-part-3-ca24673261d2",
+      "linkedin_status": "posted",
+      "linkedin_timestamp": "2026-04-28T20:45",
       "linkedin_impressions": 0,
-      "linkedin_url": null
+      "linkedin_url": "https://www.linkedin.com/posts/vineet-sharma-architect_architecting-resilient-systems-20-essential-activity-7454907897353994240-WMfA?utm_source=share&utm_medium=member_desktop&rcm=ACoAABXg9ycBLK3Er-py9IBEWDhhntMXGRkjTJ4",
+      "publishedDueDate": "2026-04-28"
     },
     "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 4": {
       "uniqueSlug": "architecting-resilient-systems-20-essential-concepts-through-a-.net-lens---part-4",
@@ -10181,7 +10182,7 @@
       "rel_path": "Vehixcare/Terraform%20with%20Kubernetes%20on%20Azure%3A%20A%20Complete%20Architectural%20Guide%20With%20Vehixcare.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.637498",
+      "lastUpdated": "2026-04-28T20:46:55.132332",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -10231,9 +10232,9 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 445,
-          "views": 62,
-          "reads": 19,
+          "presentations": 450,
+          "views": 65,
+          "reads": 20,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -10246,16 +10247,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 409,
-            "views": 59,
+            "presentations": 447,
+            "views": 62,
             "reads": 19,
             "claps": 1,
             "responses": 0,
             "medium_member_reads": 13,
-            "medium_member_views": 20,
+            "medium_member_views": 21,
             "medium_nonmember_reads": 6,
-            "medium_nonmember_views": 39,
-            "medium_read_ratio": 32.2,
+            "medium_nonmember_views": 41,
+            "medium_read_ratio": 30.6,
             "medium_member_read_percentage": 68.4,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -10288,9 +10289,9 @@
         ]
       },
       "lifetime_reads": 19,
-      "lifetime_views": 59,
-      "presentation_count": 409,
-      "feed_click_through_rate": 0.07602339181286549
+      "lifetime_views": 62,
+      "presentation_count": 447,
+      "feed_click_through_rate": 0.06930693069306931
     },
     "Vehixcare/Architecting Resilient Systems: 20 Essential Concepts Through a .NET Lens - Part 2": {
       "uniqueSlug": "architecting-resilient-systems-20-essential-concepts-through-a-.net-lens---part-2",
@@ -10303,7 +10304,7 @@
       "rel_path": "Vehixcare/Architecting%20Resilient%20Systems%3A%2020%20Essential%20Concepts%20Through%20a%20.NET%20Lens%20-%20Part%202.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.637382",
+      "lastUpdated": "2026-04-28T20:46:55.132147",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -10321,7 +10322,7 @@
         "uniqueSlug": "architecting-resilient-systems-20-essential-concepts-through-a-net-lens-part-2-975372992138",
         "mediumUrl": "https://mvineetsharma.medium.com/architecting-resilient-systems-20-essential-concepts-through-a-net-lens-part-2-975372992138",
         "createdAt": 1774932432187,
-        "updatedAt": 1776029796582,
+        "updatedAt": 1777389178882,
         "firstPublishedAt": 1776023555564,
         "voterCount": 2,
         "isLocked": true,
@@ -10350,7 +10351,7 @@
         "readingTime": 29.419811320754715,
         "wordCount": 7359,
         "clapCount": 2,
-        "responsesCount": 0,
+        "responsesCount": 1,
         "totalStats": {
           "period": "total",
           "presentations": 1275,
@@ -10368,7 +10369,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1273,
+            "presentations": 1275,
             "views": 44,
             "reads": 15,
             "claps": 1,
@@ -10411,8 +10412,8 @@
       },
       "lifetime_reads": 15,
       "lifetime_views": 44,
-      "presentation_count": 1273,
-      "feed_click_through_rate": 0.07462686567164178
+      "presentation_count": 1275,
+      "feed_click_through_rate": 0.07352941176470588
     },
     "Payment System/ISO 8583 vs. REST APIs vs. UPI: Architecting Multi-Network Payment Systems in .NET 10": {
       "uniqueSlug": "iso-8583-vs.-rest-apis-vs.-upi-architecting-multi-network-payment-systems-in-.net-10",
@@ -10425,7 +10426,7 @@
       "rel_path": "Payment%20System/ISO%208583%20vs.%20REST%20APIs%20vs.%20UPI%3A%20Architecting%20Multi-Network%20Payment%20Systems%20in%20.NET%2010.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.638351",
+      "lastUpdated": "2026-04-28T20:46:55.133473",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -10490,17 +10491,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1176,
-            "views": 113,
-            "reads": 37,
+            "presentations": 1180,
+            "views": 117,
+            "reads": 38,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 22,
             "medium_member_views": 37,
-            "medium_nonmember_reads": 15,
-            "medium_nonmember_views": 76,
-            "medium_read_ratio": 32.7,
-            "medium_member_read_percentage": 59.5,
+            "medium_nonmember_reads": 16,
+            "medium_nonmember_views": 80,
+            "medium_read_ratio": 32.5,
+            "medium_member_read_percentage": 57.9,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
@@ -10539,9 +10540,9 @@
         ]
       },
       "lifetime_reads": 55,
-      "lifetime_views": 142,
-      "presentation_count": 1176,
-      "feed_click_through_rate": 0.09090909090909091
+      "lifetime_views": 144,
+      "presentation_count": 1180,
+      "feed_click_through_rate": 0.09047619047619047
     },
     "Zero Cost AI/Zero-Cost AI: Tool Use on a Laptop via Model Context Protocol – Part 5": {
       "uniqueSlug": "zero-cost-ai-tool-use-on-a-laptop-via-model-context-protocol-–-part-5",
@@ -10577,7 +10578,7 @@
       "rel_path": "Zero%20Cost%20AI/Zero-Cost%20AI%3A%20The%20$0%20Stack%20That%20Actually%20Works%20-%20Part%201.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.644815",
+      "lastUpdated": "2026-04-28T20:46:55.139717",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -10628,7 +10629,7 @@
         "totalStats": {
           "period": "total",
           "presentations": 186,
-          "views": 19,
+          "views": 20,
           "reads": 4,
           "__typename": "SummaryPostStat"
         },
@@ -10642,17 +10643,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 183,
-            "views": 18,
-            "reads": 3,
+            "presentations": 186,
+            "views": 20,
+            "reads": 4,
             "claps": 1,
             "responses": 0,
             "medium_member_reads": 2,
             "medium_member_views": 4,
-            "medium_nonmember_reads": 1,
-            "medium_nonmember_views": 14,
-            "medium_read_ratio": 16.7,
-            "medium_member_read_percentage": 66.7,
+            "medium_nonmember_reads": 2,
+            "medium_nonmember_views": 16,
+            "medium_read_ratio": 20.0,
+            "medium_member_read_percentage": 50.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
@@ -10683,9 +10684,9 @@
           }
         ]
       },
-      "lifetime_reads": 3,
-      "lifetime_views": 18,
-      "presentation_count": 183,
+      "lifetime_reads": 4,
+      "lifetime_views": 20,
+      "presentation_count": 186,
       "feed_click_through_rate": null
     },
     "Zero Cost AI/Zero-Cost AI: Code Agents on a Laptop Without Subscriptions – Part 6": {
@@ -11021,7 +11022,7 @@
       "rel_path": "AI%20Tools/73%20New%20AI%20Tools%20in%202026%20—%20Sales,%20Productivity,%20Coding,%20Chatbots,%20Daily%20Life,%20Chrome%20Extensions.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.639967",
+      "lastUpdated": "2026-04-28T20:46:55.135306",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -11086,7 +11087,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 228,
+            "presentations": 230,
             "views": 65,
             "reads": 7,
             "claps": 0,
@@ -11129,7 +11130,7 @@
       },
       "lifetime_reads": 7,
       "lifetime_views": 65,
-      "presentation_count": 228,
+      "presentation_count": 230,
       "feed_click_through_rate": 0.09803921568627451
     },
     "AI Tools/73 New AI Tools in 2026 — Images, YouTube, Content Creation, Writing, Twitter, Music": {
@@ -11143,7 +11144,7 @@
       "rel_path": "AI%20Tools/73%20New%20AI%20Tools%20in%202026%20—%20Images,%20YouTube,%20Content%20Creation,%20Writing,%20Twitter,%20Music.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.640614",
+      "lastUpdated": "2026-04-28T20:46:55.135861",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -11193,8 +11194,8 @@
         "responsesCount": 1,
         "totalStats": {
           "period": "total",
-          "presentations": 215,
-          "views": 61,
+          "presentations": 216,
+          "views": 64,
           "reads": 14,
           "__typename": "SummaryPostStat"
         },
@@ -11208,16 +11209,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 214,
-            "views": 61,
+            "presentations": 216,
+            "views": 63,
             "reads": 14,
             "claps": 0,
             "responses": 1,
             "medium_member_reads": 7,
             "medium_member_views": 10,
             "medium_nonmember_reads": 7,
-            "medium_nonmember_views": 51,
-            "medium_read_ratio": 23.0,
+            "medium_nonmember_views": 53,
+            "medium_read_ratio": 22.2,
             "medium_member_read_percentage": 50.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -11250,8 +11251,8 @@
         ]
       },
       "lifetime_reads": 14,
-      "lifetime_views": 61,
-      "presentation_count": 214,
+      "lifetime_views": 63,
+      "presentation_count": 216,
       "feed_click_through_rate": null
     },
     "Kafka Design Patterns - AWS/11 Kafka Design Patterns for Every Backend Engineer": {
@@ -11265,7 +11266,7 @@
       "rel_path": "Kafka%20Design%20Patterns%20-%20AWS/11%20Kafka%20Design%20Patterns%20for%20Every%20Backend%20Engineer.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.636278",
+      "lastUpdated": "2026-04-28T20:46:55.129998",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -11315,8 +11316,8 @@
         "responsesCount": 1,
         "totalStats": {
           "period": "total",
-          "presentations": 4280,
-          "views": 1025,
+          "presentations": 4287,
+          "views": 1130,
           "reads": 173,
           "__typename": "SummaryPostStat"
         },
@@ -11330,16 +11331,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 4262,
-            "views": 1023,
+            "presentations": 4282,
+            "views": 1029,
             "reads": 173,
             "claps": 4,
             "responses": 0,
             "medium_member_reads": 60,
             "medium_member_views": 110,
             "medium_nonmember_reads": 113,
-            "medium_nonmember_views": 913,
-            "medium_read_ratio": 16.9,
+            "medium_nonmember_views": 919,
+            "medium_read_ratio": 16.8,
             "medium_member_read_percentage": 34.7,
             "medium_new_followers": 3,
             "medium_highlights": 0
@@ -11372,9 +11373,9 @@
         ]
       },
       "lifetime_reads": 173,
-      "lifetime_views": 1023,
-      "presentation_count": 4262,
-      "feed_click_through_rate": 0.09200968523002422
+      "lifetime_views": 1029,
+      "presentation_count": 4282,
+      "feed_click_through_rate": 0.09265944645006016
     },
     "Kafka Design Patterns - AWS/11 Kafka Design Patterns - Reliability & Ordering Deep Dive": {
       "uniqueSlug": "11-kafka-design-patterns---reliability-&-ordering-deep-dive",
@@ -11387,7 +11388,7 @@
       "rel_path": "Kafka%20Design%20Patterns%20-%20AWS/11%20Kafka%20Design%20Patterns%20-%20Reliability%20&%20Ordering%20Deep%20Dive.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.640290",
+      "lastUpdated": "2026-04-28T20:46:55.135580",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -11437,8 +11438,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 918,
-          "views": 49,
+          "presentations": 923,
+          "views": 51,
           "reads": 11,
           "__typename": "SummaryPostStat"
         },
@@ -11452,7 +11453,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 916,
+            "presentations": 918,
             "views": 49,
             "reads": 11,
             "claps": 2,
@@ -11495,7 +11496,7 @@
       },
       "lifetime_reads": 11,
       "lifetime_views": 49,
-      "presentation_count": 916,
+      "presentation_count": 918,
       "feed_click_through_rate": null
     },
     "Kafka Design Patterns - AWS/11 Kafka Design Patterns - Data & State Deep Dive": {
@@ -11555,7 +11556,7 @@
       "rel_path": "LINQ%20DotNet/Grouping,%20Joining%20&%20Aggregation%20-%2050%20Advanced%20LINQ%20Queries%20for%20.NET%2010.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.637147",
+      "lastUpdated": "2026-04-28T20:46:55.131813",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -11605,9 +11606,9 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 419,
-          "views": 108,
-          "reads": 46,
+          "presentations": 433,
+          "views": 112,
+          "reads": 48,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -11620,17 +11621,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 383,
-            "views": 94,
-            "reads": 42,
+            "presentations": 422,
+            "views": 108,
+            "reads": 46,
             "claps": 1,
             "responses": 0,
-            "medium_member_reads": 31,
-            "medium_member_views": 57,
-            "medium_nonmember_reads": 11,
-            "medium_nonmember_views": 37,
-            "medium_read_ratio": 44.7,
-            "medium_member_read_percentage": 73.8,
+            "medium_member_reads": 34,
+            "medium_member_views": 64,
+            "medium_nonmember_reads": 12,
+            "medium_nonmember_views": 44,
+            "medium_read_ratio": 42.6,
+            "medium_member_read_percentage": 73.9,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
@@ -11661,10 +11662,10 @@
           }
         ]
       },
-      "lifetime_reads": 42,
-      "lifetime_views": 94,
-      "presentation_count": 383,
-      "feed_click_through_rate": 0.13592233009708737
+      "lifetime_reads": 46,
+      "lifetime_views": 108,
+      "presentation_count": 422,
+      "feed_click_through_rate": 0.13114754098360656
     },
     "LINQ DotNet/50 Advanced LINQ Queries for .NET 10 - Complete 4-Part Series - LinkedIn": {
       "uniqueSlug": "50-advanced-linq-queries-for-.net-10---complete-4-part-series---linkedin",
@@ -11675,10 +11676,10 @@
       "series": "LINQ DotNet",
       "raw_path": "LINQ DotNet/50 Advanced LINQ Queries for .NET 10 - Complete 4-Part Series - LinkedIn.md",
       "rel_path": "LINQ%20DotNet/50%20Advanced%20LINQ%20Queries%20for%20.NET%2010%20-%20Complete%204-Part%20Series%20-%20LinkedIn.md",
-      "status": "Draft",
+      "status": "Ready",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-25T03:25:35.664288",
-      "notes": "",
+      "lastUpdated": "2026-04-28T21:03:49.784986",
+      "notes": "Parent Story, published on Linkedin",
       "bookmarked": false,
       "leaderboard": false,
       "tags": [],
@@ -11687,7 +11688,8 @@
       "linkedin_status": null,
       "linkedin_timestamp": null,
       "linkedin_impressions": 0,
-      "linkedin_url": null
+      "linkedin_url": null,
+      "publishedDueDate": "2026-05-11"
     },
     "LINQ DotNet/Performance & Optimization - 50 Advanced LINQ Queries for .NET 10": {
       "uniqueSlug": "performance-&-optimization---50-advanced-linq-queries-for-.net-10",
@@ -11700,7 +11702,7 @@
       "rel_path": "LINQ%20DotNet/Performance%20&%20Optimization%20-%2050%20Advanced%20LINQ%20Queries%20for%20.NET%2010.md",
       "status": "Draft",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-25T03:25:35.664339",
+      "lastUpdated": "2026-04-28T21:04:17.159399",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -11710,7 +11712,8 @@
       "linkedin_status": null,
       "linkedin_timestamp": null,
       "linkedin_impressions": 0,
-      "linkedin_url": null
+      "linkedin_url": null,
+      "publishedDueDate": "2026-05-11"
     },
     "LINQ DotNet/Filtering, Projection & Transformation - 50 Advanced LINQ Queries for .NET 10": {
       "uniqueSlug": "filtering,-projection-&-transformation---50-advanced-linq-queries-for-.net-10",
@@ -11721,11 +11724,11 @@
       "series": "LINQ DotNet",
       "raw_path": "LINQ DotNet/Filtering, Projection & Transformation - 50 Advanced LINQ Queries for .NET 10.md",
       "rel_path": "LINQ%20DotNet/Filtering,%20Projection%20&%20Transformation%20-%2050%20Advanced%20LINQ%20Queries%20for%20.NET%2010.md",
-      "status": "Draft",
+      "status": "Ready",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-25T03:25:35.664390",
+      "lastUpdated": "2026-04-28T20:58:43.519865",
       "notes": "",
-      "bookmarked": false,
+      "bookmarked": true,
       "leaderboard": false,
       "tags": [],
       "read_time": null,
@@ -11733,7 +11736,8 @@
       "linkedin_status": null,
       "linkedin_timestamp": null,
       "linkedin_impressions": 0,
-      "linkedin_url": null
+      "linkedin_url": null,
+      "publishedDueDate": "2026-04-29"
     },
     "LINQ DotNet/Advanced Data Shaping & Grouping - 50 Advanced LINQ Queries for .NET 10": {
       "uniqueSlug": "advanced-data-shaping-&-grouping---50-advanced-linq-queries-for-.net-10",
@@ -11744,9 +11748,9 @@
       "series": "LINQ DotNet",
       "raw_path": "LINQ DotNet/Advanced Data Shaping & Grouping - 50 Advanced LINQ Queries for .NET 10.md",
       "rel_path": "LINQ%20DotNet/Advanced%20Data%20Shaping%20&%20Grouping%20-%2050%20Advanced%20LINQ%20Queries%20for%20.NET%2010.md",
-      "status": "Draft",
+      "status": "Ready",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-25T03:25:35.664446",
+      "lastUpdated": "2026-04-28T20:59:48.803836",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -11756,7 +11760,8 @@
       "linkedin_status": null,
       "linkedin_timestamp": null,
       "linkedin_impressions": 0,
-      "linkedin_url": null
+      "linkedin_url": null,
+      "publishedDueDate": "2026-05-04"
     },
     "Medium Import/zero-to-production-net-in-2026-35-lessons-on-how-to-master-the-stack-with-net-10-and-azure": {
       "uniqueSlug": "zero-to-production-net-in-2026-35-lessons-on-how-to-master-the-stack-with-net-10-and-azure-de5ed25bb135",
@@ -11767,7 +11772,7 @@
       "status": "Published",
       "createdDate": "2026-02-26",
       "publishedDate": "2026-02-26",
-      "lastUpdated": "2026-04-28T16:39:22.635899",
+      "lastUpdated": "2026-04-28T20:46:55.129450",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "dotnet-10",
@@ -11833,17 +11838,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 4027,
-            "views": 1113,
-            "reads": 381,
+            "presentations": 4066,
+            "views": 1120,
+            "reads": 382,
             "claps": 12,
             "responses": 0,
             "medium_member_reads": 223,
-            "medium_member_views": 327,
-            "medium_nonmember_reads": 158,
-            "medium_nonmember_views": 786,
-            "medium_read_ratio": 34.2,
-            "medium_member_read_percentage": 58.5,
+            "medium_member_views": 328,
+            "medium_nonmember_reads": 159,
+            "medium_nonmember_views": 792,
+            "medium_read_ratio": 34.1,
+            "medium_member_read_percentage": 58.4,
             "medium_new_followers": 5,
             "medium_highlights": 1
           },
@@ -11904,10 +11909,10 @@
           }
         ]
       },
-      "lifetime_reads": 433,
-      "lifetime_views": 1384,
-      "presentation_count": 4027,
-      "feed_click_through_rate": 0.08903420523138833,
+      "lifetime_reads": 435,
+      "lifetime_views": 1394,
+      "presentation_count": 4066,
+      "feed_click_through_rate": 0.08823529411764706,
       "linkedin_impressions": 0
     },
     "Medium Import/distinguishing-infrastructure-domain-exceptions-in-net-part-1": {
@@ -11919,7 +11924,7 @@
       "status": "Published",
       "createdDate": "2026-02-23",
       "publishedDate": "2026-02-23",
-      "lastUpdated": "2026-04-28T16:39:22.636032",
+      "lastUpdated": "2026-04-28T20:46:55.129680",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "dotnet-10",
@@ -11972,7 +11977,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "totalStats": {
@@ -12067,7 +12072,7 @@
       "status": "Published",
       "createdDate": "2026-01-22",
       "publishedDate": "2026-01-22",
-      "lastUpdated": "2026-04-28T16:39:22.636668",
+      "lastUpdated": "2026-04-28T20:46:55.130566",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "connection-pooling",
@@ -12118,7 +12123,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "totalStats": {
@@ -12138,17 +12143,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 2072,
-            "views": 426,
-            "reads": 106,
+            "presentations": 2095,
+            "views": 430,
+            "reads": 107,
             "claps": 3,
             "responses": 1,
-            "medium_member_reads": 37,
-            "medium_member_views": 61,
+            "medium_member_reads": 38,
+            "medium_member_views": 62,
             "medium_nonmember_reads": 69,
-            "medium_nonmember_views": 365,
+            "medium_nonmember_views": 368,
             "medium_read_ratio": 24.9,
-            "medium_member_read_percentage": 34.9,
+            "medium_member_read_percentage": 35.5,
             "medium_new_followers": 2,
             "medium_highlights": 0
           },
@@ -12209,10 +12214,10 @@
           }
         ]
       },
-      "lifetime_reads": 253,
-      "lifetime_views": 785,
-      "presentation_count": 2072,
-      "feed_click_through_rate": 0.09860788863109049
+      "lifetime_reads": 264,
+      "lifetime_views": 803,
+      "presentation_count": 2095,
+      "feed_click_through_rate": 0.09806157354618016
     },
     "Medium Import/implementing-clean-architecture-with-vertical-slice-architecture-in-net-8": {
       "uniqueSlug": "implementing-clean-architecture-with-vertical-slice-architecture-in-net-8-6fa47bbb8e97",
@@ -12223,7 +12228,7 @@
       "status": "Published",
       "createdDate": "2026-02-09",
       "publishedDate": "2026-02-09",
-      "lastUpdated": "2026-04-28T16:39:22.638111",
+      "lastUpdated": "2026-04-28T20:46:55.133225",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "clean-architecture",
@@ -12285,16 +12290,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1537,
-            "views": 131,
+            "presentations": 1543,
+            "views": 133,
             "reads": 24,
             "claps": 1,
             "responses": 0,
             "medium_member_reads": 17,
-            "medium_member_views": 21,
+            "medium_member_views": 22,
             "medium_nonmember_reads": 7,
-            "medium_nonmember_views": 110,
-            "medium_read_ratio": 18.3,
+            "medium_nonmember_views": 111,
+            "medium_read_ratio": 18.0,
             "medium_member_read_percentage": 70.8,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -12346,10 +12351,10 @@
           }
         ]
       },
-      "lifetime_reads": 127,
-      "lifetime_views": 474,
-      "presentation_count": 1537,
-      "feed_click_through_rate": 0.08933002481389578
+      "lifetime_reads": 128,
+      "lifetime_views": 475,
+      "presentation_count": 1543,
+      "feed_click_through_rate": 0.09113300492610837
     },
     "Medium Import/advancements-in-net-8-net-9-and-net-10": {
       "uniqueSlug": "advancements-in-net-8-net-9-and-net-10-42b9798a855f",
@@ -12360,7 +12365,7 @@
       "status": "Published",
       "createdDate": "2026-01-06",
       "publishedDate": "2026-01-06",
-      "lastUpdated": "2026-04-28T16:39:22.637993",
+      "lastUpdated": "2026-04-28T20:46:55.133102",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "dot-net-core",
@@ -12424,23 +12429,23 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 528,
-            "views": 89,
-            "reads": 37,
+            "presentations": 539,
+            "views": 93,
+            "reads": 40,
             "claps": 3,
             "responses": 0,
             "medium_member_reads": 14,
-            "medium_member_views": 19,
-            "medium_nonmember_reads": 23,
-            "medium_nonmember_views": 70,
-            "medium_read_ratio": 41.6,
-            "medium_member_read_percentage": 37.8,
+            "medium_member_views": 20,
+            "medium_nonmember_reads": 26,
+            "medium_nonmember_views": 73,
+            "medium_read_ratio": 43.0,
+            "medium_member_read_percentage": 35.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
           {
             "period": "2026-03",
-            "presentations": 528,
+            "presentations": 539,
             "views": 58,
             "reads": 7,
             "claps": 0,
@@ -12472,10 +12477,10 @@
           }
         ]
       },
-      "lifetime_reads": 74,
-      "lifetime_views": 227,
-      "presentation_count": 528,
-      "feed_click_through_rate": 0.058333333333333334
+      "lifetime_reads": 76,
+      "lifetime_views": 232,
+      "presentation_count": 539,
+      "feed_click_through_rate": 0.05622489959839357
     },
     "Medium Import/docker-podman-and-kubernetes-from-containers-to-cloud-native-reality": {
       "uniqueSlug": "docker-podman-and-kubernetes-from-containers-to-cloud-native-reality-16ed6be3b9ca",
@@ -12486,7 +12491,7 @@
       "status": "Published",
       "createdDate": "2026-01-20",
       "publishedDate": "2026-01-20",
-      "lastUpdated": "2026-04-28T16:39:22.637263",
+      "lastUpdated": "2026-04-28T20:46:55.131967",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "docker",
@@ -12550,17 +12555,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1080,
-            "views": 565,
-            "reads": 49,
+            "presentations": 1121,
+            "views": 571,
+            "reads": 50,
             "claps": 2,
             "responses": 0,
-            "medium_member_reads": 23,
-            "medium_member_views": 35,
+            "medium_member_reads": 24,
+            "medium_member_views": 36,
             "medium_nonmember_reads": 26,
-            "medium_nonmember_views": 530,
-            "medium_read_ratio": 8.7,
-            "medium_member_read_percentage": 46.9,
+            "medium_nonmember_views": 535,
+            "medium_read_ratio": 8.8,
+            "medium_member_read_percentage": 48.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
@@ -12598,10 +12603,10 @@
           }
         ]
       },
-      "lifetime_reads": 78,
-      "lifetime_views": 649,
-      "presentation_count": 1080,
-      "feed_click_through_rate": 0.12903225806451613
+      "lifetime_reads": 81,
+      "lifetime_views": 657,
+      "presentation_count": 1121,
+      "feed_click_through_rate": 0.11594202898550725
     },
     "Medium Import/10-microservices-architecture-patterns-a-reference-architecture-with-net-and-azure-part-1": {
       "uniqueSlug": "10-essential-microservices-architecture-patterns-a-professional-reference-architecture-with-net-13aae317b1c4",
@@ -12612,7 +12617,7 @@
       "status": "Published",
       "createdDate": "2026-03-17",
       "publishedDate": "2026-03-17",
-      "lastUpdated": "2026-04-28T16:39:22.638717",
+      "lastUpdated": "2026-04-28T20:46:55.133883",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "api-gateway",
@@ -12678,23 +12683,23 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1212,
-            "views": 113,
+            "presentations": 1218,
+            "views": 114,
             "reads": 27,
             "claps": 1,
             "responses": 0,
             "medium_member_reads": 17,
             "medium_member_views": 33,
             "medium_nonmember_reads": 10,
-            "medium_nonmember_views": 80,
-            "medium_read_ratio": 23.9,
+            "medium_nonmember_views": 81,
+            "medium_read_ratio": 23.7,
             "medium_member_read_percentage": 63.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
           {
             "period": "2026-03",
-            "presentations": 1210,
+            "presentations": 1218,
             "views": 76,
             "reads": 20,
             "claps": 1,
@@ -12743,9 +12748,9 @@
         ]
       },
       "lifetime_reads": 47,
-      "lifetime_views": 184,
-      "presentation_count": 1212,
-      "feed_click_through_rate": 0.07142857142857142
+      "lifetime_views": 189,
+      "presentation_count": 1218,
+      "feed_click_through_rate": 0.07692307692307693
     },
     "Medium Import/sql-performance-tips-every-data-analyst-should-know": {
       "uniqueSlug": "sql-performance-tips-every-data-analyst-should-know-e4f3080f4e6e",
@@ -12756,7 +12761,7 @@
       "status": "Published",
       "createdDate": "2026-02-22",
       "publishedDate": "2026-02-22",
-      "lastUpdated": "2026-04-28T16:39:22.638467",
+      "lastUpdated": "2026-04-28T20:46:55.133594",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "sql-queries",
@@ -12822,16 +12827,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1101,
-            "views": 173,
+            "presentations": 1110,
+            "views": 177,
             "reads": 27,
             "claps": 2,
             "responses": 0,
             "medium_member_reads": 11,
             "medium_member_views": 15,
             "medium_nonmember_reads": 16,
-            "medium_nonmember_views": 158,
-            "medium_read_ratio": 15.6,
+            "medium_nonmember_views": 162,
+            "medium_read_ratio": 15.3,
             "medium_member_read_percentage": 40.7,
             "medium_new_followers": 1,
             "medium_highlights": 0
@@ -12909,10 +12914,10 @@
           }
         ]
       },
-      "lifetime_reads": 46,
-      "lifetime_views": 274,
-      "presentation_count": 1101,
-      "feed_click_through_rate": 0.1724137931034483
+      "lifetime_reads": 48,
+      "lifetime_views": 277,
+      "presentation_count": 1110,
+      "feed_click_through_rate": 0.16393442622950818
     },
     "Medium Import/10-microservices-architecture-patterns-a-reference-architecture-with-net-10-and-azure-part-2": {
       "uniqueSlug": "10-microservices-architecture-patterns-a-reference-architecture-with-net-10-and-azure-part-2-bcb67bcbc9a2",
@@ -12923,7 +12928,7 @@
       "status": "Published",
       "createdDate": "2026-04-23",
       "publishedDate": "2026-04-23",
-      "lastUpdated": "2026-04-28T16:39:22.637874",
+      "lastUpdated": "2026-04-28T20:46:55.132883",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "saga-pattern",
@@ -12974,9 +12979,9 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 263,
-          "views": 38,
-          "reads": 18,
+          "presentations": 274,
+          "views": 46,
+          "reads": 20,
           "__typename": "SummaryPostStat"
         },
         "totalEarnings": {
@@ -12989,17 +12994,17 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 225,
-            "views": 26,
-            "reads": 12,
+            "presentations": 264,
+            "views": 38,
+            "reads": 18,
             "claps": 1,
             "responses": 0,
-            "medium_member_reads": 7,
-            "medium_member_views": 9,
-            "medium_nonmember_reads": 5,
-            "medium_nonmember_views": 17,
-            "medium_read_ratio": 46.2,
-            "medium_member_read_percentage": 58.3,
+            "medium_member_reads": 10,
+            "medium_member_views": 15,
+            "medium_nonmember_reads": 8,
+            "medium_nonmember_views": 23,
+            "medium_read_ratio": 47.4,
+            "medium_member_read_percentage": 55.6,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
@@ -13046,10 +13051,10 @@
           }
         ]
       },
-      "lifetime_reads": 12,
-      "lifetime_views": 26,
-      "presentation_count": 225,
-      "feed_click_through_rate": 0.13636363636363635,
+      "lifetime_reads": 18,
+      "lifetime_views": 38,
+      "presentation_count": 264,
+      "feed_click_through_rate": 0.1111111111111111,
       "linkedin_impressions": 0
     },
     "Medium Import/podman-kubernetes-in-production": {
@@ -13061,7 +13066,7 @@
       "status": "Published",
       "createdDate": "2026-01-21",
       "publishedDate": "2026-01-21",
-      "lastUpdated": "2026-04-28T16:39:22.639807",
+      "lastUpdated": "2026-04-28T20:46:55.135168",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "podman",
@@ -13125,7 +13130,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1984,
+            "presentations": 1988,
             "views": 183,
             "reads": 31,
             "claps": 1,
@@ -13186,10 +13191,10 @@
           }
         ]
       },
-      "lifetime_reads": 153,
-      "lifetime_views": 501,
-      "presentation_count": 1984,
-      "feed_click_through_rate": 0.11439842209072978
+      "lifetime_reads": 155,
+      "lifetime_views": 507,
+      "presentation_count": 1988,
+      "feed_click_through_rate": 0.11372549019607843
     },
     "Medium Import/using-microsoft-channels-in-net-using-azure-function-for-hi-performence-background-processing": {
       "uniqueSlug": "using-microsoft-channels-in-net-using-azure-function-for-hi-performence-background-processing-4921747c8c90",
@@ -13200,7 +13205,7 @@
       "status": "Published",
       "createdDate": "2025-05-11",
       "publishedDate": "2025-05-11",
-      "lastUpdated": "2026-04-28T16:39:22.640449",
+      "lastUpdated": "2026-04-28T20:46:55.135725",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "channeling",
@@ -13317,7 +13322,7 @@
       "status": "Published",
       "createdDate": "2026-02-23",
       "publishedDate": "2026-02-23",
-      "lastUpdated": "2026-04-28T16:39:22.641094",
+      "lastUpdated": "2026-04-28T20:46:55.136265",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "dotnet-10",
@@ -13370,7 +13375,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "totalStats": {
@@ -13391,15 +13396,15 @@
           {
             "period": "2026-04",
             "presentations": 375,
-            "views": 35,
+            "views": 37,
             "reads": 8,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 6,
-            "medium_member_views": 13,
+            "medium_member_views": 14,
             "medium_nonmember_reads": 2,
-            "medium_nonmember_views": 22,
-            "medium_read_ratio": 22.9,
+            "medium_nonmember_views": 23,
+            "medium_read_ratio": 21.6,
             "medium_member_read_percentage": 75.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -13465,7 +13470,7 @@
       "status": "Published",
       "createdDate": "2026-04-13",
       "publishedDate": "2026-04-13",
-      "lastUpdated": "2026-04-28T07:58:24.700900",
+      "lastUpdated": "2026-04-28T18:12:09.135798",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "calude-code",
@@ -13516,8 +13521,8 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 1193,
-          "views": 31,
+          "presentations": 1194,
+          "views": 32,
           "reads": 9,
           "__typename": "SummaryPostStat"
         },
@@ -13531,16 +13536,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 1193,
-            "views": 31,
+            "presentations": 1194,
+            "views": 32,
             "reads": 9,
             "claps": 2,
             "responses": 0,
             "medium_member_reads": 7,
             "medium_member_views": 12,
             "medium_nonmember_reads": 2,
-            "medium_nonmember_views": 19,
-            "medium_read_ratio": 29.0,
+            "medium_nonmember_views": 20,
+            "medium_read_ratio": 28.1,
             "medium_member_read_percentage": 77.8,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -13573,8 +13578,8 @@
         ]
       },
       "lifetime_reads": 9,
-      "lifetime_views": 31,
-      "presentation_count": 1193,
+      "lifetime_views": 32,
+      "presentation_count": 1194,
       "feed_click_through_rate": null
     },
     "Medium Import/microservice-design-patterns-a-comprehensive-guide": {
@@ -13586,7 +13591,7 @@
       "status": "Published",
       "createdDate": "2025-02-18",
       "publishedDate": "2025-02-18",
-      "lastUpdated": "2026-04-28T16:39:22.641249",
+      "lastUpdated": "2026-04-28T20:46:55.136390",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "icrosschain-service",
@@ -13649,15 +13654,15 @@
           {
             "period": "2026-04",
             "presentations": 705,
-            "views": 30,
+            "views": 31,
             "reads": 5,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 2,
-            "medium_member_views": 16,
+            "medium_member_views": 17,
             "medium_nonmember_reads": 3,
             "medium_nonmember_views": 14,
-            "medium_read_ratio": 16.7,
+            "medium_read_ratio": 16.1,
             "medium_member_read_percentage": 40.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -13690,7 +13695,7 @@
         ]
       },
       "lifetime_reads": 102,
-      "lifetime_views": 241,
+      "lifetime_views": 242,
       "presentation_count": 705,
       "feed_click_through_rate": null,
       "linkedin_impressions": 0
@@ -13704,7 +13709,7 @@
       "status": "Published",
       "createdDate": "2026-03-26",
       "publishedDate": "2026-03-26",
-      "lastUpdated": "2026-04-28T16:39:22.640776",
+      "lastUpdated": "2026-04-28T20:46:55.135997",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "cte",
@@ -13834,8 +13839,8 @@
           }
         ]
       },
-      "lifetime_reads": 11,
-      "lifetime_views": 43,
+      "lifetime_reads": 12,
+      "lifetime_views": 44,
       "presentation_count": 1084,
       "feed_click_through_rate": 0.0784313725490196
     },
@@ -13848,7 +13853,7 @@
       "status": "Published",
       "createdDate": "2025-01-30",
       "publishedDate": "2025-01-30",
-      "lastUpdated": "2026-04-28T16:39:22.641557",
+      "lastUpdated": "2026-04-28T20:46:55.136654",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "vs-code-editor",
@@ -13956,7 +13961,7 @@
         ]
       },
       "lifetime_reads": 590,
-      "lifetime_views": 1317,
+      "lifetime_views": 1322,
       "presentation_count": 560,
       "feed_click_through_rate": null
     },
@@ -13969,7 +13974,7 @@
       "status": "Published",
       "createdDate": "2025-10-18",
       "publishedDate": "2025-10-18",
-      "lastUpdated": "2026-04-28T16:39:22.642003",
+      "lastUpdated": "2026-04-28T20:46:55.136918",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "nodejs",
@@ -14035,15 +14040,15 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 2573,
-            "views": 1768,
+            "presentations": 2583,
+            "views": 1770,
             "reads": 29,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 5,
             "medium_member_views": 11,
             "medium_nonmember_reads": 24,
-            "medium_nonmember_views": 1757,
+            "medium_nonmember_views": 1759,
             "medium_read_ratio": 1.6,
             "medium_member_read_percentage": 17.2,
             "medium_new_followers": 0,
@@ -14083,9 +14088,9 @@
           }
         ]
       },
-      "lifetime_reads": 104,
-      "lifetime_views": 2155,
-      "presentation_count": 2573,
+      "lifetime_reads": 105,
+      "lifetime_views": 2156,
+      "presentation_count": 2583,
       "feed_click_through_rate": 0.07344632768361582
     },
     "Medium Import/understanding-appsettingsjson-in-net-core-the-complete-guide-net-10-update": {
@@ -14097,7 +14102,7 @@
       "status": "Published",
       "createdDate": "2025-04-30",
       "publishedDate": "2025-04-30",
-      "lastUpdated": "2026-04-28T16:39:22.641847",
+      "lastUpdated": "2026-04-28T20:46:55.136787",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "net-core",
@@ -14162,15 +14167,15 @@
           {
             "period": "2026-04",
             "presentations": 4645,
-            "views": 381,
+            "views": 384,
             "reads": 48,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 4,
             "medium_member_views": 11,
             "medium_nonmember_reads": 44,
-            "medium_nonmember_views": 370,
-            "medium_read_ratio": 12.6,
+            "medium_nonmember_views": 373,
+            "medium_read_ratio": 12.5,
             "medium_member_read_percentage": 8.3,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -14233,7 +14238,7 @@
         ]
       },
       "lifetime_reads": 1934,
-      "lifetime_views": 4306,
+      "lifetime_views": 4310,
       "presentation_count": 4645,
       "feed_click_through_rate": 0.09401709401709402,
       "linkedin_impressions": 0
@@ -14247,7 +14252,7 @@
       "status": "Published",
       "createdDate": "2026-01-25",
       "publishedDate": "2026-01-25",
-      "lastUpdated": "2026-04-28T16:39:22.642159",
+      "lastUpdated": "2026-04-28T20:46:55.137047",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "google-ai-tools",
@@ -14313,7 +14318,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 217,
+            "presentations": 218,
             "views": 158,
             "reads": 9,
             "claps": 0,
@@ -14368,8 +14373,8 @@
         ]
       },
       "lifetime_reads": 52,
-      "lifetime_views": 330,
-      "presentation_count": 217,
+      "lifetime_views": 332,
+      "presentation_count": 218,
       "feed_click_through_rate": null
     },
     "Medium Import/a-developers-dilemma-react-with-vite-or-nextjs": {
@@ -14381,7 +14386,7 @@
       "status": "Published",
       "createdDate": "2025-05-16",
       "publishedDate": "2025-05-16",
-      "lastUpdated": "2026-04-28T16:39:22.642469",
+      "lastUpdated": "2026-04-28T20:46:55.137304",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "nextjs",
@@ -14434,7 +14439,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "totalStats": {
@@ -14526,7 +14531,7 @@
         ]
       },
       "lifetime_reads": 799,
-      "lifetime_views": 2277,
+      "lifetime_views": 2278,
       "presentation_count": 1738,
       "feed_click_through_rate": null
     },
@@ -14539,7 +14544,7 @@
       "status": "Published",
       "createdDate": "2025-08-22",
       "publishedDate": "2025-08-22",
-      "lastUpdated": "2026-04-28T16:39:22.643104",
+      "lastUpdated": "2026-04-28T20:46:55.137834",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "blazor-webassembly",
@@ -14588,7 +14593,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "totalStats": {
@@ -14609,16 +14614,16 @@
           {
             "period": "2026-04",
             "presentations": 2754,
-            "views": 277,
-            "reads": 46,
+            "views": 279,
+            "reads": 47,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 4,
             "medium_member_views": 4,
-            "medium_nonmember_reads": 42,
-            "medium_nonmember_views": 273,
-            "medium_read_ratio": 16.6,
-            "medium_member_read_percentage": 8.7,
+            "medium_nonmember_reads": 43,
+            "medium_nonmember_views": 275,
+            "medium_read_ratio": 16.8,
+            "medium_member_read_percentage": 8.5,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
@@ -14679,8 +14684,8 @@
           }
         ]
       },
-      "lifetime_reads": 713,
-      "lifetime_views": 1844,
+      "lifetime_reads": 715,
+      "lifetime_views": 1847,
       "presentation_count": 2754,
       "feed_click_through_rate": 0.1092436974789916
     },
@@ -14693,7 +14698,7 @@
       "status": "Published",
       "createdDate": "2026-03-20",
       "publishedDate": "2026-03-20",
-      "lastUpdated": "2026-04-28T16:39:22.643424",
+      "lastUpdated": "2026-04-28T20:46:55.138107",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "moderation",
@@ -14808,7 +14813,7 @@
         ]
       },
       "lifetime_reads": 7,
-      "lifetime_views": 39,
+      "lifetime_views": 40,
       "presentation_count": 1210,
       "feed_click_through_rate": 0.009708737864077669
     },
@@ -14821,7 +14826,7 @@
       "status": "Published",
       "createdDate": "2026-03-25",
       "publishedDate": "2026-03-25",
-      "lastUpdated": "2026-04-28T16:39:22.643582",
+      "lastUpdated": "2026-04-28T20:46:55.138446",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "mssql",
@@ -14887,7 +14892,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 638,
+            "presentations": 639,
             "views": 20,
             "reads": 6,
             "claps": 0,
@@ -14953,7 +14958,7 @@
       },
       "lifetime_reads": 11,
       "lifetime_views": 30,
-      "presentation_count": 638,
+      "presentation_count": 639,
       "feed_click_through_rate": null
     },
     "Medium Import/caching-in-net-10-caching-first-architecture-and-practical": {
@@ -14965,7 +14970,7 @@
       "status": "Published",
       "createdDate": "2026-01-31",
       "publishedDate": "2026-01-31",
-      "lastUpdated": "2026-04-28T16:39:22.643264",
+      "lastUpdated": "2026-04-28T20:46:55.137976",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "output-caching",
@@ -15091,7 +15096,7 @@
         ]
       },
       "lifetime_reads": 14,
-      "lifetime_views": 45,
+      "lifetime_views": 46,
       "presentation_count": 144,
       "feed_click_through_rate": null
     },
@@ -15104,7 +15109,7 @@
       "status": "Published",
       "createdDate": "2025-02-05",
       "publishedDate": "2025-02-05",
-      "lastUpdated": "2026-04-28T16:39:22.645209",
+      "lastUpdated": "2026-04-28T20:46:55.140031",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "oop-concepts",
@@ -15155,7 +15160,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "totalStats": {
@@ -15176,15 +15181,15 @@
           {
             "period": "2026-04",
             "presentations": 323,
-            "views": 32,
+            "views": 33,
             "reads": 2,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 2,
             "medium_member_views": 2,
             "medium_nonmember_reads": 0,
-            "medium_nonmember_views": 30,
-            "medium_read_ratio": 6.2,
+            "medium_nonmember_views": 31,
+            "medium_read_ratio": 6.1,
             "medium_member_read_percentage": 100.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -15217,7 +15222,7 @@
         ]
       },
       "lifetime_reads": 142,
-      "lifetime_views": 358,
+      "lifetime_views": 359,
       "presentation_count": 323,
       "feed_click_through_rate": 0.10144927536231885
     },
@@ -15230,7 +15235,7 @@
       "status": "Published",
       "createdDate": "2026-02-08",
       "publishedDate": "2026-02-08",
-      "lastUpdated": "2026-04-28T16:39:22.642943",
+      "lastUpdated": "2026-04-28T20:46:55.137702",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "aspnet-core-web-api",
@@ -15292,16 +15297,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 4240,
-            "views": 153,
+            "presentations": 4242,
+            "views": 154,
             "reads": 11,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 4,
             "medium_member_views": 6,
             "medium_nonmember_reads": 7,
-            "medium_nonmember_views": 147,
-            "medium_read_ratio": 7.2,
+            "medium_nonmember_views": 148,
+            "medium_read_ratio": 7.1,
             "medium_member_read_percentage": 36.4,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -15354,8 +15359,8 @@
         ]
       },
       "lifetime_reads": 81,
-      "lifetime_views": 504,
-      "presentation_count": 4240,
+      "lifetime_views": 507,
+      "presentation_count": 4242,
       "feed_click_through_rate": 0.10752688172043011
     },
     "Medium Import/replacing-ifelse-statements-in-net-core": {
@@ -15367,7 +15372,7 @@
       "status": "Published",
       "createdDate": "2025-01-22",
       "publishedDate": "2025-01-22",
-      "lastUpdated": "2026-04-28T16:39:22.645498",
+      "lastUpdated": "2026-04-28T20:46:55.140344",
       "notes": "Imported from refresh for 2026-04",
       "tags": [],
       "bookmarked": false,
@@ -15408,7 +15413,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "totalStats": {
@@ -15491,7 +15496,7 @@
       "status": "Published",
       "createdDate": "2025-10-10",
       "publishedDate": "2025-10-10",
-      "lastUpdated": "2026-04-28T16:39:22.645971",
+      "lastUpdated": "2026-04-28T20:46:55.141070",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "chatgpt",
@@ -15610,7 +15615,7 @@
       "status": "Published",
       "createdDate": "2026-03-15",
       "publishedDate": "2026-03-15",
-      "lastUpdated": "2026-04-28T16:39:22.645744",
+      "lastUpdated": "2026-04-28T20:46:55.140761",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "ai-architecture",
@@ -15663,7 +15668,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "totalStats": {
@@ -15684,16 +15689,16 @@
           {
             "period": "2026-04",
             "presentations": 709,
-            "views": 81,
-            "reads": 19,
+            "views": 82,
+            "reads": 20,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 1,
             "medium_member_views": 3,
-            "medium_nonmember_reads": 18,
-            "medium_nonmember_views": 78,
-            "medium_read_ratio": 23.5,
-            "medium_member_read_percentage": 5.3,
+            "medium_nonmember_reads": 19,
+            "medium_nonmember_views": 79,
+            "medium_read_ratio": 24.4,
+            "medium_member_read_percentage": 5.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
@@ -15731,8 +15736,8 @@
           }
         ]
       },
-      "lifetime_reads": 48,
-      "lifetime_views": 169,
+      "lifetime_reads": 49,
+      "lifetime_views": 171,
       "presentation_count": 709,
       "feed_click_through_rate": null
     },
@@ -15745,7 +15750,7 @@
       "status": "Published",
       "createdDate": "2025-06-03",
       "publishedDate": "2025-06-03",
-      "lastUpdated": "2026-04-28T16:39:22.645859",
+      "lastUpdated": "2026-04-28T20:46:55.140918",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "kubernetes",
@@ -15798,7 +15803,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "totalStats": {
@@ -15873,7 +15878,7 @@
       "status": "Published",
       "createdDate": "2026-01-31",
       "publishedDate": "2026-01-31",
-      "lastUpdated": "2026-04-28T16:39:22.645626",
+      "lastUpdated": "2026-04-28T20:46:55.140497",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "output-caching",
@@ -15939,7 +15944,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 214,
+            "presentations": 216,
             "views": 34,
             "reads": 3,
             "claps": 0,
@@ -15955,7 +15960,7 @@
           },
           {
             "period": "2026-03",
-            "presentations": 214,
+            "presentations": 216,
             "views": 27,
             "reads": 11,
             "claps": 1,
@@ -16004,8 +16009,8 @@
         ]
       },
       "lifetime_reads": 26,
-      "lifetime_views": 89,
-      "presentation_count": 214,
+      "lifetime_views": 90,
+      "presentation_count": 216,
       "feed_click_through_rate": null
     },
     "Medium Import/redefining-oops-beyond-the-car-and-animal-analogy": {
@@ -16017,7 +16022,7 @@
       "status": "Published",
       "createdDate": "2026-03-05",
       "publishedDate": "2026-03-05",
-      "lastUpdated": "2026-04-28T16:39:22.646318",
+      "lastUpdated": "2026-04-28T20:46:55.141650",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "oop-concepts",
@@ -16070,7 +16075,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "totalStats": {
@@ -16091,15 +16096,15 @@
           {
             "period": "2026-04",
             "presentations": 986,
-            "views": 31,
+            "views": 32,
             "reads": 14,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 1,
             "medium_member_views": 4,
             "medium_nonmember_reads": 13,
-            "medium_nonmember_views": 27,
-            "medium_read_ratio": 45.2,
+            "medium_nonmember_views": 28,
+            "medium_read_ratio": 43.8,
             "medium_member_read_percentage": 7.1,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -16138,8 +16143,8 @@
           }
         ]
       },
-      "lifetime_reads": 14,
-      "lifetime_views": 41,
+      "lifetime_reads": 17,
+      "lifetime_views": 49,
       "presentation_count": 986,
       "feed_click_through_rate": null
     },
@@ -16152,7 +16157,7 @@
       "status": "Published",
       "createdDate": "2026-02-27",
       "publishedDate": "2026-02-27",
-      "lastUpdated": "2026-04-28T16:39:22.646202",
+      "lastUpdated": "2026-04-28T20:46:55.141486",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "transient",
@@ -16218,7 +16223,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 244,
+            "presentations": 245,
             "views": 98,
             "reads": 35,
             "claps": 1,
@@ -16279,9 +16284,9 @@
           }
         ]
       },
-      "lifetime_reads": 54,
-      "lifetime_views": 167,
-      "presentation_count": 244,
+      "lifetime_reads": 58,
+      "lifetime_views": 176,
+      "presentation_count": 245,
       "feed_click_through_rate": null
     },
     "Medium Import/handling-distributed-transactions-for-payments-in-net-core-using-azure-service-bus-functions": {
@@ -16293,7 +16298,7 @@
       "status": "Published",
       "createdDate": "2024-12-15",
       "publishedDate": "2024-12-15",
-      "lastUpdated": "2026-04-28T16:39:22.644623",
+      "lastUpdated": "2026-04-28T20:46:55.139576",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "net-core",
@@ -16346,7 +16351,7 @@
           "name": "Dev Genius",
           "slug": "dev-genius",
           "domain": "blog.devgenius.io",
-          "subscriberCount": 31839,
+          "subscriberCount": 31845,
           "createdAt": 0
         },
         "totalStats": {
@@ -16415,7 +16420,7 @@
         ]
       },
       "lifetime_reads": 270,
-      "lifetime_views": 470,
+      "lifetime_views": 471,
       "presentation_count": null,
       "feed_click_through_rate": null,
       "linkedin_impressions": 0
@@ -16429,7 +16434,7 @@
       "status": "Published",
       "createdDate": "2026-02-15",
       "publishedDate": "2026-02-15",
-      "lastUpdated": "2026-04-28T16:39:22.646688",
+      "lastUpdated": "2026-04-28T20:46:55.142130",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "ai-gps",
@@ -16491,16 +16496,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 144,
-            "views": 17,
+            "presentations": 145,
+            "views": 18,
             "reads": 1,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 1,
             "medium_member_views": 1,
             "medium_nonmember_reads": 0,
-            "medium_nonmember_views": 16,
-            "medium_read_ratio": 5.9,
+            "medium_nonmember_views": 17,
+            "medium_read_ratio": 5.6,
             "medium_member_read_percentage": 100.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -16547,7 +16552,7 @@
       },
       "lifetime_reads": 15,
       "lifetime_views": 70,
-      "presentation_count": 144,
+      "presentation_count": 145,
       "feed_click_through_rate": null
     },
     "Medium Import/from-monolith-to-microservices-a-domain-driven-design-ddd-approach": {
@@ -16559,7 +16564,7 @@
       "status": "Published",
       "createdDate": "2025-01-21",
       "publishedDate": "2025-01-21",
-      "lastUpdated": "2026-04-28T16:39:22.646560",
+      "lastUpdated": "2026-04-28T20:46:55.141970",
       "notes": "Imported from refresh for 2026-04",
       "tags": [],
       "bookmarked": false,
@@ -16614,15 +16619,15 @@
           {
             "period": "2026-04",
             "presentations": 507,
-            "views": 28,
+            "views": 29,
             "reads": 1,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 1,
             "medium_member_views": 1,
             "medium_nonmember_reads": 0,
-            "medium_nonmember_views": 27,
-            "medium_read_ratio": 3.6,
+            "medium_nonmember_views": 28,
+            "medium_read_ratio": 3.4,
             "medium_member_read_percentage": 100.0,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -16691,7 +16696,7 @@
       "status": "Published",
       "createdDate": "2026-03-24",
       "publishedDate": "2026-03-24",
-      "lastUpdated": "2026-04-28T16:39:22.646804",
+      "lastUpdated": "2026-04-28T20:46:55.142284",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "nodejs",
@@ -16819,7 +16824,7 @@
       "status": "Published",
       "createdDate": "2026-02-17",
       "publishedDate": "2026-02-17",
-      "lastUpdated": "2026-04-28T16:39:22.646916",
+      "lastUpdated": "2026-04-28T20:46:55.142433",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "artificial-intelligence",
@@ -16885,7 +16890,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 187,
+            "presentations": 188,
             "views": 3,
             "reads": 2,
             "claps": 0,
@@ -16901,7 +16906,7 @@
           },
           {
             "period": "2026-03",
-            "presentations": 187,
+            "presentations": 188,
             "views": 8,
             "reads": 5,
             "claps": 0,
@@ -16917,9 +16922,19 @@
           },
           {
             "period": "2026-02",
-            "presentations": 1,
-            "views": 1,
-            "reads": 1
+            "presentations": 188,
+            "views": 11,
+            "reads": 5,
+            "claps": 1,
+            "responses": 0,
+            "medium_member_reads": 4,
+            "medium_member_views": 7,
+            "medium_nonmember_reads": 1,
+            "medium_nonmember_views": 4,
+            "medium_read_ratio": 45.5,
+            "medium_member_read_percentage": 80.0,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
           }
         ],
         "monthlyEarnings": [
@@ -16948,8 +16963,9 @@
       },
       "lifetime_reads": 12,
       "lifetime_views": 22,
-      "presentation_count": 187,
-      "feed_click_through_rate": null
+      "presentation_count": 188,
+      "feed_click_through_rate": null,
+      "linkedin_impressions": 0
     },
     "Medium Import/12-architectural-concepts-aws-azure-open-source": {
       "uniqueSlug": "12-architectural-concepts-aws-azure-open-source-f77b2e226b64",
@@ -16960,7 +16976,7 @@
       "status": "Published",
       "createdDate": "2026-02-12",
       "publishedDate": "2026-02-12",
-      "lastUpdated": "2026-04-28T16:39:22.647029",
+      "lastUpdated": "2026-04-28T20:46:55.142584",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "load-balancing",
@@ -17058,9 +17074,19 @@
           },
           {
             "period": "2026-02",
-            "presentations": 1,
-            "views": 1,
-            "reads": 1
+            "presentations": 215,
+            "views": 36,
+            "reads": 6,
+            "claps": 0,
+            "responses": 0,
+            "medium_member_reads": 3,
+            "medium_member_views": 4,
+            "medium_nonmember_reads": 3,
+            "medium_nonmember_views": 32,
+            "medium_read_ratio": 16.7,
+            "medium_member_read_percentage": 50.0,
+            "medium_new_followers": 0,
+            "medium_highlights": 0
           }
         ],
         "monthlyEarnings": [
@@ -17088,7 +17114,7 @@
         ]
       },
       "lifetime_reads": 12,
-      "lifetime_views": 84,
+      "lifetime_views": 86,
       "presentation_count": 215,
       "feed_click_through_rate": null
     },
@@ -17101,7 +17127,7 @@
       "status": "Published",
       "createdDate": "2026-02-10",
       "publishedDate": "2026-02-10",
-      "lastUpdated": "2026-04-28T16:39:22.642787",
+      "lastUpdated": "2026-04-28T20:46:55.137567",
       "notes": "Imported from refresh for 2026-04",
       "tags": [],
       "bookmarked": false,
@@ -17155,7 +17181,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 345,
+            "presentations": 347,
             "views": 43,
             "reads": 7,
             "claps": 1,
@@ -17217,8 +17243,8 @@
         ]
       },
       "lifetime_reads": 34,
-      "lifetime_views": 156,
-      "presentation_count": 345,
+      "lifetime_views": 158,
+      "presentation_count": 347,
       "feed_click_through_rate": 0.1875
     },
     "Medium Import/10x-your-architecture-game-with-ai-prompt-engineer-the-tech-stack-decisions": {
@@ -17230,7 +17256,7 @@
       "status": "Published",
       "createdDate": "2026-02-25",
       "publishedDate": "2026-02-25",
-      "lastUpdated": "2026-04-28T16:39:22.647168",
+      "lastUpdated": "2026-04-28T20:46:55.142750",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "artificial-intelligence",
@@ -17296,23 +17322,23 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 295,
-            "views": 31,
+            "presentations": 296,
+            "views": 32,
             "reads": 7,
             "claps": 0,
             "responses": 0,
             "medium_member_reads": 1,
             "medium_member_views": 2,
             "medium_nonmember_reads": 6,
-            "medium_nonmember_views": 29,
-            "medium_read_ratio": 22.6,
+            "medium_nonmember_views": 30,
+            "medium_read_ratio": 21.9,
             "medium_member_read_percentage": 14.3,
             "medium_new_followers": 0,
             "medium_highlights": 0
           },
           {
             "period": "2026-03",
-            "presentations": 294,
+            "presentations": 296,
             "views": 51,
             "reads": 10,
             "claps": 0,
@@ -17328,7 +17354,7 @@
           },
           {
             "period": "2026-02",
-            "presentations": 294,
+            "presentations": 296,
             "views": 24,
             "reads": 11,
             "claps": 0,
@@ -17368,8 +17394,8 @@
         ]
       },
       "lifetime_reads": 28,
-      "lifetime_views": 104,
-      "presentation_count": 295,
+      "lifetime_views": 106,
+      "presentation_count": 296,
       "feed_click_through_rate": 0.06923076923076923
     },
     "Medium Import/the-linq-renaissance-how-net-10-redefined-data-transformation": {
@@ -17381,7 +17407,7 @@
       "status": "Published",
       "createdDate": "2026-01-28",
       "publishedDate": "2026-01-28",
-      "lastUpdated": "2026-04-28T08:03:01.165077",
+      "lastUpdated": "2026-04-28T18:16:15.519131",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "net10",
@@ -17428,7 +17454,7 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 282,
+          "presentations": 290,
           "views": 38,
           "reads": 10,
           "__typename": "SummaryPostStat"
@@ -17443,7 +17469,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 282,
+            "presentations": 290,
             "views": 12,
             "reads": 1,
             "claps": 0,
@@ -17486,7 +17512,7 @@
       },
       "lifetime_reads": 10,
       "lifetime_views": 38,
-      "presentation_count": 282,
+      "presentation_count": 290,
       "feed_click_through_rate": 0.11320754716981132
     },
     "Medium Import/building-a-blog-api-with-dapper-and-mongodb-in-net-core-9": {
@@ -17498,7 +17524,7 @@
       "status": "Published",
       "createdDate": "2025-01-09",
       "publishedDate": "2025-01-09",
-      "lastUpdated": "2026-04-28T16:39:22.647463",
+      "lastUpdated": "2026-04-28T20:46:55.143063",
       "notes": "Imported from refresh for 2026-04",
       "tags": [],
       "bookmarked": false,
@@ -17973,7 +17999,7 @@
       "status": "Published",
       "createdDate": "2026-02-07",
       "publishedDate": "2026-02-07",
-      "lastUpdated": "2026-04-28T16:39:22.645376",
+      "lastUpdated": "2026-04-28T20:46:55.140190",
       "notes": "Imported from refresh for 2026-02",
       "tags": [
         "c-sharp-programming",
@@ -18025,7 +18051,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 158,
+            "presentations": 159,
             "views": 21,
             "reads": 3,
             "claps": 0,
@@ -18100,9 +18126,9 @@
           "amount": 0.1
         }
       },
-      "lifetime_reads": 17,
-      "lifetime_views": 70,
-      "presentation_count": 158,
+      "lifetime_reads": 18,
+      "lifetime_views": 71,
+      "presentation_count": 159,
       "feed_click_through_rate": null
     },
     "Medium Import/building-fast-and-well-documented-apis-using-fastendpoints-and-swagger-in-net": {
@@ -18114,7 +18140,7 @@
       "status": "Published",
       "createdDate": "2025-05-11",
       "publishedDate": "2025-05-11",
-      "lastUpdated": "2026-04-28T16:39:22.647864",
+      "lastUpdated": "2026-04-28T20:46:55.143471",
       "notes": "Imported from refresh for 2026-02",
       "tags": [
         "fastendpoints",
@@ -18239,8 +18265,8 @@
           "amount": 0.1
         }
       },
-      "lifetime_reads": 356,
-      "lifetime_views": 1040,
+      "lifetime_reads": 358,
+      "lifetime_views": 1043,
       "presentation_count": 420,
       "feed_click_through_rate": 0.07758620689655173
     },
@@ -19116,7 +19142,7 @@
       "rel_path": "AI%20Tools/AI%20Fluency%3A%2050%20Terms%20You%20Actually%20Need.md",
       "status": "Published",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T16:39:22.638954",
+      "lastUpdated": "2026-04-28T20:46:55.134155",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -19167,8 +19193,8 @@
         "responsesCount": 0,
         "totalStats": {
           "period": "total",
-          "presentations": 126,
-          "views": 9,
+          "presentations": 127,
+          "views": 10,
           "reads": 4,
           "__typename": "SummaryPostStat"
         },
@@ -19182,7 +19208,7 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 124,
+            "presentations": 127,
             "views": 9,
             "reads": 4,
             "claps": 1,
@@ -19209,7 +19235,7 @@
       },
       "lifetime_reads": 4,
       "lifetime_views": 9,
-      "presentation_count": 124,
+      "presentation_count": 127,
       "feed_click_through_rate": null
     },
     "Vehixcare/Real-Time Push Without the Headache: Server-Sent Events (SSE) in .NET 10 - Vehixcare Platform": {
@@ -19247,7 +19273,7 @@
       "rel_path": "Dotnet%20Python%20NodeJS/.NET%2010%20Is%20Here — A%20Complete%20Deep%20Dive%20into%20the%20Next%20Evolution%20of%20the%20Platform.md",
       "status": "Published",
       "createdDate": "2026-04-27",
-      "lastUpdated": "2026-04-28T16:39:22.646086",
+      "lastUpdated": "2026-04-28T20:46:55.141328",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -19337,7 +19363,7 @@
       "rel_path": "Medium%20Import/The%20LINQ%20Renaissance%3A%20How%20.NET%2010%20Redefined%20Data%20Transformation.md",
       "status": "Published",
       "createdDate": "2026-04-27",
-      "lastUpdated": "2026-04-28T16:39:22.648045",
+      "lastUpdated": "2026-04-28T20:46:55.143615",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -19425,7 +19451,7 @@
       "status": "Published",
       "createdDate": "2026-04-13",
       "publishedDate": "2026-04-13",
-      "lastUpdated": "2026-04-28T16:39:22.640135",
+      "lastUpdated": "2026-04-28T20:46:55.135450",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "calude-code",
@@ -19516,7 +19542,7 @@
       "status": "Published",
       "createdDate": "2026-04-26",
       "publishedDate": "2026-04-26",
-      "lastUpdated": "2026-04-28T16:39:22.637027",
+      "lastUpdated": "2026-04-28T20:46:55.131298",
       "notes": "Imported from refresh for 2026-04",
       "tags": [
         "claude-code",
@@ -19567,7 +19593,7 @@
         "collection": null,
         "totalStats": {
           "period": "total",
-          "presentations": 125,
+          "presentations": 142,
           "views": 9,
           "reads": 3,
           "__typename": "SummaryPostStat"
@@ -19582,16 +19608,16 @@
         "monthlyStats": [
           {
             "period": "2026-04",
-            "presentations": 122,
-            "views": 8,
+            "presentations": 132,
+            "views": 9,
             "reads": 3,
             "claps": 2,
             "responses": 0,
             "medium_member_reads": 2,
-            "medium_member_views": 4,
+            "medium_member_views": 5,
             "medium_nonmember_reads": 1,
             "medium_nonmember_views": 4,
-            "medium_read_ratio": 37.5,
+            "medium_read_ratio": 33.3,
             "medium_member_read_percentage": 66.7,
             "medium_new_followers": 0,
             "medium_highlights": 0
@@ -19608,8 +19634,8 @@
         ]
       },
       "lifetime_reads": 3,
-      "lifetime_views": 8,
-      "presentation_count": 122,
+      "lifetime_views": 9,
+      "presentation_count": 132,
       "feed_click_through_rate": null
     }
   },
@@ -19678,7 +19704,7 @@
     "API Security Arsenal": {
       "name": "API Security Arsenal",
       "total_stories": 7,
-      "published": 2,
+      "published": 3,
       "spacing_days": 7,
       "stories": [
         "API Security Arsenal/API Security Arsenal: The Complete Cheatsheet",
@@ -19832,7 +19858,7 @@
     "Claude Code Mastery": {
       "name": "Claude Code Mastery",
       "total_stories": 5,
-      "published": 0,
+      "published": 1,
       "spacing_days": 7,
       "stories": [
         "Claude Code Mastery/Claude Code Mastery - The Extension & Integration Framework: Skills, Hooks, MCP, and Plugins",
@@ -20203,7 +20229,7 @@
     "AI Tools": {
       "name": "AI Tools",
       "total_stories": 3,
-      "published": 2,
+      "published": 3,
       "spacing_days": 7,
       "stories": [
         "AI Tools/73 New AI Tools in 2026 — Sales, Productivity, Coding, Chatbots, Daily Life, Chrome Extensions",

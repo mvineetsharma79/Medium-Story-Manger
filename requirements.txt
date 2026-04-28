@@ -21,3 +21,6 @@ weasyprint>=60.0
 # Or alternatively
 markdown>=3.5.0
 pdf2image>=1.16.0
+
+# pip install piexif
+

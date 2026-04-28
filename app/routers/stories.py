@@ -3,6 +3,7 @@ Stories Router - Complete endpoints with uniqueSlug as primary key
 """
 
 
+import io
 from fastapi import APIRouter, HTTPException, Query, Form, UploadFile, File
 from typing import List, Optional, Dict, Any
 import logging
@@ -19,6 +20,8 @@ import os
 import shutil
 import tempfile
 from PIL import Image, ImageDraw, ImageFont
+from PIL import ImageOps
+import piexif
 from config import settings
 from app.services.story_service import StoryService
 from app.services.monthly_storage_service import MonthlyStorageService
