@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-04-28T15:22:30.078264",
+  "last_updated": "2026-04-28T15:43:41.227972",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principl": {
       "uniqueSlug": "solid-principles-part-2---single-responsibility-principl",
@@ -1116,7 +1116,7 @@
       "rel_path": "API%20Security%20Arsenal/API%20Security%20Arsenal%3A%20Real-Time%20Threat%20Detection%20with%20Apigee,%20Salt,%20and%20Cloudflare.md",
       "status": "Draft",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-25T03:25:35.647692",
+      "lastUpdated": "2026-04-28T15:43:41.227957",
       "notes": "",
       "bookmarked": false,
       "leaderboard": false,
@@ -19223,7 +19223,7 @@
       "rel_path": "Vehixcare/Real-Time%20Push%20Without%20the%20Headache%3A%20Server-Sent%20Events%20%28SSE%29%20in%20.NET%2010%20-%20Vehixcare%20Platform.md",
       "status": "Published Due",
       "createdDate": "2026-04-25",
-      "lastUpdated": "2026-04-28T15:22:30.078245",
+      "lastUpdated": "2026-04-28T15:43:19.295846",
       "notes": "",
       "bookmarked": true,
       "leaderboard": false,

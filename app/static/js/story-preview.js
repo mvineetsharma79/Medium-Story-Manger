@@ -1,5 +1,6 @@
 // ============================================
 // STORY PREVIEW PAGE - Complete Version
+// WITH BRACKET PRESERVATION FOR IMAGE PATHS (LOAD + SAVE)
 // ============================================
 
 const API_BASE = '/api';
@@ -16,6 +17,77 @@ mermaid.initialize({
     securityLevel: 'loose',
     flowchart: { useMaxWidth: true, htmlLabels: true }
 });
+
+// ============================================
+// BRACKET PRESERVATION HELPERS
+// ============================================
+
+/**
+ * Restore brackets in image paths that were stripped by Vditor
+ * Converts ![alt](path) → ![alt](<path>) when path contains spaces
+ */
+function restoreImageBrackets(content) {
+    if (!content) return content;
+    
+    // Find all image patterns without brackets that need them
+    // Match ![alt](path) where path has spaces but no brackets
+    const imagePattern = /!\[(.*?)\]\(([^)<>\s][^)]*?)\)/g;
+    
+    return content.replace(imagePattern, (match, altText, path) => {
+        // If path contains spaces or special characters, add brackets
+        if ((path.includes(' ') || /[<>"{}|\\^`]/.test(path)) && !path.startsWith('<')) {
+            return `![${altText}](<${path}>)`;
+        }
+        return match;
+    });
+}
+
+/**
+ * Preserve brackets when saving - ensures brackets aren't lost
+ */
+function preserveImageBrackets(content, originalContent) {
+    if (!originalContent) return content;
+    
+    let fixedContent = content;
+    
+    // Find all image patterns in the original content that have brackets
+    const originalBracketedImages = [];
+    const bracketPattern = /!\[(.*?)\]\(<(.*?)>\)/g;
+    let match;
+    while ((match = bracketPattern.exec(originalContent)) !== null) {
+        originalBracketedImages.push({
+            fullMatch: match[0],
+            altText: match[1],
+            path: match[2]
+        });
+    }
+    
+    // For each bracketed image in original, check if current content has it without brackets
+    for (const img of originalBracketedImages) {
+        const withoutBrackets = `![${img.altText}](${img.path})`;
+        const withBrackets = `![${img.altText}](<${img.path}>)`;
+        
+        // If current content has the version without brackets, replace it
+        if (fixedContent.includes(withoutBrackets) && !fixedContent.includes(withBrackets)) {
+            fixedContent = fixedContent.replace(new RegExp(escapeRegex(withoutBrackets), 'g'), withBrackets);
+        }
+    }
+    
+    // Also ensure any new image paths with spaces are properly wrapped
+    const spaceInPathPattern = /!\[(.*?)\]\(([^)<>\s][^)]*?)\)/g;
+    fixedContent = fixedContent.replace(spaceInPathPattern, (match, altText, path) => {
+        if ((path.includes(' ') || /[<>"{}|\\^`]/.test(path)) && !path.startsWith('<')) {
+            return `![${altText}](<${path}>)`;
+        }
+        return match;
+    });
+    
+    return fixedContent;
+}
+
+function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 // ============================================
 // DOM EVENT LISTENERS
@@ -49,7 +121,11 @@ async function loadStoryContent() {
         const data = await response.json();
         
         if (data.success) {
-            originalContent = data.content || '';
+            // Restore brackets in the loaded content before displaying
+            let content = data.content || '';
+            content = restoreImageBrackets(content);
+            
+            originalContent = content;
             storyData = data;
             
             // Expose story data globally for AI module
@@ -245,7 +321,7 @@ function showExportMenu() {
 }
 
 // ============================================
-// BUILD STORY FUNCTION - No auto-download
+// BUILD STORY FUNCTION - With bracket preservation
 // ============================================
 
 async function buildStory() {
@@ -256,7 +332,10 @@ async function buildStory() {
     
     const storyName = storyData.title || storyData.name || 'untitled';
     const safeStoryName = sanitizeFileName(storyName);
-    const content = vditor ? await vditor.getValue() : originalContent;
+    let content = vditor ? await vditor.getValue() : originalContent;
+    
+    // Preserve brackets before building
+    content = preserveImageBrackets(content, originalContent);
     
     const mermaidCount = (content.match(/```mermaid\n[\s\S]*?```/g) || []).length;
     const tableCount = countMarkdownTables(content);
@@ -297,7 +376,7 @@ async function buildStory() {
 }
 
 // ============================================
-// SAVE STORY FUNCTIONS
+// SAVE STORY FUNCTIONS - WITH BRACKET PRESERVATION
 // ============================================
 
 async function saveStory() {
@@ -309,17 +388,24 @@ async function saveStory() {
         return;
     }
     
+    // Preserve brackets from original content
+    const contentToSave = preserveImageBrackets(current, originalContent);
+    
     showLoading();
     try {
         const response = await fetch(`${API_BASE}/stories/content/${encodeURIComponent(storyKey)}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content: current })
+            body: JSON.stringify({ content: contentToSave })
         });
         
         const data = await response.json();
         if (data.success) {
-            originalContent = current;
+            originalContent = contentToSave;
+            // Update Vditor with the bracket-preserved content to keep them in sync
+            if (vditor) {
+                vditor.setValue(contentToSave);
+            }
             showToast('Saved!', 'success');
         } else {
             showToast('Error: ' + (data.error || 'Unknown error'), 'error');
