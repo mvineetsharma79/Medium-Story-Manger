@@ -1,5 +1,5 @@
 // ============================================
-// STORY PREVIEW PAGE - Clean Version
+// STORY PREVIEW PAGE - Complete Version
 // ============================================
 
 const API_BASE = '/api';
@@ -51,6 +51,9 @@ async function loadStoryContent() {
         if (data.success) {
             originalContent = data.content || '';
             storyData = data;
+            
+            // Expose story data globally for AI module
+            window.storyData = storyData;
             
             document.getElementById('storyTitle').textContent = data.title || data.name || 'Untitled';
             document.getElementById('storySeries').textContent = data.series || 'Standalone';
@@ -108,7 +111,7 @@ function initVditor(content) {
     
     try {
         vditor = new Vditor('vditor-editor', {
-            height: Math.max(window.innerHeight - 420, 500),
+            height: Math.max(window.innerHeight - 420, 650),
             mode: 'ir',
             theme: 'classic',
             icon: 'material',
@@ -118,6 +121,8 @@ function initVditor(content) {
             preview: { mode: 'both', theme: { current: 'light' }, markdown: { mermaid: true } },
             after: () => {
                 console.log('Vditor initialized');
+                // Expose vditor instance globally for AI Content module
+                window.vditorInstance = vditor;
                 addExportDiagramsButton();
             }
         });
@@ -131,6 +136,11 @@ function createFallbackEditor(content) {
     const container = document.getElementById('vditor-editor');
     if (!container) return;
     container.innerHTML = `<textarea id="fallback-editor" style="width:100%; min-height:500px; padding:10px; font-family:monospace;">${escapeHtml(content || '')}</textarea>`;
+    // Still expose a mock for AI module
+    window.vditorInstance = {
+        getValue: () => document.getElementById('fallback-editor')?.value || '',
+        setValue: (val) => { const el = document.getElementById('fallback-editor'); if (el) el.value = val; }
+    };
 }
 
 // ============================================
@@ -213,7 +223,7 @@ function showExportMenu() {
     
     menu.innerHTML = `
         <div style="padding: 12px 16px; background: #f8f9fa; border-bottom: 1px solid #eee; font-weight: bold;">📸 Export Options</div>
-        <div style="padding: 12px 16px; background: #e8f5e9; cursor: pointer; border-bottom: 1px solid #eee;" onclick="buildStory(); menu.remove();">
+        <div style="padding: 12px 16px; background: #e8f5e9; cursor: pointer; border-bottom: 1px solid #eee;" onclick="buildStory(); this.closest('#export-menu').remove();">
             <strong>📦 Build Story</strong><br>
             <small style="color: #666;">Creates folder, renders diagrams/tables as PNG</small>
         </div>
@@ -233,10 +243,6 @@ function showExportMenu() {
         });
     }, 100);
 }
-
-// ============================================
-// BUILD STORY FUNCTION
-// ============================================
 
 // ============================================
 // BUILD STORY FUNCTION - No auto-download
@@ -444,7 +450,7 @@ function escapeHtml(text) {
 }
 
 // ============================================
-// GLOBAL EXPORTS
+// GLOBAL EXPORTS (exposed for AI module and inline onclick)
 // ============================================
 
 window.saveStory = saveStory;
@@ -454,3 +460,15 @@ window.exportAsHTML = exportAsHTML;
 window.copyMarkdown = copyMarkdown;
 window.toggleVditorMode = toggleVditorMode;
 window.buildStory = buildStory;
+
+// Expose vditor instance for AI Content module
+Object.defineProperty(window, 'vditorInstance', {
+    get: function() { return vditor; },
+    set: function(val) { vditor = val; }
+});
+
+// Expose storyData for AI module
+Object.defineProperty(window, 'storyData', {
+    get: function() { return storyData; },
+    set: function(val) { storyData = val; }
+});

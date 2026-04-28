@@ -7,7 +7,7 @@ from fastapi import APIRouter, HTTPException, Query, Form, UploadFile, File
 from typing import List, Optional, Dict, Any
 import logging
 from datetime import datetime
-#from urllib.parse import unquote
+from urllib.parse import unquote
 import urllib.request
 import urllib.parse
 import re
@@ -369,7 +369,7 @@ async def get_story_by_slug(name: str):
     """Get story by uniqueSlug"""
     logger.error(name)
     try:
-        #decoded_slug = unquote(name)
+        decoded_slug = unquote(name)
         
         #story = await StoryService.get_story_by_unique_slug(decoded_slug)
         story = await StoryService.get_story_by_name(name)

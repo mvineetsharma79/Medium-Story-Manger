@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Story Preview - Markdown Editor</title>
+    <title>Story Preview - Markdown Editor with AI Lab</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@3.9.8/dist/index.css" />
@@ -38,6 +38,72 @@
         .vditor { border-radius: 8px; overflow: hidden; width: 100% !important; max-width: 100% !important; }
         .vditor-reset { max-width: 100% !important; padding: 20px !important; width: 100% !important; }
         .vditor-preview { width: 100% !important; max-width: 100% !important; }
+        
+        /* Tab Styles */
+        .tab-header {
+            display: flex;
+            background: white;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 20px;
+            border-radius: 8px 8px 0 0;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .tab-btn i { margin-right: 8px; }
+        .tab-btn:hover { color: #0d6efd; background: #f8f9fa; }
+        .tab-btn.active { color: #0d6efd; }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #0d6efd;
+        }
+        .tab-pane { display: none; }
+        .tab-pane.active-pane { display: block; }
+        
+        /* AI Content Styles */
+        .slim-editor {
+            width: 100%;
+            min-height: 200px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            resize: vertical;
+        }
+        .slim-editor:focus {
+            outline: none;
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 3px rgba(13,110,253,0.1);
+        }
+        .ai-toolbar {
+            background: #f0f4ff;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .link-story-note {
+            font-size: 0.7rem;
+            background: #e7f1ff;
+            border-radius: 16px;
+            padding: 4px 12px;
+            display: inline-block;
+        }
         
         /* Export button panel */
         #export-diagrams-panel {
@@ -88,7 +154,6 @@
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;
         }
-        
         @media (prefers-color-scheme: dark) {
             body { background: #1a1a2e; color: #e0e0e0; }
             .card-header.bg-light { background: #2d2d44 !important; color: #e0e0e0; border-color: #3d3d5c; }
@@ -98,61 +163,118 @@
             .tags-list li { background: #3d3d5c; color: #e0e0e0; }
             .vditor { background: #1e1e2e; }
             .vditor-reset { color: #e0e0e0; }
+            .tab-header { background: #1e1e2e; border-bottom-color: #3d3d5c; }
+            .tab-btn { color: #a0a0a0; }
+            .ai-toolbar { background: #2d2d44; }
+            .image-preview-container { background: #2d2d44; }
         }
     </style>
 </head>
 <body>
 <div id="storyPreviewContainer" data-story-key="{{ story_key }}" class="story-container">
-    <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
-        <h3 class="mb-0 story-title" onclick="copyTitleToClipboard()" id="storyTitle">Loading...</h3>
-        <div class="action-buttons">
-            <button class="btn btn-sm btn-success" onclick="saveStory()"><i class="bi bi-save"></i> Save</button>
-            <button class="btn btn-sm btn-info" onclick="exportAsHTML()"><i class="bi bi-filetype-html"></i> Export HTML</button>
-            <button class="btn btn-sm btn-primary" onclick="copyMarkdown()"><i class="bi bi-clipboard"></i> Copy</button>
-            <button class="btn btn-sm btn-secondary" onclick="toggleVditorMode()"><i class="bi bi-layout-split"></i> Switch Mode</button>
-            <button class="btn btn-sm btn-warning btn-build" id="buildStoryBtn" onclick="buildStory()" style="display: none;"><i class="bi bi-box-arrow-up-right"></i> Build</button>
-            <button class="btn btn-sm btn-danger" onclick="window.close()"><i class="bi bi-x-lg"></i> Close</button>
+    <!-- Tab Navigation -->
+    <div class="tab-header">
+        <button class="tab-btn active" data-tab="story-tab"><i class="bi bi-journal-bookmark-fill"></i> Story Editor</button>
+        <button class="tab-btn" data-tab="ai-tab"><i class="bi bi-stars"></i> AI Content Lab</button>
+    </div>
+
+    <!-- STORY EDITOR TAB (PRESERVED) -->
+    <div id="story-tab" class="tab-pane active-pane">
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+            <h3 class="mb-0 story-title" onclick="copyTitleToClipboard()" id="storyTitle">Loading...</h3>
+            <div class="action-buttons">
+                <button class="btn btn-sm btn-success" onclick="saveStory()"><i class="bi bi-save"></i> Save</button>
+                <button class="btn btn-sm btn-info" onclick="exportAsHTML()"><i class="bi bi-filetype-html"></i> Export HTML</button>
+                <button class="btn btn-sm btn-primary" onclick="copyMarkdown()"><i class="bi bi-clipboard"></i> Copy</button>
+                <button class="btn btn-sm btn-secondary" onclick="toggleVditorMode()"><i class="bi bi-layout-split"></i> Switch Mode</button>
+                <button class="btn btn-sm btn-warning btn-build" id="buildStoryBtn" onclick="buildStory()" style="display: none;"><i class="bi bi-box-arrow-up-right"></i> Build</button>
+                <button class="btn btn-sm btn-danger" onclick="window.close()"><i class="bi bi-x-lg"></i> Close</button>
+            </div>
+        </div>
+        
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+            <div><span class="text-muted">📁 Series:</span> <span id="storySeries" class="fw-bold">-</span></div>
+            <div class="d-flex gap-2">
+                <span id="storyStatusBadge" class="status-badge status-draft">-</span>
+                <span id="storyDueBadge" class="due-badge" style="display: none;">-</span>
+            </div>
+        </div>
+        
+        <div class="d-flex flex-wrap gap-4 mb-3">
+            <div class="date-group"><span class="date-caption">📅 CREATED:</span><span class="date-value" id="storyCreatedDate">-</span></div>
+            <div class="date-group"><span class="date-caption">📅 PUBLISHED:</span><span class="date-value" id="storyPublishedDate">-</span></div>
+            <div class="date-group"><span class="date-caption">⏰ DUE:</span><span class="date-value" id="storyDueDate">-</span></div>
+        </div>
+        
+        <div class="mb-2">
+            <a href="#" class="toggle-btn" id="toggleDetailsBtn" onclick="toggleDetails(); return false;">▼ Show Details</a>
+        </div>
+        
+        <div id="detailsSection">
+            <div class="split-layout">
+                <div class="notes-panel"><div class="section-title">📝 NOTES</div><div id="storyNotes" class="small">-</div></div>
+                <div class="tags-panel"><div class="section-title">🏷️ TAGS</div><ul class="tags-list" id="storyTagsList"><li>No tags</li></ul></div>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header bg-light py-2">
+                <div><i class="bi bi-markdown"></i> <strong>Vditor Editor</strong> <span class="badge bg-info ms-2">Mermaid ✓</span></div>
+            </div>
+            <div class="card-body p-0">
+                <div id="vditor-editor"></div>
+            </div>
         </div>
     </div>
-    
-    <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
-        <div><span class="text-muted">📁 Series:</span> <span id="storySeries" class="fw-bold">-</span></div>
-        <div class="d-flex gap-2">
-            <span id="storyStatusBadge" class="status-badge status-draft">-</span>
-            <span id="storyDueBadge" class="due-badge" style="display: none;">-</span>
+
+    <!-- AI CONTENT LAB TAB -->
+    <div id="ai-tab" class="tab-pane">
+        <div class="ai-toolbar">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div><i class="bi bi-robot"></i> <strong>AI Content Generator</strong> — DeepSeek v4 Flash</div>
+                <div id="storyContextNote" class="link-story-note"><i class="bi bi-link-45deg"></i> Loading story...</div>
+            </div>
+        </div>
+
+        <!-- Platform Buttons -->
+        <div class="d-flex flex-wrap gap-2 mb-4">
+            <button class="btn btn-primary" id="linkedinBtn"><i class="bi bi-linkedin"></i> LinkedIn</button>
+            <button class="btn btn-danger" id="youtubeBtn"><i class="bi bi-youtube"></i> YouTube</button>
+            <button class="btn btn-warning" id="slideshareBtn"><i class="bi bi-file-slides"></i> SlideShare</button>
+            <button class="btn btn-success" id="generateContentBtn"><i class="bi bi-lightning-charge-fill"></i> Generate</button>
+        </div>
+
+        <!-- Prompt Area (Editable) -->
+        <div class="mb-3">
+            <label class="form-label fw-semibold"><i class="bi bi-chat-text"></i> 📝 Prompt <span class="badge bg-warning ms-2">Editable</span></label>
+            <textarea id="aiPromptArea" class="slim-editor" rows="8" placeholder="Click LinkedIn, YouTube, or SlideShare to load template..."></textarea>
+            <div class="small text-muted mt-1"><i class="bi bi-pencil-square"></i> You can edit this prompt before generating</div>
+        </div>
+
+        <!-- AI Response with Vditor -->
+        <div class="mb-2">
+            <label class="form-label fw-semibold"><i class="bi bi-magic"></i> ✨ AI Response <span class="badge bg-info ms-2">Markdown + Preview</span></label>
+            <div id="aiResponseVditor" style="border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden;"></div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-end gap-2 mt-2">
+            <button class="btn btn-sm btn-outline-secondary" id="copyResponseBtn"><i class="bi bi-clipboard"></i> Copy Markdown</button>
+            <button class="btn btn-sm btn-outline-danger" id="clearResponseBtn"><i class="bi bi-trash"></i> Clear</button>
         </div>
     </div>
-    
-    <div class="d-flex flex-wrap gap-4 mb-3">
-        <div class="date-group"><span class="date-caption">📅 CREATED:</span><span class="date-value" id="storyCreatedDate">-</span></div>
-        <div class="date-group"><span class="date-caption">📅 PUBLISHED:</span><span class="date-value" id="storyPublishedDate">-</span></div>
-        <div class="date-group"><span class="date-caption">⏰ DUE:</span><span class="date-value" id="storyDueDate">-</span></div>
-    </div>
-    
-    <div class="mb-2">
-        <a href="#" class="toggle-btn" id="toggleDetailsBtn" onclick="toggleDetails(); return false;">▼ Show Details</a>
-    </div>
-    
-    <div id="detailsSection">
-        <div class="split-layout">
-            <div class="notes-panel"><div class="section-title">📝 NOTES</div><div id="storyNotes" class="small">-</div></div>
-            <div class="tags-panel"><div class="section-title">🏷️ TAGS</div><ul class="tags-list" id="storyTagsList"><li>No tags</li></ul></div>
-        </div>
-    </div>
-    
-    <div class="card mt-3">
-        <div class="card-header bg-light py-2">
-            <div><i class="bi bi-markdown"></i> <strong>Vditor Editor</strong> <span class="badge bg-info ms-2">Mermaid ✓</span></div>
-        </div>
-        <div class="card-body p-0">
-            <div id="vditor-editor"></div>
-        </div>
+
     </div>
 </div>
 
 <div id="loadingOverlay"><div class="bg-white p-4 rounded shadow text-center"><div class="spinner-border text-primary"></div><p>Loading...</p></div></div>
 
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/vditor@3.9.8/dist/index.min.js"></script>
+<!-- Original story-preview.js (preserved) -->
 <script src="/static/js/story-preview.js"></script>
+<!-- AI Content Module -->
+<script src="/static/js/ai-content.js"></script>
+
 </body>
 </html>
