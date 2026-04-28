@@ -73,6 +73,7 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 # Mount stories folder for image access
 stories_root = get_stories_root()
 app.mount("/static/stories", StaticFiles(directory=str(stories_root)), name="stories")
+app.mount("/sp", StaticFiles(directory="../stories", html=True), name="sp")
 
 # Configure templates with multiple directories
 templates = Jinja2Templates(directory="app/templates")
