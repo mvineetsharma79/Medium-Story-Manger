@@ -936,13 +936,15 @@ async function updateCurrentStories() {
                 });
 
             if (!response.ok)
-                throw new Error('Failed to sync stats');
-            else {
-                currentStoryIndex++;
-                // btn.disabled = false;
-                // btn.innerHTML = '<i class="bi bi-trophy"></i> SYNC';
-                //loadStoryForEdit(encodeURIComponent(currentStoryKey))
-            }
+                console.log('Failed to sync stats for story:', story.title, 'Response:', response);
+                //throw new Error('Failed to sync stats');
+            // else {
+            //     //currentStoryIndex++;
+            //     // btn.disabled = false;
+            //     // btn.innerHTML = '<i class="bi bi-trophy"></i> SYNC';
+            //     //loadStoryForEdit(encodeURIComponent(currentStoryKey))
+            // }
+            currentStoryIndex++;
 
 
             //Rate limit protection - 1 request per second
