@@ -257,7 +257,7 @@ function updateFilterCount() {
     const filtered = getFilteredStories();
     const filterCountDisplay = document.getElementById('filterCountDisplay');
     if (filterCountDisplay) {
-        filterCountDisplay.textContent = `Showing ${filtered.length} of ${allStories.length} stories`;
+        filterCountDisplay.innerHTML = `Showing <strong>${filtered.length}</strong> of <strong>${allStories.length}</strong> stories`;    
     }
 }
 

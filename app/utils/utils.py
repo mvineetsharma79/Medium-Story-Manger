@@ -106,6 +106,24 @@ def extract_post_id_from_url(medium_url: str) -> Optional[str]:
     
     return None
 
+def normalize_filename(filename: str) -> str:
+    """
+    Normalize filename by removing trailing slashes and standardizing format
+    
+    Args:
+        filename: Filename string to normalize
+        
+    Returns:
+        Normalized filename without trailing slash
+    """
+
+    if not filename:
+        return "untitled"
+    filename = filename.replace(' ', '-')
+    filename = re.sub(r'[^a-zA-Z0-9\-]', '', filename)
+    filename = filename.lower()
+    filename = filename.strip('-')
+    return filename if filename else "untitled"
 
 def find_story_by_identifier(stories: List[Any], identifier: str) -> Optional[Any]:
     """
@@ -442,3 +460,5 @@ def remove_duplicates(lst: List, key: Optional[str] = None) -> List:
             result.append(item)
     
     return result
+
+

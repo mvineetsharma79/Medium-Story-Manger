@@ -6,6 +6,7 @@ from app.utils.utils import (
     # URL and title normalization
     normalize_url,
     normalize_title,
+    normalize_filename,  # Add this line
     
     # Post ID extraction
     extract_post_id_from_url,
@@ -41,6 +42,9 @@ __all__ = [
     # URL and title normalization
     'normalize_url',
     'normalize_title',
+    'normalize_filename',  # Add this line
+
+
     
     # Post ID extraction
     'extract_post_id_from_url',

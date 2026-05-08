@@ -1987,7 +1987,9 @@ async def render_mermaid_diagram(mermaid_code: str, output_folder: Path, index: 
             browser = await p.chromium.launch(headless=True)
             page = await browser.new_page(viewport={'width': 1600, 'height': 1200})
             
-            await page.goto(f'file://{html_file}', wait_until='networkidle')
+            #await page.goto(f'file://{html_file}', wait_until='networkidle')
+            await page.goto(html_file.as_uri(), wait_until='networkidle')
+
             await page.wait_for_selector('.mermaid svg', timeout=30000)
             
             element = await page.query_selector('.mermaid')
@@ -2472,7 +2474,8 @@ async def build_story_export_python(
         
         # Wrap image paths with brackets
         modified_content = wrap_image_paths_with_brackets(modified_content)
-        
+        modified_content = re.sub(r'(\.png|\.gif|\.bmp|\.webp)(>?)', r'.jpg\2', modified_content, flags=re.IGNORECASE)
+
         # Save markdown file
         md_filename = f"{safe_name}.md"
         md_path = build_folder / md_filename

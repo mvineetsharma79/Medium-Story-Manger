@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any
 import logging
 import re
+import browser_cookie3
 
 logger = logging.getLogger(__name__)
 
@@ -52,52 +53,33 @@ class MediumAPIService:
     # ============================================
     
     def _get_chrome_cookies(self) -> Optional[Dict[str, str]]:
-        """Extract Medium cookies from Chrome on Linux"""
-        cookie_paths = [
-            Path.home() / ".config/google-chrome/Default/Cookies",
-            Path.home() / ".config/google-chrome/Profile 1/Cookies",
-            Path.home() / ".config/google-chrome/Profile 2/Cookies",
-            Path.home() / ".config/chromium/Default/Cookies",
-        ]
-        
-        for cookie_path in cookie_paths:
-            if cookie_path.exists():
-                try:
-                    temp_db = tempfile.NamedTemporaryFile(delete=False)
-                    temp_db.close()
-                    shutil.copy2(cookie_path, temp_db.name)
-                    
-                    conn = sqlite3.connect(temp_db.name)
-                    cursor = conn.cursor()
-                    cursor.execute(
-                        "SELECT name, value FROM cookies WHERE host_key LIKE '%medium.com%'"
-                    )
-                    
-                    cookies = {}
-                    for name, value in cursor.fetchall():
-                        if value:
-                            cookies[name] = value
-                    
-                    conn.close()
-                    os.unlink(temp_db.name)
-                    
-                    if cookies.get('sid') and cookies.get('uid'):
-                        self._debug_print("Cookies extracted from Chrome", {
-                            k: v[:20] + "..." if len(v) > 20 else v 
-                            for k, v in cookies.items()
-                        })
-                        logger.info(f"✅ Found {len(cookies)} cookies from Chrome")
-                        return cookies
-                        
-                except Exception as e:
-                    logger.debug(f"Could not read cookies from {cookie_path}: {e}")
-                    continue
+        """Extract Medium cookies using browser_cookie3 (works with open Chrome)"""
+        print("🍪 EXTRACTING COOKIES FROM BROWSER")
+        try:
+            # Get cookies for medium.com from Chrome
+            cj = browser_cookie3.chrome(domain_name='medium.com')
+            
+            cookies = {}
+            for cookie in cj:
+                if 'medium.com' in cookie.domain:
+                    cookies[cookie.name] = cookie.value
+            
+            if cookies:
+                logger.info(f"Found {len(cookies)} cookies from Chrome")
+                #return None
+                return cookies
+            
+
+        except Exception as e:
+            logger.debug(f"Error extracting cookies with browser_cookie3: {e}")
         
         return None
     
     def _get_cookies_from_env(self) -> Optional[Dict[str, str]]:
         """Get cookies from environment variables"""
         cookie_string = os.environ.get("MEDIUM_COOKIE")
+        print("🍪 EXTRACTING COOKIES")
+
         if cookie_string:
             cookies = {}
             for item in cookie_string.split('; '):
@@ -521,7 +503,7 @@ class MediumAPIService:
     # ============================================
     
     # === New Method
-    def fetch_medium_story_stats(self, post_id: str, period: str) -> Optional[Dict[str, Any]]:
+    def fetch_medium_story_stats(self, post_id: str, period: str, retType:bool= False) -> Optional[Dict[str, Any]]:
         """Fetch lifetime and monthly stats for a single story from Medium API."""
         if not self.is_authenticated():
             logger.warning("Not authenticated. Cannot fetch story stats.")
@@ -583,6 +565,12 @@ class MediumAPIService:
         
         # Parse the response directly from the list structure
         #return response
+        # if retType:
+        #     data_obj =response[0].get('data')
+        #     logger.error("Data Object:", data_obj.get('postStatsTotalBundle'))
+        #     return data_obj.get('postStatsTotalBundle')
+            
+
         return self._parse_direct_from_response(response, post_id, period)
 
 
@@ -660,7 +648,6 @@ class MediumAPIService:
             result['monthly']['replies'] += bucket.get('readersThatRepliedCount', 0)
             result['monthly']['highlights'] += bucket.get('readersThatHighlightedCount', 0)
             result['monthly']['new_followers'] += bucket.get('readersThatInitiallyFollowedAuthorFromThisPostCount', 0)
-        
         return result    
     # ==============
     
