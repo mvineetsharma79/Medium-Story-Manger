@@ -3,54 +3,66 @@
 {% block title %}Stories{% endblock %}
 
 {% block content %}
-<div class="page-header d-flex justify-content-between align-items-center mb-3">
-    <h1 class="h3 mb-0">Stories</h1>
-    <div>
+
+<!-- Month/Year Selector Bar -->
+<div class="filter-bar d-flex gap-3  align-items-center mb-2">
+    <div class="col-md-8">
+        <div class="d-flex align-items-center gap-2">
+
+            <span class=" text-muted fw-bold"><i class="bi bi-book"></i> <strong>Stories</strong></span>
+            <span class="small text-muted fw-bold"><i class="bi bi-calendar-month"></i> View Stats for:</span>
+            <select id="yearSelect" class="form-select form-select-sm" style="width: 100px;"
+                onchange="loadMonthStats()">
+                <option value="2026">2026</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+            </select>
+            <select id="monthSelect" class="form-select form-select-sm" style="width: 120px;"
+                onchange="loadMonthStats()">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+            <button class="btn btn-sm btn-outline-primary" onclick="loadMonthStats()" title="Load selected month">
+                <i class="bi bi-arrow-repeat"></i> Load
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" onclick="loadCurrentMonth()" title="Back to current month">
+                <i class="bi bi-calendar-week"></i> Current Month
+            </button>
+
+            <div class="vr"></div>
+            <span class="bi bi-primary rounded bi-calendar-month">
+                <strong><span id="currentDisplayMonth">Current Month</span> <i class=""
+                        id="totalMonthlyEarnings"></i></strong>
+            </span>
+            <span class="bi bi-primary rounded bi-piggy-bank">
+                Total<strong> <i class="" id="totalEarningsAll"></i></strong>
+            </span>
+            <div class="vr"></div>
+        </div>
+    </div>
+    <div class="col-md-4 d-flex align-items-right justify-content-end gap-1">
+        <!-- <span class="bi bi-primary rounded bi-calendar-month" >
+            <strong>Total <i class="" id="totalMonthlyEarnings"></i></strong>
+        </span> -->
         <button class="btn btn-sm btn-primary" onclick="openAddStoryModal()">
             <i class="bi bi-plus-lg"></i> Add Story
         </button>
         <button class="btn btn-sm btn-success ms-2" onclick="updateCurrentStories()" data-action="sync-current-stats">
             <i class="bi bi-trophy"></i> Update Stats
         </button>
-        <button class="btn btn-sm btn-secondary ms-2" onclick="syncStories()" >
+        <button class="btn btn-sm btn-secondary ms-2" onclick="syncStories()">
             <i class="bi bi-arrow-repeat"></i> Sync
         </button>
-    </div>
-</div>
-
-<!-- Month/Year Selector Bar -->
-<div class="filter-bar d-flex gap-3 flex-wrap align-items-center mb-2">
-    <div class="d-flex align-items-center gap-2">
-        <span class="small text-muted fw-bold"><i class="bi bi-calendar-month"></i> View Stats for:</span>
-        <select id="yearSelect" class="form-select form-select-sm" style="width: 100px;" onchange="loadMonthStats()">
-            <option value="2026">2026</option>
-            <option value="2025">2025</option>
-            <option value="2024">2024</option>
-        </select>
-        <select id="monthSelect" class="form-select form-select-sm" style="width: 120px;" onchange="loadMonthStats()">
-            <option value="1">January</option>
-            <option value="2">February</option>
-            <option value="3">March</option>
-            <option value="4">April</option>
-            <option value="5">May</option>
-            <option value="6">June</option>
-            <option value="7">July</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
-            <option value="10">October</option>
-            <option value="11">November</option>
-            <option value="12">December</option>
-        </select>
-        <button class="btn btn-sm btn-outline-primary" onclick="loadMonthStats()" title="Load selected month">
-            <i class="bi bi-arrow-repeat"></i> Load
-        </button>
-        <button class="btn btn-sm btn-outline-secondary" onclick="loadCurrentMonth()" title="Back to current month">
-            <i class="bi bi-calendar-week"></i> Current Month
-        </button>
-    </div>
-    <div class="vr"></div>
-    <div id="monthIndicator" class="small text-muted">
-        <i class="bi bi-info-circle"></i> Showing: <span id="currentDisplayMonth">Current Month</span>
     </div>
 </div>
 
@@ -58,20 +70,22 @@
 <div class="filter-bar d-flex gap-4 flex-wrap align-items-center mb-2">
     <!-- Bookmark Switch -->
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="bookmarkFilter" onchange="applyFilters()" style="cursor: pointer;">
+        <input class="form-check-input" type="checkbox" id="bookmarkFilter" onchange="applyFilters()"
+            style="cursor: pointer;">
         <label class="form-check-label" for="bookmarkFilter">
             <span class="fw-bold">⭐ Bookmarked</span>
         </label>
     </div>
-    
+
     <!-- Leaderboard Switch -->
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="leaderboardFilter" onchange="applyFilters()" style="cursor: pointer;">
+        <input class="form-check-input" type="checkbox" id="leaderboardFilter" onchange="applyFilters()"
+            style="cursor: pointer;">
         <label class="form-check-label" for="leaderboardFilter">
             <span class="fw-bold">🏆 Leaderboard</span>
         </label>
     </div>
-    
+
     <!-- Status Filter -->
     <div class="d-flex align-items-center gap-2">
         <span class="small fw-bold">📋&nbsp;Status:</span>
@@ -84,11 +98,12 @@
             <option value="Done">Done</option>
         </select>
     </div>
-    
+
     <!-- Series Filter -->
     <div class="d-flex align-items-center gap-2">
         <span class="small fw-bold">📁&nbsp;Series:</span>
-        <select id="seriesFilter" class="form-select form-select-sm" style="min-width: 180px;" onchange="applyFilters()">
+        <select id="seriesFilter" class="form-select form-select-sm" style="min-width: 180px;"
+            onchange="applyFilters()">
             <option value="">All Series</option>
         </select>
     </div>
@@ -97,18 +112,9 @@
 <!-- Stats Row - Monthly & Total Earnings -->
 <div class="filter-bar d-flex gap-4 flex-wrap align-items-center justify-content-between mb-2">
     <div class="d-flex gap-4">
-        <input type="text" id="searchFilter" class="form-control form-control-sm" style="width: 250px;" placeholder="🔍 Search stories..." onkeyup="applyFilters()">
+        <input type="text" id="searchFilter" class="form-control form-control-sm" style="width: 250px;"
+            placeholder="🔍 Search stories..." onkeyup="applyFilters()">
         <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">🗑️ Clear Filters</button>
-    </div>
-    <div class="d-flex gap-2">
-        <div class="bg-primary text-white px-3 py-2 rounded">
-            <small><i class="bi bi-calendar-month"></i> Monthly Earnings</small>
-            <strong id="totalMonthlyEarnings" class="ms-2">$0.00</strong>
-        </div>
-        <div class="bg-success text-white px-3 py-2 rounded">
-            <small><i class="bi bi-piggy-bank"></i> Total Earnings</small>
-            <strong id="totalEarningsAll" class="ms-2">$0.00</strong>
-        </div>
     </div>
 </div>
 
@@ -122,45 +128,57 @@
     <table class="table table-sm table-hover">
         <thead id="storiesTableHeader" class="table-light">
             <tr>
-                <th style="width:50px; text-align:center;">#</th>  <!-- NEW: Serial number column -->
+                <th style="width:50px; text-align:center;">#</th> <!-- NEW: Serial number column -->
 
-                <th style="width:35px; white-space: nowrap;" class="sortable" data-sort="bookmarked" onclick="sortStories('bookmarked')" title="Bookmark">
+                <th style="width:35px; white-space: nowrap;" class="sortable" data-sort="bookmarked"
+                    onclick="sortStories('bookmarked')" title="Bookmark">
                     ⭐&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
-                <th style="width:35px; white-space: nowrap;" class="sortable" data-sort="leaderboard" onclick="sortStories('leaderboard')" title="Leaderboard">
+                <th style="width:35px; white-space: nowrap;" class="sortable" data-sort="leaderboard"
+                    onclick="sortStories('leaderboard')" title="Leaderboard">
                     🏆&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
-                <th style="width:100px; white-space: nowrap;" class="sortable" data-sort="status" onclick="sortStories('status')">
+                <th style="width:100px; white-space: nowrap;" class="sortable" data-sort="status"
+                    onclick="sortStories('status')">
                     📋&nbsp;Status&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
                 <th style="white-space: nowrap;" class="sortable" data-sort="name" onclick="sortStories('name')">
                     📄&nbsp;Title&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
-                <th style="width:120px; white-space: nowrap;" class="sortable" data-sort="series" onclick="sortStories('series')">
+                <th style="width:120px; white-space: nowrap;" class="sortable" data-sort="series"
+                    onclick="sortStories('series')">
                     📁&nbsp;Series&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
-                <th style="width:95px; white-space: nowrap;" class="sortable" data-sort="created_date" onclick="sortStories('created_date')">
+                <th style="width:95px; white-space: nowrap;" class="sortable" data-sort="created_date"
+                    onclick="sortStories('created_date')">
                     🆕&nbsp;Created&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
-                <th style="width:95px; white-space: nowrap;" class="sortable" data-sort="published_date" onclick="sortStories('published_date')">
+                <th style="width:95px; white-space: nowrap;" class="sortable" data-sort="published_date"
+                    onclick="sortStories('published_date')">
                     📅&nbsp;Published&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
-                <th style="width:95px; white-space: nowrap;" class="sortable" data-sort="published_due_date" onclick="sortStories('published_due_date')">
+                <th style="width:95px; white-space: nowrap;" class="sortable" data-sort="published_due_date"
+                    onclick="sortStories('published_due_date')">
                     ⏰&nbsp;Due&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
-                <th style="width:130px; white-space: nowrap;" class="sortable" data-sort="performance" onclick="sortStories('performance')">
+                <th style="width:130px; white-space: nowrap;" class="sortable" data-sort="performance"
+                    onclick="sortStories('performance')">
                     📊&nbsp;Performance&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
-                <th style="width:100px; white-space: nowrap;" class="sortable" data-sort="engagement" onclick="sortStories('engagement')">
+                <th style="width:100px; white-space: nowrap;" class="sortable" data-sort="engagement"
+                    onclick="sortStories('engagement')">
                     💚&nbsp;Engagement&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
-                <th style="width:100px; white-space: nowrap;" class="sortable" data-sort="earnings" onclick="sortStories('earnings')">
+                <th style="width:100px; white-space: nowrap;" class="sortable" data-sort="earnings"
+                    onclick="sortStories('earnings')">
                     🏦&nbsp;Earnings&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
-                <th style="width:100px; white-space: nowrap;" class="sortable" data-sort="read_time" onclick="sortStories('read_time')">
+                <th style="width:100px; white-space: nowrap;" class="sortable" data-sort="read_time"
+                    onclick="sortStories('read_time')">
                     ⏱️&nbsp;Read&nbsp;Time&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
-                <th style="width:100px; white-space: nowrap;" class="sortable" data-sort="linkedin_status" onclick="sortStories('linkedin_status')">
+                <th style="width:100px; white-space: nowrap;" class="sortable" data-sort="linkedin_status"
+                    onclick="sortStories('linkedin_status')">
                     🔗&nbsp;LinkedIn&nbsp;<i class="bi bi-arrow-down-up"></i>
                 </th>
                 <th style="width:85px; white-space: nowrap;">⚙️&nbsp;Actions</th>
@@ -171,8 +189,7 @@
                 <td colspan="14" class="text-center text-muted py-4">
                     <div class="spinner-border spinner-border-sm me-2" role="status"></div>
                     Loading stories...
-                </td
-            </tr>
+                </td </tr>
         </tbody>
     </table>
 </div>
