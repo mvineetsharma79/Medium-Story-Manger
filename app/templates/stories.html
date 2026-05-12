@@ -48,6 +48,8 @@
                 Total<strong> <i class="" id="totalEarningsAll"></i></strong>
             </span>
             <div class="vr"></div>
+            <small id="filterCountDisplay">Loading...</small>
+
         </div>
     </div>
     <div class="col-md-4 d-flex align-items-right justify-content-end gap-1">
@@ -102,26 +104,17 @@
     <!-- Series Filter -->
     <div class="d-flex align-items-center gap-2">
         <span class="small fw-bold">📁&nbsp;Series:</span>
-        <select id="seriesFilter" class="form-select form-select-sm" style="min-width: 180px;"
+        <select id="seriesFilter" class="form-select form-select-sm" style="min-width: 100px; "
             onchange="applyFilters()">
             <option value="">All Series</option>
         </select>
-    </div>
-</div>
-
-<!-- Stats Row - Monthly & Total Earnings -->
-<div class="filter-bar d-flex gap-4 flex-wrap align-items-center justify-content-between mb-2">
-    <div class="d-flex gap-4">
-        <input type="text" id="searchFilter" class="form-control form-control-sm" style="width: 250px;"
+        <input type="text" id="searchFilter" class="form-control form-control-sm" style="min-width: 150px;"
             placeholder="🔍 Search stories..." onkeyup="applyFilters()">
-        <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">🗑️ Clear Filters</button>
+        <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">🗑️</button>
+
     </div>
 </div>
 
-<!-- Filter Count Display -->
-<div class="mb-2 text-muted">
-    <small id="filterCountDisplay">Loading...</small>
-</div>
 
 <!-- Sortable Table -->
 <div class="table-responsive">
