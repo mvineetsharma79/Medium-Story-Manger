@@ -32,7 +32,9 @@ async function loadMonthStats() {
     
     currentSelectedYear = year;
     currentSelectedMonth = month;
-    
+    if (window.monthlyStatsWidget) {
+        window.monthlyStatsWidget.setYearMonth(year, month);
+    }
     isLoadingMonthStats = true;
     showLoading();
     

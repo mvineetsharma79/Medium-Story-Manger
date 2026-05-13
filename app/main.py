@@ -69,6 +69,7 @@ app = FastAPI(
 
 # Mount static files
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.mount("/templates", StaticFiles(directory="app/templates"), name="static")
 
 # Mount stories folder for image access
 stories_root = get_stories_root()

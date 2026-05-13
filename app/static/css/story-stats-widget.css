@@ -1,0 +1,247 @@
+/* story-stats-widget.css - Inline Stats with Icons */
+
+/* Widget Container */
+.story-stats-widget {
+    margin-bottom: 1rem !important;
+}
+
+.story-stats-widget .card-header {
+    transition: background-color 0.2s;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem !important;
+}
+
+.story-stats-widget .card-header:hover {
+    background-color: #0d6efd !important;
+}
+
+.story-stats-widget .card-body {
+    padding: 0.75rem !important;
+}
+
+/* Collapse Icon */
+.story-stats-widget .collapse-icon {
+    transition: transform 0.3s ease;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.story-stats-widget .collapse-icon.rotated {
+    transform: rotate(180deg);
+}
+
+/* Inline Stats Container */
+.story-stats-widget .stats-inline-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    border: 1px solid #e9ecef;
+}
+
+/* Individual Stat Item */
+.story-stats-widget .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+    position: relative;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.story-stats-widget .stat-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Stat Icons */
+.story-stats-widget .stat-item i {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+/* Stat Label */
+.story-stats-widget .stat-item .stat-label {
+    font-size: 0.7rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+/* Stat Value */
+.story-stats-widget .stat-item .stat-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #2c3e50;
+    min-width: 50px;
+    text-align: right;
+}
+
+/* Divider between stats */
+.story-stats-widget .stat-divider {
+    width: 1px;
+    height: 24px;
+    background: #dee2e6;
+}
+
+/* Tooltip for full number */
+.story-stats-widget .stat-item[data-full-number] {
+    position: relative;
+}
+
+.story-stats-widget .stat-item[data-full-number]::after {
+    content: attr(data-full-number);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a2e;
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-family: 'Courier New', monospace;
+    white-space: nowrap;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.story-stats-widget .stat-item[data-full-number]::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 4px;
+    border-style: solid;
+    border-color: #1a1a2e transparent transparent transparent;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    margin-bottom: -0.25rem;
+}
+
+.story-stats-widget .stat-item[data-full-number]:hover::after,
+.story-stats-widget .stat-item[data-full-number]:hover::before {
+    opacity: 1;
+}
+
+/* Chart Container */
+.story-stats-widget .chart-container {
+    position: relative;
+    height: 280px;
+    width: 100%;
+}
+
+/* Loading Overlay */
+.story-stats-widget .loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border-radius: 8px;
+}
+
+.story-stats-widget .loading-overlay .spinner-border {
+    width: 2rem;
+    height: 2rem;
+}
+
+.story-stats-widget .loading-overlay p {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Error Message */
+.story-stats-widget .error-message {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Select and Button sizing */
+.story-stats-widget select.form-select-sm,
+.story-stats-widget .btn-sm {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+}
+
+/* Responsive: Mobile view */
+@media (max-width: 768px) {
+    .story-stats-widget .stats-inline-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.25rem;
+    }
+    
+    .story-stats-widget .stat-item {
+        justify-content: space-between;
+    }
+    
+    .story-stats-widget .stat-divider {
+        display: none;
+    }
+    
+    .story-stats-widget .chart-container {
+        height: 250px;
+    }
+    
+    /* Mobile tooltip adjustment */
+    .story-stats-widget .stat-item[data-full-number]::after {
+        bottom: auto;
+        top: 100%;
+        margin-bottom: 0;
+        margin-top: 0.25rem;
+    }
+    
+    .story-stats-widget .stat-item[data-full-number]::before {
+        bottom: auto;
+        top: 100%;
+        border-color: transparent transparent #1a1a2e transparent;
+        margin-bottom: 0;
+        margin-top: -0.25rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 576px) {
+    .story-stats-widget .stat-item .stat-label {
+        font-size: 0.65rem;
+    }
+    
+    .story-stats-widget .stat-item .stat-value {
+        font-size: 0.8rem;
+    }
+    
+    .story-stats-widget .chart-container {
+        height: 200px;
+    }
+}
+
+/* Header elements */
+.story-stats-widget .card-header strong {
+    font-size: 0.85rem;
+}
+
+.story-stats-widget #statsPeriodDisplay {
+    font-size: 0.75rem;
+    font-weight: normal;
+}

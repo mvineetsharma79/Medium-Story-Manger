@@ -873,6 +873,51 @@ class StoryService:
             "processed_posts": processed_posts[:20]
         }
     
+    
+    @staticmethod
+    async def fetch_monthly_stats(period: str) -> Dict[str, Any]:
+        """
+        Fetch aggregated monthly stats for all stories.
+        Thin wrapper around medium_api_service.
+        
+        Args:
+            period: Period in YYYY-MM format (e.g., "2026-05")
+        
+        Returns:
+            Dict with totals and points (same structure as the API response)
+        """
+        logger.info(f"Fetching monthly stats for period: {period}")
+        
+        api_service = get_medium_api_service()
+        
+        if not api_service.is_authenticated():
+            return {
+                "success": False,
+                "message": "Not authenticated",
+                "period": period,
+                "totals": {},
+                "points": []
+            }
+        
+        response = api_service.fetch_monthly_stats(period)
+        
+        if not response:
+            return {
+                "success": False,
+                "message": f"No stats found for {period}",
+                "period": period,
+                "totals": {},
+                "points": []
+            }
+        
+        # Return the parsed response directly
+        return {
+            "success": True,
+            "period": period,
+            "totals": response.get("totals", {}),
+            "points": response.get("points", [])
+        }
+        
     @staticmethod
     async def _dict_to_story(key: str, story_dict: dict) -> Optional[Story]:
         """Convert dictionary to Story object"""

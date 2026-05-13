@@ -1810,6 +1810,39 @@ async def test_story_api(post_id: str, period: str):
             "traceback": traceback.format_exc()
         }
         
+
+"""
+GET /api/stories/monthly-stats/
+Description: Get stats for current year-month
+
+curl -X GET "http://localhost:8000/api/stories/monthly-stats/" | jq '.'
+"""
+@router.get("/monthly-stats/")
+async def get_current_monthly_stats():
+    """Get monthly stats for current year-month"""
+    from datetime import datetime
+    current_period = datetime.now().strftime("%Y-%m")
+    result = await StoryService.fetch_monthly_stats(current_period)
+    return result
+
+
+"""
+GET /api/stories/monthly-stats/{period}
+Description: Get monthly stats for specific period (YYYY-MM)
+
+curl -X GET "http://localhost:8000/api/stories/monthly-stats/2026-05" | jq '.'
+"""
+@router.get("/monthly-stats/{period}")
+async def get_monthly_stats_by_period(period: str):
+    """Get monthly stats for specific period (YYYY-MM)"""
+    try:
+        from datetime import datetime
+        datetime.strptime(period, "%Y-%m")
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid period format. Use YYYY-MM")
+    
+    result = await StoryService.fetch_monthly_stats(period)
+    return result
 # ============================================
 # BUILD EXPORT ENDPOINT - Save diagrams and tables as PNG
 # ============================================

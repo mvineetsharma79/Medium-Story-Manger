@@ -574,6 +574,131 @@ class MediumAPIService:
         return self._parse_direct_from_response(response, post_id, period)
 
 
+    def fetch_monthly_stats(self, period: str) -> Optional[Dict[str, Any]]:
+        """
+        Fetch aggregated monthly stats for all stories.
+        Uses the exact Graph Query provided - no post_id anywhere.
+        
+        Args:
+            period: Period in YYYY-MM format (e.g., "2026-05")
+        
+        Returns:
+            Dict with totals and points arrays
+        """
+        if not self.is_authenticated():
+            logger.warning("Not authenticated. Cannot fetch monthly stats.")
+            return None
+        
+        # Parse period
+        try:
+            parts = period.split('-')
+            year = int(parts[0])
+            month = int(parts[1])
+        except (ValueError, IndexError):
+            logger.error(f"Invalid period format: {period}")
+            return None
+        
+        start_at, end_at = self.get_month_timestamps(year, month)
+        
+        # Exact Graph Query from your requirement
+        query = """query UserMonthlyStoryStatsTimeseriesQuery($username: ID!, $input: UserPostsAggregateStatsInput!) {
+    user(username: $username) {
+        id
+        postsAggregateTimeseriesStats(input: $input) {
+        __typename
+        ... on AggregatePostTimeseriesStats {
+            totalStats {
+            presentations
+            viewers
+            readers
+            netFollowersGained
+            netSubscribersGained
+            __typename
+            }
+            points {
+            timestamp
+            stats {
+                total {
+                viewers
+                readers
+                __typename
+                }
+                __typename
+            }
+            __typename
+            }
+            __typename
+        }
+        }
+        __typename
+    }
+    }"""
+        
+        from config import settings
+        variables = {
+            "username": settings.medium_username,
+            "input": {
+                "startTime": start_at,
+                "endTime": end_at
+            }
+        }
+        
+        payload = self._build_graphql_request(
+            "UserMonthlyStoryStatsTimeseriesQuery",
+            variables,
+            query,
+            "user",
+            "stats"
+        )
+        headers = self._get_common_headers(None, "UserMonthlyStoryStatsTimeseriesQuery")
+        
+        import time
+        time.sleep(0.5)
+        response = self._make_request(self.GRAPHQL_URL, headers, payload, f"Monthly Stats {period}")
+        
+        if not response:
+            return None
+        
+        # Parse response exactly as in your example
+        result = {
+            "totals": {
+                "presentations": 0,
+                "viewers": 0,
+                "readers": 0,
+                "netFollowersGained": 0,
+                "netSubscribersGained": 0
+            },
+            "points": []
+        }
+        
+        if isinstance(response, list) and len(response) > 0:
+            data_obj = response[0].get('data', {})
+            user_obj = data_obj.get('user', {})
+            stats = user_obj.get('postsAggregateTimeseriesStats', {})
+            
+            # Get totals
+            total_stats = stats.get('totalStats', {})
+            result["totals"] = {
+                "presentations": total_stats.get('presentations', 0),
+                "viewers": total_stats.get('viewers', 0),
+                "readers": total_stats.get('readers', 0),
+                "netFollowersGained": total_stats.get('netFollowersGained', 0),
+                "netSubscribersGained": total_stats.get('netSubscribersGained', 0)
+            }
+            
+            # Get points (daily data)
+            points = stats.get('points', [])
+            for point in points:
+                point_stats = point.get('stats', {})
+                total = point_stats.get('total', {})
+                result["points"].append({
+                    "timestamp": point.get('timestamp', 0),
+                    "viewers": total.get('viewers', 0),
+                    "readers": total.get('readers', 0)
+                })
+        
+        return result
+
     def _parse_direct_from_response(self, response: Any, post_id: str, period: str) -> Optional[Dict[str, Any]]:
         """Parse response directly from the list structure."""
         
