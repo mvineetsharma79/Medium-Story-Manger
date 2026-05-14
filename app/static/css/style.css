@@ -662,3 +662,35 @@
     background-color: #f39c12;
     color: white;
 }
+
+/* Multi-status filter styles */
+.form-check-input {
+    cursor: pointer;
+}
+
+.form-check-label {
+    cursor: pointer;
+}
+
+.form-check-label:hover {
+    color: #0d6efd;
+}
+
+#statusAll:checked ~ .form-check-label,
+.form-check-input:checked + .form-check-label {
+    font-weight: 500;
+}
+
+/* Filter bar improvements */
+.filter-bar {
+    background: white;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    margin-bottom: 1rem;
+}
+
+.filter-bar .vr {
+    height: 24px;
+    margin: 0 4px;
+}

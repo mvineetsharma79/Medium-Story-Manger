@@ -69,51 +69,73 @@
 </div>
 
 <!-- Filters Row 1: Switches + Status + Series -->
-<div class="filter-bar d-flex gap-4 flex-wrap align-items-center mb-2">
-    <!-- Bookmark Switch -->
-    <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="bookmarkFilter" onchange="applyFilters()"
-            style="cursor: pointer;">
-        <label class="form-check-label" for="bookmarkFilter">
-            <span class="fw-bold">⭐ Bookmarked</span>
-        </label>
-    </div>
 
-    <!-- Leaderboard Switch -->
-    <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="leaderboardFilter" onchange="applyFilters()"
-            style="cursor: pointer;">
-        <label class="form-check-label" for="leaderboardFilter">
-            <span class="fw-bold">🏆 Leaderboard</span>
-        </label>
-    </div>
+<!-- Replace the status filter dropdown with this -->
+<div class="filter-bar mb-2">
+    <div class="d-flex flex-wrap align-items-center gap-3">
+        <!-- Bookmark Switch -->
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="bookmarkFilter">
+            <label class="form-check-label small" for="bookmarkFilter">⭐ Bookmarked</label>
+        </div>
 
-    <!-- Status Filter -->
-    <div class="d-flex align-items-center gap-2">
-        <span class="small fw-bold">📋&nbsp;Status:</span>
-        <select id="statusFilter" class="form-select form-select-sm w-auto" onchange="applyFilters()">
-            <option value="All">All</option>
-            <option value="Published">Published</option>
-            <option value="Published Due">Published Due</option>
-            <option value="Ready">Ready</option>
-            <option value="Draft">Draft</option>
-            <option value="Done">Done</option>
-        </select>
-    </div>
+        <!-- Leaderboard Switch -->
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="leaderboardFilter">
+            <label class="form-check-label small" for="leaderboardFilter">🏆 Leaderboard</label>
+        </div>
 
-    <!-- Series Filter -->
-    <div class="d-flex align-items-center gap-2">
-        <span class="small fw-bold">📁&nbsp;Series:</span>
-        <select id="seriesFilter" class="form-select form-select-sm" style="min-width: 100px; "
-            onchange="applyFilters()">
+        <!-- Status Multi-Select Checkboxes -->
+        <div class="vr"></div>
+        <span class="small fw-bold">📋 Status:</span>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Published" id="statusPublished">
+            <label class="form-check-label small" for="statusPublished">Published</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Published Due" id="statusPublishedDue">
+            <label class="form-check-label small" for="statusPublishedDue">Published Due</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Ready" id="statusReady">
+            <label class="form-check-label small" for="statusReady">Ready</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Draft" id="statusDraft">
+            <label class="form-check-label small" for="statusDraft">Draft</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Done" id="statusDone">
+            <label class="form-check-label small" for="statusDone">Done</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="All" id="statusAll" checked>
+            <label class="form-check-label small fw-bold text-primary" for="statusAll">All</label>
+        </div>
+
+        <!-- Series Filter -->
+        <div class="vr"></div>
+        <span class="small fw-bold">📁 Series:</span>
+        <select id="seriesFilter" class="form-select form-select-sm" style="width: 150px;">
             <option value="">All Series</option>
         </select>
-        <input type="text" id="searchFilter" class="form-control form-control-sm" style="min-width: 150px;"
-            placeholder="🔍 Search stories..." onkeyup="applyFilters()">
-        <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">🗑️</button>
 
+        <!-- Search -->
+        <input type="text" id="searchFilter" class="form-control form-control-sm" 
+               style="width: 180px;" placeholder="🔍 Search stories...">
+
+        <!-- Clear Button -->
+        <button class="btn btn-sm btn-outline-secondary" id="clearFiltersBtn" title="Clear all filters">
+            <i class="bi bi-x-circle"></i> Clear
+        </button>
+
+        <!-- Filter Count -->
+        <span id="filterCountDisplay" class="small text-muted ms-auto"></span>
     </div>
 </div>
+
+
+
 <div id="storyStatsWidget"></div>
 
 

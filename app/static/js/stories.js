@@ -14,6 +14,7 @@ let currentEditStoryMonth = null;
 
 // Cache for monthly stats (in-memory for page lifespan)
 let monthlyStatsCache = {};
+let isApplyingFilters = false;
 
 // ============================================
 // MONTH/YEAR SELECTOR - Load historical stats
@@ -256,39 +257,85 @@ function updateSeriesDropdown() {
 }
 
 function updateFilterCount() {
+    // const filtered = getFilteredStories();
+    // const filterCountDisplay = document.getElementById('filterCountDisplay');
+    // if (filterCountDisplay) {
+    //     filterCountDisplay.innerHTML = `Showing <strong>${filtered.length}</strong> of <strong>${allStories.length}</strong> stories`;    
+    // }
     const filtered = getFilteredStories();
-    const filterCountDisplay = document.getElementById('filterCountDisplay');
-    if (filterCountDisplay) {
-        filterCountDisplay.innerHTML = `Showing <strong>${filtered.length}</strong> of <strong>${allStories.length}</strong> stories`;    
+    const countDisplay = document.getElementById('filterCountDisplay');
+    if (countDisplay) {
+        countDisplay.innerHTML = `Showing <strong>${filtered.length}</strong> of <strong>${allStories.length}</strong> stories`;
     }
 }
 
 function getFilteredStories() {
-    const statusFilter = document.getElementById('statusFilter');
-    const seriesFilter = document.getElementById('seriesFilter');
-    const searchFilter = document.getElementById('searchFilter');
-    const bookmarkedOnly = document.getElementById('bookmarkFilter');
-    const leaderboardOnly = document.getElementById('leaderboardFilter');
+    // const statusFilter = document.getElementById('statusFilter');
+    // const seriesFilter = document.getElementById('seriesFilter');
+    // const searchFilter = document.getElementById('searchFilter');
+    // const bookmarkedOnly = document.getElementById('bookmarkFilter');
+    // const leaderboardOnly = document.getElementById('leaderboardFilter');
+    
+    // let filtered = [...allStories];
+    
+    // if (statusFilter && statusFilter.value !== 'All') {
+    //     filtered = filtered.filter(s => s.status === statusFilter.value);
+    // }
+    // if (seriesFilter && seriesFilter.value) {
+    //     filtered = filtered.filter(s => s.series === seriesFilter.value);
+    // }
+    // if (searchFilter && searchFilter.value) {
+    //     const searchTerm = searchFilter.value.toLowerCase();
+    //     filtered = filtered.filter(s => {
+    //         return (s.title && s.title.toLowerCase().includes(searchTerm)) ||
+    //                (s.name && s.name.toLowerCase().includes(searchTerm));
+    //     });
+    // }
+    // if (bookmarkedOnly && bookmarkedOnly.checked) {
+    //     filtered = filtered.filter(s => s.bookmarked === true);
+    // }
+    // if (leaderboardOnly && leaderboardOnly.checked) {
+    //     filtered = filtered.filter(s => s.leaderboard === true);
+    // }
+    
+    // return filtered;
+    if (!allStories || !Array.isArray(allStories)) {
+        return [];
+    }
     
     let filtered = [...allStories];
     
-    if (statusFilter && statusFilter.value !== 'All') {
-        filtered = filtered.filter(s => s.status === statusFilter.value);
+    // Get selected statuses
+    const selectedStatuses = getSelectedStatuses();
+    if (selectedStatuses.length > 0) {
+        filtered = filtered.filter(s => selectedStatuses.includes(s.status));
     }
+    
+    // Series filter
+    const seriesFilter = document.getElementById('seriesFilter');
     if (seriesFilter && seriesFilter.value) {
         filtered = filtered.filter(s => s.series === seriesFilter.value);
     }
+    
+    // Search filter
+    const searchFilter = document.getElementById('searchFilter');
     if (searchFilter && searchFilter.value) {
         const searchTerm = searchFilter.value.toLowerCase();
-        filtered = filtered.filter(s => {
-            return (s.title && s.title.toLowerCase().includes(searchTerm)) ||
-                   (s.name && s.name.toLowerCase().includes(searchTerm));
-        });
+        filtered = filtered.filter(s => 
+            (s.title && s.title.toLowerCase().includes(searchTerm)) ||
+            (s.name && s.name.toLowerCase().includes(searchTerm))
+        );
     }
-    if (bookmarkedOnly && bookmarkedOnly.checked) {
+    
+    // Bookmark filter
+    const bookmarkFilter = document.getElementById('bookmarkFilter');
+    if (bookmarkFilter && bookmarkFilter.checked) {
         filtered = filtered.filter(s => s.bookmarked === true);
     }
-    if (leaderboardOnly && leaderboardOnly.checked) {
+    
+    // Leaderboard filter
+    const leaderboardFilter = document.getElementById('leaderboardFilter');
+    if (leaderboardFilter && leaderboardFilter.checked) {
         filtered = filtered.filter(s => s.leaderboard === true);
     }
     
@@ -462,26 +509,58 @@ function updateSortIcons(column, direction) {
 // ============================================
 
 function applyFilters() {
-    renderStoryTable();
-    updateFilterCount();
+    // renderStoryTable();
+    // updateFilterCount();
+    if (isApplyingFilters) return;
+    isApplyingFilters = true;
+    
+    try {
+        const filtered = getFilteredStories();
+        renderStoryTable(filtered);
+        updateFilterCount(filtered.length);
+    } finally {
+        isApplyingFilters = false;
+    }
 }
 
 function clearFilters() {
-    // Reset switches
-    const bookmarkFilter = document.getElementById('bookmarkFilter');
-    const leaderboardFilter = document.getElementById('leaderboardFilter');
-    const statusFilter = document.getElementById('statusFilter');
+    // // Reset switches
+    // const bookmarkFilter = document.getElementById('bookmarkFilter');
+    // const leaderboardFilter = document.getElementById('leaderboardFilter');
+    // const statusFilter = document.getElementById('statusFilter');
+    // const seriesFilter = document.getElementById('seriesFilter');
+    // const searchFilter = document.getElementById('searchFilter');
+    
+    // if (bookmarkFilter) bookmarkFilter.checked = false;
+    // if (leaderboardFilter) leaderboardFilter.checked = false;
+    // if (statusFilter) statusFilter.value = 'All';
+    // if (seriesFilter) seriesFilter.value = '';
+    // if (searchFilter) searchFilter.value = '';
+    
+    // applyFilters();
+    // updateEarningsSummary();
+    // Clear status checkboxes
+    const allCheckbox = document.getElementById('statusAll');
+    const statusCheckboxes = ['statusPublished', 'statusPublishedDue', 'statusReady', 'statusDraft', 'statusDone']
+        .map(id => document.getElementById(id));
+    
+    if (allCheckbox) allCheckbox.checked = true;
+    statusCheckboxes.forEach(cb => {
+        if (cb) cb.checked = false;
+    });
+    
+    // Clear other filters
     const seriesFilter = document.getElementById('seriesFilter');
     const searchFilter = document.getElementById('searchFilter');
+    const bookmarkFilter = document.getElementById('bookmarkFilter');
+    const leaderboardFilter = document.getElementById('leaderboardFilter');
     
-    if (bookmarkFilter) bookmarkFilter.checked = false;
-    if (leaderboardFilter) leaderboardFilter.checked = false;
-    if (statusFilter) statusFilter.value = 'All';
     if (seriesFilter) seriesFilter.value = '';
     if (searchFilter) searchFilter.value = '';
+    if (bookmarkFilter) bookmarkFilter.checked = false;
+    if (leaderboardFilter) leaderboardFilter.checked = false;
     
     applyFilters();
-    updateEarningsSummary();
 }
 
 function filterBySeries(seriesName) {
@@ -1275,7 +1354,107 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('leaderboardFilter')?.addEventListener('change', applyFilters);
     
     document.getElementById('addStoryCreateBtn')?.addEventListener('click', createStory);
+        setupStatusFilters();
+    
+    // Add clear button listener
+    const clearBtn = document.getElementById('clearFiltersBtn');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', clearFilters);
+    }
+    
+    // Add existing filter listeners
+    const seriesFilter = document.getElementById('seriesFilter');
+    const searchFilter = document.getElementById('searchFilter');
+    const bookmarkFilter = document.getElementById('bookmarkFilter');
+    const leaderboardFilter = document.getElementById('leaderboardFilter');
+    
+    if (seriesFilter) seriesFilter.addEventListener('change', applyFilters);
+    if (searchFilter) searchFilter.addEventListener('keyup', applyFilters);
+    if (bookmarkFilter) bookmarkFilter.addEventListener('change', applyFilters);
+    if (leaderboardFilter) leaderboardFilter.addEventListener('change', applyFilters);
 });
+
+// Stories Filters and actions are made globally available for inline event handlers in the table rows
+// Get selected statuses from checkboxes
+function getSelectedStatuses() {
+    // const statuses = [];
+    
+    // const allCheckbox = document.getElementById('statusAll');
+    // if (allCheckbox && allCheckbox.checked) {
+    //     return []; // Return empty array means no status filter
+    // }
+    
+    // const statusCheckboxes = [
+    //     { id: 'statusPublished', value: 'Published' },
+    //     { id: 'statusPublishedDue', value: 'Published Due' },
+    //     { id: 'statusReady', value: 'Ready' },
+    //     { id: 'statusDraft', value: 'Draft' },
+    //     { id: 'statusDone', value: 'Done' }
+    // ];
+    
+    // statusCheckboxes.forEach(item => {
+    //     const cb = document.getElementById(item.id);
+    //     if (cb && cb.checked) {
+    //         statuses.push(item.value);
+    //     }
+    // });
+    
+    // return statuses;
+    const statuses = [];
+    
+    const allCheckbox = document.getElementById('statusAll');
+    if (allCheckbox && allCheckbox.checked) {
+        return [];
+    }
+    
+    const statusCheckboxes = [
+        { id: 'statusPublished', value: 'Published' },
+        { id: 'statusPublishedDue', value: 'Published Due' },
+        { id: 'statusReady', value: 'Ready' },
+        { id: 'statusDraft', value: 'Draft' },
+        { id: 'statusDone', value: 'Done' }
+    ];
+    
+    statusCheckboxes.forEach(item => {
+        const cb = document.getElementById(item.id);
+        if (cb && cb.checked) {
+            statuses.push(item.value);
+        }
+    });
+    
+    return statuses;
+}
+
+// Handle "All" checkbox logic
+function setupStatusFilters() {
+    const allCheckbox = document.getElementById('statusAll');
+    const statusCheckboxIds = ['statusPublished', 'statusPublishedDue', 'statusReady', 'statusDraft', 'statusDone'];
+    const statusCheckboxes = statusCheckboxIds.map(id => document.getElementById(id)).filter(cb => cb);
+    
+    if (allCheckbox) {
+        allCheckbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                statusCheckboxes.forEach(cb => {
+                    if (cb) cb.checked = false;
+                });
+                applyFilters();
+            }
+        });
+    }
+    
+    statusCheckboxes.forEach(cb => {
+        if (cb) {
+            cb.addEventListener('change', () => {
+                if (cb.checked && allCheckbox) {
+                    allCheckbox.checked = false;
+                }
+                applyFilters();
+            });
+        }
+    });
+}
+
+
 
 // Make functions globally available
 window.sortStories = sortStories;
