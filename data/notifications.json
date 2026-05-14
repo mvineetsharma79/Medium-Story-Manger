@@ -1,1373 +1,701 @@
-[
+{
+  "last_updated": "2026-05-15T03:41:54.991668",
+  "total_notifications": 20,
+  "notifications": [
     {
-        "data": {
-            "notificationsConnectionByActivityTypes": {
-                "notifications": [
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-users_email_subscribed--4ac7fe93a4df",
-                        "notificationType": "users_email_subscribed",
-                        "post": null,
-                        "quote": null,
-                        "actor": {
-                            "id": "4ac7fe93a4df",
-                            "name": "Shaun Dunston",
-                            "membership": {
-                                "tier": "MEMBER",
-                                "__typename": "Membership",
-                                "id": "6a5a41b51410"
-                            },
-                            "imageId": "0*qN0v1flxVUmNylvR",
-                            "username": "djiovani",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778398756342,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-users_following_you-91040a975037",
-                        "notificationType": "users_following_you",
-                        "post": null,
-                        "quote": null,
-                        "actor": {
-                            "id": "91040a975037",
-                            "name": "Paul Hoke",
-                            "membership": {
-                                "tier": "MEMBER",
-                                "__typename": "Membership",
-                                "id": "c523a1c45360"
-                            },
-                            "imageId": "1*kLa4bvIY_igZTfmq7CmOGQ.png",
-                            "username": "paulhoke",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778393647430,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_added_to_catalog-8ce6a0f961e6-6a5b9d2bfbc1",
-                        "notificationType": "post_added_to_catalog",
-                        "post": {
-                            "id": "8ce6a0f961e6",
-                            "mediumUrl": "https://mvineetsharma.medium.com/ef-core-json-complex-types-leftjoin-executeupdate-c-14-net-10-upgrade-journey-1-8ce6a0f961e6",
-                            "title": "EF Core: JSON Complex Types, LeftJoin & ExecuteUpdate -C# 14 & .NET 10 Upgrade Journey - 1",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "ef-core-json-complex-types-leftjoin-executeupdate-c-14-net-10-upgrade-journey-1-8ce6a0f961e6"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "171e808ffc0c",
-                            "name": "Andrew",
-                            "membership": {
-                                "tier": "MEMBER",
-                                "__typename": "Membership",
-                                "id": "8e7f95b899d1"
-                            },
-                            "imageId": "0*El486jSUF1LqToty",
-                            "username": "andrew_62205",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778361872531,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": {
-                            "id": "6a5b9d2bfbc1",
-                            "name": "Database",
-                            "predefined": null,
-                            "creator": {
-                                "id": "171e808ffc0c",
-                                "username": "andrew_62205",
-                                "__typename": "User",
-                                "customDomainState": null,
-                                "hasSubdomain": false
-                            },
-                            "__typename": "Catalog"
-                        },
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-d730232f845b",
-                        "notificationType": "post_added_to_catalog",
-                        "post": {
-                            "id": "f053bdadd99e",
-                            "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
-                            "title": "11 Kafka Design Patterns for Every Backend Engineer",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "62ebefa7d52",
-                            "name": "Biduro maharana",
-                            "membership": null,
-                            "imageId": "0*pGfgxO4puWjKwH4R",
-                            "username": "biduromaharana",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778341020428,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": {
-                            "id": "d730232f845b",
-                            "name": "Kafka",
-                            "predefined": null,
-                            "creator": {
-                                "id": "62ebefa7d52",
-                                "username": "biduromaharana",
-                                "__typename": "User",
-                                "customDomainState": null,
-                                "hasSubdomain": false
-                            },
-                            "__typename": "Catalog"
-                        },
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_added_to_catalog-b0562c2f51f4-d59334842b5e",
-                        "notificationType": "post_added_to_catalog",
-                        "post": {
-                            "id": "b0562c2f51f4",
-                            "mediumUrl": "https://mvineetsharma.medium.com/api-security-arsenal-real-time-threat-detection-with-apigee-salt-and-cloudflare-b0562c2f51f4",
-                            "title": "API Security Arsenal: Real-Time Threat Detection with Apigee, Salt, and Cloudflare",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "api-security-arsenal-real-time-threat-detection-with-apigee-salt-and-cloudflare-b0562c2f51f4"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "ab62900a04f6",
-                            "name": "Francisco Barbosa",
-                            "membership": null,
-                            "imageId": "0*mgtBuDSUpEN21c_y",
-                            "username": "fcobarbosa2007",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778340474904,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": {
-                            "id": "d59334842b5e",
-                            "name": "Paid Content",
-                            "predefined": null,
-                            "creator": {
-                                "id": "ab62900a04f6",
-                                "username": "fcobarbosa2007",
-                                "__typename": "User",
-                                "customDomainState": null,
-                                "hasSubdomain": false
-                            },
-                            "__typename": "Catalog"
-                        },
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_added_to_catalog-13aae317b1c4-b7547b74f27d",
-                        "notificationType": "post_added_to_catalog",
-                        "post": {
-                            "id": "13aae317b1c4",
-                            "mediumUrl": "https://mvineetsharma.medium.com/10-essential-microservices-architecture-patterns-a-professional-reference-architecture-with-net-13aae317b1c4",
-                            "title": "10 Microservices Architecture Patterns: A Reference Architecture with .NET and Azure — Part 1",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "10-essential-microservices-architecture-patterns-a-professional-reference-architecture-with-net-13aae317b1c4"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "8d8349efc579",
-                            "name": "BiserRs",
-                            "membership": {
-                                "tier": "MEMBER",
-                                "__typename": "Membership",
-                                "id": "0f297837-d79f-49fd-978c-4f8a9cbdc867"
-                            },
-                            "imageId": "0*9bqHOfSZ5a36zPN3",
-                            "username": "bisetrs",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778319485716,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": {
-                            "id": "b7547b74f27d",
-                            "name": "Software Design",
-                            "predefined": null,
-                            "creator": {
-                                "id": "8d8349efc579",
-                                "username": "bisetrs",
-                                "__typename": "User",
-                                "customDomainState": null,
-                                "hasSubdomain": false
-                            },
-                            "__typename": "Catalog"
-                        },
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-users_following_you-5f00a04ec92c",
-                        "notificationType": "users_following_you_rollup",
-                        "post": null,
-                        "quote": null,
-                        "actor": {
-                            "id": "5f00a04ec92c",
-                            "name": "Giovanni Di Guardo",
-                            "membership": {
-                                "tier": "MEMBER",
-                                "__typename": "Membership",
-                                "id": "37e9acff-5530-43f4-bbde-52a4a0a90ef2"
-                            },
-                            "imageId": "0*N0KIs4GX22R6jS-F.",
-                            "username": "giovannidiguardo",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [
-                            {
-                                "actor": {
-                                    "id": "5f00a04ec92c",
-                                    "__typename": "User",
-                                    "name": "Giovanni Di Guardo",
-                                    "membership": {
-                                        "tier": "MEMBER",
-                                        "__typename": "Membership",
-                                        "id": "37e9acff-5530-43f4-bbde-52a4a0a90ef2"
-                                    },
-                                    "imageId": "0*N0KIs4GX22R6jS-F.",
-                                    "username": "giovannidiguardo",
-                                    "customDomainState": null,
-                                    "hasSubdomain": false,
-                                    "verifications": {
-                                        "isBookAuthor": false,
-                                        "__typename": "VerifiedInfo"
-                                    },
-                                    "bio": "",
-                                    "mediumMemberAt": 1777631604210,
-                                    "newsletterV3": null
-                                },
-                                "__typename": "Notification",
-                                "post": null,
-                                "responsePost": null,
-                                "rollupItems": [],
-                                "isUnread": false,
-                                "occurredAt": 1778310228353,
-                                "notificationType": "users_following_you"
-                            },
-                            {
-                                "actor": {
-                                    "id": "c449118ded03",
-                                    "__typename": "User",
-                                    "name": "Vladimir Marinkovic",
-                                    "membership": {
-                                        "tier": "MEMBER",
-                                        "__typename": "Membership",
-                                        "id": "e643542d-8d6a-4740-81a2-a260d6e47739"
-                                    },
-                                    "imageId": "0*Ra-eoqsgTyuWHEmE",
-                                    "username": "vladimir.marinkovic89",
-                                    "customDomainState": null,
-                                    "hasSubdomain": false,
-                                    "verifications": {
-                                        "isBookAuthor": false,
-                                        "__typename": "VerifiedInfo"
-                                    },
-                                    "bio": "",
-                                    "mediumMemberAt": 1732058680141,
-                                    "newsletterV3": null
-                                },
-                                "__typename": "Notification",
-                                "post": null,
-                                "responsePost": null,
-                                "rollupItems": [],
-                                "isUnread": false,
-                                "occurredAt": 1778309693638,
-                                "notificationType": "users_following_you"
-                            }
-                        ],
-                        "isUnread": false,
-                        "occurredAt": 1778310228353,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-users_email_subscribed--5f00a04ec92c",
-                        "notificationType": "users_email_subscribed",
-                        "post": null,
-                        "quote": null,
-                        "actor": {
-                            "id": "5f00a04ec92c",
-                            "name": "Giovanni Di Guardo",
-                            "membership": {
-                                "tier": "MEMBER",
-                                "__typename": "Membership",
-                                "id": "37e9acff-5530-43f4-bbde-52a4a0a90ef2"
-                            },
-                            "imageId": "0*N0KIs4GX22R6jS-F.",
-                            "username": "giovannidiguardo",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [
-                            {
-                                "actor": {
-                                    "id": "5f00a04ec92c",
-                                    "__typename": "User",
-                                    "name": "Giovanni Di Guardo",
-                                    "membership": {
-                                        "tier": "MEMBER",
-                                        "__typename": "Membership",
-                                        "id": "37e9acff-5530-43f4-bbde-52a4a0a90ef2"
-                                    },
-                                    "imageId": "0*N0KIs4GX22R6jS-F.",
-                                    "username": "giovannidiguardo",
-                                    "customDomainState": null,
-                                    "hasSubdomain": false,
-                                    "verifications": {
-                                        "isBookAuthor": false,
-                                        "__typename": "VerifiedInfo"
-                                    },
-                                    "bio": "",
-                                    "mediumMemberAt": 1777631604210,
-                                    "newsletterV3": null
-                                },
-                                "__typename": "Notification",
-                                "post": null,
-                                "responsePost": null,
-                                "rollupItems": [],
-                                "isUnread": false,
-                                "occurredAt": 1778310228309,
-                                "notificationType": "users_email_subscribed"
-                            },
-                            {
-                                "actor": {
-                                    "id": "c449118ded03",
-                                    "__typename": "User",
-                                    "name": "Vladimir Marinkovic",
-                                    "membership": {
-                                        "tier": "MEMBER",
-                                        "__typename": "Membership",
-                                        "id": "e643542d-8d6a-4740-81a2-a260d6e47739"
-                                    },
-                                    "imageId": "0*Ra-eoqsgTyuWHEmE",
-                                    "username": "vladimir.marinkovic89",
-                                    "customDomainState": null,
-                                    "hasSubdomain": false,
-                                    "verifications": {
-                                        "isBookAuthor": false,
-                                        "__typename": "VerifiedInfo"
-                                    },
-                                    "bio": "",
-                                    "mediumMemberAt": 1732058680141,
-                                    "newsletterV3": null
-                                },
-                                "__typename": "Notification",
-                                "post": null,
-                                "responsePost": null,
-                                "rollupItems": [],
-                                "isUnread": false,
-                                "occurredAt": 1778309693622,
-                                "notificationType": "users_email_subscribed"
-                            }
-                        ],
-                        "isUnread": false,
-                        "occurredAt": 1778310228309,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_recommended-41cc12760d67-78d658ed2c7",
-                        "notificationType": "post_recommended",
-                        "post": {
-                            "id": "41cc12760d67",
-                            "mediumUrl": "https://mvineetsharma.medium.com/real-time-push-without-the-headache-server-sent-events-sse-in-net-10-vehixcare-platform-41cc12760d67",
-                            "title": "Real-Time Push Without the Headache: Server-Sent Events (SSE) in .NET 10 - Vehixcare Platform",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "real-time-push-without-the-headache-server-sent-events-sse-in-net-10-vehixcare-platform-41cc12760d67"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "78d658ed2c7",
-                            "name": "王朝松",
-                            "membership": {
-                                "tier": "MEMBER",
-                                "__typename": "Membership",
-                                "id": "d23cf0976185"
-                            },
-                            "imageId": "0*dL5bubbYN-GtjCDI",
-                            "username": "Auiokm",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778305712374,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_added_to_catalog-30dd7aa4eba0-3a6ad144c135",
-                        "notificationType": "post_added_to_catalog",
-                        "post": {
-                            "id": "30dd7aa4eba0",
-                            "mediumUrl": "https://mvineetsharma.medium.com/ai-fluency-50-terms-you-actually-need-30dd7aa4eba0",
-                            "title": "AI Fluency: 50 Terms You Actually Need",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "ai-fluency-50-terms-you-actually-need-30dd7aa4eba0"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "bb4c280a214a",
-                            "name": "Francisco de Jesús Orozco Ruiz",
-                            "membership": {
-                                "tier": "MEMBER",
-                                "__typename": "Membership",
-                                "id": "3596e144-d6b1-4635-ae25-b40bf138b8df"
-                            },
-                            "imageId": "1*e_RxJ-HU9QM6vjt0bRN6Tw.png",
-                            "username": "fjor_5979",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778282727329,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": {
-                            "id": "3a6ad144c135",
-                            "name": "To read",
-                            "predefined": null,
-                            "creator": {
-                                "id": "bb4c280a214a",
-                                "username": "fjor_5979",
-                                "__typename": "User",
-                                "customDomainState": null,
-                                "hasSubdomain": false
-                            },
-                            "__typename": "Catalog"
-                        },
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_added_to_catalog-3fa6595a5063-648b82deff98",
-                        "notificationType": "post_added_to_catalog",
-                        "post": {
-                            "id": "3fa6595a5063",
-                            "mediumUrl": "https://mvineetsharma.medium.com/dev-setup-real-time-ui-on-android-ios-with-signalr-spotify-clone-with-flutter-and-net-10-3fa6595a5063",
-                            "title": "Dev Setup: Real-time UI on Android + iOS with SignalR - Spotify Clone With Flutter And .NET 10",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "dev-setup-real-time-ui-on-android-ios-with-signalr-spotify-clone-with-flutter-and-net-10-3fa6595a5063"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "b28951e3d307",
-                            "name": "Kadir İlhan",
-                            "membership": {
-                                "tier": "MEMBER",
-                                "__typename": "Membership",
-                                "id": "e994fecfef18"
-                            },
-                            "imageId": "0*-ar4-L4L8oAq2zBU",
-                            "username": "kadirilhan61",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778279004675,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": {
-                            "id": "648b82deff98",
-                            "name": "Flutter",
-                            "predefined": null,
-                            "creator": {
-                                "id": "b28951e3d307",
-                                "username": "kadirilhan61",
-                                "__typename": "User",
-                                "customDomainState": null,
-                                "hasSubdomain": false
-                            },
-                            "__typename": "Catalog"
-                        },
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_recommended-cc505a08441b-49c5200dbc2",
-                        "notificationType": "post_recommended",
-                        "post": {
-                            "id": "cc505a08441b",
-                            "mediumUrl": "https://mvineetsharma.medium.com/spotify-clone-with-flutter-and-net-10-4-parts-series-cc505a08441b",
-                            "title": "Spotify Clone With Flutter And .NET 10 - 4 Parts Series",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "spotify-clone-with-flutter-and-net-10-4-parts-series-cc505a08441b"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "49c5200dbc2",
-                            "name": "Ronaldo Araujo",
-                            "membership": null,
-                            "imageId": "1*lLjWq-H4uc_-42L_nGKFMQ.jpeg",
-                            "username": "ronaldo.as",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778275204133,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_recommended-dced71a68a52-49c5200dbc2",
-                        "notificationType": "post_recommended",
-                        "post": {
-                            "id": "dced71a68a52",
-                            "mediumUrl": "https://mvineetsharma.medium.com/clean-architecture-anti-pattern-exception-a-net-developers-guide-part-1-dced71a68a52",
-                            "title": "Clean Architecture Anti-Pattern -  Exception: A .NET Developer’s Guide - Part 1",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "clean-architecture-anti-pattern-exception-a-net-developers-guide-part-1-dced71a68a52"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "49c5200dbc2",
-                            "name": "Ronaldo Araujo",
-                            "membership": null,
-                            "imageId": "1*lLjWq-H4uc_-42L_nGKFMQ.jpeg",
-                            "username": "ronaldo.as",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778270373212,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_recommended-a1f6ea3a0916-49c5200dbc2",
-                        "notificationType": "post_recommended",
-                        "post": {
-                            "id": "a1f6ea3a0916",
-                            "mediumUrl": "https://mvineetsharma.medium.com/file-based-apps-run-single-cs-file-fast-prototyping-c-14-net-10-part-2-a1f6ea3a0916",
-                            "title": "File-Based Apps: Run Single CS File, Fast Prototyping - C# 14 & .NET 10 Upgrade Journey - 2",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "file-based-apps-run-single-cs-file-fast-prototyping-c-14-net-10-part-2-a1f6ea3a0916"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "49c5200dbc2",
-                            "name": "Ronaldo Araujo",
-                            "membership": null,
-                            "imageId": "1*lLjWq-H4uc_-42L_nGKFMQ.jpeg",
-                            "username": "ronaldo.as",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778269648845,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_recommended-68ec3e58c0d8-49c5200dbc2",
-                        "notificationType": "post_recommended",
-                        "post": {
-                            "id": "68ec3e58c0d8",
-                            "mediumUrl": "https://mvineetsharma.medium.com/20-tiers-150-checks-net-code-review-mastery-series-68ec3e58c0d8",
-                            "title": "20 Tiers 150+ Checks — .NET Code Review Mastery Series",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "20-tiers-150-checks-net-code-review-mastery-series-68ec3e58c0d8"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "49c5200dbc2",
-                            "name": "Ronaldo Araujo",
-                            "membership": null,
-                            "imageId": "1*lLjWq-H4uc_-42L_nGKFMQ.jpeg",
-                            "username": "ronaldo.as",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778266632063,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_recommended-884985da94f7-415c5810e75a",
-                        "notificationType": "post_recommended",
-                        "post": {
-                            "id": "884985da94f7",
-                            "mediumUrl": "https://mvineetsharma.medium.com/design-patterns-part-1-redefining-design-patterns-884985da94f7",
-                            "title": "Design Patterns: Part 1 — Redefining Design Patterns",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "design-patterns-part-1-redefining-design-patterns-884985da94f7"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "415c5810e75a",
-                            "name": "Erik de la cerda andrade",
-                            "membership": {
-                                "tier": "MEMBER",
-                                "__typename": "Membership",
-                                "id": "a736a789-a498-4d12-afb8-230e4f650f48"
-                            },
-                            "imageId": "0*mmr1TpvKmSdyhMoU.jpg",
-                            "username": "erik24.03",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778257427617,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_recommended-756e388c730b-49c5200dbc2",
-                        "notificationType": "post_recommended",
-                        "post": {
-                            "id": "756e388c730b",
-                            "mediumUrl": "https://mvineetsharma.medium.com/architecture-core-building-blocks-living-cluster-nodes-pods-control-plane-k8s-unlocked-756e388c730b",
-                            "title": "Architecture & Core Building Blocks: Living Cluster - Nodes, Pods & Control Plane - K8s Unlocked",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "architecture-core-building-blocks-living-cluster-nodes-pods-control-plane-k8s-unlocked-756e388c730b"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "49c5200dbc2",
-                            "name": "Ronaldo Araujo",
-                            "membership": null,
-                            "imageId": "1*lLjWq-H4uc_-42L_nGKFMQ.jpeg",
-                            "username": "ronaldo.as",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778252495382,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_added_to_catalog-16ed6be3b9ca-a3fe7a4f4016",
-                        "notificationType": "post_added_to_catalog",
-                        "post": {
-                            "id": "16ed6be3b9ca",
-                            "mediumUrl": "https://mvineetsharma.medium.com/docker-podman-and-kubernetes-from-containers-to-cloud-native-reality-16ed6be3b9ca",
-                            "title": "Docker, Podman, and Kubernetes: From Containers to Cloud-Native Reality",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "docker-podman-and-kubernetes-from-containers-to-cloud-native-reality-16ed6be3b9ca"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "5c41a3fc719b",
-                            "name": "Ridwangsn",
-                            "membership": {
-                                "tier": "MEMBER",
-                                "__typename": "Membership",
-                                "id": "a22db6275d4d"
-                            },
-                            "imageId": "0*eSY-f4KgSsYV9KJp",
-                            "username": "ridwangsn",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778241051223,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": {
-                            "id": "a3fe7a4f4016",
-                            "name": "MUST",
-                            "predefined": null,
-                            "creator": {
-                                "id": "5c41a3fc719b",
-                                "username": "ridwangsn",
-                                "__typename": "User",
-                                "customDomainState": null,
-                                "hasSubdomain": false
-                            },
-                            "__typename": "Catalog"
-                        },
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_recommended-429025331eee-49c5200dbc2",
-                        "notificationType": "post_recommended",
-                        "post": {
-                            "id": "429025331eee",
-                            "mediumUrl": "https://mvineetsharma.medium.com/angular-components-modules-dependency-injection-templates-pipes-directives-evolution-429025331eee",
-                            "title": "Angular Components, Modules, Dependency Injection, Templates, Pipes, Directives - Evolution",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "angular-components-modules-dependency-injection-templates-pipes-directives-evolution-429025331eee"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "49c5200dbc2",
-                            "name": "Ronaldo Araujo",
-                            "membership": null,
-                            "imageId": "1*lLjWq-H4uc_-42L_nGKFMQ.jpeg",
-                            "username": "ronaldo.as",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778240848235,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-post_recommended-0ed3462c2cf9-b3293c306089",
-                        "notificationType": "post_recommended",
-                        "post": {
-                            "id": "0ed3462c2cf9",
-                            "mediumUrl": "https://mvineetsharma.medium.com/solid-principles-building-spotifys-unshakable-foundation-0ed3462c2cf9",
-                            "title": "SOLID Principles: Building Spotify’s Unshakable Foundation",
-                            "visibility": "LOCKED",
-                            "__typename": "Post",
-                            "creator": {
-                                "__typename": "User",
-                                "id": "6a63927f9b83",
-                                "customDomainState": {
-                                    "live": {
-                                        "domain": "mvineetsharma.medium.com",
-                                        "__typename": "CustomDomain"
-                                    },
-                                    "__typename": "CustomDomainState"
-                                },
-                                "hasSubdomain": true,
-                                "username": "mvineetsharma"
-                            },
-                            "collection": null,
-                            "isSeries": false,
-                            "sequence": null,
-                            "uniqueSlug": "solid-principles-building-spotifys-unshakable-foundation-0ed3462c2cf9"
-                        },
-                        "quote": null,
-                        "actor": {
-                            "id": "b3293c306089",
-                            "name": "Zahid Tanveer",
-                            "membership": {
-                                "tier": "MEMBER",
-                                "__typename": "Membership",
-                                "id": "57547c4b2b92"
-                            },
-                            "imageId": "1*HK-bIx7Zaxxwm64qno3f9A.png",
-                            "username": "zahid_tanveer",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778237648023,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-users_following_you-8a3b41041fda",
-                        "notificationType": "users_following_you_rollup",
-                        "post": null,
-                        "quote": null,
-                        "actor": {
-                            "id": "8a3b41041fda",
-                            "name": "Manoj Kumar Sharma",
-                            "membership": null,
-                            "imageId": "",
-                            "username": "mcitp.ms09",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [
-                            {
-                                "actor": {
-                                    "id": "8a3b41041fda",
-                                    "__typename": "User",
-                                    "name": "Manoj Kumar Sharma",
-                                    "membership": null,
-                                    "imageId": "",
-                                    "username": "mcitp.ms09",
-                                    "customDomainState": null,
-                                    "hasSubdomain": false,
-                                    "verifications": {
-                                        "isBookAuthor": false,
-                                        "__typename": "VerifiedInfo"
-                                    },
-                                    "bio": "",
-                                    "mediumMemberAt": 0,
-                                    "newsletterV3": null
-                                },
-                                "__typename": "Notification",
-                                "post": null,
-                                "responsePost": null,
-                                "rollupItems": [],
-                                "isUnread": false,
-                                "occurredAt": 1778217854243,
-                                "notificationType": "users_following_you"
-                            },
-                            {
-                                "actor": {
-                                    "id": "6f9a52ff57de",
-                                    "__typename": "User",
-                                    "name": "hafid nurfirmansyah",
-                                    "membership": null,
-                                    "imageId": "0*IHFRPzpPyxWKSDaX",
-                                    "username": "hafidnurfirmansyah10",
-                                    "customDomainState": null,
-                                    "hasSubdomain": false,
-                                    "verifications": {
-                                        "isBookAuthor": false,
-                                        "__typename": "VerifiedInfo"
-                                    },
-                                    "bio": "",
-                                    "mediumMemberAt": 0,
-                                    "newsletterV3": {
-                                        "id": "79b12de4255a",
-                                        "type": "NEWSLETTER_TYPE_AUTHOR",
-                                        "slug": "6f9a52ff57de",
-                                        "name": "6f9a52ff57de",
-                                        "collection": null,
-                                        "user": {
-                                            "id": "6f9a52ff57de",
-                                            "name": "hafid nurfirmansyah",
-                                            "username": "hafidnurfirmansyah10",
-                                            "newsletterV3": {
-                                                "id": "79b12de4255a",
-                                                "__typename": "NewsletterV3"
-                                            },
-                                            "__typename": "User"
-                                        },
-                                        "__typename": "NewsletterV3"
-                                    }
-                                },
-                                "__typename": "Notification",
-                                "post": null,
-                                "responsePost": null,
-                                "rollupItems": [],
-                                "isUnread": false,
-                                "occurredAt": 1778212629384,
-                                "notificationType": "users_following_you"
-                            }
-                        ],
-                        "isUnread": false,
-                        "occurredAt": 1778217854243,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    },
-                    {
-                        "__typename": "Notification",
-                        "notificationName": "6a63927f9b83-users_email_subscribed--8a3b41041fda",
-                        "notificationType": "users_email_subscribed",
-                        "post": null,
-                        "quote": null,
-                        "actor": {
-                            "id": "8a3b41041fda",
-                            "name": "Manoj Kumar Sharma",
-                            "membership": null,
-                            "imageId": "",
-                            "username": "mcitp.ms09",
-                            "__typename": "User",
-                            "customDomainState": null,
-                            "hasSubdomain": false,
-                            "verifications": {
-                                "isBookAuthor": false,
-                                "__typename": "VerifiedInfo"
-                            }
-                        },
-                        "rollupItems": [],
-                        "isUnread": false,
-                        "occurredAt": 1778217854215,
-                        "responsePost": null,
-                        "milestoneArg": 0,
-                        "catalog": null,
-                        "collection": null,
-                        "note": null,
-                        "noteReply": null
-                    }
-                ],
-                "pagingInfo": {
-                    "next": {
-                        "limit": 25,
-                        "page": null,
-                        "source": null,
-                        "to": "1778212629383",
-                        "__typename": "PageParams"
-                    },
-                    "__typename": "Paging"
-                },
-                "__typename": "NotificationsConnection"
-            }
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-e6802da51de0-49c5200dbc2",
+      "post": {
+        "id": "e6802da51de0",
+        "mediumUrl": "https://mvineetsharma.medium.com/mongodb-documents-crud-operations-evolution-e6802da51de0",
+        "title": "MongoDB Documents, CRUD Operations - Evolution",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "49c5200dbc2",
+        "name": "Ronaldo Araujo",
+        "membership": null,
+        "imageId": "1*lLjWq-H4uc_-42L_nGKFMQ.jpeg",
+        "username": "ronaldo.as",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
         }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778786036549,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-5d71dc102c9a-49c5200dbc2",
+      "post": {
+        "id": "5d71dc102c9a",
+        "mediumUrl": "https://mvineetsharma.medium.com/net-sdk-native-container-publishing-deep-dive-the-complete-reference-5d71dc102c9a",
+        "title": ".NET SDK Native Container Publishing Deep Dive: The Complete Reference",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "49c5200dbc2",
+        "name": "Ronaldo Araujo",
+        "membership": null,
+        "imageId": "1*lLjWq-H4uc_-42L_nGKFMQ.jpeg",
+        "username": "ronaldo.as",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778784996558,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-bbb3508102be-d5e8dbe09033",
+      "post": {
+        "id": "bbb3508102be",
+        "mediumUrl": "https://mvineetsharma.medium.com/from-rest-to-grpc-architecting-high-performance-apis-in-python-bbb3508102be",
+        "title": "From REST to gRPC: Architecting High-Performance APIs in Python",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "d5e8dbe09033",
+        "name": "Rupak",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "9f2aee768fcc"
+        },
+        "imageId": "0*dyyeKRzP5SirssoK.jpg",
+        "username": "rupakphy",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778781419972,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-346dd1ccfb14",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "346dd1ccfb14",
+        "name": "Ms",
+        "membership": null,
+        "imageId": "0*wpJGC1BrSQK-AduN",
+        "username": "mskumarmdu1",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "346dd1ccfb14",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "ee56fdfc2304",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": false,
+      "occurredAt": 1778773813923,
+      "notificationType": "users_following_you_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--346dd1ccfb14",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "346dd1ccfb14",
+        "name": "Ms",
+        "membership": null,
+        "imageId": "0*wpJGC1BrSQK-AduN",
+        "username": "mskumarmdu1",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "346dd1ccfb14",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "ee56fdfc2304",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": false,
+      "occurredAt": 1778773813911,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-7e9a43d16f8e",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "db4c2f9c4a0",
+        "name": "Rajesh Chikkala",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "1407059e2531"
+        },
+        "imageId": "0*K7phzhT48SKkcOu0",
+        "username": "rajeshd.chikkala",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778757750591,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-7d82ab9d6b49",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "db4c2f9c4a0",
+        "name": "Rajesh Chikkala",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "1407059e2531"
+        },
+        "imageId": "0*K7phzhT48SKkcOu0",
+        "username": "rajeshd.chikkala",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778757690902,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-dae4c1ca6bde-d59334842b5e",
+      "post": {
+        "id": "dae4c1ca6bde",
+        "mediumUrl": "https://mvineetsharma.medium.com/angular-lifecycle-hooks-and-change-detection-evolution-dae4c1ca6bde",
+        "title": "Angular Lifecycle Hooks and Change Detection - Evolution",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "ab62900a04f6",
+        "name": "Francisco Barbosa",
+        "membership": null,
+        "imageId": "0*mgtBuDSUpEN21c_y",
+        "username": "fcobarbosa2007",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778746521563,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-98ff68541286",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "e9d11cd93572",
+        "name": "Danuphan Suwanwong",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "e73c6b8f-24e6-4858-8450-bd9a014ea021"
+        },
+        "imageId": "0*3sDRB4Qyi4KlL8XC.jpg",
+        "username": "bossmeej",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778731705743,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-a5729bc7c74c-7084e4764851",
+      "post": {
+        "id": "a5729bc7c74c",
+        "mediumUrl": "https://mvineetsharma.medium.com/publishing-net-10-apps-as-container-images-a-complete-guide-to-9-deployment-approaches-azure-a5729bc7c74c",
+        "title": "Publishing .NET 10 Apps as Container Images: A Complete Guide to 9 Deployment Approaches — Azure",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "7084e4764851",
+        "name": "Programador Jg",
+        "membership": null,
+        "imageId": "0*7EIcf8BPWs7H7xNI",
+        "username": "programador.jg_1205",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778698018095,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-f053bdadd99e-691759d69e1b",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "691759d69e1b",
+        "name": "Luckhits",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "1972fa968554"
+        },
+        "imageId": "0*wyvf49i_8funzEEN",
+        "username": "luckhits23.79",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778675080125,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-f376c073a1c8",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "f376c073a1c8",
+        "name": "Srikanth N",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "0891a3c5-5451-4da0-895c-8919255ed2a4"
+        },
+        "imageId": "0*LsIfU2y6cIo5CET2",
+        "username": "srikanth.n24007",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "f376c073a1c8",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "938c7badf654",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "3af0557068c",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": false,
+      "occurredAt": 1778634970791,
+      "notificationType": "users_following_you_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--f376c073a1c8",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "f376c073a1c8",
+        "name": "Srikanth N",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "0891a3c5-5451-4da0-895c-8919255ed2a4"
+        },
+        "imageId": "0*LsIfU2y6cIo5CET2",
+        "username": "srikanth.n24007",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "f376c073a1c8",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "3af0557068c",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": false,
+      "occurredAt": 1778634970759,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-fa2d24a3e2e4",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "fa2d24a3e2e4",
+        "name": "Naresh Tirunagari",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "9f48985f-b098-4074-9383-1c6ba9770dca"
+        },
+        "imageId": "0*1Ex2Zh_Ots55_AmR",
+        "username": "kumarbabu11378",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778619775991,
+      "notificationType": "users_following_you",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--fa2d24a3e2e4",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "fa2d24a3e2e4",
+        "name": "Naresh Tirunagari",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "9f48985f-b098-4074-9383-1c6ba9770dca"
+        },
+        "imageId": "0*1Ex2Zh_Ots55_AmR",
+        "username": "kumarbabu11378",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778619775953,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-6c749a897302-fa2d24a3e2e4",
+      "post": {
+        "id": "6c749a897302",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-reliability-ordering-deep-dive-6c749a897302",
+        "title": "11 Kafka Design Patterns - Reliability & Ordering Deep Dive",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "fa2d24a3e2e4",
+        "name": "Naresh Tirunagari",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "9f48985f-b098-4074-9383-1c6ba9770dca"
+        },
+        "imageId": "0*1Ex2Zh_Ots55_AmR",
+        "username": "kumarbabu11378",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778619773023,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-e6802da51de0-d59334842b5e",
+      "post": {
+        "id": "e6802da51de0",
+        "mediumUrl": "https://mvineetsharma.medium.com/mongodb-documents-crud-operations-evolution-e6802da51de0",
+        "title": "MongoDB Documents, CRUD Operations - Evolution",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "ab62900a04f6",
+        "name": "Francisco Barbosa",
+        "membership": null,
+        "imageId": "0*mgtBuDSUpEN21c_y",
+        "username": "fcobarbosa2007",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778604944729,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-e4f3080f4e6e-8147b56c0598",
+      "post": {
+        "id": "e4f3080f4e6e",
+        "mediumUrl": "https://mvineetsharma.medium.com/sql-performance-tips-every-data-analyst-should-know-e4f3080f4e6e",
+        "title": "SQL Performance Tips — Every Data Analyst Should Know",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "e50a50165b40",
+        "name": "Ahlia Demas Jimenez",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "dd47e2b9707c"
+        },
+        "imageId": "1*UVUav_9AJaTGWJgdrlfTyw.jpeg",
+        "username": "ahhlia",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778604272712,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-b0562c2f51f4-49c5200dbc2",
+      "post": {
+        "id": "b0562c2f51f4",
+        "mediumUrl": "https://mvineetsharma.medium.com/api-security-arsenal-real-time-threat-detection-with-apigee-salt-and-cloudflare-b0562c2f51f4",
+        "title": "API Security Arsenal: Real-Time Threat Detection with Apigee, Salt, and Cloudflare",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "49c5200dbc2",
+        "name": "Ronaldo Araujo",
+        "membership": null,
+        "imageId": "1*lLjWq-H4uc_-42L_nGKFMQ.jpeg",
+        "username": "ronaldo.as",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778601133304,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-205e76c6130d-49c5200dbc2",
+      "post": {
+        "id": "205e76c6130d",
+        "mediumUrl": "https://mvineetsharma.medium.com/10x-your-architecture-game-with-ai-prompt-engineer-the-tech-stack-decisions-205e76c6130d",
+        "title": "10x Your Architecture Game With AI: Prompt Engineer The Tech Stack Decisions",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "49c5200dbc2",
+        "name": "Ronaldo Araujo",
+        "membership": null,
+        "imageId": "1*lLjWq-H4uc_-42L_nGKFMQ.jpeg",
+        "username": "ronaldo.as",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1778600636636,
+      "notificationType": "post_recommended",
+      "responsePost": null
     }
-]
+  ]
+}

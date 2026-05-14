@@ -128,6 +128,10 @@ async def calendar_page(request: Request):
     """Publishing calendar page"""
     return templates.TemplateResponse("calendar.html", {"request": request})
 
+@app.get("/notifications", response_class=HTMLResponse)
+async def notifications_page(request: Request):
+    """Notifications page"""
+    return templates.TemplateResponse("notifications.html", {"request": request})
 
 @app.get("/settings", response_class=HTMLResponse)
 async def settings_page(request: Request):

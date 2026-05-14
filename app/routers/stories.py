@@ -1843,6 +1843,47 @@ async def get_monthly_stats_by_period(period: str):
     
     result = await StoryService.fetch_monthly_stats(period)
     return result
+
+
+"""
+GET /api/stories/notification
+Description: Get all notifications from notifications.json
+
+curl -X GET "http://localhost:8000/api/stories/notification" | jq '.'
+"""
+@router.get("/notification")
+async def get_notifications():
+    """Get all notifications from local storage"""
+    try:
+        result = await StoryService.get_notifications()
+        return result
+    except Exception as e:
+        logger.error(f"Error getting notifications: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+"""
+GET /api/stories/notification_medium
+Description: Fetch latest notifications from Medium API, save new ones, return new notifications
+
+curl -X GET "http://localhost:8000/api/stories/notification_medium" | jq '.'
+"""
+@router.get("/notification_medium")
+async def get_medium_notifications(limit: int = 25):
+    """
+    Fetch latest notifications from Medium API.
+    Saves only new notifications (by notificationName) to notifications.json.
+    Returns the newly added notifications.
+    
+    Args:
+        limit: Number of notifications to fetch (default 25)
+    """
+    try:
+        result = await StoryService.fetch_and_save_notifications(limit=limit)
+        return result
+    except Exception as e:
+        logger.error(f"Error fetching medium notifications: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 # ============================================
 # BUILD EXPORT ENDPOINT - Save diagrams and tables as PNG
 # ============================================

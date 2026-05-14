@@ -1,0 +1,126 @@
+/* Notifications Page Styles */
+
+.notification-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.notification-avatar-placeholder {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e9ecef;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.notification-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification-name-link {
+    font-weight: 500;
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+.notification-name-link:hover {
+    color: #0d6efd;
+    text-decoration: underline;
+}
+
+/* Action text styling */
+.notifications-page strong {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.notifications-page strong i {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Member and Non-Member badges */
+.member-badge {
+    background: #007bff;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    display: inline-block;
+}
+
+.non-member-badge {
+    background: #6c757d;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    display: inline-block;
+}
+
+.author-badge {
+    color: #fd7e14;
+    font-size: 1rem;
+}
+
+.story-link {
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.story-link:hover {
+    color: #0d6efd;
+    text-decoration: underline;
+}
+
+.story-empty {
+    color: #adb5bd;
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.sortable:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.sortable i {
+    margin-left: 5px;
+    font-size: 0.7rem;
+    opacity: 0.5;
+}
+
+.sortable.active i {
+    opacity: 1;
+}
+
+.btn-loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .notification-avatar,
+    .notification-avatar-placeholder {
+        width: 28px;
+        height: 28px;
+    }
+    .notification-name-link {
+        font-size: 0.8rem;
+    }
+}

@@ -699,6 +699,256 @@ class MediumAPIService:
         
         return result
 
+    def fetch_notifications(self, limit: int = 25, to_timestamp: str = None) -> Optional[Dict[str, Any]]:
+        """
+        Fetch notifications from Medium GraphQL API.
+        
+        Args:
+            limit: Number of notifications to fetch (default 25)
+            to_timestamp: Timestamp for pagination (optional)
+        
+        Returns:
+            Raw notification data from Medium API
+        """
+        if not self.is_authenticated():
+            logger.warning("Not authenticated. Cannot fetch notifications.")
+            return None
+        
+        # Build paging options
+        paging_options = {
+            "limit": limit,
+            "page": None,
+            "source": None
+        }
+        
+        if to_timestamp:
+            paging_options["to"] = to_timestamp
+        
+        # GraphQL query for notifications
+        query = """query NotificationsQuery($pagingOptions: PagingOptions, $activityTypes: [String!]) {
+    notificationsConnectionByActivityTypes(
+        paging: $pagingOptions
+        activityTypes: $activityTypes
+    ) {
+        notifications {
+        __typename
+        notificationName
+        ...NotificationsList_notification
+        }
+        pagingInfo {
+        next {
+            limit
+            page
+            source
+            to
+            __typename
+        }
+        __typename
+        }
+        __typename
+    }
+    }
+
+    fragment NotificationsList_notification on Notification {
+    __typename
+    ...NotificationQuote_notification
+    ...NotificationResponseDialog_notification
+    ...NotificationResponseCreated_notification
+    ...ActorNotificationLayout_notification
+    }
+
+    fragment NotificationPostTitle_post on Post {
+    id
+    title
+    __typename
+    }
+
+    fragment UserAvatar_user on User {
+    id
+    imageId
+    name
+    username
+    __typename
+    }
+
+    fragment UserAvatarWithBadge_user on User {
+    membership {
+        tier
+        __typename
+        id
+    }
+    ...UserAvatar_user
+    __typename
+    id
+    }
+
+    fragment userUrl_user on User {
+    __typename
+    id
+    customDomainState {
+        live {
+        domain
+        __typename
+        }
+        __typename
+    }
+    hasSubdomain
+    username
+    }
+
+    fragment UserAvatarLinkContainer_user on User {
+    ...userUrl_user
+    __typename
+    id
+    }
+
+    fragment UserAvatarWithBadgeAndLink_user on User {
+    ...UserAvatarWithBadge_user
+    ...UserAvatarLinkContainer_user
+    __typename
+    id
+    }
+
+    fragment isUserVerifiedBookAuthor_user on User {
+    verifications {
+        isBookAuthor
+        __typename
+    }
+    __typename
+    id
+    }
+
+    fragment ActorNotificationLayout_user on User {
+    id
+    name
+    ...UserAvatarWithBadgeAndLink_user
+    ...isUserVerifiedBookAuthor_user
+    ...userUrl_user
+    __typename
+    }
+
+    fragment ActorNotificationLayout_notification on Notification {
+    actor {
+        ...ActorNotificationLayout_user
+        __typename
+        id
+    }
+    rollupItems {
+        actor {
+        id
+        __typename
+        }
+        __typename
+    }
+    isUnread
+    occurredAt
+    notificationType
+    __typename
+    }
+
+    fragment NotificationQuote_notification on Notification {
+    post {
+        id
+        mediumUrl
+        title
+        visibility
+        ...NotificationPostTitle_post
+        __typename
+    }
+    quote {
+        id
+        startOffset
+        endOffset
+        paragraphs {
+        text
+        type
+        __typename
+        }
+        __typename
+    }
+    ...ActorNotificationLayout_notification
+    __typename
+    }
+
+    fragment NotificationResponseDetails_post on Post {
+    content {
+        bodyModel {
+        paragraphs {
+            text
+            __typename
+        }
+        __typename
+        }
+        __typename
+    }
+    __typename
+    id
+    }
+
+    fragment NotificationResponseDialog_notification on Notification {
+    post {
+        id
+        __typename
+    }
+    responsePost {
+        id
+        ...NotificationResponseDetails_post
+        __typename
+    }
+    ...ActorNotificationLayout_notification
+    __typename
+    }
+
+    fragment NotificationResponseCreated_notification on Notification {
+    post {
+        id
+        ...NotificationPostTitle_post
+        __typename
+    }
+    responsePost {
+        id
+        __typename
+    }
+    ...ActorNotificationLayout_notification
+    __typename
+    }"""
+        
+        variables = {
+            "pagingOptions": paging_options,
+            "activityTypes": None
+        }
+        
+        payload = self._build_graphql_request(
+            "NotificationsQuery",
+            variables,
+            query,
+            "notifications",
+            "notifications"
+        )
+        headers = self._get_common_headers(None, "NotificationsQuery")
+        
+        import time
+        time.sleep(0.5)
+        response = self._make_request(self.GRAPHQL_URL, headers, payload, "Fetch Notifications")
+        
+        if not response:
+            return None
+        
+        # Parse response
+        result = {
+            "notifications": [],
+            "pagingInfo": None
+        }
+        
+        if isinstance(response, list) and len(response) > 0:
+            data_obj = response[0].get('data', {})
+            notifications_connection = data_obj.get('notificationsConnectionByActivityTypes', {})
+            
+            result["notifications"] = notifications_connection.get('notifications', [])
+            result["pagingInfo"] = notifications_connection.get('pagingInfo', {})
+        
+        return result
+
     def _parse_direct_from_response(self, response: Any, post_id: str, period: str) -> Optional[Dict[str, Any]]:
         """Parse response directly from the list structure."""
         

@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-05-14T23:45:02.283096",
+  "last_updated": "2026-05-15T01:24:17.811853",
   "stories": {
     "SOLID Principles/SOLID Principles: Part 2 - Single Responsibility Principle": {
       "uniqueSlug": "solid-principles-part-2---single-responsibility-principle",
@@ -27909,8 +27909,8 @@
     },
     "Medium": {
       "name": "Medium",
-      "total_stories": 64,
-      "published": 64,
+      "total_stories": 57,
+      "published": 57,
       "spacing_days": 7,
       "stories": [
         "Medium Import/zero-to-production-net-in-2026-35-lessons-on-how-to-master-the-stack-with-net-10-and-azure",

@@ -1614,6 +1614,7 @@ async function loadView(view) {
         else if (view === 'series') await loadSeries();
         else if (view === 'calendar') await loadCalendar();
         else if (view === 'settings') await loadSettings();
+        else if (view === 'notifications') {await loadNotificationsPage();}
     } catch (error) { document.getElementById('content').innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`; }
     finally { document.getElementById('loading').style.display = 'none'; }
 }
@@ -1831,6 +1832,41 @@ document.querySelectorAll('.sidebar .nav-item').forEach(link => {
     });
 });
 
+// Add the loadNotificationsPage function
+async function loadNotificationsPage() {
+    const content = document.getElementById('content');
+    if (!content) return;
+    
+    try {
+        const response = await fetch('/static/templates/notifications.html');
+        const html = await response.text();
+        content.innerHTML = html;
+        
+        // Load CSS if not already loaded
+        if (!document.querySelector('link[href="/static/css/notifications.css"]')) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = '/static/css/notifications.css';
+            document.head.appendChild(link);
+        }
+        
+        // Load JS if not already loaded
+        if (!document.querySelector('script[src="/static/js/notifications.js"]')) {
+            const script = document.createElement('script');
+            script.src = '/static/js/notifications.js';
+            document.body.appendChild(script);
+        } else {
+            // Re-initialize if already loaded
+            if (window.initNotificationsPage) {
+                setTimeout(() => window.initNotificationsPage(), 100);
+            }
+        }
+        
+    } catch (error) {
+        console.error('Error loading notifications page:', error);
+        content.innerHTML = `<div class="alert alert-danger">Error loading notifications page: ${error.message}</div>`;
+    }
+}
 
 // Make functions globally available
 window.loadView = loadView;

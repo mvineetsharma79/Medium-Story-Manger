@@ -11,9 +11,27 @@ a. '/notification_medium' must fecth data from fetch_notification in medium_api_
 4. Th endpint '/notification_medium'
 a. '/notification' must read all notifications.json via '/notification' method in story_service.py and send to client
 
+# Prompt for UI
 
-# Ecplain implementation details and understanding. No code
+Now create a new page 'notification' separate  HTML and JS, add it to sidebar. It should have 
+1. story-stats-widget at top
+2. Notification table with column sorting having following fields with Mapping using /notification endpoint, deffault sort Date most recent first
 
+a. Name - actor.name Link to "https://medium.com/@" + actor.username in new tab, image "https://miro.medium.com/v2/resize:fill:36:36/"+ actor.imageId
+b. Date - occurredAt
+c. Action - notificationType (users_following_you_rollup and users_following_you= "Follow", post_added_to_catalog = "Added To List", post_recommended = "Clap", users_email_subscribed= "Subscribed")
+d. Story - post.title with link post.mediumUrl open in new tab
+e. Member - membership.member =Member else "Non Member"
+f Auther - verifications.isBookAuthor
+3. "Refresh" Notification button to call /notification_medium" and reload the notification list
+# Explain implementation details and understanding with exact Response mapping. No code
+
+
+1. Add 'date' as optional to @router.get("/notification_medium")
+2. Modify add methods to start fetching py passing date
+3. Add link "Load Older" in at the bottom of Notification table to pass date as oldest date in existing nnotifications
+# This includes routs service and medium API methods
+explaing the understanding and execution plan, remember the stored date is timestammp and all the way its timestamp, formatting is for display only 
 # Grapg Query
 ```
 {

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+<div class="notifications-page">
+    <!-- Story Stats Widget Container -->
+    <div id="storyStatsWidget"></div>
+
+    <!-- Page Header with Title and Refresh Button -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">
+            <i class="bi bi-bell"></i> Notifications
+        </h3>
+        <button class="btn btn-sm btn-primary" id="refreshNotificationsBtn">
+            <i class="bi bi-arrow-repeat"></i> Refresh
+        </button>
+    </div>
+
+    <!-- Notifications Table -->
+    <div class="table-responsive">
+        <table class="table table-sm table-hover" id="notificationsTable">
+            <thead class="table-light">
+                <tr>
+                    <th style="width: 50px; text-align: center;">#</th>
+                    <th style="width: 250px;" class="sortable" data-sort="name">
+                        Name <i class="bi bi-arrow-down-up"></i>
+                    </th>
+                    <th style="width: 160px;" class="sortable" data-sort="date">
+                        Date <i class="bi bi-arrow-down-up"></i>
+                    </th>
+                    <th style="width: 150px;" class="sortable" data-sort="action">
+                        Action <i class="bi bi-arrow-down-up"></i>
+                    </th>
+                    <th class="sortable" data-sort="story">
+                        Story <i class="bi bi-arrow-down-up"></i>
+                    </th>
+                    <th style="width: 100px;" class="sortable" data-sort="member">
+                        Member <i class="bi bi-arrow-down-up"></i>
+                    </th>
+                    <th style="width: 100px;" class="sortable" data-sort="author">
+                        Author <i class="bi bi-arrow-down-up"></i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="notificationsTableBody">
+                <tr>
+                    <td colspan="7" class="text-center text-muted py-4">
+                        <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                        Loading notifications...
+                    </td
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="noNotificationsMsg" class="text-center text-muted py-4" style="display: none;">
+        <i class="bi bi-bell-slash fs-1"></i>
+        <p class="mt-2">No notifications found</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        initNotificationsPage();
+    });
+</script>
+{% endblock %}

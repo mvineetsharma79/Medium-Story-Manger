@@ -1,7 +1,6 @@
 """
 Story Service - Manages all story CRUD operations and Medium API integration
-"""
-
+"""    
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 import logging
@@ -15,6 +14,10 @@ from app.services.file_service import (
 )
 from app.services.medium_api_service import get_medium_api_service
 from app.models import StoryCreate, StoryUpdate, Story, MediumPost, LinkedIn, LinkedInPostType, Stats, Earning, Creator, Collection, Tag
+
+from pathlib import Path
+from config import settings
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -917,7 +920,144 @@ class StoryService:
             "totals": response.get("totals", {}),
             "points": response.get("points", [])
         }
+
+
+    
+
+    @staticmethod
+    async def get_notifications() -> Dict[str, Any]:
+        """
+        Read all notifications from notifications.json.
         
+        Returns:
+            Dict with notifications data
+        """
+        try:
+            notifications_path = Path(settings.data_dir) / "notifications.json"
+            
+            if not notifications_path.exists():
+                # Create empty notifications file if not exists
+                default_data = {
+                    "last_updated": None,
+                    "total_notifications": 0,
+                    "notifications": []
+                }
+                with open(notifications_path, 'w', encoding='utf-8') as f:
+                    json.dump(default_data, f, indent=2, ensure_ascii=False)
+                return default_data
+            
+            with open(notifications_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                return data
+                
+        except Exception as e:
+            logger.error(f"Error reading notifications: {e}")
+            return {
+                "last_updated": None,
+                "total_notifications": 0,
+                "notifications": [],
+                "error": str(e)
+            }
+
+    @staticmethod
+    async def fetch_and_save_notifications(limit: int = 25) -> Dict[str, Any]:
+        """
+        Fetch notifications from Medium API, add new ones to notifications.json.
+        
+        Args:
+            limit: Number of notifications to fetch
+        
+        Returns:
+            Dict with new notifications and summary
+        """
+        from datetime import datetime
+        
+        api_service = get_medium_api_service()
+        
+        if not api_service.is_authenticated():
+            return {
+                "success": False,
+                "message": "Not authenticated",
+                "new_notifications": []
+            }
+        
+        # Fetch notifications from Medium
+        response = api_service.fetch_notifications(limit=limit)
+        
+        if not response:
+            return {
+                "success": False,
+                "message": "No notifications fetched from Medium",
+                "new_notifications": []
+            }
+        
+        fetched_notifications = response.get("notifications", [])
+        paging_info = response.get("pagingInfo", {})
+        
+        # Load existing notifications
+        existing_data = await StoryService.get_notifications()
+        existing_notifications = existing_data.get("notifications", [])
+        
+        # Create set of existing notificationNames for deduplication
+        existing_names = set()
+        for notif in existing_notifications:
+            name = notif.get("notificationName")
+            if name:
+                existing_names.add(name)
+        
+        # Find new notifications
+        new_notifications = []
+        for notif in fetched_notifications:
+            notif_name = notif.get("notificationName")
+            if notif_name and notif_name not in existing_names:
+                new_notifications.append(notif)
+        
+        # If no new notifications, return early
+        if not new_notifications:
+            return {
+                "success": True,
+                "message": "No new notifications found",
+                "total_existing": len(existing_notifications),
+                "new_added": 0,
+                "total_now": len(existing_notifications),
+                "new_notifications": [],
+                "paging_next_to": paging_info.get("next", {}).get("to") if paging_info else None
+            }
+        
+        # Append new notifications
+        all_notifications = existing_notifications + new_notifications
+        
+        # Save to file
+        notifications_path = Path(settings.data_dir) / "notifications.json"
+        notifications_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        output_data = {
+            "last_updated": datetime.now().isoformat(),
+            "total_notifications": len(all_notifications),
+            "notifications": all_notifications
+        }
+        
+        try:
+            with open(notifications_path, 'w', encoding='utf-8') as f:
+                json.dump(output_data, f, indent=2, ensure_ascii=False)
+            
+            return {
+                "success": True,
+                "message": f"Fetched {len(new_notifications)} new notifications",
+                "total_existing": len(existing_notifications),
+                "new_added": len(new_notifications),
+                "total_now": len(all_notifications),
+                "new_notifications": new_notifications,
+                "paging_next_to": paging_info.get("next", {}).get("to") if paging_info else None
+            }
+            
+        except Exception as e:
+            logger.error(f"Error saving notifications: {e}")
+            return {
+                "success": False,
+                "message": f"Error saving notifications: {str(e)}",
+                "new_notifications": []
+            }
     @staticmethod
     async def _dict_to_story(key: str, story_dict: dict) -> Optional[Story]:
         """Convert dictionary to Story object"""
