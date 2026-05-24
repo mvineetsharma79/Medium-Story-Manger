@@ -705,7 +705,7 @@ class MediumAPIService:
         
         Args:
             limit: Number of notifications to fetch (default 25)
-            to_timestamp: Timestamp for pagination (optional)
+            to_timestamp: Timestamp string for pagination - fetches notifications BEFORE this time
         
         Returns:
             Raw notification data from Medium API
@@ -721,6 +721,7 @@ class MediumAPIService:
             "source": None
         }
         
+        # Add 'to' parameter if provided (for loading older notifications)
         if to_timestamp:
             paging_options["to"] = to_timestamp
         
@@ -948,7 +949,7 @@ class MediumAPIService:
             result["pagingInfo"] = notifications_connection.get('pagingInfo', {})
         
         return result
-
+    
     def _parse_direct_from_response(self, response: Any, post_id: str, period: str) -> Optional[Dict[str, Any]]:
         """Parse response directly from the list structure."""
         

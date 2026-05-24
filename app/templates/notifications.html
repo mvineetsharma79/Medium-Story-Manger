@@ -22,14 +22,17 @@
         <table class="table table-sm table-hover" id="notificationsTable">
             <thead class="table-light">
                 <tr>
-                    <th style="width: 50px; text-align: center;">#</th>
+                    <!-- NEW: Index column (changes with sort) -->
+                    <th style="width: 50px; text-align: center;" class="sortable-index">#</th>
+                    <!-- Existing: Serial Number column (fixed to date order) -->
+                    <th style="width: 60px; text-align: center;" class="sortable-serial">SN</th>
                     <th style="width: 250px;" class="sortable" data-sort="name">
                         Name <i class="bi bi-arrow-down-up"></i>
                     </th>
                     <th style="width: 160px;" class="sortable" data-sort="date">
                         Date <i class="bi bi-arrow-down-up"></i>
                     </th>
-                    <th style="width: 150px;" class="sortable" data-sort="action">
+                    <th style="width: 120px;" class="sortable" data-sort="action">
                         Action <i class="bi bi-arrow-down-up"></i>
                     </th>
                     <th class="sortable" data-sort="story">
@@ -45,7 +48,7 @@
             </thead>
             <tbody id="notificationsTableBody">
                 <tr>
-                    <td colspan="7" class="text-center text-muted py-4">
+                    <td colspan="8" class="text-center text-muted py-4">
                         <div class="spinner-border spinner-border-sm me-2" role="status"></div>
                         Loading notifications...
                     </td

@@ -1869,21 +1869,21 @@ Description: Fetch latest notifications from Medium API, save new ones, return n
 curl -X GET "http://localhost:8000/api/stories/notification_medium" | jq '.'
 """
 @router.get("/notification_medium")
-async def get_medium_notifications(limit: int = 25):
+async def get_medium_notifications(limit: int = 25, to: str = None):
     """
     Fetch latest notifications from Medium API.
-    Saves only new notifications (by notificationName) to notifications.json.
-    Returns the newly added notifications.
     
     Args:
         limit: Number of notifications to fetch (default 25)
+        to: Optional timestamp for pagination - fetches notifications BEFORE this time
     """
     try:
-        result = await StoryService.fetch_and_save_notifications(limit=limit)
+        result = await StoryService.fetch_and_save_notifications(limit=limit, to_timestamp=to)
         return result
     except Exception as e:
         logger.error(f"Error fetching medium notifications: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+    
 # ============================================
 # BUILD EXPORT ENDPOINT - Save diagrams and tables as PNG
 # ============================================

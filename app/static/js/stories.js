@@ -4,7 +4,7 @@
 
 let allStories = [];
 let allSeriesNames = [];
-let currentSort = { column: 'name', direction: 'asc' };
+let currentSort = { column: 'published_date', direction: 'desc' };
 let currentSelectedYear = null;
 let currentSelectedMonth = null;
 let isLoadingMonthStats = false;

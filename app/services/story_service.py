@@ -959,18 +959,23 @@ class StoryService:
                 "error": str(e)
             }
 
+
     @staticmethod
-    async def fetch_and_save_notifications(limit: int = 25) -> Dict[str, Any]:
+    async def fetch_and_save_notifications(limit: int = 25, to_timestamp: str = None) -> Dict[str, Any]:
         """
         Fetch notifications from Medium API, add new ones to notifications.json.
         
         Args:
             limit: Number of notifications to fetch
+            to_timestamp: Optional timestamp for pagination (load older)
         
         Returns:
             Dict with new notifications and summary
         """
-        from datetime import datetime
+        from datetime import datetime as dt
+        from pathlib import Path
+        import json
+        from config import settings
         
         api_service = get_medium_api_service()
         
@@ -982,7 +987,7 @@ class StoryService:
             }
         
         # Fetch notifications from Medium
-        response = api_service.fetch_notifications(limit=limit)
+        response = api_service.fetch_notifications(limit=limit, to_timestamp=to_timestamp)
         
         if not response:
             return {
@@ -1027,12 +1032,15 @@ class StoryService:
         # Append new notifications
         all_notifications = existing_notifications + new_notifications
         
+        # Sort by date descending (most recent first) for storage
+        all_notifications.sort(key=lambda x: x.get("occurredAt", 0), reverse=True)
+        
         # Save to file
         notifications_path = Path(settings.data_dir) / "notifications.json"
         notifications_path.parent.mkdir(parents=True, exist_ok=True)
         
         output_data = {
-            "last_updated": datetime.now().isoformat(),
+            "last_updated": dt.now().isoformat(),
             "total_notifications": len(all_notifications),
             "notifications": all_notifications
         }
@@ -1057,7 +1065,7 @@ class StoryService:
                 "success": False,
                 "message": f"Error saving notifications: {str(e)}",
                 "new_notifications": []
-            }
+            }   
     @staticmethod
     async def _dict_to_story(key: str, story_dict: dict) -> Optional[Story]:
         """Convert dictionary to Story object"""

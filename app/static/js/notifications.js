@@ -1,9 +1,11 @@
 // ============================================
-// NOTIFICATIONS.JS - Full Working Version
+// NOTIFICATIONS.JS - Two Serial Number Columns
 // ============================================
 
-let notificationsCurrentSort = { column: 'date', direction: 'desc' };
-let notificationsWithSerial = [];
+var notificationsCurrentSort = { column: 'date', direction: 'desc' };
+var notificationsWithSerial = [];
+var isLoadingOlder = false;
+var hasMoreNotifications = true;
 
 // Initialize page
 async function initNotificationsPage() {
@@ -16,64 +18,74 @@ async function initNotificationsPage() {
     
     await loadNotifications();
     
-    const refreshBtn = document.getElementById('refreshNotificationsBtn');
+    var refreshBtn = document.getElementById('refreshNotificationsBtn');
     if (refreshBtn) {
         refreshBtn.addEventListener('click', refreshNotifications);
     }
     
     attachSortListeners();
+    addLoadOlderButton();
 }
 
 // Load notifications from API
 async function loadNotifications() {
-    const tbody = document.getElementById('notificationsTableBody');
-    const noDataMsg = document.getElementById('noNotificationsMsg');
+    var tbody = document.getElementById('notificationsTableBody');
+    var noDataMsg = document.getElementById('noNotificationsMsg');
     
     if (tbody) {
-        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4"><div class="spinner-border spinner-border-sm me-2"></div>Loading...</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4"><div class="spinner-border spinner-border-sm me-2"></div>Loading...</td</tr>';
     }
     
     try {
-        const response = await fetch('/api/stories/notification');
-        const data = await response.json();
+        var response = await fetch('/api/stories/notification');
+        var data = await response.json();
         
-        const rawNotifications = data.notifications || [];
+        var rawNotifications = data.notifications || [];
         
         // Sort by date descending (most recent first)
-        const sortedByDate = [...rawNotifications].sort(function(a, b) {
+        var sortedByDate = [...rawNotifications].sort(function(a, b) {
             return (b.occurredAt || 0) - (a.occurredAt || 0);
         });
         
-        // Attach serial number to each notification
+        // Attach fixed serial number to each notification (based on date order)
         notificationsWithSerial = sortedByDate.map(function(notif, index) {
             return {
                 ...notif,
-                serialNumber: index + 1
+                fixedSerial: index + 1
             };
         });
         
         if (notificationsWithSerial.length === 0) {
             if (tbody) tbody.innerHTML = '';
             if (noDataMsg) noDataMsg.style.display = 'block';
+            hasMoreNotifications = false;
             return;
         }
         
         if (noDataMsg) noDataMsg.style.display = 'none';
+        hasMoreNotifications = true;
         
-        // Initial render (date order, descending)
+        // Reset load older button state
+        var loadBtn = document.getElementById('loadOlderBtn');
+        if (loadBtn) {
+            loadBtn.disabled = false;
+            loadBtn.innerHTML = 'Load Older';
+        }
+        
+        // Initial render
         renderTable(notificationsWithSerial);
         
     } catch (error) {
         console.error('Error loading notifications:', error);
         if (tbody) {
-            tbody.innerHTML = '<tr><td colspan="7" class="text-center text-danger py-4">Error loading notifications</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger py-4">Error loading notifications</td</tr>';
         }
     }
 }
 
 // Refresh from Medium
 async function refreshNotifications() {
-    const refreshBtn = document.getElementById('refreshNotificationsBtn');
+    var refreshBtn = document.getElementById('refreshNotificationsBtn');
     
     if (refreshBtn) {
         refreshBtn.classList.add('btn-loading');
@@ -82,8 +94,8 @@ async function refreshNotifications() {
     }
     
     try {
-        const response = await fetch('/api/stories/notification_medium?limit=25');
-        const data = await response.json();
+        var response = await fetch('/api/stories/notification_medium?limit=25');
+        var data = await response.json();
         
         if (data.success) {
             if (data.new_added > 0) {
@@ -96,6 +108,7 @@ async function refreshNotifications() {
             showToast(data.message || 'Error refreshing notifications', 'error');
         }
     } catch (error) {
+        console.error('Error refreshing:', error);
         showToast('Error refreshing notifications', 'error');
     } finally {
         if (refreshBtn) {
@@ -103,6 +116,155 @@ async function refreshNotifications() {
             refreshBtn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Refresh';
             refreshBtn.disabled = false;
         }
+    }
+}
+
+// Get oldest timestamp from current notifications
+function getOldestTimestamp() {
+    if (notificationsWithSerial.length === 0) return null;
+    
+    var oldest = notificationsWithSerial[0].occurredAt;
+    for (var i = 1; i < notificationsWithSerial.length; i++) {
+        var currentTime = notificationsWithSerial[i].occurredAt;
+        if (currentTime && currentTime < oldest) {
+            oldest = currentTime;
+        }
+    }
+    return oldest;
+}
+
+// Load older notifications
+async function loadOlderNotifications() {
+    if (isLoadingOlder) return;
+    if (!hasMoreNotifications) {
+        showToast('No more notifications to load', 'info');
+        return;
+    }
+    
+    var oldestTimestamp = getOldestTimestamp();
+    if (!oldestTimestamp) {
+        showToast('No notifications to load from', 'info');
+        return;
+    }
+    
+    isLoadingOlder = true;
+    var loadBtn = document.getElementById('loadOlderBtn');
+    if (loadBtn) {
+        loadBtn.disabled = true;
+        loadBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Loading...';
+    }
+    
+    try {
+        var url = '/api/stories/notification_medium?limit=25&to=' + oldestTimestamp;
+        var response = await fetch(url);
+        var data = await response.json();
+        
+        if (data.success && data.new_notifications && data.new_notifications.length > 0) {
+            // Add fixed serial numbers to new notifications (continue from existing count)
+            var currentMaxSerial = notificationsWithSerial.length;
+            var newWithSerial = data.new_notifications.map(function(notif, idx) {
+                return {
+                    ...notif,
+                    fixedSerial: currentMaxSerial + idx + 1
+                };
+            });
+            
+            // Append to existing array
+            notificationsWithSerial = notificationsWithSerial.concat(newWithSerial);
+            
+            // Re-render with current sort
+            var sorted = [...notificationsWithSerial];
+            sorted.sort(function(a, b) {
+                var aVal, bVal;
+                
+                switch (notificationsCurrentSort.column) {
+                    case 'name':
+                        aVal = (a.actor && a.actor.name || '').toLowerCase();
+                        bVal = (b.actor && b.actor.name || '').toLowerCase();
+                        break;
+                    case 'date':
+                        aVal = a.occurredAt || 0;
+                        bVal = b.occurredAt || 0;
+                        break;
+                    case 'action':
+                        aVal = getActionDisplay(a.notificationType);
+                        bVal = getActionDisplay(b.notificationType);
+                        break;
+                    case 'story':
+                        aVal = (a.post && a.post.title || '').toLowerCase();
+                        bVal = (b.post && b.post.title || '').toLowerCase();
+                        break;
+                    case 'member':
+                        aVal = isMember(a.actor && a.actor.membership && a.actor.membership.tier) ? 1 : 0;
+                        bVal = isMember(b.actor && b.actor.membership && b.actor.membership.tier) ? 1 : 0;
+                        break;
+                    case 'author':
+                        aVal = (a.actor && a.actor.verifications && a.actor.verifications.isBookAuthor) ? 1 : 0;
+                        bVal = (b.actor && b.actor.verifications && b.actor.verifications.isBookAuthor) ? 1 : 0;
+                        break;
+                    default:
+                        return 0;
+                }
+                
+                if (typeof aVal === 'number' && typeof bVal === 'number') {
+                    return notificationsCurrentSort.direction === 'asc' ? aVal - bVal : bVal - aVal;
+                }
+                
+                var comparison = String(aVal).localeCompare(String(bVal));
+                return notificationsCurrentSort.direction === 'asc' ? comparison : -comparison;
+            });
+            
+            renderTable(sorted);
+            showToast('Loaded ' + data.new_added + ' older notifications', 'success');
+            
+            if (data.new_added === 0) {
+                hasMoreNotifications = false;
+                if (loadBtn) {
+                    loadBtn.disabled = true;
+                    loadBtn.innerHTML = 'No More Notifications';
+                }
+            } else {
+                hasMoreNotifications = true;
+            }
+            
+        } else if (data.new_added === 0) {
+            hasMoreNotifications = false;
+            showToast('No more notifications to load', 'info');
+            if (loadBtn) {
+                loadBtn.disabled = true;
+                loadBtn.innerHTML = 'No More Notifications';
+            }
+        }
+        
+    } catch (error) {
+        console.error('Error loading older notifications:', error);
+        showToast('Error loading older notifications', 'error');
+    } finally {
+        isLoadingOlder = false;
+        var loadBtnFinal = document.getElementById('loadOlderBtn');
+        if (loadBtnFinal && hasMoreNotifications && loadBtnFinal.innerHTML !== 'No More Notifications') {
+            loadBtnFinal.disabled = false;
+            loadBtnFinal.innerHTML = 'Load Older';
+        }
+    }
+}
+
+// Add Load Older button
+function addLoadOlderButton() {
+    var tableContainer = document.querySelector('.notifications-page .table-responsive');
+    if (!tableContainer) return;
+    
+    if (document.getElementById('loadOlderBtn')) return;
+    
+    var div = document.createElement('div');
+    div.className = 'text-center mt-3';
+    div.id = 'loadOlderContainer';
+    div.innerHTML = '<button id="loadOlderBtn" class="btn btn-outline-secondary btn-sm">Load Older</button>';
+    tableContainer.parentNode.insertBefore(div, tableContainer.nextSibling);
+    
+    var btn = document.getElementById('loadOlderBtn');
+    if (btn) {
+        btn.addEventListener('click', loadOlderNotifications);
     }
 }
 
@@ -116,11 +278,11 @@ function sortTable(column) {
     }
     
     // Create a copy for sorting
-    let sorted = [...notificationsWithSerial];
+    var sorted = [...notificationsWithSerial];
     
     // Sort based on selected column
     sorted.sort(function(a, b) {
-        let aVal, bVal;
+        var aVal, bVal;
         
         switch (column) {
             case 'name':
@@ -198,7 +360,11 @@ function renderTable(notificationsToRender) {
         var actor = notif.actor || {};
         var post = notif.post || {};
         
-        var serialNo = notif.serialNumber;
+        // Index column (changes with sort) - current position + 1
+        var currentIndex = i + 1;
+        // Fixed serial number (stays with date order)
+        var fixedSerial = notif.fixedSerial;
+        
         var avatarUrl = actor.imageId ? 'https://miro.medium.com/v2/resize:fill:36:36/' + actor.imageId : null;
         var actorUrl = actor.username ? 'https://medium.com/@' + actor.username : '#';
         var actorName = actor.name || 'Unknown User';
@@ -236,7 +402,11 @@ function renderTable(notificationsToRender) {
         }
         
         html += '<tr>';
-        html += '<td class="text-center" style="width: 50px; color: #6c757d; font-weight: 500;">' + serialNo + '</td>';
+        // Column 1: Current Index (changes with sort)
+        html += '<td class="text-center" style="width: 50px; color: #6c757d; font-weight: 500;">' + currentIndex + '</td>';
+        // Column 2: Fixed Serial Number (stays with date order)
+        html += '<td class="text-center" style="width: 60px; color: #17a2b8; font-weight: 500;">' + fixedSerial + '</td>';
+        // Column 3: Name with Avatar
         html += '<td><div class="notification-name-cell">';
         
         if (avatarUrl) {
@@ -248,8 +418,11 @@ function renderTable(notificationsToRender) {
         
         html += '<a href="' + actorUrl + '" class="notification-name-link" target="_blank">' + escapeHtml(actorName) + '</a>';
         html += '</div></td>';
+        // Column 4: Date
         html += '<td class="text-nowrap">' + date + '</td>';
+        // Column 5: Action
         html += '<td><strong>' + actionIcon + actionText + '</strong></td>';
+        // Column 6: Story
         html += '<td>';
         
         if (storyTitle) {
@@ -260,17 +433,17 @@ function renderTable(notificationsToRender) {
         }
         
         html += '</td>';
-        
+        // Column 7: Member
         if (isMemberUser) {
             html += '<td><span class="member-badge"><i class="bi bi-star-fill"></i> Member</span></td>';
         } else {
             html += '<td><span class="non-member-badge">Non Member</span></td>';
         }
-        
+        // Column 8: Author
         if (isAuthor) {
             html += '<td class="text-center"><i class="bi bi-patch-check-fill author-badge" title="Verified Author"></i></td>';
         } else {
-            html += '<td class="text-center">—</td>';
+            html += '<td class="text-center">—</td';
         }
         
         html += '</tr>';
