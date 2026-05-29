@@ -1,7 +1,1589 @@
 {
-  "last_updated": "2026-05-23T13:51:10.109030",
-  "total_notifications": 434,
+  "last_updated": "2026-05-29T11:54:22.725545",
+  "total_notifications": 481,
   "notifications": [
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-de2266945dd3",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "de2266945dd3",
+        "name": "Pedro Segarra",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "ef6d868a4a95"
+        },
+        "imageId": "0*RMXi5-C4MPP54LPw",
+        "username": "peseca",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1780034716296,
+      "notificationType": "users_following_you",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--de2266945dd3",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "de2266945dd3",
+        "name": "Pedro Segarra",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "ef6d868a4a95"
+        },
+        "imageId": "0*RMXi5-C4MPP54LPw",
+        "username": "peseca",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1780034716268,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-0be1f1eb9b60-432eab308cf6",
+      "post": {
+        "id": "0be1f1eb9b60",
+        "mediumUrl": "https://mvineetsharma.medium.com/how-net-code-runs-with-clr-cts-cls-jit-and-gc-from-source-to-silicon-0be1f1eb9b60",
+        "title": "How .NET Code Runs with CLR, CTS, CLS, JIT, and GC - From Source to Silicon",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "78caa3d1f91f",
+        "name": "Long Dương",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "38b082fa-a204-40f1-9271-0c3b3991de2e"
+        },
+        "imageId": "1*f5-UzwhswjLH7v2oPX62Fw.jpeg",
+        "username": "longduongbit",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1780030796368,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_reposted-f053bdadd99e-a9838a5e8d83",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "a9838a5e8d83",
+        "name": "DATTA SAI MURALI KRISHNA MOGUDAMPALLI",
+        "membership": null,
+        "imageId": "0*qQw8K0iBK63SBM14",
+        "username": "mogudampallym",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1780026926324,
+      "notificationType": "post_reposted",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--805abf45c914",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "805abf45c914",
+        "name": "Narayana Kothapalli",
+        "membership": null,
+        "imageId": "0*Y_jRIrz1RGUvKQf3",
+        "username": "narayana.kothapalli007",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1780012073789,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-805abf45c914",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "805abf45c914",
+        "name": "Narayana Kothapalli",
+        "membership": null,
+        "imageId": "0*Y_jRIrz1RGUvKQf3",
+        "username": "narayana.kothapalli007",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1780012073788,
+      "notificationType": "users_following_you",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-90c497b97053",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "3c860de8913c",
+        "name": "Vahid Rajaei",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "18146991-4a2a-426d-991a-70459ddae6af"
+        },
+        "imageId": "0*0eI1scPyh5VUFitL",
+        "username": "vahid.rajaei.vr",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1780009085259,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended_milestone-f053bdadd99e-10",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "620bb135869a",
+        "name": "Andreas Oikonomidis",
+        "membership": null,
+        "imageId": "1*xk6bkHQ3pByWpKlA84tQ3Q.jpeg",
+        "username": "aoikonomidis",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1779993295620,
+      "notificationType": "post_recommended_milestone",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-f053bdadd99e-620bb135869a",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "620bb135869a",
+        "name": "Andreas Oikonomidis",
+        "membership": null,
+        "imageId": "1*xk6bkHQ3pByWpKlA84tQ3Q.jpeg",
+        "username": "aoikonomidis",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1779993295620,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-04e45f57964d",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "57cb50abe789",
+        "name": "Sridhar",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "90683586-eac6-47d3-b249-2ef3a61d1a51"
+        },
+        "imageId": "0*9GjdApPXOozbjLec.jpg",
+        "username": "sridhar.jarch",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779991331850,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-44ba9ef608e4-e4290c3ffb79",
+      "post": {
+        "id": "44ba9ef608e4",
+        "mediumUrl": "https://blog.devgenius.io/tuning-connection-pools-for-a-10-000-rps-net-core-api-44ba9ef608e4",
+        "title": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "e4290c3ffb79",
+        "name": "Oswaldo Diaz",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "a0bd0ac2-a577-4a5d-b282-2f27dcc4134d"
+        },
+        "imageId": "0*FFS8zV2idgfRPaZl.",
+        "username": "oswaldo.dgmx",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779989035203,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-16ed6be3b9ca-3eeed3d50b95",
+      "post": {
+        "id": "16ed6be3b9ca",
+        "mediumUrl": "https://mvineetsharma.medium.com/docker-podman-and-kubernetes-from-containers-to-cloud-native-reality-16ed6be3b9ca",
+        "title": "Docker, Podman, and Kubernetes: From Containers to Cloud-Native Reality",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "a6b6b4095a07",
+        "name": "Sterling Smith",
+        "membership": null,
+        "imageId": "0*DMWD0TQLeO7o1S3u",
+        "username": "sterling.i.smith.ii",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1779984684504,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-f8eb0ead706d",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "636525faba6e",
+        "name": "jony jas",
+        "membership": null,
+        "imageId": "0*h_f60i6Tb56Z7t7I",
+        "username": "jonyjasjonyjas",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1779984302298,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-42b9798a855f-257ca9bf1ca6",
+      "post": {
+        "id": "42b9798a855f",
+        "mediumUrl": "https://mvineetsharma.medium.com/advancements-in-net-8-net-9-and-net-10-42b9798a855f",
+        "title": "Advancements in .NET 8, .NET 9, and .NET 10",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "f3e9d01befef",
+        "name": "Will Westerman",
+        "membership": null,
+        "imageId": "1*dmbNkD5D-u45r44go_cf0g.png",
+        "username": "willwesterman",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1779977444706,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-701bff9f402f-2e952e7fcacb",
+      "post": {
+        "id": "701bff9f402f",
+        "mediumUrl": "https://mvineetsharma.medium.com/angular-unit-testing-with-official-vitest-evolution-bonus-701bff9f402f",
+        "title": "Angular Unit Testing with Official Vitest - Evolution (Bonus)",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "2e952e7fcacb",
+        "name": "Serpenteb",
+        "membership": null,
+        "imageId": "0*B3LK4PXUEhU_iY7A",
+        "username": "serpenteb",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779957152006,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-782a6fdb587b",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "262946db5501",
+        "name": "Mycloudtech",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "1a448ccfb6ca"
+        },
+        "imageId": "0*86fatRNveI14wKUI",
+        "username": "mycloudtech99",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779955482743,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-predefined:262946db5501:READING_LIST",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "262946db5501",
+        "name": "Mycloudtech",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "1a448ccfb6ca"
+        },
+        "imageId": "0*86fatRNveI14wKUI",
+        "username": "mycloudtech99",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779955477164,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-16ed6be3b9ca-fb4f3716ddd6",
+      "post": {
+        "id": "16ed6be3b9ca",
+        "mediumUrl": "https://mvineetsharma.medium.com/docker-podman-and-kubernetes-from-containers-to-cloud-native-reality-16ed6be3b9ca",
+        "title": "Docker, Podman, and Kubernetes: From Containers to Cloud-Native Reality",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "95c947769780",
+        "name": "Mazzoniemanuele",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "5be9a5624f43"
+        },
+        "imageId": "0*Nf3b9VHJrlkEGUW8",
+        "username": "mazzoniemanuele",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779953940493,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-16ed6be3b9ca-95c947769780",
+      "post": {
+        "id": "16ed6be3b9ca",
+        "mediumUrl": "https://mvineetsharma.medium.com/docker-podman-and-kubernetes-from-containers-to-cloud-native-reality-16ed6be3b9ca",
+        "title": "Docker, Podman, and Kubernetes: From Containers to Cloud-Native Reality",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "95c947769780",
+        "name": "Mazzoniemanuele",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "5be9a5624f43"
+        },
+        "imageId": "0*Nf3b9VHJrlkEGUW8",
+        "username": "mazzoniemanuele",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779953936079,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-9b4805ceb5fa-19faebf4a3e9",
+      "post": {
+        "id": "9b4805ceb5fa",
+        "mediumUrl": "https://mvineetsharma.medium.com/how-to-debug-docker-with-portainer-io-easy-way-9b4805ceb5fa",
+        "title": "How To Debug Docker with Portainer.IO - Easy Way",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "87eb4e6edd32",
+        "name": "Humberto Aicardi",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "54801a49-b268-4719-9c64-9c8720b1ab40"
+        },
+        "imageId": "0*qGb0fh8bYZ3az1qE.jpg",
+        "username": "humberto_73833",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779953585355,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_reposted-f053bdadd99e-3a1236eaed14",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "3a1236eaed14",
+        "name": "Monyeladanny",
+        "membership": null,
+        "imageId": "0*CW4H0CBTZEEATbtO",
+        "username": "monyeladanny",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779951120311,
+      "notificationType": "post_reposted",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-b9e63a2791da",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "bc3cb643e528",
+        "name": "Marcos Dellajiustina",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "99a638ff-76e3-46cc-a543-688423517435"
+        },
+        "imageId": "0*_wuOFHOPzDUWcdkS",
+        "username": "marcosdellajiustina",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779941054297,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-13aae317b1c4-16f3b8b5cfeb",
+      "post": {
+        "id": "13aae317b1c4",
+        "mediumUrl": "https://mvineetsharma.medium.com/10-essential-microservices-architecture-patterns-a-professional-reference-architecture-with-net-13aae317b1c4",
+        "title": "10 Microservices Architecture Patterns: A Reference Architecture with .NET and Azure — Part 1",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "946f49a099f0",
+        "name": "Adaksubhajyoti",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "18cbe415cbfb"
+        },
+        "imageId": "0*Me2nHDjXx8mOTwHG",
+        "username": "adaksubhajyoti",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779889418822,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-bcb67bcbc9a2-16f3b8b5cfeb",
+      "post": {
+        "id": "bcb67bcbc9a2",
+        "mediumUrl": "https://mvineetsharma.medium.com/10-microservices-architecture-patterns-a-reference-architecture-with-net-10-and-azure-part-2-bcb67bcbc9a2",
+        "title": "10 Microservices Architecture Patterns: A Reference Architecture with .NET 10 and Azure — Part 2",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "946f49a099f0",
+        "name": "Adaksubhajyoti",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "18cbe415cbfb"
+        },
+        "imageId": "0*Me2nHDjXx8mOTwHG",
+        "username": "adaksubhajyoti",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779889418822,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-7e73f5653da4-2775c68da953",
+      "post": {
+        "id": "7e73f5653da4",
+        "mediumUrl": "https://mvineetsharma.medium.com/net-sdk-native-container-publishing-building-oci-images-without-docker-7e73f5653da4",
+        "title": ".NET SDK Native Container Publishing: Building OCI Images Without Docker",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "dd675287b9a4",
+        "name": "Roahitvijay",
+        "membership": null,
+        "imageId": "1*dmbNkD5D-u45r44go_cf0g.png",
+        "username": "roahitvijay",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779857719691,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-6c749a897302-4067caaf2e9e",
+      "post": {
+        "id": "6c749a897302",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-reliability-ordering-deep-dive-6c749a897302",
+        "title": "11 Kafka Design Patterns - Reliability & Ordering Deep Dive",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "946f49a099f0",
+        "name": "Adaksubhajyoti",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "18cbe415cbfb"
+        },
+        "imageId": "0*Me2nHDjXx8mOTwHG",
+        "username": "adaksubhajyoti",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779844710466,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-44f8e8a1c8f7",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "5507470e7a16",
+        "name": "Beginner Investor",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "d2d76841-34b4-4aa5-ae15-31b3e4dbbc3d"
+        },
+        "imageId": "0*2S55Jh63_NtysPay.",
+        "username": "aftabahmadansari",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779816612249,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-6d50021ff589",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "6d50021ff589",
+        "name": "Miguelseia",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "1418d0d5-4036-46de-b3cb-0270ba67ba45"
+        },
+        "imageId": "0*rilAom8gGyFsWuYa",
+        "username": "miguelseia",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "6d50021ff589",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "fd1b4b13cd01",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": false,
+      "occurredAt": 1779812412559,
+      "notificationType": "users_following_you_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--6d50021ff589",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "6d50021ff589",
+        "name": "Miguelseia",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "1418d0d5-4036-46de-b3cb-0270ba67ba45"
+        },
+        "imageId": "0*rilAom8gGyFsWuYa",
+        "username": "miguelseia",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "6d50021ff589",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "fd1b4b13cd01",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": false,
+      "occurredAt": 1779812412536,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-be3afb0b1547-432eab308cf6",
+      "post": {
+        "id": "be3afb0b1547",
+        "mediumUrl": "https://mvineetsharma.medium.com/async-await-concurrency-net-code-review-mastery-series-be3afb0b1547",
+        "title": "Async Await & Concurrency - .NET Code Review Mastery Series",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "78caa3d1f91f",
+        "name": "Long Dương",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "38b082fa-a204-40f1-9271-0c3b3991de2e"
+        },
+        "imageId": "1*f5-UzwhswjLH7v2oPX62Fw.jpeg",
+        "username": "longduongbit",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779779696734,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-97ded6acb3fc",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "15a421216220",
+        "name": "Donald Siziba",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "ad91a766-2832-4034-b24e-39401161b42a"
+        },
+        "imageId": "1*Dj1piviNkvrXch_fE80OXA.jpeg",
+        "username": "donaldsiziba",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779778515734,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-abf8c164672e",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "15a421216220",
+        "name": "Donald Siziba",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "ad91a766-2832-4034-b24e-39401161b42a"
+        },
+        "imageId": "1*Dj1piviNkvrXch_fE80OXA.jpeg",
+        "username": "donaldsiziba",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779778504290,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-aefabce62238",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "b15216dd324b",
+        "name": "Abhishek Vedula",
+        "membership": null,
+        "imageId": "0*zgex4TfdtJQtQcLG.jpg",
+        "username": "asvedula",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779762725358,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-e8abc3321999",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "b15216dd324b",
+        "name": "Abhishek Vedula",
+        "membership": null,
+        "imageId": "0*zgex4TfdtJQtQcLG.jpg",
+        "username": "asvedula",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779762725347,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-fd1b4b13cd01",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "fd1b4b13cd01",
+        "name": "Geeta Arya Info",
+        "membership": null,
+        "imageId": "0*-Q2lxm45VmEV7_4Z",
+        "username": "geeta.arya.info",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779761555399,
+      "notificationType": "users_following_you",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--fd1b4b13cd01",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "fd1b4b13cd01",
+        "name": "Geeta Arya Info",
+        "membership": null,
+        "imageId": "0*-Q2lxm45VmEV7_4Z",
+        "username": "geeta.arya.info",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779761555379,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-d5b09b962edc-7d42b3769443",
+      "post": {
+        "id": "d5b09b962edc",
+        "mediumUrl": "https://mvineetsharma.medium.com/architectural-remediation-framework-eliminating-the-12-silent-killers-in-net-10-web-apis-part-1-d5b09b962edc",
+        "title": "Architectural Remediation Framework: Eliminating the 12 Silent Killers in .NET 10 Web APIs — Part 1",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "e77c7e6db7c8",
+        "name": "Philippe Tshilumba",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "c5e013a3b250"
+        },
+        "imageId": "0*wLhYYlOwglawA-1e.jpg",
+        "username": "philippe.tshilumba",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779744207810,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-f053bdadd99e-b0802ed545ef",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "b0802ed545ef",
+        "name": "Ali Do",
+        "membership": null,
+        "imageId": "1*dmbNkD5D-u45r44go_cf0g.png",
+        "username": "alidouiyeh",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "b0802ed545ef",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "45e6772fee0d",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": false,
+      "occurredAt": 1779720608918,
+      "notificationType": "post_recommended_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-76cb6cc961b4",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "76cb6cc961b4",
+        "name": "Gustavo Lopes",
+        "membership": null,
+        "imageId": "2*0seF2-R9NIxrzo18VMMWIg.png",
+        "username": "gflopes22",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1779715005735,
+      "notificationType": "users_following_you",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-f053bdadd99e-45e6772fee0d",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "45e6772fee0d",
+        "name": "Awadesh Kumar Yadav",
+        "membership": null,
+        "imageId": "2*0VN_ZjZNCFaXyClwqjewUg.jpeg",
+        "username": "awadesh22kumar",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779680878640,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-c628e66d1fd6",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "71658d4825f5",
+        "name": "John Morgan",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "f389efb0-6843-4377-b56c-c3aad7e951a9"
+        },
+        "imageId": "0*s4_CxU2QIicPAWC0",
+        "username": "johncareymorgan",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779591527392,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-6c749a897302-a600261660fc",
+      "post": {
+        "id": "6c749a897302",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-reliability-ordering-deep-dive-6c749a897302",
+        "title": "11 Kafka Design Patterns - Reliability & Ordering Deep Dive",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "1eb445b3114",
+        "name": "Yves lionel Diomande",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "a8eb78018ee3"
+        },
+        "imageId": "0*qho43tggqP_GNXR9",
+        "username": "diomadelacorano",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779590465462,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-44ba9ef608e4-bb006a59150b",
+      "post": {
+        "id": "44ba9ef608e4",
+        "mediumUrl": "https://blog.devgenius.io/tuning-connection-pools-for-a-10-000-rps-net-core-api-44ba9ef608e4",
+        "title": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "77caae755f45",
+        "name": "Eduardo Pilati",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "46000ab2e03b"
+        },
+        "imageId": "1*dmbNkD5D-u45r44go_cf0g.png",
+        "username": "pilatieduardo",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779564318470,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-44ba9ef608e4-predefined:77caae755f45:READING_LIST",
+      "post": {
+        "id": "44ba9ef608e4",
+        "mediumUrl": "https://blog.devgenius.io/tuning-connection-pools-for-a-10-000-rps-net-core-api-44ba9ef608e4",
+        "title": "Tuning Connection Pools for a 10,000 RPS .NET Core API — .Net 10 Update",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "77caae755f45",
+        "name": "Eduardo Pilati",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "46000ab2e03b"
+        },
+        "imageId": "1*dmbNkD5D-u45r44go_cf0g.png",
+        "username": "pilatieduardo",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779564317852,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-dd25acdb2bd4",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "dd25acdb2bd4",
+        "name": "Jawad Ait",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "3f61984a9095"
+        },
+        "imageId": "0*d5aTlbpIZL8qsUP9",
+        "username": "jawad.ait98",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "dd25acdb2bd4",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "30ed43e3ca96",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": false,
+      "occurredAt": 1779558404287,
+      "notificationType": "users_following_you_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--dd25acdb2bd4",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "dd25acdb2bd4",
+        "name": "Jawad Ait",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "3f61984a9095"
+        },
+        "imageId": "0*d5aTlbpIZL8qsUP9",
+        "username": "jawad.ait98",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "dd25acdb2bd4",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "30ed43e3ca96",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": false,
+      "occurredAt": 1779558404273,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-5d71dc102c9a-6f5858b74ae6",
+      "post": {
+        "id": "5d71dc102c9a",
+        "mediumUrl": "https://mvineetsharma.medium.com/net-sdk-native-container-publishing-deep-dive-the-complete-reference-5d71dc102c9a",
+        "title": ".NET SDK Native Container Publishing Deep Dive: The Complete Reference",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "e0b14b0dad09",
+        "name": "Panos Vlastaridis",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "388170d5-8e2c-4951-bf8a-bffeff2c267f"
+        },
+        "imageId": "0*YYHT8TyMo7_B3-tk.jpeg",
+        "username": "PVlastaridis",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": false,
+      "occurredAt": 1779532003403,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
     {
       "__typename": "Notification",
       "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-5ab96df338a5",

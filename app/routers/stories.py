@@ -2050,6 +2050,13 @@ async def render_mermaid_diagram(mermaid_code: str, output_folder: Path, index: 
                 curve: 'basis'
             }}
         }});
+        
+        // Wait for rendering to complete
+        window.addEventListener('load', function() {{
+            setTimeout(function() {{
+                window.status = 'ready';
+            }}, 1000);
+        }});
     </script>
 </body>
 </html>"""
@@ -2057,21 +2064,27 @@ async def render_mermaid_diagram(mermaid_code: str, output_folder: Path, index: 
         with open(html_file, 'w', encoding='utf-8') as f:
             f.write(html_content)
         
+        # Convert to absolute file path (fix for Windows)
+        file_url = f"file:///{str(html_file.absolute()).replace('\\', '/')}"
+        
         async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=True)
+            browser = await p.chromium.launch(
+                headless=True,
+                args=['--disable-web-security', '--disable-features=IsolateOrigins,site-per-process']
+            )
             page = await browser.new_page(viewport={'width': 1600, 'height': 1200})
             
-            #await page.goto(f'file://{html_file}', wait_until='networkidle')
-            await page.goto(html_file.as_uri(), wait_until='networkidle')
-
+            # Navigate with longer timeout and different wait strategy
+            await page.goto(file_url, wait_until='domcontentloaded', timeout=30000)
+            
+            # Wait for mermaid to render
+            await page.wait_for_timeout(2000)  # Give mermaid time to render
             await page.wait_for_selector('.mermaid svg', timeout=30000)
             
             element = await page.query_selector('.mermaid')
             if element:
-                # Take screenshot as PNG bytes
                 screenshot_bytes = await element.screenshot(type='png')
                 
-                # Convert to JPEG and add footer
                 from PIL import Image
                 import io
                 
@@ -2087,13 +2100,13 @@ async def render_mermaid_diagram(mermaid_code: str, output_folder: Path, index: 
                 elif img.mode != 'RGB':
                     img = img.convert('RGB')
                 
-                # Add footer directly
+                # Add footer
                 img_with_footer = add_footer_to_pil_image(img, index, 'diagram')
                 
                 # Save as JPEG
                 img_with_footer.save(str(jpeg_file), 'JPEG', quality=95, optimize=True)
                 
-                # Add IPTC metadata if provided
+                # Add metadata
                 if metadata:
                     add_iptc_metadata_to_image(jpeg_file, metadata)
             
@@ -2106,11 +2119,12 @@ async def render_mermaid_diagram(mermaid_code: str, output_folder: Path, index: 
         
     except Exception as e:
         logger.error(f"Render error for diagram {index + 1}: {e}")
+        import traceback
+        traceback.print_exc()
         if html_file.exists():
             html_file.unlink()
-        return None    
-    
-    
+        return None
+        
 async def render_markdown_table(table_markdown: str, output_folder: Path, index: int, metadata: dict = None) -> Path:
     """Render markdown table and save directly as JPEG with footer"""
     jpeg_file = output_folder / f"table-{str(index+1).zfill(2)}.jpg"
