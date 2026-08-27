@@ -58,7 +58,8 @@ class MediumAPIService:
         try:
             # Get cookies for medium.com from Chrome
             cj = browser_cookie3.chrome(domain_name='medium.com')
-            
+            self._debug_print(f" Cookies String CJ ", cj)
+
             cookies = {}
             for cookie in cj:
                 if 'medium.com' in cookie.domain:
@@ -205,13 +206,17 @@ class MediumAPIService:
     
     def _make_request(self, url: str, headers: Dict, payload: List[Dict], request_type: str) -> Optional[Dict]:
         """Make HTTP request with debug logging and explicit cookie header"""
-        self._debug_print(f"{request_type} Request Headers", headers)
+        #self._debug_print(f"{request_type} Request Headers 1", headers)
         self._debug_print(f"{request_type} Request Payload", payload)
-        
         if self.cookies:
             cookie_string = "; ".join([f"{k}={v}" for k, v in self.cookies.items() if v])
             headers["cookie"] = cookie_string
-     
+        
+        self._debug_print(f"{request_type} Request Headers 1", headers)
+
+        self._debug_print(f"{request_type} Cookies String ", self.cookies)
+        
+
         try:
             response = requests.post(url, headers=headers, json=payload, timeout=30)
             
