@@ -22,7 +22,7 @@ A professional content management system for technical writers and developers to
 - [Docker Deployment](#docker-deployment)
 - [CI/CD Pipeline](#cicd-pipeline)
 - [Troubleshooting](#troubleshooting)
-- [License](#license)
+- [License](#license)V
 
 ---
 
