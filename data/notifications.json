@@ -1,7 +1,1399 @@
 {
-  "last_updated": "2026-08-27T07:58:14.032439",
-  "total_notifications": 1015,
+  "last_updated": "2026-08-31T09:33:07.552859",
+  "total_notifications": 1046,
   "notifications": [
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-c0927eb7c789",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "c0927eb7c789",
+        "name": "Niranjan Banala",
+        "membership": null,
+        "imageId": "0*NRYRWjBsn_0QJVqw",
+        "username": "niranjan.banala_44828",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1788140125667,
+      "notificationType": "users_following_you",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--c0927eb7c789",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "c0927eb7c789",
+        "name": "Niranjan Banala",
+        "membership": null,
+        "imageId": "0*NRYRWjBsn_0QJVqw",
+        "username": "niranjan.banala_44828",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1788140125651,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-2e40cbd1e1da",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "e026d37d531e",
+        "name": "Song Wonjae",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "31966d08081a"
+        },
+        "imageId": "0*99wOAMKTgQsBnXMm",
+        "username": "wjsong0914",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1788132426562,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-e0c0bf8a6ef6-9fc0ea69fbf2",
+      "post": {
+        "id": "e0c0bf8a6ef6",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-data-state-deep-dive-e0c0bf8a6ef6",
+        "title": "11 Kafka Design Patterns - Data & State Deep Dive",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "e1714bd7b5c",
+        "name": "Santoshtrip",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "90d31ffc06da"
+        },
+        "imageId": "0*g7DAKDNlD6XteCI6",
+        "username": "santoshtrip",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1788102354581,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-c83c052fddc5",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "c83c052fddc5",
+        "name": "Sidesazama Tokwe",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "9381d495f278"
+        },
+        "imageId": "0*sCMUXz4eLYJfgElu",
+        "username": "sidesazama.tokwe",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "c83c052fddc5",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "25e221e02f12",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1788070902104,
+      "notificationType": "users_following_you_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--c83c052fddc5",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "c83c052fddc5",
+        "name": "Sidesazama Tokwe",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "9381d495f278"
+        },
+        "imageId": "0*sCMUXz4eLYJfgElu",
+        "username": "sidesazama.tokwe",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1788070902092,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-4e9c39085092",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "4dc4cc2916b1",
+        "name": "Ravi Prashant",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "fdc2c0d76448"
+        },
+        "imageId": "0*JfixxwNHUWMZgaZk",
+        "username": "raviprashant45",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1788061668943,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-25e221e02f12",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "25e221e02f12",
+        "name": "Prasad_d",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "aa92d91bb93c"
+        },
+        "imageId": "1*dmbNkD5D-u45r44go_cf0g.png",
+        "username": "prasad.sv821",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1788055050063,
+      "notificationType": "users_following_you",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-6c749a897302-2e40cbd1e1da",
+      "post": {
+        "id": "6c749a897302",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-reliability-ordering-deep-dive-6c749a897302",
+        "title": "11 Kafka Design Patterns - Reliability & Ordering Deep Dive",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "e026d37d531e",
+        "name": "Song Wonjae",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "31966d08081a"
+        },
+        "imageId": "0*99wOAMKTgQsBnXMm",
+        "username": "wjsong0914",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1788037375364,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-quote-814eaf4784c9-1d186350c892",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": {
+        "id": "814eaf4784c9",
+        "startOffset": 221,
+        "endOffset": 234,
+        "paragraphs": [
+          {
+            "text": "Apache Kafka on AWS has become the de facto event streaming backbone for modern architectures — from startups to enterprises. But using Kafka effectively requires more than just producing and consuming messages. You need battle-tested design patterns to handle ordering, exactly-once semantics, large payloads, failure recovery, and integration with AWS services like MSK, S3, DynamoDB, and Lambda.",
+            "type": "P",
+            "__typename": "Paragraph"
+          }
+        ],
+        "__typename": "Quote"
+      },
+      "actor": {
+        "id": "1d186350c892",
+        "name": "Daniel Kreider",
+        "membership": null,
+        "imageId": "0*GbLg1Z0wMpDDb-8R",
+        "username": "kreiderdaniel10",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "1d186350c892",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "1d186350c892",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1788023901641,
+      "notificationType": "quote_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-ddd70ffe9e4c",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "ddd70ffe9e4c",
+        "name": "Igary Yu",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "42a127ff-191f-4332-91f6-443e561eb4e8"
+        },
+        "imageId": "0*YkDTW3lumbvlblZp",
+        "username": "igary.yu",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "ddd70ffe9e4c",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "223d4ea93856",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "afaa58d30848",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "15f97609f671",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "e31db1092ef5",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1787957811842,
+      "notificationType": "users_following_you_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--ddd70ffe9e4c",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "ddd70ffe9e4c",
+        "name": "Igary Yu",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "42a127ff-191f-4332-91f6-443e561eb4e8"
+        },
+        "imageId": "0*YkDTW3lumbvlblZp",
+        "username": "igary.yu",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "ddd70ffe9e4c",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "223d4ea93856",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "afaa58d30848",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "15f97609f671",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1787957811825,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-dbfb1dbf1d6c",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "27dcc9c2ccbf",
+        "name": "Thanh nga Ha",
+        "membership": null,
+        "imageId": "0*fIeu4zYQIqOrcCBy.jpg",
+        "username": "hathanhnga216",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1787943448443,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-223d4ea93856",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "223d4ea93856",
+        "name": "M Vasu",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "472a3e843087"
+        },
+        "imageId": "0*Fc6frrpmocx-7NjB",
+        "username": "m.vasu007",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "223d4ea93856",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "afaa58d30848",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "15f97609f671",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "e31db1092ef5",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1787913802109,
+      "notificationType": "users_following_you_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--223d4ea93856",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "223d4ea93856",
+        "name": "M Vasu",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "472a3e843087"
+        },
+        "imageId": "0*Fc6frrpmocx-7NjB",
+        "username": "m.vasu007",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "223d4ea93856",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "afaa58d30848",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "15f97609f671",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1787913802079,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-6c749a897302-67cdb442a2b",
+      "post": {
+        "id": "6c749a897302",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-reliability-ordering-deep-dive-6c749a897302",
+        "title": "11 Kafka Design Patterns - Reliability & Ordering Deep Dive",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "67cdb442a2b",
+        "name": "Swarnim Bhardwaj",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "26052e052dae"
+        },
+        "imageId": "2*ah77403eOw26jXm_BRlp9g.jpeg",
+        "username": "swarnim2008",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1787905007937,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-afaa58d30848",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "afaa58d30848",
+        "name": "Gorka Etxebarria",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "347eec2dae0f"
+        },
+        "imageId": "0*seeHislHMOEoZC3O",
+        "username": "gorka.etxebarria_6774",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "afaa58d30848",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "15f97609f671",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "e31db1092ef5",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1787900445114,
+      "notificationType": "users_following_you_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--afaa58d30848",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "afaa58d30848",
+        "name": "Gorka Etxebarria",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "347eec2dae0f"
+        },
+        "imageId": "0*seeHislHMOEoZC3O",
+        "username": "gorka.etxebarria_6774",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "afaa58d30848",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "15f97609f671",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1787900445098,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-e31db1092ef5",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "e31db1092ef5",
+        "name": "Sumedgb",
+        "membership": null,
+        "imageId": "0*7eB1eU5oFHgRE-aB",
+        "username": "sumedgb",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1787886605645,
+      "notificationType": "users_following_you",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-aa09c4333de8-6f9a52ff57de",
+      "post": {
+        "id": "aa09c4333de8",
+        "mediumUrl": "https://mvineetsharma.medium.com/memory-management-gc-net-code-review-mastery-series-aa09c4333de8",
+        "title": "Memory Management & GC - .NET Code Review Mastery Series",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "6f9a52ff57de",
+        "name": "hafid nurfirmansyah",
+        "membership": null,
+        "imageId": "0*IHFRPzpPyxWKSDaX",
+        "username": "hafidnurfirmansyah10",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1787884621370,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-6b64ae4754a",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "6b64ae4754a",
+        "name": "Tyago Veras",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "979c35e6-2451-496e-bd36-86c4989e9911"
+        },
+        "imageId": "0*3jIFyFo37xxQ1Wgs.jpg",
+        "username": "tyagoveras",
+        "__typename": "User",
+        "customDomainState": {
+          "live": {
+            "domain": "tyago.dev.br",
+            "__typename": "CustomDomain"
+          },
+          "__typename": "CustomDomainState"
+        },
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "6b64ae4754a",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "20e416d2ec3d",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "c9cda26ee68b",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "30947fc53bb6",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "bd7de1c83750",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "8b3c250b9e69",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1787874966269,
+      "notificationType": "users_following_you_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--6b64ae4754a",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "6b64ae4754a",
+        "name": "Tyago Veras",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "979c35e6-2451-496e-bd36-86c4989e9911"
+        },
+        "imageId": "0*3jIFyFo37xxQ1Wgs.jpg",
+        "username": "tyagoveras",
+        "__typename": "User",
+        "customDomainState": {
+          "live": {
+            "domain": "tyago.dev.br",
+            "__typename": "CustomDomain"
+          },
+          "__typename": "CustomDomainState"
+        },
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "6b64ae4754a",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "20e416d2ec3d",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "c9cda26ee68b",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "30947fc53bb6",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "bd7de1c83750",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "8b3c250b9e69",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1787874966252,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-20e416d2ec3d",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "20e416d2ec3d",
+        "name": "Çiğdem Akcan",
+        "membership": null,
+        "imageId": "1*9E61VsLTw1G-kKLMJC4nBg.jpeg",
+        "username": "cigdemakcan3",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "20e416d2ec3d",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "c9cda26ee68b",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "30947fc53bb6",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "bd7de1c83750",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "8b3c250b9e69",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1787849747062,
+      "notificationType": "users_following_you_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--20e416d2ec3d",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "20e416d2ec3d",
+        "name": "Çiğdem Akcan",
+        "membership": null,
+        "imageId": "1*9E61VsLTw1G-kKLMJC4nBg.jpeg",
+        "username": "cigdemakcan3",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "20e416d2ec3d",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "c9cda26ee68b",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "30947fc53bb6",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "bd7de1c83750",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "8b3c250b9e69",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1787849747051,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-c9cda26ee68b",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "c9cda26ee68b",
+        "name": "Pablo Ocanto Malianni",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "3721f842-c091-4e75-8b47-8e8947f769c8"
+        },
+        "imageId": "0*7vFLEc5MdBdhyfT-.",
+        "username": "pabloocantomalianni",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "c9cda26ee68b",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "30947fc53bb6",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "bd7de1c83750",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "8b3c250b9e69",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1787827422322,
+      "notificationType": "users_following_you_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--c9cda26ee68b",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "c9cda26ee68b",
+        "name": "Pablo Ocanto Malianni",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "3721f842-c091-4e75-8b47-8e8947f769c8"
+        },
+        "imageId": "0*7vFLEc5MdBdhyfT-.",
+        "username": "pabloocantomalianni",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "c9cda26ee68b",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "30947fc53bb6",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "bd7de1c83750",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "8b3c250b9e69",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": true,
+      "occurredAt": 1787827422311,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-9ad47fb214e7",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "9598d5278372",
+        "name": "Utkarsh Srivastava",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "37801cf46d15"
+        },
+        "imageId": "1*88v1KmParqubzmpY4p4tGQ.jpeg",
+        "username": "utkarshsrivastava_58932",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1787824459465,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_added_to_catalog-f053bdadd99e-predefined:9598d5278372:READING_LIST",
+      "post": {
+        "id": "f053bdadd99e",
+        "mediumUrl": "https://mvineetsharma.medium.com/11-kafka-design-patterns-for-every-backend-engineer-f053bdadd99e",
+        "title": "11 Kafka Design Patterns for Every Backend Engineer",
+        "visibility": "LOCKED",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "9598d5278372",
+        "name": "Utkarsh Srivastava",
+        "membership": {
+          "tier": "MEMBER",
+          "__typename": "Membership",
+          "id": "37801cf46d15"
+        },
+        "imageId": "1*88v1KmParqubzmpY4p4tGQ.jpeg",
+        "username": "utkarshsrivastava_58932",
+        "__typename": "User",
+        "customDomainState": null,
+        "hasSubdomain": false,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1787824457973,
+      "notificationType": "post_added_to_catalog",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-post_recommended-fa59b9f4dcc6-49883895a78a",
+      "post": {
+        "id": "fa59b9f4dcc6",
+        "mediumUrl": "https://mvineetsharma.medium.com/link-updated-for-part-2-and-3-fa59b9f4dcc6",
+        "title": "Link updated for Part 2 and 3",
+        "visibility": "PUBLIC",
+        "__typename": "Post"
+      },
+      "quote": null,
+      "actor": {
+        "id": "49883895a78a",
+        "name": "Muhammad Humaid",
+        "membership": null,
+        "imageId": "",
+        "username": "humaid-universe",
+        "__typename": "User",
+        "customDomainState": {
+          "live": {
+            "domain": "humaid-universe.medium.com",
+            "__typename": "CustomDomain"
+          },
+          "__typename": "CustomDomainState"
+        },
+        "hasSubdomain": true,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [],
+      "isUnread": true,
+      "occurredAt": 1787806401280,
+      "notificationType": "post_recommended",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_following_you-bd7de1c83750",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "bd7de1c83750",
+        "name": "S Sambit",
+        "membership": null,
+        "imageId": "0*XqvC7O0LRKuTqVO-",
+        "username": "sambit89",
+        "__typename": "User",
+        "customDomainState": {
+          "live": {
+            "domain": "sambit89.medium.com",
+            "__typename": "CustomDomain"
+          },
+          "__typename": "CustomDomainState"
+        },
+        "hasSubdomain": true,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "bd7de1c83750",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "8b3c250b9e69",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": false,
+      "occurredAt": 1787800796467,
+      "notificationType": "users_following_you_rollup",
+      "responsePost": null
+    },
+    {
+      "__typename": "Notification",
+      "notificationName": "6a63927f9b83-users_email_subscribed--bd7de1c83750",
+      "post": null,
+      "quote": null,
+      "actor": {
+        "id": "bd7de1c83750",
+        "name": "S Sambit",
+        "membership": null,
+        "imageId": "0*XqvC7O0LRKuTqVO-",
+        "username": "sambit89",
+        "__typename": "User",
+        "customDomainState": {
+          "live": {
+            "domain": "sambit89.medium.com",
+            "__typename": "CustomDomain"
+          },
+          "__typename": "CustomDomainState"
+        },
+        "hasSubdomain": true,
+        "verifications": {
+          "isBookAuthor": false,
+          "__typename": "VerifiedInfo"
+        }
+      },
+      "rollupItems": [
+        {
+          "actor": {
+            "id": "bd7de1c83750",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        },
+        {
+          "actor": {
+            "id": "8b3c250b9e69",
+            "__typename": "User"
+          },
+          "__typename": "Notification"
+        }
+      ],
+      "isUnread": false,
+      "occurredAt": 1787800796458,
+      "notificationType": "users_email_subscribed",
+      "responsePost": null
+    },
     {
       "__typename": "Notification",
       "notificationName": "6a63927f9b83-post_added_to_catalog-6c749a897302-e00dfb021ac0",
